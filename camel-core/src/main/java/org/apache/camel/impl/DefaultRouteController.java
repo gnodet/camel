@@ -23,10 +23,12 @@ import java.util.concurrent.TimeUnit;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Experimental;
 import org.apache.camel.Route;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.spi.RouteController;
+import org.apache.camel.support.ServiceSupport;
 
 @Experimental
-public class DefaultRouteController extends org.apache.camel.support.ServiceSupport implements RouteController  {
+public class DefaultRouteController extends ServiceSupport implements RouteController  {
     private CamelContext camelContext;
 
     public DefaultRouteController() {
@@ -70,6 +72,11 @@ public class DefaultRouteController extends org.apache.camel.support.ServiceSupp
     // ***************************************************
 
     @Override
+    public void startAllRoutes() throws Exception {
+        camelContext.startAllRoutes();
+    }
+
+    @Override
     public void startRoute(String routeId) throws Exception {
         camelContext.startRoute(routeId);
     }
@@ -102,6 +109,16 @@ public class DefaultRouteController extends org.apache.camel.support.ServiceSupp
     @Override
     public void resumeRoute(String routeId) throws Exception {
         camelContext.resumeRoute(routeId);
+    }
+
+    @Override
+    public ServiceStatus getRouteStatus(String routeId) {
+        return camelContext.getRouteStatus(routeId);
+    }
+
+    @Override
+    public boolean isStartingRoutes() {
+        return camelContext.isStartingRoutes();
     }
 
     // ***************************************************

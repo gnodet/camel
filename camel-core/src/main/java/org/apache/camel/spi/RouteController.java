@@ -22,12 +22,13 @@ import java.util.concurrent.TimeUnit;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Experimental;
 import org.apache.camel.Route;
-import org.apache.camel.Service;
+import org.apache.camel.ServiceStatus;
+import org.apache.camel.StaticService;
 
 // TODO: Add javadoc
 
 @Experimental
-public interface RouteController extends CamelContextAware, Service {
+public interface RouteController extends CamelContextAware, StaticService {
 
     /**
      * Return the list of routes controlled by this controller.
@@ -35,6 +36,13 @@ public interface RouteController extends CamelContextAware, Service {
      * @return the list of controlled routes
      */
     Collection<Route> getControlledRoutes();
+
+    /**
+     * Starts all the routes which currently is not started.
+     *
+     * @throws Exception is thrown if a route could not be started for whatever reason
+     */
+    void startAllRoutes() throws Exception;
 
     void startRoute(String routeId) throws Exception;
 
@@ -49,6 +57,34 @@ public interface RouteController extends CamelContextAware, Service {
     void suspendRoute(String routeId, long timeout, TimeUnit timeUnit) throws Exception;
 
     void resumeRoute(String routeId) throws Exception;
+
+    /* TODO: add batch operations on routes
+    void startRoutes(Iterable<String> routeIds) throws Exception;
+
+    void stopRoutes(Iterable<String> routeIds, long timeout, TimeUnit timeUnit, boolean abortAfterTimeout) throws Exception;
+
+    void suspendRoutes(Iterable<String> routeIds, long timeout, TimeUnit timeUnit) throws Exception;
+
+    void resumeRoutes(Iterable<String> routeIds) throws Exception;
+    */
+
+    /**
+     * Returns the current status of the given route
+     *
+     * @param routeId the route id
+     * @return the status for the route
+     */
+    ServiceStatus getRouteStatus(String routeId);
+
+    /**
+     * Indicates whether current thread is starting route(s).
+     * <p/>
+     * This can be useful to know by {@link LifecycleStrategy} or the likes, in case
+     * they need to react differently.
+     *
+     * @return <tt>true</tt> if current thread is starting route(s), or <tt>false</tt> if not.
+     */
+    boolean isStartingRoutes();
 
     /**
      * Access the underlying concrete RouteController implementation.
