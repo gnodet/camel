@@ -19,9 +19,9 @@ package org.apache.camel.api.management.mbean;
 import java.util.Map;
 import javax.management.openmbean.TabularData;
 
-import org.apache.camel.ComponentVerifier;
 import org.apache.camel.api.management.ManagedAttribute;
 import org.apache.camel.api.management.ManagedOperation;
+import org.apache.camel.component.extension.ComponentVerifierExtension;
 
 public interface ManagedComponentMBean {
 
@@ -47,5 +47,5 @@ public interface ManagedComponentMBean {
     boolean isVerifySupported();
 
     @ManagedOperation(description = "Verify options against a given scope")
-    ComponentVerifier.Result verify(String scope, Map<String, String> options);
+    ComponentVerifierExtension.Result verify(String scope, Map<String, String> options);
 }

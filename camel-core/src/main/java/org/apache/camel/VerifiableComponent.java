@@ -19,7 +19,7 @@ package org.apache.camel;
 /**
  * An interface to represent an object which support validation
  *
- * @deprecated see {@link org.apache.camel.extension.ComponentExtension}
+ * @deprecated see {@link org.apache.camel.component.extension.ComponentExtension}
  */
 @Deprecated
 public interface VerifiableComponent {
