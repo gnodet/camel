@@ -31,6 +31,7 @@ import org.apache.camel.Route;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.ShutdownRoute;
 import org.apache.camel.ShutdownRunningTask;
+import org.apache.camel.management.DefaultManagementLifecycleStrategy;
 import org.apache.camel.model.FromDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.PropertyDefinition;
@@ -194,7 +195,7 @@ public class DefaultRouteContext implements RouteContext {
             internal.addAdvice(new CamelInternalProcessor.RouteInflightRepositoryAdvice(camelContext.getInflightRepository(), routeId));
 
             // wrap in JMX instrumentation processor that is used for performance stats
-            internal.addAdvice(new CamelInternalProcessor.InstrumentationAdvice("route"));
+            internal.addAdvice(new DefaultManagementLifecycleStrategy.InstrumentationAdvice("route"));
 
             // wrap in route lifecycle
             internal.addAdvice(new CamelInternalProcessor.RouteLifecycleAdvice());

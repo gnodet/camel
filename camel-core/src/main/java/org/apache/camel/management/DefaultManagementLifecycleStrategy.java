@@ -36,6 +36,7 @@ import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ErrorHandlerFactory;
+import org.apache.camel.Exchange;
 import org.apache.camel.ManagementStatisticsLevel;
 import org.apache.camel.NonManagedService;
 import org.apache.camel.Processor;
@@ -84,6 +85,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.processor.CamelInternalProcessor;
+import org.apache.camel.processor.CamelInternalProcessorAdvice;
 import org.apache.camel.processor.interceptor.BacklogDebugger;
 import org.apache.camel.processor.interceptor.BacklogTracer;
 import org.apache.camel.processor.interceptor.Tracer;
@@ -110,6 +112,7 @@ import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.support.TimerListenerManager;
 import org.apache.camel.util.KeyValueHolder;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -623,7 +626,7 @@ public class DefaultManagementLifecycleStrategy extends ServiceSupport implement
                     CamelInternalProcessor internal = (CamelInternalProcessor) processor;
                     ManagedRoute routeMBean = (ManagedRoute) mr;
 
-                    CamelInternalProcessor.InstrumentationAdvice task = internal.getAdvice(CamelInternalProcessor.InstrumentationAdvice.class);
+                    InstrumentationAdvice task = internal.getAdvice(InstrumentationAdvice.class);
                     if (task != null) {
                         // we need to wrap the counter with the camel context so we get stats updated on the context as well
                         if (camelContextMBean != null) {
@@ -972,6 +975,81 @@ public class DefaultManagementLifecycleStrategy extends ServiceSupport implement
 
         // defer starting the timer manager until CamelContext has been fully started
         camelContext.addStartupListener(loadTimerStartupListener);
+    }
+
+    /**
+     * Advice for JMX instrumentation of the process being invoked.
+     * <p/>
+     * This advice keeps track of JMX metrics for performance statistics.
+     * <p/>
+     * The current implementation of this advice is only used for route level statistics. For processor levels
+     * they are still wrapped in the route processor chains.
+     */
+    public static class InstrumentationAdvice implements CamelInternalProcessorAdvice<StopWatch> {
+
+        private PerformanceCounter counter;
+        private String type;
+
+        public InstrumentationAdvice(String type) {
+            this.type = type;
+        }
+
+        public void setCounter(Object counter) {
+            ManagedPerformanceCounter mpc = null;
+            if (counter instanceof ManagedPerformanceCounter) {
+                mpc = (ManagedPerformanceCounter) counter;
+            }
+
+            if (this.counter instanceof DelegatePerformanceCounter) {
+                ((DelegatePerformanceCounter) this.counter).setCounter(mpc);
+            } else if (mpc != null) {
+                this.counter = mpc;
+            } else if (counter instanceof PerformanceCounter) {
+                this.counter = (PerformanceCounter) counter;
+            }
+        }
+
+        protected void beginTime(Exchange exchange) {
+            counter.processExchange(exchange);
+        }
+
+        protected void recordTime(Exchange exchange, long duration) {
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("{}Recording duration: {} millis for exchange: {}", new Object[]{type != null ? type + ": " : "", duration, exchange});
+            }
+
+            if (!exchange.isFailed() && exchange.getException() == null) {
+                counter.completedExchange(exchange, duration);
+            } else {
+                counter.failedExchange(exchange);
+            }
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public StopWatch before(Exchange exchange) throws Exception {
+            // only record time if stats is enabled
+            StopWatch answer = counter != null && counter.isStatisticsEnabled() ? new StopWatch() : null;
+            if (answer != null) {
+                beginTime(exchange);
+            }
+            return answer;
+        }
+
+        @Override
+        public void after(Exchange exchange, StopWatch watch) throws Exception {
+            // record end time
+            if (watch != null) {
+                recordTime(exchange, watch.taken());
+            }
+        }
     }
 
     private final class TimerListenerManagerStartupListener implements StartupListener {
