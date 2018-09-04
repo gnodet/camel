@@ -14,28 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.api.management;
+package org.apache.camel.management;
 
 import org.apache.camel.Exchange;
 
 /**
- * A counter that gathers performance metrics when an {@link org.apache.camel.Exchange} is routed in Camel.
+ * A counter that gathers performance metrics when an {@link Exchange} is routed in Camel.
  *
  * @version
- * @deprecated use {@link org.apache.camel.management.PerformanceCounter} instead
  */
-@Deprecated
-public interface PerformanceCounter extends org.apache.camel.management.PerformanceCounter {
+public interface PerformanceCounter {
 
     /**
-     * Executed when an {@link org.apache.camel.Exchange} is about to be processed.
+     * Executed when an {@link Exchange} is about to be processed.
      *
      * @param exchange the exchange
      */
     void processExchange(Exchange exchange);
 
     /**
-     * Executed when an {@link org.apache.camel.Exchange} is complete.
+     * Executed when an {@link Exchange} is complete.
      *
      * @param exchange the exchange
      * @param time the time it took in millis to complete
@@ -43,7 +41,7 @@ public interface PerformanceCounter extends org.apache.camel.management.Performa
     void completedExchange(Exchange exchange, long time);
 
     /**
-     * Executed when an {@link org.apache.camel.Exchange} failed.
+     * Executed when an {@link Exchange} failed.
      *
      * @param exchange the exchange
      */
