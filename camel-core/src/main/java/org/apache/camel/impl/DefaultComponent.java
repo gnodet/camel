@@ -34,7 +34,6 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.EndpointConfiguration;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.component.extension.ComponentExtension;
-import org.apache.camel.component.extension.ComponentExtensionHelper;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.CamelContextHelper;
@@ -512,7 +511,7 @@ public abstract class DefaultComponent extends ServiceSupport implements Compone
             .filter(extensionType::isInstance)
             .findFirst()
             .map(extensionType::cast)
-            .map(e -> ComponentExtensionHelper.trySetComponent(e, this))
-            .map(e -> ComponentExtensionHelper.trySetCamelContext(e, getCamelContext()));
+            .map(e -> ObjectHelper.trySetComponent(e, this))
+            .map(e -> ObjectHelper.trySetCamelContext(e, getCamelContext()));
     }
 }
