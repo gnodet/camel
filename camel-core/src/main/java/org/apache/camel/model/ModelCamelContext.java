@@ -22,8 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
+import org.apache.camel.model.validator.ValidatorDefinition;
 
 /**
  * Model level interface for the {@link CamelContext}
@@ -161,5 +163,47 @@ public interface ModelCamelContext extends CamelContext {
      * @return the resolved data format definition, or <tt>null</tt> if not found
      */
     DataFormatDefinition resolveDataFormatDefinition(String name);
-    
+
+    /**
+     * Gets the processor definition from any of the routes which with the given id
+     *
+     * @param id id of the processor definition
+     * @return the processor definition or <tt>null</tt> if not found
+     */
+    ProcessorDefinition getProcessorDefinition(String id);
+
+    /**
+     * Gets the processor definition from any of the routes which with the given id
+     *
+     * @param id id of the processor definition
+     * @param type the processor definition type
+     * @return the processor definition or <tt>null</tt> if not found
+     * @throws java.lang.ClassCastException is thrown if the type is not correct type
+     */
+    <T extends ProcessorDefinition> T getProcessorDefinition(String id, Class<T> type);
+
+    /**
+     * Adds a collection of routes to this CamelContext using the given builder
+     * to build them.
+     * <p/>
+     * <b>Important:</b> The added routes will <b>only</b> be started, if {@link CamelContext}
+     * is already started. You may want to check the state of {@link CamelContext} before
+     * adding the routes, using the {@link org.apache.camel.CamelContext#getStatus()} method.
+     * <p/>
+     * <b>Important: </b> Each route in the same {@link org.apache.camel.CamelContext} must have an <b>unique</b> route id.
+     * If you use the API from {@link org.apache.camel.CamelContext} or {@link org.apache.camel.model.ModelCamelContext} to add routes, then any
+     * new routes which has a route id that matches an old route, then the old route is replaced by the new route.
+     *
+     * @param builder the builder which will create the routes and add them to this CamelContext
+     * @throws Exception if the routes could not be created for whatever reason
+     */
+    void addRoutes(RoutesBuilder builder) throws Exception;
+
+    /**
+     * Sets the validators that can be referenced in the routes.
+     *
+     * @param validators the validators
+     */
+    void setValidators(List<ValidatorDefinition> validators);
+
 }

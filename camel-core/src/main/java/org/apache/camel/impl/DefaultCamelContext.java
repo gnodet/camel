@@ -52,6 +52,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Component;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Endpoint;
@@ -60,6 +61,7 @@ import org.apache.camel.ExtendedStartupListener;
 import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.IsSingleton;
+import org.apache.camel.management.ManagedCamelContext;
 import org.apache.camel.MultipleConsumersSupport;
 import org.apache.camel.NamedNode;
 import org.apache.camel.NoFactoryAvailableException;
@@ -205,7 +207,7 @@ import static org.apache.camel.impl.MDCUnitOfWork.MDC_CAMEL_CONTEXT_ID;
  * @version
  */
 @SuppressWarnings("deprecation")
-public class DefaultCamelContext extends ServiceSupport implements ModelCamelContext, Suspendable {
+public class DefaultCamelContext extends ServiceSupport implements ModelCamelContext, ConfigurableCamelContext, ManagedCamelContext, Suspendable {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final AtomicBoolean vetoStated = new AtomicBoolean();
     private JAXBContext jaxbContext;
@@ -2982,6 +2984,10 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
     public ErrorHandlerBuilder getErrorHandlerBuilder() {
         return (ErrorHandlerBuilder)errorHandlerBuilder;
+    }
+
+    public ErrorHandlerFactory getErrorHandlerFactory() {
+        return errorHandlerBuilder;
     }
 
     public void setErrorHandlerBuilder(ErrorHandlerFactory errorHandlerBuilder) {
