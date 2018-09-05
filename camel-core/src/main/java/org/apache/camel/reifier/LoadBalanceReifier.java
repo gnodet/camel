@@ -21,6 +21,7 @@ import org.apache.camel.model.LoadBalanceDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition;
 import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.reifier.loadbalancer.LoadBalancerReifier;
 import org.apache.camel.spi.RouteContext;
 
 class LoadBalanceReifier extends ProcessorReifier<LoadBalanceDefinition> {
@@ -33,10 +34,10 @@ class LoadBalanceReifier extends ProcessorReifier<LoadBalanceDefinition> {
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         // the load balancer is stateful so we should only create it once in case its used from a context scoped error handler
 
-        LoadBalancer loadBalancer = definition.getLoadBalancerType().getLoadBalancer(routeContext);
+        LoadBalancer loadBalancer = definition.getLoadBalancerType().getLoadBalancer();
         if (loadBalancer == null) {
             // then create it and reuse it
-            loadBalancer = definition.getLoadBalancerType().createLoadBalancer(routeContext);
+            loadBalancer = LoadBalancerReifier.reifier(definition.getLoadBalancerType()).createLoadBalancer(routeContext);
             definition.getLoadBalancerType().setLoadBalancer(loadBalancer);
 
             // some load balancer can only support a fixed number of outputs

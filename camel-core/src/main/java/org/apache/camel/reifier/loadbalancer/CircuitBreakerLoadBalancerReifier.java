@@ -1,0 +1,69 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.reifier.loadbalancer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.camel.model.LoadBalancerDefinition;
+import org.apache.camel.model.loadbalancer.CircuitBreakerLoadBalancerDefinition;
+import org.apache.camel.processor.loadbalancer.CircuitBreakerLoadBalancer;
+import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.spi.RouteContext;
+import org.apache.camel.util.ObjectHelper;
+
+class CircuitBreakerLoadBalancerReifier extends LoadBalancerReifier<CircuitBreakerLoadBalancerDefinition> {
+
+    CircuitBreakerLoadBalancerReifier(LoadBalancerDefinition definition) {
+        super((CircuitBreakerLoadBalancerDefinition) definition);
+    }
+
+    @Override
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
+        CircuitBreakerLoadBalancer answer;
+
+        List<Class<?>> classes = new ArrayList<>();
+        if (!definition.getExceptionTypes().isEmpty()) {
+            classes.addAll(definition.getExceptionTypes());
+        } else if (!definition.getExceptions().isEmpty()) {
+            for (String name : definition.getExceptions()) {
+                Class<?> type = routeContext.getCamelContext().getClassResolver().resolveClass(name);
+                if (type == null) {
+                    throw new IllegalArgumentException("Cannot find class: " + name + " in the classpath");
+                }
+                if (!ObjectHelper.isAssignableFrom(Throwable.class, type)) {
+                    throw new IllegalArgumentException("Class is not an instance of Throwable: " + type);
+                }
+                classes.add(type);
+            }
+        }
+        if (classes.isEmpty()) {
+            answer = new CircuitBreakerLoadBalancer();
+        } else {
+            answer = new CircuitBreakerLoadBalancer(classes);
+        }
+
+        if (definition.getHalfOpenAfter() != null) {
+            answer.setHalfOpenAfter(definition.getHalfOpenAfter());
+        }
+        if (definition.getThreshold() != null) {
+            answer.setThreshold(definition.getThreshold());
+        }
+        return answer;
+    }
+
+}

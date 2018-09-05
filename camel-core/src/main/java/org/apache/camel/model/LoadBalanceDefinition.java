@@ -107,7 +107,7 @@ public class LoadBalanceDefinition extends ProcessorDefinition<LoadBalanceDefini
      */
     public LoadBalanceDefinition loadBalance(LoadBalancer loadBalancer) {
         CustomLoadBalancerDefinition def = new CustomLoadBalancerDefinition();
-        def.setLoadBalancer(loadBalancer);
+        def.setCustomLoadBalancer(loadBalancer);
         setLoadBalancerType(def);
         return this;
     }

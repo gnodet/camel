@@ -26,11 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.camel.model.LoadBalancerDefinition;
-import org.apache.camel.processor.loadbalancer.CircuitBreakerLoadBalancer;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
-import org.apache.camel.util.ObjectHelper;
 
 /**
  * Circuit break load balancer
@@ -64,40 +60,6 @@ public class CircuitBreakerLoadBalancerDefinition extends LoadBalancerDefinition
     public int getMaximumNumberOfOutputs() {
         // we can only support 1 output
         return 1;
-    }
-
-    @Override
-    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
-        CircuitBreakerLoadBalancer answer;
-
-        List<Class<?>> classes = new ArrayList<>();
-        if (!exceptionTypes.isEmpty()) {
-            classes.addAll(exceptionTypes);
-        } else if (!exceptions.isEmpty()) {
-            for (String name : exceptions) {
-                Class<?> type = routeContext.getCamelContext().getClassResolver().resolveClass(name);
-                if (type == null) {
-                    throw new IllegalArgumentException("Cannot find class: " + name + " in the classpath");
-                }
-                if (!ObjectHelper.isAssignableFrom(Throwable.class, type)) {
-                    throw new IllegalArgumentException("Class is not an instance of Throwable: " + type);
-                }
-                classes.add(type);
-            }
-        }
-        if (classes.isEmpty()) {
-            answer = new CircuitBreakerLoadBalancer();
-        } else {
-            answer = new CircuitBreakerLoadBalancer(classes);
-        }
-
-        if (getHalfOpenAfter() != null) {
-            answer.setHalfOpenAfter(getHalfOpenAfter());
-        }
-        if (getThreshold() != null) {
-            answer.setThreshold(getThreshold());
-        }
-        return answer;
     }
 
     public Long getHalfOpenAfter() {

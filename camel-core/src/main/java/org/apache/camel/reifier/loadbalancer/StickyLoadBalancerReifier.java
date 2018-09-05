@@ -14,30 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.loadbalancer;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+package org.apache.camel.reifier.loadbalancer;
 
 import org.apache.camel.model.LoadBalancerDefinition;
-import org.apache.camel.spi.Metadata;
+import org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition;
+import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.processor.loadbalancer.StickyLoadBalancer;
+import org.apache.camel.spi.RouteContext;
 
-/**
- * Topic load balancer
- *
- * The topic load balancer sends to all destinations (rather like JMS Topics)
- */
-@Metadata(label = "eip,routing,loadbalance")
-@XmlRootElement(name = "topic")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class TopicLoadBalancerDefinition extends LoadBalancerDefinition {
+class StickyLoadBalancerReifier extends LoadBalancerReifier<StickyLoadBalancerDefinition> {
 
-    public TopicLoadBalancerDefinition() {
+    StickyLoadBalancerReifier(LoadBalancerDefinition definition) {
+        super((StickyLoadBalancerDefinition) definition);
     }
 
     @Override
-    public String toString() {
-        return "TopicLoadBalancer";
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
+        return new StickyLoadBalancer(definition.getCorrelationExpression().createExpression(routeContext));
     }
+
 }
