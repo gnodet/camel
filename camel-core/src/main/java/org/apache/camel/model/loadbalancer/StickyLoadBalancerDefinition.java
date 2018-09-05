@@ -48,7 +48,7 @@ public class StickyLoadBalancerDefinition extends LoadBalancerDefinition {
     }
 
     @Override
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         return new StickyLoadBalancer(correlationExpression.createExpression(routeContext));
     }
 

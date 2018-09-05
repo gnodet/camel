@@ -70,7 +70,7 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
     /**
      * Maximum number of outputs, as some load balancers only support 1 processor
      */
-    protected int getMaximumNumberOfOutputs() {
+    public int getMaximumNumberOfOutputs() {
         return Integer.MAX_VALUE;
     }
 
@@ -101,7 +101,7 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
     /**
      * Factory method to create the load balancer from the loadBalancerTypeName
      */
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         StringHelper.notEmpty(loadBalancerTypeName, "loadBalancerTypeName", this);
 
         LoadBalancer answer = null;

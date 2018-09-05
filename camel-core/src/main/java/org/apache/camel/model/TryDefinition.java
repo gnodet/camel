@@ -250,7 +250,7 @@ public class TryDefinition extends OutputDefinition<TryDefinition> {
     }
 
     @Override
-    protected void preCreateProcessor() {
+    public void preCreateProcessor() {
         // force re-creating initialization to ensure its up-to-date
         initialized = false;
         checkInitialized();

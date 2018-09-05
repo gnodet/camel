@@ -61,13 +61,13 @@ public class CircuitBreakerLoadBalancerDefinition extends LoadBalancerDefinition
     }
 
     @Override
-    protected int getMaximumNumberOfOutputs() {
+    public int getMaximumNumberOfOutputs() {
         // we can only support 1 output
         return 1;
     }
 
     @Override
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         CircuitBreakerLoadBalancer answer;
 
         List<Class<?>> classes = new ArrayList<>();

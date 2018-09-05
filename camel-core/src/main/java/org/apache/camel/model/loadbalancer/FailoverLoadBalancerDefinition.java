@@ -59,7 +59,7 @@ public class FailoverLoadBalancerDefinition extends LoadBalancerDefinition {
     }
 
     @Override
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         FailOverLoadBalancer answer;
 
         List<Class<?>> classes = new ArrayList<>();

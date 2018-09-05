@@ -68,7 +68,7 @@ public class CustomLoadBalancerDefinition extends LoadBalancerDefinition {
     }
 
     @Override
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         if (loadBalancer != null) {
             return loadBalancer;
         }

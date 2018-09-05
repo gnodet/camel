@@ -151,6 +151,10 @@ public class InterceptDefinition extends OutputDefinition<InterceptDefinition> {
         }
     }
 
+    public List<Processor> getIntercepted() {
+        return intercepted;
+    }
+
     public Processor getInterceptedProcessor(int index) {
         // avoid out of bounds
         if (index <= intercepted.size() - 1) {

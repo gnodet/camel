@@ -39,7 +39,7 @@ public class TopicLoadBalancerDefinition extends LoadBalancerDefinition {
     }
 
     @Override
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         return new org.apache.camel.processor.loadbalancer.TopicLoadBalancer();
     }
 

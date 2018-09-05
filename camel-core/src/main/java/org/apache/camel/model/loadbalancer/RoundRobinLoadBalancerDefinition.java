@@ -40,7 +40,7 @@ public class RoundRobinLoadBalancerDefinition extends LoadBalancerDefinition {
     }
 
     @Override
-    protected LoadBalancer createLoadBalancer(RouteContext routeContext) {
+    public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         return new org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer();
     }
 

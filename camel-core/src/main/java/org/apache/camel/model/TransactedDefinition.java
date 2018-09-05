@@ -123,12 +123,20 @@ public class TransactedDefinition extends OutputDefinition<TransactedDefinition>
         return true;
     }
 
+    public Policy getPolicy() {
+        return policy;
+    }
+
     public String getRef() {
         return ref;
     }
 
     public void setRef(String ref) {
         this.ref = ref;
+    }
+
+    public Class<? extends Policy> getType() {
+        return type;
     }
 
     /**

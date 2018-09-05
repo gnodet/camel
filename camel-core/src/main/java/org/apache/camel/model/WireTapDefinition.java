@@ -128,7 +128,7 @@ public class WireTapDefinition<Type extends ProcessorDefinition<Type>> extends T
         }
     }
 
-    private boolean isDynamic() {
+    public boolean isDynamic() {
         // its dynamic by default
         return dynamicUri == null || dynamicUri;
     }

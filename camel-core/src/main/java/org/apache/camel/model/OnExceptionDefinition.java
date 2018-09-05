@@ -120,6 +120,10 @@ public class OnExceptionDefinition extends ProcessorDefinition<OnExceptionDefini
         return routeScoped != null ? routeScoped : false;
     }
 
+    public Boolean getRouteScoped() {
+        return routeScoped;
+    }
+
     @Override
     public String toString() {
         return "OnException[" + description() + " -> " + getOutputs() + "]";
@@ -249,7 +253,7 @@ public class OnExceptionDefinition extends ProcessorDefinition<OnExceptionDefini
         return new CatchProcessor(getExceptionClasses(), childProcessor, when, handle);
     }
 
-    protected void validateConfiguration() {
+    public void validateConfiguration() {
         if (isInheritErrorHandler() != null && isInheritErrorHandler()) {
             throw new IllegalArgumentException(this + " cannot have the inheritErrorHandler option set to true");
         }
@@ -892,6 +896,10 @@ public class OnExceptionDefinition extends ProcessorDefinition<OnExceptionDefini
     
     public Collection<Processor> getErrorHandlers() {
         return errorHandlers.values();
+    }
+
+    public void setErrorHandler(String routeId, Processor errorHandler) {
+        errorHandlers.put(routeId, errorHandler);
     }
 
     public RedeliveryPolicyDefinition getRedeliveryPolicy() {

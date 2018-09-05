@@ -80,12 +80,20 @@ public class OnCompletionDefinition extends ProcessorDefinition<OnCompletionDefi
         return routeScoped != null ? routeScoped : false;
     }
 
+    public Boolean getRouteScoped() {
+        return routeScoped;
+    }
+
     public Processor getOnCompletion(String routeId) {
         return onCompletions.get(routeId);
     }
 
     public Collection<Processor> getOnCompletions() {
         return onCompletions.values();
+    }
+
+    public void setOnCompletion(String routeId, Processor processor) {
+        onCompletions.put(routeId, processor);
     }
 
     @Override

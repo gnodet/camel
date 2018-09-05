@@ -110,7 +110,7 @@ public class HystrixDefinition extends ProcessorDefinition<HystrixDefinition> {
         return super.end();
     }
 
-    protected void preCreateProcessor() {
+    public void preCreateProcessor() {
         // move the fallback from outputs to fallback which we need to ensure
         // such as when using the XML DSL
         Iterator<ProcessorDefinition<?>> it = outputs.iterator();

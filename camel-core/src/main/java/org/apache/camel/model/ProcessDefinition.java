@@ -81,6 +81,10 @@ public class ProcessDefinition extends NoOutputDefinition<ProcessDefinition> {
         }
     }
 
+    public Processor getProcessor() {
+        return processor;
+    }
+
     public String getRef() {
         return ref;
     }

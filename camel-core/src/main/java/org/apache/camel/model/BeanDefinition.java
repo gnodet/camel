@@ -135,6 +135,10 @@ public class BeanDefinition extends NoOutputDefinition<BeanDefinition> {
         this.bean = bean;
     }
 
+    public Object getBean() {
+        return bean;
+    }
+
     public String getBeanType() {
         return beanType;
     }
@@ -144,6 +148,10 @@ public class BeanDefinition extends NoOutputDefinition<BeanDefinition> {
      */
     public void setBeanType(String beanType) {
         this.beanType = beanType;
+    }
+
+    public Class<?> getBeanClass() {
+        return beanClass;
     }
 
     /**

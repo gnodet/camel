@@ -63,6 +63,14 @@ public class PolicyDefinition extends OutputDefinition<PolicyDefinition> {
         return "Policy[" + description() + "]";
     }
     
+    public Policy getPolicy() {
+        return policy;
+    }
+
+    public Class<? extends Policy> getType() {
+        return type;
+    }
+
     protected String description() {
         if (policy != null) {
             return policy.toString();

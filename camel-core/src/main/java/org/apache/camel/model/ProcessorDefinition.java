@@ -584,7 +584,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     /**
      * Strategy to execute any custom logic before the {@link Processor} is created.
      */
-    protected void preCreateProcessor() {
+    public void preCreateProcessor() {
         // noop
     }
 
