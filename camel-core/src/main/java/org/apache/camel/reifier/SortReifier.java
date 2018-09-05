@@ -27,10 +27,10 @@ import org.apache.camel.processor.SortProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-class SortReifier<T extends SortDefinition<T>> extends ExpressionReifier<T> {
+class SortReifier<T, U extends SortDefinition<T>> extends ExpressionReifier<U> {
 
     SortReifier(ProcessorDefinition<?> definition) {
-        super((T) definition);
+        super((U) definition);
     }
 
     @Override

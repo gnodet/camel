@@ -70,7 +70,7 @@ class ThreadsReifier extends ProcessorReifier<ThreadsDefinition> {
                     .rejectedPolicy(policy)
                     .allowCoreThreadTimeOut(definition.getAllowCoreThreadTimeOut())
                     .build();
-            threadPool = manager.newThreadPool(this, name, profile);
+            threadPool = manager.newThreadPool(definition, name, profile);
             shutdownThreadPool = true;
         } else {
             if (definition.getThreadName() != null && !definition.getThreadName().equals("Threads")) {

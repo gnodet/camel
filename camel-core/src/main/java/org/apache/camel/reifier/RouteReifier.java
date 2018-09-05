@@ -76,7 +76,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
                 throw e;
             } catch (Exception e) {
                 // wrap in exception which provide more details about which route was failing
-                throw new FailedToCreateRouteException(definition.getId(), toString(), e);
+                throw new FailedToCreateRouteException(definition.getId(), definition.toString(), e);
             }
             answer.add(routeContext);
         }
