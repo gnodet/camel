@@ -17,7 +17,6 @@
 package org.apache.camel.model;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledExecutorService;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,12 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.camel.Expression;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.ExpressionBuilder;
 import org.apache.camel.model.language.ExpressionDefinition;
-import org.apache.camel.processor.Throttler;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
 
 /**
  * Controls the rate at which messages are passed to the next node in the route
@@ -98,50 +94,6 @@ public class ThrottleDefinition extends ExpressionNode implements ExecutorServic
         return "throttle[" + description() + "]";
     }
 
-    @Override
-    public Processor createProcessor(RouteContext routeContext) throws Exception {
-        Processor childProcessor = this.createChildProcessor(routeContext, true);
-
-        boolean async = getAsyncDelayed() != null && getAsyncDelayed();
-        boolean shutdownThreadPool = ProcessorDefinitionHelper.willCreateNewThreadPool(routeContext, this, true);
-        ScheduledExecutorService threadPool = ProcessorDefinitionHelper.getConfiguredScheduledExecutorService(routeContext, "Throttle", this, true);
-        
-        // should be default 1000 millis
-        long period = getTimePeriodMillis() != null ? getTimePeriodMillis() : 1000L;
-
-        // max requests per period is mandatory
-        Expression maxRequestsExpression = createMaxRequestsPerPeriodExpression(routeContext);
-        if (maxRequestsExpression == null) {
-            throw new IllegalArgumentException("MaxRequestsPerPeriod expression must be provided on " + this);
-        }
-        
-        Expression correlation = null;
-        if (correlationExpression != null) {
-            correlation = correlationExpression.createExpression(routeContext);
-        }
-
-        boolean reject = getRejectExecution() != null && getRejectExecution();
-        Throttler answer = new Throttler(routeContext.getCamelContext(), childProcessor, maxRequestsExpression, period, threadPool, shutdownThreadPool, reject, correlation);
-
-        answer.setAsyncDelayed(async);
-        if (getCallerRunsWhenRejected() == null) {
-            // should be true by default
-            answer.setCallerRunsWhenRejected(true);
-        } else {
-            answer.setCallerRunsWhenRejected(getCallerRunsWhenRejected());
-        }
-
-        return answer;
-    }
-
-    private Expression createMaxRequestsPerPeriodExpression(RouteContext routeContext) {
-        ExpressionDefinition expr = getExpression();
-        if (expr != null) {
-            return expr.createExpression(routeContext);
-        }
-        return null;
-    }
-    
     // Fluent API
     // -------------------------------------------------------------------------
     /**
