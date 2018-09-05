@@ -23,9 +23,9 @@ import org.apache.camel.model.TryDefinition;
 import org.apache.camel.processor.FinallyProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class FinallyReifier extends ProcessorReifier<FinallyDefinition> {
+class FinallyReifier extends ProcessorReifier<FinallyDefinition> {
 
-    public FinallyReifier(ProcessorDefinition<?> definition) {
+    FinallyReifier(ProcessorDefinition<?> definition) {
         super(FinallyDefinition.class.cast(definition));
     }
 

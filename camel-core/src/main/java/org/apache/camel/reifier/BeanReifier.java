@@ -31,9 +31,9 @@ import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
-public class BeanReifier extends ProcessorReifier<BeanDefinition> {
+class BeanReifier extends ProcessorReifier<BeanDefinition> {
 
-    public BeanReifier(ProcessorDefinition<?> definition) {
+    BeanReifier(ProcessorDefinition<?> definition) {
         super(BeanDefinition.class.cast(definition));
     }
 

@@ -28,9 +28,9 @@ import org.apache.camel.model.TryDefinition;
 import org.apache.camel.processor.CatchProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class CatchReifier extends ProcessorReifier<CatchDefinition> {
+class CatchReifier extends ProcessorReifier<CatchDefinition> {
 
-    public CatchReifier(ProcessorDefinition<?> definition) {
+    CatchReifier(ProcessorDefinition<?> definition) {
         super(CatchDefinition.class.cast(definition));
     }
 

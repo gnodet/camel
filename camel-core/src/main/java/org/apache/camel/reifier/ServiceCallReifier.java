@@ -49,9 +49,9 @@ import static org.apache.camel.util.CamelContextHelper.lookup;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.function.Suppliers;
 
-public class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
+class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
 
-    public ServiceCallReifier(ProcessorDefinition<?> definition) {
+    ServiceCallReifier(ProcessorDefinition<?> definition) {
         super((ServiceCallDefinition) definition);
     }
 

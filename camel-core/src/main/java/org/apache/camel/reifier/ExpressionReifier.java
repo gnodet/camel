@@ -22,7 +22,7 @@ import org.apache.camel.model.ExpressionNode;
 import org.apache.camel.processor.FilterProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public abstract class ExpressionReifier<T extends ExpressionNode> extends ProcessorReifier<T> {
+abstract class ExpressionReifier<T extends ExpressionNode> extends ProcessorReifier<T> {
 
     protected ExpressionReifier(T definition) {
         super(definition);

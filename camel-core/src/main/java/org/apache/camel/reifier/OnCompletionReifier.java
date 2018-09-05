@@ -28,9 +28,9 @@ import org.apache.camel.processor.CamelInternalProcessor;
 import org.apache.camel.processor.OnCompletionProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class OnCompletionReifier extends ProcessorReifier<OnCompletionDefinition> {
+class OnCompletionReifier extends ProcessorReifier<OnCompletionDefinition> {
 
-    public OnCompletionReifier(ProcessorDefinition<?> definition) {
+    OnCompletionReifier(ProcessorDefinition<?> definition) {
         super((OnCompletionDefinition) definition);
     }
 

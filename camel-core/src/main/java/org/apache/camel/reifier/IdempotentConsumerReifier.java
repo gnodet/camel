@@ -25,9 +25,9 @@ import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class IdempotentConsumerReifier extends ExpressionReifier<IdempotentConsumerDefinition> {
+class IdempotentConsumerReifier extends ExpressionReifier<IdempotentConsumerDefinition> {
 
-    public IdempotentConsumerReifier(ProcessorDefinition<?> definition) {
+    IdempotentConsumerReifier(ProcessorDefinition<?> definition) {
         super(IdempotentConsumerDefinition.class.cast(definition));
     }
 

@@ -26,9 +26,9 @@ import org.apache.camel.processor.aggregate.AggregationStrategyBeanAdapter;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class ClaimCheckReifier extends ProcessorReifier<ClaimCheckDefinition> {
+class ClaimCheckReifier extends ProcessorReifier<ClaimCheckDefinition> {
 
-    public ClaimCheckReifier(ProcessorDefinition<?> definition) {
+    ClaimCheckReifier(ProcessorDefinition<?> definition) {
         super(ClaimCheckDefinition.class.cast(definition));
     }
 

@@ -32,11 +32,11 @@ import org.apache.camel.spi.Language;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.StringHelper;
 
-public class ToDynamicReifier<T extends ToDynamicDefinition> extends ProcessorReifier<T> {
+class ToDynamicReifier<T extends ToDynamicDefinition> extends ProcessorReifier<T> {
 
     private static final Pattern RAW_PATTERN = Pattern.compile("RAW\\([^\\)]+\\)");
 
-    public ToDynamicReifier(ProcessorDefinition<?> definition) {
+    ToDynamicReifier(ProcessorDefinition<?> definition) {
         super((T) definition);
     }
 

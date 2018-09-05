@@ -23,9 +23,9 @@ import org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition;
 import org.apache.camel.processor.loadbalancer.LoadBalancer;
 import org.apache.camel.spi.RouteContext;
 
-public class LoadBalanceReifier extends ProcessorReifier<LoadBalanceDefinition> {
+class LoadBalanceReifier extends ProcessorReifier<LoadBalanceDefinition> {
 
-    public LoadBalanceReifier(ProcessorDefinition<?> definition) {
+    LoadBalanceReifier(ProcessorDefinition<?> definition) {
         super((LoadBalanceDefinition) definition);
     }
 

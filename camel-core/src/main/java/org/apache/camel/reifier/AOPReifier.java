@@ -26,9 +26,9 @@ import org.apache.camel.model.ToDefinition;
 import org.apache.camel.processor.AOPProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class AOPReifier extends ProcessorReifier<AOPDefinition> {
+class AOPReifier extends ProcessorReifier<AOPDefinition> {
 
-    public AOPReifier(ProcessorDefinition<?> definition) {
+    AOPReifier(ProcessorDefinition<?> definition) {
         super(AOPDefinition.class.cast(definition));
     }
 

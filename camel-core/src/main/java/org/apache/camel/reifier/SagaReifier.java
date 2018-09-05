@@ -37,9 +37,9 @@ import org.apache.camel.saga.CamelSagaStep;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.CamelContextHelper;
 
-public class SagaReifier extends ProcessorReifier<SagaDefinition> {
+class SagaReifier extends ProcessorReifier<SagaDefinition> {
 
-    public SagaReifier(ProcessorDefinition<?> definition) {
+    SagaReifier(ProcessorDefinition<?> definition) {
         super((SagaDefinition) definition);
     }
 

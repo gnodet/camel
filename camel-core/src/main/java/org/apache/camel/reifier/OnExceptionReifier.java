@@ -17,10 +17,12 @@
 package org.apache.camel.reifier;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
+import org.apache.camel.Route;
 import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
@@ -33,11 +35,12 @@ import org.apache.camel.util.ObjectHelper;
 
 class OnExceptionReifier extends ProcessorReifier<OnExceptionDefinition> {
 
-    public OnExceptionReifier(ProcessorDefinition<?> definition) {
+    OnExceptionReifier(ProcessorDefinition<?> definition) {
         super((OnExceptionDefinition) definition);
     }
 
-    public void addRoutes(RouteContext routeContext) throws Exception {
+    @Override
+    public void addRoutes(RouteContext routeContext, Collection<Route> routes) throws Exception {
         // assign whether this was a route scoped onException or not
         // we need to know this later when setting the parent, as only route scoped should have parent
         // Note: this logic can possible be removed when the Camel routing engine decides at runtime

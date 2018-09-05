@@ -21,9 +21,9 @@ import org.apache.camel.model.OnFallbackDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class OnFallbackReifier extends ProcessorReifier<OnFallbackDefinition> {
+class OnFallbackReifier extends ProcessorReifier<OnFallbackDefinition> {
 
-    public OnFallbackReifier(ProcessorDefinition<?> definition) {
+    OnFallbackReifier(ProcessorDefinition<?> definition) {
         super((OnFallbackDefinition) definition);
     }
 

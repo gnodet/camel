@@ -32,9 +32,9 @@ import org.apache.camel.processor.WireTapProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.CamelContextHelper;
 
-public class WireTapReifier extends ToDynamicReifier<WireTapDefinition<?>> {
+class WireTapReifier extends ToDynamicReifier<WireTapDefinition<?>> {
 
-    public WireTapReifier(ProcessorDefinition<?> definition) {
+    WireTapReifier(ProcessorDefinition<?> definition) {
         super(definition);
     }
 

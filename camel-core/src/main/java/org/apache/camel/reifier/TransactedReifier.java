@@ -35,11 +35,11 @@ import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TransactedReifier extends ProcessorReifier<TransactedDefinition> {
+class TransactedReifier extends ProcessorReifier<TransactedDefinition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactedReifier.class);
 
-    public TransactedReifier(ProcessorDefinition<?> definition) {
+    TransactedReifier(ProcessorDefinition<?> definition) {
         super((TransactedDefinition) definition);
     }
 

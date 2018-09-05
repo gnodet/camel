@@ -324,7 +324,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
         List<ProcessorDefinition<?>> list = new ArrayList<>(definition.getOutputs());
         for (ProcessorDefinition<?> output : list) {
             try {
-                Reifier.reifier(output).addRoutes(routeContext, routes);
+                ProcessorReifier.reifier(output).addRoutes(routeContext, routes);
             } catch (Exception e) {
                 RouteDefinition route = routeContext.getRoute();
                 throw new FailedToCreateRouteException(route.getId(), route.toString(), output.toString(), e);

@@ -32,9 +32,9 @@ import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.spi.ThreadPoolProfile;
 
-public class ThreadsReifier extends ProcessorReifier<ThreadsDefinition> {
+class ThreadsReifier extends ProcessorReifier<ThreadsDefinition> {
 
-    public ThreadsReifier(ProcessorDefinition<?> definition) {
+    ThreadsReifier(ProcessorDefinition<?> definition) {
         super((ThreadsDefinition) definition);
     }
 

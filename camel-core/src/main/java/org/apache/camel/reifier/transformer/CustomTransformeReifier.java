@@ -21,14 +21,10 @@ import org.apache.camel.model.transformer.CustomTransformerDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.spi.Transformer;
 
-public class CustomTransformeReifier extends TransformerReifier<CustomTransformerDefinition> {
+class CustomTransformeReifier extends TransformerReifier<CustomTransformerDefinition> {
 
-    public CustomTransformeReifier(TransformerDefinition definition) {
-        this(CustomTransformerDefinition.class.cast(definition));
-    }
-
-    public CustomTransformeReifier(CustomTransformerDefinition definition) {
-        super(definition);
+    CustomTransformeReifier(TransformerDefinition definition) {
+        super((CustomTransformerDefinition) definition);
     }
 
     @Override

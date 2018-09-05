@@ -26,9 +26,9 @@ import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.camel.processor.aggregate.AggregationStrategyBeanAdapter;
 import org.apache.camel.spi.RouteContext;
 
-public class EnrichReifier extends ExpressionReifier<EnrichDefinition> {
+class EnrichReifier extends ExpressionReifier<EnrichDefinition> {
 
-    public EnrichReifier(ProcessorDefinition<?> definition) {
+    EnrichReifier(ProcessorDefinition<?> definition) {
         super(EnrichDefinition.class.cast(definition));
     }
 

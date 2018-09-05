@@ -36,9 +36,9 @@ import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.CamelContextHelper;
 
-public class RecipientListReifier extends ProcessorReifier<RecipientListDefinition<?>> {
+class RecipientListReifier extends ProcessorReifier<RecipientListDefinition<?>> {
 
-    public RecipientListReifier(ProcessorDefinition<?> definition) {
+    RecipientListReifier(ProcessorDefinition<?> definition) {
         super((RecipientListDefinition<?>) definition);
     }
 

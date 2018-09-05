@@ -22,9 +22,9 @@ import org.apache.camel.model.RollbackDefinition;
 import org.apache.camel.processor.RollbackProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class RollbackReifier extends ProcessorReifier<RollbackDefinition> {
+class RollbackReifier extends ProcessorReifier<RollbackDefinition> {
 
-    public RollbackReifier(ProcessorDefinition<?> definition) {
+    RollbackReifier(ProcessorDefinition<?> definition) {
         super((RollbackDefinition) definition);
     }
 

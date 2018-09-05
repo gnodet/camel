@@ -22,14 +22,10 @@ import org.apache.camel.model.transformer.DataFormatTransformerDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.spi.Transformer;
 
-public class DataFormatTransformeReifier extends TransformerReifier<DataFormatTransformerDefinition> {
+class DataFormatTransformeReifier extends TransformerReifier<DataFormatTransformerDefinition> {
 
-    public DataFormatTransformeReifier(TransformerDefinition definition) {
-        this(DataFormatTransformerDefinition.class.cast(definition));
-    }
-
-    public DataFormatTransformeReifier(DataFormatTransformerDefinition definition) {
-        super(definition);
+    DataFormatTransformeReifier(TransformerDefinition definition) {
+        super((DataFormatTransformerDefinition) definition);
     }
 
     @Override

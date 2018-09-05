@@ -27,9 +27,9 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.Delayer;
 import org.apache.camel.spi.RouteContext;
 
-public class DelayReifier extends ExpressionReifier<DelayDefinition> {
+class DelayReifier extends ExpressionReifier<DelayDefinition> {
 
-    public DelayReifier(ProcessorDefinition<?> definition) {
+    DelayReifier(ProcessorDefinition<?> definition) {
         super(DelayDefinition.class.cast(definition));
     }
 

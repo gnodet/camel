@@ -18,23 +18,87 @@ package org.apache.camel.reifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import org.apache.camel.Channel;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
+import org.apache.camel.model.AOPDefinition;
+import org.apache.camel.model.AggregateDefinition;
+import org.apache.camel.model.BeanDefinition;
 import org.apache.camel.model.CatchDefinition;
+import org.apache.camel.model.ChoiceDefinition;
+import org.apache.camel.model.ClaimCheckDefinition;
+import org.apache.camel.model.ConvertBodyDefinition;
+import org.apache.camel.model.DelayDefinition;
+import org.apache.camel.model.DynamicRouterDefinition;
+import org.apache.camel.model.EnrichDefinition;
 import org.apache.camel.model.ExpressionNode;
+import org.apache.camel.model.FilterDefinition;
 import org.apache.camel.model.FinallyDefinition;
 import org.apache.camel.model.HystrixDefinition;
+import org.apache.camel.model.IdempotentConsumerDefinition;
+import org.apache.camel.model.InOnlyDefinition;
+import org.apache.camel.model.InOutDefinition;
+import org.apache.camel.model.InterceptDefinition;
+import org.apache.camel.model.InterceptFromDefinition;
+import org.apache.camel.model.InterceptSendToEndpointDefinition;
+import org.apache.camel.model.LoadBalanceDefinition;
+import org.apache.camel.model.LogDefinition;
+import org.apache.camel.model.LoopDefinition;
+import org.apache.camel.model.MarshalDefinition;
 import org.apache.camel.model.ModelChannel;
 import org.apache.camel.model.MulticastDefinition;
+import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnExceptionDefinition;
+import org.apache.camel.model.OnFallbackDefinition;
+import org.apache.camel.model.OtherwiseDefinition;
+import org.apache.camel.model.PipelineDefinition;
+import org.apache.camel.model.PolicyDefinition;
+import org.apache.camel.model.PollEnrichDefinition;
+import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.RecipientListDefinition;
+import org.apache.camel.model.RemoveHeaderDefinition;
+import org.apache.camel.model.RemoveHeadersDefinition;
+import org.apache.camel.model.RemovePropertiesDefinition;
+import org.apache.camel.model.RemovePropertyDefinition;
+import org.apache.camel.model.ResequenceDefinition;
+import org.apache.camel.model.RollbackDefinition;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.RoutingSlipDefinition;
+import org.apache.camel.model.SagaDefinition;
+import org.apache.camel.model.SamplingDefinition;
+import org.apache.camel.model.ScriptDefinition;
+import org.apache.camel.model.SetBodyDefinition;
+import org.apache.camel.model.SetExchangePatternDefinition;
+import org.apache.camel.model.SetFaultBodyDefinition;
+import org.apache.camel.model.SetHeaderDefinition;
+import org.apache.camel.model.SetOutHeaderDefinition;
+import org.apache.camel.model.SetPropertyDefinition;
+import org.apache.camel.model.SortDefinition;
+import org.apache.camel.model.SplitDefinition;
+import org.apache.camel.model.StopDefinition;
+import org.apache.camel.model.ThreadsDefinition;
+import org.apache.camel.model.ThrottleDefinition;
+import org.apache.camel.model.ThrowExceptionDefinition;
+import org.apache.camel.model.ToDefinition;
+import org.apache.camel.model.ToDynamicDefinition;
+import org.apache.camel.model.TransactedDefinition;
+import org.apache.camel.model.TransformDefinition;
 import org.apache.camel.model.TryDefinition;
+import org.apache.camel.model.UnmarshalDefinition;
+import org.apache.camel.model.ValidateDefinition;
+import org.apache.camel.model.WhenDefinition;
+import org.apache.camel.model.WhenSkipSendToEndpointDefinition;
+import org.apache.camel.model.WireTapDefinition;
+import org.apache.camel.model.cloud.ServiceCallDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.InterceptEndpointProcessor;
 import org.apache.camel.processor.Pipeline;
@@ -50,6 +114,87 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
+
+    private static final Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>>> PROCESSORS;
+    static {
+        Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>>> map = new HashMap<>();
+        map.put(AggregateDefinition.class, AggregateReifier::new);
+        map.put(AOPDefinition.class, AOPReifier::new);
+        map.put(BeanDefinition.class, BeanReifier::new);
+        map.put(CatchDefinition.class, CatchReifier::new);
+        map.put(ChoiceDefinition.class, ChoiceReifier::new);
+        map.put(ClaimCheckDefinition.class, ClaimCheckReifier::new);
+        map.put(ConvertBodyDefinition.class, ConvertBodyReifier::new);
+        map.put(DelayDefinition.class, DelayReifier::new);
+        map.put(DynamicRouterDefinition.class, DynamicRouterReifier::new);
+        map.put(EnrichDefinition.class, EnrichReifier::new);
+        map.put(FilterDefinition.class, FilterReifier::new);
+        map.put(FinallyDefinition.class, FinallyReifier::new);
+        map.put(HystrixDefinition.class, HystrixReifier::new);
+        map.put(IdempotentConsumerDefinition.class, IdempotentConsumerReifier::new);
+        map.put(InOnlyDefinition.class, SendReifier::new);
+        map.put(InOutDefinition.class, SendReifier::new);
+        map.put(InterceptDefinition.class, InterceptReifier::new);
+        map.put(InterceptFromDefinition.class, InterceptFromReifier::new);
+        map.put(InterceptSendToEndpointDefinition.class, InterceptSendToEndpointReifier::new);
+        map.put(LoadBalanceDefinition.class, LoadBalanceReifier::new);
+        map.put(LogDefinition.class, LogReifier::new);
+        map.put(LoopDefinition.class, LoopReifier::new);
+        map.put(MarshalDefinition.class, MarshalReifier::new);
+        map.put(MulticastDefinition.class, MulticastReifier::new);
+        map.put(OnCompletionDefinition.class, OnCompletionReifier::new);
+        map.put(OnExceptionDefinition.class, OnExceptionReifier::new);
+        map.put(OnFallbackDefinition.class, OnFallbackReifier::new);
+        map.put(OtherwiseDefinition.class, OtherwiseReifier::new);
+        map.put(PipelineDefinition.class, PipelineReifier::new);
+        map.put(PolicyDefinition.class, PolicyReifier::new);
+        map.put(PollEnrichDefinition.class, PollEnrichReifier::new);
+        map.put(ProcessDefinition.class, ProcessReifier::new);
+        map.put(RecipientListDefinition.class, RecipientListReifier::new);
+        map.put(RemoveHeaderDefinition.class, RemoveHeaderReifier::new);
+        map.put(RemoveHeadersDefinition.class, RemoveHeadersReifier::new);
+        map.put(RemovePropertiesDefinition.class, RemovePropertiesReifier::new);
+        map.put(RemovePropertyDefinition.class, RemovePropertyReifier::new);
+        map.put(ResequenceDefinition.class, ResequenceReifier::new);
+        map.put(RollbackDefinition.class, RollbackReifier::new);
+        map.put(RouteDefinition.class, RouteReifier::new);
+        map.put(RoutingSlipDefinition.class, RoutingSlipReifier::new);
+        map.put(SagaDefinition.class, SagaReifier::new);
+        map.put(SamplingDefinition.class, SamplingReifier::new);
+        map.put(ScriptDefinition.class, ScriptReifier::new);
+        map.put(ServiceCallDefinition.class, ServiceCallReifier::new);
+        map.put(SetBodyDefinition.class, SetBodyReifier::new);
+        map.put(SetExchangePatternDefinition.class, SetExchangePatternReifier::new);
+        map.put(SetFaultBodyDefinition.class, SetFaultBodyReifier::new);
+        map.put(SetHeaderDefinition.class, SetHeaderReifier::new);
+        map.put(SetOutHeaderDefinition.class, SetOutHeaderReifier::new);
+        map.put(SetPropertyDefinition.class, SetPropertyReifier::new);
+        map.put(SortDefinition.class, SortReifier::new);
+        map.put(SplitDefinition.class, SplitReifier::new);
+        map.put(StopDefinition.class, StopReifier::new);
+        map.put(ThreadsDefinition.class, ThreadsReifier::new);
+        map.put(ThrottleDefinition.class, ThrottleReifier::new);
+        map.put(ThrowExceptionDefinition.class, ThrowExceptionReifier::new);
+        map.put(ToDefinition.class, SendReifier::new);
+        map.put(ToDynamicDefinition.class, ToDynamicReifier::new);
+        map.put(TransactedDefinition.class, TransactedReifier::new);
+        map.put(TransformDefinition.class, TransformReifier::new);
+        map.put(TryDefinition.class, TryReifier::new);
+        map.put(UnmarshalDefinition.class, UnmarshalReifier::new);
+        map.put(ValidateDefinition.class, ValidateReifier::new);
+        map.put(WireTapDefinition.class, WireTapReifier::new);
+        map.put(WhenSkipSendToEndpointDefinition.class, WhenSkipSendToEndpointReifier::new);
+        map.put(WhenDefinition.class, WhenReifier::new);
+        PROCESSORS = map;
+    }
+
+    public static ProcessorReifier<? extends ProcessorDefinition<?>> reifier(ProcessorDefinition<?> definition) {
+        Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>> reifier = PROCESSORS.get(definition.getClass());
+        if (reifier != null) {
+            return reifier.apply(definition);
+        }
+        throw new IllegalStateException("Unsupported definition: " + definition);
+    }
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -315,7 +460,7 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         for (ProcessorDefinition<?> output : outputs) {
 
             // allow any custom logic before we create the processor
-            Reifier.reifier(output).preCreateProcessor();
+            reifier(output).preCreateProcessor();
 
             // resolve properties before we create the processor
             ProcessorDefinitionHelper.resolvePropertyPlaceholders(routeContext.getCamelContext(), output);
@@ -374,7 +519,7 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         }
         // fallback to default implementation if factory did not create the processor
         if (processor == null) {
-            processor = Reifier.reifier(output).createProcessor(routeContext);
+            processor = reifier(output).createProcessor(routeContext);
         }
         return processor;
     }

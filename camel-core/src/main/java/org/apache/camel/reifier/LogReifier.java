@@ -36,9 +36,9 @@ import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogReifier extends ProcessorReifier<LogDefinition> {
+class LogReifier extends ProcessorReifier<LogDefinition> {
 
-    public LogReifier(ProcessorDefinition<?> definition) {
+    LogReifier(ProcessorDefinition<?> definition) {
         super((LogDefinition) definition);
     }
 

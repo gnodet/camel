@@ -27,9 +27,9 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.Throttler;
 import org.apache.camel.spi.RouteContext;
 
-public class ThrottleReifier extends ExpressionReifier<ThrottleDefinition> {
+class ThrottleReifier extends ExpressionReifier<ThrottleDefinition> {
 
-    public ThrottleReifier(ProcessorDefinition<?> definition) {
+    ThrottleReifier(ProcessorDefinition<?> definition) {
         super((ThrottleDefinition) definition);
     }
 

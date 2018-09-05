@@ -31,9 +31,9 @@ import org.apache.camel.processor.aggregate.ShareUnitOfWorkAggregationStrategy;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.CamelContextHelper;
 
-public class SplitReifier extends ExpressionReifier<SplitDefinition> {
+class SplitReifier extends ExpressionReifier<SplitDefinition> {
 
-    public SplitReifier(ProcessorDefinition<?> definition) {
+    SplitReifier(ProcessorDefinition<?> definition) {
         super((SplitDefinition) definition);
     }
 
