@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.validator.ValidatorKey;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.reifier.validator.ValidatorReifier;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Validator;
 import org.apache.camel.spi.ValidatorRegistry;
@@ -63,7 +64,7 @@ public class DefaultValidatorRegistry extends AbstractMap<ValidatorKey, Validato
         this.context = context;
         
         for (ValidatorDefinition def : definitions) {
-            Validator validator = def.createValidator(context);
+            Validator validator = ValidatorReifier.reifier(def).createValidator(context);
             context.addService(validator);
             put(new ValidatorKey(new DataType(def.getType())), validator);
         }

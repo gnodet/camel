@@ -124,6 +124,7 @@ import org.apache.camel.processor.interceptor.Delayer;
 import org.apache.camel.processor.interceptor.HandleFault;
 import org.apache.camel.processor.interceptor.StreamCaching;
 import org.apache.camel.processor.interceptor.Tracer;
+import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.runtimecatalog.DefaultRuntimeCamelCatalog;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
@@ -1138,7 +1139,7 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             route.prepare(this);
 
             List<Route> routes = new ArrayList<>();
-            List<RouteContext> routeContexts = route.addRoutes(this, routes);
+            List<RouteContext> routeContexts = new RouteReifier(route).addRoutes(this, routes);
             RouteService routeService = new RouteService(this, route, routeContexts, routes);
             startRouteService(routeService, true);
         } finally {

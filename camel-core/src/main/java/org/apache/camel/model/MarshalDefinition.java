@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.camel.Processor;
 import org.apache.camel.model.dataformat.ASN1DataFormat;
 import org.apache.camel.model.dataformat.AvroDataFormat;
 import org.apache.camel.model.dataformat.Base64DataFormat;
@@ -66,10 +65,7 @@ import org.apache.camel.model.dataformat.XmlRpcDataFormat;
 import org.apache.camel.model.dataformat.YAMLDataFormat;
 import org.apache.camel.model.dataformat.ZipDataFormat;
 import org.apache.camel.model.dataformat.ZipFileDataFormat;
-import org.apache.camel.processor.MarshalProcessor;
-import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
 
 /**
  * Marshals data into a specified format for transmission over a transport or component
@@ -189,9 +185,4 @@ public class MarshalDefinition extends NoOutputDefinition<MarshalDefinition> {
         this.dataFormatType = dataFormatType;
     }
 
-    @Override
-    public Processor createProcessor(RouteContext routeContext) {
-        DataFormat dataFormat = DataFormatDefinition.getDataFormat(routeContext, getDataFormatType(), ref);
-        return new MarshalProcessor(dataFormat);
-    }
 }

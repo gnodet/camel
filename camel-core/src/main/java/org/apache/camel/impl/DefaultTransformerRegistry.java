@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.reifier.transformer.TransformerReifier;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Transformer;
 import org.apache.camel.spi.TransformerRegistry;
@@ -65,7 +66,7 @@ public class DefaultTransformerRegistry extends AbstractMap<TransformerKey, Tran
         this.context = context;
         
         for (TransformerDefinition def : definitions) {
-            Transformer transformer = def.createTransformer(context);
+            Transformer transformer = TransformerReifier.reifier(def).createTransformer(context);
             context.addService(transformer);
             put(createKey(def), transformer);
         }

@@ -16,18 +16,14 @@
  */
 package org.apache.camel.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.camel.Processor;
-import org.apache.camel.processor.AOPProcessor;
 import org.apache.camel.spi.AsEndpointUri;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
 
 /**
  * Does processing before and/or after the route is completed
@@ -103,36 +99,6 @@ public class AOPDefinition extends OutputDefinition<AOPDefinition> {
     @Override
     public String getLabel() {
         return "aop";
-    }
-
-    @Override
-    public Processor createProcessor(final RouteContext routeContext) throws Exception {
-        // either before or after must be provided
-        if (beforeUri == null && afterUri == null && afterFinallyUri == null) {
-            throw new IllegalArgumentException("At least one of before, after or afterFinally must be provided on: " + this);
-        }
-
-        // use a pipeline to assemble the before and target processor
-        // and the after if not afterFinally
-        Collection<ProcessorDefinition<?>> pipe = new ArrayList<>();
-
-        Processor finallyProcessor = null;
-
-        if (beforeUri != null) {
-            pipe.add(new ToDefinition(beforeUri));
-        }
-        pipe.addAll(getOutputs());
-
-        if (afterUri != null) {
-            pipe.add(new ToDefinition(afterUri));
-        } else if (afterFinallyUri != null) {
-            finallyProcessor = createProcessor(routeContext, new ToDefinition(afterFinallyUri));
-        }
-
-        Processor tryProcessor = createOutputsProcessor(routeContext, pipe);
-
-        // the AOP processor is based on TryProcessor so we do not have any catches
-        return new AOPProcessor(tryProcessor, null, finallyProcessor);
     }
 
     /**

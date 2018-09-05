@@ -23,10 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.ExchangePattern;
-import org.apache.camel.Processor;
-import org.apache.camel.processor.SendProcessor;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
 /**
@@ -49,20 +46,6 @@ public abstract class SendDefinition<Type extends ProcessorDefinition<Type>> ext
 
     public SendDefinition(String uri) {
         this.uri = uri;
-    }
-
-    @Override
-    public Processor createProcessor(RouteContext routeContext) throws Exception {
-        Endpoint endpoint = resolveEndpoint(routeContext);
-        return new SendProcessor(endpoint, getPattern());
-    }
-
-    public Endpoint resolveEndpoint(RouteContext context) {
-        if (endpoint == null) {
-            return context.resolveEndpoint(getUri(), getRef());
-        } else {
-            return endpoint;
-        }
     }
 
     @Override
