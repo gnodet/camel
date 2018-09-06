@@ -19,7 +19,6 @@ package org.apache.camel.spi;
 import java.util.List;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.RouteNode;
 import org.apache.camel.model.ProcessorDefinition;
 
 /**

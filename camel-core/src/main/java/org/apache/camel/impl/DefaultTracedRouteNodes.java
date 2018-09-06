@@ -25,8 +25,8 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.RouteNode;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.spi.RouteNode;
 import org.apache.camel.spi.TracedRouteNodes;
 
 /**

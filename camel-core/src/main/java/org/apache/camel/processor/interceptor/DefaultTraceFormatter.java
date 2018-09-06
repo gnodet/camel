@@ -18,7 +18,7 @@ package org.apache.camel.processor.interceptor;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.RouteNode;
+import org.apache.camel.spi.RouteNode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.RouteDefinition;

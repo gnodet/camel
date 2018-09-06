@@ -20,12 +20,12 @@ import org.apache.camel.DelegateProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.Processor;
-import org.apache.camel.RouteNode;
 import org.apache.camel.Traceable;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.spi.RouteNode;
 
 /**
- * A default implementation of the {@link org.apache.camel.RouteNode}
+ * A default implementation of the {@link RouteNode}
  *
  * @version 
  */

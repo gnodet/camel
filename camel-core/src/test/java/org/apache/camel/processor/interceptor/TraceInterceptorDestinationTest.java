@@ -84,7 +84,7 @@ public class TraceInterceptorDestinationTest extends ContextTestSupport {
         return new RouteBuilder() {
             public void configure() throws Exception {
                 // START SNIPPET: e1
-                // we create a tracer where we want to send TraveEvents to an endpoint
+                // we create a tracer where we want to send TraceEvents to an endpoint
                 // "direct:traced" where we can do some custom processing such as storing
                 // it in a file or a database
                 Tracer tracer = new Tracer();

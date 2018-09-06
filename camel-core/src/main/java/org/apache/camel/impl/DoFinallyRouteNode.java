@@ -18,11 +18,11 @@ package org.apache.camel.impl;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.RouteNode;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.spi.RouteNode;
 
 /**
- * {@link org.apache.camel.RouteNode} representing do finally.
+ * {@link RouteNode} representing do finally.
  *
  * @version 
  */
