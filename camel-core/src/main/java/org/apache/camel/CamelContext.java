@@ -24,7 +24,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 
-import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
@@ -1346,15 +1345,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     default void setProducerServicePool(ServicePool<Endpoint, Producer> servicePool) {
         adapt(ConfigurableCamelContext.class).setProducerServicePool(servicePool);
     }
-
-    /**
-     * Gets the default error handler builder which is inherited by the routes
-     *
-     * @return the builder
-     * @deprecated The return type will be switched to {@link ErrorHandlerFactory} in Camel 3.0
-     */
-    @Deprecated
-    ErrorHandlerBuilder getErrorHandlerBuilder();
 
     /**
      * Adds the given interceptor strategy

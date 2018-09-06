@@ -391,7 +391,7 @@ public final class RouteDefinitionHelper {
             // let the route inherit the error handler builder from camel context if none already set
 
             // must clone to avoid side effects while building routes using multiple RouteBuilders
-            ErrorHandlerBuilder builder = context.getErrorHandlerBuilder();
+            ErrorHandlerBuilder builder = (ErrorHandlerBuilder) context.getErrorHandlerFactory();
             if (builder != null) {
                 builder = builder.cloneBuilder();
                 route.setErrorHandlerBuilderIfNull(builder);

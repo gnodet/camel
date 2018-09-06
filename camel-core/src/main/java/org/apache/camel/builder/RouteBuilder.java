@@ -459,7 +459,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
             // Set the CamelContext ErrorHandler here
             ModelCamelContext camelContext = getContext();
             if (camelContext.getErrorHandlerFactory() != null) {
-                setErrorHandlerBuilder(camelContext.getErrorHandlerBuilder());
+                setErrorHandlerBuilder((ErrorHandlerBuilder) camelContext.getErrorHandlerFactory());
             }
             configure();
             // mark all route definitions as custom prepared because
