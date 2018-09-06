@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.direct;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -32,7 +33,7 @@ public class DirectNoMultipleConsumersTest extends TestSupport {
     @Test
     public void testNoMultipleConsumersTest() throws Exception {
         CamelContext container = new DefaultCamelContext();
-        container.disableJMX();
+        container.adapt(ConfigurableCamelContext.class).disableJMX();
 
         container.addRoutes(new RouteBuilder() {
             public void configure() throws Exception {

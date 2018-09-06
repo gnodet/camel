@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class CamelContextTrackerTest extends Assert {
 
         @Override
         public void contextCreated(CamelContext camelContext) {
-            camelContext.addLifecycleStrategy(new LifecycleStrategySupport() {
+            camelContext.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(new LifecycleStrategySupport() {
                 @Override
                 public void onContextStop(CamelContext context) {
                     names.remove(context.getName());

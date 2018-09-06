@@ -81,7 +81,7 @@ public class AbstractCamelRunnerTest {
             integration.run();
             do {
                 Thread.sleep(500);
-            } while (integration.getContext().isStartingRoutes());
+            } while (integration.getContext().getRouteController().isStartingRoutes());
             integration.stop();
             assertTrue("Camel context has not started.", integration.camelContextStarted == 1);
             assertTrue("Camel context has not stopped.", integration.camelContextStopped == 1);

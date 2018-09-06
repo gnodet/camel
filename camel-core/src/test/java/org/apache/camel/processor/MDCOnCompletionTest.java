@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;
@@ -61,7 +62,7 @@ public class MDCOnCompletionTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // enable MDC
-                context.setUseMDCLogging(true);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
 
                 from("direct:a").routeId("route-a")
                         .onCompletion()

@@ -36,7 +36,7 @@ public class TimerNegativeNoRepeatCountDelayTest extends ContextTestSupport {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMinimumMessageCount(1);
 
-        context.stopRoute("routeTest");
+        context.getRouteController().stopRoute("routeTest");
 
         List<Exchange> exchanges = mock.getExchanges();
         Iterator<Exchange> iter = exchanges.iterator();

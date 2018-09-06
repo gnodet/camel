@@ -33,7 +33,7 @@ public class TimerMultipleConsumerStopRouteTest extends ContextTestSupport {
 
         assertMockEndpointsSatisfied();
 
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
 
         resetMocks();
 

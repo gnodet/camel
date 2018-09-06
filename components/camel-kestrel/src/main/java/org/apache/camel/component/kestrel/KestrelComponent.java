@@ -26,7 +26,7 @@ import net.spy.memcached.FailureMode;
 import net.spy.memcached.MemcachedClient;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * Camel component which offers queueing over the Memcached protocol
  * as supported by Kestrel.
  */
-public class KestrelComponent extends UriEndpointComponent {
+public class KestrelComponent extends DefaultComponent {
     private static final Logger LOG = LoggerFactory.getLogger(KestrelComponent.class);
 
     private ConnectionFactory memcachedConnectionFactory;

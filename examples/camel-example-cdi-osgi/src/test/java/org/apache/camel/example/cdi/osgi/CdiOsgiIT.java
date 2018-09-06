@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.api.management.mbean.ManagedRouteMBean;
+import org.apache.camel.management.ManagedCamelContext;
 import org.apache.karaf.shell.api.console.Session;
 import org.apache.karaf.shell.api.console.SessionFactory;
 import org.junit.Test;
@@ -83,12 +84,12 @@ public class CdiOsgiIT {
     @Test
     public void testRouteStatus() {
         assertThat("Route status is incorrect!",
-            context.getRouteStatus("consumer-route"), equalTo(ServiceStatus.Started));
+            context.getRouteController().getRouteStatus("consumer-route"), equalTo(ServiceStatus.Started));
     }
 
     @Test
     public void testExchangesCompleted() throws Exception {
-        ManagedRouteMBean route = context.getManagedRoute(context.getRoute("consumer-route").getId(), ManagedRouteMBean.class);
+        ManagedRouteMBean route = context.adapt(ManagedCamelContext.class).getManagedRoute(context.getRoute("consumer-route").getId(), ManagedRouteMBean.class);
         assertThat("Number of exchanges completed is incorrect!",
             route.getExchangesCompleted(), equalTo(1L));
     }

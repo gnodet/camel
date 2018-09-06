@@ -21,7 +21,7 @@ import java.util.Map;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ResolveEndpointFailedException;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +32,11 @@ import org.slf4j.LoggerFactory;
  * <p/>
  * Typically there's no need to use this level of verbosity, you can just use <tt>camelContextId:someEndpoint</tt>
  */
-public class QualifiedContextComponent extends UriEndpointComponent {
+public class QualifiedContextComponent extends DefaultComponent {
     private static final Logger LOG = LoggerFactory.getLogger(QualifiedContextComponent.class);
 
     public QualifiedContextComponent() {
-        super(ContextEndpoint.class);
+        super();
     }
 
     @Override

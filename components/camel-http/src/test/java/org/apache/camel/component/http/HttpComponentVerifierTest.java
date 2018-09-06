@@ -19,7 +19,7 @@ package org.apache.camel.component.http;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.camel.ComponentVerifier;
+import org.apache.camel.component.extension.ComponentVerifierExtension;
 import org.apache.camel.component.http.handler.BasicValidationHandler;
 import org.apache.camel.test.AvailablePortFinder;
 import org.eclipse.jetty.server.Server;
@@ -84,31 +84,31 @@ public class HttpComponentVerifierTest extends BaseHttpTest {
     @Test
     public void testParameters() throws Exception {
         HttpComponent component = context().getComponent("http", HttpComponent.class);
-        ComponentVerifier verifier = component.getVerifier();
+        ComponentVerifierExtension verifier = component.getVerifier();
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("httpUri", getLocalServerUri("/basic"));
 
-        ComponentVerifier.Result result = verifier.verify(ComponentVerifier.Scope.PARAMETERS, parameters);
+        ComponentVerifierExtension.Result result = verifier.verify(ComponentVerifierExtension.Scope.PARAMETERS, parameters);
 
-        Assert.assertEquals(ComponentVerifier.Result.Status.OK, result.getStatus());
+        Assert.assertEquals(ComponentVerifierExtension.Result.Status.OK, result.getStatus());
     }
 
     @Test
     public void testMissingMandatoryParameters() throws Exception {
         HttpComponent component = context().getComponent("http", HttpComponent.class);
-        ComponentVerifier verifier = component.getVerifier();
+        ComponentVerifierExtension verifier = component.getVerifier();
 
         Map<String, Object> parameters = new HashMap<>();
 
-        ComponentVerifier.Result result = verifier.verify(ComponentVerifier.Scope.PARAMETERS, parameters);
+        ComponentVerifierExtension.Result result = verifier.verify(ComponentVerifierExtension.Scope.PARAMETERS, parameters);
 
-        Assert.assertEquals(ComponentVerifier.Result.Status.ERROR, result.getStatus());
+        Assert.assertEquals(ComponentVerifierExtension.Result.Status.ERROR, result.getStatus());
         Assert.assertEquals(1, result.getErrors().size());
 
-        ComponentVerifier.VerificationError error = result.getErrors().get(0);
+        ComponentVerifierExtension.VerificationError error = result.getErrors().get(0);
 
-        Assert.assertEquals(ComponentVerifier.VerificationError.StandardCode.MISSING_PARAMETER, error.getCode());
+        Assert.assertEquals(ComponentVerifierExtension.VerificationError.StandardCode.MISSING_PARAMETER, error.getCode());
         Assert.assertTrue(error.getParameterKeys().contains("httpUri"));
     }
 
@@ -119,32 +119,32 @@ public class HttpComponentVerifierTest extends BaseHttpTest {
     @Test
     public void testConnectivity() throws Exception {
         HttpComponent component = context().getComponent("http", HttpComponent.class);
-        ComponentVerifier verifier = component.getVerifier();
+        ComponentVerifierExtension verifier = component.getVerifier();
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("httpUri", getLocalServerUri("/basic"));
 
-        ComponentVerifier.Result result = verifier.verify(ComponentVerifier.Scope.CONNECTIVITY, parameters);
+        ComponentVerifierExtension.Result result = verifier.verify(ComponentVerifierExtension.Scope.CONNECTIVITY, parameters);
 
-        Assert.assertEquals(ComponentVerifier.Result.Status.OK, result.getStatus());
+        Assert.assertEquals(ComponentVerifierExtension.Result.Status.OK, result.getStatus());
     }
 
     @Test
     public void testConnectivityWithWrongUri() throws Exception {
         HttpComponent component = context().getComponent("http", HttpComponent.class);
-        ComponentVerifier verifier = component.getVerifier();
+        ComponentVerifierExtension verifier = component.getVerifier();
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("httpUri", "http://www.not-existing-uri.unknown");
 
-        ComponentVerifier.Result result = verifier.verify(ComponentVerifier.Scope.CONNECTIVITY, parameters);
+        ComponentVerifierExtension.Result result = verifier.verify(ComponentVerifierExtension.Scope.CONNECTIVITY, parameters);
 
-        Assert.assertEquals(ComponentVerifier.Result.Status.ERROR, result.getStatus());
+        Assert.assertEquals(ComponentVerifierExtension.Result.Status.ERROR, result.getStatus());
         Assert.assertEquals(1, result.getErrors().size());
 
-        ComponentVerifier.VerificationError error = result.getErrors().get(0);
+        ComponentVerifierExtension.VerificationError error = result.getErrors().get(0);
 
-        Assert.assertEquals(ComponentVerifier.VerificationError.StandardCode.EXCEPTION, error.getCode());
+        Assert.assertEquals(ComponentVerifierExtension.VerificationError.StandardCode.EXCEPTION, error.getCode());
         Assert.assertTrue(error.getParameterKeys().contains("httpUri"));
     }
 }

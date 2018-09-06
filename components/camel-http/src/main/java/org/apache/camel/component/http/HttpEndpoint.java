@@ -108,9 +108,9 @@ public class HttpEndpoint extends HttpCommonEndpoint {
         HttpClient answer = new HttpClient(getClientParams());
 
         // configure http proxy from camelContext
-        if (ObjectHelper.isNotEmpty(getCamelContext().getProperty("http.proxyHost")) && ObjectHelper.isNotEmpty(getCamelContext().getProperty("http.proxyPort"))) {
-            String host = getCamelContext().getProperty("http.proxyHost");
-            int port = Integer.parseInt(getCamelContext().getProperty("http.proxyPort"));
+        if (ObjectHelper.isNotEmpty(getCamelContext().getGlobalOption("http.proxyHost")) && ObjectHelper.isNotEmpty(getCamelContext().getGlobalOption("http.proxyPort"))) {
+            String host = getCamelContext().getGlobalOption("http.proxyHost");
+            int port = Integer.parseInt(getCamelContext().getGlobalOption("http.proxyPort"));
             LOG.debug("CamelContext properties http.proxyHost and http.proxyPort detected. Using http proxy host: {} port: {}", host, port);
             answer.getHostConfiguration().setProxy(host, port);
         }

@@ -57,7 +57,7 @@ class AutoStartupTest extends CamelTestSupport with FunSuiteLike with BeforeAndA
   }
 
   private def assertRouteStatus(routeId: String, status: ServiceStatus) {
-    assert(context().getRouteStatus(routeId) === status)
+    assert(context().getRouteController.getRouteStatus(routeId) === status)
   }
 
   override protected def afterAll(): Unit = {

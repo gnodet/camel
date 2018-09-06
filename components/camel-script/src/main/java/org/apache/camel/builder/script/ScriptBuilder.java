@@ -450,7 +450,7 @@ public class ScriptBuilder implements Expression, Predicate, Processor {
     }
 
     private boolean getCamelContextProperty(CamelContext camelContext, String propertyKey) {
-        String propertyValue =  camelContext.getProperty(propertyKey);
+        String propertyValue =  camelContext.getGlobalOption(propertyKey);
         if (propertyValue != null) {
             return camelContext.getTypeConverter().convertTo(boolean.class, propertyValue);
         } else {

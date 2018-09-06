@@ -19,10 +19,10 @@ package org.apache.camel.component.openshift;
 import java.util.Map;
 
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 
-public class OpenShiftComponent extends UriEndpointComponent {
+public class OpenShiftComponent extends DefaultComponent {
 
     @Metadata(label = "security", secret = true)
     private String username;

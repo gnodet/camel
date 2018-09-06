@@ -23,9 +23,7 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ComponentVerifier;
 import org.apache.camel.Endpoint;
-import org.apache.camel.VerifiableComponent;
 import org.apache.camel.component.direct.DirectComponent;
 import org.apache.camel.component.extension.ComponentVerifierExtension;
 import org.apache.camel.component.extension.ComponentVerifierExtension.Result;
@@ -44,7 +42,6 @@ public class ManagedComponentTest extends ManagementTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
         context.addComponent("my-verifiable-component", new MyVerifiableComponent());
-        context.addComponent("another-verifiable-component", new AnotherVerifiableComponent());
         context.addComponent("direct", new DirectComponent());
 
         return context;
@@ -65,10 +62,6 @@ public class ManagedComponentTest extends ManagementTestSupport {
         assertTrue(mbeanServer.isRegistered(on));
         assertTrue(invoke(mbeanServer, on, "isVerifySupported"));
 
-        on = ObjectName.getInstance("org.apache.camel:context=camel-1,type=components,name=\"another-verifiable-component\"");
-        assertTrue(mbeanServer.isRegistered(on));
-        assertTrue(invoke(mbeanServer, on, "isVerifySupported"));
-
         on = ObjectName.getInstance("org.apache.camel:context=camel-1,type=components,name=\"direct\"");
         assertTrue(mbeanServer.isRegistered(on));
         assertFalse(invoke(mbeanServer, on, "isVerifySupported"));
@@ -82,10 +75,6 @@ public class ManagedComponentTest extends ManagementTestSupport {
         }
 
         MBeanServer mbeanServer = getMBeanServer();
-
-        ObjectName on2 = ObjectName.getInstance("org.apache.camel:context=camel-1,type=components,name=\"another-verifiable-component\"");
-        assertTrue(mbeanServer.isRegistered(on2));
-        assertTrue(invoke(mbeanServer, on2, "isVerifySupported"));
 
         ObjectName on = ObjectName.getInstance("org.apache.camel:context=camel-1,type=components,name=\"my-verifiable-component\"");
         assertTrue(mbeanServer.isRegistered(on));
@@ -113,30 +102,9 @@ public class ManagedComponentTest extends ManagementTestSupport {
     //
     // ***********************************
 
-    private static class MyVerifiableComponent extends DefaultComponent implements VerifiableComponent {
-        @Override
-        public ComponentVerifier getVerifier() {
-            return new DefaultComponentVerifierExtension("my-verifiable-component", getCamelContext()) {
-                @Override
-                protected Result verifyConnectivity(Map<String, Object> parameters) {
-                    return ResultBuilder.withStatusAndScope(Result.Status.OK, Scope.CONNECTIVITY).build();
-                }
-                @Override
-                protected Result verifyParameters(Map<String, Object> parameters) {
-                    return ResultBuilder.withStatusAndScope(Result.Status.OK, Scope.PARAMETERS).build();
-                }
-            };
-        }
-
-        @Override
-        protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    private static class AnotherVerifiableComponent extends DefaultComponent {
-        public AnotherVerifiableComponent() {
-            registerExtension(() -> new DefaultComponentVerifierExtension("another-verifiable-component", getCamelContext()) {
+    private static class MyVerifiableComponent extends DefaultComponent {
+        public MyVerifiableComponent() {
+            registerExtension(() -> new DefaultComponentVerifierExtension("my-verifiable-component", getCamelContext()) {
                 @Override
                 protected Result verifyConnectivity(Map<String, Object> parameters) {
                     return ResultBuilder.withStatusAndScope(Result.Status.OK, Scope.CONNECTIVITY).build();

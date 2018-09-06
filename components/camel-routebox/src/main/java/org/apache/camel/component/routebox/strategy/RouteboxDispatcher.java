@@ -35,6 +35,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.routebox.RouteboxEndpoint;
 import org.apache.camel.model.FromDefinition;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.support.SynchronizationAdapter;
 import org.slf4j.Logger;
@@ -123,7 +124,7 @@ public class RouteboxDispatcher {
 
     protected List<URI> getInnerContextConsumerList(CamelContext context) throws URISyntaxException {
         List<URI> consumerList = new ArrayList<>();
-        List<RouteDefinition> routeDefinitions = context.getRouteDefinitions();
+        List<RouteDefinition> routeDefinitions = context.adapt(ModelCamelContext.class).getRouteDefinitions();
         for (RouteDefinition routeDefinition : routeDefinitions) {
             List<FromDefinition> inputs = routeDefinition.getInputs();
             for (FromDefinition input : inputs) {

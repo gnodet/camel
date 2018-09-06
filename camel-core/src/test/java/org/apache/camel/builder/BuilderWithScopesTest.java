@@ -16,6 +16,7 @@
  */
 package org.apache.camel.builder;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class BuilderWithScopesTest extends TestSupport {
 
         order.clear();
         CamelContext container = new DefaultCamelContext();
-        container.disableJMX();
+        container.adapt(ConfigurableCamelContext.class).disableJMX();
 
         container.addRoutes(builder);
         container.start();

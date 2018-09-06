@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelException;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ManagementStatisticsLevel;
 import org.apache.camel.RoutesBuilder;
@@ -132,12 +133,7 @@ import org.slf4j.LoggerFactory;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContext> extends IdentifiedType implements RouteContainer, RestContainer {
-    
-    /**
-     * JVM system property to control lazy loading of type converters.
-     */
-    public static final String LAZY_LOAD_TYPE_CONVERTERS = "CamelLazyLoadTypeConverters";
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCamelContextFactoryBean.class);
 
     @XmlTransient
@@ -176,7 +172,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         PackageScanClassResolver packageResolver = getBeanForType(PackageScanClassResolver.class);
         if (packageResolver != null) {
             LOG.info("Using custom PackageScanClassResolver: {}", packageResolver);
-            getContext().setPackageScanClassResolver(packageResolver);
+            getContext().adapt(ConfigurableCamelContext.class).setPackageScanClassResolver(packageResolver);
         }
 
         // then set custom properties
@@ -188,10 +184,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             mergedOptions.putAll(getGlobalOptions().asMap());
         }
 
-        getContext().setGlobalOptions(mergedOptions);
-
-        // and enable lazy loading of type converters if applicable
-        initLazyLoadTypeConverters();
+        getContext().adapt(ConfigurableCamelContext.class).setGlobalOptions(mergedOptions);
 
         setupCustomServices();
 
@@ -212,39 +205,39 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
                 tracer.setFormatter(formatter);
             }
             LOG.info("Using custom Tracer: {}", tracer);
-            getContext().addInterceptStrategy(tracer);
+            getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(tracer);
         }
         BacklogTracer backlogTracer = getBeanForType(BacklogTracer.class);
         if (backlogTracer != null) {
             LOG.info("Using custom BacklogTracer: {}", backlogTracer);
-            getContext().addInterceptStrategy(backlogTracer);
+            getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(backlogTracer);
         }
         HandleFault handleFault = getBeanForType(HandleFault.class);
         if (handleFault != null) {
             LOG.info("Using custom HandleFault: {}", handleFault);
-            getContext().addInterceptStrategy(handleFault);
+            getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(handleFault);
         }
         @SuppressWarnings("deprecation")
         org.apache.camel.processor.interceptor.Delayer delayer 
             = getBeanForType(org.apache.camel.processor.interceptor.Delayer.class);
         if (delayer != null) {
             LOG.info("Using custom Delayer: {}", delayer);
-            getContext().addInterceptStrategy(delayer);
+            getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(delayer);
         }
         InflightRepository inflightRepository = getBeanForType(InflightRepository.class);
         if (inflightRepository != null) {
             LOG.info("Using custom InflightRepository: {}", inflightRepository);
-            getContext().setInflightRepository(inflightRepository);
+            getContext().adapt(ConfigurableCamelContext.class).setInflightRepository(inflightRepository);
         }
         AsyncProcessorAwaitManager asyncProcessorAwaitManager = getBeanForType(AsyncProcessorAwaitManager.class);
         if (asyncProcessorAwaitManager != null) {
             LOG.info("Using custom AsyncProcessorAwaitManager: {}", asyncProcessorAwaitManager);
-            getContext().setAsyncProcessorAwaitManager(asyncProcessorAwaitManager);
+            getContext().adapt(ConfigurableCamelContext.class).setAsyncProcessorAwaitManager(asyncProcessorAwaitManager);
         }
         ManagementStrategy managementStrategy = getBeanForType(ManagementStrategy.class);
         if (managementStrategy != null) {
             LOG.info("Using custom ManagementStrategy: {}", managementStrategy);
-            getContext().setManagementStrategy(managementStrategy);
+            getContext().adapt(ConfigurableCamelContext.class).setManagementStrategy(managementStrategy);
         }
         ManagementNamingStrategy managementNamingStrategy = getBeanForType(ManagementNamingStrategy.class);
         if (managementNamingStrategy != null) {
@@ -259,17 +252,17 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         UnitOfWorkFactory unitOfWorkFactory = getBeanForType(UnitOfWorkFactory.class);
         if (unitOfWorkFactory != null) {
             LOG.info("Using custom UnitOfWorkFactory: {}", unitOfWorkFactory);
-            getContext().setUnitOfWorkFactory(unitOfWorkFactory);
+            getContext().adapt(ConfigurableCamelContext.class).setUnitOfWorkFactory(unitOfWorkFactory);
         }
         RuntimeEndpointRegistry runtimeEndpointRegistry = getBeanForType(RuntimeEndpointRegistry.class);
         if (runtimeEndpointRegistry != null) {
             LOG.info("Using custom RuntimeEndpointRegistry: {}", runtimeEndpointRegistry);
-            getContext().setRuntimeEndpointRegistry(runtimeEndpointRegistry);
+            getContext().adapt(ConfigurableCamelContext.class).setRuntimeEndpointRegistry(runtimeEndpointRegistry);
         }
         HeadersMapFactory headersMapFactory = getBeanForType(HeadersMapFactory.class);
         if (headersMapFactory != null) {
             LOG.info("Using custom HeadersMapFactory: {}", headersMapFactory);
-            getContext().setHeadersMapFactory(headersMapFactory);
+            getContext().adapt(ConfigurableCamelContext.class).setHeadersMapFactory(headersMapFactory);
         }
         JSonSchemaResolver jsonSchemaResolver = getBeanForType(JSonSchemaResolver.class);
         if (jsonSchemaResolver != null) {
@@ -310,7 +303,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         ShutdownStrategy shutdownStrategy = getBeanForType(ShutdownStrategy.class);
         if (shutdownStrategy != null) {
             LOG.info("Using custom ShutdownStrategy: " + shutdownStrategy);
-            getContext().setShutdownStrategy(shutdownStrategy);
+            getContext().adapt(ConfigurableCamelContext.class).setShutdownStrategy(shutdownStrategy);
         }
         // add global interceptors
         Map<String, InterceptStrategy> interceptStrategies = getContext().getRegistry().findByTypeWithName(InterceptStrategy.class);
@@ -320,7 +313,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
                 // do not add if already added, for instance a tracer that is also an InterceptStrategy class
                 if (!getContext().getInterceptStrategies().contains(strategy)) {
                     LOG.info("Using custom InterceptStrategy with id: {} and implementation: {}", entry.getKey(), strategy);
-                    getContext().addInterceptStrategy(strategy);
+                    getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(strategy);
                 }
             }
         }
@@ -332,7 +325,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
                 // do not add if already added, for instance a tracer that is also an InterceptStrategy class
                 if (!getContext().getLifecycleStrategies().contains(strategy)) {
                     LOG.info("Using custom LifecycleStrategy with id: {} and implementation: {}", entry.getKey(), strategy);
-                    getContext().addLifecycleStrategy(strategy);
+                    getContext().adapt(ConfigurableCamelContext.class).addLifecycleStrategy(strategy);
                 }
             }
         }
@@ -342,7 +335,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             for (Entry<String, CamelClusterService> entry : clusterServices.entrySet()) {
                 CamelClusterService service = entry.getValue();
                 LOG.info("Using CamelClusterService with id: {} and implementation: {}", service.getId(), service);
-                getContext().addService(service);
+                getContext().adapt(ConfigurableCamelContext.class).addService(service);
             }
         }
         // service registry
@@ -356,7 +349,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
                 }
 
                 LOG.info("Using ServiceRegistry with id: {} and implementation: {}", service.getId(), service);
-                getContext().addService(service);
+                getContext().adapt(ConfigurableCamelContext.class).addService(service);
             }
         }
         // add route policy factories
@@ -365,7 +358,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             for (Entry<String, RoutePolicyFactory> entry : routePolicyFactories.entrySet()) {
                 RoutePolicyFactory factory = entry.getValue();
                 LOG.info("Using custom RoutePolicyFactory with id: {} and implementation: {}", entry.getKey(), factory);
-                getContext().addRoutePolicyFactory(factory);
+                getContext().adapt(ConfigurableCamelContext.class).addRoutePolicyFactory(factory);
             }
         }
         // Health check registry
@@ -373,7 +366,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         if (healthCheckRegistry != null) {
             healthCheckRegistry.setCamelContext(getContext());
             LOG.info("Using HealthCheckRegistry: {}", healthCheckRegistry);
-            getContext().setHealthCheckRegistry(healthCheckRegistry);
+            getContext().adapt(ConfigurableCamelContext.class).setHealthCheckRegistry(healthCheckRegistry);
         } else {
             healthCheckRegistry = getContext().getHealthCheckRegistry();
             healthCheckRegistry.setCamelContext(getContext());
@@ -389,19 +382,19 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         HealthCheckService healthCheckService = getBeanForType(HealthCheckService.class);
         if (healthCheckService != null) {
             LOG.info("Using HealthCheckService: {}", healthCheckService);
-            getContext().addService(healthCheckService);
+            getContext().adapt(ConfigurableCamelContext.class).addService(healthCheckService);
         }
         // Route controller
         RouteController routeController = getBeanForType(RouteController.class);
         if (routeController != null) {
             LOG.info("Using RouteController: " + routeController);
-            getContext().setRouteController(routeController);
+            getContext().adapt(ConfigurableCamelContext.class).setRouteController(routeController);
         }
         // UuidGenerator
         UuidGenerator uuidGenerator = getBeanForType(UuidGenerator.class);
         if (uuidGenerator != null) {
             LOG.info("Using custom UuidGenerator: {}", uuidGenerator);
-            getContext().setUuidGenerator(uuidGenerator);
+            getContext().adapt(ConfigurableCamelContext.class).setUuidGenerator(uuidGenerator);
         }
         // LogListener
         Map<String, LogListener> logListeners = getContext().getRegistry().findByTypeWithName(LogListener.class);
@@ -410,7 +403,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
                 LogListener logListener = entry.getValue();
                 if (!getContext().getLogListeners().contains(logListener)) {
                     LOG.info("Using custom LogListener with id: {} and implementation: {}", entry.getKey(), logListener);
-                    getContext().addLogListener(logListener);
+                    getContext().adapt(ConfigurableCamelContext.class).addLogListener(logListener);
                 }
             }
         }
@@ -514,27 +507,6 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
     }
 
     protected abstract void initCustomRegistry(T context);
-    
-    @SuppressWarnings("deprecation")
-    protected void initLazyLoadTypeConverters() {
-        if (getLoadTypeConverters() != null) {
-            getContext().setLoadTypeConverters(getLoadTypeConverters());
-        }
-        if (getLazyLoadTypeConverters() != null) {
-            getContext().setLazyLoadTypeConverters(getLazyLoadTypeConverters());
-        } else if (System.getProperty(LAZY_LOAD_TYPE_CONVERTERS) != null) {
-            // suppose a JVM property to control it so we can use that for example for unit testing
-            // to speedup testing by enabling lazy loading of type converters
-            String lazy = System.getProperty(LAZY_LOAD_TYPE_CONVERTERS);
-            if ("true".equalsIgnoreCase(lazy)) {
-                getContext().setLazyLoadTypeConverters(true);
-            } else if ("false".equalsIgnoreCase(lazy)) {
-                getContext().setLazyLoadTypeConverters(false);
-            } else {
-                throw new IllegalArgumentException("System property with key " + LAZY_LOAD_TYPE_CONVERTERS + " has unknown value: " + lazy);
-            }
-        }
-    }
 
     protected void initJMXAgent() throws Exception {
         CamelJMXAgentDefinition camelJMXAgent = getCamelJMXAgent();
@@ -549,7 +521,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             // clear the existing lifecycle strategies define by the DefaultCamelContext constructor
             getContext().getLifecycleStrategies().clear();
             // no need to add a lifecycle strategy as we do not need one as JMX is disabled
-            getContext().setManagementStrategy(new DefaultManagementStrategy());
+            getContext().adapt(ConfigurableCamelContext.class).setManagementStrategy(new DefaultManagementStrategy());
         } else if (camelJMXAgent != null) {
             LOG.info("JMXAgent enabled: {}", camelJMXAgent);
             DefaultManagementAgent agent = new DefaultManagementAgent(getContext());
@@ -606,11 +578,11 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             }
 
             ManagementStrategy managementStrategy = new ManagedManagementStrategy(getContext(), agent);
-            getContext().setManagementStrategy(managementStrategy);
+            getContext().adapt(ConfigurableCamelContext.class).setManagementStrategy(managementStrategy);
 
             // clear the existing lifecycle strategies define by the DefaultCamelContext constructor
             getContext().getLifecycleStrategies().clear();
-            getContext().addLifecycleStrategy(new DefaultManagementLifecycleStrategy(getContext()));
+            getContext().adapt(ConfigurableCamelContext.class).addLifecycleStrategy(new DefaultManagementLifecycleStrategy(getContext()));
         }
     }
 
@@ -847,12 +819,6 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
 
     public abstract String getThreadNamePattern();
 
-    /**
-     * @deprecated this option is no longer supported, will be removed in a future Camel release.
-     */
-    @Deprecated
-    public abstract Boolean getLazyLoadTypeConverters();
-
     public abstract Boolean getLoadTypeConverters();
 
     public abstract Boolean getTypeConverterStatisticsEnabled();
@@ -909,59 +875,59 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
     /**
      * Initializes the context
      *
-     * @param ctx the context
+     * @param context the context
      * @throws Exception is thrown if error occurred
      */
-    protected void initCamelContext(T ctx) throws Exception {
-        final T context = getContext();
+    protected void initCamelContext(T context) throws Exception {
+        final ConfigurableCamelContext ctx = getContext().adapt(ConfigurableCamelContext.class);
 
         if (getStreamCache() != null) {
-            ctx.setStreamCaching(CamelContextHelper.parseBoolean(context, getStreamCache()));
+            ctx.setStreamCaching(CamelContextHelper.parseBoolean(ctx, getStreamCache()));
         }
         if (getTrace() != null) {
-            ctx.setTracing(CamelContextHelper.parseBoolean(context, getTrace()));
+            ctx.setTracing(CamelContextHelper.parseBoolean(ctx, getTrace()));
         }
         if (getMessageHistory() != null) {
-            ctx.setMessageHistory(CamelContextHelper.parseBoolean(context, getMessageHistory()));
+            ctx.setMessageHistory(CamelContextHelper.parseBoolean(ctx, getMessageHistory()));
         }
         if (getLogMask() != null) {
-            ctx.setLogMask(CamelContextHelper.parseBoolean(context, getLogMask()));
+            ctx.setLogMask(CamelContextHelper.parseBoolean(ctx, getLogMask()));
         }
         if (getLogExhaustedMessageBody() != null) {
-            ctx.setLogExhaustedMessageBody(CamelContextHelper.parseBoolean(context, getLogExhaustedMessageBody()));
+            ctx.setLogExhaustedMessageBody(CamelContextHelper.parseBoolean(ctx, getLogExhaustedMessageBody()));
         }
         if (getDelayer() != null) {
-            ctx.setDelayer(CamelContextHelper.parseLong(context, getDelayer()));
+            ctx.setDelayer(CamelContextHelper.parseLong(ctx, getDelayer()));
         }
         if (getHandleFault() != null) {
-            ctx.setHandleFault(CamelContextHelper.parseBoolean(context, getHandleFault()));
+            ctx.setHandleFault(CamelContextHelper.parseBoolean(ctx, getHandleFault()));
         }
         if (getErrorHandlerRef() != null) {
             ctx.setErrorHandlerBuilder(new ErrorHandlerBuilderRef(getErrorHandlerRef()));
         }
         if (getAutoStartup() != null) {
-            ctx.setAutoStartup(CamelContextHelper.parseBoolean(context, getAutoStartup()));
+            ctx.setAutoStartup(CamelContextHelper.parseBoolean(ctx, getAutoStartup()));
         }
         if (getUseMDCLogging() != null) {
-            ctx.setUseMDCLogging(CamelContextHelper.parseBoolean(context, getUseMDCLogging()));
+            ctx.setUseMDCLogging(CamelContextHelper.parseBoolean(ctx, getUseMDCLogging()));
         }
         if (getUseDataType() != null) {
-            ctx.setUseDataType(CamelContextHelper.parseBoolean(context, getUseDataType()));
+            ctx.setUseDataType(CamelContextHelper.parseBoolean(ctx, getUseDataType()));
         }
         if (getUseBreadcrumb() != null) {
-            ctx.setUseBreadcrumb(CamelContextHelper.parseBoolean(context, getUseBreadcrumb()));
+            ctx.setUseBreadcrumb(CamelContextHelper.parseBoolean(ctx, getUseBreadcrumb()));
         }
         if (getAllowUseOriginalMessage() != null) {
-            ctx.setAllowUseOriginalMessage(CamelContextHelper.parseBoolean(context, getAllowUseOriginalMessage()));
+            ctx.setAllowUseOriginalMessage(CamelContextHelper.parseBoolean(ctx, getAllowUseOriginalMessage()));
         }
         if (getRuntimeEndpointRegistryEnabled() != null) {
-            ctx.getRuntimeEndpointRegistry().setEnabled(CamelContextHelper.parseBoolean(context, getRuntimeEndpointRegistryEnabled()));
+            ctx.getRuntimeEndpointRegistry().setEnabled(CamelContextHelper.parseBoolean(ctx, getRuntimeEndpointRegistryEnabled()));
         }
         if (getManagementNamePattern() != null) {
-            ctx.getManagementNameStrategy().setNamePattern(CamelContextHelper.parseText(context, getManagementNamePattern()));
+            ctx.getManagementNameStrategy().setNamePattern(CamelContextHelper.parseText(ctx, getManagementNamePattern()));
         }
         if (getThreadNamePattern() != null) {
-            ctx.getExecutorServiceManager().setThreadNamePattern(CamelContextHelper.parseText(context, getThreadNamePattern()));
+            ctx.getExecutorServiceManager().setThreadNamePattern(CamelContextHelper.parseText(ctx, getThreadNamePattern()));
         }
         if (getShutdownRoute() != null) {
             ctx.setShutdownRoute(getShutdownRoute());
@@ -970,13 +936,13 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             ctx.setShutdownRunningTask(getShutdownRunningTask());
         }
         if (getDataFormats() != null) {
-            ctx.setDataFormats(getDataFormats().asMap());
+            context.setDataFormats(getDataFormats().asMap());
         }
         if (getTransformers() != null) {
-            ctx.setTransformers(getTransformers().getTransformers());
+            context.setTransformers(getTransformers().getTransformers());
         }
         if (getValidators() != null) {
-            ctx.setValidators(getValidators().getValidators());
+            context.setValidators(getValidators().getValidators());
         }
         if (getTypeConverterStatisticsEnabled() != null) {
             ctx.setTypeConverterStatisticsEnabled(getTypeConverterStatisticsEnabled());
@@ -991,19 +957,19 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             ctx.setRestConfiguration(getRestConfiguration().asRestConfiguration(ctx));
         }
         if (getDefaultServiceCallConfiguration() != null) {
-            ctx.setServiceCallConfiguration(getDefaultServiceCallConfiguration());
+            context.setServiceCallConfiguration(getDefaultServiceCallConfiguration());
         }
         if (getServiceCallConfigurations() != null) {
             for (ServiceCallConfigurationDefinition bean : getServiceCallConfigurations()) {
-                ctx.addServiceCallConfiguration(bean.getId(), bean);
+                context.addServiceCallConfiguration(bean.getId(), bean);
             }
         }
         if (getDefaultHystrixConfiguration() != null) {
-            ctx.setHystrixConfiguration(getDefaultHystrixConfiguration());
+            context.setHystrixConfiguration(getDefaultHystrixConfiguration());
         }
         if (getHystrixConfigurations() != null) {
             for (HystrixConfigurationDefinition bean : getHystrixConfigurations()) {
-                ctx.addHystrixConfiguration(bean.getId(), bean);
+                context.addHystrixConfiguration(bean.getId(), bean);
             }
         }
     }
@@ -1183,22 +1149,22 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         ModelJAXBContextFactory modelJAXBContextFactory = getBeanForType(ModelJAXBContextFactory.class);
         if (modelJAXBContextFactory != null) {
             LOG.info("Using custom ModelJAXBContextFactory: {}", modelJAXBContextFactory);
-            getContext().setModelJAXBContextFactory(modelJAXBContextFactory);
+            getContext().adapt(ConfigurableCamelContext.class).setModelJAXBContextFactory(modelJAXBContextFactory);
         }
         ClassResolver classResolver = getBeanForType(ClassResolver.class);
         if (classResolver != null) {
             LOG.info("Using custom ClassResolver: {}", classResolver);
-            getContext().setClassResolver(classResolver);
+            getContext().adapt(ConfigurableCamelContext.class).setClassResolver(classResolver);
         }
         FactoryFinderResolver factoryFinderResolver = getBeanForType(FactoryFinderResolver.class);
         if (factoryFinderResolver != null) {
             LOG.info("Using custom FactoryFinderResolver: {}", factoryFinderResolver);
-            getContext().setFactoryFinderResolver(factoryFinderResolver);
+            getContext().adapt(ConfigurableCamelContext.class).setFactoryFinderResolver(factoryFinderResolver);
         }
         ExecutorServiceManager executorServiceStrategy = getBeanForType(ExecutorServiceManager.class);
         if (executorServiceStrategy != null) {
             LOG.info("Using custom ExecutorServiceStrategy: {}", executorServiceStrategy);
-            getContext().setExecutorServiceManager(executorServiceStrategy);
+            getContext().adapt(ConfigurableCamelContext.class).setExecutorServiceManager(executorServiceStrategy);
         }
         ThreadPoolFactory threadPoolFactory = getBeanForType(ThreadPoolFactory.class);
         if (threadPoolFactory != null) {
@@ -1208,32 +1174,32 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         ProcessorFactory processorFactory = getBeanForType(ProcessorFactory.class);
         if (processorFactory != null) {
             LOG.info("Using custom ProcessorFactory: {}", processorFactory);
-            getContext().setProcessorFactory(processorFactory);
+            getContext().adapt(ConfigurableCamelContext.class).setProcessorFactory(processorFactory);
         }
         Debugger debugger = getBeanForType(Debugger.class);
         if (debugger != null) {
             LOG.info("Using custom Debugger: {}", debugger);
-            getContext().setDebugger(debugger);
+            getContext().adapt(ConfigurableCamelContext.class).setDebugger(debugger);
         }
         UuidGenerator uuidGenerator = getBeanForType(UuidGenerator.class);
         if (uuidGenerator != null) {
             LOG.info("Using custom UuidGenerator: {}", uuidGenerator);
-            getContext().setUuidGenerator(uuidGenerator);
+            getContext().adapt(ConfigurableCamelContext.class).setUuidGenerator(uuidGenerator);
         }
         NodeIdFactory nodeIdFactory = getBeanForType(NodeIdFactory.class);
         if (nodeIdFactory != null) {
             LOG.info("Using custom NodeIdFactory: {}", nodeIdFactory);
-            getContext().setNodeIdFactory(nodeIdFactory);
+            getContext().adapt(ConfigurableCamelContext.class).setNodeIdFactory(nodeIdFactory);
         }
         StreamCachingStrategy streamCachingStrategy = getBeanForType(StreamCachingStrategy.class);
         if (streamCachingStrategy != null) {
             LOG.info("Using custom StreamCachingStrategy: {}", streamCachingStrategy);
-            getContext().setStreamCachingStrategy(streamCachingStrategy);
+            getContext().adapt(ConfigurableCamelContext.class).setStreamCachingStrategy(streamCachingStrategy);
         }
         MessageHistoryFactory messageHistoryFactory = getBeanForType(MessageHistoryFactory.class);
         if (messageHistoryFactory != null) {
             LOG.info("Using custom MessageHistoryFactory: {}", messageHistoryFactory);
-            getContext().setMessageHistoryFactory(messageHistoryFactory);
+            getContext().adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(messageHistoryFactory);
         }
     }
 }

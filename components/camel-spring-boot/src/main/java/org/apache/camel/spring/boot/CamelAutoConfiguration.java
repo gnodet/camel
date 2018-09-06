@@ -26,6 +26,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
@@ -148,7 +149,7 @@ public class CamelAutoConfiguration {
         }
 
         if (!config.isJmxEnabled()) {
-            camelContext.disableJMX();
+            camelContext.adapt(ConfigurableCamelContext.class).disableJMX();
         }
 
         if (config.getName() != null) {
@@ -194,16 +195,16 @@ public class CamelAutoConfiguration {
             camelContext.getStreamCachingStrategy().setSpoolUsedHeapMemoryThreshold(config.getStreamCachingSpoolUsedHeapMemoryThreshold());
         }
 
-        camelContext.setMessageHistory(config.isMessageHistory());
-        camelContext.setLogMask(config.isLogMask());
-        camelContext.setLogExhaustedMessageBody(config.isLogExhaustedMessageBody());
-        camelContext.setHandleFault(config.isHandleFault());
-        camelContext.setAutoStartup(config.isAutoStartup());
-        camelContext.setAllowUseOriginalMessage(config.isAllowUseOriginalMessage());
-        camelContext.setUseBreadcrumb(config.isUseBreadcrumb());
-        camelContext.setUseDataType(config.isUseDataType());
-        camelContext.setUseMDCLogging(config.isUseMdcLogging());
-        camelContext.setLoadTypeConverters(config.isLoadTypeConverters());
+        camelContext.adapt(ConfigurableCamelContext.class).setMessageHistory(config.isMessageHistory());
+        camelContext.adapt(ConfigurableCamelContext.class).setLogMask(config.isLogMask());
+        camelContext.adapt(ConfigurableCamelContext.class).setLogExhaustedMessageBody(config.isLogExhaustedMessageBody());
+        camelContext.adapt(ConfigurableCamelContext.class).setHandleFault(config.isHandleFault());
+        camelContext.adapt(ConfigurableCamelContext.class).setAutoStartup(config.isAutoStartup());
+        camelContext.adapt(ConfigurableCamelContext.class).setAllowUseOriginalMessage(config.isAllowUseOriginalMessage());
+        camelContext.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(config.isUseBreadcrumb());
+        camelContext.adapt(ConfigurableCamelContext.class).setUseDataType(config.isUseDataType());
+        camelContext.adapt(ConfigurableCamelContext.class).setUseMDCLogging(config.isUseMdcLogging());
+        camelContext.adapt(ConfigurableCamelContext.class).setLoadTypeConverters(config.isLoadTypeConverters());
 
         if (camelContext.getManagementStrategy().getManagementAgent() != null) {
             camelContext.getManagementStrategy().getManagementAgent().setEndpointRuntimeStatisticsEnabled(config.isEndpointRuntimeStatisticsEnabled());
@@ -212,7 +213,7 @@ public class CamelAutoConfiguration {
             camelContext.getManagementStrategy().getManagementAgent().setCreateConnector(config.isJmxCreateConnector());
         }
 
-        camelContext.setPackageScanClassResolver(new FatJarPackageScanClassResolver());
+        camelContext.adapt(ConfigurableCamelContext.class).setPackageScanClassResolver(new FatJarPackageScanClassResolver());
 
         // tracing
         camelContext.setTracing(config.isTracing());
@@ -245,7 +246,7 @@ public class CamelAutoConfiguration {
 
         if (config.getXmlRoutesReloadDirectory() != null) {
             ReloadStrategy reload = new FileWatcherReloadStrategy(config.getXmlRoutesReloadDirectory());
-            camelContext.setReloadStrategy(reload);
+            camelContext.adapt(ConfigurableCamelContext.class).setReloadStrategy(reload);
         }
 
         if (config.getThreadNamePattern() != null) {
@@ -369,7 +370,9 @@ public class CamelAutoConfiguration {
      * <p/>
      * Similar code in camel-core-xml module in class org.apache.camel.core.xml.AbstractCamelContextFactoryBean.
      */
-    static void afterPropertiesSet(ApplicationContext applicationContext, CamelContext camelContext) throws Exception {
+    static void afterPropertiesSet(ApplicationContext applicationContext, CamelContext context) throws Exception {
+        ConfigurableCamelContext camelContext = context.adapt(ConfigurableCamelContext.class);
+
         Tracer tracer = getSingleBeanOfType(applicationContext, Tracer.class);
         if (tracer != null) {
             // use formatter if there is a TraceFormatter bean defined

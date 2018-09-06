@@ -25,12 +25,12 @@ import builder.RouteBuilder
 class AutoStartupNotReturningRouteDefinitionTest extends ScalaTestSupport {
   @Test
   def testBooleanAutoStartup() {
-    assertEquals(context.getRouteStatus("boolean-auto-startup"), Stopped)
+    assertEquals(context.getRouteController().getRouteStatus("boolean-auto-startup"), Stopped)
   }
 
   @Test
   def testStringAutoStartup() {
-    assertEquals(context.getRouteStatus("string-auto-startup"), Stopped)
+    assertEquals(context.getRouteController().getRouteStatus("string-auto-startup"), Stopped)
   }
 
   val builder =

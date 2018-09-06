@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.jclouds.Context;
 import org.jclouds.blobstore.BlobStore;
 import org.jclouds.compute.ComputeService;
@@ -28,7 +28,7 @@ import org.jclouds.compute.ComputeService;
 /**
  * Represents the component that manages {@link JcloudsEndpoint}.
  */
-public class JcloudsComponent extends UriEndpointComponent {
+public class JcloudsComponent extends DefaultComponent {
 
     private List<BlobStore> blobStores;
     private List<ComputeService> computeServices;

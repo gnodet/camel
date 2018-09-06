@@ -97,9 +97,9 @@ public class WsProducerConsumerTest extends CamelTestSupport {
         resetMocks();
 
         log.info("Restarting bar route");
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
         Thread.sleep(500);
-        context.startRoute("bar");
+        context.getRouteController().startRoute("bar");
 
         mock.expectedBodiesReceived(TEST_MESSAGE);
 
@@ -120,9 +120,9 @@ public class WsProducerConsumerTest extends CamelTestSupport {
         resetMocks();
 
         log.info("Restarting foo route");
-        context.stopRoute("foo");
+        context.getRouteController().stopRoute("foo");
         Thread.sleep(500);
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         mock.expectedBodiesReceived(TEST_MESSAGE);
 

@@ -23,7 +23,7 @@ import javax.xml.transform.URIResolver;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.converter.jaxp.XmlConverter;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.EndpointHelper;
 import org.apache.camel.util.ResourceHelper;
@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The <a href="http://camel.apache.org/xslt.html">XSLT Component</a> is for performing XSLT transformations of messages
  */
-public class XsltComponent extends UriEndpointComponent {
+public class XsltComponent extends DefaultComponent {
 
     private static final Logger LOG = LoggerFactory.getLogger(XsltComponent.class);
 
@@ -54,7 +54,7 @@ public class XsltComponent extends UriEndpointComponent {
     private boolean saxon;
 
     public XsltComponent() {
-        super(XsltEndpoint.class);
+        super();
     }
 
     public XmlConverter getXmlConverter() {

@@ -96,7 +96,6 @@ import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.LifecycleStrategy;
 import org.apache.camel.spi.ManagementAgent;
-import org.apache.camel.spi.ManagementAware;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.ManagementObjectStrategy;
 import org.apache.camel.spi.ManagementStrategy;
@@ -478,9 +477,7 @@ public class DefaultManagementLifecycleStrategy extends ServiceSupport implement
 
         Object answer = null;
 
-        if (service instanceof ManagementAware) {
-            return ((ManagementAware<Service>) service).getManagedObject(service);
-        } else if (service instanceof Tracer) {
+        if (service instanceof Tracer) {
             // special for tracer
             Tracer tracer = (Tracer) service;
             ManagedTracer mt = managedTracers.get(tracer);
@@ -963,7 +960,7 @@ public class DefaultManagementLifecycleStrategy extends ServiceSupport implement
         if (agent.getRegisterNewRoutes()) {
             // no specific route, then fallback to see if this thread is starting routes
             // which is kept as state on the camel context
-            return getCamelContext().isStartingRoutes();
+            return getCamelContext().getRouteController().isStartingRoutes();
         }
 
         return false;

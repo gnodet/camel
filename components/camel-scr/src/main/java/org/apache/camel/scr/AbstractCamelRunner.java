@@ -34,6 +34,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.core.osgi.OsgiCamelContextPublisher;
@@ -92,7 +93,7 @@ public abstract class AbstractCamelRunner implements Runnable {
         if (bundleContext != null) {
             context = new OsgiDefaultCamelContext(bundleContext, createRegistry(bundleContext));
             // Setup the application context classloader with the bundle classloader
-            context.setApplicationContextClassLoader(new BundleDelegatingClassLoader(bundleContext.getBundle()));
+            context.adapt(ConfigurableCamelContext.class).setApplicationContextClassLoader(new BundleDelegatingClassLoader(bundleContext.getBundle()));
             // and make sure the TCCL is our classloader
             Thread.currentThread().setContextClassLoader(context.getApplicationContextClassLoader());
         } else {
@@ -104,7 +105,7 @@ public abstract class AbstractCamelRunner implements Runnable {
     protected void setupCamelContext(final BundleContext bundleContext, final String camelContextId) throws Exception {
         // Set up CamelContext
         if (camelContextId != null) {
-            context.setNameStrategy(new ExplicitCamelContextNameStrategy(camelContextId));
+            context.adapt(ConfigurableCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy(camelContextId));
         }
 
         // Add routes

@@ -94,7 +94,6 @@ import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.impl.converter.DefaultTypeConverter;
-import org.apache.camel.impl.converter.LazyLoadingTypeConverter;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
@@ -1612,10 +1611,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
         return CamelContextHelper.findEips(this);
     }
 
-    public String getComponentDocumentation(String componentName) throws IOException {
-        return null;
-    }
-
     public String getComponentParameterJsonSchema(String componentName) throws IOException {
         // use the component factory finder to find the package name of the component class, which is the location
         // where the documentation exists as well
@@ -2253,7 +2248,7 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             Map<String, String[]> uriOptions = new LinkedHashMap<>();
 
             // insert values from uri
-            Map<String, Object> options = EndpointHelper.endpointProperties(this, uri);
+            Map<String, Object> options = new HashMap<>(getRuntimeCamelCatalog().endpointProperties(uri));
 
             // extract consumer. prefix options
             Map<String, Object> consumerOptions = IntrospectionSupport.extractProperties(options, "consumer.");
@@ -4125,11 +4120,7 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
      */
     protected TypeConverter createTypeConverter() {
         BaseTypeConverterRegistry answer;
-        if (isLazyLoadTypeConverters()) {
-            answer = new LazyLoadingTypeConverter(packageScanClassResolver, getInjector(), getDefaultFactoryFinder());
-        } else {
-            answer = new DefaultTypeConverter(packageScanClassResolver, getInjector(), getDefaultFactoryFinder(), isLoadTypeConverters());
-        }
+        answer = new DefaultTypeConverter(packageScanClassResolver, getInjector(), getDefaultFactoryFinder(), isLoadTypeConverters());
         answer.setCamelContext(this);
         setTypeConverterRegistry(answer);
         return answer;
@@ -4233,22 +4224,11 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
         return dataFormats;
     }
 
-    @Deprecated
-    public Map<String, String> getProperties() {
-        return getGlobalOptions();
-    }
-
     @Override
     public Map<String, String> getGlobalOptions() {
         return globalOptions;
     }
 
-    @Deprecated
-    public void setProperties(Map<String, String> properties) {
-        this.setGlobalOptions(properties);
-    }
-
-    @Override
     public void setGlobalOptions(Map<String, String> globalOptions) {
         this.globalOptions = globalOptions;
     }
@@ -4414,11 +4394,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
         return lazyLoadTypeConverters != null && lazyLoadTypeConverters;
     }
 
-    @Deprecated
-    public void setLazyLoadTypeConverters(Boolean lazyLoadTypeConverters) {
-        this.lazyLoadTypeConverters = lazyLoadTypeConverters;
-    }
-
     public Boolean isLoadTypeConverters() {
         return loadTypeConverters != null && loadTypeConverters;
     }
@@ -4563,13 +4538,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
         return this.executorServiceManager;
     }
 
-    @Deprecated
-    public org.apache.camel.spi.ExecutorServiceStrategy getExecutorServiceStrategy() {
-        // its okay to create a new instance as its stateless, and just delegate
-        // ExecutorServiceManager which is the new API
-        return new DefaultExecutorServiceStrategy(this);
-    }
-
     public void setExecutorServiceManager(ExecutorServiceManager executorServiceManager) {
         this.executorServiceManager = executorServiceManager;
     }
@@ -4623,12 +4591,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
     public void setRestRegistry(RestRegistry restRegistry) {
         this.restRegistry = restRegistry;
-    }
-
-    @Deprecated
-    @Override
-    public String getProperty(String key) {
-        return getGlobalOption(key);
     }
 
     @Override

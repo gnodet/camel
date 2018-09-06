@@ -16,6 +16,7 @@
  */
 package org.apache.camel.issues;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -52,7 +53,7 @@ public class ContextScopedOnExceptionMultipleRouteBuildersTest extends ContextTe
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setErrorHandlerBuilder(new DeadLetterChannelBuilder("mock:dead"));
+        context.adapt(ConfigurableCamelContext.class).setErrorHandlerBuilder(new DeadLetterChannelBuilder("mock:dead"));
         return context;
     }
 

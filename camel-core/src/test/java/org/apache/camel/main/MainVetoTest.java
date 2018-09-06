@@ -16,6 +16,7 @@
  */
 package org.apache.camel.main;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.junit.Assert;
@@ -39,7 +40,7 @@ public class MainVetoTest extends Assert {
         main.addMainListener(new MainListenerSupport() {
             @Override
             public void configure(CamelContext context) {
-                context.addLifecycleStrategy(new MyVetoLifecycle());
+                context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(new MyVetoLifecycle());
             }
         });
 

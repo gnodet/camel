@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -31,7 +32,7 @@ public class TypeConverterRegistryStatisticsEnabledTest extends ContextTestSuppo
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setTypeConverterStatisticsEnabled(true);
+        context.adapt(ConfigurableCamelContext.class).setTypeConverterStatisticsEnabled(true);
         return context;
     }
 

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -53,7 +54,7 @@ public class VetoCamelContextStartTest extends ContextTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.addLifecycleStrategy(veto);
+        context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(veto);
         return context;
     }
 

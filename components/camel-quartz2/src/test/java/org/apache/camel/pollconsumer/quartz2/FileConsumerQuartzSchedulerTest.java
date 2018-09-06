@@ -37,7 +37,7 @@ public class FileConsumerQuartzSchedulerTest extends CamelTestSupport {
 
         template.sendBodyAndHeader("file:target/file/quartz", "Hello World", Exchange.FILE_NAME, "hello.txt");
 
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         assertMockEndpointsSatisfied();
     }

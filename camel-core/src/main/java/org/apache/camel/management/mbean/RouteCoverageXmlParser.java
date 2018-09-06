@@ -23,6 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.camel.management.ManagedCamelContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -88,7 +89,7 @@ public final class RouteCoverageXmlParser {
                 if (id != null) {
                     try {
                         if ("route".equals(qName)) {
-                            ManagedRouteMBean route = camelContext.getManagedRoute(id, ManagedRouteMBean.class);
+                            ManagedRouteMBean route = camelContext.adapt(ManagedCamelContext.class).getManagedRoute(id, ManagedRouteMBean.class);
                             if (route != null) {
                                 long total = route.getExchangesTotal();
                                 el.setAttribute("exchangesTotal", "" + total);
@@ -100,7 +101,7 @@ public final class RouteCoverageXmlParser {
                             Element parent = elementStack.peek();
                             if (parent != null) {
                                 String routeId = parent.getAttribute("id");
-                                ManagedRouteMBean route = camelContext.getManagedRoute(routeId, ManagedRouteMBean.class);
+                                ManagedRouteMBean route = camelContext.adapt(ManagedCamelContext.class).getManagedRoute(routeId, ManagedRouteMBean.class);
                                 if (route != null) {
                                     long total = route.getExchangesTotal();
                                     el.setAttribute("exchangesTotal", "" + total);
@@ -111,7 +112,7 @@ public final class RouteCoverageXmlParser {
                                 }
                             }
                         } else {
-                            ManagedProcessorMBean processor = camelContext.getManagedProcessor(id, ManagedProcessorMBean.class);
+                            ManagedProcessorMBean processor = camelContext.adapt(ManagedCamelContext.class).getManagedProcessor(id, ManagedProcessorMBean.class);
                             if (processor != null) {
                                 long total = processor.getExchangesTotal();
                                 el.setAttribute("exchangesTotal", "" + total);

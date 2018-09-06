@@ -21,9 +21,11 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.dataformat.StringDataFormat;
 import org.apache.camel.model.transformer.CustomTransformerDefinition;
 import org.apache.camel.model.transformer.DataFormatTransformerDefinition;
@@ -76,17 +78,17 @@ public class TransformerListCommandTest {
         etd.setFromType("xml:foo");
         etd.setToType("json:bar");
         etd.setUri("direct:transformer");
-        context.getTransformers().add(etd);
+        context.adapt(ModelCamelContext.class).getTransformers().add(etd);
         DataFormatTransformerDefinition dftd = new DataFormatTransformerDefinition();
         dftd.setFromType(this.getClass());
         dftd.setToType("xml:test");
         dftd.setDataFormatType(new StringDataFormat());
-        context.getTransformers().add(dftd);
+        context.adapt(ModelCamelContext.class).getTransformers().add(dftd);
         CustomTransformerDefinition ctd = new CustomTransformerDefinition();
         ctd.setScheme("custom");
         ctd.setClassName(MyTransformer.class.getName());
-        context.getTransformers().add(ctd);
-        context.setNameStrategy(new ExplicitCamelContextNameStrategy("foobar"));
+        context.adapt(ModelCamelContext.class).getTransformers().add(ctd);
+        context.adapt(ConfigurableCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy("foobar"));
         context.start();
 
         CamelController controller = new DummyCamelController(context);

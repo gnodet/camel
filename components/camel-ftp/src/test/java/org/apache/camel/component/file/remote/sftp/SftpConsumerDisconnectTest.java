@@ -36,8 +36,8 @@ public class SftpConsumerDisconnectTest extends SftpServerTestSupport {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        context.stopRoute("foo");
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("foo");
+        context.getRouteController().stopRoute("bar");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class SftpConsumerDisconnectTest extends SftpServerTestSupport {
         mock.expectedMessageCount(1);
         mock.expectedBodiesReceived(SAMPLE_FILE_PAYLOAD);
 
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         // Check that expectations are satisfied
         assertMockEndpointsSatisfied();
@@ -98,7 +98,7 @@ public class SftpConsumerDisconnectTest extends SftpServerTestSupport {
         // use mock to assert that the file will be moved there eventually
         mock.expectedFileExists(movedFile);
 
-        context.startRoute("bar");
+        context.getRouteController().startRoute("bar");
 
         // Check that expectations are satisfied
         assertMockEndpointsSatisfied();

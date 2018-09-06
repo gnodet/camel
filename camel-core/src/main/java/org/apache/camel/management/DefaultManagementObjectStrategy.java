@@ -185,24 +185,16 @@ public class DefaultManagementObjectStrategy implements ManagementObjectStrategy
 
     @SuppressWarnings({"deprecation", "unchecked"})
     public Object getManagedObjectForComponent(CamelContext context, Component component, String name) {
-        if (component instanceof org.apache.camel.spi.ManagementAware) {
-            return ((org.apache.camel.spi.ManagementAware<Component>) component).getManagedObject(component);
-        } else {
-            ManagedComponent mc = new ManagedComponent(name, component);
-            mc.init(context.getManagementStrategy());
-            return mc;
-        }
+        ManagedComponent mc = new ManagedComponent(name, component);
+        mc.init(context.getManagementStrategy());
+        return mc;
     }
 
     @SuppressWarnings({"deprecation", "unchecked"})
     public Object getManagedObjectForDataFormat(CamelContext context, DataFormat dataFormat) {
-        if (dataFormat instanceof org.apache.camel.spi.ManagementAware) {
-            return ((org.apache.camel.spi.ManagementAware<DataFormat>) dataFormat).getManagedObject(dataFormat);
-        } else {
-            ManagedDataFormat md = new ManagedDataFormat(context, dataFormat);
-            md.init(context.getManagementStrategy());
-            return md;
-        }
+        ManagedDataFormat md = new ManagedDataFormat(context, dataFormat);
+        md.init(context.getManagementStrategy());
+        return md;
     }
 
     @SuppressWarnings({"deprecation", "unchecked"})
@@ -212,9 +204,7 @@ public class DefaultManagementObjectStrategy implements ManagementObjectStrategy
             return null;
         }
 
-        if (endpoint instanceof org.apache.camel.spi.ManagementAware) {
-            return ((org.apache.camel.spi.ManagementAware<Endpoint>) endpoint).getManagedObject(endpoint);
-        } else if (endpoint instanceof BrowsableEndpoint) {
+        if (endpoint instanceof BrowsableEndpoint) {
             ManagedBrowsableEndpoint me = new ManagedBrowsableEndpoint((BrowsableEndpoint) endpoint);
             me.init(context.getManagementStrategy());
             return me;
@@ -427,8 +417,6 @@ public class DefaultManagementObjectStrategy implements ManagementObjectStrategy
                 answer = new ManagedEnricher(context, (Enricher) target, (org.apache.camel.model.EnrichDefinition) definition);
             } else if (target instanceof PollEnricher) {
                 answer = new ManagedPollEnricher(context, (PollEnricher) target, (org.apache.camel.model.PollEnrichDefinition) definition);
-            } else if (target instanceof org.apache.camel.spi.ManagementAware) {
-                return ((org.apache.camel.spi.ManagementAware<Processor>) target).getManagedObject(processor);
             }
 
             // special for custom load balancer

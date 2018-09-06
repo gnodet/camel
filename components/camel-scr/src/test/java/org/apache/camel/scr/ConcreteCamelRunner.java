@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
@@ -63,8 +64,8 @@ class ConcreteCamelRunner extends AbstractCamelRunner implements LifecycleStrate
     @Override
     protected void createCamelContext(BundleContext bundleContext, Map<String, String> props) {
         super.createCamelContext(bundleContext, props);
-        getContext().disableJMX();
-        getContext().addLifecycleStrategy(this);
+        getContext().adapt(ConfigurableCamelContext.class).disableJMX();
+        getContext().adapt(ConfigurableCamelContext.class).addLifecycleStrategy(this);
     }
 
     @Override

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.issues;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -37,7 +38,7 @@ public class OnExceptionContinuedIssueTest extends ContextTestSupport {
         defaultErrorHandlerBuilder.redeliveryDelay(0); // run fast
         defaultErrorHandlerBuilder.maximumRedeliveries(2);
 
-        context.setErrorHandlerBuilder(defaultErrorHandlerBuilder);
+        context.adapt(ConfigurableCamelContext.class).setErrorHandlerBuilder(defaultErrorHandlerBuilder);
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

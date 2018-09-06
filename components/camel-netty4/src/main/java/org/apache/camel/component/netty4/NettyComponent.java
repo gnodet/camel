@@ -27,13 +27,13 @@ import io.netty.util.concurrent.EventExecutorGroup;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.SSLContextParametersAware;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.IntrospectionSupport;
 import org.apache.camel.util.concurrent.CamelThreadFactory;
 import org.apache.camel.util.jsse.SSLContextParameters;
 
-public class NettyComponent extends UriEndpointComponent implements SSLContextParametersAware {
+public class NettyComponent extends DefaultComponent implements SSLContextParametersAware {
 
     @Metadata(label = "advanced")
     private NettyConfiguration configuration;
@@ -45,15 +45,15 @@ public class NettyComponent extends UriEndpointComponent implements SSLContextPa
     private boolean useGlobalSslContextParameters;
 
     public NettyComponent() {
-        super(NettyEndpoint.class);
+        super();
     }
 
     public NettyComponent(Class<? extends Endpoint> endpointClass) {
-        super(endpointClass);
+        super();
     }
 
     public NettyComponent(CamelContext context) {
-        super(context, NettyEndpoint.class);
+        super(context);
     }
 
     public int getMaximumPoolSize() {

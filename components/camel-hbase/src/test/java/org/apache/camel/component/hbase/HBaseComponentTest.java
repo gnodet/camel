@@ -19,6 +19,7 @@ package org.apache.camel.component.hbase;
 import java.io.IOException;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -32,7 +33,7 @@ public class HBaseComponentTest {
         ClassLoader expectedClassLoader = HBaseComponentTest.class.getClassLoader();
 
         CamelContext camelContext = new DefaultCamelContext();
-        camelContext.setApplicationContextClassLoader(expectedClassLoader);
+        camelContext.adapt(ConfigurableCamelContext.class).setApplicationContextClassLoader(expectedClassLoader);
 
         HBaseComponent component = new HBaseComponent(new DefaultCamelContext());
         component.doStart();

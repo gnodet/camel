@@ -17,6 +17,7 @@
 package org.apache.camel.core.osgi;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.impl.CompositeRegistry;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.Registry;
@@ -59,7 +60,7 @@ public final class OsgiCamelContextHelper {
         LOG.debug("Setting up OSGi ServiceRegistry");
         OsgiServiceRegistry osgiServiceRegistry = new OsgiServiceRegistry(bundleContext);
         // Need to clean up the OSGi service when camel context is closed.
-        camelContext.addLifecycleStrategy(osgiServiceRegistry);
+        camelContext.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(osgiServiceRegistry);
         CompositeRegistry compositeRegistry = new CompositeRegistry();
         compositeRegistry.addRegistry(osgiServiceRegistry);
         compositeRegistry.addRegistry(registry);

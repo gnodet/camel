@@ -56,7 +56,7 @@ public class SedaTimeoutTest extends ContextTestSupport {
 
     @Test
     public void testSedaTimeoutWithStoppedRoute() throws Exception {
-        context.stopRoute("seda");
+        context.getRouteController().stopRoute("seda");
         timeout = 500;
         testSedaTimeout();
     }

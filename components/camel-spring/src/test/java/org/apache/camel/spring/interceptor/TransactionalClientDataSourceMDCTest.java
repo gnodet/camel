@@ -16,6 +16,7 @@
  */
 package org.apache.camel.spring.interceptor;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,7 +31,7 @@ public class TransactionalClientDataSourceMDCTest extends TransactionalClientDat
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new SpringRouteBuilder() {
             public void configure() throws Exception {
-                context.setUseMDCLogging(true);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
 
                 from("direct:okay").routeId("route-a")
                     .transacted()

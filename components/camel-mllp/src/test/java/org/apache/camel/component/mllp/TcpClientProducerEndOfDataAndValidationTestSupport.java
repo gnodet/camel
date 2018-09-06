@@ -117,7 +117,7 @@ public abstract class TcpClientProducerEndOfDataAndValidationTestSupport extends
     protected CamelContext createCamelContext() throws Exception {
         DefaultCamelContext context = (DefaultCamelContext) super.createCamelContext();
 
-        context.setUseMDCLogging(true);
+        context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
         context.setName(this.getClass().getSimpleName());
 
         return context;

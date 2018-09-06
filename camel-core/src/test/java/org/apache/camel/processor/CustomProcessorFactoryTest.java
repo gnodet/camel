@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -40,7 +41,7 @@ public class CustomProcessorFactoryTest extends ContextTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
         // register our custom factory
-        context.setProcessorFactory(new MyFactory());
+        context.adapt(ConfigurableCamelContext.class).setProcessorFactory(new MyFactory());
         return context;
     }
     // END SNIPPET: e1

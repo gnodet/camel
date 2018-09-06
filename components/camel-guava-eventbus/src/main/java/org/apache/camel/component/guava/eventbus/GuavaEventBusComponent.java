@@ -20,14 +20,14 @@ import java.util.Map;
 
 import com.google.common.eventbus.EventBus;
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 
 /**
  * Camel component for Guava EventBus
  * (http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/eventbus/EventBus.html). Supports both
  * producer and consumer endpoints.
  */
-public class GuavaEventBusComponent extends UriEndpointComponent {
+public class GuavaEventBusComponent extends DefaultComponent {
 
     private EventBus eventBus;
     private Class<?> listenerInterface;

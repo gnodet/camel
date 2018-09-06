@@ -50,7 +50,7 @@ public class FileConsumeNotEagerMaxMessagesPerPollTest extends ContextTestSuppor
         template.sendBodyAndHeader(fileUrl, "BBB", Exchange.FILE_NAME, "bbb.txt");
 
         // start route
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         mock.expectedPropertyReceived(Exchange.BATCH_SIZE, 2);
 

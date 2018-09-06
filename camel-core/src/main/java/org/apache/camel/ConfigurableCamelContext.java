@@ -29,6 +29,8 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.InterceptStrategy;
+import org.apache.camel.spi.LifecycleStrategy;
+import org.apache.camel.spi.LogListener;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.ManagementStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
@@ -338,5 +340,17 @@ public interface ConfigurableCamelContext extends CamelContext {
      * @param typeConverterStatisticsEnabled <tt>true</tt> to enable, <tt>false</tt> to disable
      */
     void setTypeConverterStatisticsEnabled(Boolean typeConverterStatisticsEnabled);
+
+    /**
+     * Adds a {@link LogListener}.
+     */
+    void addLogListener(LogListener listener);
+
+    /**
+     * Adds the given lifecycle strategy to be used.
+     *
+     * @param lifecycleStrategy the strategy
+     */
+    void addLifecycleStrategy(LifecycleStrategy lifecycleStrategy);
 
 }

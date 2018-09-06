@@ -16,6 +16,7 @@
  */
 package org.apache.camel.issues;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -55,8 +56,7 @@ public class RouteScopedOnExceptionMultipleRouteBuildersTest extends ContextTest
     @SuppressWarnings("deprecation")
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = new DefaultCamelContext(createRegistry());
-        context.setErrorHandlerBuilder(new DeadLetterChannelBuilder("mock:dead"));
-        context.setLazyLoadTypeConverters(isLazyLoadingTypeConverter());
+        context.adapt(ConfigurableCamelContext.class).setErrorHandlerBuilder(new DeadLetterChannelBuilder("mock:dead"));
         return context;
     }
 

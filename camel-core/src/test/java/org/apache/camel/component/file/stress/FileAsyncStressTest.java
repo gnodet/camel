@@ -59,7 +59,7 @@ public class FileAsyncStressTest extends ContextTestSupport {
         }
 
         // start route when all the files have been written
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMinimumMessageCount(100);

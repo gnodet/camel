@@ -34,8 +34,8 @@ public class JettyHttpFileCacheTest extends CamelTestSupport {
     public void setUp() throws Exception {
         super.setUp();
         
-        context.getProperties().put(CachedOutputStream.TEMP_DIR, "target/cachedir");
-        context.getProperties().put(CachedOutputStream.THRESHOLD, "16");
+        context.getGlobalOptions().put(CachedOutputStream.TEMP_DIR, "target/cachedir");
+        context.getGlobalOptions().put(CachedOutputStream.THRESHOLD, "16");
         deleteDirectory("target/cachedir");
         createDirectory("target/cachedir");
     }

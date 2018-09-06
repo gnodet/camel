@@ -16,6 +16,7 @@
  */
 package org.apache.camel.management;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.junit.Assert;
@@ -27,7 +28,7 @@ public class CamelContextDisableJmxTest extends Assert {
     @Test
     public void testDisableJmx() throws Exception {
         CamelContext context = new DefaultCamelContext();
-        context.disableJMX();
+        context.adapt(ConfigurableCamelContext.class).disableJMX();
         context.start();
 
         // JMX should be disabled and therefore not a ManagedManagementStrategy instance

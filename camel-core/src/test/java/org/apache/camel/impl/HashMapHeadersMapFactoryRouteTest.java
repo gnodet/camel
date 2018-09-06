@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class HashMapHeadersMapFactoryRouteTest extends ContextTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setHeadersMapFactory(new HashMapHeadersMapFactory());
+        context.adapt(ConfigurableCamelContext.class).setHeadersMapFactory(new HashMapHeadersMapFactory());
         return context;
     }
 

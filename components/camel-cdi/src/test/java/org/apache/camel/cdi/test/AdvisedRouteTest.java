@@ -88,7 +88,7 @@ public class AdvisedRouteTest {
                 interceptSendToEndpoint("{{to}}").skipSendToOriginalEndpoint().to("mock:outbound");
             }
         });
-        context.startAllRoutes();
+        context.getRouteController().startAllRoutes();
     }
 
     @Test

@@ -21,6 +21,7 @@ package ${package};
 
 import java.util.List;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.scr.AbstractCamelRunner;
 import org.apache.camel.scr.ScrHelper;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -67,7 +68,7 @@ public class ${className}Test {
         AbstractCamelRunner.configure(context, this, log);
 
         // Disable JMX for test
-        context.disableJMX();
+        context.adapt(ConfigurableCamelContext.class).disableJMX();
     }
 
     @After

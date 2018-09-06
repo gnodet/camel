@@ -75,7 +75,7 @@ public class DataFormatDefinition extends IdentifiedType implements OtherAttribu
             ObjectHelper.notNull(ref, "ref or type");
 
             // try to let resolver see if it can resolve it, its not always possible
-            type = routeContext.getCamelContext().resolveDataFormatDefinition(ref);
+            type = routeContext.getCamelContext().adapt(ModelCamelContext.class).resolveDataFormatDefinition(ref);
 
             if (type != null) {
                 return type.getDataFormat(routeContext);

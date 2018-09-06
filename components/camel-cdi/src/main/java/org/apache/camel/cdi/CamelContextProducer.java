@@ -32,6 +32,7 @@ import javax.enterprise.inject.spi.Producer;
 import javax.inject.Named;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
@@ -68,7 +69,7 @@ final class CamelContextProducer<T extends CamelContext> extends DelegateProduce
 
         // Do not override the name if it's been already set (in the bean constructor for example)
         if (context.getNameStrategy() instanceof DefaultCamelContextNameStrategy) {
-            context.setNameStrategy(nameStrategy(annotated));
+            context.adapt(ConfigurableCamelContext.class).setNameStrategy(nameStrategy(annotated));
         }
 
         // Add bean registry and Camel injector

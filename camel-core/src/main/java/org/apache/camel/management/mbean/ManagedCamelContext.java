@@ -17,7 +17,6 @@
 package org.apache.camel.management.mbean;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -37,11 +36,7 @@ import javax.management.openmbean.CompositeType;
 import javax.management.openmbean.TabularData;
 import javax.management.openmbean.TabularDataSupport;
 
-import org.w3c.dom.Document;
-
 import org.apache.camel.CamelContext;
-import org.apache.camel.Component;
-import org.apache.camel.ComponentConfiguration;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ManagementStatisticsLevel;
 import org.apache.camel.Producer;
@@ -66,6 +61,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.XmlLineNumberParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 /**
  * @version
@@ -200,7 +196,7 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
     public Integer getStartedRoutes() {
         int started = 0;
         for (Route route : context.getRoutes()) {
-            if (context.getRouteStatus(route.getId()).isStarted()) {
+            if (context.getRouteController().getRouteStatus(route.getId()).isStarted()) {
                 started++;
             }
         }
@@ -319,7 +315,7 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
     }
 
     public void startAllRoutes() throws Exception {
-        context.startAllRoutes();
+        context.getRouteController().startAllRoutes();
     }
 
     public boolean canSendToEndpoint(String endpointUri) {
@@ -660,10 +656,6 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
         return answer;
     }
 
-    public String getComponentDocumentation(String componentName) throws IOException {
-        return null;
-    }
-
     public String createRouteStaticEndpointJson() {
         return createRouteStaticEndpointJson(true);
     }
@@ -744,33 +736,8 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
         }
     }
 
-    public List<String> completeEndpointPath(String componentName, Map<String, Object> endpointParameters,
-                                             String completionText) throws Exception {
-        if (completionText == null) {
-            completionText = "";
-        }
-        Component component = context.getComponent(componentName, false);
-        if (component != null) {
-            ComponentConfiguration configuration = component.createComponentConfiguration();
-            configuration.setParameters(endpointParameters);
-            return configuration.completeEndpointPath(completionText);
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
     public String componentParameterJsonSchema(String componentName) throws Exception {
-        // favor using pre generated schema if component has that
-        String json = context.getComponentParameterJsonSchema(componentName);
-        if (json == null) {
-            // okay this requires having the component on the classpath and being instantiated
-            Component component = context.getComponent(componentName);
-            if (component != null) {
-                ComponentConfiguration configuration = component.createComponentConfiguration();
-                json = configuration.createParameterJsonSchema();
-            }
-        }
-        return json;
+        return context.getComponentParameterJsonSchema(componentName);
     }
 
     public String dataFormatParameterJsonSchema(String dataFormatName) throws Exception {

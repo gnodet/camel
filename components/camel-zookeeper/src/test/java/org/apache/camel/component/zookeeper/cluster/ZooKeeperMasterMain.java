@@ -20,6 +20,7 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
 import org.apache.camel.main.Main;
@@ -43,7 +44,7 @@ public final class ZooKeeperMasterMain {
                     service.setNodes(address);
                     service.setBasePath("/camel/master");
 
-                    context.setNameStrategy(new ExplicitCamelContextNameStrategy("camel-" + nodeId));
+                    context.adapt(ConfigurableCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy("camel-" + nodeId));
                     context.addService(service);
                 } catch (Exception e) {
                     throw new RuntimeException(e);

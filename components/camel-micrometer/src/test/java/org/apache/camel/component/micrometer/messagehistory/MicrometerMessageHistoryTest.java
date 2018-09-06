@@ -20,6 +20,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class MicrometerMessageHistoryTest extends CamelTestSupport {
         MicrometerMessageHistoryFactory factory = new MicrometerMessageHistoryFactory();
         factory.setMeterRegistry(registry);
         factory.setPrettyPrint(true);
-        context.setMessageHistoryFactory(factory);
+        context.adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(factory);
 
         return context;
     }

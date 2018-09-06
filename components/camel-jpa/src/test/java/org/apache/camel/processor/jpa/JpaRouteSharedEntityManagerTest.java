@@ -63,7 +63,7 @@ public class JpaRouteSharedEntityManagerTest extends AbstractJpaTest {
 
         template.sendBody("direct:startShared", new SendEmail("one@somewhere.org"));
         // start route
-        context.startRoute("jpaShared");
+        context.getRouteController().startRoute("jpaShared");
 
         // not the cleanest way to check the number of open connections
         int countEnd = getBrokerCount();
@@ -98,7 +98,7 @@ public class JpaRouteSharedEntityManagerTest extends AbstractJpaTest {
         assertThat("brokerCount", countStart, equalTo(1));
 
         // start route
-        context.startRoute("jpaOwn");
+        context.getRouteController().startRoute("jpaOwn");
 
         // not the cleanest way to check the number of open connections
         int countEnd = getBrokerCount();

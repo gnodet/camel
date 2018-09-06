@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -29,7 +30,7 @@ public class RuntimeEndpointRegistryTest extends ContextTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
-        camelContext.setRuntimeEndpointRegistry(new DefaultRuntimeEndpointRegistry());
+        camelContext.adapt(ConfigurableCamelContext.class).setRuntimeEndpointRegistry(new DefaultRuntimeEndpointRegistry());
         return camelContext;
     }
 

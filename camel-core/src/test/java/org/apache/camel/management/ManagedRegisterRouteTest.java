@@ -69,7 +69,7 @@ public class ManagedRegisterRouteTest extends ManagementTestSupport {
         assertEquals("Should be started", ServiceStatus.Started.name(), state);
 
         // stop the route
-        context.stopRoute(context.getRouteDefinitions().get(0));
+        context.getRouteController().stopRoute(context.getRouteDefinitions().get(0).getId());
 
         registered = mbeanServer.isRegistered(on);
         assertEquals("Should be registered", true, registered);

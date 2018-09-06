@@ -30,7 +30,6 @@ import javax.management.openmbean.TabularDataSupport;
 import org.apache.camel.Component;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.StatefulService;
-import org.apache.camel.VerifiableComponent;
 import org.apache.camel.api.management.ManagedInstance;
 import org.apache.camel.api.management.ManagedResource;
 import org.apache.camel.api.management.mbean.CamelOpenMBeanTypes;
@@ -143,8 +142,7 @@ public class ManagedComponent implements ManagedInstance, ManagedComponentMBean 
 
     @Override
     public boolean isVerifySupported() {
-        return component.getExtension(ComponentVerifierExtension.class).isPresent()
-                || component instanceof VerifiableComponent;
+        return component.getExtension(ComponentVerifierExtension.class).isPresent();
     }
 
     @Override
@@ -154,8 +152,6 @@ public class ManagedComponent implements ManagedInstance, ManagedComponentMBean 
             Optional<ComponentVerifierExtension> verifier = component.getExtension(ComponentVerifierExtension.class);
             if (verifier.isPresent()) {
                 return verifier.get().verify(scopeEnum, CastUtils.cast(options));
-            } else if (component instanceof VerifiableComponent) {
-                return ((VerifiableComponent) component).getVerifier().verify(scopeEnum, CastUtils.cast(options));
             } else {
                 return ResultBuilder.unsupported().build();
             }

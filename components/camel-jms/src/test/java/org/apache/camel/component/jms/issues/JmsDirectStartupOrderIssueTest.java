@@ -42,7 +42,7 @@ public class JmsDirectStartupOrderIssueTest extends CamelTestSupport {
         template.sendBody("activemq:queue:foo", "Bye World");
         template.sendBody("activemq:queue:foo", "Bye Camel");
 
-        context.startRoute("amq");
+        context.getRouteController().startRoute("amq");
 
         getMockEndpoint("mock:result").expectedMessageCount(4);
 

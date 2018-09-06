@@ -381,7 +381,7 @@ public abstract class CamelServletContextListener<R extends Registry> implements
         Map<String, Object> properties = IntrospectionSupport.extractProperties(parameters, "properties.");
         if (properties != null && !properties.isEmpty()) {
             for (Map.Entry<String, Object> entry : properties.entrySet()) {
-                camelContext.getProperties().put(entry.getKey(), "" + entry.getValue());
+                camelContext.getGlobalOptions().put(entry.getKey(), "" + entry.getValue());
             }
         }
     }

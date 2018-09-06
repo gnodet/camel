@@ -38,6 +38,7 @@ import org.apache.camel.impl.cloud.HealthyServiceFilter;
 import org.apache.camel.impl.cloud.PassThroughServiceFilter;
 import org.apache.camel.impl.cloud.RandomServiceChooser;
 import org.apache.camel.impl.cloud.RoundRobinServiceChooser;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
 import org.apache.camel.model.cloud.ServiceCallDefinition;
@@ -136,7 +137,7 @@ class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
 
     private ServiceCallConfigurationDefinition retrieveDefaultConfig(CamelContext camelContext) {
         // check if a default configuration is bound to the registry
-        ServiceCallConfigurationDefinition config = camelContext.getServiceCallConfiguration(null);
+        ServiceCallConfigurationDefinition config = camelContext.adapt(ModelCamelContext.class).getServiceCallConfiguration(null);
 
         if (config == null) {
             // Or if it is in the registry
@@ -163,7 +164,7 @@ class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
             config = lookup(camelContext, definition.getConfigurationRef(), ServiceCallConfigurationDefinition.class);
             if (config == null) {
                 // and fallback as service configuration
-                config = camelContext.getServiceCallConfiguration(definition.getConfigurationRef());
+                config = camelContext.adapt(ModelCamelContext.class).getServiceCallConfiguration(definition.getConfigurationRef());
             }
         }
 

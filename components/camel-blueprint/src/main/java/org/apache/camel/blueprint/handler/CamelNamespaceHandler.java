@@ -33,6 +33,7 @@ import javax.xml.bind.Binder;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import org.apache.camel.model.ModelCamelContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -993,13 +994,13 @@ public class CamelNamespaceHandler implements NamespaceHandler {
             Set<String> dataformats = new HashSet<>();
 
             // regular camel routes
-            for (RouteDefinition rd : camelContext.getRouteDefinitions()) {
+            for (RouteDefinition rd : camelContext.adapt(ModelCamelContext.class).getRouteDefinitions()) {
                 findInputComponents(rd.getInputs(), components, languages, dataformats);
                 findOutputComponents(rd.getOutputs(), components, languages, dataformats);
             }
 
             // rest services can have embedded routes or a singular to
-            for (RestDefinition rd : camelContext.getRestDefinitions()) {
+            for (RestDefinition rd : camelContext.adapt(ModelCamelContext.class).getRestDefinitions()) {
                 for (VerbDefinition vd : rd.getVerbs()) {
                     Object o = vd.getToOrRoute();
                     if (o instanceof RouteDefinition) {

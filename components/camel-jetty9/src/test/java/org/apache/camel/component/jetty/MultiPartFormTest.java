@@ -76,7 +76,7 @@ public class MultiPartFormTest extends BaseJettyTest {
                 // camel-jetty will clean up the file after it handled the
                 // request.
                 // The option works rightly from Camel 2.4.0
-                getContext().getProperties().put("CamelJettyTempDir", "target");
+                getContext().getGlobalOptions().put("CamelJettyTempDir", "target");
 
                 from("jetty://http://localhost:{{port}}/test").process(new Processor() {
 

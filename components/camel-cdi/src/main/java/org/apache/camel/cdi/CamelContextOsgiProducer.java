@@ -21,6 +21,7 @@ import javax.enterprise.inject.InjectionException;
 import javax.enterprise.inject.spi.Producer;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.core.osgi.OsgiCamelContextHelper;
 import org.apache.camel.core.osgi.OsgiCamelContextPublisher;
 import org.apache.camel.core.osgi.utils.BundleContextUtils;
@@ -54,7 +55,7 @@ final class CamelContextOsgiProducer<T extends CamelContext> extends DelegatePro
         OsgiCamelContextHelper.osgiUpdate(adapted, bundle);
         // FIXME: the above call should not override explicit strategies provided by the end user or should decorate them instead of overriding them completely
         if (!(strategy instanceof DefaultCamelContextNameStrategy)) {
-            context.setNameStrategy(strategy);
+            context.adapt(ConfigurableCamelContext.class).setNameStrategy(strategy);
         }
 
         return context;

@@ -23,6 +23,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckResultBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -52,7 +53,7 @@ public class DefaultHealthCheckServiceTest {
             });
 
             context = new DefaultCamelContext();
-            context.setHealthCheckRegistry(registry);
+            context.adapt(ConfigurableCamelContext.class).setHealthCheckRegistry(registry);
             context.addService(service);
             context.start();
 

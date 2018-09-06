@@ -25,7 +25,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.RestApiConsumerFactory;
 import org.apache.camel.spi.RestConfiguration;
@@ -35,7 +35,7 @@ import org.apache.camel.util.HostUtils;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
 
-public class SparkComponent extends UriEndpointComponent implements RestConsumerFactory, RestApiConsumerFactory {
+public class SparkComponent extends DefaultComponent implements RestConsumerFactory, RestApiConsumerFactory {
 
     private static final Pattern PATTERN = Pattern.compile("\\{(.*?)\\}");
 

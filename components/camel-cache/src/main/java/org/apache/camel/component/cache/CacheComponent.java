@@ -21,13 +21,13 @@ import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.ResourceHelper;
 import org.apache.camel.util.ServiceHelper;
 
-public class CacheComponent extends UriEndpointComponent {
+public class CacheComponent extends DefaultComponent {
     private CacheConfiguration configuration;
     @Metadata(label = "advanced")
     private CacheManagerFactory cacheManagerFactory;
@@ -35,12 +35,12 @@ public class CacheComponent extends UriEndpointComponent {
     private String configurationFile;
 
     public CacheComponent() {
-        super(CacheEndpoint.class);
+        super();
         configuration = new CacheConfiguration();
     }
 
     public CacheComponent(CamelContext context) {
-        super(context, CacheEndpoint.class);
+        super(context);
         configuration = new CacheConfiguration();
     }
 

@@ -28,10 +28,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultModelJAXBContextFactory;
 import org.apache.camel.impl.FileWatcherReloadStrategy;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.spi.ModelJAXBContextFactory;
@@ -525,7 +527,7 @@ public abstract class MainSupport extends ServiceSupport {
     public List<RouteDefinition> getRouteDefinitions() {
         List<RouteDefinition> answer = new ArrayList<>();
         for (CamelContext camelContext : camelContexts) {
-            answer.addAll(camelContext.getRouteDefinitions());
+            answer.addAll(camelContext.adapt(ModelCamelContext.class).getRouteDefinitions());
         }
         return answer;
     }
@@ -573,7 +575,7 @@ public abstract class MainSupport extends ServiceSupport {
         }
         if (fileWatchDirectory != null) {
             ReloadStrategy reload = new FileWatcherReloadStrategy(fileWatchDirectory, fileWatchDirectoryRecursively);
-            camelContext.setReloadStrategy(reload);
+            camelContext.adapt(ConfigurableCamelContext.class).setReloadStrategy(reload);
             // ensure reload is added as service and started
             camelContext.addService(reload);
             // and ensure its register in JMX (which requires manually to be added because CamelContext is already started)
@@ -612,7 +614,7 @@ public abstract class MainSupport extends ServiceSupport {
             camelContext.addRoutes(routeBuilder);
         }
         // register lifecycle so we are notified in Camel is stopped from JMX or somewhere else
-        camelContext.addLifecycleStrategy(new MainLifecycleStrategy(completed, latch));
+        camelContext.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(new MainLifecycleStrategy(completed, latch));
         // allow to do configuration before its started
         for (MainListener listener : listeners) {
             listener.configure(camelContext);

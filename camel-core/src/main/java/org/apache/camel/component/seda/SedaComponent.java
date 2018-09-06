@@ -23,7 +23,7 @@ import java.util.concurrent.BlockingQueue;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.SedaConstants;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  *
  * @version 
  */
-public class SedaComponent extends UriEndpointComponent {
+public class SedaComponent extends DefaultComponent {
     protected final Logger log = LoggerFactory.getLogger(getClass());
     protected final int maxConcurrentConsumers = SedaConstants.MAX_CONCURRENT_CONSUMERS;
 
@@ -52,11 +52,11 @@ public class SedaComponent extends UriEndpointComponent {
     private final Map<String, QueueReference> queues = new HashMap<>();
 
     public SedaComponent() {
-        super(SedaEndpoint.class);
+        super();
     }
 
     public SedaComponent(Class<? extends Endpoint> endpointClass) {
-        super(endpointClass);
+        super();
     }
 
     /**

@@ -97,7 +97,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
         log.info("Removing 2nd route");
 
         // now remove the 2nd route
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
         boolean removed = context.removeRoute("bar");
         assertTrue(removed);
 
@@ -158,7 +158,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
         log.info("Removing 2nd route");
 
         // now remove the 2nd route
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
         boolean removed = context.removeRoute("bar");
         assertTrue(removed);
 
@@ -219,7 +219,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
         log.info("Removing 2nd route");
 
         // now remove the 2nd route
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
         boolean removed = context.removeRoute("bar");
         assertTrue(removed);
 
@@ -280,7 +280,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
 
         // now stop and remove the 2nd route
         log.info("Stopping 2nd route");
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
 
         log.info("Removing 2nd route");
         boolean removed = context.removeRoute("bar");
@@ -340,7 +340,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
 
         // now stop and remove the 2nd route
         log.info("Stopping 2nd route");
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
 
         log.info("Removing 2nd route");
         boolean removed = context.removeRoute("bar");
@@ -398,7 +398,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
 
         // now stop and remove the 2nd route
         log.info("Stopping 2nd route");
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
 
         log.info("Removing 2nd route");
         boolean removed = context.removeRoute("bar");
@@ -457,7 +457,7 @@ public class ManagedRouteAddRemoveTest extends ManagementTestSupport {
 
         // now stop and remove the 2nd route
         log.info("Stopping 2nd route");
-        context.stopRoute("bar");
+        context.getRouteController().stopRoute("bar");
 
         log.info("Removing 2nd route");
         boolean removed = context.removeRoute("bar");

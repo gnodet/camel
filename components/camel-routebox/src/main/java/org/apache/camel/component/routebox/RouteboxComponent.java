@@ -27,19 +27,19 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.routebox.direct.RouteboxDirectEndpoint;
 import org.apache.camel.component.routebox.seda.RouteboxSedaEndpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 
-public class RouteboxComponent extends UriEndpointComponent {
+public class RouteboxComponent extends DefaultComponent {
     final RouteboxConfiguration config;
     private final Map<String, BlockingQueue<Exchange>> queues = new HashMap<>();
     
     public RouteboxComponent() {
-        super(RouteboxEndpoint.class);
+        super();
         config = new RouteboxConfiguration();
     }
 
     public RouteboxComponent(CamelContext context) {
-        super(context, RouteboxEndpoint.class);
+        super(context);
         config = new RouteboxConfiguration();
     }
     

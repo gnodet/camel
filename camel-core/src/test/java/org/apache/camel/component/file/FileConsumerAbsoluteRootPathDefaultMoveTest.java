@@ -40,7 +40,7 @@ public class FileConsumerAbsoluteRootPathDefaultMoveTest extends ContextTestSupp
     public void xxxTestConsumeFromAbsolutePath() throws Exception {
         deleteDirectory(base);
 
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         MockEndpoint mock = getMockEndpoint("mock:report");
         mock.expectedBodiesReceived("Hello Paris");

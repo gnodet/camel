@@ -25,6 +25,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -254,7 +255,7 @@ public abstract class CamelTestSupport extends TestSupport {
 
         // set debugger if enabled
         if (isUseDebugger()) {
-            context.setDebugger(new DefaultDebugger());
+            context.adapt(ConfigurableCamelContext.class).setDebugger(new DefaultDebugger());
             context.getDebugger().addBreakpoint(breakpoint);
             // note: when stopping CamelContext it will automatic remove the breakpoint
         }

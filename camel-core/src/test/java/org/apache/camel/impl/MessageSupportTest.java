@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.Map;
@@ -58,7 +59,7 @@ public class MessageSupportTest extends ContextTestSupport {
 
     @Test
     public void testGetMessageId() {
-        context.setUuidGenerator(new SimpleUuidGenerator());
+        context.adapt(ConfigurableCamelContext.class).setUuidGenerator(new SimpleUuidGenerator());
         Exchange exchange = new DefaultExchange(context);
         Message in = exchange.getIn();
         

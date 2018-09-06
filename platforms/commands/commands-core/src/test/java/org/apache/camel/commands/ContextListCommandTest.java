@@ -21,10 +21,12 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultRuntimeEndpointRegistry;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
+import org.apache.camel.model.ModelCamelContext;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +41,7 @@ public class ContextListCommandTest {
     @Test
     public void testContextList() throws Exception {
         CamelContext context = new DefaultCamelContext();
-        context.setNameStrategy(new ExplicitCamelContextNameStrategy("foobar"));
+        context.adapt(ConfigurableCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy("foobar"));
         context.start();
 
         CamelController controller = new DummyCamelController(context);
@@ -64,9 +66,9 @@ public class ContextListCommandTest {
     @Test
     public void testEndpointStats() throws Exception {
         CamelContext context = new DefaultCamelContext();
-        context.setRuntimeEndpointRegistry(new DefaultRuntimeEndpointRegistry());
-        context.setNameStrategy(new ExplicitCamelContextNameStrategy("foobar"));
-        context.addRoutes(new RouteBuilder() {
+        context.adapt(ConfigurableCamelContext.class).setRuntimeEndpointRegistry(new DefaultRuntimeEndpointRegistry());
+        context.adapt(ConfigurableCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy("foobar"));
+        context.adapt(ModelCamelContext.class).addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("direct:start").to("mock:result");

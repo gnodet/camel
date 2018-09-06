@@ -143,9 +143,6 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
     private ShutdownRoute shutdownRoute;
     @XmlAttribute @Metadata(defaultValue = "CompleteCurrentTaskOnly")
     private ShutdownRunningTask shutdownRunningTask;
-    @XmlAttribute
-    @Deprecated  @Metadata(defaultValue = "false")
-    private Boolean lazyLoadTypeConverters;
     @XmlAttribute @Metadata(defaultValue = "true")
     private Boolean loadTypeConverters;
     @XmlAttribute
@@ -764,7 +761,7 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
      * <b>Note:</b> When setting auto startup <tt>false</tt> on {@link CamelContext} then that takes precedence
      * and <i>no</i> routes is started. You would need to start {@link CamelContext} explicit using
      * the {@link org.apache.camel.CamelContext#start()} method, to start the context, and then
-     * you would need to start the routes manually using {@link CamelContext#startRoute(String)}.
+     * you would need to start the routes manually using {@link org.apache.camel.spi.RouteController#startRoute(String)}.
      */
     public void setAutoStartup(String autoStartup) {
         this.autoStartup = autoStartup;
@@ -888,19 +885,6 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
      */
     public void setThreadNamePattern(String threadNamePattern) {
         this.threadNamePattern = threadNamePattern;
-    }
-
-    @Deprecated
-    public Boolean getLazyLoadTypeConverters() {
-        return lazyLoadTypeConverters;
-    }
-
-    /**
-     * Sets whether type converters should be loaded lazy
-     */
-    @Deprecated
-    public void setLazyLoadTypeConverters(Boolean lazyLoadTypeConverters) {
-        this.lazyLoadTypeConverters = lazyLoadTypeConverters;
     }
 
     @Override

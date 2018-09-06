@@ -17,9 +17,9 @@
 package org.apache.camel.component.grape
 
 import org.apache.camel.CamelContext
-import org.apache.camel.impl.UriEndpointComponent
+import org.apache.camel.impl.DefaultComponent
 
-class GrapeComponent extends UriEndpointComponent {
+class GrapeComponent extends DefaultComponent {
 
     private PatchesRepository patchesRepository = new FilePatchesRepository()
 

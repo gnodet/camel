@@ -17,45 +17,26 @@
 package org.apache.camel;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.camel.api.management.mbean.ManagedCamelContextMBean;
-import org.apache.camel.api.management.mbean.ManagedProcessorMBean;
-import org.apache.camel.api.management.mbean.ManagedRouteMBean;
 import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.health.HealthCheckRegistry;
-import org.apache.camel.management.ManagedCamelContext;
-import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.model.HystrixConfigurationDefinition;
-import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
-import org.apache.camel.model.rest.RestDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
-import org.apache.camel.model.transformer.TransformerDefinition;
-import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.DataFormat;
-import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Debugger;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.EndpointStrategy;
 import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.FactoryFinder;
-import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.Injector;
@@ -520,13 +501,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     void setupRoutes(boolean done);
 
     /**
-     * Adds a collection of rest definitions to the context
-     *
-     * @param restDefinitions the rest(s) definition to add
-     */
-    void addRestDefinitions(Collection<RestDefinition> restDefinitions) throws Exception;
-
-    /**
      * Sets a custom {@link org.apache.camel.spi.RestConfiguration}
      *
      * @param restConfiguration the REST configuration
@@ -561,68 +535,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
      * Gets all the RestConfiguration's
      */
     Collection<RestConfiguration> getRestConfigurations();
-
-    /**
-     * Gets the service call configuration by the given name. If no name is given
-     * the default configuration is returned, see <tt>setServiceCallConfiguration</tt>
-     *
-     * @param serviceName name of service, or <tt>null</tt> to return the default configuration
-     * @return the configuration, or <tt>null</tt> if no configuration has been registered
-     */
-    ServiceCallConfigurationDefinition getServiceCallConfiguration(String serviceName);
-
-    /**
-     * Sets the default service call configuration
-     *
-     * @param configuration the configuration
-     */
-    void setServiceCallConfiguration(ServiceCallConfigurationDefinition configuration);
-
-    /**
-     * Sets the service call configurations
-     *
-     * @param configurations the configuration list
-     */
-    void setServiceCallConfigurations(List<ServiceCallConfigurationDefinition> configurations);
-
-    /**
-     * Adds the service call configuration
-     *
-     * @param serviceName name of the service
-     * @param configuration the configuration
-     */
-    void addServiceCallConfiguration(String serviceName, ServiceCallConfigurationDefinition configuration);
-
-    /**
-     * Gets the Hystrix configuration by the given name. If no name is given
-     * the default configuration is returned, see <tt>setHystrixConfiguration</tt>
-     *
-     * @param id id of the configuration, or <tt>null</tt> to return the default configuration
-     * @return the configuration, or <tt>null</tt> if no configuration has been registered
-     */
-    HystrixConfigurationDefinition getHystrixConfiguration(String id);
-
-    /**
-     * Sets the default Hystrix configuration
-     *
-     * @param configuration the configuration
-     */
-    void setHystrixConfiguration(HystrixConfigurationDefinition configuration);
-
-    /**
-     * Sets the Hystrix configurations
-     *
-     * @param configurations the configuration list
-     */
-    void setHystrixConfigurations(List<HystrixConfigurationDefinition> configurations);
-
-    /**
-     * Adds the Hystrix configuration
-     *
-     * @param id name of the configuration
-     * @param configuration the configuration
-     */
-    void addHystrixConfiguration(String id, HystrixConfigurationDefinition configuration);
 
     /**
      * Returns the order in which the route inputs was started.
@@ -758,13 +670,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
      * @return the lifecycle strategies
      */
     List<LifecycleStrategy> getLifecycleStrategies();
-
-    /**
-     * Adds the given lifecycle strategy to be used.
-     *
-     * @param lifecycleStrategy the strategy
-     */
-    void addLifecycleStrategy(LifecycleStrategy lifecycleStrategy);
 
     /**
      * Resolves a language for creating expressions
@@ -930,20 +835,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     ScheduledExecutorService getErrorHandlerExecutorService();
 
     /**
-     * Sets the data formats that can be referenced in the routes.
-     *
-     * @param dataFormats the data formats
-     */
-    void setDataFormats(Map<String, DataFormatDefinition> dataFormats);
-
-    /**
-     * Gets the data formats that can be referenced in the routes.
-     *
-     * @return the data formats available
-     */
-    Map<String, DataFormatDefinition> getDataFormats();
-
-    /**
      * Resolve a data format given its name
      *
      * @param name the data format name or a reference to it in the {@link Registry}
@@ -958,35 +849,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
      * @return the resolved data format, or <tt>null</tt> if not found
      */
     DataFormat createDataFormat(String name);
-
-    /**
-     * Resolve a data format definition given its name
-     *
-     * @param name the data format definition name or a reference to it in the {@link Registry}
-     * @return the resolved data format definition, or <tt>null</tt> if not found
-     */
-    DataFormatDefinition resolveDataFormatDefinition(String name);
-
-    /**
-     * Gets the current data format resolver
-     *
-     * @return the resolver
-     */
-    DataFormatResolver getDataFormatResolver();
-
-    /**
-     * Sets the transformers that can be referenced in the routes.
-     *
-     * @param transformers the transformers
-     */
-    void setTransformers(List<TransformerDefinition> transformers);
-
-    /**
-     * Gets the transformers that can be referenced in the routes.
-     *
-     * @return the transformers available
-     */
-    List<TransformerDefinition> getTransformers();
 
     /**
      * Resolve a transformer given a scheme
@@ -1010,13 +872,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
      * @return the TransformerRegistry
      */
     TransformerRegistry<? extends ValueHolder<String>> getTransformerRegistry();
-
-    /**
-     * Gets the validators that can be referenced in the routes.
-     *
-     * @return the validators available
-     */
-    List<ValidatorDefinition> getValidators();
 
     /**
      * Resolve a validator given from/to data type.
@@ -1407,11 +1262,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     Set<LogListener> getLogListeners();
 
     /**
-     * Adds a {@link LogListener}.
-     */
-    void addLogListener(LogListener listener);
-
-    /**
      * Gets the global SSL context parameters if configured.
      */
     SSLContextParameters getSSLContextParameters();
@@ -1436,216 +1286,28 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
      */
     HealthCheckRegistry getHealthCheckRegistry();
 
+    /**
+     * Adds a collection of routes to this CamelContext using the given builder
+     * to build them.
+     * <p/>
+     * <b>Important:</b> The added routes will <b>only</b> be started, if {@link CamelContext}
+     * is already started. You may want to check the state of {@link CamelContext} before
+     * adding the routes, using the {@link org.apache.camel.CamelContext#getStatus()} method.
+     * <p/>
+     * <b>Important: </b> Each route in the same {@link org.apache.camel.CamelContext} must have an <b>unique</b> route id.
+     * If you use the API from {@link org.apache.camel.CamelContext} or {@link org.apache.camel.model.ModelCamelContext} to add routes, then any
+     * new routes which has a route id that matches an old route, then the old route is replaced by the new route.
+     *
+     * @param builder the builder which will create the routes and add them to this CamelContext
+     * @throws Exception if the routes could not be created for whatever reason
+     */
+    void addRoutes(RoutesBuilder builder) throws Exception;
 
     //
     //
     // Deprecated methods
     //
     //
-
-    @Deprecated
-    default void addRoutes(RoutesBuilder builder) throws Exception {
-        adapt(ModelCamelContext.class).addRoutes(builder);
-    }
-
-    /**
-     * @deprecated use {@link #setGlobalOptions(Map) setGlobalOptions(Map<String,String>) instead}.
-     */
-    @Deprecated
-    default void setProperties(Map<String, String> properties) {
-        adapt(ConfigurableCamelContext.class).setGlobalOptions(properties);
-    }
-
-    /**
-     * Sets global options that can be referenced in the camel context
-     * <p/>
-     * <b>Important:</b> This has nothing to do with property placeholders, and is just a plain set of key/value pairs
-     * which are used to configure global options on CamelContext, such as a maximum debug logging length etc.
-     * For property placeholders use {@link #resolvePropertyPlaceholders(String)} method and see more details
-     * at the <a href="http://camel.apache.org/using-propertyplaceholder.html">property placeholder</a> documentation.
-     *
-     * @param globalOptions global options that can be referenced in the camel context
-     * @deprecated use {@link ConfigurableCamelContext#setGlobalOptions(Map)}
-     */
-    @Deprecated
-    default void setGlobalOptions(Map<String, String> globalOptions) {
-        adapt(ConfigurableCamelContext.class).setGlobalOptions(globalOptions);
-    }
-
-    /**
-     * @deprecated use {@link #getGlobalOptions()} instead.
-     */
-    @Deprecated
-    default Map<String, String> getProperties() {
-        return getGlobalOptions();
-    }
-
-    /**
-     * @deprecated use {@link #getGlobalOption(String)} instead.
-     */
-    @Deprecated
-    default String getProperty(String key) {
-        return getGlobalOption(key);
-    }
-
-    /**
-     * Sets a pluggable service pool to use for {@link PollingConsumer} pooling.
-     *
-     * @param servicePool the pool
-     */
-    @Deprecated
-    default void setPollingConsumerServicePool(ServicePool<Endpoint, PollingConsumer> servicePool) {
-        adapt(ConfigurableCamelContext.class).setPollingConsumerServicePool(servicePool);
-    }
-
-    /**
-     * Uses a custom node id factory when generating auto assigned ids to the nodes in the route definitions
-     *
-     * @param factory custom factory to use
-     */
-    @Deprecated
-    default void setNodeIdFactory(NodeIdFactory factory) {
-        adapt(ConfigurableCamelContext.class).setNodeIdFactory(factory);
-    }
-
-    /**
-     * Sets the management strategy to use
-     *
-     * @param strategy the management strategy
-     */
-    @Deprecated
-    default void setManagementStrategy(ManagementStrategy strategy) {
-        adapt(ConfigurableCamelContext.class).setManagementStrategy(strategy);
-    }
-
-    /**
-     * Sets a custom tracer to be used as the default tracer.
-     * <p/>
-     * <b>Note:</b> This must be set before any routes are created,
-     * changing the default tracer for existing routes is not supported.
-     *
-     * @param tracer the custom tracer to use as default tracer
-     */
-    @Deprecated
-    default void setDefaultTracer(InterceptStrategy tracer) {
-        adapt(ConfigurableCamelContext.class).setDefaultTracer(tracer);
-    }
-
-    /**
-     * Sets a custom backlog tracer to be used as the default backlog tracer.
-     * <p/>
-     * <b>Note:</b> This must be set before any routes are created,
-     * changing the default backlog tracer for existing routes is not supported.
-     *
-     * @param backlogTracer the custom tracer to use as default backlog tracer
-     */
-    @Deprecated
-    default void setDefaultBacklogTracer(InterceptStrategy backlogTracer) {
-        adapt(ConfigurableCamelContext.class).setDefaultBacklogTracer(backlogTracer);
-    }
-
-    /**
-     * Sets a custom backlog debugger to be used as the default backlog debugger.
-     * <p/>
-     * <b>Note:</b> This must be set before any routes are created,
-     * changing the default backlog debugger for existing routes is not supported.
-     *
-     * @param backlogDebugger the custom debugger to use as default backlog debugger
-     */
-    @Deprecated
-    default void setDefaultBacklogDebugger(InterceptStrategy backlogDebugger) {
-        adapt(ConfigurableCamelContext.class).setDefaultBacklogDebugger(backlogDebugger);
-    }
-
-    /**
-     * Sets a custom inflight repository to use
-     *
-     * @param repository the repository
-     */
-    @Deprecated
-    default void setInflightRepository(InflightRepository repository) {
-        adapt(ConfigurableCamelContext.class).setInflightRepository(repository);
-    }
-
-    /**
-     * Sets a custom  {@link org.apache.camel.AsyncProcessor} await manager.
-     *
-     * @param manager the manager
-     */
-    @Deprecated
-    default void setAsyncProcessorAwaitManager(AsyncProcessorAwaitManager manager) {
-        adapt(ConfigurableCamelContext.class).setAsyncProcessorAwaitManager(manager);
-    }
-
-    /**
-     * Sets the application CamelContext class loader
-     *
-     * @param classLoader the class loader
-     */
-    @Deprecated
-    default void setApplicationContextClassLoader(ClassLoader classLoader) {
-        adapt(ConfigurableCamelContext.class).setApplicationContextClassLoader(classLoader);
-    }
-
-    /**
-     * Sets a custom shutdown strategy
-     *
-     * @param shutdownStrategy the custom strategy
-     */
-    @Deprecated
-    default void setShutdownStrategy(ShutdownStrategy shutdownStrategy) {
-        adapt(ConfigurableCamelContext.class).setShutdownStrategy(shutdownStrategy);
-    }
-
-    /**
-     * Sets a custom {@link org.apache.camel.spi.ExecutorServiceManager}
-     *
-     * @param executorServiceManager the custom manager
-     */
-    @Deprecated
-    default void setExecutorServiceManager(ExecutorServiceManager executorServiceManager) {
-        adapt(ConfigurableCamelContext.class).setExecutorServiceManager(executorServiceManager);
-    }
-
-    /**
-     * Sets a custom {@link org.apache.camel.spi.MessageHistoryFactory}
-     *
-     * @param messageHistoryFactory the custom factory
-     */
-    @Deprecated
-    default void setMessageHistoryFactory(MessageHistoryFactory messageHistoryFactory) {
-        adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(messageHistoryFactory);
-    }
-
-    /**
-     * Sets a custom {@link org.apache.camel.spi.ProcessorFactory}
-     *
-     * @param processorFactory the custom factory
-     */
-    @Deprecated
-    default void setProcessorFactory(ProcessorFactory processorFactory) {
-        adapt(ConfigurableCamelContext.class).setProcessorFactory(processorFactory);
-    }
-
-    /**
-     * Sets a custom {@link Debugger}
-     *
-     * @param debugger the debugger
-     */
-    @Deprecated
-    default void setDebugger(Debugger debugger) {
-        adapt(ConfigurableCamelContext.class).setDebugger(debugger);
-    }
-
-    /**
-     * Sets a custom {@link UuidGenerator} (should only be set once)
-     *
-     * @param uuidGenerator the UUID Generator
-     */
-    @Deprecated
-    default void setUuidGenerator(UuidGenerator uuidGenerator) {
-        adapt(ConfigurableCamelContext.class).setUuidGenerator(uuidGenerator);
-    }
 
     /**
      * Set whether breadcrumb is enabled.
@@ -1655,22 +1317,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     @Deprecated
     default void setUseBreadcrumb(Boolean useBreadcrumb) {
         adapt(ConfigurableCamelContext.class).setUseBreadcrumb(useBreadcrumb);
-    }
-
-    /**
-     * Sets a custom {@link StreamCachingStrategy} to use.
-     */
-    @Deprecated
-    default void setStreamCachingStrategy(StreamCachingStrategy streamCachingStrategy) {
-        adapt(ConfigurableCamelContext.class).setStreamCachingStrategy(streamCachingStrategy);
-    }
-
-    /**
-     * Sets a custom {@link UnitOfWorkFactory} to use.
-     */
-    @Deprecated
-    default void setUnitOfWorkFactory(UnitOfWorkFactory unitOfWorkFactory) {
-        adapt(ConfigurableCamelContext.class).setUnitOfWorkFactory(unitOfWorkFactory);
     }
 
     /**
@@ -1684,104 +1330,11 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     }
 
     /**
-     * Whether to enable using data type on Camel messages.
-     * <p/>
-     * Data type are automatic turned on if one ore more routes has been explicit configured with input and output types.
-     * Otherwise data type is default off.
-     *
-     * @param  useDataType <tt>true</tt> to enable data type on Camel messages.
-     */
-    @Deprecated
-    default void setUseDataType(Boolean useDataType) {
-        adapt(ConfigurableCamelContext.class).setUseDataType(useDataType);
-    }
-
-    /**
-     * Sets a custom {@link HeadersMapFactory} to be used.
-     */
-    @Deprecated
-    default void setHeadersMapFactory(HeadersMapFactory factory) {
-        adapt(ConfigurableCamelContext.class).setHeadersMapFactory(factory);
-    }
-
-    /**
-     * Sets a {@link HealthCheckRegistry}.
-     */
-    @Deprecated
-    default void setHealthCheckRegistry(HealthCheckRegistry healthCheckRegistry) {
-        adapt(ConfigurableCamelContext.class).setHealthCheckRegistry(healthCheckRegistry);
-    }
-
-    /**
      * Sets the global SSL context parameters.
      */
     @Deprecated
     default void setSSLContextParameters(SSLContextParameters sslContextParameters) {
         adapt(ConfigurableCamelContext.class).setSSLContextParameters(sslContextParameters);
-    }
-
-    /**
-     * Sets a custom {@link ReloadStrategy} to be used
-     */
-    @Deprecated
-    default void setReloadStrategy(ReloadStrategy reloadStrategy) {
-        adapt(ConfigurableCamelContext.class).setReloadStrategy(reloadStrategy);
-    }
-
-    /**
-     * Sets a custom JAXB Context factory to be used
-     *
-     * @param modelJAXBContextFactory a JAXB Context factory
-     */
-    @Deprecated
-    default void setModelJAXBContextFactory(ModelJAXBContextFactory modelJAXBContextFactory) {
-        adapt(ConfigurableCamelContext.class).setModelJAXBContextFactory(modelJAXBContextFactory);
-    }
-
-    /**
-     * Sets a custom {@link org.apache.camel.spi.RuntimeEndpointRegistry} to use.
-     */
-    @Deprecated
-    default void setRuntimeEndpointRegistry(RuntimeEndpointRegistry runtimeEndpointRegistry) {
-        adapt(ConfigurableCamelContext.class).setRuntimeEndpointRegistry(runtimeEndpointRegistry);
-    }
-
-    /**
-     * Sets a custom {@link org.apache.camel.spi.RestRegistry} to use.
-     */
-    @Deprecated
-    default void setRestRegistry(RestRegistry restRegistry) {
-        adapt(ConfigurableCamelContext.class).setRestRegistry(restRegistry);
-    }
-
-    /**
-     * Sets the factory finder resolver to use.
-     *
-     * @param resolver the factory finder resolver
-     */
-    @Deprecated
-    default void setFactoryFinderResolver(FactoryFinderResolver resolver) {
-        adapt(ConfigurableCamelContext.class).setFactoryFinderResolver(resolver);
-    }
-
-    /**
-     * Sets the class resolver to be use
-     *
-     * @param resolver the resolver
-     */
-    @Deprecated
-    default void setClassResolver(ClassResolver resolver) {
-        adapt(ConfigurableCamelContext.class).setClassResolver(resolver);
-    }
-
-    /**
-     * Sets the package scanning class resolver to use
-     *
-     * @param resolver the resolver
-     */
-    @Deprecated
-    default void setPackageScanClassResolver(PackageScanClassResolver resolver) {
-        adapt(ConfigurableCamelContext.class).setPackageScanClassResolver(resolver);
     }
 
     /**
@@ -1795,234 +1348,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     }
 
     /**
-     * Disables using JMX as {@link org.apache.camel.spi.ManagementStrategy}.
-     * <p/>
-     * <b>Important:</b> This method must be called <b>before</b> the {@link CamelContext} is started.
-     *
-     * @throws IllegalStateException is thrown if the {@link CamelContext} is not in stopped state.
-     */
-    @Deprecated
-    default void disableJMX() throws IllegalStateException {
-        adapt(ConfigurableCamelContext.class).disableJMX();
-    }
-
-    /**
-     * Shutdown and <b>removes</b> the given route using {@link org.apache.camel.spi.ShutdownStrategy}.
-     *
-     * @param routeId the route id
-     * @throws Exception is thrown if the route could not be shutdown for whatever reason
-     * @deprecated use {@link #stopRoute(String)} and {@link #removeRoute(String)}
-     */
-    @Deprecated
-    default void shutdownRoute(String routeId) throws Exception {
-        stopRoute(routeId);
-        removeRoute(routeId);
-    }
-
-    /**
-     * Shutdown and <b>removes</b> the given route using {@link org.apache.camel.spi.ShutdownStrategy} with a specified timeout.
-     *
-     * @param routeId  the route id
-     * @param timeout  timeout
-     * @param timeUnit the unit to use
-     * @throws Exception is thrown if the route could not be shutdown for whatever reason
-     * @deprecated use {@link #stopRoute(String, long, java.util.concurrent.TimeUnit)} and {@link #removeRoute(String)}
-     */
-    @Deprecated
-    default void shutdownRoute(String routeId, long timeout, TimeUnit timeUnit) throws Exception {
-        stopRoute(routeId, timeout, timeUnit);
-        removeRoute(routeId);
-    }
-
-    /**
-     * Sets a custom name strategy
-     *
-     * @param nameStrategy name strategy
-     */
-    @Deprecated
-    default void setNameStrategy(CamelContextNameStrategy nameStrategy) {
-        adapt(ConfigurableCamelContext.class).setNameStrategy(nameStrategy);
-    }
-
-    /**
-     * Sets a custom management name strategy
-     *
-     * @param nameStrategy name strategy
-     */
-    @Deprecated
-    default void setManagementNameStrategy(ManagementNameStrategy nameStrategy) {
-        adapt(ConfigurableCamelContext.class).setManagementNameStrategy(nameStrategy);
-    }
-
-    /**
-     * NOTE: experimental api
-     *
-     * @param routeController the route controller
-     */
-    @Deprecated
-    default void setRouteController(RouteController routeController) {
-        adapt(ConfigurableCamelContext.class).setRouteController(routeController);
-    }
-
-    /**
-     * Sets the default error handler builder which is inherited by the routes
-     *
-     * @param errorHandlerBuilder the builder
-     */
-    @Deprecated
-    default void setErrorHandlerBuilder(ErrorHandlerFactory errorHandlerBuilder) {
-        adapt(ConfigurableCamelContext.class).setErrorHandlerBuilder(errorHandlerBuilder);
-    }
-
-    /**
-     * Starts all the routes which currently is not started.
-     *
-     * @throws Exception is thrown if a route could not be started for whatever reason
-     */
-    @Deprecated
-    default void startAllRoutes() throws Exception {
-        getRouteController().startAllRoutes();
-    }
-
-    /**
-     * Starts the given route if it has been previously stopped
-     *
-     * @param routeId the route id
-     * @throws Exception is thrown if the route could not be started for whatever reason
-     */
-    @Deprecated
-    default void startRoute(String routeId) throws Exception {
-        getRouteController().startRoute(routeId);
-    }
-
-    /**
-     * Stops the given route using {@link org.apache.camel.spi.ShutdownStrategy}.
-     *
-     * @param routeId the route id
-     * @throws Exception is thrown if the route could not be stopped for whatever reason
-     * @see #suspendRoute(String)
-     */
-    @Deprecated
-    default void stopRoute(String routeId) throws Exception {
-        getRouteController().stopRoute(routeId);
-    }
-
-    /**
-     * Stops the given route using {@link org.apache.camel.spi.ShutdownStrategy} with a specified timeout.
-     *
-     * @param routeId the route id
-     * @param timeout  timeout
-     * @param timeUnit the unit to use
-     * @throws Exception is thrown if the route could not be stopped for whatever reason
-     * @see #suspendRoute(String, long, java.util.concurrent.TimeUnit)
-     */
-    @Deprecated
-    default void stopRoute(String routeId, long timeout, TimeUnit timeUnit) throws Exception {
-        getRouteController().stopRoute(routeId, timeout, timeUnit);
-    }
-
-    /**
-     * Stops the given route using {@link org.apache.camel.spi.ShutdownStrategy} with a specified timeout
-     * and optional abortAfterTimeout mode.
-     *
-     * @param routeId the route id
-     * @param timeout  timeout
-     * @param timeUnit the unit to use
-     * @param abortAfterTimeout should abort shutdown after timeout
-     * @return <tt>true</tt> if the route is stopped before the timeout
-     * @throws Exception is thrown if the route could not be stopped for whatever reason
-     * @see #suspendRoute(String, long, java.util.concurrent.TimeUnit)
-     */
-    @Deprecated
-    default boolean stopRoute(String routeId, long timeout, TimeUnit timeUnit, boolean abortAfterTimeout) throws Exception {
-        return getRouteController().stopRoute(routeId, timeout, timeUnit, abortAfterTimeout);
-    }
-
-    /**
-     * Resumes the given route if it has been previously suspended
-     * <p/>
-     * If the route does <b>not</b> support suspension the route will be started instead
-     *
-     * @param routeId the route id
-     * @throws Exception is thrown if the route could not be resumed for whatever reason
-     */
-    @Deprecated
-    default void resumeRoute(String routeId) throws Exception {
-        getRouteController().resumeRoute(routeId);
-    }
-
-    /**
-     * Suspends the given route using {@link org.apache.camel.spi.ShutdownStrategy}.
-     * <p/>
-     * Suspending a route is more gently than stopping, as the route consumers will be suspended (if they support)
-     * otherwise the consumers will be stopped.
-     * <p/>
-     * By suspending the route services will be kept running (if possible) and therefore its faster to resume the route.
-     * <p/>
-     * If the route does <b>not</b> support suspension the route will be stopped instead
-     *
-     * @param routeId the route id
-     * @throws Exception is thrown if the route could not be suspended for whatever reason
-     */
-    @Deprecated
-    default void suspendRoute(String routeId) throws Exception {
-        getRouteController().suspendRoute(routeId);
-    }
-
-    /**
-     * Suspends the given route using {@link org.apache.camel.spi.ShutdownStrategy} with a specified timeout.
-     * <p/>
-     * Suspending a route is more gently than stopping, as the route consumers will be suspended (if they support)
-     * otherwise the consumers will be stopped.
-     * <p/>
-     * By suspending the route services will be kept running (if possible) and therefore its faster to resume the route.
-     * <p/>
-     * If the route does <b>not</b> support suspension the route will be stopped instead
-     *
-     * @param routeId  the route id
-     * @param timeout  timeout
-     * @param timeUnit the unit to use
-     * @throws Exception is thrown if the route could not be suspended for whatever reason
-     */
-    @Deprecated
-    default void suspendRoute(String routeId, long timeout, TimeUnit timeUnit) throws Exception {
-        getRouteController().suspendRoute(routeId, timeout, timeUnit);
-    }
-
-    /**
-     * Returns the current status of the given route
-     *
-     * @param routeId the route id
-     * @return the status for the route
-     */
-    @Deprecated
-    default ServiceStatus getRouteStatus(String routeId) {
-        return getRouteController().getRouteStatus(routeId);
-    }
-
-    /**
-     * Indicates whether current thread is starting route(s).
-     * <p/>
-     * This can be useful to know by {@link LifecycleStrategy} or the likes, in case
-     * they need to react differently.
-     *
-     * @return <tt>true</tt> if current thread is starting route(s), or <tt>false</tt> if not.
-     */
-    @Deprecated
-    default boolean isStartingRoutes() {
-        return getRouteController().isStartingRoutes();
-    }
-
-    /**
-     * Returns the HTML documentation for the given Camel component
-     *
-     * @return the HTML or <tt>null</tt> if the component is <b>not</b> built with HTML document included.
-     * @deprecated use camel-catalog instead
-     */
-    @Deprecated
-    String getComponentDocumentation(String componentName) throws IOException;
-
-    /**
      * Gets the default error handler builder which is inherited by the routes
      *
      * @return the builder
@@ -2032,33 +1357,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     ErrorHandlerBuilder getErrorHandlerBuilder();
 
     /**
-     * Gets the current {@link org.apache.camel.spi.ExecutorServiceStrategy}
-     *
-     * @return the manager
-     * @deprecated use {@link #getExecutorServiceManager()}
-     */
-    @Deprecated
-    org.apache.camel.spi.ExecutorServiceStrategy getExecutorServiceStrategy();
-
-    /**
-     * Whether or not type converters should be loaded lazy
-     *
-     * @return <tt>true</tt> to load lazy, <tt>false</tt> to load on startup
-     * @deprecated this option is no longer supported, will be removed in a future Camel release.
-     */
-    @Deprecated
-    Boolean isLazyLoadTypeConverters();
-
-    /**
-     * Sets whether type converters should be loaded lazy
-     *
-     * @param lazyLoadTypeConverters <tt>true</tt> to load lazy, <tt>false</tt> to load on startup
-     * @deprecated this option is no longer supported, will be removed in a future Camel release.
-     */
-    @Deprecated
-    void setLazyLoadTypeConverters(Boolean lazyLoadTypeConverters);
-
-    /**
      * Adds the given interceptor strategy
      *
      * @param interceptStrategy the strategy
@@ -2066,16 +1364,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     @Deprecated
     default void addInterceptStrategy(InterceptStrategy interceptStrategy) {
         adapt(ConfigurableCamelContext.class).addInterceptStrategy(interceptStrategy);
-    }
-
-    /**
-     * Sets a custom data format resolver
-     *
-     * @param dataFormatResolver the resolver
-     */
-    @Deprecated
-    default void setDataFormatResolver(DataFormatResolver dataFormatResolver) {
-        adapt(ConfigurableCamelContext.class).setDataFormatResolver(dataFormatResolver);
     }
 
     /**
@@ -2094,139 +1382,4 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     @Deprecated
     ServicePool<Endpoint, PollingConsumer> getPollingConsumerServicePool();
 
-    /**
-     * Sets whether or not type converter statistics is enabled.
-     * <p/>
-     * By default the type converter utilization statistics is disabled.
-     * <b>Notice:</b> If enabled then there is a slight performance impact under very heavy load.
-     * <p/>
-     * You can enable/disable the statistics at runtime using the
-     * {@link org.apache.camel.spi.TypeConverterRegistry#getStatistics()#setTypeConverterStatisticsEnabled(Boolean)} method,
-     * or from JMX on the {@link org.apache.camel.api.management.mbean.ManagedTypeConverterRegistryMBean} mbean.
-     *
-     * @param typeConverterStatisticsEnabled <tt>true</tt> to enable, <tt>false</tt> to disable
-     */
-    @Deprecated
-    default void setTypeConverterStatisticsEnabled(Boolean typeConverterStatisticsEnabled) {
-        adapt(ConfigurableCamelContext.class).setTypeConverterStatisticsEnabled(typeConverterStatisticsEnabled);
-    }
-
-    /**
-     * Returns a list of the current route definitions
-     *
-     * @return list of the current route definitions
-     */
-    @Deprecated
-    default List<RouteDefinition> getRouteDefinitions() {
-        return adapt(ModelCamelContext.class).getRouteDefinitions();
-    }
-
-    /**
-     * Gets the route definition with the given id
-     *
-     * @param id id of the route
-     * @return the route definition or <tt>null</tt> if not found
-     */
-    @Deprecated
-    default RouteDefinition getRouteDefinition(String id) {
-        return adapt(ModelCamelContext.class).getRouteDefinition(id);
-    }
-
-    /**
-     * Returns a list of the current REST definitions
-     *
-     * @return list of the current REST definitions
-     */
-    @Deprecated
-    default List<RestDefinition> getRestDefinitions() {
-        return adapt(ModelCamelContext.class).getRestDefinitions();
-    }
-
-    /**
-     * Gets the managed processor client api from any of the routes which with the given id
-     *
-     * @param id id of the processor
-     * @param type the managed processor type from the {@link org.apache.camel.api.management.mbean} package.
-     * @return the processor or <tt>null</tt> if not found
-     * @throws IllegalArgumentException if the type is not compliant
-     */
-    @Deprecated
-    default <T extends ManagedProcessorMBean> T getManagedProcessor(String id, Class<T> type) {
-        return adapt(ManagedCamelContext.class).getManagedProcessor(id, type);
-    }
-
-    /**
-     * Gets the managed route client api with the given route id
-     *
-     * @param routeId id of the route
-     * @param type the managed route type from the {@link org.apache.camel.api.management.mbean} package.
-     * @return the route or <tt>null</tt> if not found
-     * @throws IllegalArgumentException if the type is not compliant
-     */
-    @Deprecated
-    default <T extends ManagedRouteMBean> T getManagedRoute(String routeId, Class<T> type) {
-        return adapt(ManagedCamelContext.class).getManagedRoute(routeId, type);
-    }
-
-    /**
-     * Gets the managed Camel CamelContext client api
-     */
-    @Deprecated
-    default ManagedCamelContextMBean getManagedCamelContext() {
-        return adapt(ManagedCamelContext.class).getManagedCamelContext();
-    }
-
-    /**
-     * Adds a collection of route definitions to the context
-     * <p/>
-     * <b>Important: </b> Each route in the same {@link org.apache.camel.CamelContext} must have an <b>unique</b> route id.
-     * If you use the API from {@link org.apache.camel.CamelContext} or {@link org.apache.camel.model.ModelCamelContext} to add routes, then any
-     * new routes which has a route id that matches an old route, then the old route is replaced by the new route.
-     *
-     * @param routeDefinitions the route(s) definition to add
-     * @throws Exception if the route definitions could not be created for whatever reason
-     */
-    @Deprecated
-    default void addRouteDefinitions(Collection<RouteDefinition> routeDefinitions) throws Exception {
-        adapt(ModelCamelContext.class).addRouteDefinitions(routeDefinitions);
-    }
-
-    /**
-     * Loads a collection of route definitions from the given {@link java.io.InputStream}.
-     *
-     * @param is input stream with the route(s) definition to add
-     * @return the route definitions
-     * @throws Exception if the route definitions could not be loaded for whatever reason
-     */
-    @Deprecated
-    default RoutesDefinition loadRoutesDefinition(InputStream is) throws Exception {
-        return adapt(ModelCamelContext.class).loadRoutesDefinition(is);
-    }
-
-    /**
-     * Loads a collection of rest definitions from the given {@link java.io.InputStream}.
-     *
-     * @param is input stream with the rest(s) definition to add
-     * @return the rest definitions
-     * @throws Exception if the rest definitions could not be loaded for whatever reason
-     */
-    @Deprecated
-    default RestsDefinition loadRestsDefinition(InputStream is) throws Exception {
-        return adapt(ModelCamelContext.class).loadRestsDefinition(is);
-    }
-
-    /**
-     * Add a route definition to the context
-     * <p/>
-     * <b>Important: </b> Each route in the same {@link org.apache.camel.CamelContext} must have an <b>unique</b> route id.
-     * If you use the API from {@link org.apache.camel.CamelContext} or {@link org.apache.camel.model.ModelCamelContext} to add routes, then any
-     * new routes which has a route id that matches an old route, then the old route is replaced by the new route.
-     *
-     * @param routeDefinition the route definition to add
-     * @throws Exception if the route definition could not be created for whatever reason
-     */
-    @Deprecated
-    default void addRouteDefinition(RouteDefinition routeDefinition) throws Exception {
-        adapt(ModelCamelContext.class).addRouteDefinition(routeDefinition);
-    }
 }

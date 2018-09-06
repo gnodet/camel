@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.component.reactive.streams.tck;
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.After;
 
 import org.apache.camel.CamelContext;
@@ -77,7 +78,7 @@ public class CamelPublisherVerificationTest extends PublisherVerification<Exchan
         DefaultShutdownStrategy shutdownStrategy = new DefaultShutdownStrategy();
         shutdownStrategy.setShutdownNowOnTimeout(true);
         shutdownStrategy.setTimeout(1);
-        this.context.setShutdownStrategy(shutdownStrategy);
+        this.context.adapt(ConfigurableCamelContext.class).setShutdownStrategy(shutdownStrategy);
     }
 
     @AfterTest

@@ -26,7 +26,7 @@ import com.sun.mail.imap.SortTerm;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.SSLContextParametersAware;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.IntrospectionSupport;
 import org.apache.camel.util.StringHelper;
@@ -36,7 +36,7 @@ import org.apache.camel.util.StringHelper;
  *
  * @version
  */
-public class MailComponent extends UriEndpointComponent implements SSLContextParametersAware {
+public class MailComponent extends DefaultComponent implements SSLContextParametersAware {
 
     @Metadata(label = "advanced")
     private MailConfiguration configuration;
@@ -46,16 +46,16 @@ public class MailComponent extends UriEndpointComponent implements SSLContextPar
     private boolean useGlobalSslContextParameters;
 
     public MailComponent() {
-        super(MailEndpoint.class);
+        super();
     }
 
     public MailComponent(MailConfiguration configuration) {
-        super(MailEndpoint.class);
+        super();
         this.configuration = configuration;
     }
 
     public MailComponent(CamelContext context) {
-        super(context, MailEndpoint.class);
+        super(context);
     }
 
     @Override

@@ -18,6 +18,7 @@ package org.apache.camel.component.metrics.messagehistory;
 
 import com.codahale.metrics.MetricRegistry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class MetricsMessageHistoryTest extends CamelTestSupport {
         MetricsMessageHistoryFactory factory = new MetricsMessageHistoryFactory();
         factory.setUseJmx(false);
         factory.setMetricsRegistry(registry);
-        context.setMessageHistoryFactory(factory);
+        context.adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(factory);
 
         return context;
     }

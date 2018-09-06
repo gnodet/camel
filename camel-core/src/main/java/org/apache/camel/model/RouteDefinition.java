@@ -155,7 +155,7 @@ public class RouteDefinition extends ProcessorDefinition<RouteDefinition> {
     @Deprecated
     public ServiceStatus getStatus(CamelContext camelContext) {
         if (camelContext != null) {
-            ServiceStatus answer = camelContext.getRouteStatus(this.getId());
+            ServiceStatus answer = camelContext.getRouteController().getRouteStatus(this.getId());
             if (answer == null) {
                 answer = ServiceStatus.Stopped;
             }
@@ -1070,7 +1070,7 @@ public class RouteDefinition extends ProcessorDefinition<RouteDefinition> {
         // the XML DSL will configure error handlers using refs, so we need this additional test
         if (errorHandlerRef != null) {
             ErrorHandlerFactory routeScoped = getErrorHandlerBuilder();
-            ErrorHandlerFactory contextScoped = context.getErrorHandlerBuilder();
+            ErrorHandlerFactory contextScoped = context.getErrorHandlerFactory();
             return routeScoped != null && contextScoped != null && routeScoped == contextScoped;
         }
 

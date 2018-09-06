@@ -32,7 +32,7 @@ public class TimerNameTest extends ContextTestSupport {
     public void testTimerName() throws Exception {
         getMockEndpoint("mock:result").expectedMinimumMessageCount(1);
 
-        context.startAllRoutes();
+        context.getRouteController().startAllRoutes();
 
         assertMockEndpointsSatisfied();
 

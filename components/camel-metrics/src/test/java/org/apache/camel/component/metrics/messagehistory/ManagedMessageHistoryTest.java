@@ -22,6 +22,7 @@ import javax.management.ObjectName;
 
 import com.codahale.metrics.MetricRegistry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.metrics.MetricsComponent;
 import org.apache.camel.impl.JndiRegistry;
@@ -57,7 +58,7 @@ public class ManagedMessageHistoryTest extends CamelTestSupport {
         factory.setUseJmx(true);
         factory.setPrettyPrint(true);
         factory.setMetricsRegistry(metricRegistry);
-        context.setMessageHistoryFactory(factory);
+        context.adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(factory);
 
         return context;
     }

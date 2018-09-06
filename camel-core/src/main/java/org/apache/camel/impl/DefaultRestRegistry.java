@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -134,7 +135,7 @@ public class DefaultRestRegistry extends ServiceSupport implements StaticService
     protected void doStart() throws Exception {
         ObjectHelper.notNull(camelContext, "camelContext", this);
         // add a lifecycle so we can keep track when consumers is being removed, so we can unregister them from our registry
-        camelContext.addLifecycleStrategy(new RemoveRestServiceLifecycleStrategy());
+        camelContext.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(new RemoveRestServiceLifecycleStrategy());
     }
 
     @Override

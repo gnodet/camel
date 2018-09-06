@@ -29,9 +29,7 @@ import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
-import org.apache.camel.ComponentConfiguration;
 import org.apache.camel.Endpoint;
-import org.apache.camel.EndpointConfiguration;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.component.extension.ComponentExtension;
 import org.apache.camel.spi.Metadata;
@@ -65,7 +63,16 @@ public abstract class DefaultComponent extends ServiceSupport implements Compone
     public DefaultComponent() {
     }
 
+    @Deprecated
+    public DefaultComponent(Class<?> endpointClass) {
+    }
+
     public DefaultComponent(CamelContext context) {
+        this.camelContext = context;
+    }
+
+    @Deprecated
+    public DefaultComponent(CamelContext context, Class<?> endpointClass) {
         this.camelContext = context;
     }
 
@@ -140,18 +147,6 @@ public abstract class DefaultComponent extends ServiceSupport implements Compone
 
         afterConfiguration(uri, path, endpoint, parameters);
         return endpoint;
-    }
-
-    @Override
-    public ComponentConfiguration createComponentConfiguration() {
-        return new DefaultComponentConfiguration(this);
-    }
-
-    @Override
-    public EndpointConfiguration createConfiguration(String uri) throws Exception {
-        MappedEndpointConfiguration config = new MappedEndpointConfiguration(getCamelContext());
-        config.setURI(new URI(uri));
-        return config;
     }
 
     @Override

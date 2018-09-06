@@ -54,7 +54,7 @@ public class FileConsumeDoneFileIssueTest extends ContextTestSupport {
 
         getMockEndpoint("mock:result").expectedBodiesReceivedInAnyOrder("A", "B", "C", "D", "E");
 
-        context.startRoute("foo");
+        context.getRouteController().startRoute("foo");
 
         assertMockEndpointsSatisfied();
         assertTrue(notify.matchesMockWaitTime());
@@ -82,7 +82,7 @@ public class FileConsumeDoneFileIssueTest extends ContextTestSupport {
 
         getMockEndpoint("mock:result").expectedBodiesReceivedInAnyOrder("A", "B", "C");
 
-        context.startRoute("bar");
+        context.getRouteController().startRoute("bar");
 
         assertMockEndpointsSatisfied();
         assertTrue(notify.matchesMockWaitTime());
@@ -113,7 +113,7 @@ public class FileConsumeDoneFileIssueTest extends ContextTestSupport {
 
         getMockEndpoint("mock:result").expectedBodiesReceivedInAnyOrder("A", "B", "C");
 
-        context.startRoute("bar");
+        context.getRouteController().startRoute("bar");
 
         assertMockEndpointsSatisfied();
         assertTrue(notify.matchesMockWaitTime());

@@ -49,7 +49,7 @@ public class FileConsumerRelativeFileNameTest extends ContextTestSupport {
         template.sendBodyAndHeader("file:target/filename-consumer", "Bye World",
             Exchange.FILE_NAME, "target/filename-consumer-bye.txt");
 
-        context.startAllRoutes();
+        context.getRouteController().startAllRoutes();
 
         assertMockEndpointsSatisfied();
 

@@ -48,10 +48,10 @@ public class StartupListenerTest extends ContextTestSupport {
 
             if (alreadyStarted) {
                 // the routes should already been started as we add the listener afterwards
-                assertTrue(context.getRouteStatus("foo").isStarted());
+                assertTrue(context.getRouteController().getRouteStatus("foo").isStarted());
             } else {
                 // the routes should not have been started as they start afterwards
-                assertTrue(context.getRouteStatus("foo").isStopped());
+                assertTrue(context.getRouteController().getRouteStatus("foo").isStopped());
             }
         }
 
@@ -67,7 +67,7 @@ public class StartupListenerTest extends ContextTestSupport {
     @Test
     public void testStartupListenerComponent() throws Exception {
         // and now the routes are started
-        assertTrue(context.getRouteStatus("foo").isStarted());
+        assertTrue(context.getRouteController().getRouteStatus("foo").isStarted());
 
         getMockEndpoint("mock:result").expectedMessageCount(1);
 
@@ -82,7 +82,7 @@ public class StartupListenerTest extends ContextTestSupport {
     @Test
     public void testStartupListenerComponentAlreadyStarted() throws Exception {
         // and now the routes are started
-        assertTrue(context.getRouteStatus("foo").isStarted());
+        assertTrue(context.getRouteController().getRouteStatus("foo").isStarted());
 
         MyStartupListener other = new MyStartupListener();
         context.addStartupListener(other);

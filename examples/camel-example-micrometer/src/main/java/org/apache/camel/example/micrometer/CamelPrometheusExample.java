@@ -26,6 +26,7 @@ import io.micrometer.core.instrument.binder.system.ProcessorMetrics;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.component.micrometer.DistributionStatisticConfigFilter;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
@@ -56,8 +57,8 @@ public class CamelPrometheusExample extends CamelConfiguration {
 
     @Override
     protected void setupCamelContext(CamelContext camelContext) {
-        camelContext.addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
-        camelContext.setMessageHistoryFactory(new MicrometerMessageHistoryFactory());
+        camelContext.adapt(ConfigurableCamelContext.class).addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
+        camelContext.adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(new MicrometerMessageHistoryFactory());
     }
 
     /**

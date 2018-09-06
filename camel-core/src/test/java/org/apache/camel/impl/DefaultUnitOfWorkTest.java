@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.impl;
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class DefaultUnitOfWorkTest extends Assert {
 
         
         CamelContext context = new DefaultCamelContext();
-        context.setUuidGenerator(new SimpleUuidGenerator());
+        context.adapt(ConfigurableCamelContext.class).setUuidGenerator(new SimpleUuidGenerator());
         unitOfWork = new DefaultUnitOfWork(new DefaultExchange(context));
     }
 

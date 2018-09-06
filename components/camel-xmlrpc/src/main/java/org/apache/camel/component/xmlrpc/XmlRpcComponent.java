@@ -19,12 +19,12 @@ package org.apache.camel.component.xmlrpc;
 import java.util.Map;
 
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 
 /**
  * Represents the component that manages {@link XmlRpcEndpoint}.
  */
-public class XmlRpcComponent extends UriEndpointComponent {
+public class XmlRpcComponent extends DefaultComponent {
 
     public XmlRpcComponent() {
         super(XmlRpcEndpoint.class);

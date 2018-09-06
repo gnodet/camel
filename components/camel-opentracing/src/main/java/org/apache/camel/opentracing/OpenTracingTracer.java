@@ -33,6 +33,7 @@ import io.opentracing.tag.Tags;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Route;
@@ -158,7 +159,7 @@ public class OpenTracingTracer extends ServiceSupport implements RoutePolicyFact
         if (!camelContext.getRoutePolicyFactories().contains(this)) {
             camelContext.addRoutePolicyFactory(this);
         }
-        camelContext.addLogListener(logListener);
+        camelContext.adapt(ConfigurableCamelContext.class).addLogListener(logListener);
 
         if (tracer == null) {
             Set<Tracer> tracers = camelContext.getRegistry().findByType(Tracer.class);

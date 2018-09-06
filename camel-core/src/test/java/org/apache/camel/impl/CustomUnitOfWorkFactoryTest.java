@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.AsyncCallback;
@@ -32,7 +33,7 @@ public class CustomUnitOfWorkFactoryTest extends ContextTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setUnitOfWorkFactory(new MyUnitOfWorkFactory());
+        context.adapt(ConfigurableCamelContext.class).setUnitOfWorkFactory(new MyUnitOfWorkFactory());
         return context;
     }
 

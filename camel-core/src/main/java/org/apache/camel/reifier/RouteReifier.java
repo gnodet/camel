@@ -63,7 +63,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
         List<RouteContext> answer = new ArrayList<>();
 
         @SuppressWarnings("deprecation")
-        ErrorHandlerFactory handler = camelContext.getErrorHandlerBuilder();
+        ErrorHandlerFactory handler = camelContext.getErrorHandlerFactory();
         if (handler != null) {
             definition.setErrorHandlerBuilderIfNull(handler);
         }
@@ -144,7 +144,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
         // we must check the error handler on builder is not the same as on camel context, as that would be the default
         // context scoped error handler, in case no error handlers was configured
         if (builder.getRouteCollection().getErrorHandlerBuilder() != null
-                && camelContext.getErrorHandlerBuilder() != builder.getRouteCollection().getErrorHandlerBuilder()) {
+                && camelContext.getErrorHandlerFactory() != builder.getRouteCollection().getErrorHandlerBuilder()) {
             throw new IllegalArgumentException("You can not advice with error handlers. Remove the error handlers from the route builder.");
         }
 
@@ -177,7 +177,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
         if (camelContext instanceof StatefulService) {
             StatefulService service = (StatefulService) camelContext;
             if (service.isStarted()) {
-                camelContext.startRoute(merged);
+                camelContext.getRouteController().startRoute(merged.getId());
             }
         }
         return merged;

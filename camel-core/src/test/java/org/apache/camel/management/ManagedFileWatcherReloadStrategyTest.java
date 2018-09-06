@@ -16,6 +16,7 @@
  */
 package org.apache.camel.management;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import javax.management.MBeanServer;
@@ -64,7 +65,7 @@ public class ManagedFileWatcherReloadStrategyTest extends ManagementTestSupport 
                 createDirectory("target/dummy");
 
                 // add reload strategy
-                context.setReloadStrategy(new FileWatcherReloadStrategy("target/dummy"));
+                context.adapt(ConfigurableCamelContext.class).setReloadStrategy(new FileWatcherReloadStrategy("target/dummy"));
 
                 from("direct:start")
                     .to("mock:result");

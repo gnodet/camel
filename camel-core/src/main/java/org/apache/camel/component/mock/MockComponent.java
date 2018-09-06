@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.processor.ThroughputLogger;
 import org.apache.camel.util.CamelLogger;
 
@@ -29,10 +29,10 @@ import org.apache.camel.util.CamelLogger;
  *
  * @version 
  */
-public class MockComponent extends UriEndpointComponent {
+public class MockComponent extends DefaultComponent {
 
     public MockComponent() {
-        super(MockEndpoint.class);
+        super();
     }
 
     @Override

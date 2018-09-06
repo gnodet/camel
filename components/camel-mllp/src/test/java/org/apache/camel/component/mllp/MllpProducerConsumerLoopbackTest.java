@@ -16,6 +16,7 @@
  */
 
 package org.apache.camel.component.mllp;
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Before;
 
 import java.util.concurrent.TimeUnit;
@@ -61,7 +62,7 @@ public class MllpProducerConsumerLoopbackTest extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         DefaultCamelContext context = (DefaultCamelContext) super.createCamelContext();
 
-        context.setUseMDCLogging(true);
+        context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
         context.setName(this.getClass().getSimpleName());
 
         return context;

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.processor.interceptor;
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -188,7 +189,7 @@ public class DebugTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // use debugger
-                context.setDebugger(new DefaultDebugger());
+                context.adapt(ConfigurableCamelContext.class).setDebugger(new DefaultDebugger());
 
                 from("direct:start").to("log:foo").to("mock:result");
             }

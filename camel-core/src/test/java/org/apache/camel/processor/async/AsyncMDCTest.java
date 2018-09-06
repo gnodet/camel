@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.async;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;
@@ -69,7 +70,7 @@ public class AsyncMDCTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // enable MDC
-                context.setUseMDCLogging(true);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
 
                 context.addComponent("async", new MyAsyncComponent());
 

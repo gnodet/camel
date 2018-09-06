@@ -84,7 +84,7 @@ public class NettySSLConsumerClientModeTest extends BaseNettyTest {
             startNettyServer();
             MockEndpoint receive = context.getEndpoint("mock:receive", MockEndpoint.class);
             receive.expectedBodiesReceived("Bye Willem");
-            context.startRoute("sslclient");
+            context.getRouteController().startRoute("sslclient");
             receive.assertIsSatisfied();
         } finally {
             shutdownServer();

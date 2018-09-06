@@ -49,12 +49,12 @@ public class JettyHttpClientOptionsTest extends BaseJettyTest {
         assertProxyAddress(producer.getClient(), "192.168.0.1", 9090);
 
         // setup the context properties
-        context.getProperties().put("http.proxyHost", "192.168.0.2");
-        context.getProperties().put("http.proxyPort", "8080");
+        context.getGlobalOptions().put("http.proxyHost", "192.168.0.2");
+        context.getGlobalOptions().put("http.proxyPort", "8080");
         jettyEndpoint = context.getEndpoint("jetty://http://localhost:{{port}}/proxy2/setting", HttpCommonEndpoint.class);
         producer = (JettyHttpProducer)jettyEndpoint.createProducer();
         assertProxyAddress(producer.getClient(), "192.168.0.2", 8080);
-        context.getProperties().clear();
+        context.getGlobalOptions().clear();
 
     }
 

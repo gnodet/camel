@@ -64,10 +64,10 @@ public class SimpleScheduledRoutePolicyTest extends CamelTestSupport {
             }
         });
         context.start();
-        context.stopRoute("test", 1000, TimeUnit.MILLISECONDS);
+        context.getRouteController().stopRoute("test", 1000, TimeUnit.MILLISECONDS);
         
         Thread.sleep(5000);
-        assertTrue(context.getRouteStatus("test") == ServiceStatus.Started);
+        assertTrue(context.getRouteController().getRouteStatus("test") == ServiceStatus.Started);
         template.sendBody("direct:start", "Ready or not, Here, I come");
 
         context.getComponent("quartz", QuartzComponent.class).stop();
@@ -96,7 +96,7 @@ public class SimpleScheduledRoutePolicyTest extends CamelTestSupport {
         
         Thread.sleep(4000);
 
-        assertTrue(context.getRouteStatus("test") == ServiceStatus.Stopped);
+        assertTrue(context.getRouteController().getRouteStatus("test") == ServiceStatus.Stopped);
 
         boolean consumerStopped = false;
         try {

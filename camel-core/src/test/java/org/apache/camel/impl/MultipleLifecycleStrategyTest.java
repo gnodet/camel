@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -37,8 +38,8 @@ public class MultipleLifecycleStrategyTest extends TestSupport {
 
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = new DefaultCamelContext(new JndiContext());
-        context.addLifecycleStrategy(dummy1);
-        context.addLifecycleStrategy(dummy2);
+        context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(dummy1);
+        context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(dummy2);
         return context;
     }
 

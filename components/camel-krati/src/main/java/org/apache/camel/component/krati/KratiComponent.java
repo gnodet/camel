@@ -19,12 +19,12 @@ package org.apache.camel.component.krati;
 import java.util.Map;
 
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 
 /**
  * Represents the component that manages {@link KratiEndpoint}.
  */
-public class KratiComponent extends UriEndpointComponent {
+public class KratiComponent extends DefaultComponent {
 
     public KratiComponent() {
         super(KratiEndpoint.class);

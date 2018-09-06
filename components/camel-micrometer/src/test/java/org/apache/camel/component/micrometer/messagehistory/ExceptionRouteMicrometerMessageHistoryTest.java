@@ -19,6 +19,7 @@ package org.apache.camel.component.micrometer.messagehistory;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class ExceptionRouteMicrometerMessageHistoryTest extends CamelTestSupport
 
         MicrometerMessageHistoryFactory factory = new MicrometerMessageHistoryFactory();
         factory.setMeterRegistry(registry);
-        context.setMessageHistoryFactory(factory);
+        context.adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(factory);
 
         return context;
     }

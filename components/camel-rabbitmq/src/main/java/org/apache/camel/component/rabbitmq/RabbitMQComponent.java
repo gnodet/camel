@@ -24,13 +24,13 @@ import javax.net.ssl.TrustManager;
 import com.rabbitmq.client.Address;
 import com.rabbitmq.client.ConnectionFactory;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.IntrospectionSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RabbitMQComponent extends UriEndpointComponent {
+public class RabbitMQComponent extends DefaultComponent {
 
     public static final String ARG_PREFIX = "arg.";
     public static final String EXCHANGE_ARG_PREFIX = "exchange.";

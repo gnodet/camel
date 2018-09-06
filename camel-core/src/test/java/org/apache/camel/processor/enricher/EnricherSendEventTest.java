@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.enricher;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.EventObject;
@@ -66,7 +67,7 @@ public class EnricherSendEventTest extends ContextTestSupport {
         ManagementStrategy managementStrategy = new DefaultManagementStrategy();
         managementStrategy.addEventNotifier(en);
         
-        camelContext.setManagementStrategy(managementStrategy);
+        camelContext.adapt(ConfigurableCamelContext.class).setManagementStrategy(managementStrategy);
         return camelContext;
     }
 

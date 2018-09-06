@@ -100,7 +100,7 @@ public class CacheRoutesManagementTest extends BaseCacheTest {
         // Is cache alive
         assertEquals("Is cache still alive", Status.STATUS_ALIVE, cache.getStatus());
 
-        context.stopRoute(ROUTE1_ID);
+        context.getRouteController().stopRoute(ROUTE1_ID);
 
         // Is cache still alive?
         assertEquals("Is cache still alive", Status.STATUS_ALIVE, cache.getStatus());

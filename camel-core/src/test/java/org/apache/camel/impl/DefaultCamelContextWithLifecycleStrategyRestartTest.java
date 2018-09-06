@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -70,10 +71,10 @@ public class DefaultCamelContextWithLifecycleStrategyRestartTest extends Context
 
     @Test
     public void testRouteStopped() throws Exception {
-        assertTrue(context.getRouteStatus("foo").isStarted());
+        assertTrue(context.getRouteController().getRouteStatus("foo").isStarted());
         assertEquals(0, strategy.getRemoveCounter());
 
-        context.stopRoute("foo");
+        context.getRouteController().stopRoute("foo");
         assertEquals(0, strategy.getRemoveCounter());
 
         context.removeRoute("foo");
@@ -83,7 +84,7 @@ public class DefaultCamelContextWithLifecycleStrategyRestartTest extends Context
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.addLifecycleStrategy(strategy);
+        context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(strategy);
         return context;
     }
 

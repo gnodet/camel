@@ -121,7 +121,7 @@ public class SjmsBatchConsumerTest extends CamelTestSupport {
         LOG.info("Send complete");
 
         StopWatch stopWatch = new StopWatch();
-        context.startRoute("batchConsumer");
+        context.getRouteController().startRoute("batchConsumer");
         assertMockEndpointsSatisfied();
         long time = stopWatch.stop();
 
@@ -379,7 +379,7 @@ public class SjmsBatchConsumerTest extends CamelTestSupport {
         LOG.info("Send complete");
 
         StopWatch stopWatch = new StopWatch();
-        context.startRoute("batchConsumer");
+        context.getRouteController().startRoute("batchConsumer");
 
         assertMockEndpointsSatisfied();
         stopWatch.stop();

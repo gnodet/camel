@@ -57,12 +57,12 @@ public class StartAndStopRoutesTest extends ContextTestSupport {
         assertMockEndpointsSatisfied();
 
         // stop the route
-        context.stopRoute(route);
+        context.getRouteController().stopRoute(route.getId());
 
         // lets mutate the route...
         FromDefinition fromType = assertOneElement(route.getInputs());
         fromType.setUri("direct:test.C");
-        context.startRoute(route);
+        context.getRouteController().startRoute(route.getId());
 
         // now lets check it works
         // send from C over B to results

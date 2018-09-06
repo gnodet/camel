@@ -16,6 +16,7 @@
  */
 package org.apache.camel.management;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.Set;
@@ -40,7 +41,7 @@ public class JmxInstrumentationDisableOnCamelContextTest extends JmxInstrumentat
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camel = super.createCamelContext();
-        camel.disableJMX();
+        camel.adapt(ConfigurableCamelContext.class).disableJMX();
         return camel;
     }
 

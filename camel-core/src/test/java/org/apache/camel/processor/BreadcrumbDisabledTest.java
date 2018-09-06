@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,8 +32,8 @@ public class BreadcrumbDisabledTest extends MDCTest {
             @Override
             public void configure() throws Exception {
                 // MDC and breadcrumb disabled
-                context.setUseMDCLogging(false);
-                context.setUseBreadcrumb(false);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(false);
+                context.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 from("direct:a").routeId("route-a")
                         .process(new Processor() {

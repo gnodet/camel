@@ -72,7 +72,7 @@ public class RouteAutoStartupTest extends ContextTestSupport {
         // reset mock, start route and resend message
         mock.reset();
         mock.expectedMessageCount(1);
-        context.startRoute("route1");
+        context.getRouteController().startRoute("route1");
         template.sendBody("direct:start", "Hello World");
         assertMockEndpointsSatisfied();
     }
@@ -120,7 +120,7 @@ public class RouteAutoStartupTest extends ContextTestSupport {
         // reset mock, start route and resend message
         mock.reset();
         mock.expectedMessageCount(1);
-        context.startRoute("route1");
+        context.getRouteController().startRoute("route1");
         template.sendBody("direct:start", "Hello World");
         assertMockEndpointsSatisfied();
     }
@@ -178,7 +178,7 @@ public class RouteAutoStartupTest extends ContextTestSupport {
         // reset mock, start route and resend message
         mock.reset();
         mock.expectedMessageCount(1);
-        context.startRoute("route1");
+        context.getRouteController().startRoute("route1");
         template.sendBody("direct:start", "Hello World");
         assertMockEndpointsSatisfied();
     }

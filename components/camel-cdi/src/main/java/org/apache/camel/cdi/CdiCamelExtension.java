@@ -75,6 +75,7 @@ import org.apache.camel.ServiceStatus;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.management.event.AbstractExchangeEvent;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -440,9 +441,9 @@ public class CdiCamelExtension implements Extension {
             try {
                 Object route = getReference(manager, Object.class, routeBean);
                 if (route instanceof RoutesBuilder) {
-                    context.addRoutes((RoutesBuilder) route);
+                    context.adapt(ModelCamelContext.class).addRoutes((RoutesBuilder) route);
                 } else if (route instanceof RouteContainer) {
-                    context.addRouteDefinitions(((RouteContainer) route).getRoutes());
+                    context.adapt(ModelCamelContext.class).addRouteDefinitions(((RouteContainer) route).getRoutes());
                 } else {
                     throw new IllegalArgumentException(
                         "Invalid routes type [" + routeBean.getBeanClass().getName() + "], "

@@ -435,12 +435,12 @@ public abstract class JettyHttpComponent extends HttpCommonComponent implements 
         CamelContext camelContext = this.getCamelContext();
         FilterHolder filterHolder = new FilterHolder();
         filterHolder.setInitParameter("deleteFiles", "true");
-        if (ObjectHelper.isNotEmpty(camelContext.getProperty(TMP_DIR))) {
-            File file = new File(camelContext.getProperty(TMP_DIR));
+        if (ObjectHelper.isNotEmpty(camelContext.getGlobalOption(TMP_DIR))) {
+            File file = new File(camelContext.getGlobalOption(TMP_DIR));
             if (!file.isDirectory()) {
                 throw new RuntimeCamelException(
                         "The temp file directory of camel-jetty is not exists, please recheck it with directory name :"
-                                + camelContext.getProperties().get(TMP_DIR));
+                                + camelContext.getGlobalOptions().get(TMP_DIR));
             }
             context.setAttribute("javax.servlet.context.tempdir", file);
         }
@@ -723,10 +723,10 @@ public abstract class JettyHttpComponent extends HttpCommonComponent implements 
         CamelContext context = endpoint.getCamelContext();
 
         if (context != null
-            && ObjectHelper.isNotEmpty(context.getProperty("http.proxyHost"))
-            && ObjectHelper.isNotEmpty(context.getProperty("http.proxyPort"))) {
-            String host = context.getProperty("http.proxyHost");
-            int port = Integer.parseInt(context.getProperty("http.proxyPort"));
+            && ObjectHelper.isNotEmpty(context.getGlobalOption("http.proxyHost"))
+            && ObjectHelper.isNotEmpty(context.getGlobalOption("http.proxyPort"))) {
+            String host = context.getGlobalOption("http.proxyHost");
+            int port = Integer.parseInt(context.getGlobalOption("http.proxyPort"));
             LOG.debug("CamelContext properties http.proxyHost and http.proxyPort detected. Using http proxy host: {} port: {}", host, port);
             httpClient.setProxy(host, port);
         }

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.processor;
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -60,8 +61,8 @@ public class SplitterWireTapStreamCacheTest extends ContextTestSupport {
                 StreamCachingStrategy streamCachingStrategy = new DefaultStreamCachingStrategy();
                 streamCachingStrategy.setSpoolThreshold(1L);
 
-                context.setStreamCachingStrategy(streamCachingStrategy);
-                context.setStreamCaching(true);
+                context.adapt(ConfigurableCamelContext.class).setStreamCachingStrategy(streamCachingStrategy);
+                context.adapt(ConfigurableCamelContext.class).setStreamCaching(true);
 
                 from("direct:start")
                     .split(bodyAs(String.class).tokenize())

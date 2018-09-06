@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutorService;
@@ -55,7 +56,7 @@ public class MDCAsyncTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // enable MDC
-                context.setUseMDCLogging(true);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
 
                 MdcCheckerProcessor checker = new MdcCheckerProcessor();
                 

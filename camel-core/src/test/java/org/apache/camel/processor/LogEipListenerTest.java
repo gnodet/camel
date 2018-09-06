@@ -17,10 +17,12 @@
 package org.apache.camel.processor;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.jndi.JndiTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,7 +36,7 @@ public class LogEipListenerTest {
         CamelContext context = createCamelContext();
         MockEndpoint mock = context.getEndpoint("mock:foo", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        context.addLogListener((exchange, camelLogger, message) -> {
+        context.adapt(ConfigurableCamelContext.class).addLogListener((exchange, camelLogger, message) -> {
             Assert.assertEquals("Got hello", message);
             listenerFired = true;
             return message + " - modified by listener";
@@ -49,7 +51,7 @@ public class LogEipListenerTest {
     protected CamelContext createCamelContext() throws Exception {
         JndiRegistry registry = new JndiRegistry(JndiTest.createInitialContext());
         CamelContext context = new DefaultCamelContext(registry);
-        context.addRoutes(createRouteBuilder());
+        context.adapt(ModelCamelContext.class).addRoutes(createRouteBuilder());
         return context;
     }
 

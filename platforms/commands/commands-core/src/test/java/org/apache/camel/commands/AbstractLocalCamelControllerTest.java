@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
@@ -43,7 +44,7 @@ public class AbstractLocalCamelControllerTest {
 
     public AbstractLocalCamelControllerTest() throws Exception {
         context = new DefaultCamelContext();
-        context.setNameStrategy(new ExplicitCamelContextNameStrategy("context1"));
+        context.adapt(ConfigurableCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy("context1"));
 
         context.addRoutes(new RouteBuilder() {
             @Override

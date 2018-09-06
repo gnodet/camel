@@ -213,7 +213,7 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
     /**
      * Prefer to use {#link #createChildProcessor}.
      */
-    protected Processor createOutputsProcessor(RouteContext routeContext) throws Exception {
+    public Processor createOutputsProcessor(RouteContext routeContext) throws Exception {
         Collection<ProcessorDefinition<?>> outputs = definition.getOutputs();
         return createOutputsProcessor(routeContext, outputs);
     }
@@ -226,7 +226,7 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
      * @return the created children, or <tt>null</tt> if definition had no output
      * @throws Exception is thrown if error creating the child or if it was mandatory and there was no output defined on definition
      */
-    protected Processor createChildProcessor(RouteContext routeContext, boolean mandatory) throws Exception {
+    public Processor createChildProcessor(RouteContext routeContext, boolean mandatory) throws Exception {
         Processor children = null;
         // at first use custom factory
         if (routeContext.getCamelContext().getProcessorFactory() != null) {

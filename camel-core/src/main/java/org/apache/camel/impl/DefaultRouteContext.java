@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.NoSuchEndpointException;
 import org.apache.camel.Processor;
@@ -224,7 +225,7 @@ public class DefaultRouteContext implements RouteContext {
                 }
                 internal.addAdvice(new ContractAdvice(contract));
                 // make sure to enable data type as its in use when using input/output types on routes
-                camelContext.setUseDataType(true);
+                camelContext.adapt(ConfigurableCamelContext.class).setUseDataType(true);
             }
 
             // and create the route that wraps the UoW

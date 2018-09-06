@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -32,7 +33,7 @@ public class LifecycleStrategyServiceTest extends TestSupport {
 
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = new DefaultCamelContext(new JndiContext());
-        context.addLifecycleStrategy(dummy1);
+        context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(dummy1);
         return context;
     }
 

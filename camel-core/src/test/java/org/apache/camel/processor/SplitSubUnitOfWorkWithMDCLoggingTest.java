@@ -17,6 +17,7 @@
 package org.apache.camel.processor;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 
 /**
  * Test to ensure MDC logging works with sub unit of work.
@@ -26,7 +27,7 @@ public class SplitSubUnitOfWorkWithMDCLoggingTest extends SplitSubUnitOfWorkTest
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setUseMDCLogging(true);
+        context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
         return context;
     }
 

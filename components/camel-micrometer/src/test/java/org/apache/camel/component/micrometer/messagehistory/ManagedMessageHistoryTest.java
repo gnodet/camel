@@ -25,6 +25,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.micrometer.core.instrument.util.HierarchicalNameMapper;
 import io.micrometer.jmx.JmxMeterRegistry;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.micrometer.CamelJmxConfig;
 import org.apache.camel.component.micrometer.MicrometerConstants;
@@ -63,7 +64,7 @@ public class ManagedMessageHistoryTest extends CamelTestSupport {
         MicrometerMessageHistoryFactory factory = new MicrometerMessageHistoryFactory();
         factory.setPrettyPrint(true);
         factory.setMeterRegistry(meterRegistry);
-        context.setMessageHistoryFactory(factory);
+        context.adapt(ConfigurableCamelContext.class).setMessageHistoryFactory(factory);
 
         return context;
     }

@@ -17,6 +17,7 @@
 package org.apache.camel.component.beanstalk;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.After;
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class EndpointTest {
     @Before
     public void setUp() throws Exception {
         context = new DefaultCamelContext();
-        context.disableJMX();
+        context.adapt(ConfigurableCamelContext.class).disableJMX();
         context.start();
     }
 

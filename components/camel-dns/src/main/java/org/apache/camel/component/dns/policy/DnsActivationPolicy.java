@@ -138,7 +138,7 @@ public class DnsActivationPolicy extends RoutePolicySupport {
     }
 
     private void startRouteImpl(Route route) throws Exception {
-        ServiceStatus routeStatus = route.getRouteContext().getCamelContext().getRouteStatus(route.getId());
+        ServiceStatus routeStatus = route.getRouteContext().getCamelContext().getRouteController().getRouteStatus(route.getId());
 
         if (routeStatus == ServiceStatus.Stopped) {
             LOG.info("Starting " + route.getId());
@@ -163,7 +163,7 @@ public class DnsActivationPolicy extends RoutePolicySupport {
     }
 
     private void stopRouteImpl(Route route) throws Exception {
-        ServiceStatus routeStatus = route.getRouteContext().getCamelContext().getRouteStatus(route.getId());
+        ServiceStatus routeStatus = route.getRouteContext().getCamelContext().getRouteController().getRouteStatus(route.getId());
 
         if (routeStatus == ServiceStatus.Started) {
             LOG.info("Stopping " + route.getId());

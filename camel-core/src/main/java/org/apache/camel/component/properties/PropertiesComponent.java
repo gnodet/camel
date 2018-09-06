@@ -28,7 +28,7 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.FilePathResolver;
 import org.apache.camel.util.LRUCacheFactory;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The <a href="http://camel.apache.org/properties">Properties Component</a> allows you to use property placeholders when defining Endpoint URIs
  */
-public class PropertiesComponent extends UriEndpointComponent {
+public class PropertiesComponent extends DefaultComponent {
 
     /**
      * The default prefix token.
@@ -124,7 +124,7 @@ public class PropertiesComponent extends UriEndpointComponent {
     private int systemPropertiesMode = SYSTEM_PROPERTIES_MODE_OVERRIDE;
 
     public PropertiesComponent() {
-        super(PropertiesEndpoint.class);
+        super();
         // include out of the box functions
         addFunction(new EnvPropertiesFunction());
         addFunction(new SysPropertiesFunction());

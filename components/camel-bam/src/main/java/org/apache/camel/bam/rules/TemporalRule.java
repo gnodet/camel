@@ -29,6 +29,7 @@ import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.impl.DefaultRouteContext;
 import org.apache.camel.model.OutputDefinition;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.Time;
@@ -91,7 +92,7 @@ public class TemporalRule extends ServiceSupport {
             RouteContext routeContext = new DefaultRouteContext(first.getBuilder().getProcessBuilder().getContext(),
                     route, null, new ArrayList<Route>());
 
-            overdueAction = overdueProcessors.createOutputsProcessor(routeContext);
+            overdueAction = ProcessorReifier.reifier(overdueProcessors).createOutputsProcessor(routeContext);
         }
         return overdueAction;
     }

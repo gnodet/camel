@@ -20,12 +20,14 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.zookeeper.ZooKeeperTestSupport;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.ModelCamelContext;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +61,8 @@ public class MultiMasterCuratorLeaderRoutePolicyTest extends ZooKeeperTestSuppor
         });
         context.start();
         // this check verifies that a route marked as autostartable is not started automatically. It will be the policy responsibility to eventually start it.
-        assertThat(context.getRouteStatus("single_route").isStarted(), is(false));
-        assertThat(context.getRouteStatus("single_route").isStarting(), is(false));
+        assertThat(context.getRouteController().getRouteStatus("single_route").isStarted(), is(false));
+        assertThat(context.getRouteController().getRouteStatus("single_route").isStarting(), is(false));
         try {
             context.shutdown();
         } catch (Exception e) {
@@ -272,8 +274,8 @@ public class MultiMasterCuratorLeaderRoutePolicyTest extends ZooKeeperTestSuppor
         first.shutdown();
         // let's find out who's active now:
 
-        CuratorMultiMasterLeaderRoutePolicy routePolicySecond = (CuratorMultiMasterLeaderRoutePolicy) arr[0].controlledContext.getRouteDefinition(secondDestination).getRoutePolicies().get(0);
-        CuratorMultiMasterLeaderRoutePolicy routePolicyThird = (CuratorMultiMasterLeaderRoutePolicy) arr[1].controlledContext.getRouteDefinition(thirdDestination).getRoutePolicies().get(0);
+        CuratorMultiMasterLeaderRoutePolicy routePolicySecond = (CuratorMultiMasterLeaderRoutePolicy) arr[0].controlledContext.adapt(ModelCamelContext.class).getRouteDefinition(secondDestination).getRoutePolicies().get(0);
+        CuratorMultiMasterLeaderRoutePolicy routePolicyThird = (CuratorMultiMasterLeaderRoutePolicy) arr[1].controlledContext.adapt(ModelCamelContext.class).getRouteDefinition(thirdDestination).getRoutePolicies().get(0);
 
         MultiMasterZookeeperPolicyEnforcedContext newMaster = null;
         MultiMasterZookeeperPolicyEnforcedContext slave = null;

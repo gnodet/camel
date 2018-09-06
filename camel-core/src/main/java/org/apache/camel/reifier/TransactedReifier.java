@@ -35,7 +35,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class TransactedReifier extends ProcessorReifier<TransactedDefinition> {
+public class TransactedReifier extends ProcessorReifier<TransactedDefinition> {
 
     private static final Logger LOG = LoggerFactory.getLogger(TransactedReifier.class);
 
@@ -64,7 +64,11 @@ class TransactedReifier extends ProcessorReifier<TransactedDefinition> {
         return target;
     }
 
-    protected Policy resolvePolicy(RouteContext routeContext) {
+    public Policy resolvePolicy(RouteContext routeContext) {
+        return resolvePolicy(routeContext, definition);
+    }
+
+    public static Policy resolvePolicy(RouteContext routeContext, TransactedDefinition definition) {
         if (definition.getPolicy() != null) {
             return definition.getPolicy();
         }

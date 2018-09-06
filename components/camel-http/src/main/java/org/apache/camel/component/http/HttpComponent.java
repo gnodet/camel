@@ -24,12 +24,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ComponentVerifier;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.SSLContextParametersAware;
-import org.apache.camel.VerifiableComponent;
 import org.apache.camel.component.extension.ComponentVerifierExtension;
 import org.apache.camel.http.common.HttpBinding;
 import org.apache.camel.http.common.HttpCommonComponent;
@@ -56,7 +54,7 @@ import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
  *
  */
 @Metadata(label = "verifiers", enums = "parameters,connectivity")
-public class HttpComponent extends HttpCommonComponent implements RestProducerFactory, VerifiableComponent, SSLContextParametersAware {
+public class HttpComponent extends HttpCommonComponent implements RestProducerFactory, SSLContextParametersAware {
 
     @Metadata(label = "advanced")
     protected HttpClientConfigurer httpClientConfigurer;
@@ -411,8 +409,7 @@ public class HttpComponent extends HttpCommonComponent implements RestProducerFa
         this.useGlobalSslContextParameters = useGlobalSslContextParameters;
     }
 
-    @Override
-    public ComponentVerifier getVerifier() {
+    public ComponentVerifierExtension getVerifier() {
         return (scope, parameters) -> getExtension(ComponentVerifierExtension.class).orElseThrow(UnsupportedOperationException::new).verify(scope, parameters);
     }
 }

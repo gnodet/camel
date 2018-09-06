@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.impl;
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -60,14 +61,14 @@ public class CustomIdFactoryTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // use our own id factory so we can generate the keys we like to use
-                context.setNodeIdFactory(new NodeIdFactory() {
+                context.adapt(ConfigurableCamelContext.class).setNodeIdFactory(new NodeIdFactory() {
                     public String createId(NamedNode definition) {
                         return "#" + definition.getShortName() + ++counter + "#";
                     }
                 });
 
                 // add our debugger so we can debug camel routes when we send in messages
-                context.addInterceptStrategy(new MyDebuggerCheckingId());
+                context.adapt(ConfigurableCamelContext.class).addInterceptStrategy(new MyDebuggerCheckingId());
 
                 // a little content based router so we got 2 paths to route at runtime
                 from("direct:start")

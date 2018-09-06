@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;
@@ -29,7 +30,7 @@ public class InflightRepositoryRouteTest extends ContextTestSupport {
 
     @Test
     public void testInflight() throws Exception {
-        context.setInflightRepository(new MyInflightRepo());
+        context.adapt(ConfigurableCamelContext.class).setInflightRepository(new MyInflightRepo());
 
         assertEquals(0, context.getInflightRepository().size());
 

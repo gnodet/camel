@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.IntrospectionSupport;
 import org.apache.hadoop.conf.Configuration;
@@ -32,7 +32,7 @@ import org.apache.hadoop.hbase.client.ConnectionFactory;
 /**
  * Represents the component that manages {@link HBaseEndpoint}.
  */
-public class HBaseComponent extends UriEndpointComponent {
+public class HBaseComponent extends DefaultComponent {
 
     private Connection connection;
 

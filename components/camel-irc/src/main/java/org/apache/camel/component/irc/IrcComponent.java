@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.SSLContextParametersAware;
-import org.apache.camel.impl.UriEndpointComponent;
+import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.jsse.SSLContextParameters;
 import org.schwering.irc.lib.IRCConnection;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  *
  * @version
  */
-public class IrcComponent extends UriEndpointComponent implements SSLContextParametersAware {
+public class IrcComponent extends DefaultComponent implements SSLContextParametersAware {
     private static final Logger LOG = LoggerFactory.getLogger(IrcComponent.class);
     private final transient Map<String, IRCConnection> connectionCache = new HashMap<>();
 

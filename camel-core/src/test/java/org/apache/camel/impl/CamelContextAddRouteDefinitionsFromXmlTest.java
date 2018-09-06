@@ -67,7 +67,7 @@ public class CamelContextAddRouteDefinitionsFromXmlTest extends ContextTestSuppo
 
         context.addRouteDefinition(route);
         assertEquals(1, context.getRoutes().size());
-        assertTrue("Route should be started", context.getRouteStatus("foo").isStarted());
+        assertTrue("Route should be started", context.getRouteController().getRouteStatus("foo").isStarted());
 
         getMockEndpoint("mock:result").expectedBodiesReceived("Hello World");
         template.sendBody("direct:start", "Hello World");
@@ -85,11 +85,11 @@ public class CamelContextAddRouteDefinitionsFromXmlTest extends ContextTestSuppo
         context.addRouteDefinition(route);
         assertEquals(1, context.getRouteDefinitions().size());
         assertEquals(1, context.getRoutes().size());
-        assertTrue("Route should be started", context.getRouteStatus("foo").isStarted());
+        assertTrue("Route should be started", context.getRouteController().getRouteStatus("foo").isStarted());
 
         context.removeRouteDefinition(route);
         assertEquals(0, context.getRoutes().size());
-        assertNull(context.getRouteStatus("foo"));
+        assertNull(context.getRouteController().getRouteStatus("foo"));
 
         assertEquals(0, context.getRouteDefinitions().size());
     }
@@ -104,10 +104,10 @@ public class CamelContextAddRouteDefinitionsFromXmlTest extends ContextTestSuppo
 
         context.addRouteDefinition(route);
         assertEquals(1, context.getRoutes().size());
-        assertTrue("Route should be stopped", context.getRouteStatus("foo").isStopped());
+        assertTrue("Route should be stopped", context.getRouteController().getRouteStatus("foo").isStopped());
 
-        context.startRoute("foo");
-        assertTrue("Route should be started", context.getRouteStatus("foo").isStarted());
+        context.getRouteController().startRoute("foo");
+        assertTrue("Route should be started", context.getRouteController().getRouteStatus("foo").isStarted());
 
         getMockEndpoint("mock:result").expectedBodiesReceived("Hello World");
         template.sendBody("direct:start", "Hello World");
@@ -124,7 +124,7 @@ public class CamelContextAddRouteDefinitionsFromXmlTest extends ContextTestSuppo
 
         context.addRouteDefinition(route);
         assertEquals(1, context.getRoutes().size());
-        assertTrue("Route should be started", context.getRouteStatus("foo").isStarted());
+        assertTrue("Route should be started", context.getRouteController().getRouteStatus("foo").isStarted());
 
         // should be prepared, check parents has been set
         assertNotNull("Parent should be set on outputs");
@@ -145,7 +145,7 @@ public class CamelContextAddRouteDefinitionsFromXmlTest extends ContextTestSuppo
 
         context.addRouteDefinition(route);
         assertEquals(1, context.getRoutes().size());
-        assertTrue("Route should be started", context.getRouteStatus("foo").isStarted());
+        assertTrue("Route should be started", context.getRouteController().getRouteStatus("foo").isStarted());
 
         getMockEndpoint("mock:foo").whenExchangeReceived(2, new Processor() {
             public void process(Exchange exchange) throws Exception {

@@ -40,7 +40,7 @@ public class NettyMDCLoggingTest extends BaseNettyTest {
             @Override
             public void configure() throws Exception {
                 // enable MDC
-                context.setUseMDCLogging(true);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
 
                 from("direct:start").routeId("client")
                     .to("log:client-input")

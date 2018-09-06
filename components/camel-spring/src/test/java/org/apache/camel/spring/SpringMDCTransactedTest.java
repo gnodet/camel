@@ -16,6 +16,7 @@
  */
 package org.apache.camel.spring;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -49,7 +50,7 @@ public class SpringMDCTransactedTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // enable MDC
-                context.setUseMDCLogging(true);
+                context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
 
                 from("direct:a").routeId("route-a")
                     .transacted()

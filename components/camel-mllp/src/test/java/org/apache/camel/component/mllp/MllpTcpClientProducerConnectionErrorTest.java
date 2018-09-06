@@ -21,6 +21,7 @@ import java.net.ConnectException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
@@ -64,7 +65,7 @@ public class MllpTcpClientProducerConnectionErrorTest extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         DefaultCamelContext context = (DefaultCamelContext) super.createCamelContext();
 
-        context.setUseMDCLogging(true);
+        context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
         context.setName(this.getClass().getSimpleName());
 
         return context;

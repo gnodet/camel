@@ -16,6 +16,7 @@
  */
 package org.apache.camel.impl;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.io.File;
@@ -48,7 +49,7 @@ public class FileWatcherReloadStrategyTest extends ContextTestSupport {
         reloadStrategy.setFolder("target/dummy");
         // to make unit test faster
         reloadStrategy.setPollTimeout(100);
-        context.setReloadStrategy(reloadStrategy);
+        context.adapt(ConfigurableCamelContext.class).setReloadStrategy(reloadStrategy);
         return context;
     }
 

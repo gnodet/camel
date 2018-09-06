@@ -29,13 +29,13 @@ import org.apache.camel.support.ServiceSupport;
 
 @Experimental
 public class DefaultRouteController extends ServiceSupport implements RouteController  {
-    private CamelContext camelContext;
+    private DefaultCamelContext camelContext;
 
     public DefaultRouteController() {
         this(null);
     }
 
-    public DefaultRouteController(CamelContext camelContext) {
+    public DefaultRouteController(DefaultCamelContext camelContext) {
         this.camelContext = camelContext;
     }
 
@@ -45,7 +45,7 @@ public class DefaultRouteController extends ServiceSupport implements RouteContr
 
     @Override
     public void setCamelContext(CamelContext camelContext) {
-        this.camelContext = camelContext;
+        this.camelContext = (DefaultCamelContext) camelContext;
     }
 
     @Override

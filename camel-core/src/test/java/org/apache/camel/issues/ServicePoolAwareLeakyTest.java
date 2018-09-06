@@ -16,6 +16,7 @@
  */
 package org.apache.camel.issues;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -131,7 +132,7 @@ public class ServicePoolAwareLeakyTest extends ContextTestSupport {
         final Map<String, AtomicLong> references = new HashMap<>();
 
         // track LeakySieveProducer lifecycle
-        context.addLifecycleStrategy(new LifecycleStrategySupport() {
+        context.adapt(ConfigurableCamelContext.class).addLifecycleStrategy(new LifecycleStrategySupport() {
             @Override
             public void onServiceAdd(CamelContext context, Service service, Route route) {
                 if (service instanceof LeakySieveProducer) {
@@ -183,7 +184,7 @@ public class ServicePoolAwareLeakyTest extends ContextTestSupport {
                 assertEquals(1, references.get(LEAKY_SIEVE_STABLE).get());
             }
 
-            context.stopRoute("sieve-transient");
+            context.getRouteController().stopRoute("sieve-transient");
 
             if (isFailFast()) {
                 assertEquals("Expected no service references to remain", 0, references.get(LEAKY_SIEVE_TRANSIENT));
@@ -217,7 +218,7 @@ public class ServicePoolAwareLeakyTest extends ContextTestSupport {
                 assertEquals("Expected reference to stable producer", 1, references.get(LEAKY_SIEVE_STABLE).get());
             }
 
-            context.startRoute("sieve-transient");
+            context.getRouteController().startRoute("sieve-transient");
 
             // ok, back to normal
             assertEquals(ServiceStatus.Started, service.getStatus());

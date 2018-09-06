@@ -16,6 +16,7 @@
  */
 package org.apache.camel.builder;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -44,7 +45,7 @@ public class ErrorHandlerBuilderRefTest extends ContextTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setErrorHandlerBuilder(errorHandlerBuilderRef);
+        context.adapt(ConfigurableCamelContext.class).setErrorHandlerBuilder(errorHandlerBuilderRef);
         return context;
     }
     
@@ -53,7 +54,7 @@ public class ErrorHandlerBuilderRefTest extends ContextTestSupport {
         String uuid = UUID.randomUUID().toString();
         context.addRoutes(new TempRouteBuilder(uuid));
         checkObjectSize(2);
-        context.stopRoute(uuid);
+        context.getRouteController().stopRoute(uuid);
         context.removeRoute(uuid);
         checkObjectSize(1);
     }

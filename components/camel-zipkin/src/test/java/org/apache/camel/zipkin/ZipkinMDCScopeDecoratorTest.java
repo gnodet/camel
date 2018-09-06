@@ -17,6 +17,7 @@
 package org.apache.camel.zipkin;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.RoutesBuilder;
@@ -44,7 +45,7 @@ public class ZipkinMDCScopeDecoratorTest extends CamelTestSupport {
         // capture message body as well
         zipkin.setIncludeMessageBody(true);
         setSpanReporter(zipkin);
-        context.setUseMDCLogging(true);
+        context.adapt(ConfigurableCamelContext.class).setUseMDCLogging(true);
         // attaching ourself to CamelContext
         zipkin.init(context);
         return context;
