@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.runtimecatalog;
+package org.apache.camel.impl.runtimecatalog;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.ContextTestSupport;
-import org.apache.camel.impl.runtimecatalog.JSonSchemaHelper;
 import org.junit.Test;
 
 public class JSonSchemaHelperTest extends ContextTestSupport {

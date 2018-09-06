@@ -14,13 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.runtimecatalog;
+package org.apache.camel.impl.runtimecatalog;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.runtimecatalog.DefaultRuntimeCamelCatalog;
+import org.apache.camel.runtimecatalog.EndpointValidationResult;
+import org.apache.camel.runtimecatalog.LanguageValidationResult;
+import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
+import org.apache.camel.runtimecatalog.SimpleValidationResult;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
