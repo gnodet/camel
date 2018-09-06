@@ -14,11 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.runtimecatalog;
+package org.apache.camel.impl.runtimecatalog;
 
 import java.io.IOException;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.runtimecatalog.JSonSchemaResolver;
 
 /**
  * Uses runtime {@link CamelContext} to resolve the JSon schema files.

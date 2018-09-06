@@ -15,21 +15,20 @@
  * limitations under the License.
  */
 package org.apache.camel.runtimecatalog;
-import org.junit.Before;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.impl.DefaultCamelContext;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.apache.camel.impl.runtimecatalog.DefaultRuntimeCamelCatalog;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RuntimeCamelCatalogTest {
 
