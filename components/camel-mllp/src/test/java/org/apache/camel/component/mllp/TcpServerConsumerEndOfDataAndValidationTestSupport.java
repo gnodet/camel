@@ -21,6 +21,7 @@ import java.net.SocketException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.NotifyBuilder;

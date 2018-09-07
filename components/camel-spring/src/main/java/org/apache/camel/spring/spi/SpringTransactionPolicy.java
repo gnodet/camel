@@ -19,6 +19,7 @@ package org.apache.camel.spring.spi;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.ErrorHandlerBuilderRef;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.spi.TransactedPolicy;
@@ -66,7 +67,7 @@ public class SpringTransactionPolicy implements TransactedPolicy {
         // if we should not support this we do not need to wrap the processor as we only need one transacted error handler
 
         // find the existing error handler builder
-        ErrorHandlerBuilder builder = (ErrorHandlerBuilder)routeContext.getRoute().getErrorHandlerBuilder();
+        ErrorHandlerBuilder builder = (ErrorHandlerBuilder) ((RouteDefinition) routeContext.getRoute()).getErrorHandlerBuilder();
 
         // check if its a ref if so then do a lookup
         if (builder instanceof ErrorHandlerBuilderRef) {
@@ -111,7 +112,7 @@ public class SpringTransactionPolicy implements TransactedPolicy {
             txBuilder.configure(routeContext, answer);
 
             // set the route to use our transacted error handler builder
-            routeContext.getRoute().setErrorHandlerBuilder(txBuilder);
+            ((RouteDefinition) routeContext.getRoute()).setErrorHandlerBuilder(txBuilder);
         }
 
         // return with wrapped transacted error handler

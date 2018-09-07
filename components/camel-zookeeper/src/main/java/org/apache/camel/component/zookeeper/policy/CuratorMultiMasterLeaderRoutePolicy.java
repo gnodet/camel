@@ -25,6 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.camel.NonManagedService;
 import org.apache.camel.Route;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.support.RoutePolicySupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public class CuratorMultiMasterLeaderRoutePolicy extends RoutePolicySupport impl
     public void onInit(Route route) {
         ensureElectionIsCreated();
         LOG.info("Route managed by {}. Setting route [{}] AutoStartup flag to false.", this.getClass(), route.getId());
-        route.getRouteContext().getRoute().setAutoStartup("false");
+        ((RouteDefinition) route.getRouteContext().getRoute()).setAutoStartup("false");
 
 
         if (election.isMaster()) {

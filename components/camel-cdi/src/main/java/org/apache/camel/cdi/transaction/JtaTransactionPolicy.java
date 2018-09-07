@@ -24,6 +24,7 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.ErrorHandlerBuilderRef;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.spi.TransactedPolicy;
 import org.apache.camel.util.ObjectHelper;
@@ -74,7 +75,7 @@ public abstract class JtaTransactionPolicy implements TransactedPolicy {
         // we only need one transacted error handler
 
         // find the existing error handler builder
-        ErrorHandlerBuilder builder = (ErrorHandlerBuilder) routeContext.getRoute().getErrorHandlerBuilder();
+        ErrorHandlerBuilder builder = (ErrorHandlerBuilder) ((RouteDefinition) routeContext.getRoute()).getErrorHandlerBuilder();
 
         // check if its a ref if so then do a lookup
         if (builder instanceof ErrorHandlerBuilderRef) {
@@ -118,7 +119,7 @@ public abstract class JtaTransactionPolicy implements TransactedPolicy {
         txBuilder.configure(routeContext, answer);
 
         // set the route to use our transacted error handler builder
-        routeContext.getRoute().setErrorHandlerBuilder(txBuilder);
+        ((RouteDefinition) routeContext.getRoute()).setErrorHandlerBuilder(txBuilder);
 
         // return with wrapped transacted error handler
         return answer;
