@@ -22,7 +22,6 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
-
 import org.w3c.dom.Document;
 
 import org.apache.camel.CamelContext;

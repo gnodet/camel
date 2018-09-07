@@ -17,7 +17,6 @@
 package org.apache.camel.builder.xml;
 
 import java.io.ByteArrayOutputStream;
-
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 

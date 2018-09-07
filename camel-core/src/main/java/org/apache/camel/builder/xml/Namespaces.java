@@ -18,7 +18,6 @@ package org.apache.camel.builder.xml;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

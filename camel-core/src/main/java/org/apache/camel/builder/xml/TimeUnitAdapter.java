@@ -18,7 +18,6 @@ package org.apache.camel.builder.xml;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**

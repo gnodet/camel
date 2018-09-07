@@ -18,7 +18,6 @@ package org.apache.camel.builder.xml;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPathVariableResolver;
 

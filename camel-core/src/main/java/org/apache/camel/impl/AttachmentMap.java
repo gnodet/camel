@@ -21,7 +21,6 @@ import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
 import javax.activation.DataHandler;
 
 import org.apache.camel.Attachment;

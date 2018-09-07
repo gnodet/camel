@@ -25,7 +25,6 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.Service;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.TransactedDefinition;
-import static org.apache.camel.model.TransactedDefinition.PROPAGATION_REQUIRED;
 import org.apache.camel.processor.WrapProcessor;
 import org.apache.camel.spi.Policy;
 import org.apache.camel.spi.RouteContext;
@@ -34,6 +33,8 @@ import org.apache.camel.util.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.apache.camel.model.TransactedDefinition.PROPAGATION_REQUIRED;
 
 public class TransactedReifier extends ProcessorReifier<TransactedDefinition> {
 

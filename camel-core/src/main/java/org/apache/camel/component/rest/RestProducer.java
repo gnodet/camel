@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.xml.bind.JAXBContext;
 
 import org.apache.camel.AsyncCallback;

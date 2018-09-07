@@ -298,7 +298,6 @@ public class ClusteredRouteController extends DefaultRouteController {
             // All the filter have to be match to include the route in the
             // clustering set-up
             if (filters.stream().allMatch(filter -> filter.test(camelContext, routeId, route))) {
-
                 if (ObjectHelper.isNotEmpty(route.getRoutePolicies())) {
                     // Check if the route is already configured with a clustered
                     // route policy, in that case exclude it.

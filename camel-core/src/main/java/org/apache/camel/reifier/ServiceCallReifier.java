@@ -45,11 +45,12 @@ import org.apache.camel.model.cloud.ServiceCallDefinition;
 import org.apache.camel.model.cloud.ServiceCallDefinitionConstants;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.CamelContextHelper;
-import static org.apache.camel.util.CamelContextHelper.findByType;
-import static org.apache.camel.util.CamelContextHelper.lookup;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.function.Suppliers;
 import org.apache.camel.util.function.ThrowingHelper;
+
+import static org.apache.camel.util.CamelContextHelper.findByType;
+import static org.apache.camel.util.CamelContextHelper.lookup;
 
 class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
 

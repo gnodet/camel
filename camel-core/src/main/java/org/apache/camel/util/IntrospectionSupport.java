@@ -44,9 +44,9 @@ import org.apache.camel.Component;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.properties.PropertiesComponent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import static org.apache.camel.util.ObjectHelper.isAssignableFrom;
 
 /**

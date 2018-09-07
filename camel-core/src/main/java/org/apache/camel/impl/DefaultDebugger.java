@@ -36,7 +36,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.Service;
 import org.apache.camel.management.event.AbstractExchangeEvent;
 import org.apache.camel.management.event.ExchangeCompletedEvent;
-import org.apache.camel.management.event.ExchangeCreatedEvent;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.interceptor.Tracer;
 import org.apache.camel.spi.EventNotifier;

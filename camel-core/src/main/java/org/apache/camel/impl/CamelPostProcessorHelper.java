@@ -18,7 +18,6 @@ package org.apache.camel.impl;
 
 import java.lang.reflect.Method;
 import java.util.Set;
-
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.camel.CamelContext;

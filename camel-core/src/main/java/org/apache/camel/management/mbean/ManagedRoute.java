@@ -38,7 +38,6 @@ import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
 import javax.management.openmbean.TabularData;
 import javax.management.openmbean.TabularDataSupport;
-
 import org.w3c.dom.Document;
 
 import org.apache.camel.CamelContext;

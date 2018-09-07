@@ -19,7 +19,6 @@ package org.apache.camel.converter.stream;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.IvParameterSpec;

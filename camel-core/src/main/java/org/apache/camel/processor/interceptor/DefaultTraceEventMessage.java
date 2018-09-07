@@ -21,8 +21,8 @@ import java.util.Date;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.spi.RouteNode;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.spi.RouteNode;
 import org.apache.camel.spi.TracedRouteNodes;
 import org.apache.camel.util.MessageHelper;
 

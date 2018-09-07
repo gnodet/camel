@@ -34,6 +34,11 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.camel.runtimecatalog.EndpointValidationResult;
+import org.apache.camel.runtimecatalog.JSonSchemaResolver;
+import org.apache.camel.runtimecatalog.LanguageValidationResult;
+import org.apache.camel.runtimecatalog.SimpleValidationResult;
+
 import static org.apache.camel.impl.runtimecatalog.CatalogHelper.after;
 import static org.apache.camel.impl.runtimecatalog.JSonSchemaHelper.getNames;
 import static org.apache.camel.impl.runtimecatalog.JSonSchemaHelper.getPropertyDefaultValue;
@@ -59,10 +64,6 @@ import static org.apache.camel.impl.runtimecatalog.URISupport.createQueryString;
 import static org.apache.camel.impl.runtimecatalog.URISupport.isEmpty;
 import static org.apache.camel.impl.runtimecatalog.URISupport.normalizeUri;
 import static org.apache.camel.impl.runtimecatalog.URISupport.stripQuery;
-import org.apache.camel.runtimecatalog.EndpointValidationResult;
-import org.apache.camel.runtimecatalog.JSonSchemaResolver;
-import org.apache.camel.runtimecatalog.LanguageValidationResult;
-import org.apache.camel.runtimecatalog.SimpleValidationResult;
 
 /**
  * Base class for both the runtime RuntimeCamelCatalog from camel-core and the complete CamelCatalog from camel-catalog.

@@ -19,7 +19,6 @@ package org.apache.camel.converter.jaxp;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.Reader;
-
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamConstants;
