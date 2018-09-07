@@ -16,7 +16,6 @@
  */
 package org.apache.camel.util;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +61,6 @@ import org.apache.camel.Ordered;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.WrappedFile;
-import org.apache.camel.util.function.ThrowingFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -447,35 +445,6 @@ public final class ObjectHelper {
         if (isNotEmpty(value)) {
             consumer.accept(value);
         }
-    }
-
-    /**
-     * Tests whether the value is <b>not</b> <tt>null</tt>, an empty string, an empty collection or a map  and transform it using the given function.
-     *
-     * @param value  the value, if its a String it will be tested for text length as well
-     * @param function  the function to be executed against value if not empty
-     */
-    public static <I, R, T extends Throwable> Optional<R> applyIfNotEmpty(I value, ThrowingFunction<I, R, T> function) throws T {
-        if (isNotEmpty(value)) {
-            return Optional.ofNullable(function.apply(value));
-        }
-
-        return Optional.empty();
-    }
-
-    /**
-     * Tests whether the value is <b>not</b> <tt>null</tt>, an empty string, an empty collection or a map and transform it using the given function.
-     *
-     * @param value  the value, if its a String it will be tested for text length as well
-     * @param consumer  the function to be executed against value if not empty
-     * @param orElse  the supplier to use to retrieve a result if the given value is empty
-     */
-    public static <I, R, T extends Throwable> R applyIfNotEmpty(I value, ThrowingFunction<I, R, T> consumer, Supplier<R> orElse) throws T {
-        if (isNotEmpty(value)) {
-            return consumer.apply(value);
-        }
-
-        return orElse.get();
     }
 
     /**
@@ -1687,20 +1656,6 @@ public final class ObjectHelper {
      */
     public static <A extends java.lang.annotation.Annotation> A getAnnotation(Object instance, Class<A> type) {
         return instance.getClass().getAnnotation(type);
-    }
-
-    /**
-     * Closes the given resource if it is available, logging any closing
-     * exceptions to the given log
-     *
-     * @param closeable the object to close
-     * @param name the name of the resource
-     * @param log the log to use when reporting closure warnings
-     * @deprecated will be removed in Camel 3.0. Instead use {@link org.apache.camel.util.IOHelper#close(java.io.Closeable, String, org.slf4j.Logger)} instead
-     */
-    @Deprecated
-    public static void close(Closeable closeable, String name, Logger log) {
-        IOHelper.close(closeable, name, log);
     }
 
 

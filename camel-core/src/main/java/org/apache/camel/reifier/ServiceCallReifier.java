@@ -49,6 +49,7 @@ import static org.apache.camel.util.CamelContextHelper.findByType;
 import static org.apache.camel.util.CamelContextHelper.lookup;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.function.Suppliers;
+import org.apache.camel.util.function.ThrowingHelper;
 
 class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
 
@@ -118,8 +119,8 @@ class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
         // Service name is mandatory
         ObjectHelper.notNull(definition.getName(), "Service name");
 
-        endpointScheme = ObjectHelper.applyIfNotEmpty(endpointScheme, camelContext::resolvePropertyPlaceholders, () -> ServiceCallDefinitionConstants.DEFAULT_COMPONENT);
-        endpointUri = ObjectHelper.applyIfNotEmpty(endpointUri, camelContext::resolvePropertyPlaceholders, () -> null);
+        endpointScheme = ThrowingHelper.applyIfNotEmpty(endpointScheme, camelContext::resolvePropertyPlaceholders, () -> ServiceCallDefinitionConstants.DEFAULT_COMPONENT);
+        endpointUri = ThrowingHelper.applyIfNotEmpty(endpointUri, camelContext::resolvePropertyPlaceholders, () -> null);
 
         return new DefaultServiceCallProcessor(
                 camelContext,
