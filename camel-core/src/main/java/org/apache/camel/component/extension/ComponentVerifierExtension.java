@@ -22,13 +22,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.Component;
-import org.apache.camel.component.extension.verifier.ComponentVerifierExtensionHelper.ErrorAttribute;
-import org.apache.camel.component.extension.verifier.ComponentVerifierExtensionHelper.ErrorCode;
-import org.apache.camel.component.extension.verifier.ComponentVerifierExtensionHelper.ExceptionErrorAttribute;
-import org.apache.camel.component.extension.verifier.ComponentVerifierExtensionHelper.GroupErrorAttribute;
-import org.apache.camel.component.extension.verifier.ComponentVerifierExtensionHelper.HttpErrorAttribute;
-import org.apache.camel.component.extension.verifier.ComponentVerifierExtensionHelper.StandardErrorCode;
-import org.apache.camel.component.extension.verifier.ResultErrorBuilder;
+import org.apache.camel.component.extension.ComponentVerifierExtensionHelper.ErrorAttribute;
+import org.apache.camel.component.extension.ComponentVerifierExtensionHelper.ErrorCode;
+import org.apache.camel.component.extension.ComponentVerifierExtensionHelper.ExceptionErrorAttribute;
+import org.apache.camel.component.extension.ComponentVerifierExtensionHelper.GroupErrorAttribute;
+import org.apache.camel.component.extension.ComponentVerifierExtensionHelper.HttpErrorAttribute;
+import org.apache.camel.component.extension.ComponentVerifierExtensionHelper.StandardErrorCode;
 import org.apache.camel.util.ObjectHelper;
 
 /**
@@ -121,7 +120,7 @@ public interface ComponentVerifierExtension extends ComponentExtension {
          */
         CONNECTIVITY;
 
-        private static final ComponentVerifierExtension.Scope[] VALUES = values();
+        private static final Scope[] VALUES = values();
 
         /**
          * Get an instance of this scope from a string representation
@@ -163,7 +162,7 @@ public interface ComponentVerifierExtension extends ComponentExtension {
 
         /**
          * A set of input parameter names which fails the verification. These are keys to the parameter provided
-         * to {@link #verify(ComponentVerifierExtension.Scope, Map)}.
+         * to {@link #verify(Scope, Map)}.
          *
          * @return the parameter names which are malformed and caused the failure of the validation
          */
@@ -315,7 +314,8 @@ public interface ComponentVerifierExtension extends ComponentExtension {
          * Interface defining an attribute which is a key for the detailed error messages. This is implemented by several
          * standard enums like {@link ExceptionAttribute}, {@link HttpAttribute} or {@link GroupAttribute} but can also
          * implemented for component specific details. This is best done via {@link #asAttribute(String)}
-         * or using one of the other builder method in this error builder (like {@link ResultErrorBuilder#detail(String, Object)}
+         * or using one of the other builder method in this error builder (like
+         * {@link org.apache.camel.component.extension.verifier.ResultErrorBuilder#detail(String, Object)}
          * <p>
          * With respecting to name, the same rules as for {@link Code} apply: Standard attributes are all upper case with _
          * as separators, whereas custom attributes are lower case with underscore separators.
