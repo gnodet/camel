@@ -18,9 +18,9 @@ package org.apache.camel.language.spel;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.ExpressionEvaluationException;
-import org.apache.camel.impl.ExpressionSupport;
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.camel.spring.util.RegistryBeanResolver;
+import org.apache.camel.support.ExpressionSupport;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.expression.BeanResolver;
