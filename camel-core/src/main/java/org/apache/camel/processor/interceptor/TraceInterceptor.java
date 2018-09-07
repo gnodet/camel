@@ -220,7 +220,7 @@ public class TraceInterceptor extends DelegateAsyncProcessor implements Exchange
 
     private void traceOnException(TracedRouteNodes traced, Exchange exchange) throws Exception {
         if (traced.getLastNode() != null) {
-            traced.addTraced(new DefaultRouteNode(traced.getLastNode().getProcessorDefinition(), traced.getLastNode().getProcessor()));
+            traced.addTraced(new DefaultRouteNode((ProcessorDefinition<?>) traced.getLastNode().getProcessorDefinition(), traced.getLastNode().getProcessor()));
         }
         traced.addTraced(new OnExceptionRouteNode());
         // log and trace so we have the from -> onException event as well
@@ -231,7 +231,7 @@ public class TraceInterceptor extends DelegateAsyncProcessor implements Exchange
 
     private void traceDoCatch(TracedRouteNodes traced, Exchange exchange) throws Exception {
         if (traced.getLastNode() != null) {
-            traced.addTraced(new DefaultRouteNode(traced.getLastNode().getProcessorDefinition(), traced.getLastNode().getProcessor()));
+            traced.addTraced(new DefaultRouteNode((ProcessorDefinition<?>) traced.getLastNode().getProcessorDefinition(), traced.getLastNode().getProcessor()));
         }
         traced.addTraced(new DoCatchRouteNode());
         // log and trace so we have the from -> doCatch event as well
@@ -242,7 +242,7 @@ public class TraceInterceptor extends DelegateAsyncProcessor implements Exchange
 
     private void traceDoFinally(TracedRouteNodes traced, Exchange exchange) throws Exception {
         if (traced.getLastNode() != null) {
-            traced.addTraced(new DefaultRouteNode(traced.getLastNode().getProcessorDefinition(), traced.getLastNode().getProcessor()));
+            traced.addTraced(new DefaultRouteNode((ProcessorDefinition<?>) traced.getLastNode().getProcessorDefinition(), traced.getLastNode().getProcessor()));
         }
         traced.addTraced(new DoFinallyRouteNode());
         // log and trace so we have the from -> doFinally event as well

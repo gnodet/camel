@@ -369,7 +369,7 @@ public class DefaultTraceFormatter implements TraceFormatter {
                             traceTo = traced.getSecondLastNode();
                         }
                         if (traceTo != null) {
-                            route = extractRoute(traceTo.getProcessorDefinition());
+                            route = extractRoute((ProcessorDefinition) traceTo.getProcessorDefinition());
                         }
                     }
                 }

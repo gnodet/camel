@@ -20,8 +20,8 @@ import java.util.EventObject;
 import java.util.List;
 
 import org.apache.camel.ManagementStatisticsLevel;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Service;
-import org.apache.camel.model.ProcessorDefinition;
 
 /**
  * Strategy for management.
@@ -199,7 +199,7 @@ public interface ManagementStrategy extends Service {
      * @param definition definition of the processor
      * @return <tt>true</tt> to manage it
      */
-    boolean manageProcessor(ProcessorDefinition<?> definition);
+    boolean manageProcessor(NamedNode definition);
 
     /**
      * Sets the whether only manage processors if they have been configured with a custom id

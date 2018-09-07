@@ -21,9 +21,9 @@ import org.junit.Test;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.DelegateAsyncProcessor;
 import org.apache.camel.spi.InterceptStrategy;
 import org.slf4j.Logger;
@@ -72,7 +72,7 @@ public class AdviceWithStartTargetIssueTest extends ContextTestSupport {
         private static final Logger LOG = LoggerFactory.getLogger(ContainerWideInterceptor.class);
         private static int count;
 
-        public Processor wrapProcessorInInterceptors(final CamelContext context, final ProcessorDefinition<?> definition,
+        public Processor wrapProcessorInInterceptors(final CamelContext context, final NamedNode definition,
                                                      final Processor target, final Processor nextTarget) throws Exception {
 
             return new DelegateAsyncProcessor(new Processor() {

@@ -21,6 +21,7 @@ import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Expression;
 import org.apache.camel.Processor;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutingSlipDefinition;
 import static org.apache.camel.model.RoutingSlipDefinition.DEFAULT_DELIMITER;
 import org.apache.camel.processor.RoutingSlip;
@@ -46,7 +47,7 @@ class RoutingSlipReifier extends ExpressionReifier<RoutingSlipDefinition<?>> {
         }
 
         // and wrap this in an error handler
-        ErrorHandlerFactory builder = routeContext.getRoute().getErrorHandlerBuilder();
+        ErrorHandlerFactory builder = ((RouteDefinition) routeContext.getRoute()).getErrorHandlerBuilder();
         // create error handler (create error handler directly to keep it light weight,
         // instead of using ProcessorDefinition.wrapInErrorHandler)
         AsyncProcessor errorHandler = (AsyncProcessor) builder.createErrorHandler(routeContext, routingSlip.newRoutingSlipProcessorForErrorHandler());

@@ -33,6 +33,7 @@ import org.apache.camel.StatefulService;
 import org.apache.camel.StreamCache;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.processor.interceptor.BacklogDebugger;
 import org.apache.camel.processor.interceptor.BacklogTracer;
 import org.apache.camel.processor.interceptor.DefaultBacklogTracerEventMessage;
@@ -561,7 +562,7 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
         public UnitOfWorkProcessorAdvice(RouteContext routeContext) {
             this.routeContext = routeContext;
             if (routeContext != null) {
-                this.routeId = routeContext.getRoute().idOrCreate(routeContext.getCamelContext().getNodeIdFactory());
+                this.routeId = ((RouteDefinition) routeContext.getRoute()).idOrCreate(routeContext.getCamelContext().getNodeIdFactory());
             }
         }
 
@@ -571,7 +572,7 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
             // from this unit of work
             if (routeContext != null && exchange.getFromRouteId() == null) {
                 if (routeId == null) {
-                    routeId = routeContext.getRoute().idOrCreate(routeContext.getCamelContext().getNodeIdFactory());
+                    routeId = ((RouteDefinition) routeContext.getRoute()).idOrCreate(routeContext.getCamelContext().getNodeIdFactory());
                 }
                 exchange.setFromRouteId(routeId);
             }

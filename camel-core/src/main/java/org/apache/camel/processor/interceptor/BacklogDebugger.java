@@ -31,6 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.NamedNode;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
@@ -117,7 +118,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
 
     @Override
     @Deprecated
-    public Processor wrapProcessorInInterceptors(CamelContext context, ProcessorDefinition<?> definition, Processor target, Processor nextTarget) throws Exception {
+    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target, Processor nextTarget) throws Exception {
         throw new UnsupportedOperationException("Deprecated");
     }
 
@@ -545,11 +546,11 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
         }
 
         @Override
-        public void beforeProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+        public void beforeProcess(Exchange exchange, Processor processor, NamedNode definition) {
             // store a copy of the message so we can see that from the debugger
             Date timestamp = new Date();
             String toNode = definition.getId();
-            String routeId = ProcessorDefinitionHelper.getRouteId(definition);
+            String routeId = ProcessorDefinitionHelper.getRouteId((ProcessorDefinition) definition);
             String exchangeId = exchange.getExchangeId();
             String messageAsXml = MessageHelper.dumpAsXml(exchange.getIn(), true, 2, isBodyIncludeStreams(), isBodyIncludeFiles(), getBodyMaxChars());
             long uid = debugCounter.incrementAndGet();
@@ -576,7 +577,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
         }
 
         @Override
-        public boolean matchProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+        public boolean matchProcess(Exchange exchange, Processor processor, NamedNode definition) {
             // must match node
             if (!nodeId.equals(definition.getId())) {
                 return false;
@@ -605,11 +606,11 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
     private final class StepBreakpoint extends BreakpointSupport implements Condition {
 
         @Override
-        public void beforeProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+        public void beforeProcess(Exchange exchange, Processor processor, NamedNode definition) {
             // store a copy of the message so we can see that from the debugger
             Date timestamp = new Date();
             String toNode = definition.getId();
-            String routeId = ProcessorDefinitionHelper.getRouteId(definition);
+            String routeId = ProcessorDefinitionHelper.getRouteId((ProcessorDefinition) definition);
             String exchangeId = exchange.getExchangeId();
             String messageAsXml = MessageHelper.dumpAsXml(exchange.getIn(), true, 2, isBodyIncludeStreams(), isBodyIncludeFiles(), getBodyMaxChars());
             long uid = debugCounter.incrementAndGet();
@@ -636,7 +637,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
         }
 
         @Override
-        public boolean matchProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+        public boolean matchProcess(Exchange exchange, Processor processor, NamedNode definition) {
             return true;
         }
 
@@ -646,7 +647,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
         }
 
         @Override
-        public void onEvent(Exchange exchange, EventObject event, ProcessorDefinition<?> definition) {
+        public void onEvent(Exchange exchange, EventObject event, NamedNode definition) {
             // when the exchange is complete, we need to turn off single step mode if we were debug stepping the exchange
             if (event instanceof ExchangeCompletedEvent) {
                 String completedId = ((ExchangeCompletedEvent) event).getExchange().getExchangeId();

@@ -25,6 +25,7 @@ import org.apache.camel.Consumer;
 import org.apache.camel.DelegateProcessor;
 import org.apache.camel.Endpoint;
 import org.apache.camel.ErrorHandlerFactory;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.Route;
@@ -283,8 +284,9 @@ public class DefaultManagementObjectStrategy implements ManagementObjectStrategy
 
     @SuppressWarnings({"deprecation", "unchecked"})
     public Object getManagedObjectForProcessor(CamelContext context, Processor processor,
-                                               ProcessorDefinition<?> definition, Route route) {
+                                               NamedNode def, Route route) {
         ManagedProcessor answer = null;
+        ProcessorDefinition<?> definition = (ProcessorDefinition) def;
 
         if (definition instanceof RecipientListDefinition) {
             // special for RecipientListDefinition, as the processor is wrapped in a pipeline as last

@@ -17,9 +17,11 @@
 package org.apache.camel.reifier;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.model.InterceptDefinition;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.spi.RouteContext;
@@ -39,7 +41,7 @@ class InterceptReifier<T extends InterceptDefinition> extends ProcessorReifier<T
         routeContext.getInterceptStrategies().add(new InterceptStrategy() {
             private Processor interceptedTarget;
 
-            public Processor wrapProcessorInInterceptors(CamelContext context, ProcessorDefinition<?> definition,
+            public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition,
                                                          Processor target, Processor nextTarget) throws Exception {
                 // store the target we are intercepting
                 this.interceptedTarget = target;
@@ -62,7 +64,7 @@ class InterceptReifier<T extends InterceptDefinition> extends ProcessorReifier<T
         });
 
         // remove me from the route so I am not invoked in a regular route path
-        routeContext.getRoute().getOutputs().remove(this);
+        ((RouteDefinition) routeContext.getRoute()).getOutputs().remove(this);
         // and return no processor to invoke next from me
         return null;
     }

@@ -19,7 +19,7 @@ package org.apache.camel.spi;
 import java.util.List;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.NamedNode;
 
 /**
  * Tracing information used by {@link org.apache.camel.processor.interceptor.TraceInterceptor}
@@ -86,6 +86,6 @@ public interface TracedRouteNodes {
      * @param node the intercept node
      * @return the current count
      */
-    int getAndIncrementCounter(ProcessorDefinition<?> node);
+    int getAndIncrementCounter(NamedNode node);
 
 }

@@ -314,7 +314,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
 
         // validate route has output processors
         if (!ProcessorDefinitionHelper.hasOutputs(definition.getOutputs(), true)) {
-            RouteDefinition route = routeContext.getRoute();
+            RouteDefinition route = (RouteDefinition) routeContext.getRoute();
             String at = fromType.toString();
             Exception cause = new IllegalArgumentException("Route " + route.getId() + " has no output processors."
                     + " You need to add outputs to the route such as to(\"log:foo\").");
@@ -326,7 +326,7 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
             try {
                 ProcessorReifier.reifier(output).addRoutes(routeContext, routes);
             } catch (Exception e) {
-                RouteDefinition route = routeContext.getRoute();
+                RouteDefinition route = (RouteDefinition) routeContext.getRoute();
                 throw new FailedToCreateRouteException(route.getId(), route.toString(), output.toString(), e);
             }
         }

@@ -20,6 +20,7 @@ import javax.management.ObjectName;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.NamedNode;
 import org.apache.camel.management.mbean.ManagedBacklogDebugger;
 import org.apache.camel.management.mbean.ManagedBacklogTracer;
 import org.apache.camel.management.mbean.ManagedCamelContext;
@@ -38,7 +39,6 @@ import org.apache.camel.management.mbean.ManagedRouteController;
 import org.apache.camel.management.mbean.ManagedService;
 import org.apache.camel.management.mbean.ManagedThreadPool;
 import org.apache.camel.management.mbean.ManagedTracer;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.ManagementAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -182,7 +182,7 @@ public class ManagedManagementStrategy extends DefaultManagementStrategy {
     }
 
     @Override
-    public boolean manageProcessor(ProcessorDefinition<?> definition) {
+    public boolean manageProcessor(NamedNode definition) {
         return true;
     }
 

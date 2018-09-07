@@ -36,6 +36,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Route;
 import org.apache.camel.StaticService;
 import org.apache.camel.api.management.ManagedResource;
@@ -95,7 +96,7 @@ public class OpenTracingTracer extends ServiceSupport implements RoutePolicyFact
     }
 
     @Override
-    public RoutePolicy createRoutePolicy(CamelContext camelContext, String routeId, RouteDefinition route) {
+    public RoutePolicy createRoutePolicy(CamelContext camelContext, String routeId, NamedNode route) {
         // ensure this opentracing tracer gets initialized when Camel starts
         init(camelContext);
         return new OpenTracingRoutePolicy(routeId);

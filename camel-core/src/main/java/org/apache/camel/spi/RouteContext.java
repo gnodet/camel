@@ -23,11 +23,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.EndpointAware;
 import org.apache.camel.Experimental;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.RuntimeConfiguration;
-import org.apache.camel.model.FromDefinition;
-import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.RouteDefinition;
 
 /**
  * The context used to activate new routing rules
@@ -41,14 +39,14 @@ public interface RouteContext extends RuntimeConfiguration, EndpointAware {
      *
      * @return the from type
      */
-    FromDefinition getFrom();
+    NamedNode getFrom();
 
     /**
      * Get the route type
      *
      * @return the route type
      */
-    RouteDefinition getRoute();
+    NamedNode getRoute();
 
     /**
      * Gets the camel context
@@ -191,7 +189,7 @@ public interface RouteContext extends RuntimeConfiguration, EndpointAware {
      * @param node the current node
      * @return the current count
      */
-    int getAndIncrement(ProcessorDefinition<?> node);
+    int getAndIncrement(NamedNode node);
 
     /**
      * Gets the last error.

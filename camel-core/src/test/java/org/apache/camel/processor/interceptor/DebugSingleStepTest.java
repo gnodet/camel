@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.interceptor;
 import org.apache.camel.ConfigurableCamelContext;
+import org.apache.camel.NamedNode;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -29,7 +30,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.BreakpointSupport;
 import org.apache.camel.impl.DefaultDebugger;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.Breakpoint;
 
 /**
@@ -46,7 +46,8 @@ public class DebugSingleStepTest extends ContextTestSupport {
         super.setUp();
 
         breakpoint = new BreakpointSupport() {
-            public void beforeProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+            @Override
+            public void beforeProcess(Exchange exchange, Processor processor, NamedNode definition) {
                 String body = exchange.getIn().getBody(String.class);
                 logs.add("Single stepping at " + definition.getLabel() + " with body: " + body);
             }

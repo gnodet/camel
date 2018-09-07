@@ -19,8 +19,8 @@ package org.apache.camel.processor.interceptor;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.InterceptStrategy;
 
 /**
@@ -54,7 +54,7 @@ public class Delayer implements InterceptStrategy {
         return null;
     }
 
-    public Processor wrapProcessorInInterceptors(CamelContext context, ProcessorDefinition<?> definition,
+    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition,
                                                  Processor target, Processor nextTarget) throws Exception {
         return new DelayInterceptor(context, definition, target, this);
     }

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.interceptor;
 import org.apache.camel.ConfigurableCamelContext;
+import org.apache.camel.NamedNode;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -54,12 +55,14 @@ public class DebugTest extends ContextTestSupport {
         super.setUp();
 
         breakpoint = new BreakpointSupport() {
-            public void beforeProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+            @Override
+            public void beforeProcess(Exchange exchange, Processor processor, NamedNode definition) {
                 String body = exchange.getIn().getBody(String.class);
                 logs.add("Breakpoint at " + definition + " with body: " + body);
             }
 
-            public void onEvent(Exchange exchange, EventObject event, ProcessorDefinition<?> definition) {
+            @Override
+            public void onEvent(Exchange exchange, EventObject event, NamedNode definition) {
                 String body = exchange.getIn().getBody(String.class);
                 logs.add("Breakpoint event " + event.getClass().getSimpleName() + " with body: " + body);
             }

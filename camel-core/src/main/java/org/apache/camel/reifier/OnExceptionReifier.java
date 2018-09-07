@@ -26,6 +26,7 @@ import org.apache.camel.Route;
 import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.processor.CatchProcessor;
 import org.apache.camel.processor.FatalFallbackErrorHandler;
 import org.apache.camel.spi.ClassResolver;
@@ -78,7 +79,7 @@ class OnExceptionReifier extends ProcessorReifier<OnExceptionDefinition> {
             definition.setErrorHandler(id, errorHandler);
         }
         // lookup the error handler builder
-        ErrorHandlerBuilder builder = (ErrorHandlerBuilder)routeContext.getRoute().getErrorHandlerBuilder();
+        ErrorHandlerBuilder builder = (ErrorHandlerBuilder) ((RouteDefinition) routeContext.getRoute()).getErrorHandlerBuilder();
         // and add this as error handlers
         builder.addErrorHandlers(routeContext, definition);
     }

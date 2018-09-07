@@ -22,9 +22,9 @@ import org.junit.Test;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.DelegateProcessor;
 import org.apache.camel.spi.InterceptStrategy;
 
@@ -93,7 +93,7 @@ public class AuditInterceptorDelegateIssueTest extends ContextTestSupport {
     private static final class MyIntercepStrategy implements InterceptStrategy {
         private volatile boolean invoked;
 
-        public Processor wrapProcessorInInterceptors(CamelContext context, ProcessorDefinition<?> definition, Processor target, Processor nextTarget) throws Exception {
+        public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target, Processor nextTarget) throws Exception {
             return new DelegateProcessor(target) {
                 protected void processNext(Exchange exchange) throws Exception {
                     invoked = true;

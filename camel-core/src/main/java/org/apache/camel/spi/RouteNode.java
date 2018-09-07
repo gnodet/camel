@@ -17,8 +17,8 @@
 package org.apache.camel.spi;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
-import org.apache.camel.model.ProcessorDefinition;
 
 /**
  * Represents a model of a node in the runtime route path.
@@ -39,7 +39,7 @@ public interface RouteNode {
      *
      * @return the definition, is never <tt>null</tt>
      */
-    ProcessorDefinition<?> getProcessorDefinition();
+    NamedNode getProcessorDefinition();
 
     /**
      * Gets a label about this node to be used for tracing or tooling etc.

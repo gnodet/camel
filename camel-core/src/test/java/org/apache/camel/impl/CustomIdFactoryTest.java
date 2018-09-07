@@ -116,11 +116,11 @@ public class CustomIdFactoryTest extends ContextTestSupport {
     private static class MyDebuggerCheckingId implements InterceptStrategy {
 
         public Processor wrapProcessorInInterceptors(final CamelContext context, 
-                final ProcessorDefinition<?> definition, Processor target, Processor nextTarget) throws Exception {
+                final NamedNode definition, Processor target, Processor nextTarget) throws Exception {
 
             // MUST DO THIS
             // force id creation as sub nodes have lazy assigned ids
-            definition.idOrCreate(context.getNodeIdFactory());
+            ((ProcessorDefinition) definition).idOrCreate(context.getNodeIdFactory());
 
             return new DelegateProcessor(target) {
                 @Override

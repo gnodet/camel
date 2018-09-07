@@ -17,8 +17,8 @@
 package org.apache.camel.spi;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
-import org.apache.camel.model.ProcessorDefinition;
 
 /**
  * The purpose of this interface is to allow an implementation to wrap
@@ -56,6 +56,6 @@ public interface InterceptStrategy {
      * @return processor    wrapped with an interceptor or not wrapped.
      * @throws Exception can be thrown
      */
-    Processor wrapProcessorInInterceptors(CamelContext context, ProcessorDefinition<?> definition, 
+    Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition,
                                           Processor target, Processor nextTarget) throws Exception;
 }

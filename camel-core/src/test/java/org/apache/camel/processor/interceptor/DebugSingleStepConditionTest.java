@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.interceptor;
 import org.apache.camel.ConfigurableCamelContext;
+import org.apache.camel.NamedNode;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -49,14 +50,16 @@ public class DebugSingleStepConditionTest extends ContextTestSupport {
         super.setUp();
 
         breakpoint = new BreakpointSupport() {
-            public void beforeProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+            @Override
+            public void beforeProcess(Exchange exchange, Processor processor, NamedNode definition) {
                 String body = exchange.getIn().getBody(String.class);
                 logs.add("Single stepping at " + definition.getLabel() + " with body: " + body);
             }
         };
 
         beerCondition = new ConditionSupport() {
-            public boolean matchProcess(Exchange exchange, Processor processor, ProcessorDefinition<?> definition) {
+            @Override
+            public boolean matchProcess(Exchange exchange, Processor processor, NamedNode definition) {
                 return "beer".equals(exchange.getFromRouteId());
             }
         };

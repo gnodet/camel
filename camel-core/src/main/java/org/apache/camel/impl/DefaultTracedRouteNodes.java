@@ -25,7 +25,7 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.NamedNode;
 import org.apache.camel.spi.RouteNode;
 import org.apache.camel.spi.TracedRouteNodes;
 
@@ -37,7 +37,7 @@ import org.apache.camel.spi.TracedRouteNodes;
 @Deprecated
 public class DefaultTracedRouteNodes implements TracedRouteNodes {
     private final Stack<List<RouteNode>> routeNodes = new Stack<>();
-    private final Map<ProcessorDefinition<?>, AtomicInteger> nodeCounter = new HashMap<>();
+    private final Map<NamedNode, AtomicInteger> nodeCounter = new HashMap<>();
 
     public DefaultTracedRouteNodes() {
         // create an empty list to start with
@@ -96,7 +96,7 @@ public class DefaultTracedRouteNodes implements TracedRouteNodes {
         routeNodes.clear();
     }
 
-    public int getAndIncrementCounter(ProcessorDefinition<?> node) {
+    public int getAndIncrementCounter(NamedNode node) {
         AtomicInteger count = nodeCounter.get(node);
         if (count == null) {
             count = new AtomicInteger();

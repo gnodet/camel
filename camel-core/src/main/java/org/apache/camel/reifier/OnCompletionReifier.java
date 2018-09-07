@@ -24,6 +24,7 @@ import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnCompletionMode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.processor.CamelInternalProcessor;
 import org.apache.camel.processor.OnCompletionProcessor;
 import org.apache.camel.spi.RouteContext;
@@ -59,7 +60,7 @@ class OnCompletionReifier extends ProcessorReifier<OnCompletionDefinition> {
             routeContext.setAllowUseOriginalMessage(true);
         }
 
-        String routeId = routeContext.getRoute().idOrCreate(routeContext.getCamelContext().getNodeIdFactory());
+        String routeId = ((RouteDefinition) routeContext.getRoute()).idOrCreate(routeContext.getCamelContext().getNodeIdFactory());
 
         Processor childProcessor = this.createChildProcessor(routeContext, true);
 

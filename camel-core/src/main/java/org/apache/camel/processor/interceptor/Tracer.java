@@ -22,6 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.NamedNode;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.Service;
@@ -108,12 +109,12 @@ public class Tracer implements InterceptStrategy, Service {
         return logger;
     }
 
-    public Processor wrapProcessorInInterceptors(CamelContext context, ProcessorDefinition<?> definition,
+    public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition,
                                                  Processor target, Processor nextTarget) throws Exception {
         // Force the creation of an id, otherwise the id is not available when the trace formatter is
         // outputting trace information
-        RouteDefinitionHelper.forceAssignIds(context, definition);
-        return getTraceInterceptorFactory().createTraceInterceptor(definition, target, formatter, this);
+        RouteDefinitionHelper.forceAssignIds(context, (ProcessorDefinition) definition);
+        return getTraceInterceptorFactory().createTraceInterceptor((ProcessorDefinition) definition, target, formatter, this);
     }
 
     public TraceFormatter getFormatter() {
