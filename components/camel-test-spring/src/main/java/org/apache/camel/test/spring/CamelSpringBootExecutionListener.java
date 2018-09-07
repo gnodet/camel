@@ -44,7 +44,6 @@ public class CamelSpringBootExecutionListener extends AbstractTestExecutionListe
         ConfigurableApplicationContext context = (ConfigurableApplicationContext) testContext.getApplicationContext();
 
         // Post CamelContext(s) instantiation but pre CamelContext(s) start setup
-        CamelAnnotationsHandler.handleProvidesBreakpoint(context, testClass);
         CamelAnnotationsHandler.handleShutdownTimeout(context, testClass);
         CamelAnnotationsHandler.handleMockEndpoints(context, testClass);
         CamelAnnotationsHandler.handleMockEndpointsAndSkip(context, testClass);

@@ -262,12 +262,6 @@ details on the registration of the mock endpoints.  This annotation will
 also skip sending the message to matched endpoints as well. |Not enabled |All endpoints are sniffed and recorded in a mock endpoint.  The original
 endpoint is not invoked.
 
-|org.apache.camel.test.spring.ProvidesBreakpoint |Method |Indicates that the annotated method returns
-an org.apache.camel.spi.Breakpoint for use in the test.  Useful for
-intercepting traffic to all endpoints or simply for setting a break
-point in an IDE for debugging.  The method must be public, static, take
-no arguments, and return org.apache.camel.spi.Breakpoint. |N/A |The returned Breakpoint is registered in the CamelContext(s)
-
 |org.apache.camel.test.spring.ShutdownTimeout |Class |Indicates to set the shutdown timeout of all CamelContexts instantiated
 through the use of Spring Test loaded application contexts.  If no
 annotation is used, the timeout is automatically reduced to 10 seconds

@@ -113,10 +113,4 @@ public class AbstractCamelTestNGSpringContextTestsPlainTest
         assertNotNull(camelContext.getRoute("excludedRoute"));
     }
     
-    @Test
-    public void testProvidesBreakpoint() {
-        assertNull(camelContext.getDebugger());
-        assertNull(camelContext2.getDebugger());
-    }
-    
 }

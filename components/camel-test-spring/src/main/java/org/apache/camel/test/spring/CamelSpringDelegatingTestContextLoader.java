@@ -83,7 +83,6 @@ public class CamelSpringDelegatingTestContextLoader extends DelegatingSmartConte
 
         // Post CamelContext(s) instantiation but pre CamelContext(s) start setup
         CamelAnnotationsHandler.handleRouteCoverage(context, testClass, s -> getTestMethod().getName());
-        CamelAnnotationsHandler.handleProvidesBreakpoint(context, testClass);
         CamelAnnotationsHandler.handleShutdownTimeout(context, testClass);
         CamelAnnotationsHandler.handleMockEndpoints(context, testClass);
         CamelAnnotationsHandler.handleMockEndpointsAndSkip(context, testClass);

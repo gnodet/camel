@@ -113,12 +113,6 @@ public class CamelSpringRunnerPlainTest {
     }
     
     @Test
-    public void testProvidesBreakpoint() {
-        assertNull(camelContext.getDebugger());
-        assertNull(camelContext2.getDebugger());
-    }
-
-    @Test
     public void testRouteCoverage() throws Exception {
         // noop
     }

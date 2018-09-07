@@ -89,7 +89,6 @@ import org.apache.camel.processor.interceptor.Tracer;
 import org.apache.camel.runtimecatalog.JSonSchemaResolver;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.ClassResolver;
-import org.apache.camel.spi.Debugger;
 import org.apache.camel.spi.EndpointStrategy;
 import org.apache.camel.spi.EventFactory;
 import org.apache.camel.spi.EventNotifier;
@@ -1175,11 +1174,6 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         if (processorFactory != null) {
             LOG.info("Using custom ProcessorFactory: {}", processorFactory);
             getContext().adapt(ConfigurableCamelContext.class).setProcessorFactory(processorFactory);
-        }
-        Debugger debugger = getBeanForType(Debugger.class);
-        if (debugger != null) {
-            LOG.info("Using custom Debugger: {}", debugger);
-            getContext().adapt(ConfigurableCamelContext.class).setDebugger(debugger);
         }
         UuidGenerator uuidGenerator = getBeanForType(UuidGenerator.class);
         if (uuidGenerator != null) {

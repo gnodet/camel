@@ -21,10 +21,9 @@ import java.util.EventObject;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
-import org.apache.camel.spi.Condition;
 
 /**
- * A support class for {@link org.apache.camel.spi.Condition} implementations to use as base class.
+ * A support class for {@link Condition} implementations to use as base class.
  *
  * @version 
  */

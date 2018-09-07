@@ -25,7 +25,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -44,7 +43,6 @@ import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.BreakpointSupport;
 import org.apache.camel.impl.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultDebugger;
 import org.apache.camel.impl.InterceptSendToMockEndpointStrategy;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.management.JmxSystemPropertyKeys;
@@ -151,15 +149,6 @@ public abstract class CamelTestSupport extends TestSupport {
         return null;
     }
 
-    /**
-     * Override to enable debugger
-     * <p/>
-     * Is default <tt>false</tt>
-     */
-    public boolean isUseDebugger() {
-        return false;
-    }
-
     public Service getCamelContextService() {
         return camelContextService;
     }
@@ -253,13 +242,6 @@ public abstract class CamelTestSupport extends TestSupport {
 
         // reduce default shutdown timeout to avoid waiting for 300 seconds
         context.getShutdownStrategy().setTimeout(getShutdownTimeout());
-
-        // set debugger if enabled
-        if (isUseDebugger()) {
-            context.adapt(ConfigurableCamelContext.class).setDebugger(new DefaultDebugger());
-            context.getDebugger().addBreakpoint(breakpoint);
-            // note: when stopping CamelContext it will automatic remove the breakpoint
-        }
 
         template = context.createProducerTemplate();
         template.start();

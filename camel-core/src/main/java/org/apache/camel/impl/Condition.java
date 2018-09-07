@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.spi;
+package org.apache.camel.impl;
 
 import java.util.EventObject;
 
@@ -25,8 +25,8 @@ import org.apache.camel.Processor;
 /**
  * A condition to define when a given {@link Exchange} matches when is being routed.
  * <p/>
- * Is used by the {@link org.apache.camel.spi.Debugger} to apply {@link Condition}s
- * to {@link org.apache.camel.spi.Breakpoint}s to define rules when the breakpoints should match.
+ * Is used by the Debugger to apply {@link Condition}s
+ * to {@link Breakpoint}s to define rules when the breakpoints should match.
  *
  * @version 
  */

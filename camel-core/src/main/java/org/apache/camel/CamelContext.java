@@ -31,7 +31,6 @@ import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataType;
-import org.apache.camel.spi.Debugger;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.EndpointStrategy;
 import org.apache.camel.spi.ExecutorServiceManager;
@@ -1023,13 +1022,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
      * @return the factory
      */
     MessageHistoryFactory getMessageHistoryFactory();
-
-    /**
-     * Gets the current {@link Debugger}
-     *
-     * @return the debugger
-     */
-    Debugger getDebugger();
 
     /**
      * Gets the current {@link UuidGenerator}

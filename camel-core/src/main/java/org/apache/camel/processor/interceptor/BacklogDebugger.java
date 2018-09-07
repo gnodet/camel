@@ -36,13 +36,13 @@ import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.api.management.mbean.BacklogTracerEventMessage;
+import org.apache.camel.impl.Breakpoint;
 import org.apache.camel.impl.BreakpointSupport;
 import org.apache.camel.impl.DefaultDebugger;
 import org.apache.camel.management.event.ExchangeCompletedEvent;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
-import org.apache.camel.spi.Condition;
-import org.apache.camel.spi.Debugger;
+import org.apache.camel.impl.Condition;
 import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.CamelLogger;
@@ -53,7 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A {@link org.apache.camel.spi.Debugger} that has easy debugging functionality which
+ * A Debugger that has easy debugging functionality which
  * can be used from JMX with {@link org.apache.camel.api.management.mbean.ManagedBacklogDebuggerMBean}.
  * <p/>
  * This implementation allows to set breakpoints (with or without a condition) and inspect the {@link Exchange}
@@ -75,7 +75,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
     private final CamelLogger logger = new CamelLogger(LOG, loggingLevel);
     private final AtomicBoolean enabled = new AtomicBoolean();
     private final AtomicLong debugCounter = new AtomicLong(0);
-    private final Debugger debugger;
+    private final DefaultDebugger debugger;
     private final ConcurrentMap<String, NodeBreakpoint> breakpoints = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, SuspendedExchange> suspendedBreakpoints = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, BacklogTracerEventMessage> suspendedBreakpointMessages = new ConcurrentHashMap<>();
@@ -111,9 +111,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
 
     public BacklogDebugger(CamelContext camelContext) {
         this.camelContext = camelContext;
-        DefaultDebugger debugger = new DefaultDebugger(camelContext);
-        debugger.setUseTracer(false);
-        this.debugger = debugger;
+        this.debugger = new DefaultDebugger(camelContext, false);
     }
 
     @Override
@@ -137,7 +135,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
         return null;
     }
 
-    public Debugger getDebugger() {
+    public DefaultDebugger getDebugger() {
         return debugger;
     }
 
@@ -525,7 +523,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
     }
 
     /**
-     * Represents a {@link org.apache.camel.spi.Breakpoint} that has a {@link Condition} on a specific node id.
+     * Represents a {@link Breakpoint} that has a {@link Condition} on a specific node id.
      */
     private final class NodeBreakpoint extends BreakpointSupport implements Condition {
 
@@ -601,7 +599,7 @@ public class BacklogDebugger extends ServiceSupport implements InterceptStrategy
     }
 
     /**
-     * Represents a {@link org.apache.camel.spi.Breakpoint} that is used during single step mode.
+     * Represents a {@link Breakpoint} that is used during single step mode.
      */
     private final class StepBreakpoint extends BreakpointSupport implements Condition {
 

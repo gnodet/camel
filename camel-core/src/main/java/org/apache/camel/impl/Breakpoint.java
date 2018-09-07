@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.spi;
+package org.apache.camel.impl;
 
 import java.util.EventObject;
 
@@ -23,18 +23,17 @@ import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 
 /**
- * {@link org.apache.camel.spi.Breakpoint} are used by the {@link org.apache.camel.spi.Debugger} API.
+ * {@link Breakpoint} are used by the debugger.
  * <p/>
- * This allows you to register {@link org.apache.camel.spi.Breakpoint}s to the {@link org.apache.camel.spi.Debugger}
- * and have those breakpoints activated when their {@link org.apache.camel.spi.Condition}s match.
+ * This allows you to register {@link Breakpoint}s to the Debugger
+ * and have those breakpoints activated when their {@link Condition}s match.
  * <p/>
- * If any exceptions is thrown from the callback methods then the {@link org.apache.camel.spi.Debugger}
+ * If any exceptions is thrown from the callback methods then the Debugger
  * will catch and log those at <tt>WARN</tt> level and continue. This ensures Camel can continue to route
  * the message without having breakpoints causing issues.
  *
  * @version 
- * @see org.apache.camel.spi.Debugger
- * @see org.apache.camel.spi.Condition
+ * @see Condition
  */
 public interface Breakpoint {
 

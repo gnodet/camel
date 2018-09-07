@@ -23,7 +23,6 @@ import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.DataFormatResolver;
-import org.apache.camel.spi.Debugger;
 import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
@@ -162,13 +161,6 @@ public interface ConfigurableCamelContext extends CamelContext {
      * @param processorFactory the custom factory
      */
     void setProcessorFactory(ProcessorFactory processorFactory);
-
-    /**
-     * Sets a custom {@link Debugger}
-     *
-     * @param debugger the debugger
-     */
-    void setDebugger(Debugger debugger);
 
     /**
      * Sets a custom {@link UuidGenerator} (should only be set once)

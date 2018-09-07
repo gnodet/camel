@@ -45,7 +45,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -60,7 +59,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.Route;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.Service;
-import org.apache.camel.ServiceStatus;
 import org.apache.camel.api.management.mbean.ManagedCamelContextMBean;
 import org.apache.camel.api.management.mbean.ManagedProcessorMBean;
 import org.apache.camel.api.management.mbean.ManagedRouteMBean;
@@ -71,7 +69,6 @@ import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.BreakpointSupport;
 import org.apache.camel.impl.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.DefaultDebugger;
 import org.apache.camel.impl.InterceptSendToMockEndpointStrategy;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.management.JmxSystemPropertyKeys;
@@ -206,15 +203,6 @@ public abstract class CamelTestSupport extends TestSupport {
         fromEndpoints.put(routeId, fromEndpoint);
     }
 
-    /**
-     * Override to enable debugger
-     * <p/>
-     * Is default <tt>false</tt>
-     */
-    public boolean isUseDebugger() {
-        return false;
-    }
-
     public Service getCamelContextService() {
         return camelContextService;
     }
@@ -331,18 +319,6 @@ public abstract class CamelTestSupport extends TestSupport {
 
         // reduce default shutdown timeout to avoid waiting for 300 seconds
         context.getShutdownStrategy().setTimeout(getShutdownTimeout());
-
-        // set debugger if enabled
-        if (isUseDebugger()) {
-            if (context.getStatus().equals(ServiceStatus.Started)) {
-                log.info("Cannot setting the Debugger to the starting CamelContext, stop the CamelContext now.");
-                // we need to stop the context first to setup the debugger
-                context.stop();
-            }
-            context.adapt(ConfigurableCamelContext.class).setDebugger(new DefaultDebugger());
-            context.getDebugger().addBreakpoint(breakpoint);
-            // note: when stopping CamelContext it will automatic remove the breakpoint
-        }
 
         template = context.createProducerTemplate();
         template.start();

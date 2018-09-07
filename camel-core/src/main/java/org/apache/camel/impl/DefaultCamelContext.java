@@ -120,7 +120,6 @@ import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.processor.interceptor.BacklogDebugger;
 import org.apache.camel.processor.interceptor.BacklogTracer;
-import org.apache.camel.processor.interceptor.Debug;
 import org.apache.camel.processor.interceptor.Delayer;
 import org.apache.camel.processor.interceptor.HandleFault;
 import org.apache.camel.processor.interceptor.StreamCaching;
@@ -135,7 +134,6 @@ import org.apache.camel.spi.Container;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.DataType;
-import org.apache.camel.spi.Debugger;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.EndpointStrategy;
 import org.apache.camel.spi.EventNotifier;
@@ -299,7 +297,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
     private ShutdownRoute shutdownRoute = ShutdownRoute.Default;
     private ShutdownRunningTask shutdownRunningTask = ShutdownRunningTask.CompleteCurrentTaskOnly;
     private ExecutorServiceManager executorServiceManager;
-    private Debugger debugger;
     private UuidGenerator uuidGenerator = createDefaultUuidGenerator();
     private UnitOfWorkFactory unitOfWorkFactory = createUnitOfWorkFactory();
     private final StopWatch stopWatch = new StopWatch(false);
@@ -3324,15 +3321,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             log.info("Delayer is enabled with: {} ms. on CamelContext: {}", getDelayer(), getName());
         }
 
-        // register debugger
-        if (getDebugger() != null) {
-            log.info("Debugger: {} is enabled on CamelContext: {}", getDebugger(), getName());
-            // register this camel context on the debugger
-            getDebugger().setCamelContext(this);
-            startService(getDebugger());
-            addInterceptStrategy(new Debug(getDebugger()));
-        }
-
         // start management strategy before lifecycles are started
         ManagementStrategy managementStrategy = getManagementStrategy();
         // inject CamelContext if aware
@@ -3546,9 +3534,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             getExecutorServiceManager().shutdownNow(errorHandlerExecutorService);
             errorHandlerExecutorService = null;
         }
-
-        // shutdown debugger
-        ServiceHelper.stopAndShutdownService(getDebugger());
 
         shutdownServices(endpoints.values());
         endpoints.clear();
@@ -4555,14 +4540,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
     public void setMessageHistoryFactory(MessageHistoryFactory messageHistoryFactory) {
         this.messageHistoryFactory = messageHistoryFactory;
-    }
-
-    public Debugger getDebugger() {
-        return debugger;
-    }
-
-    public void setDebugger(Debugger debugger) {
-        this.debugger = debugger;
     }
 
     public UuidGenerator getUuidGenerator() {
