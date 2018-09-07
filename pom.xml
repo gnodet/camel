@@ -145,6 +145,7 @@
     <module>etc</module>
     <module>bom</module>
     <module>buildingtools</module>
+    <module>camel-api</module>
     <module>camel-core</module>
     <module>components</module>
     <module>archetypes</module>

@@ -121,6 +121,12 @@
 
   <dependencies>
 
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <!-- required dependencies by camel-core -->
     <!-- it will be shade into camel-core by bnd plugin -->
     <dependency>
