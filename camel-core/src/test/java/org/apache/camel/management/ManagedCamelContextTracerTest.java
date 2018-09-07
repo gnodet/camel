@@ -25,7 +25,6 @@ import javax.management.ObjectName;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.processor.interceptor.Tracer;
 
 /**
  * @version 
@@ -148,11 +147,6 @@ public class ManagedCamelContextTracerTest extends ManagementTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                Tracer tracer = new Tracer();
-                tracer.setDestinationUri("mock:traced");
-                tracer.setLogLevel(LoggingLevel.OFF);
-                context.addInterceptStrategy(tracer);
-
                 from("direct:start").to("log:foo").to("mock:result");
             }
         };

@@ -38,7 +38,6 @@ import org.apache.camel.management.mbean.ManagedRoute;
 import org.apache.camel.management.mbean.ManagedRouteController;
 import org.apache.camel.management.mbean.ManagedService;
 import org.apache.camel.management.mbean.ManagedThreadPool;
-import org.apache.camel.management.mbean.ManagedTracer;
 import org.apache.camel.spi.ManagementAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,9 +125,6 @@ public class ManagedManagementStrategy extends DefaultManagementStrategy {
         } else if (managedObject instanceof ManagedProducer) {
             ManagedProducer ms = (ManagedProducer) managedObject;
             objectName = getManagementNamingStrategy().getObjectNameForProducer(ms.getContext(), ms.getProducer());
-        } else if (managedObject instanceof ManagedTracer) {
-            ManagedTracer mt = (ManagedTracer) managedObject;
-            objectName = getManagementNamingStrategy().getObjectNameForTracer(mt.getContext(), mt.getTracer());
         } else if (managedObject instanceof ManagedBacklogTracer) {
             ManagedBacklogTracer mt = (ManagedBacklogTracer) managedObject;
             objectName = getManagementNamingStrategy().getObjectNameForTracer(mt.getContext(), mt.getBacklogTracer());

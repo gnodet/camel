@@ -20,7 +20,6 @@ import builder.{RouteBuilderSupport, RouteBuilder}
 import org.apache.camel.Exchange
 import org.apache.camel.scala.Preamble
 import org.apache.camel.processor.intercept.{InterceptFromWhenWithChoiceTest, InterceptFromUriSimpleLogTest, InterceptFromSimpleRouteTest}
-import org.apache.camel.processor.interceptor.Tracer
 
 /**
  * Scala DSL equivalent for InterceptFromSimpleRouteTest
@@ -60,8 +59,6 @@ class SInterceptFromUriSimpleLogTest extends InterceptFromUriSimpleLogTest with 
 class SInterceptFromWhenWithChoiceTest extends InterceptFromWhenWithChoiceTest with RouteBuilderSupport {
 
   override def createRouteBuilder = new RouteBuilder {
-    context.addInterceptStrategy(new Tracer())
-
     interceptFrom.when(simple("${body} contains 'Goofy'")) {
       choice {
         when (_.in[String].contains("Hello")) {

@@ -19,10 +19,8 @@ package org.apache.camel.processor;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;
-import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.processor.interceptor.Tracer;
 
 /**
  * @version 
@@ -42,12 +40,6 @@ public class TracerConfigurationTest extends ContextTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                Tracer tracer = new Tracer();
-                tracer.setLogLevel(LoggingLevel.ERROR);
-                tracer.setLogName("com.mycompany");
-
-                getContext().addInterceptStrategy(tracer);
-
                 from("direct:start").to("mock:result");
             }
         };

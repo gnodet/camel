@@ -122,7 +122,6 @@ import org.apache.camel.processor.interceptor.BacklogTracer;
 import org.apache.camel.processor.interceptor.Delayer;
 import org.apache.camel.processor.interceptor.HandleFault;
 import org.apache.camel.processor.interceptor.StreamCaching;
-import org.apache.camel.processor.interceptor.Tracer;
 import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
@@ -285,7 +284,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
     private NodeIdFactory nodeIdFactory = createNodeIdFactory();
     private ProcessorFactory processorFactory = createProcessorFactory();
     private MessageHistoryFactory messageHistoryFactory = createMessageHistoryFactory();
-    private InterceptStrategy defaultTracer;
     private InterceptStrategy defaultBacklogTracer;
     private InterceptStrategy defaultBacklogDebugger;
     private InflightRepository inflightRepository = createInflightRepository();
@@ -485,7 +483,7 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             componentsInCreation.get().remove(name);
         }
     }
-    
+
     /**
      * Function to initialize a component and auto start. Returns null if the autoCreateComponents is disabled
      */
@@ -2837,9 +2835,7 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
         // for backwards compatible or if user add them here instead of the setXXX methods
 
-        if (interceptStrategy instanceof Tracer) {
-            setTracing(true);
-        } else if (interceptStrategy instanceof HandleFault) {
+        if (interceptStrategy instanceof HandleFault) {
             setHandleFault(true);
         } else if (interceptStrategy instanceof StreamCaching) {
             setStreamCaching(true);
@@ -3484,7 +3480,7 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
         stopWatch.restart();
         log.info("Apache Camel {} (CamelContext: {}) is shutting down", getVersion(), getName());
         EventHelper.notifyCamelContextStopping(this);
-        
+
         // Stop the route controller
         ServiceHelper.stopAndShutdownService(this.routeController);
 
@@ -4306,17 +4302,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
     public void setManagementStrategy(ManagementStrategy managementStrategy) {
         this.managementStrategy = managementStrategy;
-    }
-
-    public InterceptStrategy getDefaultTracer() {
-        if (defaultTracer == null) {
-            defaultTracer = new Tracer();
-        }
-        return defaultTracer;
-    }
-
-    public void setDefaultTracer(InterceptStrategy tracer) {
-        this.defaultTracer = tracer;
     }
 
     public InterceptStrategy getDefaultBacklogTracer() {

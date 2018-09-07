@@ -954,13 +954,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     ManagementStrategy getManagementStrategy();
 
     /**
-     * Gets the default tracer
-     *
-     * @return the default tracer
-     */
-    InterceptStrategy getDefaultTracer();
-
-    /**
      * Gets the default backlog tracer
      *
      * @return the default backlog tracer
