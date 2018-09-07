@@ -142,4 +142,6 @@ class RichExchange(val exchange : Exchange) extends Exchange {
   override def getMessage[T](`type`: Class[T]): T = { if (hasOut) getOut(`type`) else getIn(`type`) }
 
   override def setMessage(message: Message): Unit = { if (hasOut) setOut(message) else setIn(message) }
+
+  override def newDerivedExchange(): Exchange = exchange.newDerivedExchange
 }

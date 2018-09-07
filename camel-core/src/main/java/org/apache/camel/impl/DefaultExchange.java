@@ -575,4 +575,9 @@ public final class DefaultExchange implements Exchange {
         }
         return false;
     }
+
+    @Override
+    public Exchange newDerivedExchange() {
+        return new DefaultExchange(this);
+    }
 }

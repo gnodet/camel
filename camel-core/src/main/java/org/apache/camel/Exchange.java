@@ -622,4 +622,8 @@ public interface Exchange {
      */
     Date getCreated();
 
+    /**
+     * Create a new exchange derived from this one.
+     */
+    Exchange newDerivedExchange();
 }
