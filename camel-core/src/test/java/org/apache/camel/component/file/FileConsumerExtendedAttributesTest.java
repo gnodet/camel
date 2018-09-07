@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.component.file;
+
 import org.junit.Before;
+import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +27,6 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.util.FileUtil;
-import org.junit.Test;
 
 /**
  * Unit test for consuming a batch of files (multiple files in one consume)

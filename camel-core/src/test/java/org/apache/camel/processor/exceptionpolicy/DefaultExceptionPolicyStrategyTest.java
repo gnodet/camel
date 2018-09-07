@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.exceptionpolicy;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -25,7 +26,6 @@ import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.util.HashMap;
 
-import org.junit.Assert;
 import org.apache.camel.AlreadyStoppedException;
 import org.apache.camel.CamelExchangeException;
 import org.apache.camel.ExchangeTimedOutException;

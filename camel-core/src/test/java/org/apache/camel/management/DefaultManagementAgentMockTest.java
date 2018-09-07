@@ -16,6 +16,8 @@
  */
 package org.apache.camel.management;
 
+import org.junit.Test;
+
 import javax.management.JMException;
 import javax.management.MBeanServer;
 import javax.management.ObjectInstance;
@@ -24,7 +26,6 @@ import javax.management.ObjectName;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.spi.ManagementAgent;
-import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

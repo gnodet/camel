@@ -16,6 +16,8 @@
  */
 package org.apache.camel.impl.cloud;
 
+import org.junit.Test;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -27,7 +29,6 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
 
 public class ServiceRegistryTest extends ContextTestSupport {
 

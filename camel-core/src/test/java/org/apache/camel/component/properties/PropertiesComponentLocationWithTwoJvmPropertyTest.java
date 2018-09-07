@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.component.properties;
+
 import org.junit.After;
 
 import org.apache.camel.CamelContext;

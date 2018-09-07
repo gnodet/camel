@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.validator;
 
+import org.junit.Test;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +33,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.SimpleRegistry;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

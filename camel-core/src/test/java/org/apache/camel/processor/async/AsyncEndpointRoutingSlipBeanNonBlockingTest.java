@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.async;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.concurrent.Callable;
@@ -35,7 +36,6 @@ import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.processor.SendProcessor;
 import org.apache.camel.util.AsyncProcessorHelper;
 import org.apache.camel.util.ServiceHelper;
-import org.junit.Assert;
 
 /**
  * @version 

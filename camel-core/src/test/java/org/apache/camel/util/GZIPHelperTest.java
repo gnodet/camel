@@ -16,6 +16,8 @@
  */
 package org.apache.camel.util;
 
+import org.junit.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +26,6 @@ import org.apache.camel.Message;
 import org.apache.camel.converter.IOConverter;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultMessage;
-import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;

@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.converter.stream;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -25,7 +25,6 @@ import java.io.Serializable;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
-
 import org.xml.sax.InputSource;
 
 import org.apache.camel.ContextTestSupport;

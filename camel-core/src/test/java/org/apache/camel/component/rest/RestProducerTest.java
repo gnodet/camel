@@ -16,13 +16,14 @@
  */
 package org.apache.camel.component.rest;
 
+import org.junit.Test;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultMessage;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

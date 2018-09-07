@@ -16,8 +16,10 @@
  */
 package org.apache.camel;
 
-import java.util.Map;
+import org.junit.After;
+import org.junit.Before;
 
+import java.util.Map;
 import javax.naming.Context;
 
 import org.apache.camel.builder.NotifyBuilder;
@@ -29,8 +31,6 @@ import org.apache.camel.management.JmxSystemPropertyKeys;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Language;
 import org.apache.camel.util.jndi.JndiTest;
-import org.junit.After;
-import org.junit.Before;
 
 /**
  * A useful base class which creates a {@link CamelContext} with some routes

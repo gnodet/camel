@@ -16,11 +16,10 @@
  */
 package org.apache.camel.component.direct;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.Assert;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;

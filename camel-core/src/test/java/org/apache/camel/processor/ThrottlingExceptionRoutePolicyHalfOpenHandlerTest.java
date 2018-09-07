@@ -16,6 +16,9 @@
  */
 package org.apache.camel.processor;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -28,8 +31,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.ThrottlingExceptionHalfOpenHandler;
 import org.apache.camel.impl.ThrottlingExceptionRoutePolicy;
 import org.apache.camel.support.ServiceSupport;
-import org.junit.Before;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

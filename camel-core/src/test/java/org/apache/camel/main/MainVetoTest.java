@@ -16,11 +16,11 @@
  */
 package org.apache.camel.main;
 
-import org.apache.camel.ConfigurableCamelContext;
+import org.junit.Assert;
 import org.junit.Test;
 
-import org.junit.Assert;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.support.LifecycleStrategySupport;

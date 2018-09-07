@@ -15,10 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.builder;
+
 import org.junit.Before;
-
 import org.junit.Test;
-
 
 import java.util.Arrays;
 

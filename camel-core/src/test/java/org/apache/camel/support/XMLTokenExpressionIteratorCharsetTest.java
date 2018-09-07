@@ -16,6 +16,7 @@
  */
 package org.apache.camel.support;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -29,10 +30,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.stream.XMLStreamException;
-
-import org.junit.Assert;
 
 /**
  *

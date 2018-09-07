@@ -16,11 +16,12 @@
  */
 package org.apache.camel.component.bean.pojomessage;
 
+import org.junit.Test;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.bean.PojoProxyHelper;
-import org.junit.Test;
 
 public class PojoProxyHelperRequestReplyTest extends ContextTestSupport {
 

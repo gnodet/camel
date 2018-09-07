@@ -16,18 +16,16 @@
  */
 package org.apache.camel.model;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
-
-import org.junit.Assert;
 
 import org.apache.camel.impl.DefaultPackageScanClassResolver;
 import org.apache.camel.util.IntrospectionSupport;

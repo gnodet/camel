@@ -16,6 +16,9 @@
  */
 package org.apache.camel.processor;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -24,8 +27,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.jndi.JndiTest;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class LogEipListenerTest {
     private static boolean listenerFired;

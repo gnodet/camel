@@ -19,7 +19,6 @@ package org.apache.camel.component.bean;
 import org.junit.Test;
 
 import java.util.Map;
-
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.naming.Context;

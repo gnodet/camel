@@ -16,10 +16,10 @@
  */
 package org.apache.camel.util;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ReferenceCountTest {
 

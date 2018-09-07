@@ -22,7 +22,6 @@ import javax.xml.transform.sax.SAXResult;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 import javax.xml.validation.ValidatorHandler;
-
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 

@@ -16,14 +16,15 @@
  */
 package org.apache.camel.model;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.Exchange;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 public class GlobalOptionsDefinitionTest {
 

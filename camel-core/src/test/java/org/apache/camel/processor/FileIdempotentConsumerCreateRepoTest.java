@@ -16,16 +16,16 @@
  */
 package org.apache.camel.processor;
 
-import java.io.File;
-
-import static java.util.UUID.randomUUID;
-
-import org.apache.camel.spi.IdempotentRepository;
-import org.apache.camel.util.FileUtil;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.File;
+
+import org.apache.camel.spi.IdempotentRepository;
+import org.apache.camel.util.FileUtil;
+
+import static java.util.UUID.randomUUID;
 import static org.apache.camel.processor.idempotent.FileIdempotentRepository.fileIdempotentRepository;
 
 public class FileIdempotentConsumerCreateRepoTest extends Assert {

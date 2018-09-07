@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor.async;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
@@ -27,7 +28,6 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.interceptor.TraceEventHandler;
 import org.apache.camel.processor.interceptor.TraceInterceptor;
 import org.apache.camel.processor.interceptor.Tracer;
-import org.junit.Ignore;
 
 /**
  * @version 

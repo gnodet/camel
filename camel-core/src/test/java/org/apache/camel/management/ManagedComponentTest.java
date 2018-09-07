@@ -16,9 +16,10 @@
  */
 package org.apache.camel.management;
 
+import org.junit.Test;
+
 import java.util.Collections;
 import java.util.Map;
-
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
@@ -31,7 +32,6 @@ import org.apache.camel.component.extension.ComponentVerifierExtension.Scope;
 import org.apache.camel.component.extension.verifier.DefaultComponentVerifierExtension;
 import org.apache.camel.component.extension.verifier.ResultBuilder;
 import org.apache.camel.impl.DefaultComponent;
-import org.junit.Test;
 
 public class ManagedComponentTest extends ManagementTestSupport {
     private static final String[] VERIFY_SIGNATURE = new String[] {

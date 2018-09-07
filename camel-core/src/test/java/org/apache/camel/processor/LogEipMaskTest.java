@@ -16,6 +16,9 @@
  */
 package org.apache.camel.processor;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -24,8 +27,6 @@ import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.model.Constants;
 import org.apache.camel.spi.MaskingFormatter;
 import org.apache.camel.util.jndi.JndiTest;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class LogEipMaskTest {
 

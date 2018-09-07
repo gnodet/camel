@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.processor.enricher;
+
 import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 
@@ -24,7 +26,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
-import org.junit.Test;
 
 public class PollEnrichFileCustomAggregationStrategyTest extends ContextTestSupport {
 

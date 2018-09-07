@@ -16,6 +16,9 @@
  */
 package org.apache.camel.component.rest;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +36,6 @@ import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.spi.RestConsumerFactory;
 import org.apache.camel.spi.RestProducerFactory;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class RestComponentVerifierTest extends ContextTestSupport {
     @Override

@@ -16,12 +16,12 @@
  */
 package org.apache.camel.component.validator;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -32,7 +32,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.model.language.ConstantExpression;
 import org.apache.camel.model.language.SimpleExpression;
-import org.junit.Assert;
 
 import static org.awaitility.Awaitility.await;
 

@@ -16,10 +16,10 @@
  */
 package org.apache.camel.component.direct;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.TestSupport;
 import org.apache.camel.builder.RouteBuilder;

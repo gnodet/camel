@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.component.validator;
+
 import org.junit.Before;
 
 import java.net.UnknownHostException;

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.StringWriter;
@@ -28,11 +29,9 @@ import org.apache.camel.component.log.ConsumingAppender;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.SimpleRegistry;
 import org.apache.logging.log4j.Level;
-import org.junit.Before;
 import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * @version

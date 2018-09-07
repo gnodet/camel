@@ -23,6 +23,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Predicate;
 import org.apache.camel.builder.PredicateBuilder;
 import org.apache.camel.impl.DefaultExchange;
+
 import static org.apache.camel.builder.Builder.constant;
 
 /**

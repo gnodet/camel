@@ -19,7 +19,6 @@ package org.apache.camel.component.bean;
 import org.junit.Test;
 
 import java.util.Map;
-
 import javax.naming.Context;
 
 import org.apache.camel.ContextTestSupport;

@@ -16,13 +16,14 @@
  */
 package org.apache.camel.impl.cloud;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Arrays;
 
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.model.cloud.CombinedServiceCallServiceDiscoveryConfiguration;
 import org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class CombinedServiceDiscoveryTest extends ContextTestSupport {
     @Test

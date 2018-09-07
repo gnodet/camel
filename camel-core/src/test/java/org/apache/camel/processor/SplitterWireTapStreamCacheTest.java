@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 package org.apache.camel.processor;
-import org.apache.camel.ConfigurableCamelContext;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;

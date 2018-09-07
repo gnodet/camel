@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 package org.apache.camel.processor;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.StringReader;
-
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.camel.ContextTestSupport;

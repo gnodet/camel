@@ -16,13 +16,13 @@
  */
 package org.apache.camel.impl;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Route;
 import org.apache.camel.VetoCamelContextStartException;

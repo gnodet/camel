@@ -21,7 +21,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.InputStream;
 import javax.xml.transform.sax.SAXSource;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;

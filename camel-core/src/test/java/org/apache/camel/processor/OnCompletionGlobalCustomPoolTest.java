@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.processor;
-import org.junit.Before;
+
 import org.junit.After;
+import org.junit.Before;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

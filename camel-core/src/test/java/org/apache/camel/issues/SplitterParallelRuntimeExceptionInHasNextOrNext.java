@@ -16,6 +16,8 @@
  */
 package org.apache.camel.issues;
 
+import org.junit.Test;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +28,6 @@ import java.util.List;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Test;
 
 public class SplitterParallelRuntimeExceptionInHasNextOrNext extends ContextTestSupport {
 

@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component;
 
+import org.junit.Test;
+
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -24,7 +26,6 @@ import java.util.SortedMap;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.util.CamelContextHelper;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

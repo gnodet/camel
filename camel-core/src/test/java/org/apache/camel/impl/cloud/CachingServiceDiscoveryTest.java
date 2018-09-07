@@ -16,14 +16,15 @@
  */
 package org.apache.camel.impl.cloud;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.model.cloud.CachingServiceCallServiceDiscoveryConfiguration;
 import org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class CachingServiceDiscoveryTest extends ContextTestSupport {
 

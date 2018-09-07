@@ -16,10 +16,10 @@
  */
 package org.apache.camel.processor;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 

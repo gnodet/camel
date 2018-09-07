@@ -16,9 +16,9 @@
  */
 package org.apache.camel.processor.interceptor;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import org.junit.Assert;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;

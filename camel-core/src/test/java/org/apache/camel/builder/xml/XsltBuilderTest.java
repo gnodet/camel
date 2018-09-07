@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.builder.xml;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -27,7 +27,6 @@ import java.util.List;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.sax.SAXSource;
-
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 

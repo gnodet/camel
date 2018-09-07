@@ -16,6 +16,9 @@
  */
 package org.apache.camel.impl.cloud;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +26,6 @@ import java.util.stream.Collectors;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.model.cloud.CombinedServiceCallServiceFilterConfiguration;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class CombinedServiceFilterTest extends ContextTestSupport {
     @Test

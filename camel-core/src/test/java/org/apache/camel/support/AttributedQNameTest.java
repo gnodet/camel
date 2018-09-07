@@ -17,11 +17,12 @@
 
 package org.apache.camel.support;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import javax.xml.namespace.QName;
 
 import org.apache.camel.support.XMLTokenExpressionIterator.AttributedQName;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * 

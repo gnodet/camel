@@ -16,12 +16,13 @@
  */
 package org.apache.camel.language;
 
+import org.junit.Test;
+
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Test;
 
 /**
  * Tests new converters added to XmlConverters to make Camel intelligent when needing to convert 

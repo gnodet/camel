@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.support;
-import org.junit.Before;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -27,8 +28,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.Assert;
 
 import static org.apache.camel.TestSupport.getJavaMajorVersion;
 

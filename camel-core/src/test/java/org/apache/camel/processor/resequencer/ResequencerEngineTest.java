@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.processor.resequencer;
-import org.junit.Before;
-import org.junit.After;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedList;

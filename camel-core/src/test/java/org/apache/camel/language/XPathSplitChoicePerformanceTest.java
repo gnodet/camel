@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.language;
-import org.junit.Before;
 
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -31,7 +32,6 @@ import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.util.StopWatch;
 import org.apache.camel.util.TimeUtils;
-import org.junit.Ignore;
 import org.slf4j.Logger;
 
 /**

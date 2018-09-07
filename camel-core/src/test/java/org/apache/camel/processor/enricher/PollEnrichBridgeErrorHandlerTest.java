@@ -16,6 +16,8 @@
  */
 package org.apache.camel.processor.enricher;
 
+import org.junit.Test;
+
 import org.apache.camel.Consumer;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;
@@ -24,7 +26,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy;
 import org.apache.camel.spi.PollingConsumerPollStrategy;
-import org.junit.Test;
 
 public class PollEnrichBridgeErrorHandlerTest extends ContextTestSupport {
 

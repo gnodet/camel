@@ -16,10 +16,11 @@
  */
 package org.apache.camel.component.extension.verifier;
 
-import org.apache.camel.component.extension.ComponentVerifierExtension;
-import org.apache.camel.component.extension.ComponentVerifierExtension.VerificationError;
 import org.junit.Assert;
 import org.junit.Test;
+
+import org.apache.camel.component.extension.ComponentVerifierExtension;
+import org.apache.camel.component.extension.ComponentVerifierExtension.VerificationError;
 
 public class ComponentVerifierTest extends Assert {
 

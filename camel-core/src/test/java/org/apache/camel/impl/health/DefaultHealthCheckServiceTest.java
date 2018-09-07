@@ -16,6 +16,9 @@
  */
 package org.apache.camel.impl.health;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +30,6 @@ import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckResultBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class DefaultHealthCheckServiceTest {
 

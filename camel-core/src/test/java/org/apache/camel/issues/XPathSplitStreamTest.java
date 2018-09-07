@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.issues;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import org.xml.sax.InputSource;

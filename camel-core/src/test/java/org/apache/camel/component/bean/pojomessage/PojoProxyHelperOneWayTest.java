@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.bean.pojomessage;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,6 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.bean.PojoProxyHelper;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.Test;
 
 public class PojoProxyHelperOneWayTest extends ContextTestSupport {
 

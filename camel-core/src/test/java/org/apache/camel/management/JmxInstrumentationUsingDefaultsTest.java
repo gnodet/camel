@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.management;
-import org.junit.Before;
-import org.junit.After;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -25,7 +25,6 @@ import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import javax.management.MBeanServer;
 import javax.management.MBeanServerConnection;
 import javax.management.MBeanServerFactory;

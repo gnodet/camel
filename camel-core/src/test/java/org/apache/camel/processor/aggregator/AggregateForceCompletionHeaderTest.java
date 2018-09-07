@@ -16,6 +16,8 @@
  */
 package org.apache.camel.processor.aggregator;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +25,6 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
-import org.junit.Test;
 
 /**
  * To test CAMEL-4118 support for completing all aggregation groups with a signal message

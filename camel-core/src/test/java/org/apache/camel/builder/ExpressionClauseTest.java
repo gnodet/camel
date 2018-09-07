@@ -19,7 +19,6 @@ package org.apache.camel.builder;
 import org.junit.Test;
 
 import java.util.Map;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;

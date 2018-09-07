@@ -16,9 +16,8 @@
  */
 package org.apache.camel.builder;
 
-import org.junit.Test;
-
 import org.junit.Assert;
+import org.junit.Test;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;

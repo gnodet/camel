@@ -16,6 +16,8 @@
  */
 package org.apache.camel.impl.validator;
 
+import org.junit.Test;
+
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Message;
@@ -24,7 +26,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Validator;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

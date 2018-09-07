@@ -16,14 +16,16 @@
  */
 package org.apache.camel.impl.runtimecatalog;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.runtimecatalog.JSonSchemaResolver;
+
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

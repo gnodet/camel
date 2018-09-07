@@ -16,6 +16,9 @@
  */
 package org.apache.camel.impl.cluster;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -31,8 +34,6 @@ import org.apache.camel.ServiceStatus;
 import org.apache.camel.cluster.CamelClusterEventListener;
 import org.apache.camel.cluster.CamelClusterMember;
 import org.apache.camel.cluster.CamelClusterService;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class ClusterServiceViewTest {
 

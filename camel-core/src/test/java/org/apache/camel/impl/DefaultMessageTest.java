@@ -16,11 +16,12 @@
  */
 package org.apache.camel.impl;
 
+import org.junit.Test;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.camel.Attachment;
-import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;

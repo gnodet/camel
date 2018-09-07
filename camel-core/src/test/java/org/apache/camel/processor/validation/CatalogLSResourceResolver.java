@@ -18,7 +18,6 @@ package org.apache.camel.processor.validation;
 
 import java.io.InputStream;
 import java.io.Reader;
-
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.InputSource;

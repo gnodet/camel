@@ -16,13 +16,14 @@
  */
 package org.apache.camel.issues;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class RedeliveryErrorHandlerAsyncDelayedTwoCamelContextIssueTest {
 

@@ -15,13 +15,12 @@
  * limitations under the License.
  */
 package org.apache.camel.component.language;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Set;
-
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 

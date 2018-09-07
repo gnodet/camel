@@ -19,6 +19,7 @@ package org.apache.camel.impl;
 import org.junit.Test;
 
 import java.util.Collection;
+
 import org.apache.camel.Consumer;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;

@@ -16,13 +16,15 @@
  */
 package org.apache.camel.util.component;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
-import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 public class ApiMethodPropertiesHelperTest {

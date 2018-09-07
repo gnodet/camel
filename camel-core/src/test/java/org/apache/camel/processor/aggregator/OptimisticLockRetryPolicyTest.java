@@ -16,9 +16,9 @@
  */
 package org.apache.camel.processor.aggregator;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import org.junit.Assert;
 import org.apache.camel.processor.aggregate.OptimisticLockRetryPolicy;
 
 public class OptimisticLockRetryPolicyTest extends Assert {

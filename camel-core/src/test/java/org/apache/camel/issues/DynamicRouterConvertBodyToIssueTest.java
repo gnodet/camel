@@ -16,6 +16,7 @@
  */
 package org.apache.camel.issues;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Map;
@@ -26,7 +27,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.ExchangeProperties;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Ignore;
 
 @Ignore("CAMEL-8086: used for manual testing a memory issue")
 public class DynamicRouterConvertBodyToIssueTest extends ContextTestSupport implements Processor {

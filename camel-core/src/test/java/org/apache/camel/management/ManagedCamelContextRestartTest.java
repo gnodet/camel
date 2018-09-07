@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 package org.apache.camel.management;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.EventObject;
-
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 

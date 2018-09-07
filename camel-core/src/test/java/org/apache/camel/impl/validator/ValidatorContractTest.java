@@ -16,13 +16,14 @@
  */
 package org.apache.camel.impl.validator;
 
+import org.junit.Test;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Converter;
 import org.apache.camel.Exchange;
 import org.apache.camel.TypeConverters;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.Test;
 
 public class ValidatorContractTest extends ContextTestSupport {
 

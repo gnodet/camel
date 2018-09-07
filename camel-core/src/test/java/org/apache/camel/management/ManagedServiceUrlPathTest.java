@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.management;
-import org.junit.After;
 
+import org.junit.After;
 import org.junit.Test;
 
 import javax.management.MBeanServerConnection;

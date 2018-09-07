@@ -15,8 +15,10 @@
  * limitations under the License.
  */
 package org.apache.camel.impl;
-import org.junit.Before;
-import org.junit.After;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,9 +33,6 @@ import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Predicate;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.Language;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

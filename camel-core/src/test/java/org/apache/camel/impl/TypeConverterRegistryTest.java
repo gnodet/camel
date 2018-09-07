@@ -16,12 +16,12 @@
  */
 package org.apache.camel.impl;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.InputStream;
 
-import org.junit.Assert;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.TypeConverter;

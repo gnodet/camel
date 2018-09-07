@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 package org.apache.camel.component.validator;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URL;
-
 import org.w3c.dom.ls.LSResourceResolver;
 
 import org.apache.camel.ContextTestSupport;

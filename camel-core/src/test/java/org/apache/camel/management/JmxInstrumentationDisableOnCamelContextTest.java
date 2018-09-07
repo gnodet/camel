@@ -16,7 +16,6 @@
  */
 package org.apache.camel.management;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.Set;
@@ -24,6 +23,7 @@ import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.component.mock.MockEndpoint;
 
 /**

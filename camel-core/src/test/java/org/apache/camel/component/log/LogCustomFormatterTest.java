@@ -16,14 +16,15 @@
  */
 package org.apache.camel.component.log;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.impl.PropertyPlaceholderDelegateRegistry;
 import org.apache.camel.spi.ExchangeFormatter;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Custom Exchange Formatter test.

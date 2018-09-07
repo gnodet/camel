@@ -16,6 +16,8 @@
  */
 package org.apache.camel.processor.enricher;
 
+import org.junit.Test;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +32,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.camel.processor.async.MyAsyncComponent;
 import org.apache.camel.spi.ShutdownStrategy;
-import org.junit.Test;
 
 /**
  * @version 

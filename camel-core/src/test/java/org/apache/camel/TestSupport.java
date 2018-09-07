@@ -16,6 +16,13 @@
  */
 package org.apache.camel;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
+
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -28,14 +35,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.processor.ErrorHandlerSupport;
 import org.apache.camel.util.PredicateAssertHelper;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

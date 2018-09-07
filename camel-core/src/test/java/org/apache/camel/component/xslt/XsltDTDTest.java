@@ -20,7 +20,6 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.List;
-
 import javax.xml.transform.TransformerException;
 
 import org.apache.camel.CamelExecutionException;

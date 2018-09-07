@@ -16,8 +16,9 @@
  */
 package org.apache.camel.management;
 
-import java.util.Set;
+import org.junit.Test;
 
+import java.util.Set;
 import javax.management.JMX;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -29,7 +30,6 @@ import org.apache.camel.api.management.mbean.ManagedThrottlingExceptionRoutePoli
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.ThrottlingExceptionHalfOpenHandler;
 import org.apache.camel.impl.ThrottlingExceptionRoutePolicy;
-import org.junit.Test;
 
 public class ManagedThrottlingExceptionRoutePolicyTest  extends ManagementTestSupport {
 

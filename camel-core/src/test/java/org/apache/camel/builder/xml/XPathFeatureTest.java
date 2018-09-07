@@ -19,7 +19,6 @@ package org.apache.camel.builder.xml;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-
 import org.xml.sax.SAXParseException;
 
 import org.apache.camel.ContextTestSupport;

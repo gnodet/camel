@@ -16,11 +16,12 @@
  */
 package org.apache.camel.impl.runtimecatalog;
 
+import org.junit.Test;
+
 import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.ContextTestSupport;
-import org.junit.Test;
 
 public class JSonSchemaHelperTest extends ContextTestSupport {
 

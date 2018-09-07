@@ -29,8 +29,6 @@ import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
 
-
-
 import org.apache.camel.CamelContext;
 
 public class SSLContextParametersTest extends AbstractJsseParametersTest {

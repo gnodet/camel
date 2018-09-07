@@ -16,6 +16,7 @@
  */
 package org.apache.camel.processor;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;
@@ -24,7 +25,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.Ignore;
 
 /**
  * This is a manual test to run

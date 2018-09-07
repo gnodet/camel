@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.processor;
-import org.junit.After;
 
+import org.junit.After;
 import org.junit.Test;
 
 import java.util.ArrayList;

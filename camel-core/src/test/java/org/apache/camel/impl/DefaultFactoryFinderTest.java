@@ -16,6 +16,8 @@
  */
 package org.apache.camel.impl;
 
+import org.junit.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +26,6 @@ import java.util.List;
 import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.Injector;
-import org.junit.Test;
 
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;

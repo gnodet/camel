@@ -16,10 +16,11 @@
  */
 package org.apache.camel.issues;
 
+import org.junit.Test;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Test;
 
 public class RoutingSlipNotStopErrorHandlerTest extends ContextTestSupport {
 

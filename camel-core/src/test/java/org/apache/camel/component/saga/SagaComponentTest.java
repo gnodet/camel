@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.saga;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;
@@ -23,7 +24,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.saga.InMemorySagaService;
 import org.apache.camel.model.SagaCompletionMode;
-import org.junit.Assert;
 
 /**
  *

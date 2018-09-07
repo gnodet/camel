@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 package org.apache.camel.impl;
-import org.apache.camel.ConfigurableCamelContext;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;

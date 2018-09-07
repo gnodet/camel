@@ -16,10 +16,11 @@
  */
 package org.apache.camel.component.stub;
 
+import org.junit.Test;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Test;
 
 public class StubConsumerTest extends ContextTestSupport {
 

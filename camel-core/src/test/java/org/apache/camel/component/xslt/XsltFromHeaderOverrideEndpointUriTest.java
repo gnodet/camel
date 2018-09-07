@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.xslt;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -25,7 +26,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.JndiRegistry;
-import org.junit.Ignore;
 
 @Ignore("CamelXsltComponent don't support XSLT_RESOURCE_URI header anymore")
 public class XsltFromHeaderOverrideEndpointUriTest extends ContextTestSupport {

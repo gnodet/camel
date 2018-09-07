@@ -16,11 +16,11 @@
  */
 package org.apache.camel.impl;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Map;
 
-import org.junit.Assert;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;

@@ -16,6 +16,9 @@
  */
 package org.apache.camel.component.rest;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -28,8 +31,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.impl.DefaultMessage;
 import org.apache.camel.spi.DataFormat;
-import org.junit.Assert;
-import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import static org.junit.Assert.assertNotNull;

@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.converter.jaxp;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -30,7 +30,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamSource;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

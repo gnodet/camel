@@ -15,12 +15,11 @@
  * limitations under the License.
  */
 package org.apache.camel.processor.routingslip;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
-
 import javax.naming.Context;
 
 import org.apache.camel.ContextTestSupport;

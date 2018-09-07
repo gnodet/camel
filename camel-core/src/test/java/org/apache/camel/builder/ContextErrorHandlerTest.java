@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 package org.apache.camel.builder;
-import org.apache.camel.ConfigurableCamelContext;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
 import org.apache.camel.Channel;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;

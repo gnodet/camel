@@ -16,6 +16,8 @@
  */
 package org.apache.camel.util;
 
+import org.junit.Test;
+
 import java.util.EventObject;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,7 +28,6 @@ import org.apache.camel.management.event.CamelContextStoppingEvent;
 import org.apache.camel.management.event.RouteStartedEvent;
 import org.apache.camel.management.event.RouteStoppedEvent;
 import org.apache.camel.support.EventNotifierSupport;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

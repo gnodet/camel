@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.component.timer;
-import org.junit.After;
 
+import org.junit.After;
 import org.junit.Test;
 
 import org.apache.camel.ContextTestSupport;

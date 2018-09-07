@@ -17,7 +17,6 @@
 package org.apache.camel.model;
 
 import java.net.URL;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;

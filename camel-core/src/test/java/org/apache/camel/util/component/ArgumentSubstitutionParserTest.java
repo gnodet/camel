@@ -16,12 +16,13 @@
  */
 package org.apache.camel.util.component;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.camel.util.component.ArgumentSubstitutionParser.Substitution;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

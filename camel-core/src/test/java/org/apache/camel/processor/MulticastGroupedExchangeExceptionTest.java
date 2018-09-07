@@ -26,7 +26,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MulticastGroupedExchangeExceptionTest extends ContextTestSupport {
 

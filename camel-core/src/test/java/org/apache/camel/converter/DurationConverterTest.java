@@ -24,7 +24,6 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.TypeConversionException;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class DurationConverterTest extends ContextTestSupport {
 

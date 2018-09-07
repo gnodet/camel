@@ -16,7 +16,6 @@
  */
 package org.apache.camel.processor.enricher;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.EventObject;
@@ -24,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.management.DefaultManagementStrategy;

@@ -16,10 +16,10 @@
  */
 package org.apache.camel.impl;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.TestSupport;
 import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.util.jndi.JndiContext;

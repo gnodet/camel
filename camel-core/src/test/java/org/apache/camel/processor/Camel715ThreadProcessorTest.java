@@ -16,10 +16,12 @@
  */
 package org.apache.camel.processor;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Assert;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -29,7 +31,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.junit.Test;
 
 /**
  * An old unit test from CAMEL-715 which reproduced a problem which we don't have anymore

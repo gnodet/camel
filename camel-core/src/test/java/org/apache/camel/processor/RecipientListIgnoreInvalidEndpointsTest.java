@@ -18,7 +18,6 @@ package org.apache.camel.processor;
 
 import org.junit.Test;
 
-
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.builder.RouteBuilder;

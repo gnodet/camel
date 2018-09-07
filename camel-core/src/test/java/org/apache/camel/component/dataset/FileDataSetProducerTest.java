@@ -15,23 +15,22 @@
  * limitations under the License.
  */
 package org.apache.camel.component.dataset;
-import org.junit.Before;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-
 import javax.naming.Context;
 
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
 
 /**
  * @version 

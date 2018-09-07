@@ -20,7 +20,6 @@ import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;

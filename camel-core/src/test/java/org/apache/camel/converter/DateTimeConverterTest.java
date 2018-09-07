@@ -18,7 +18,6 @@ package org.apache.camel.converter;
 
 import org.junit.Test;
 
-
 import java.util.Date;
 import java.util.TimeZone;
 

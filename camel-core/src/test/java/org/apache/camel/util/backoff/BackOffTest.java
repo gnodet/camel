@@ -16,10 +16,10 @@
  */
 package org.apache.camel.util.backoff;
 
-import java.util.concurrent.TimeUnit;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.concurrent.TimeUnit;
 
 public class BackOffTest {
 

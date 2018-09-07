@@ -19,7 +19,6 @@ package org.apache.camel.component.bean;
 import org.junit.Test;
 
 import java.util.Date;
-
 import org.w3c.dom.Document;
 
 import org.apache.camel.CamelExecutionException;

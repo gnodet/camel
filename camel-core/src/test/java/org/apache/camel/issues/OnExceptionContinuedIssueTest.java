@@ -16,6 +16,8 @@
  */
 package org.apache.camel.issues;
 
+import org.junit.Test;
+
 import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
@@ -23,7 +25,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.DeadLetterChannelBuilder;
 import org.apache.camel.builder.DefaultErrorHandlerBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Test;
 
 public class OnExceptionContinuedIssueTest extends ContextTestSupport {
 

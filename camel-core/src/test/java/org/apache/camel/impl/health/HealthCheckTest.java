@@ -16,13 +16,14 @@
  */
 package org.apache.camel.impl.health;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.time.Duration;
 import java.util.Map;
 
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckResultBuilder;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class HealthCheckTest {
     @Test

@@ -16,7 +16,6 @@
  */
 package org.apache.camel.issues;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -24,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;

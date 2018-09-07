@@ -16,6 +16,9 @@
  */
 package org.apache.camel.impl.runtimecatalog;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,14 +27,13 @@ import org.apache.camel.runtimecatalog.EndpointValidationResult;
 import org.apache.camel.runtimecatalog.LanguageValidationResult;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.runtimecatalog.SimpleValidationResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class RuntimeCamelCatalogTest {
 

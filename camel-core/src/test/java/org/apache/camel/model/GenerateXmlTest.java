@@ -20,7 +20,6 @@ import org.junit.Test;
 
 import java.io.StringWriter;
 import java.util.List;
-
 import javax.xml.bind.Marshaller;
 
 import org.apache.camel.model.language.GroovyExpression;

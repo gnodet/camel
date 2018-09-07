@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.xslt;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -34,7 +35,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.model.language.ConstantExpression;
 import org.apache.camel.model.language.SimpleExpression;
-import org.junit.Assert;
 
 import static org.awaitility.Awaitility.await;
 

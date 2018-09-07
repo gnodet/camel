@@ -16,6 +16,9 @@
  */
 package org.apache.camel.impl.health;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,8 +27,6 @@ import java.util.stream.Stream;
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.health.HealthCheckResultBuilder;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class DefaultHealthCheckRegistryTest {
 

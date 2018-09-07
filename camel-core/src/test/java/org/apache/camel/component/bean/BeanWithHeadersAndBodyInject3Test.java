@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.util.Map;
 import javax.naming.Context;
+
 import org.apache.camel.Body;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Headers;

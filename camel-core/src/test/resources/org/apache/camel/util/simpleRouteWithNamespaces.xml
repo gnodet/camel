@@ -18,7 +18,7 @@
 
 -->
 <!-- START SNIPPET: e1 -->
-<routes xmlns="http://camel.apache.org/schema/spring" xmlns:foo="http://foo" xmlns:bar="http://bar">
+<routes xmlns="http://camel.apache.org/schema/spring">
     <route id="foo">
         <from uri="direct:start"/>
         <choice>

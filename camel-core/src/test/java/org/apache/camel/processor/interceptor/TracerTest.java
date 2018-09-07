@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.processor.interceptor;
-import org.junit.After;
 
+import org.junit.After;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;

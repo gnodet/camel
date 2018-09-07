@@ -19,7 +19,6 @@ package org.apache.camel.component.xslt;
 import org.junit.Test;
 
 import java.util.List;
-
 import org.w3c.dom.Document;
 
 import org.apache.camel.ContextTestSupport;

@@ -16,6 +16,8 @@
  */
 package org.apache.camel.util.toolbox;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
 import org.w3c.dom.Node;
 
 import org.apache.camel.ContextTestSupport;
@@ -35,7 +36,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.camel.util.toolbox.FlexibleAggregationStrategy.CompletionAwareMixin;
 import org.apache.camel.util.toolbox.FlexibleAggregationStrategy.TimeoutAwareMixin;
-import org.junit.Test;
 
 /**
  * Unit tests for the {@link FlexibleAggregationStrategy}.

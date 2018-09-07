@@ -16,13 +16,14 @@
  */
 package org.apache.camel.management;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.ManagementAgent;
-import org.junit.Assert;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

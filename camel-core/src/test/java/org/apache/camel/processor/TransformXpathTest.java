@@ -19,7 +19,6 @@ package org.apache.camel.processor;
 import org.junit.Test;
 
 import java.io.File;
-
 import org.w3c.dom.NodeList;
 
 import org.apache.camel.ContextTestSupport;

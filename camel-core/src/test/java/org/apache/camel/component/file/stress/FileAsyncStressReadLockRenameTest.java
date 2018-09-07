@@ -16,12 +16,13 @@
  */
 package org.apache.camel.component.file.stress;
 
+import org.junit.Ignore;
+
 import java.util.Random;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Ignore;
 
 /**
  * @version 

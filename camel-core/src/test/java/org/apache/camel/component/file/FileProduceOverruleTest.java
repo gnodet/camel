@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.component.file;
-import org.junit.Before;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -23,10 +23,10 @@ import java.util.List;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.spi.RouteNode;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.management.InstrumentationProcessor;
+import org.apache.camel.spi.RouteNode;
 import org.apache.camel.spi.TracedRouteNodes;
 
 /**

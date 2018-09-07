@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 package org.apache.camel.management;
-import org.junit.Before;
-import org.junit.After;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.rmi.NoSuchObjectException;

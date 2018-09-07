@@ -16,12 +16,13 @@
  */
 package org.apache.camel.component.directvm;
 
+import org.junit.Test;
+
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.Test;
 
 /**
  * @version 

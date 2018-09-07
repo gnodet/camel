@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.bean;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,7 +31,6 @@ import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.Assert;
 
 /**
  * Unit test for Java 8 {@link CompletableFuture} as return type on a bean being called from a Camel route.

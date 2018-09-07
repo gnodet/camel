@@ -16,15 +16,16 @@
  */
 package org.apache.camel.component.rest;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.SimpleRegistry;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 public class RestComponentTest {
 

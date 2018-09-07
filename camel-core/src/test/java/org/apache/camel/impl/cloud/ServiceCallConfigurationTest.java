@@ -16,6 +16,9 @@
  */
 package org.apache.camel.impl.cloud;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -31,8 +34,6 @@ import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
 import org.apache.camel.model.cloud.ServiceCallDefinitionConstants;
 import org.apache.camel.model.cloud.ServiceCallExpressionConfiguration;
 import org.apache.camel.model.language.SimpleExpression;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class ServiceCallConfigurationTest {
 

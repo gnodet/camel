@@ -16,9 +16,10 @@
  */
 package org.apache.camel.util;
 
-import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.Assert;
 import org.junit.Test;
+
+import org.apache.camel.impl.DefaultCamelContext;
 
 import static org.apache.camel.util.PlatformHelper.isOsgiContext;
 

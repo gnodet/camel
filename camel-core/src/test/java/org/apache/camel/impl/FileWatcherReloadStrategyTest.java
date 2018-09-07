@@ -16,7 +16,6 @@
  */
 package org.apache.camel.impl;
 
-import org.apache.camel.ConfigurableCamelContext;
 import org.junit.Test;
 
 import java.io.File;
@@ -25,6 +24,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.management.event.RouteAddedEvent;

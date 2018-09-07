@@ -17,7 +17,6 @@
 package org.apache.camel.processor;
 
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.naming.Context;
 
 import org.apache.camel.util.jndi.JndiContext;

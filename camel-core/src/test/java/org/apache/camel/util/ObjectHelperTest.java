@@ -16,6 +16,7 @@
  */
 package org.apache.camel.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -30,11 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import org.junit.Assert;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;

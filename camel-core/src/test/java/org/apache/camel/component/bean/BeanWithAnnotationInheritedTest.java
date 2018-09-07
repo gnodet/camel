@@ -21,7 +21,6 @@ import org.junit.Test;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
 import javax.naming.Context;
 
 import org.apache.camel.ContextTestSupport;

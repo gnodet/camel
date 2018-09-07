@@ -16,12 +16,15 @@
  */
 package org.apache.camel.impl.transformer;
 
+import org.junit.Test;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Converter;
 import org.apache.camel.Exchange;
@@ -33,7 +36,6 @@ import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.DataTypeAware;
 import org.apache.camel.spi.RouteContext;
-import org.junit.Test;
 
 public class TransformerContractTest extends ContextTestSupport {
 
