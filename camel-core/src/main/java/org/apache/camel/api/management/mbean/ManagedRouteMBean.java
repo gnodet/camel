@@ -21,7 +21,6 @@ import javax.management.openmbean.TabularData;
 import org.apache.camel.Experimental;
 import org.apache.camel.api.management.ManagedAttribute;
 import org.apache.camel.api.management.ManagedOperation;
-import org.apache.camel.spi.RouteError;
 
 public interface ManagedRouteMBean extends ManagedPerformanceCounterMBean {
 
