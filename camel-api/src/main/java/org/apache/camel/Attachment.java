@@ -18,7 +18,6 @@ package org.apache.camel;
 
 import java.util.Collection;
 import java.util.List;
-
 import javax.activation.DataHandler;
 
 /**

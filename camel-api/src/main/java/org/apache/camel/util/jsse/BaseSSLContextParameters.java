@@ -32,7 +32,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.SNIServerName;
 import javax.net.ssl.SSLContext;
@@ -47,7 +46,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 import org.apache.camel.util.jsse.FilterParameters.Patterns;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

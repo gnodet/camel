@@ -21,7 +21,6 @@ import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.util.List;
-
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
