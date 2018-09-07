@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.apache.camel.impl.runtimecatalog.URISupport.isEmpty;
+import static org.apache.camel.util.ObjectHelper.isEmpty;
 
 /**
  * Details result of validating endpoint uri.
