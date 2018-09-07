@@ -27,7 +27,6 @@ import org.apache.camel.Attachment;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.HeadersMapFactory;
-import org.apache.camel.util.AttachmentMap;
 import org.apache.camel.util.EndpointHelper;
 import org.apache.camel.util.ObjectHelper;
 
