@@ -69,12 +69,27 @@ public class ManagedStreamCachingStrategy extends ManagedService implements Mana
         return streamCachingStrategy.getSpoolUsedHeapMemoryThreshold();
     }
 
-    public void setSpoolUsedHeapMemoryLimit(StreamCachingStrategy.SpoolUsedHeapMemoryLimit limit) {
-        streamCachingStrategy.setSpoolUsedHeapMemoryLimit(limit);
+    public void setSpoolUsedHeapMemoryLimit(SpoolUsedHeapMemoryLimit limit) {
+        StreamCachingStrategy.SpoolUsedHeapMemoryLimit l;
+        if (limit == SpoolUsedHeapMemoryLimit.Committed) {
+            l = StreamCachingStrategy.SpoolUsedHeapMemoryLimit.Committed;
+        } else if (limit == SpoolUsedHeapMemoryLimit.Max) {
+            l = StreamCachingStrategy.SpoolUsedHeapMemoryLimit.Max;
+        } else {
+            l = null;
+        }
+        streamCachingStrategy.setSpoolUsedHeapMemoryLimit(l);
     }
 
-    public StreamCachingStrategy.SpoolUsedHeapMemoryLimit getSpoolUsedHeapMemoryLimit() {
-        return streamCachingStrategy.getSpoolUsedHeapMemoryLimit();
+    public SpoolUsedHeapMemoryLimit getSpoolUsedHeapMemoryLimit() {
+        StreamCachingStrategy.SpoolUsedHeapMemoryLimit l = streamCachingStrategy.getSpoolUsedHeapMemoryLimit();
+        if (l == StreamCachingStrategy.SpoolUsedHeapMemoryLimit.Committed) {
+            return SpoolUsedHeapMemoryLimit.Committed;
+        } else if (l == StreamCachingStrategy.SpoolUsedHeapMemoryLimit.Max) {
+            return SpoolUsedHeapMemoryLimit.Max;
+        } else {
+            return null;
+        }
     }
 
     public void setBufferSize(int bufferSize) {
