@@ -33,6 +33,7 @@ import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -42,7 +43,12 @@ import java.util.regex.Pattern;
 
 public final class Scanner implements Iterator<String>, Closeable {
 
-    private static final Map<String, Pattern> CACHE = LRUCacheFactory.newLRUCache(7);
+    private static final Map<String, Pattern> CACHE = new LinkedHashMap<String, Pattern>() {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry eldest) {
+            return size() >= 7;
+        }
+    };
 
     private static final String WHITESPACE_PATTERN = "\\s+";
 
