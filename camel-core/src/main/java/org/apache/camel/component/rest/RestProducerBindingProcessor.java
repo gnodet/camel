@@ -27,7 +27,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.processor.DelegateAsyncProcessor;
 import org.apache.camel.processor.MarshalProcessor;
 import org.apache.camel.processor.UnmarshalProcessor;
-import org.apache.camel.processor.binding.BindingException;
+import org.apache.camel.processor.BindingException;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.util.ExchangeHelper;
 import org.apache.camel.util.ObjectHelper;
