@@ -19,6 +19,7 @@ package org.apache.camel.processor.interceptor;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
@@ -48,8 +49,8 @@ public class InterceptorStrategyOrderedTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 // interceptors should be invoked according to how they are ordered
-                context.addInterceptStrategy(new BarInterceptStrategy());
-                context.addInterceptStrategy(new FooInterceptStrategy());
+                context.adapt(ConfigurableCamelContext.class).addInterceptStrategy(new BarInterceptStrategy());
+                context.adapt(ConfigurableCamelContext.class).addInterceptStrategy(new FooInterceptStrategy());
 
                 from("direct:start").to("mock:result");
             }

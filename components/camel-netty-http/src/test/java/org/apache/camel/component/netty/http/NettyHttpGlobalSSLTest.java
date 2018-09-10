@@ -21,6 +21,7 @@ import org.junit.After;
 import java.net.URL;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -78,7 +79,7 @@ public class NettyHttpGlobalSSLTest extends CamelTestSupport {
         TrustManagersParameters trustManagers = new TrustManagersParameters();
         trustManagers.setKeyStore(keyStore);
         sslContextParameters.setTrustManagers(trustManagers);
-        context.setSSLContextParameters(sslContextParameters);
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(sslContextParameters);
 
         ((SSLContextParametersAware) context.getComponent("netty-http")).setUseGlobalSslContextParameters(true);
         return context;

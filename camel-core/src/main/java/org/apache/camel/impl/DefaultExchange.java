@@ -550,9 +550,6 @@ public final class DefaultExchange implements Exchange {
     @SuppressWarnings("deprecation")
     protected String createExchangeId() {
         String answer = null;
-        if (in != null) {
-            answer = in.createExchangeId();
-        }
         if (answer == null) {
             answer = context.getUuidGenerator().generateUuid();
         }

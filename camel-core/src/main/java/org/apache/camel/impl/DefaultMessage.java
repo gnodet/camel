@@ -384,10 +384,6 @@ public class DefaultMessage extends MessageSupport {
         return headers != null;
     }
 
-    public String createExchangeId() {
-        return null;
-    }
-
     private static boolean isExcludePatternMatch(String key, String... excludePatterns) {
         for (String pattern : excludePatterns) {
             if (EndpointHelper.matchPattern(key, pattern)) {

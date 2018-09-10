@@ -17,6 +17,7 @@
 package org.apache.camel.component.mina2;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.SSLContextParametersAware;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -30,7 +31,7 @@ public class Mina2SslGlobalContextParametersTcpTest extends BaseMina2Test {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setSSLContextParameters(createSslContextParameters());
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(createSslContextParameters());
         ((SSLContextParametersAware) context.getComponent("mina2")).setUseGlobalSslContextParameters(true);
         return context;
     }

@@ -17,6 +17,7 @@
 package org.apache.camel.component.stomp;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.SSLContextParametersAware;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -25,7 +26,7 @@ public class StompGlobalSslConsumerTest extends StompConsumerTest {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setSSLContextParameters(getClientSSLContextParameters());
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(getClientSSLContextParameters());
 
         ((SSLContextParametersAware) context.getComponent("stomp")).setUseGlobalSslContextParameters(true);
         return context;

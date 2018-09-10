@@ -1294,54 +1294,6 @@ public interface CamelContext extends SuspendableService, RuntimeConfiguration {
     //
 
     /**
-     * Set whether breadcrumb is enabled.
-     *
-     * @param useBreadcrumb <tt>true</tt> to enable breadcrumb, <tt>false</tt> to disable
-     */
-    @Deprecated
-    default void setUseBreadcrumb(Boolean useBreadcrumb) {
-        adapt(ConfigurableCamelContext.class).setUseBreadcrumb(useBreadcrumb);
-    }
-
-    /**
-     * Set whether <a href="http://www.slf4j.org/api/org/slf4j/MDC.html">MDC</a> is enabled.
-     *
-     * @param useMDCLogging <tt>true</tt> to enable MDC logging, <tt>false</tt> to disable
-     */
-    @Deprecated
-    default void setUseMDCLogging(Boolean useMDCLogging) {
-        adapt(ConfigurableCamelContext.class).setUseMDCLogging(useMDCLogging);
-    }
-
-    /**
-     * Sets the global SSL context parameters.
-     */
-    @Deprecated
-    default void setSSLContextParameters(SSLContextParameters sslContextParameters) {
-        adapt(ConfigurableCamelContext.class).setSSLContextParameters(sslContextParameters);
-    }
-
-    /**
-     * Sets a pluggable service pool to use for {@link Producer} pooling.
-     *
-     * @param servicePool the pool
-     */
-    @Deprecated
-    default void setProducerServicePool(ServicePool<Endpoint, Producer> servicePool) {
-        adapt(ConfigurableCamelContext.class).setProducerServicePool(servicePool);
-    }
-
-    /**
-     * Adds the given interceptor strategy
-     *
-     * @param interceptStrategy the strategy
-     */
-    @Deprecated
-    default void addInterceptStrategy(InterceptStrategy interceptStrategy) {
-        adapt(ConfigurableCamelContext.class).addInterceptStrategy(interceptStrategy);
-    }
-
-    /**
      * Gets the service pool for {@link Producer} pooling.
      *
      * @return the service pool

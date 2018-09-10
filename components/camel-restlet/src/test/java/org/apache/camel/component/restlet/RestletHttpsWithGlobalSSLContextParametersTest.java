@@ -19,6 +19,7 @@ package org.apache.camel.component.restlet;
 import java.net.URL;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.SSLContextParametersAware;
@@ -53,7 +54,7 @@ public class RestletHttpsWithGlobalSSLContextParametersTest extends RestletTestS
         SSLContextParameters sslContextParameters = new SSLContextParameters();
         sslContextParameters.setKeyManagers(kmp);
 
-        context.setSSLContextParameters(sslContextParameters);
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(sslContextParameters);
 
         ((SSLContextParametersAware) context.getComponent("restlet")).setUseGlobalSslContextParameters(true);
         return context;

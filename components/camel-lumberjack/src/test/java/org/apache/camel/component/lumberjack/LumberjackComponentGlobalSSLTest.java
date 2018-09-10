@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.AvailablePortFinder;
@@ -44,7 +45,7 @@ public class LumberjackComponentGlobalSSLTest extends CamelTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.setSSLContextParameters(createServerSSLContextParameters());
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(createServerSSLContextParameters());
         LumberjackComponent component = (LumberjackComponent) context.getComponent("lumberjack");
         component.setUseGlobalSslContextParameters(true);
         return context;

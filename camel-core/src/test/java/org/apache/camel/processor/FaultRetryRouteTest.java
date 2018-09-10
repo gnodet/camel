@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.apache.camel.CamelException;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
@@ -67,7 +68,7 @@ public class FaultRetryRouteTest extends ContextTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() {
-                getContext().addInterceptStrategy(new HandleFault());
+                getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(new HandleFault());
 
                 errorHandler(
                     deadLetterChannel("mock:error")

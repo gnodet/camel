@@ -35,6 +35,7 @@ import com.amazonaws.xray.entities.TraceID;
 import com.amazonaws.xray.exceptions.AlreadyEmittedException;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
@@ -132,7 +133,7 @@ public class XRayTracer extends ServiceSupport implements RoutePolicyFactory, St
             tracingStrategy = new NoopTracingStrategy();
         }
 
-        camelContext.addInterceptStrategy(tracingStrategy);
+        camelContext.adapt(ConfigurableCamelContext.class).addInterceptStrategy(tracingStrategy);
 
         LOG.debug("Starting XRay tracer");
     }

@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.Test;
@@ -94,7 +95,7 @@ public class JdbcParameterizedQueryTest extends AbstractJdbcTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() {
-                getContext().setUseBreadcrumb(false);
+                getContext().adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 getContext().getComponent("jdbc", JdbcComponent.class).setDataSource(db);
 

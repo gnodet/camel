@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
@@ -61,7 +62,7 @@ public class AsyncEndpointCustomAsyncInterceptorTest extends ContextTestSupport 
             @Override
             public void configure() throws Exception {
                 context.addComponent("async", new MyAsyncComponent());
-                context.addInterceptStrategy(interceptor);
+                context.adapt(ConfigurableCamelContext.class).addInterceptStrategy(interceptor);
 
                 from("direct:start")
                         .to("mock:before")

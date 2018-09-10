@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
@@ -76,7 +77,7 @@ public class AuditInterceptorAsyncDelegateIssueTest extends ContextTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                getContext().addInterceptStrategy(strategy);
+                getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(strategy);
 
                 onException(IllegalArgumentException.class)
                         .handled(true)

@@ -30,6 +30,7 @@ import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.JdkSslContext;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.SSLContextParametersAware;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.test.AvailablePortFinder;
@@ -94,7 +95,7 @@ public class WebsocketSSLContextGlobalRouteExampleTest extends CamelTestSupport 
         sslContextParameters.setKeyManagers(kmp);
         sslContextParameters.setTrustManagers(tmp);
         sslContextParameters.setServerParameters(scsp);
-        context.setSSLContextParameters(sslContextParameters);
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(sslContextParameters);
 
         ((SSLContextParametersAware) context.getComponent("websocket")).setUseGlobalSslContextParameters(true);
         return context;

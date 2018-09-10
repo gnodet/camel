@@ -39,9 +39,6 @@ class RichMessage(val message: Message) extends Message {
 
   def copyFromWithNewBody(other: Message, newBody: Any) = message.copyFromWithNewBody(other, newBody)
 
-  @Deprecated
-  def createExchangeId = message.createExchangeId
-
   def getAttachment(id: String) = message.getAttachment(id)
 
   def getAttachmentObject(id: String) = message.getAttachmentObject(id)

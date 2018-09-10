@@ -19,6 +19,7 @@ package org.apache.camel.component.jcr;
 import javax.jcr.Node;
 import javax.jcr.Session;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.junit.Test;
@@ -74,7 +75,7 @@ public class JcrProducerTest extends JcrRouteTestSupport {
             @Override
             public void configure() throws Exception {
                 // START SNIPPET: jcr-create-node
-                context.setUseBreadcrumb(false);
+                context.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 from("direct:a")
                         .to("jcr://user:pass@repository/home/test");

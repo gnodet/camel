@@ -17,13 +17,14 @@
 package org.apache.camel.component.rest.swagger;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 
 public class RestSwaggerGlobalHttpsTest extends HttpsTest {
 
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext camelContext = super.createCamelContext();
-        camelContext.setSSLContextParameters(createHttpsParameters(camelContext));
+        camelContext.adapt(ConfigurableCamelContext.class).setSSLContextParameters(createHttpsParameters(camelContext));
 
         RestSwaggerComponent component = camelContext.getComponent("petStore", RestSwaggerComponent.class);
         component.setUseGlobalSslContextParameters(true);

@@ -19,6 +19,7 @@ package org.apache.camel.issues;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
@@ -60,7 +61,7 @@ public class AdviceWithStartTargetIssueTest extends ContextTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                getContext().addInterceptStrategy(new ContainerWideInterceptor());
+                getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(new ContainerWideInterceptor());
 
                 from("direct:start").to("mock:foo").to("mock:result");
             }

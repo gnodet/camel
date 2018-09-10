@@ -25,6 +25,7 @@ import javax.management.ObjectName;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.api.management.mbean.BacklogTracerEventMessage;
 import org.apache.camel.builder.RouteBuilder;
@@ -424,7 +425,7 @@ public class BacklogTracerTest extends ManagementTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                context.setUseBreadcrumb(false);
+                context.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 from("direct:start")
                         .to("mock:foo").id("foo")

@@ -19,6 +19,7 @@ package org.apache.camel.impl;
 import org.junit.Test;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;
@@ -129,7 +130,7 @@ public class CustomProducerServicePoolTest extends ContextTestSupport {
     public void testCustomProducerServicePool() throws Exception {
         MyPool pool = new MyPool();
         pool.start();
-        context.setProducerServicePool(pool);
+        context.adapt(ConfigurableCamelContext.class).setProducerServicePool(pool);
 
         context.addEndpoint("my", new MyEndpoint("my", context));
 
@@ -164,7 +165,7 @@ public class CustomProducerServicePoolTest extends ContextTestSupport {
 
         MyPool pool = new MyPool();
         pool.start();
-        context.setProducerServicePool(pool);
+        context.adapt(ConfigurableCamelContext.class).setProducerServicePool(pool);
 
         context.addRoutes(new RouteBuilder() {
             @Override

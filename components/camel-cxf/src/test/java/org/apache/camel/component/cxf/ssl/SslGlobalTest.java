@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.SSLContextParametersAware;
@@ -50,7 +51,7 @@ public class SslGlobalTest extends CamelSpringTestSupport {
         CamelContext context = super.createCamelContext();
         SSLContextParameters parameters = context.getRegistry().lookupByNameAndType("mySslContext", SSLContextParameters.class);
         ((SSLContextParametersAware) context.getComponent("cxf")).setUseGlobalSslContextParameters(true);
-        context.setSSLContextParameters(parameters);
+        context.adapt(ConfigurableCamelContext.class).setSSLContextParameters(parameters);
         return context;
     }
 

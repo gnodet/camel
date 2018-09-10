@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 
@@ -684,7 +685,7 @@ public class BacklogDebuggerTest extends ManagementTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                context.setUseBreadcrumb(false);
+                context.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 from("seda:start?concurrentConsumers=2")
                         .to("log:foo").id("foo")

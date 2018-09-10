@@ -24,6 +24,7 @@ import javax.management.Attribute;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.api.management.mbean.BacklogTracerEventMessage;
@@ -85,7 +86,7 @@ public class BacklogTracerStreamCachingTest extends ManagementTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                context.setUseBreadcrumb(false);
+                context.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 from("direct:start").streamCaching()
                         .process(new Processor() {

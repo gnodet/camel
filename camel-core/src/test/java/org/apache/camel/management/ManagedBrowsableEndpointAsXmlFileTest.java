@@ -22,6 +22,7 @@ import org.junit.Test;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -62,7 +63,7 @@ public class ManagedBrowsableEndpointAsXmlFileTest extends ManagementTestSupport
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                context.setUseBreadcrumb(false);
+                context.adapt(ConfigurableCamelContext.class).setUseBreadcrumb(false);
 
                 from("direct:start").to("file:target/files");
             }

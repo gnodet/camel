@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
@@ -92,7 +93,7 @@ public class PipelineStepWithEventTest extends ContextTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = super.createCamelContext();
-        context.addInterceptStrategy(new MyInterceptStrategy());
+        context.adapt(ConfigurableCamelContext.class).addInterceptStrategy(new MyInterceptStrategy());
         // register the event listener
         context.addService(listener);
         return context;

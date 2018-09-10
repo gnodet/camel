@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Body;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConfigurableCamelContext;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
@@ -104,7 +105,7 @@ public class DynamicRouterWithInterceptorTest extends ContextTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() {
-                context.addInterceptStrategy(interceptStrategy);
+                context.adapt(ConfigurableCamelContext.class).addInterceptStrategy(interceptStrategy);
 
                 from("direct:start")
                     .dynamicRouter(method(DynamicRouterWithInterceptorTest.class, "slip"))
