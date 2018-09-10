@@ -95,12 +95,9 @@ public class SimpleTest extends LanguageTestSupport {
 
     @Test
     public void testRefExpression() throws Exception {
-        assertExpressionResultInstanceOf("ref:myAnimal", Animal.class);
         assertExpressionResultInstanceOf("${ref:myAnimal}", Animal.class);
 
-        assertExpression("ref:myAnimal", "Donkey");
         assertExpression("${ref:myAnimal}", "Donkey");
-        assertExpression("ref:unknown", null);
         assertExpression("${ref:unknown}", null);
         assertExpression("Hello ${ref:myAnimal}", "Hello Donkey");
         assertExpression("Hello ${ref:unknown}", "Hello ");
@@ -148,7 +145,7 @@ public class SimpleTest extends LanguageTestSupport {
         assertNotNull(exp);
         assertEquals(exchange, exp.evaluate(exchange, Object.class));
 
-        assertExpression("exchange", exchange);
+        assertExpression("${exchange}", exchange);
     }
 
     @Test
@@ -157,8 +154,8 @@ public class SimpleTest extends LanguageTestSupport {
         assertNotNull(exp);
         assertEquals(exchange.getExchangeId(), exp.evaluate(exchange, Object.class));
 
-        assertExpression("exchange.exchangeId", exchange.getExchangeId());
-        assertExpression("exchange.class.name", "org.apache.camel.impl.DefaultExchange");
+        assertExpression("${exchange.exchangeId}", exchange.getExchangeId());
+        assertExpression("${exchange.class.name}", "org.apache.camel.impl.DefaultExchange");
     }
 
     @Test
@@ -200,12 +197,12 @@ public class SimpleTest extends LanguageTestSupport {
     @Test
     public void testBodyExpressionWithArray() throws Exception {
         exchange.getIn().setBody(new MyClass());
-        Expression exp = SimpleLanguage.simple("body.myArray");
+        Expression exp = SimpleLanguage.simple("${body.myArray}");
         assertNotNull(exp);
         Object val = exp.evaluate(exchange, Object.class);
         assertIsInstanceOf(Object[].class, val);
 
-        exp = SimpleLanguage.simple("body.myArray.length");
+        exp = SimpleLanguage.simple("${body.myArray.length}");
         assertNotNull(exp);
         val = exp.evaluate(exchange, Object.class);
         assertIsInstanceOf(Integer.class, val);
@@ -214,31 +211,31 @@ public class SimpleTest extends LanguageTestSupport {
 
     @Test
     public void testSimpleExpressions() throws Exception {
-        assertExpression("exchangeId", exchange.getExchangeId());
-        assertExpression("id", exchange.getIn().getMessageId());
-        assertExpression("body", "<hello id='m123'>world!</hello>");
-        assertExpression("in.body", "<hello id='m123'>world!</hello>");
-        assertExpression("in.header.foo", "abc");
-        assertExpression("in.headers.foo", "abc");
-        assertExpression("header.foo", "abc");
-        assertExpression("headers.foo", "abc");
-        assertExpression("routeId", exchange.getFromRouteId());
+        assertExpression("${exchangeId}", exchange.getExchangeId());
+        assertExpression("${id}", exchange.getIn().getMessageId());
+        assertExpression("${body}", "<hello id='m123'>world!</hello>");
+        assertExpression("${in.body}", "<hello id='m123'>world!</hello>");
+        assertExpression("${in.header.foo}", "abc");
+        assertExpression("${in.headers.foo}", "abc");
+        assertExpression("${header.foo}", "abc");
+        assertExpression("${headers.foo}", "abc");
+        assertExpression("${routeId}", exchange.getFromRouteId());
         exchange.setFromRouteId("myRouteId");
-        assertExpression("routeId", "myRouteId");
+        assertExpression("${routeId}", "myRouteId");
     }
 
     @Test
     public void testTrimSimpleExpressions() throws Exception {
-        assertExpression(" \texchangeId\n".trim(), exchange.getExchangeId());
-        assertExpression("\nid\r".trim(), exchange.getIn().getMessageId());
-        assertExpression("\t\r body".trim(), "<hello id='m123'>world!</hello>");
-        assertExpression("\nin.body\r".trim(), "<hello id='m123'>world!</hello>");
+        assertExpression(" \t${exchangeId}\n".trim(), exchange.getExchangeId());
+        assertExpression("\n${id}\r".trim(), exchange.getIn().getMessageId());
+        assertExpression("\t\r ${body}".trim(), "<hello id='m123'>world!</hello>");
+        assertExpression("\n${in.body}\r".trim(), "<hello id='m123'>world!</hello>");
     }
 
     @Test
     public void testSimpleThreadName() throws Exception {
         String name = Thread.currentThread().getName();
-        assertExpression("threadName", name);
+        assertExpression("${threadName}", name);
         assertExpression("The name is ${threadName}", "The name is " + name);
     }
 
@@ -246,34 +243,34 @@ public class SimpleTest extends LanguageTestSupport {
     public void testSimpleOutExpressions() throws Exception {
         exchange.getOut().setBody("Bye World");
         exchange.getOut().setHeader("quote", "Camel rocks");
-        assertExpression("out.body", "Bye World");
-        assertExpression("out.header.quote", "Camel rocks");
-        assertExpression("out.headers.quote", "Camel rocks");
+        assertExpression("${out.body}", "Bye World");
+        assertExpression("${out.header.quote}", "Camel rocks");
+        assertExpression("${out.headers.quote}", "Camel rocks");
     }
 
     @Test
     public void testSimplePropertyExpressions() throws Exception {
         exchange.setProperty("medal", "gold");
-        assertExpression("property.medal", "gold");
+        assertExpression("${property.medal}", "gold");
     }
 
     @Test
     public void testSimpleExchangePropertyExpressions() throws Exception {
         exchange.setProperty("medal", "gold");
-        assertExpression("exchangeProperty.medal", "gold");
+        assertExpression("${exchangeProperty.medal}", "gold");
     }
 
     @Test
     public void testSimpleSystemPropertyExpressions() throws Exception {
         System.setProperty("who", "I was here");
-        assertExpression("sys.who", "I was here");
+        assertExpression("${sys.who}", "I was here");
     }
 
     @Test
     public void testSimpleSystemEnvironmentExpressions() throws Exception {
         String path = System.getenv("PATH");
         if (path != null) {
-            assertExpression("sysenv.PATH", path);
+            assertExpression("${sysenv.PATH}", path);
         }
     }
     
@@ -281,13 +278,13 @@ public class SimpleTest extends LanguageTestSupport {
     public void testSimpleSystemEnvironmentExpressionsIfLowercase() throws Exception {
         String path = System.getenv("PATH");
         if (path != null) {
-            assertExpression("sysenv.path", path);
+            assertExpression("${sysenv.path}", path);
         }
     }
 
     @Test
     public void testSimpleCamelId() throws Exception {
-        assertExpression("camelId", context.getName());
+        assertExpression("${camelId}", context.getName());
     }
 
     @Test
@@ -555,24 +552,24 @@ public class SimpleTest extends LanguageTestSupport {
         propertyCalendar.set(1976, Calendar.JUNE, 22);
         exchange.setProperty("birthday", propertyCalendar.getTime());
 
-        assertExpression("date:header.birthday", inHeaderCalendar.getTime());
-        assertExpression("date:header.birthday:yyyyMMdd", "19740420");
-        assertExpression("date:header.birthday+24h:yyyyMMdd", "19740421");
+        assertExpression("${date:header.birthday}", inHeaderCalendar.getTime());
+        assertExpression("${date:header.birthday:yyyyMMdd}", "19740420");
+        assertExpression("${date:header.birthday+24h:yyyyMMdd}", "19740421");
         
-        assertExpression("date:in.header.birthday", inHeaderCalendar.getTime());
-        assertExpression("date:in.header.birthday:yyyyMMdd", "19740420");
-        assertExpression("date:in.header.birthday+24h:yyyyMMdd", "19740421");
+        assertExpression("${date:in.header.birthday}", inHeaderCalendar.getTime());
+        assertExpression("${date:in.header.birthday:yyyyMMdd}", "19740420");
+        assertExpression("${date:in.header.birthday+24h:yyyyMMdd}", "19740421");
         
-        assertExpression("date:out.header.birthday", outHeaderCalendar.getTime());
-        assertExpression("date:out.header.birthday:yyyyMMdd", "19750521");
-        assertExpression("date:out.header.birthday+24h:yyyyMMdd", "19750522");
+        assertExpression("${date:out.header.birthday}", outHeaderCalendar.getTime());
+        assertExpression("${date:out.header.birthday:yyyyMMdd}", "19750521");
+        assertExpression("${date:out.header.birthday+24h:yyyyMMdd}", "19750522");
 
-        assertExpression("date:property.birthday", propertyCalendar.getTime());
-        assertExpression("date:property.birthday:yyyyMMdd", "19760622");
-        assertExpression("date:property.birthday+24h:yyyyMMdd", "19760623");
+        assertExpression("${date:property.birthday}", propertyCalendar.getTime());
+        assertExpression("${date:property.birthday:yyyyMMdd}", "19760622");
+        assertExpression("${date:property.birthday+24h:yyyyMMdd}", "19760623");
 
         try {
-            assertExpression("date:yyyyMMdd", "19740420");
+            assertExpression("${date:yyyyMMdd}", "19740420");
             fail("Should thrown an exception");
         } catch (IllegalArgumentException e) {
             assertEquals("Command not supported for dateExpression: yyyyMMdd", e.getMessage());
@@ -586,8 +583,8 @@ public class SimpleTest extends LanguageTestSupport {
         cal.set(Calendar.MILLISECOND, 123);
         exchange.getIn().setHeader("birthday", cal.getTime());
 
-        assertExpression("date:header.birthday - 10s:yyyy-MM-dd'T'HH:mm:ss:SSS", "1974-04-20T08:55:37:123");
-        assertExpression("date:header.birthday:yyyy-MM-dd'T'HH:mm:ss:SSS", "1974-04-20T08:55:47:123");
+        assertExpression("${date:header.birthday - 10s:yyyy-MM-dd'T'HH:mm:ss:SSS}", "1974-04-20T08:55:37:123");
+        assertExpression("${date:header.birthday:yyyy-MM-dd'T'HH:mm:ss:SSS}", "1974-04-20T08:55:47:123");
     }
 
     @Test
@@ -598,8 +595,8 @@ public class SimpleTest extends LanguageTestSupport {
         cal.set(Calendar.MILLISECOND, 123);
         exchange.getIn().setHeader("birthday", cal.getTime());
 
-        assertExpression("date-with-timezone:header.birthday:GMT+8:yyyy-MM-dd'T'HH:mm:ss:SSS", "1974-04-20T08:55:47:123");
-        assertExpression("date-with-timezone:header.birthday:GMT:yyyy-MM-dd'T'HH:mm:ss:SSS", "1974-04-20T00:55:47:123");
+        assertExpression("${date-with-timezone:header.birthday:GMT+8:yyyy-MM-dd'T'HH:mm:ss:SSS}", "1974-04-20T08:55:47:123");
+        assertExpression("${date-with-timezone:header.birthday:GMT:yyyy-MM-dd'T'HH:mm:ss:SSS}", "1974-04-20T00:55:47:123");
     }
 
     @Test
@@ -617,7 +614,7 @@ public class SimpleTest extends LanguageTestSupport {
     @Test
     public void testLanguagesInContext() throws Exception {
         // evaluate so we know there is 1 language in the context
-        assertExpression("id", exchange.getIn().getMessageId());
+        assertExpression("${id}", exchange.getIn().getMessageId());
 
         assertEquals(1, context.getLanguageNames().size());
         assertEquals("simple", context.getLanguageNames().get(0));
@@ -657,15 +654,15 @@ public class SimpleTest extends LanguageTestSupport {
 
     @Test
     public void testPredicates() throws Exception {
-        assertPredicate("body");
-        assertPredicate("header.foo");
-        assertPredicate("header.madeUpHeader", false);
+        assertPredicate("${body}");
+        assertPredicate("${header.foo}");
+        assertPredicate("${header.madeUpHeader}", false);
     }
 
     @Test
     public void testExceptionMessage() throws Exception {
         exchange.setException(new IllegalArgumentException("Just testing"));
-        assertExpression("exception.message", "Just testing");
+        assertExpression("${exception.message}", "Just testing");
         assertExpression("Hello ${exception.message} World", "Hello Just testing World");
     }
 
@@ -673,7 +670,7 @@ public class SimpleTest extends LanguageTestSupport {
     public void testExceptionStacktrace() throws Exception {
         exchange.setException(new IllegalArgumentException("Just testing"));
 
-        String out = SimpleLanguage.simple("exception.stacktrace").evaluate(exchange, String.class);
+        String out = SimpleLanguage.simple("${exception.stacktrace}").evaluate(exchange, String.class);
         assertNotNull(out);
         assertTrue(out.startsWith("java.lang.IllegalArgumentException: Just testing"));
         assertTrue(out.contains("at org.apache.camel.language."));
@@ -683,7 +680,7 @@ public class SimpleTest extends LanguageTestSupport {
     public void testException() throws Exception {
         exchange.setException(new IllegalArgumentException("Just testing"));
 
-        Exception out = SimpleLanguage.simple("exception").evaluate(exchange, Exception.class);
+        Exception out = SimpleLanguage.simple("${exception}").evaluate(exchange, Exception.class);
         assertNotNull(out);
         assertIsInstanceOf(IllegalArgumentException.class, out);
         assertEquals("Just testing", out.getMessage());
@@ -741,10 +738,6 @@ public class SimpleTest extends LanguageTestSupport {
         // set an empty body
         exchange.getIn().setBody(null);
 
-        assertExpression("header.foo", "abc");
-        assertExpression("headers.foo", "abc");
-        assertExpression("in.header.foo", "abc");
-        assertExpression("in.headers.foo", "abc");
         assertExpression("${header.foo}", "abc");
         assertExpression("${headers.foo}", "abc");
         assertExpression("${in.header.foo}", "abc");
@@ -753,7 +746,6 @@ public class SimpleTest extends LanguageTestSupport {
 
     @Test
     public void testHeadersWithBracket() throws Exception {
-        assertExpression("headers[foo]", "abc");
         assertExpression("${headers[foo]}", "abc");
         assertExpression("${in.headers[foo]}", "abc");
     }
@@ -768,7 +760,6 @@ public class SimpleTest extends LanguageTestSupport {
 
     private void assertOnglOnHeadersWithSquareBrackets(String key) {
         exchange.getIn().setHeader(key, new OrderLine(123, "Camel in Action"));
-        assertExpression("headers[" + key + "].name", "Camel in Action");
         assertExpression("${headers[" + key + "].name}", "Camel in Action");
         assertExpression("${in.headers[" + key + "].name}", "Camel in Action");
         assertExpression("${in.headers['" + key + "'].name}", "Camel in Action");
@@ -784,8 +775,7 @@ public class SimpleTest extends LanguageTestSupport {
 
     public void assertOnglOnExchangePropertiesWithBracket(String key) throws Exception {
         exchange.setProperty(key, new OrderLine(123, "Camel in Action"));
-        assertExpression("exchangeProperty[" + key + "].name", "Camel in Action");
-        assertExpression("${exchangeProperty[" + key + "].name}", "Camel in Action");
+                assertExpression("${exchangeProperty[" + key + "].name}", "Camel in Action");
         assertExpression("${exchangeProperty['" + key + "'].name}", "Camel in Action");
     }
 
@@ -807,9 +797,7 @@ public class SimpleTest extends LanguageTestSupport {
         Map<String, Object> headers = exchange.getIn().getHeaders();
         assertEquals(2, headers.size());
 
-        assertExpression("headers", headers);
         assertExpression("${headers}", headers);
-        assertExpression("in.headers", headers);
         assertExpression("${in.headers}", headers);
     }
 
