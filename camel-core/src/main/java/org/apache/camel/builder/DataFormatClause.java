@@ -30,7 +30,6 @@ import org.apache.camel.model.dataformat.BeanioDataFormat;
 import org.apache.camel.model.dataformat.BindyDataFormat;
 import org.apache.camel.model.dataformat.BindyType;
 import org.apache.camel.model.dataformat.BoonDataFormat;
-import org.apache.camel.model.dataformat.CastorDataFormat;
 import org.apache.camel.model.dataformat.CsvDataFormat;
 import org.apache.camel.model.dataformat.CustomDataFormat;
 import org.apache.camel.model.dataformat.FhirJsonDataFormat;
@@ -229,37 +228,6 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      */
     public T custom(String ref) {
         return dataFormat(new CustomDataFormat(ref));
-    }
-
-    /**
-     * Uses the Castor data format
-     */
-    public T castor() {
-        return dataFormat(new CastorDataFormat());
-    }
-
-    /**
-     * Uses the Castor data format
-     *
-     * @param mappingFile name of mapping file to locate in classpath
-     */
-    public T castor(String mappingFile) {
-        CastorDataFormat castor = new CastorDataFormat();
-        castor.setMappingFile(mappingFile);
-        return dataFormat(castor);
-    }
-
-    /**
-     * Uses the Castor data format
-     *
-     * @param mappingFile name of mapping file to locate in classpath
-     * @param validation  whether validation is enabled or not
-     */
-    public T castor(String mappingFile, boolean validation) {
-        CastorDataFormat castor = new CastorDataFormat();
-        castor.setMappingFile(mappingFile);
-        castor.setValidation(validation);
-        return dataFormat(castor);
     }
 
     /**

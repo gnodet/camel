@@ -31,7 +31,6 @@ import org.apache.camel.model.dataformat.Base64DataFormat;
 import org.apache.camel.model.dataformat.BeanioDataFormat;
 import org.apache.camel.model.dataformat.BindyDataFormat;
 import org.apache.camel.model.dataformat.BoonDataFormat;
-import org.apache.camel.model.dataformat.CastorDataFormat;
 import org.apache.camel.model.dataformat.CryptoDataFormat;
 import org.apache.camel.model.dataformat.CsvDataFormat;
 import org.apache.camel.model.dataformat.CustomDataFormat;
@@ -89,7 +88,6 @@ public class DataFormatTransformerDefinition extends TransformerDefinition {
         @XmlElement(required = false, name = "beanio", type = BeanioDataFormat.class),
         @XmlElement(required = false, name = "bindy", type = BindyDataFormat.class),
         @XmlElement(required = false, name = "boon", type = BoonDataFormat.class),
-        @XmlElement(required = false, name = "castor", type = CastorDataFormat.class),
         @XmlElement(required = false, name = "crypto", type = CryptoDataFormat.class),
         @XmlElement(required = false, name = "csv", type = CsvDataFormat.class),
         // TODO: Camel 3.0 - Should be named customDataFormat to avoid naming clash with custom loadbalancer

@@ -45,7 +45,6 @@ public class DataFormatsDefinition {
         @XmlElement(required = false, name = "beanio", type = BeanioDataFormat.class),
         @XmlElement(required = false, name = "bindy", type = BindyDataFormat.class),
         @XmlElement(required = false, name = "boon", type = BoonDataFormat.class),
-        @XmlElement(required = false, name = "castor", type = CastorDataFormat.class),
         @XmlElement(required = false, name = "crypto", type = CryptoDataFormat.class),
         @XmlElement(required = false, name = "csv", type = CsvDataFormat.class),
         // TODO: Camel 3.0 - Should be named customDataFormat to avoid naming clash with custom loadbalancer
