@@ -38,12 +38,12 @@ public class DumpModelAsXmlSplitBodyRouteTest extends ContextTestSupport {
         assertNotNull(xml);
         log.info(xml);
 
-        Document doc = new XmlConverter().toDOMDocument(xml);
+        Document doc = new XmlConverter().toDOMDocument(xml, null);
         NodeList nodes = doc.getElementsByTagName("simple");
         assertEquals(1, nodes.getLength());
         Element node = (Element)nodes.item(0);
         assertNotNull("Node <simple> expected to be instanceof Element", node);
-        assertEquals("body", node.getTextContent());
+        assertEquals("${body}", node.getTextContent());
 
         nodes = doc.getElementsByTagName("split");
         assertEquals(1, nodes.getLength());
