@@ -119,9 +119,7 @@ import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.processor.interceptor.BacklogDebugger;
 import org.apache.camel.processor.interceptor.BacklogTracer;
-import org.apache.camel.processor.interceptor.Delayer;
 import org.apache.camel.processor.interceptor.HandleFault;
-import org.apache.camel.processor.interceptor.StreamCaching;
 import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
@@ -2837,10 +2835,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
         if (interceptStrategy instanceof HandleFault) {
             setHandleFault(true);
-        } else if (interceptStrategy instanceof StreamCaching) {
-            setStreamCaching(true);
-        } else if (interceptStrategy instanceof Delayer) {
-            setDelayer(((Delayer)interceptStrategy).getDelay());
         }
     }
 

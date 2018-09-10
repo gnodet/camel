@@ -19,7 +19,6 @@ package org.apache.camel.reifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -103,9 +102,7 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.InterceptEndpointProcessor;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.processor.interceptor.DefaultChannel;
-import org.apache.camel.processor.interceptor.Delayer;
 import org.apache.camel.processor.interceptor.HandleFault;
-import org.apache.camel.processor.interceptor.StreamCaching;
 import org.apache.camel.spi.IdAware;
 import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.spi.LifecycleStrategy;
@@ -398,31 +395,9 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
      */
     protected void addInterceptStrategies(RouteContext routeContext, Channel channel, List<InterceptStrategy> strategies) {
         for (InterceptStrategy strategy : strategies) {
-            if (!routeContext.isStreamCaching() && strategy instanceof StreamCaching) {
-                // stream cache is disabled so we should not add it
-                continue;
-            }
             if (!routeContext.isHandleFault() && strategy instanceof HandleFault) {
                 // handle fault is disabled so we should not add it
                 continue;
-            }
-            if (strategy instanceof Delayer) {
-                if (routeContext.getDelayer() == null || routeContext.getDelayer() <= 0) {
-                    // delayer is disabled so we should not add it
-                    continue;
-                } else {
-                    // replace existing delayer as delayer have individual configuration
-                    Iterator<InterceptStrategy> it = channel.getInterceptStrategies().iterator();
-                    while (it.hasNext()) {
-                        InterceptStrategy existing = it.next();
-                        if (existing instanceof Delayer) {
-                            it.remove();
-                        }
-                    }
-                    // add the new correct delayer
-                    channel.addInterceptStrategy(strategy);
-                    continue;
-                }
             }
 
             // add strategy

@@ -204,13 +204,6 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
             LOG.info("Using custom HandleFault: {}", handleFault);
             getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(handleFault);
         }
-        @SuppressWarnings("deprecation")
-        org.apache.camel.processor.interceptor.Delayer delayer 
-            = getBeanForType(org.apache.camel.processor.interceptor.Delayer.class);
-        if (delayer != null) {
-            LOG.info("Using custom Delayer: {}", delayer);
-            getContext().adapt(ConfigurableCamelContext.class).addInterceptStrategy(delayer);
-        }
         InflightRepository inflightRepository = getBeanForType(InflightRepository.class);
         if (inflightRepository != null) {
             LOG.info("Using custom InflightRepository: {}", inflightRepository);
