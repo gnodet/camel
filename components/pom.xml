@@ -194,7 +194,6 @@
     <module>camel-jsch</module>
     <module>camel-jt400</module>
     <module>camel-juel</module>
-    <module>camel-jxpath</module>
     <module>camel-kafka</module>
     <module>camel-kestrel</module>
     <module>camel-krati</module>
