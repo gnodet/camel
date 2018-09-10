@@ -27,7 +27,6 @@ import org.apache.camel.Channel;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
-import org.apache.camel.model.AOPDefinition;
 import org.apache.camel.model.AggregateDefinition;
 import org.apache.camel.model.BeanDefinition;
 import org.apache.camel.model.CatchDefinition;
@@ -116,7 +115,6 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
     static {
         Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>>> map = new HashMap<>();
         map.put(AggregateDefinition.class, AggregateReifier::new);
-        map.put(AOPDefinition.class, AOPReifier::new);
         map.put(BeanDefinition.class, BeanReifier::new);
         map.put(CatchDefinition.class, CatchReifier::new);
         map.put(ChoiceDefinition.class, ChoiceReifier::new);

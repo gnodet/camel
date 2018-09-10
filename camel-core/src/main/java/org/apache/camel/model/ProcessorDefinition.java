@@ -924,19 +924,6 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     }
 
     /**
-     * Wraps the sub route using AOP allowing you to do before and after work (AOP around).
-     *
-     * @return the builder
-     * @deprecated to be removed in the near future. Instead you can use interceptors or processors to do AOP with Camel.
-     */
-    @Deprecated
-    public AOPDefinition aop() {
-        AOPDefinition answer = new AOPDefinition();
-        addOutput(answer);
-        return answer;
-    }
-
-    /**
      * Ends the current block
      *
      * @return the builder

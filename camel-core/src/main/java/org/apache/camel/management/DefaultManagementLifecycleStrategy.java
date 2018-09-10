@@ -75,7 +75,6 @@ import org.apache.camel.management.mbean.ManagedThrottlingInflightRoutePolicy;
 import org.apache.camel.management.mbean.ManagedTransformerRegistry;
 import org.apache.camel.management.mbean.ManagedTypeConverterRegistry;
 import org.apache.camel.management.mbean.ManagedValidatorRegistry;
-import org.apache.camel.model.AOPDefinition;
 import org.apache.camel.model.InterceptDefinition;
 import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnExceptionDefinition;
@@ -837,10 +836,6 @@ public class DefaultManagementLifecycleStrategy extends ServiceSupport implement
         }
         // skip intercept
         if (processor instanceof InterceptDefinition) {
-            return false;
-        }
-        // skip aop
-        if (processor instanceof AOPDefinition) {
             return false;
         }
         // skip policy
