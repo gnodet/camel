@@ -275,24 +275,6 @@ public class ManagedRoute extends ManagedPerformanceCounter implements TimerList
         return context.getRouteController().stopRoute(getRouteId(), timeout, TimeUnit.SECONDS, abortAfterTimeout);
     }
 
-    public void shutdown() throws Exception {
-        if (!context.getStatus().isStarted()) {
-            throw new IllegalArgumentException("CamelContext is not started");
-        }
-        String routeId = getRouteId();
-        context.getRouteController().stopRoute(routeId);
-        context.removeRoute(routeId);
-    }
-
-    public void shutdown(long timeout) throws Exception {
-        if (!context.getStatus().isStarted()) {
-            throw new IllegalArgumentException("CamelContext is not started");
-        }
-        String routeId = getRouteId();
-        context.getRouteController().stopRoute(routeId, timeout, TimeUnit.SECONDS);
-        context.removeRoute(routeId);
-    }
-
     public boolean remove() throws Exception {
         if (!context.getStatus().isStarted()) {
             throw new IllegalArgumentException("CamelContext is not started");

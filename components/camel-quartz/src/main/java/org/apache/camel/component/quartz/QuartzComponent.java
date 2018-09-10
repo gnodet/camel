@@ -32,6 +32,7 @@ import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.IntrospectionSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.ResourceHelper;
+import org.apache.camel.util.StringHelper;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -99,7 +100,7 @@ public class QuartzComponent extends DefaultComponent implements StartupListener
     protected QuartzEndpoint createEndpoint(final String uri, final String remaining, final Map<String, Object> parameters) throws Exception {
         // lets split the remaining into a group/name
         URI u = new URI(uri);
-        String path = ObjectHelper.after(u.getPath(), "/");
+        String path = StringHelper.after(u.getPath(), "/");
         String host = u.getHost();
         String cron = getAndRemoveParameter(parameters, "cron", String.class);
         boolean fireNow = getAndRemoveParameter(parameters, "fireNow", Boolean.class, Boolean.FALSE);
@@ -117,7 +118,7 @@ public class QuartzComponent extends DefaultComponent implements StartupListener
 
         // host can be null if the uri did contain invalid host characters such as an underscore
         if (host == null) {
-            host = ObjectHelper.before(remaining, "/");
+            host = StringHelper.before(remaining, "/");
             if (host == null) {
                 host = remaining;
             }

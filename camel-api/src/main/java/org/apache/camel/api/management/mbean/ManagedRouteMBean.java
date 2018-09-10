@@ -48,13 +48,6 @@ public interface ManagedRouteMBean extends ManagedPerformanceCounterMBean {
     @ManagedAttribute(description = "Route Uptime [milliseconds]")
     long getUptimeMillis();
 
-    /**
-     * @deprecated use {@link #getExchangesInflight()}
-     */
-    @ManagedAttribute(description = "Current number of inflight Exchanges")
-    @Deprecated
-    Integer getInflightExchanges();
-
     @ManagedAttribute(description = "Camel ID")
     String getCamelId();
 
@@ -93,20 +86,6 @@ public interface ManagedRouteMBean extends ManagedPerformanceCounterMBean {
 
     @ManagedOperation(description = "Stop route, abort stop after timeout (in seconds)")
     boolean stop(Long timeout, Boolean abortAfterTimeout) throws Exception;
-
-    /**
-     * @deprecated will be removed in the near future. Use stop and remove instead
-     */
-    @ManagedOperation(description = "Shutdown route")
-    @Deprecated
-    void shutdown() throws Exception;
-
-    /**
-     * @deprecated will be removed in the near future. Use stop and remove instead
-     */
-    @ManagedOperation(description = "Shutdown route (using timeout in seconds)")
-    @Deprecated
-    void shutdown(long timeout) throws Exception;
 
     @ManagedOperation(description = "Remove route (must be stopped)")
     boolean remove() throws Exception;

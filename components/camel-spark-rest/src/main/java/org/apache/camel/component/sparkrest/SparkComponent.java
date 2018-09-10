@@ -33,6 +33,7 @@ import org.apache.camel.spi.RestConsumerFactory;
 import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.HostUtils;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
 
 public class SparkComponent extends DefaultComponent implements RestConsumerFactory, RestApiConsumerFactory {
@@ -206,8 +207,8 @@ public class SparkComponent extends DefaultComponent implements RestConsumerFact
             throw new IllegalArgumentException("Invalid syntax. Must be spark-rest:verb:path");
         }
 
-        String verb = ObjectHelper.before(remaining, ":");
-        String path = ObjectHelper.after(remaining, ":");
+        String verb = StringHelper.before(remaining, ":");
+        String path = StringHelper.after(remaining, ":");
 
         answer.setVerb(verb);
         answer.setPath(path);

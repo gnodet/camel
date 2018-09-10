@@ -94,6 +94,7 @@ import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.LanguageResolver;
 import org.apache.camel.spi.NamespaceAware;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
 import org.apache.camel.util.blueprint.KeyStoreParametersFactoryBean;
 import org.apache.camel.util.blueprint.SSLContextParametersFactoryBean;
@@ -153,8 +154,8 @@ public class CamelNamespaceHandler implements NamespaceHandler {
                 Node att = map.item(i);
                 if (att.getNodeName().equals("uri") || att.getNodeName().endsWith("Uri")) {
                     final String value = att.getNodeValue();
-                    String before = ObjectHelper.before(value, "?");
-                    String after = ObjectHelper.after(value, "?");
+                    String before = StringHelper.before(value, "?");
+                    String after = StringHelper.after(value, "?");
 
                     if (before != null && after != null) {
                         // remove all double spaces in the uri parameters
@@ -1164,7 +1165,7 @@ public class CamelNamespaceHandler implements NamespaceHandler {
                 return;
             }
 
-            String splitURI[] = ObjectHelper.splitOnCharacter(uri, ":", 2);
+            String splitURI[] = StringHelper.splitOnCharacter(uri, ":", 2);
             if (splitURI[1] != null) {
                 String scheme = splitURI[0];
                 components.add(scheme);

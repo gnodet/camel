@@ -54,6 +54,7 @@ import org.apache.camel.spring.SpringModelJAXBContextFactory;
 import org.apache.camel.spring.remoting.CamelProxyFactoryBean;
 import org.apache.camel.spring.remoting.CamelServiceExporter;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.spring.KeyStoreParametersFactoryBean;
 import org.apache.camel.util.spring.SSLContextParametersFactoryBean;
 import org.apache.camel.util.spring.SecureRandomParametersFactoryBean;
@@ -102,8 +103,8 @@ public class CamelNamespaceHandler extends NamespaceHandlerSupport {
                 Node att = map.item(i);
                 if (att.getNodeName().equals("uri") || att.getNodeName().endsWith("Uri")) {
                     final String value = att.getNodeValue();
-                    String before = ObjectHelper.before(value, "?");
-                    String after = ObjectHelper.after(value, "?");
+                    String before = StringHelper.before(value, "?");
+                    String after = StringHelper.after(value, "?");
 
                     if (before != null && after != null) {
                         // remove all double spaces in the uri parameters

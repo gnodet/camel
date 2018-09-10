@@ -34,8 +34,8 @@ import org.apache.camel.CamelExchangeException;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultProducer;
 import org.apache.camel.util.IOHelper;
-import org.apache.camel.util.ObjectHelper;
 
+import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,7 +85,7 @@ public class StreamProducer extends DefaultProducer {
 
     private OutputStream resolveStreamFromUrl() throws IOException {
         String u = endpoint.getUrl();
-        ObjectHelper.notEmpty(u, "url");
+        StringHelper.notEmpty(u, "url");
         LOG.debug("About to write to url: {}", u);
 
         URL url = new URL(u);
@@ -105,7 +105,7 @@ public class StreamProducer extends DefaultProducer {
 
     private OutputStream resolveStreamFromFile() throws IOException {
         String fileName = endpoint.getFileName();
-        ObjectHelper.notEmpty(fileName, "fileName");
+        StringHelper.notEmpty(fileName, "fileName");
         LOG.debug("About to write to file: {}", fileName);
         File f = new File(fileName);
         // will create a new file if missing or append to existing

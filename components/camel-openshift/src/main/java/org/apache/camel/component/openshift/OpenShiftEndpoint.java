@@ -27,7 +27,7 @@ import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
-import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 
 /**
  * To manage your Openshift 2.x applications.
@@ -60,18 +60,18 @@ public class OpenShiftEndpoint extends ScheduledPollEndpoint {
 
     @Override
     public Producer createProducer() throws Exception {
-        ObjectHelper.notEmpty(clientId, "clientId", this);
-        ObjectHelper.notEmpty(username, "username", this);
-        ObjectHelper.notEmpty(password, "password", this);
+        StringHelper.notEmpty(clientId, "clientId", this);
+        StringHelper.notEmpty(username, "username", this);
+        StringHelper.notEmpty(password, "password", this);
 
         return new OpenShiftProducer(this);
     }
 
     @Override
     public Consumer createConsumer(Processor processor) throws Exception {
-        ObjectHelper.notEmpty(clientId, "clientId", this);
-        ObjectHelper.notEmpty(username, "username", this);
-        ObjectHelper.notEmpty(password, "password", this);
+        StringHelper.notEmpty(clientId, "clientId", this);
+        StringHelper.notEmpty(username, "username", this);
+        StringHelper.notEmpty(password, "password", this);
 
         Consumer consumer = new OpenShiftConsumer(this, processor);
         configureConsumer(consumer);

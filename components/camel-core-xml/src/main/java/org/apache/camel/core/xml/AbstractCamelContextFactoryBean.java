@@ -117,6 +117,7 @@ import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.util.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1116,7 +1117,7 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
         for (String name : unnormalized) {
             // it may use property placeholders
             name = context.resolvePropertyPlaceholders(name);
-            name = ObjectHelper.normalizeClassName(name);
+            name = StringHelper.normalizeClassName(name);
             if (ObjectHelper.isNotEmpty(name)) {
                 LOG.trace("Using package: {} to scan for RouteBuilder classes", name);
                 packages.add(name);
