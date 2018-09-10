@@ -148,7 +148,7 @@ public class ManagedRouteRemoveRouteAndContextScopedErrorHandlerTest extends Man
             @Override
             public void configure() throws Exception {
                 // context scoped error handler
-                errorHandler(loggingErrorHandler("global"));
+                errorHandler(deadLetterChannel("log:global"));
 
                 from("seda:bar").routeId("bar")
                         .to("mock:result");

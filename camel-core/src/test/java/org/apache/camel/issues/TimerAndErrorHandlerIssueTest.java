@@ -43,7 +43,7 @@ public class TimerAndErrorHandlerIssueTest extends ContextTestSupport {
             public void configure() throws Exception {
                 onException(RuntimeCamelException.class).handled(true);
 
-                errorHandler(loggingErrorHandler(getClass().getName()));
+                errorHandler(defaultErrorHandler());
 
                 String executionTriggerUri = "timer:executionTimer"
                         + "?fixedRate=true"
