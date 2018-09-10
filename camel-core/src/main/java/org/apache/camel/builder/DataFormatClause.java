@@ -37,7 +37,6 @@ import org.apache.camel.model.dataformat.FhirJsonDataFormat;
 import org.apache.camel.model.dataformat.FhirXmlDataFormat;
 import org.apache.camel.model.dataformat.GzipDataFormat;
 import org.apache.camel.model.dataformat.HL7DataFormat;
-import org.apache.camel.model.dataformat.HessianDataFormat;
 import org.apache.camel.model.dataformat.IcalDataFormat;
 import org.apache.camel.model.dataformat.JacksonXMLDataFormat;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
@@ -56,10 +55,8 @@ import org.apache.camel.model.dataformat.SyslogDataFormat;
 import org.apache.camel.model.dataformat.TarFileDataFormat;
 import org.apache.camel.model.dataformat.ThriftDataFormat;
 import org.apache.camel.model.dataformat.TidyMarkupDataFormat;
-import org.apache.camel.model.dataformat.XMLBeansDataFormat;
 import org.apache.camel.model.dataformat.XMLSecurityDataFormat;
 import org.apache.camel.model.dataformat.XStreamDataFormat;
-import org.apache.camel.model.dataformat.XmlJsonDataFormat;
 import org.apache.camel.model.dataformat.YAMLDataFormat;
 import org.apache.camel.model.dataformat.YAMLLibrary;
 import org.apache.camel.model.dataformat.ZipDataFormat;
@@ -271,13 +268,6 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
     public T gzip() {
         GzipDataFormat gzdf = new GzipDataFormat();
         return dataFormat(gzdf);
-    }
-
-    /**
-     * Uses the Hessian data format
-     */
-    public T hessian() {
-        return dataFormat(new HessianDataFormat());
     }
 
     /**
@@ -1186,29 +1176,6 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         return dataFormat(tfdf);
     }
 
-    /**
-     * Uses the xmlBeans data format
-     */
-    public T xmlBeans() {
-        return dataFormat(new XMLBeansDataFormat());
-    }
-
-    /**
-     * Uses the xmljson dataformat, based on json-lib
-     */
-    @Deprecated
-    public T xmljson() {
-        return dataFormat(new XmlJsonDataFormat());
-    }
-    
-    /**
-     * Uses the xmljson dataformat, based on json-lib, initializing custom options with a Map
-     */
-    @Deprecated
-    public T xmljson(Map<String, String> options) {
-        return dataFormat(new XmlJsonDataFormat(options));
-    }
-    
     /**
      * Uses the ZIP deflater data format
      */
