@@ -28,17 +28,17 @@ public class KratiConsumerMaxMessagesPerPollTest extends CamelTestSupport {
     public void testPutAndConsume() throws InterruptedException {
         MockEndpoint endpoint = context.getEndpoint("mock:results", MockEndpoint.class);
         // batch-1
-        endpoint.message(0).property(Exchange.BATCH_SIZE).isEqualTo(2);
-        endpoint.message(0).property(Exchange.BATCH_INDEX).isEqualTo(0);
-        endpoint.message(0).property(Exchange.BATCH_COMPLETE).isEqualTo(false);
-        endpoint.message(1).property(Exchange.BATCH_SIZE).isEqualTo(2);
-        endpoint.message(1).property(Exchange.BATCH_INDEX).isEqualTo(1);
-        endpoint.message(1).property(Exchange.BATCH_COMPLETE).isEqualTo(true);
+        endpoint.message(0).exchangeProperty(Exchange.BATCH_SIZE).isEqualTo(2);
+        endpoint.message(0).exchangeProperty(Exchange.BATCH_INDEX).isEqualTo(0);
+        endpoint.message(0).exchangeProperty(Exchange.BATCH_COMPLETE).isEqualTo(false);
+        endpoint.message(1).exchangeProperty(Exchange.BATCH_SIZE).isEqualTo(2);
+        endpoint.message(1).exchangeProperty(Exchange.BATCH_INDEX).isEqualTo(1);
+        endpoint.message(1).exchangeProperty(Exchange.BATCH_COMPLETE).isEqualTo(true);
 
         // batch-2
-        endpoint.message(2).property(Exchange.BATCH_SIZE).isEqualTo(1);
-        endpoint.message(2).property(Exchange.BATCH_INDEX).isEqualTo(0);
-        endpoint.message(2).property(Exchange.BATCH_COMPLETE).isEqualTo(true);
+        endpoint.message(2).exchangeProperty(Exchange.BATCH_SIZE).isEqualTo(1);
+        endpoint.message(2).exchangeProperty(Exchange.BATCH_INDEX).isEqualTo(0);
+        endpoint.message(2).exchangeProperty(Exchange.BATCH_COMPLETE).isEqualTo(true);
 
         endpoint.expectedMessageCount(3);
 

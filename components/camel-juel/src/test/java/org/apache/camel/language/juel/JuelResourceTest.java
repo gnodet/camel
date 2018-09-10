@@ -40,7 +40,7 @@ public class JuelResourceTest extends CamelTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .transform().el("resource:classpath:juel.txt")
+                    .transform().simple("resource:classpath:juel.txt")
                     .to("mock:result");
             }
         };
