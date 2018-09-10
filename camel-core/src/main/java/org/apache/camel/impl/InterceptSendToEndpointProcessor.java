@@ -20,7 +20,6 @@ import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
-import org.apache.camel.ExchangePattern;
 import org.apache.camel.Producer;
 import org.apache.camel.util.ServiceHelper;
 import org.slf4j.Logger;
@@ -50,19 +49,6 @@ public class InterceptSendToEndpointProcessor extends DefaultAsyncProducer {
 
     public Endpoint getEndpoint() {
         return producer.getEndpoint();
-    }
-
-    public Exchange createExchange() {
-        return producer.createExchange();
-    }
-
-    public Exchange createExchange(ExchangePattern pattern) {
-        return producer.createExchange(pattern);
-    }
-
-    @Deprecated
-    public Exchange createExchange(Exchange exchange) {
-        return producer.createExchange(exchange);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class MinaExchangeTimeOutTest extends BaseMinaTest {
         Endpoint endpoint = context.getEndpoint("mina:tcp://localhost:{{port}}?textline=true&sync=true&timeout=2000");
         Producer producer = endpoint.createProducer();
         producer.start();
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         exchange.getIn().setBody("Hello World");
         try {
             producer.process(exchange);

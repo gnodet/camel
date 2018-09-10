@@ -36,10 +36,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testNoDataDefaultIsGet() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
         
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "GET", null);
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "GET", null);
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         exchange.getIn().setBody(null);
         try {
             producer.process(exchange);
@@ -54,10 +54,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testDataDefaultIsPost() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
 
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "POST", null);
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "POST", null);
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         exchange.getIn().setBody("This is some data to post");
         try {
             producer.process(exchange);
@@ -72,10 +72,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testWithMethodPostInHeader() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
 
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "POST", null);
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "POST", null);
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         exchange.getIn().setBody("");
         exchange.getIn().setHeader(Exchange.HTTP_METHOD, POST);
         try {
@@ -91,10 +91,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testWithMethodGetInHeader() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
 
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "GET", null);
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "GET", null);
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         exchange.getIn().setBody("");
         exchange.getIn().setHeader(Exchange.HTTP_METHOD, GET);
         try {
@@ -110,10 +110,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testWithEndpointQuery() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
 
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com?q=Camel");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "GET", "q=Camel");
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com?q=Camel");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "GET", "q=Camel");
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         // no body should be GET
         exchange.getIn().setBody(null);
         try {
@@ -129,10 +129,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testWithQueryInHeader() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
 
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "GET", "q=Camel");
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "GET", "q=Camel");
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         // no body should be GET
         exchange.getIn().setBody(null);
         exchange.getIn().setHeader(Exchange.HTTP_QUERY, "q=Camel");
@@ -149,10 +149,10 @@ public class HttpProducerSelectMethodTest extends CamelTestSupport {
     public void testWithQueryInHeaderOverrideEndpoint() throws Exception {
         HttpComponent component = context.getComponent("http", HttpComponent.class);
 
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http://www.google.com?q=Donkey");
-        MyHttpProducer producer = new MyHttpProducer(endpoiont, "GET", "q=Camel");
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http://www.google.com?q=Donkey");
+        MyHttpProducer producer = new MyHttpProducer(endpoint, "GET", "q=Camel");
 
-        Exchange exchange = producer.createExchange();
+        Exchange exchange = endpoint.createExchange();
         // no body should be GET
         exchange.getIn().setBody(null);
         exchange.getIn().setHeader(Exchange.HTTP_QUERY, "q=Camel");

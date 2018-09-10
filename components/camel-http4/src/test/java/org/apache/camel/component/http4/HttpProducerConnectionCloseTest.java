@@ -71,10 +71,10 @@ public class HttpProducerConnectionCloseTest extends BaseHttpTest {
     public void noDataDefaultIsGet() throws Exception {
         HttpComponent component = context.getComponent("http4", HttpComponent.class);
         component.setConnectionTimeToLive(1000L);
-        HttpEndpoint endpoiont = (HttpEndpoint) component.createEndpoint("http4://" + localServer.getInetAddress().getHostName() + ":" 
+        HttpEndpoint endpoint = (HttpEndpoint) component.createEndpoint("http4://" + localServer.getInetAddress().getHostName() + ":"
             + localServer.getLocalPort() + "/myget?headerFilterStrategy=#myFilter");
-        HttpProducer producer = new HttpProducer(endpoiont);
-        Exchange exchange = producer.createExchange();
+        HttpProducer producer = new HttpProducer(endpoint);
+        Exchange exchange = endpoint.createExchange();
         exchange.getIn().setBody(null);
         exchange.getIn().setHeader("connection", HTTP.CONN_CLOSE);
         producer.start();

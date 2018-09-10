@@ -21,7 +21,6 @@ import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelExchangeException;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
-import org.apache.camel.ExchangePattern;
 import org.apache.camel.Producer;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.routebox.RouteboxServiceSupport;
@@ -98,18 +97,6 @@ public class RouteboxDirectProducer extends RouteboxServiceSupport implements Pr
     
     public Endpoint getEndpoint() {
         return getRouteboxEndpoint();
-    }
-
-    public Exchange createExchange() {
-        return getRouteboxEndpoint().createExchange();
-    }
-
-    public Exchange createExchange(ExchangePattern pattern) {
-        return getRouteboxEndpoint().createExchange(pattern);
-    }
-
-    public Exchange createExchange(Exchange exchange) {
-        return getRouteboxEndpoint().createExchange(exchange);
     }
 
     public boolean isSingleton() {

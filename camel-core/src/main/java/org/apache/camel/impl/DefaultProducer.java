@@ -51,19 +51,6 @@ public abstract class DefaultProducer extends ServiceSupport implements Producer
         return endpoint;
     }
 
-    public Exchange createExchange() {
-        return endpoint.createExchange();
-    }
-
-    public Exchange createExchange(ExchangePattern pattern) {
-        return endpoint.createExchange(pattern);
-    }
-
-    @Deprecated
-    public Exchange createExchange(Exchange exchange) {
-        return endpoint.createExchange(exchange);
-    }
-
     /**
      * This implementation will delegate to the endpoint {@link org.apache.camel.Endpoint#isSingleton()}
      */
