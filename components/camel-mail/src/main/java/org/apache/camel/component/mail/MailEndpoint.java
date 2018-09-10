@@ -135,7 +135,7 @@ public class MailEndpoint extends ScheduledPollEndpoint {
     public Exchange createExchange(Message message) {
         Exchange exchange = super.createExchange();
         exchange.setProperty(Exchange.BINDING, getBinding());
-        exchange.setIn(new MailMessage(message, getConfiguration().isMapMailMessage()));
+        exchange.setIn(new MailMessage(getCamelContext(), message, getConfiguration().isMapMailMessage()));
         return exchange;
     }
 

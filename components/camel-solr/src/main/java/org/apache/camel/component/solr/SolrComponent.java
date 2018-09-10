@@ -79,7 +79,7 @@ public class SolrComponent extends DefaultComponent {
     }
 
     public SolrComponent() {
-        super(SolrEndpoint.class);
+        super();
     }
 
     @Override

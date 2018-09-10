@@ -49,18 +49,8 @@ public class LoggingExceptionHandler implements ExceptionHandler {
         this(camelContext, new CamelLogger(LoggerFactory.getLogger(ownerType), LoggingLevel.WARN));
     }
 
-    @Deprecated
-    public LoggingExceptionHandler(Class<?> ownerType, LoggingLevel level) {
-        this(null, new CamelLogger(LoggerFactory.getLogger(ownerType), level));
-    }
-
     public LoggingExceptionHandler(CamelContext camelContext, Class<?> ownerType, LoggingLevel level) {
         this(camelContext, new CamelLogger(LoggerFactory.getLogger(ownerType), level));
-    }
-
-    @Deprecated
-    public LoggingExceptionHandler(CamelLogger logger) {
-        this(null, logger);
     }
 
     public LoggingExceptionHandler(CamelContext camelContext, CamelLogger logger) {

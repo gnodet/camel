@@ -37,7 +37,7 @@ public class SjmsBatchComponent extends HeaderFilterStrategyComponent {
     private int recoveryInterval = 5000;
 
     public SjmsBatchComponent() {
-        super(SjmsBatchEndpoint.class);
+        super();
     }
 
     @Override

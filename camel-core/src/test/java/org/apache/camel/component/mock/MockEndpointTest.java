@@ -547,9 +547,7 @@ public class MockEndpointTest extends ContextTestSupport {
 
     @Test
     public void testNoArgCtr() {
-        MockEndpoint mock = new MockEndpoint();
-        mock.setCamelContext(context);
-        mock.setEndpointUriIfNotSpecified("mock:bar");
+        MockEndpoint mock = getMockEndpoint("mock:result");
         try {
             mock.createConsumer(null);
             fail("Should have thrown an exception");

@@ -42,18 +42,6 @@ public class JmsTemporaryQueueEndpoint extends JmsQueueEndpoint implements Desti
         setDestinationType("temp-queue");
     }
 
-    public JmsTemporaryQueueEndpoint(String endpointUri, String destination) {
-        super(endpointUri, destination);
-        setDestinationType("temp-queue");
-    }
-
-    public JmsTemporaryQueueEndpoint(TemporaryQueue jmsDestination) throws JMSException {
-        super("jms:temp-queue:" + jmsDestination.getQueueName(), null);
-        setDestinationType("temp-queue");
-        this.jmsDestination = jmsDestination;
-        setDestination(jmsDestination);
-    }
-
 
     /**
      * This endpoint is a singleton so that the temporary destination instances are shared across all

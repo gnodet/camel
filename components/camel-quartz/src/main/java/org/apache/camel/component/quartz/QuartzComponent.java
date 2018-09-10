@@ -88,11 +88,11 @@ public class QuartzComponent extends DefaultComponent implements StartupListener
     }
 
     public QuartzComponent() {
-        super(QuartzEndpoint.class);
+        super();
     }
 
     public QuartzComponent(final CamelContext context) {
-        super(context, QuartzEndpoint.class);
+        super(context);
     }
 
     @Override

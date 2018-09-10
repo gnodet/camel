@@ -45,7 +45,7 @@ public class ProcessorEndpoint extends DefaultPollingEndpoint {
 
     @SuppressWarnings("deprecation")
     public ProcessorEndpoint(String endpointUri, CamelContext context, Processor processor) {
-        super(endpointUri);
+        super(endpointUri, null);
         this.setCamelContext(context);
         this.processor = processor;
     }
@@ -57,12 +57,6 @@ public class ProcessorEndpoint extends DefaultPollingEndpoint {
 
     protected ProcessorEndpoint(String endpointUri, Component component) {
         super(endpointUri, component);
-    }
-
-    @Deprecated
-    public ProcessorEndpoint(String endpointUri, Processor processor) {
-        super(endpointUri);
-        this.processor = processor;
     }
 
     public Producer createProducer() throws Exception {

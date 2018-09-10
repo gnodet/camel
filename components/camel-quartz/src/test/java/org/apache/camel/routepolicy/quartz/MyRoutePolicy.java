@@ -17,7 +17,7 @@
 package org.apache.camel.routepolicy.quartz;
 
 import org.apache.camel.Route;
-import org.apache.camel.impl.RoutePolicySupport;
+import org.apache.camel.support.RoutePolicySupport;
 
 /**
  *

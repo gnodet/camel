@@ -36,7 +36,7 @@ public class HeaderFilterStrategyComponentTest extends Assert {
     private static class MyComponent extends HeaderFilterStrategyComponent {
 
         MyComponent(Class<? extends Endpoint> endpointClass) {
-            super(endpointClass);
+            super();
         }
 
         protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {

@@ -35,10 +35,10 @@ public class SpringIntegrationMessageTest {
                 .setHeader("header2", "value2")
                 .build();
 
-        SpringIntegrationMessage original = new SpringIntegrationMessage(testSpringMessage);
+        SpringIntegrationMessage original = new SpringIntegrationMessage(camelContext, testSpringMessage);
         original.setCamelContext(camelContext);
 
-        SpringIntegrationMessage copy = new SpringIntegrationMessage(testSpringMessage);
+        SpringIntegrationMessage copy = new SpringIntegrationMessage(camelContext, testSpringMessage);
 
         copy.copyFrom(original);
 

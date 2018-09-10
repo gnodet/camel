@@ -36,18 +36,6 @@ public class JmsTemporaryTopicEndpoint extends JmsEndpoint implements Destinatio
         super(uri, component, destination, true, configuration);
     }
 
-    public JmsTemporaryTopicEndpoint(String endpointUri, String destination) {
-        super(endpointUri, destination);
-        setDestinationType("temp-topic");
-    }
-
-    public JmsTemporaryTopicEndpoint(TemporaryTopic jmsDestination) throws JMSException {
-        super("jms:temp-topic:" + jmsDestination.getTopicName(), null);
-        this.jmsDestination = jmsDestination;
-        setDestinationType("temp-topic");
-        setDestination(jmsDestination);
-    }
-
     /**
      * This endpoint is a singleton so that the temporary destination instances are shared across all
      * producers and consumers of the same endpoint URI

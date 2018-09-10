@@ -17,6 +17,8 @@
 package org.apache.camel.component.amqp;
 
 import org.apache.camel.AsyncEndpoint;
+import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.component.jms.JmsConfiguration;
 import org.apache.camel.component.jms.JmsConsumer;
 import org.apache.camel.component.jms.JmsEndpoint;
 import org.apache.camel.spi.UriEndpoint;
@@ -30,5 +32,9 @@ import org.apache.camel.spi.UriEndpoint;
 @UriEndpoint(firstVersion = "1.2.0", scheme = "amqp", extendsScheme = "jms", title = "AMQP",
         syntax = "amqp:destinationType:destinationName", consumerClass = JmsConsumer.class, label = "messaging")
 public class AMQPEndpoint extends JmsEndpoint implements AsyncEndpoint {
+
+    public AMQPEndpoint(String uri, AMQPComponent component, String destinationName, boolean pubSubDomain, JmsConfiguration configuration) {
+        super(uri, component, destinationName, pubSubDomain, configuration);
+    }
 
 }

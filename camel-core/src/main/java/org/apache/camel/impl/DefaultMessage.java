@@ -48,13 +48,6 @@ public class DefaultMessage extends MessageSupport {
     private Map<String, DataHandler> attachments;
     private Map<String, Attachment> attachmentObjects;
 
-    /**
-     * @deprecated use {@link #DefaultMessage(CamelContext)}
-     */
-    @Deprecated
-    public DefaultMessage() {
-    }
-
     public DefaultMessage(CamelContext camelContext) {
         setCamelContext(camelContext);
     }

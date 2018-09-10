@@ -18,6 +18,7 @@ package org.apache.camel.component.xmpp;
 
 import java.util.Map;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultMessage;
 import org.apache.camel.util.ExchangeHelper;
 import org.jivesoftware.smack.packet.Message;
@@ -29,15 +30,12 @@ import org.jivesoftware.smack.packet.Stanza;
 public class XmppMessage extends DefaultMessage {
     private Stanza xmppPacket;
 
-    public XmppMessage() {
-        this(new Message());
+    public XmppMessage(CamelContext context) {
+        this(context, new Message());
     }
 
-    public XmppMessage(Message message) {
-        this.xmppPacket = message;
-    }
-
-    public XmppMessage(Stanza stanza) {
+    public XmppMessage(CamelContext context, Stanza stanza) {
+        super(context);
         this.xmppPacket = stanza;
     }
 
@@ -74,8 +72,7 @@ public class XmppMessage extends DefaultMessage {
 
     @Override
     public XmppMessage newInstance() {
-        XmppMessage answer = new XmppMessage();
-        answer.setCamelContext(getCamelContext());
+        XmppMessage answer = new XmppMessage(getCamelContext());
         return answer;
     }
 

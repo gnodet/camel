@@ -32,12 +32,12 @@ public class HdfsComponent extends DefaultComponent {
     private static final Logger LOG = LoggerFactory.getLogger(HdfsComponent.class);
 
     public HdfsComponent() {
-        super(HdfsEndpoint.class);
+        super();
         initHdfs();
     }
 
     public HdfsComponent(CamelContext context) {
-        super(context, HdfsEndpoint.class);
+        super(context);
         initHdfs();
     }
 

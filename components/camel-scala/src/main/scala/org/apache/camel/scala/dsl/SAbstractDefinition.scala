@@ -78,10 +78,6 @@ abstract class SAbstractDefinition[P <: ProcessorDefinition[_]] extends DSL with
 
   def id(id : String) = wrap(target.id(id))
   def idempotentConsumer(expression: Exchange => Any) = SIdempotentConsumerDefinition(target.idempotentConsumer(expression, null))
-  @Deprecated
-  def inOnly = wrap(target.inOnly)
-  @Deprecated
-  def inOut = wrap(target.inOut)
 
   def loadbalance = SLoadBalanceDefinition(target.loadBalance)
   def log(message: String) = wrap(target.log(message))

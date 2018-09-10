@@ -136,8 +136,6 @@ class RouteBuilder extends Preamble with DSL with RoutesBuilder with Languages w
 
   def id(id : String) = stack.top.id(id)
   def idempotentConsumer(expression: Exchange => Any) = stack.top.idempotentConsumer(expression)
-  def inOnly = stack.top.inOnly
-  def inOut = stack.top.inOut
   def interceptFrom(expression: Exchange => Boolean) = {
     val interceptFrom = builder.interceptFrom
     interceptFrom.when(new ScalaPredicate(expression))

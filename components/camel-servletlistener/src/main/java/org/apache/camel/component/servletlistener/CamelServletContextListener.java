@@ -307,17 +307,17 @@ public abstract class CamelServletContextListener<R extends Registry> implements
                 camelContext.addLifecycleStrategy(new DefaultManagementLifecycleStrategy(camelContext));
                 // set additional configuration from agent
                 boolean onlyId = agent.getOnlyRegisterProcessorWithCustomId() != null && agent.getOnlyRegisterProcessorWithCustomId();
-                camelContext.getManagementStrategy().onlyManageProcessorWithCustomId(onlyId);
-
+                camelContext.getManagementStrategy().getManagementAgent().setOnlyRegisterProcessorWithCustomId(onlyId);
+]
                 String statisticsLevel = (String) properties.remove("statisticsLevel");
                 if (statisticsLevel != null) {
-                    camelContext.getManagementStrategy().setStatisticsLevel(ManagementStatisticsLevel.valueOf(statisticsLevel));
+                    camelContext.getManagementStrategy().getManagementAgent().setStatisticsLevel(ManagementStatisticsLevel.valueOf(statisticsLevel));
                 }
 
                 String loadStatisticsEnabled = (String) properties.remove("loadStatisticsEnabled");
                 Boolean statisticsEnabled = CamelContextHelper.parseBoolean(camelContext, loadStatisticsEnabled != null ? loadStatisticsEnabled : "true");
                 if (statisticsEnabled != null) {
-                    camelContext.getManagementStrategy().setLoadStatisticsEnabled(statisticsEnabled);
+                    camelContext.getManagementStrategy().getManagementAgent().setLoadStatisticsEnabled(statisticsEnabled);
                 }
             }
             // validate we could set all parameters

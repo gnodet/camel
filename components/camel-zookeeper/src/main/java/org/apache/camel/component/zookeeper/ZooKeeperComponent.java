@@ -35,15 +35,15 @@ public class ZooKeeperComponent extends DefaultComponent {
     private ZooKeeperConfiguration configuration;
 
     public ZooKeeperComponent() {
-        super(ZooKeeperEndpoint.class);
+        super();
     }
 
     public ZooKeeperComponent(CamelContext context) {
-        super(context, ZooKeeperEndpoint.class);
+        super(context);
     }
 
     public ZooKeeperComponent(ZooKeeperConfiguration configuration) {
-        super(ZooKeeperEndpoint.class);
+        super();
         this.configuration = configuration;
     }
 

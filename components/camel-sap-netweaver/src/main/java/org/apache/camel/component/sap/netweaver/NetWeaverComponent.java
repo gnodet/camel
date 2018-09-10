@@ -24,7 +24,7 @@ import org.apache.camel.impl.DefaultComponent;
 public class NetWeaverComponent extends DefaultComponent {
 
     public NetWeaverComponent() {
-        super(NetWeaverEndpoint.class);
+        super();
     }
 
     @Override

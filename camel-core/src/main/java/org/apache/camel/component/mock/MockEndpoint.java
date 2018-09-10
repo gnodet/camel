@@ -141,16 +141,6 @@ public class MockEndpoint extends DefaultEndpoint implements BrowsableEndpoint {
         init();
     }
 
-    @Deprecated
-    public MockEndpoint(String endpointUri) {
-        super(endpointUri);
-        init();
-    }
-
-    public MockEndpoint() {
-        this(null);
-    }
-
     /**
      * A helper method to resolve the mock endpoint of the given URI on the given context
      *
@@ -1139,14 +1129,6 @@ public class MockEndpoint extends DefaultEndpoint implements BrowsableEndpoint {
      */
     public void setResultMinimumWaitTime(long resultMinimumWaitTime) {
         this.resultMinimumWaitTime = resultMinimumWaitTime;
-    }
-
-    /**
-     * @deprecated use {@link #setResultMinimumWaitTime(long)}
-     */
-    @Deprecated
-    public void setMinimumResultWaitTime(long resultMinimumWaitTime) {
-        setResultMinimumWaitTime(resultMinimumWaitTime);
     }
 
     /**

@@ -78,11 +78,11 @@ public class SjmsComponent extends HeaderFilterStrategyComponent {
     private long connectionMaxWait = 5000;
 
     public SjmsComponent() {
-        super(SjmsEndpoint.class);
+        super();
     }
 
     protected SjmsComponent(Class<? extends Endpoint> endpointClass) {
-        super(endpointClass);
+        super();
     }
 
     @Override

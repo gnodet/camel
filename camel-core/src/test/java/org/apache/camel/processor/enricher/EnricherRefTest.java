@@ -31,8 +31,7 @@ import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy;
  */
 public class EnricherRefTest extends ContextTestSupport {
 
-    @SuppressWarnings("deprecation")
-    private MockEndpoint cool = new MockEndpoint("mock:cool");
+    private MockEndpoint cool = new MockEndpoint("mock:cool", null);
 
     @Override
     protected JndiRegistry createRegistry() throws Exception {
@@ -64,7 +63,7 @@ public class EnricherRefTest extends ContextTestSupport {
             public void configure() throws Exception {
                 cool.setCamelContext(context);
 
-                from("direct:start").enrichRef("cool", "agg");
+                from("direct:start").enrich().ref("cool").aggregationStrategyRef("agg").end();
             }
         };
     }

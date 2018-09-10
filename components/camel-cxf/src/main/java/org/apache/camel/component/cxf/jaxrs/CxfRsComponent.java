@@ -45,11 +45,11 @@ public class CxfRsComponent extends HeaderFilterStrategyComponent implements SSL
     private boolean useGlobalSslContextParameters;
 
     public CxfRsComponent() {
-        super(CxfRsEndpoint.class);
+        super();
     }
     
     public CxfRsComponent(CamelContext context) {
-        super(context, CxfRsEndpoint.class);
+        super(context);
     }
 
     @Override

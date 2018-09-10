@@ -39,14 +39,6 @@ import org.apache.camel.spi.StreamCachingStrategy;
  * fileInputStream(s) is/are closed after all the exchanges using the temp file are completed.
  */
 public class CachedOutputStream extends OutputStream {
-    @Deprecated
-    public static final String THRESHOLD = "CamelCachedOutputStreamThreshold";
-    @Deprecated
-    public static final String BUFFER_SIZE = "CamelCachedOutputStreamBufferSize";
-    @Deprecated
-    public static final String TEMP_DIR = "CamelCachedOutputStreamOutputDirectory";
-    @Deprecated
-    public static final String CIPHER_TRANSFORMATION = "CamelCachedOutputStreamCipherTransformation";
 
     private final StreamCachingStrategy strategy;
     private OutputStream currentStream;

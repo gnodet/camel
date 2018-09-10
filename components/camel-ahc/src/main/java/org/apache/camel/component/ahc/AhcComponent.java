@@ -61,7 +61,7 @@ public class AhcComponent extends HeaderFilterStrategyComponent implements SSLCo
     private boolean allowJavaSerializedObject;
 
     public AhcComponent() {
-        super(AhcEndpoint.class);
+        super();
     }
 
     @Override

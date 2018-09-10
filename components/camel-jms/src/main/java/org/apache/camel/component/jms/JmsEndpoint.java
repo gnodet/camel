@@ -22,13 +22,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.ExceptionListener;
-import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TemporaryQueue;
 import javax.jms.TemporaryTopic;
-import javax.jms.Topic;
 
 import org.apache.camel.AsyncEndpoint;
 import org.apache.camel.Exchange;
@@ -68,7 +65,6 @@ import org.springframework.util.ErrorHandler;
  *
  * This component uses Spring JMS and supports JMS 1.1 and 2.0 API.
  */
-@ManagedResource(description = "Managed JMS Endpoint")
 @UriEndpoint(firstVersion = "1.0.0", scheme = "jms", title = "JMS", syntax = "jms:destinationType:destinationName", consumerClass = JmsConsumer.class, label = "messaging")
 public class JmsEndpoint extends DefaultEndpoint implements AsyncEndpoint, HeaderFilterStrategyAware, MultipleConsumersSupport, Service {
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -86,16 +82,6 @@ public class JmsEndpoint extends DefaultEndpoint implements AsyncEndpoint, Heade
     @UriParam
     private JmsConfiguration configuration;
 
-    public JmsEndpoint() {
-        this(null, null);
-    }
-
-    public JmsEndpoint(Topic destination) throws JMSException {
-        this("jms:topic:" + destination.getTopicName(), null);
-        this.destination = destination;
-        this.destinationType = "topic";
-    }
-
     public JmsEndpoint(String uri, JmsComponent component, String destinationName, boolean pubSubDomain, JmsConfiguration configuration) {
         super(UnsafeUriCharactersEncoder.encode(uri), component);
         this.configuration = configuration;
@@ -105,63 +91,6 @@ public class JmsEndpoint extends DefaultEndpoint implements AsyncEndpoint, Heade
             this.destinationType = "topic";
         } else {
             this.destinationType = "queue";
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    public JmsEndpoint(String endpointUri, JmsBinding binding, JmsConfiguration configuration, String destinationName, boolean pubSubDomain) {
-        super(UnsafeUriCharactersEncoder.encode(endpointUri));
-        this.binding = binding;
-        this.configuration = configuration;
-        this.destinationName = destinationName;
-        this.pubSubDomain = pubSubDomain;
-        if (pubSubDomain) {
-            this.destinationType = "topic";
-        } else {
-            this.destinationType = "queue";
-        }
-    }
-
-    public JmsEndpoint(String endpointUri, String destinationName, boolean pubSubDomain) {
-        this(UnsafeUriCharactersEncoder.encode(endpointUri), null, new JmsConfiguration(), destinationName, pubSubDomain);
-        this.binding = new JmsBinding(this);
-        if (pubSubDomain) {
-            this.destinationType = "topic";
-        } else {
-            this.destinationType = "queue";
-        }
-    }
-
-    /**
-     * Creates a pub-sub endpoint with the given destination
-     */
-    public JmsEndpoint(String endpointUri, String destinationName) {
-        this(UnsafeUriCharactersEncoder.encode(endpointUri), destinationName, true);
-    }
-
-    /**
-     * Returns a new JMS endpoint for the given JMS destination using the configuration from the given JMS component
-     */
-    public static JmsEndpoint newInstance(Destination destination, JmsComponent component) throws JMSException {
-        JmsEndpoint answer = newInstance(destination);
-        JmsConfiguration newConfiguration = component.getConfiguration().copy();
-        answer.setConfiguration(newConfiguration);
-        answer.setCamelContext(component.getCamelContext());
-        return answer;
-    }
-
-    /**
-     * Returns a new JMS endpoint for the given JMS destination
-     */
-    public static JmsEndpoint newInstance(Destination destination) throws JMSException {
-        if (destination instanceof TemporaryQueue) {
-            return new JmsTemporaryQueueEndpoint((TemporaryQueue) destination);
-        } else if (destination instanceof TemporaryTopic) {
-            return new JmsTemporaryTopicEndpoint((TemporaryTopic) destination);
-        } else if (destination instanceof Queue) {
-            return new JmsQueueEndpoint((Queue) destination);
-        } else {
-            return new JmsEndpoint((Topic) destination);
         }
     }
 
@@ -304,7 +233,7 @@ public class JmsEndpoint extends DefaultEndpoint implements AsyncEndpoint, Heade
 
     public Exchange createExchange(Message message, Session session) {
         Exchange exchange = createExchange(getExchangePattern());
-        exchange.setIn(new JmsMessage(message, session, getBinding()));
+        exchange.setIn(new JmsMessage(getCamelContext(), message, session, getBinding()));
         return exchange;
     }
 

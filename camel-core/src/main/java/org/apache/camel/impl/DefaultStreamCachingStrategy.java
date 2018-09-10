@@ -40,13 +40,9 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultStreamCachingStrategy extends org.apache.camel.support.ServiceSupport implements CamelContextAware, StreamCachingStrategy {
 
-    @Deprecated
     public static final String THRESHOLD = "CamelCachedOutputStreamThreshold";
-    @Deprecated
     public static final String BUFFER_SIZE = "CamelCachedOutputStreamBufferSize";
-    @Deprecated
     public static final String TEMP_DIR = "CamelCachedOutputStreamOutputDirectory";
-    @Deprecated
     public static final String CIPHER_TRANSFORMATION = "CamelCachedOutputStreamCipherTransformation";
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultStreamCachingStrategy.class);

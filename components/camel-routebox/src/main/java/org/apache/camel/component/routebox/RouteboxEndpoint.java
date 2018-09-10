@@ -16,7 +16,6 @@
  */
 package org.apache.camel.component.routebox;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.impl.DefaultEndpoint;
 import org.apache.camel.spi.UriEndpoint;
@@ -32,16 +31,6 @@ public abstract class RouteboxEndpoint extends DefaultEndpoint {
     RouteboxConfiguration config;
 
     public RouteboxEndpoint() {
-    }
-    
-    @Deprecated
-    public RouteboxEndpoint(String endpointUri) {
-        super(endpointUri);
-    }
-    
-    @Deprecated
-    public RouteboxEndpoint(String endpointUri, CamelContext camelContext) {
-        super(endpointUri, camelContext);
     }
 
     public RouteboxEndpoint(String endpointUri, Component component) {

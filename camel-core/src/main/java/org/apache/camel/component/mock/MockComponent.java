@@ -18,6 +18,7 @@ package org.apache.camel.component.mock;
 
 import java.util.Map;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
 import org.apache.camel.impl.DefaultComponent;
@@ -33,6 +34,10 @@ public class MockComponent extends DefaultComponent {
 
     public MockComponent() {
         super();
+    }
+
+    public MockComponent(CamelContext context) {
+        super(context);
     }
 
     @Override

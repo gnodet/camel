@@ -53,12 +53,12 @@ public class KestrelComponent extends DefaultComponent {
     }
 
     public KestrelComponent(KestrelConfiguration configuration) {
-        super(KestrelEndpoint.class);
+        super();
         this.configuration = configuration;
     }
 
     public KestrelComponent(CamelContext context) {
-        super(context, KestrelEndpoint.class);
+        super(context);
         configuration = new KestrelConfiguration();
     }
 

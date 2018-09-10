@@ -39,11 +39,11 @@ public class ElasticsearchComponent extends DefaultComponent {
     private Client client;
 
     public ElasticsearchComponent() {
-        super(ElasticsearchEndpoint.class);
+        super();
     }
 
     public ElasticsearchComponent(CamelContext context) {
-        super(context, ElasticsearchEndpoint.class);
+        super(context);
     }
 
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {

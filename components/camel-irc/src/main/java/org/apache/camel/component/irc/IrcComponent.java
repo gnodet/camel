@@ -43,7 +43,7 @@ public class IrcComponent extends DefaultComponent implements SSLContextParamete
     private boolean useGlobalSslContextParameters;
 
     public IrcComponent() {
-        super(IrcEndpoint.class);
+        super();
     }
 
     public IrcEndpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {

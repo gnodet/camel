@@ -56,14 +56,6 @@ public class ManagedManagementStrategy extends DefaultManagementStrategy {
 
     private static final Logger LOG = LoggerFactory.getLogger(ManagedManagementStrategy.class);
 
-    public ManagedManagementStrategy() {
-    }
-
-    @Deprecated
-    public ManagedManagementStrategy(ManagementAgent managementAgent) {
-        setManagementAgent(managementAgent);
-    }
-
     public ManagedManagementStrategy(CamelContext camelContext, ManagementAgent managementAgent) {
         setCamelContext(camelContext);
         setManagementAgent(managementAgent);

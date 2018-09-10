@@ -51,8 +51,6 @@ trait DSL {
 
   def id(id : String): DSL
   def idempotentConsumer(expression: Exchange => Any): SIdempotentConsumerDefinition
-  def inOnly: DSL with Block
-  def inOut: DSL with Block
 
   def loadbalance : SLoadBalanceDefinition
   def log(message: String) : DSL

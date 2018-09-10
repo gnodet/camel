@@ -29,7 +29,7 @@ public class RedisComponent extends DefaultComponent {
     private final ExchangeConverter exchangeConverter = new ExchangeConverter();
 
     public RedisComponent() {
-        super(RedisEndpoint.class);
+        super();
     }
 
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters)

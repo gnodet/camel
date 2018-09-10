@@ -18,8 +18,6 @@ package org.apache.camel.component.jms;
 
 import java.util.Collections;
 import java.util.List;
-import javax.jms.JMSException;
-import javax.jms.Queue;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.api.management.ManagedAttribute;
@@ -37,43 +35,19 @@ public class JmsQueueEndpoint extends JmsEndpoint implements BrowsableEndpoint {
     private int maximumBrowseSize = -1;
     private final QueueBrowseStrategy queueBrowseStrategy;
 
-    public JmsQueueEndpoint(Queue destination) throws JMSException {
-        this("jms:queue:" + destination.getQueueName(), null);
-        setDestinationType("queue");
-        setDestination(destination);
-    }
-    
     public JmsQueueEndpoint(String uri, JmsComponent component, String destination,
             JmsConfiguration configuration) {
         this(uri, component, destination, configuration, null);
-        setDestinationType("queue");
     }
 
     public JmsQueueEndpoint(String uri, JmsComponent component, String destination,
             JmsConfiguration configuration, QueueBrowseStrategy queueBrowseStrategy) {
         super(uri, component, destination, false, configuration);
-        setDestinationType("queue");
         if (queueBrowseStrategy == null) {
             this.queueBrowseStrategy = createQueueBrowseStrategy();
         } else {
             this.queueBrowseStrategy = queueBrowseStrategy;
         }
-    }
-
-    public JmsQueueEndpoint(String endpointUri, String destination, QueueBrowseStrategy queueBrowseStrategy) {
-        super(endpointUri, destination, false);
-        setDestinationType("queue");
-        if (queueBrowseStrategy == null) {
-            this.queueBrowseStrategy = createQueueBrowseStrategy();
-        } else {
-            this.queueBrowseStrategy = queueBrowseStrategy;
-        }
-    }
-
-    public JmsQueueEndpoint(String endpointUri, String destination) {
-        super(endpointUri, destination, false);
-        setDestinationType("queue");
-        queueBrowseStrategy = createQueueBrowseStrategy();
     }
 
     @ManagedAttribute

@@ -119,22 +119,6 @@ public class SedaComponent extends DefaultComponent {
         this.defaultOfferTimeout = defaultOfferTimeout;
     }
 
-    /**
-     * @deprecated use
-     */
-    @Deprecated
-    public synchronized QueueReference getOrCreateQueue(SedaEndpoint endpoint, Integer size) {
-        return getOrCreateQueue(endpoint, size, null);
-    }
-
-    /**
-     * @deprecated use {@link #getOrCreateQueue(SedaEndpoint, Integer, Boolean, BlockingQueueFactory)}
-     */
-    @Deprecated
-    public synchronized QueueReference getOrCreateQueue(SedaEndpoint endpoint, Integer size, Boolean multipleConsumers) {
-        return getOrCreateQueue(endpoint, size, multipleConsumers, null);
-    }
-
     public synchronized QueueReference getOrCreateQueue(SedaEndpoint endpoint, Integer size, Boolean multipleConsumers, BlockingQueueFactory<Exchange> customQueueFactory) {
         String key = getQueueKey(endpoint.getEndpointUri());
 

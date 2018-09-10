@@ -47,11 +47,11 @@ public class CoAPComponent extends DefaultComponent implements RestConsumerFacto
     final Map<Integer, CoapServer> servers = new ConcurrentHashMap<>();
 
     public CoAPComponent() {
-        super(CoAPEndpoint.class);
+        super();
     }
 
     public CoAPComponent(CamelContext context) {
-        super(context, CoAPEndpoint.class);
+        super(context);
     }
 
     public synchronized CoapServer getServer(int port) {

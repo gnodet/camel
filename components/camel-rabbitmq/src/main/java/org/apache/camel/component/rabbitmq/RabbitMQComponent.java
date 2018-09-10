@@ -139,11 +139,11 @@ public class RabbitMQComponent extends DefaultComponent {
     private Map<String, Object> clientProperties;
 
     public RabbitMQComponent() {
-        super(RabbitMQEndpoint.class);
+        super();
     }
 
     public RabbitMQComponent(CamelContext context) {
-        super(context, RabbitMQEndpoint.class);
+        super(context);
     }
 
     @Override

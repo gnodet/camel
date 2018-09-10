@@ -19,6 +19,7 @@ package org.apache.camel.component.smpp;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultMessage;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -38,30 +39,33 @@ public class SmppMessage extends DefaultMessage {
     private static final Logger LOG = LoggerFactory.getLogger(SmppMessage.class);
     private Command command;
     private SmppConfiguration configuration;
-    
-    public SmppMessage(SmppConfiguration configuration) {
+
+    public SmppMessage(CamelContext context, SmppConfiguration configuration) {
+        super(context);
         this.configuration = configuration;
     }
 
-    public SmppMessage(AlertNotification command, SmppConfiguration configuration) {
-        this.command = command;
-        this.configuration = configuration;
-    }
-    
-    public SmppMessage(DeliverSm command, SmppConfiguration configuration) {
+    public SmppMessage(CamelContext context, AlertNotification command, SmppConfiguration configuration) {
+        super(context);
         this.command = command;
         this.configuration = configuration;
     }
 
-    public SmppMessage(DataSm dataSm, SmppConfiguration configuration) {
+    public SmppMessage(CamelContext context, DeliverSm command, SmppConfiguration configuration) {
+        super(context);
+        this.command = command;
+        this.configuration = configuration;
+    }
+
+    public SmppMessage(CamelContext context, DataSm dataSm, SmppConfiguration configuration) {
+        super(context);
         this.command = dataSm;
         this.configuration = configuration;
     }
 
     @Override
     public SmppMessage newInstance() {
-        SmppMessage answer = new SmppMessage(this.configuration);
-        answer.setCamelContext(getCamelContext());
+        SmppMessage answer = new SmppMessage(getCamelContext(), this.configuration);
         return answer;
     }
     

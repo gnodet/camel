@@ -24,7 +24,7 @@ import org.apache.camel.impl.DefaultComponent;
 public class StAXComponent extends DefaultComponent {
 
     public StAXComponent() {
-        super(StAXEndpoint.class);
+        super();
     }
 
     @Override

@@ -30,11 +30,11 @@ public class GooglePubsubComponent extends DefaultComponent {
     private GooglePubsubConnectionFactory connectionFactory;
 
     public GooglePubsubComponent() {
-        super(GooglePubsubEndpoint.class);
+        super();
     }
 
     public GooglePubsubComponent(CamelContext context) {
-        super(context, GooglePubsubEndpoint.class);
+        super(context);
     }
 
     @Override

@@ -34,7 +34,7 @@ public abstract class HttpCommonComponent extends HeaderFilterStrategyComponent 
     protected boolean allowJavaSerializedObject;
 
     public HttpCommonComponent(Class<? extends HttpCommonEndpoint> endpointClass) {
-        super(endpointClass);
+        super();
     }
 
     /**

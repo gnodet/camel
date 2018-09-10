@@ -22,6 +22,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.stream.CachedOutputStream;
+import org.apache.camel.impl.DefaultStreamCachingStrategy;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +35,8 @@ public class JettyHttpFileCacheTest extends CamelTestSupport {
     public void setUp() throws Exception {
         super.setUp();
         
-        context.getGlobalOptions().put(CachedOutputStream.TEMP_DIR, "target/cachedir");
-        context.getGlobalOptions().put(CachedOutputStream.THRESHOLD, "16");
+        context.getGlobalOptions().put(DefaultStreamCachingStrategy.TEMP_DIR, "target/cachedir");
+        context.getGlobalOptions().put(DefaultStreamCachingStrategy.THRESHOLD, "16");
         deleteDirectory("target/cachedir");
         createDirectory("target/cachedir");
     }

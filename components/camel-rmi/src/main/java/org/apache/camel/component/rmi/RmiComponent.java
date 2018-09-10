@@ -30,7 +30,7 @@ import org.apache.camel.impl.DefaultComponent;
 public class RmiComponent extends DefaultComponent {
 
     public RmiComponent() {
-        super(RmiEndpoint.class);
+        super();
     }
 
     @Override

@@ -399,56 +399,39 @@ final class XmlCdiBeanFactory {
         }
 
         if (isNotEmpty(definition.getUseOriginalMessage())
-            && (type.equals(ErrorHandlerType.LoggingErrorHandler)
-            || type.equals(ErrorHandlerType.NoErrorHandler))) {
+            && (type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("useOriginalMessage", type, definition.getId());
         }
 
         if (isNotEmpty(definition.getOnRedeliveryRef())
-            && (type.equals(ErrorHandlerType.LoggingErrorHandler)
-            || type.equals(ErrorHandlerType.NoErrorHandler))) {
+            && (type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("onRedeliveryRef", type, definition.getId());
         }
 
         if (isNotEmpty(definition.getOnExceptionOccurredRef())
-            && (type.equals(ErrorHandlerType.LoggingErrorHandler)
-            || type.equals(ErrorHandlerType.NoErrorHandler))) {
+            && (type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("onExceptionOccurredRef", type, definition.getId());
         }
 
         if (isNotEmpty(definition.getOnPrepareFailureRef())
             && (type.equals(ErrorHandlerType.TransactionErrorHandler)
-            || type.equals(ErrorHandlerType.LoggingErrorHandler)
             || type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("onPrepareFailureRef", type, definition.getId());
         }
 
         if (isNotEmpty(definition.getRetryWhileRef())
-            && (type.equals(ErrorHandlerType.LoggingErrorHandler)
-            || type.equals(ErrorHandlerType.NoErrorHandler))) {
+            && (type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("retryWhileRef", type, definition.getId());
         }
 
         if (isNotEmpty(definition.getOnRedeliveryRef())
-            && (type.equals(ErrorHandlerType.LoggingErrorHandler)
-            || type.equals(ErrorHandlerType.NoErrorHandler))) {
+            && (type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("redeliveryPolicyRef", type, definition.getId());
         }
 
         if (isNotEmpty(definition.getExecutorServiceRef())
-            && (type.equals(ErrorHandlerType.LoggingErrorHandler)
-            || type.equals(ErrorHandlerType.NoErrorHandler))) {
+            && (type.equals(ErrorHandlerType.NoErrorHandler))) {
             throw attributeNotSupported("executorServiceRef", type, definition.getId());
-        }
-
-        if (isNotEmpty(definition.getLogName())
-            && (!type.equals(ErrorHandlerType.LoggingErrorHandler))) {
-            throw attributeNotSupported("logName", type, definition.getId());
-        }
-
-        if (isNotEmpty(definition.getLevel())
-            && (!type.equals(ErrorHandlerType.LoggingErrorHandler))) {
-            throw attributeNotSupported("level", type, definition.getId());
         }
 
         return new XmlErrorHandlerFactoryBean(manager,

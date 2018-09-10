@@ -62,20 +62,18 @@ class SetExchangePatternTest extends ScalaTestSupport {
 
   val builder = new RouteBuilder {
      //START SNIPPET: simple
-     "direct:a" inOnly to ("mock:a")
-     "direct:c" inOut to ("mock:c")
+     "direct:a" setExchangePattern (InOnly) to ("mock:a")
+     "direct:c" setExchangePattern (InOut) to ("mock:c")
      //END SNIPPET: simple
      
      //START SNIPPET: block
      "direct:b" ==> {
-       inOnly() {
+       setExchangePattern(InOnly)
          to ("mock:b")
-       }
      }
      "direct:d" ==> {
-       inOut() {
+       setExchangePattern(InOut)
          to ("mock:d")
-       }
      }
      //END SNIPPET: block
    }

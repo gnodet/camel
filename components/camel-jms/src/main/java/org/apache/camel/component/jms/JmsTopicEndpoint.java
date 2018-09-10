@@ -14,11 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.impl;
+package org.apache.camel.component.jms;
+
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Session;
+import javax.jms.TemporaryQueue;
+
+import org.apache.camel.api.management.ManagedResource;
 
 /**
- * @deprecated use {@link org.apache.camel.support.RoutePolicySupport}
+ * A <a href="http://activemq.apache.org/jms.html">JMS Endpoint</a>
+ * for working with a {@link javax.jms.Topic}
  */
-@Deprecated
-public class RoutePolicySupport extends org.apache.camel.support.RoutePolicySupport {
+@ManagedResource(description = "Managed JMS Topic Endpoint")
+public class JmsTopicEndpoint extends JmsEndpoint {
+
+    public JmsTopicEndpoint(String uri, JmsComponent component, String destination, JmsConfiguration configuration) {
+        super(uri, component, destination, true, configuration);
+    }
+
+
 }

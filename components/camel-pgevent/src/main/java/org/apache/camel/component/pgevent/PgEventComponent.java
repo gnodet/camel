@@ -27,7 +27,7 @@ import org.apache.camel.impl.DefaultComponent;
 public class PgEventComponent extends DefaultComponent {
 
     public PgEventComponent() {
-        super(PgEventEndpoint.class);
+        super();
     }
 
     @Override

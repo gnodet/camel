@@ -24,11 +24,11 @@ import org.apache.camel.impl.DefaultComponent;
 public class CouchDbComponent extends DefaultComponent {
 
     public CouchDbComponent() {
-        super(CouchDbEndpoint.class);
+        super();
     }
 
     public CouchDbComponent(CamelContext context) {
-        super(context, CouchDbEndpoint.class);
+        super(context);
     }
 
     @Override

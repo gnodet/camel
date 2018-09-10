@@ -41,7 +41,7 @@ public class DefaultMessageTest {
     @Test
     public void testCamelContextIsNull() {
         @SuppressWarnings("deprecation")
-        DefaultMessage message = new DefaultMessage();
+        DefaultMessage message = new DefaultMessage(null);
         String body = "something";
         message.setBody(body);
         assertEquals(body, message.getBody());

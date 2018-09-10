@@ -68,19 +68,11 @@ public class JmsComponent extends HeaderFilterStrategyComponent implements Appli
     private MessageCreatedStrategy messageCreatedStrategy;
 
     public JmsComponent() {
-        super(JmsEndpoint.class);
-    }
-
-    public JmsComponent(Class<? extends Endpoint> endpointClass) {
-        super(endpointClass);
+        super();
     }
 
     public JmsComponent(CamelContext context) {
-        super(context, JmsEndpoint.class);
-    }
-
-    public JmsComponent(CamelContext context, Class<? extends Endpoint> endpointClass) {
-        super(context, endpointClass);
+        super(context);
     }
 
     public JmsComponent(JmsConfiguration configuration) {
@@ -1385,7 +1377,7 @@ public class JmsComponent extends HeaderFilterStrategyComponent implements Appli
     }
 
     protected JmsEndpoint createTopicEndpoint(String uri, JmsComponent component, String subject, JmsConfiguration configuration) {
-        return new JmsEndpoint(uri, component, subject, true, configuration);
+        return new JmsTopicEndpoint(uri, component, subject, configuration);
     }
 
     protected JmsEndpoint createTemporaryQueueEndpoint(String uri, JmsComponent component, String subject, JmsConfiguration configuration, QueueBrowseStrategy queueBrowseStrategy) {

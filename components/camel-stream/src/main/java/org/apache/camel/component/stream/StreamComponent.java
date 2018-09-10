@@ -28,7 +28,7 @@ import org.apache.camel.util.URISupport;
 public class StreamComponent extends DefaultComponent {
 
     public StreamComponent() {
-        super(StreamEndpoint.class);
+        super();
     }
 
     @Override

@@ -102,35 +102,6 @@ public abstract class DefaultEndpoint extends ServiceSupport implements Endpoint
     }
 
     /**
-     * Constructs a DefaultEndpoint instance which has <b>not</b> been created
-     * using a {@link Component}.
-     * <p/>
-     * <b>Note:</b> It is preferred to create endpoints using the associated
-     * component.
-     * 
-     * @param endpointUri the full URI used to create this endpoint
-     * @param camelContext the Camel Context in which this endpoint is operating
-     */
-    @Deprecated
-    protected DefaultEndpoint(String endpointUri, CamelContext camelContext) {
-        this(endpointUri);
-        this.camelContext = camelContext;
-    }
-
-    /**
-     * Constructs a partially-initialized DefaultEndpoint instance.
-     * <p/>
-     * <b>Note:</b> It is preferred to create endpoints using the associated
-     * component.
-     * 
-     * @param endpointUri the full URI used to create this endpoint
-     */
-    @Deprecated
-    protected DefaultEndpoint(String endpointUri) {
-        this.setEndpointUri(endpointUri);
-    }
-
-    /**
      * Constructs a partially-initialized DefaultEndpoint instance. Useful when
      * creating endpoints manually (e.g., as beans in Spring).
      * <p/>
@@ -236,10 +207,6 @@ public abstract class DefaultEndpoint extends ServiceSupport implements Endpoint
         consumer.setBlockWhenFull(isPollingConsumerBlockWhenFull());
         consumer.setBlockTimeout(getPollingConsumerBlockTimeout());
         return consumer;
-    }
-
-    public Exchange createExchange(Exchange exchange) {
-        return exchange.copy();
     }
 
     public Exchange createExchange() {

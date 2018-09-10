@@ -50,7 +50,7 @@ public class ApiMethodPropertiesHelperTest {
     @Test
     public void testGetExchangeProperties() throws Exception {
         final CamelContext camelContext = new DefaultCamelContext();
-        MockEndpoint mock = new MockEndpoint();
+        MockEndpoint mock = new MockEndpoint("mock:foo", null);
         mock.setCamelContext(camelContext);
 
         final HashMap<String, Object> properties = new HashMap<>();

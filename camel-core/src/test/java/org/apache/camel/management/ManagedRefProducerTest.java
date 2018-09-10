@@ -42,7 +42,7 @@ public class ManagedRefProducerTest extends ManagementTestSupport {
     @Override
     protected CamelContext createCamelContext() throws Exception {
         CamelContext context = new DefaultCamelContext((Registry) registry);
-        registry.put("foo", new MockEndpoint("mock://foo"));
+        registry.put("foo", new MockEndpoint("mock://foo", null));
         return context;
     }
 

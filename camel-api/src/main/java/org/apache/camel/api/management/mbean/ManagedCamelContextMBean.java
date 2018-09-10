@@ -48,10 +48,6 @@ public interface ManagedCamelContextMBean extends ManagedPerformanceCounterMBean
     @ManagedAttribute(description = "Camel Management StatisticsLevel")
     String getManagementStatisticsLevel();
 
-    @Deprecated
-    @ManagedAttribute(description = "Camel Properties")
-    Map<String, String> getProperties();
-
     @ManagedAttribute(description = "Camel Global Options")
     Map<String, String> getGlobalOptions();
 
@@ -67,10 +63,6 @@ public interface ManagedCamelContextMBean extends ManagedPerformanceCounterMBean
     @ManagedAttribute(description = "HeadersMapFactory class name")
     String getHeadersMapFactoryClassName();
 
-    @Deprecated
-    @ManagedOperation(description = "Gets the value of a Camel global option")
-    String getProperty(String key) throws Exception;
-
     /**
      * Gets the value of a CamelContext global option
      *
@@ -80,10 +72,6 @@ public interface ManagedCamelContextMBean extends ManagedPerformanceCounterMBean
      */
     @ManagedOperation(description = "Gets the value of a Camel global option")
     String getGlobalOption(String key) throws Exception;
-
-    @Deprecated
-    @ManagedOperation(description = "Sets the value of a Camel global option")
-    void setProperty(String key, String value) throws Exception;
 
     /**
      * Sets the value of a CamelContext property name
@@ -100,13 +88,6 @@ public interface ManagedCamelContextMBean extends ManagedPerformanceCounterMBean
 
     @ManagedAttribute(description = "Tracing")
     void setTracing(Boolean tracing);
-
-    /**
-     * @deprecated use {@link #getExchangesInflight()}
-     */
-    @ManagedAttribute(description = "Current number of inflight Exchanges")
-    @Deprecated
-    Integer getInflightExchanges();
 
     @ManagedAttribute(description = "Total number of routes")
     Integer getTotalRoutes();
@@ -296,16 +277,6 @@ public interface ManagedCamelContextMBean extends ManagedPerformanceCounterMBean
      */
     @ManagedOperation(description = "List all Camel EIPs from camel-core")
     TabularData listEips() throws Exception;
-
-    /**
-     * Returns the JSON schema representation with information about the component and the endpoint parameters it supports
-     *
-     * @param componentName the name of the component to lookup
-     * @throws Exception is thrown if error occurred
-     */
-    @ManagedOperation(description = "Returns the JSON schema representation of the endpoint parameters for the given component name")
-    @Deprecated
-    String componentParameterJsonSchema(String componentName) throws Exception;
 
     /**
      * Returns the JSON schema representation with information about the data format and the parameters it supports

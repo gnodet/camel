@@ -18,6 +18,7 @@ package org.apache.camel.component.dataset;
 
 import java.util.Map;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultComponent;
 import org.apache.camel.util.CamelContextHelper;
@@ -31,6 +32,10 @@ public class DataSetComponent extends DefaultComponent {
 
     public DataSetComponent() {
         super();
+    }
+
+    public DataSetComponent(CamelContext context) {
+        super(context);
     }
 
     @Override

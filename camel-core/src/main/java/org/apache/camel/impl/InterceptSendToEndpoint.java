@@ -84,11 +84,6 @@ public class InterceptSendToEndpoint implements Endpoint, ShutdownableService {
         return delegate.createExchange(pattern);
     }
 
-    @Deprecated
-    public Exchange createExchange(Exchange exchange) {
-        return delegate.createExchange(exchange);
-    }
-
     public CamelContext getCamelContext() {
         return delegate.getCamelContext();
     }

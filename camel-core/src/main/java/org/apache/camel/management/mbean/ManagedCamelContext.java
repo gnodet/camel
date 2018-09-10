@@ -144,11 +144,6 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
         return context.getHeadersMapFactory().getClass().getName();
     }
 
-    @Deprecated
-    public Map<String, String> getProperties() {
-        return getGlobalOptions();
-    }
-
     @Override
     public Map<String, String> getGlobalOptions() {
         if (context.getGlobalOptions().isEmpty()) {
@@ -157,19 +152,9 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
         return context.getGlobalOptions();
     }
 
-    @Deprecated
-    public String getProperty(String key) throws Exception {
-        return getGlobalOption(key);
-    }
-
     @Override
     public String getGlobalOption(String key) throws Exception {
         return context.getGlobalOption(key);
-    }
-
-    @Deprecated
-    public void setProperty(String key, String value) throws Exception {
-        setGlobalOption(key, value);
     }
 
     @Override
@@ -734,10 +719,6 @@ public class ManagedCamelContext extends ManagedPerformanceCounter implements Ti
         } catch (Exception e) {
             throw ObjectHelper.wrapRuntimeCamelException(e);
         }
-    }
-
-    public String componentParameterJsonSchema(String componentName) throws Exception {
-        return context.getComponentParameterJsonSchema(componentName);
     }
 
     public String dataFormatParameterJsonSchema(String dataFormatName) throws Exception {

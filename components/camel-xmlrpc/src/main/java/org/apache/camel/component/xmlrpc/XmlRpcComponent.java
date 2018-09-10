@@ -27,7 +27,7 @@ import org.apache.camel.impl.DefaultComponent;
 public class XmlRpcComponent extends DefaultComponent {
 
     public XmlRpcComponent() {
-        super(XmlRpcEndpoint.class);
+        super();
     }
 
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {

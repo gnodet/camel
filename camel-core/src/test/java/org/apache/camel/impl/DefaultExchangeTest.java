@@ -273,6 +273,10 @@ public class DefaultExchangeTest extends ExchangeTestSupport {
     }
 
     public static class MyMessage extends DefaultMessage {
+        public MyMessage() {
+            super(null);
+        }
+
         @Override
         public MyMessage newInstance() {
             return new MyMessage();

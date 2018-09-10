@@ -1043,7 +1043,7 @@ public class DefaultManagementLifecycleStrategy extends ServiceSupport implement
             // we are disabled either if configured explicit, or if level is off
             boolean load = camelContext.getManagementStrategy().getManagementAgent().getLoadStatisticsEnabled() != null
                     && camelContext.getManagementStrategy().getManagementAgent().getLoadStatisticsEnabled();
-            boolean disabled = !load || camelContext.getManagementStrategy().getStatisticsLevel() == ManagementStatisticsLevel.Off;
+            boolean disabled = !load || camelContext.getManagementStrategy().getManagementAgent().getStatisticsLevel() == ManagementStatisticsLevel.Off;
 
             LOG.debug("Load performance statistics {}", disabled ? "disabled" : "enabled");
             if (!disabled) {

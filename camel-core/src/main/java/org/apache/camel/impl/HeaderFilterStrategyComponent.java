@@ -30,11 +30,11 @@ public abstract class HeaderFilterStrategyComponent extends DefaultComponent imp
     @Metadata(label = "filter", description = "To use a custom org.apache.camel.spi.HeaderFilterStrategy to filter header to and from Camel message.")
     private HeaderFilterStrategy headerFilterStrategy;
     
-    public HeaderFilterStrategyComponent(Class<? extends Endpoint> endpointClass) {
+    public HeaderFilterStrategyComponent() {
         super();
     }
 
-    public HeaderFilterStrategyComponent(CamelContext context, Class<? extends Endpoint> endpointClass) {
+    public HeaderFilterStrategyComponent(CamelContext context) {
         super(context);
     }
     

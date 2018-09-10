@@ -27,7 +27,7 @@ import org.apache.camel.impl.DefaultComponent;
 public class KratiComponent extends DefaultComponent {
 
     public KratiComponent() {
-        super(KratiEndpoint.class);
+        super();
     }
 
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {

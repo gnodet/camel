@@ -32,7 +32,7 @@ public class PaxLoggingComponent extends DefaultComponent {
     private BundleContext bundleContext;
 
     public PaxLoggingComponent() {
-        super(PaxLoggingEndpoint.class);
+        super();
     }
 
     public BundleContext getBundleContext() {

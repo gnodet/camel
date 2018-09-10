@@ -66,7 +66,7 @@ public class SparkComponent extends DefaultComponent implements RestConsumerFact
     private SparkBinding sparkBinding = new DefaultSparkBinding();
 
     public SparkComponent() {
-        super(SparkEndpoint.class);
+        super();
     }
 
     public int getPort() {

@@ -35,11 +35,11 @@ public class DigitalOceanComponent extends DefaultComponent {
 
 
     public DigitalOceanComponent() {
-        super(DigitalOceanEndpoint.class);
+        super();
     }
 
     public DigitalOceanComponent(CamelContext context) {
-        super(context, DigitalOceanEndpoint.class);
+        super(context);
     }
 
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {

@@ -35,8 +35,8 @@ public class HttpMessage extends DefaultMessage {
     private final HttpCommonEndpoint endpoint;
 
     public HttpMessage(Exchange exchange, HttpCommonEndpoint endpoint, HttpServletRequest request, HttpServletResponse response) {
+        super(exchange != null ? exchange.getContext() : null);
         setExchange(exchange);
-        setCamelContext(exchange.getContext());
         this.endpoint = endpoint;
 
         this.request = request;
@@ -57,11 +57,11 @@ public class HttpMessage extends DefaultMessage {
     }
 
     private HttpMessage(HttpServletRequest request, HttpServletResponse response, Exchange exchange, HttpCommonEndpoint endpoint) {
+        super(exchange.getContext());
+        setExchange(getExchange());
         this.request = request;
         this.response = response;
-        setExchange(getExchange());
         this.endpoint = endpoint;
-        setCamelContext(exchange.getContext());
     }
 
     public HttpServletRequest getRequest() {

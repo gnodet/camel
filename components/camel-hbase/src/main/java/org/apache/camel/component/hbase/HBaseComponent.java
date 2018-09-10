@@ -42,11 +42,11 @@ public class HBaseComponent extends DefaultComponent {
     private int poolMaxSize = 10;
 
     public HBaseComponent() {
-        super(HBaseEndpoint.class);
+        super();
     }
 
     public HBaseComponent(CamelContext context) {
-        super(context, HBaseEndpoint.class);
+        super(context);
     }
 
     @Override

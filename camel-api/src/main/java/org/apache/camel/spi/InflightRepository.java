@@ -119,13 +119,6 @@ public interface InflightRepository extends StaticService {
     int size();
 
     /**
-     * Will always return 0 due method is deprecated.
-     * @deprecated will be removed in a future Camel release.
-     */
-    @Deprecated
-    int size(Endpoint endpoint);
-
-    /**
      * Adds the route from the in flight registry.
      * <p/>
      * Is used for initializing up resources

@@ -48,9 +48,6 @@ public class ErrorHandlerDefinition extends IdentifiedType {
     private LoggingLevel rollbackLoggingLevel;
 
     @XmlAttribute
-    private String logName;
-
-    @XmlAttribute
     private Boolean useOriginalMessage;
 
     @XmlAttribute
@@ -118,14 +115,6 @@ public class ErrorHandlerDefinition extends IdentifiedType {
 
     public void setRollbackLoggingLevel(LoggingLevel rollbackLoggingLevel) {
         this.rollbackLoggingLevel = rollbackLoggingLevel;
-    }
-
-    public String getLogName() {
-        return logName;
-    }
-
-    public void setLogName(String logName) {
-        this.logName = logName;
     }
 
     public Boolean getUseOriginalMessage() {

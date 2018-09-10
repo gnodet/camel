@@ -17,12 +17,16 @@
 package org.apache.camel.component.amqp;
 
 import java.net.MalformedURLException;
+import java.util.Map;
 import java.util.Set;
 import javax.jms.ConnectionFactory;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.component.jms.JmsConfiguration;
+import org.apache.camel.component.jms.JmsEndpoint;
+import org.apache.camel.component.jms.QueueBrowseStrategy;
 import org.apache.qpid.jms.JmsConnectionFactory;
 
 /**
@@ -33,7 +37,7 @@ public class AMQPComponent extends JmsComponent {
     // Constructors
 
     public AMQPComponent() {
-        super(AMQPEndpoint.class);
+        super();
     }
 
     public AMQPComponent(JmsConfiguration configuration) {
@@ -41,7 +45,7 @@ public class AMQPComponent extends JmsComponent {
     }
 
     public AMQPComponent(CamelContext context) {
-        super(context, AMQPEndpoint.class);
+        super(context);
     }
 
     public AMQPComponent(ConnectionFactory connectionFactory) {
@@ -64,17 +68,27 @@ public class AMQPComponent extends JmsComponent {
         super.doStart();
     }
 
-    // Factory methods
-
-    /**
-     * Use {@code amqpComponent(String uri)} instead.
-     */
-    @Deprecated
-    public static AMQPComponent amqp10Component(String uri) throws MalformedURLException {
-        JmsConnectionFactory connectionFactory = new JmsConnectionFactory(uri);
-        connectionFactory.setTopicPrefix("topic://");
-        return new AMQPComponent(connectionFactory);
+    @Override
+    protected JmsEndpoint createTemporaryTopicEndpoint(String uri, JmsComponent component, String subject, JmsConfiguration configuration) {
+        return super.createTemporaryTopicEndpoint(uri, component, subject, configuration);
     }
+
+    @Override
+    protected JmsEndpoint createTopicEndpoint(String uri, JmsComponent component, String subject, JmsConfiguration configuration) {
+        return super.createTopicEndpoint(uri, component, subject, configuration);
+    }
+
+    @Override
+    protected JmsEndpoint createTemporaryQueueEndpoint(String uri, JmsComponent component, String subject, JmsConfiguration configuration, QueueBrowseStrategy queueBrowseStrategy) {
+        return super.createTemporaryQueueEndpoint(uri, component, subject, configuration, queueBrowseStrategy);
+    }
+
+    @Override
+    protected JmsEndpoint createQueueEndpoint(String uri, JmsComponent component, String subject, JmsConfiguration configuration, QueueBrowseStrategy queueBrowseStrategy) {
+        return super.createQueueEndpoint(uri, component, subject, configuration, queueBrowseStrategy);
+    }
+
+    // Factory methods
 
     public static AMQPComponent amqpComponent(String uri) {
         JmsConnectionFactory connectionFactory = new JmsConnectionFactory(uri);

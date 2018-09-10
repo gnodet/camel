@@ -61,7 +61,7 @@ public class TestEndpointTest extends ContextTestSupport {
     private final class MyEndpoint extends DefaultEndpoint {
 
         private MyEndpoint(String endpointUri, CamelContext camelContext) {
-            super(endpointUri);
+            super(endpointUri, null);
         }
 
         @Override

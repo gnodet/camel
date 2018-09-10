@@ -63,16 +63,7 @@ public abstract class DefaultComponent extends ServiceSupport implements Compone
     public DefaultComponent() {
     }
 
-    @Deprecated
-    public DefaultComponent(Class<?> endpointClass) {
-    }
-
     public DefaultComponent(CamelContext context) {
-        this.camelContext = context;
-    }
-
-    @Deprecated
-    public DefaultComponent(CamelContext context, Class<?> endpointClass) {
         this.camelContext = context;
     }
 

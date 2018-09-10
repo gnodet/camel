@@ -24,7 +24,6 @@ class GrapeComponent extends DefaultComponent {
     private PatchesRepository patchesRepository = new FilePatchesRepository()
 
     GrapeComponent() {
-        super(GrapeEndpoint.class)
     }
 
     @Override

@@ -30,7 +30,7 @@ public class CMISComponent extends DefaultComponent {
     private CMISSessionFacadeFactory sessionFacadeFactory;
 
     public CMISComponent() {
-        super(CMISEndpoint.class);
+        super();
     }
 
     protected Endpoint createEndpoint(String uri, final String remaining, final Map<String, Object> parameters) throws Exception {

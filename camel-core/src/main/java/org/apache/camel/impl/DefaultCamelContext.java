@@ -252,7 +252,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
     private Boolean streamCache = Boolean.FALSE;
     private Boolean handleFault = Boolean.FALSE;
     private Boolean disableJMX = Boolean.FALSE;
-    private Boolean lazyLoadTypeConverters = Boolean.FALSE;
     private Boolean loadTypeConverters = Boolean.TRUE;
     private Boolean typeConverterStatisticsEnabled = Boolean.FALSE;
     private Boolean useMDCLogging = Boolean.FALSE;
@@ -991,11 +990,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             return type.cast(answer);
         }
         return null;
-    }
-
-    @Deprecated
-    public void setRoutes(List<Route> routes) {
-        throw new UnsupportedOperationException("Overriding existing routes is not supported yet, use addRouteCollection instead");
     }
 
     void removeRouteCollection(Collection<Route> routes) {
@@ -4353,11 +4347,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
         return autoStartup != null && autoStartup;
     }
 
-    @Deprecated
-    public Boolean isLazyLoadTypeConverters() {
-        return lazyLoadTypeConverters != null && lazyLoadTypeConverters;
-    }
-
     public Boolean isLoadTypeConverters() {
         return loadTypeConverters != null && loadTypeConverters;
     }
@@ -4456,14 +4445,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             // need to ignore not same type and return it as null
             return null;
         }
-    }
-
-    /**
-     * @deprecated use {@link org.apache.camel.util.CamelContextHelper#lookupPropertiesComponent(org.apache.camel.CamelContext, boolean)}
-     */
-    @Deprecated
-    protected Component lookupPropertiesComponent() {
-        return CamelContextHelper.lookupPropertiesComponent(this, false);
     }
 
     public ShutdownStrategy getShutdownStrategy() {

@@ -30,7 +30,7 @@ import org.springframework.ldap.core.LdapTemplate;
 public class SpringLdapComponent extends DefaultComponent {
 
     public SpringLdapComponent() {
-        super(SpringLdapEndpoint.class);
+        super();
     }
 
     /**

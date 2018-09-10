@@ -40,7 +40,7 @@ public class MustacheComponent extends DefaultComponent {
     private MustacheFactory mustacheFactory = new DefaultMustacheFactory();
 
     public MustacheComponent() {
-        super(MustacheEndpoint.class);
+        super();
     }
 
     @Override

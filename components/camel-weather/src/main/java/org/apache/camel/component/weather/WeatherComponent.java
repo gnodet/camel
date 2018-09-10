@@ -25,7 +25,6 @@ import org.apache.camel.component.weather.http.AuthenticationMethod;
 import org.apache.camel.component.weather.http.CompositeHttpConfigurer;
 import org.apache.camel.component.weather.http.HttpClientConfigurer;
 import org.apache.camel.impl.DefaultComponent;
-import org.apache.camel.spi.Metadata;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
@@ -43,11 +42,11 @@ public class WeatherComponent extends DefaultComponent {
     private String geolocationRequestHostIP;
 
     public WeatherComponent() {
-        super(WeatherEndpoint.class);
+        super();
     }
 
     public WeatherComponent(CamelContext context) {
-        super(context, WeatherEndpoint.class);
+        super(context);
     }
 
     @Override

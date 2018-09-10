@@ -24,6 +24,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.stream.CachedOutputStream;
 import org.apache.camel.http.common.HttpOperationFailedException;
+import org.apache.camel.impl.DefaultStreamCachingStrategy;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,8 +78,8 @@ public class HttpStreamCacheFileTest extends BaseJettyTest {
             @Override
             public void configure() throws Exception {
                 // enable stream caching and use a low threshold so its forced to write to file
-                context.getGlobalOptions().put(CachedOutputStream.TEMP_DIR, "target/cachedir");
-                context.getGlobalOptions().put(CachedOutputStream.THRESHOLD, "16");
+                context.getGlobalOptions().put(DefaultStreamCachingStrategy.TEMP_DIR, "target/cachedir");
+                context.getGlobalOptions().put(DefaultStreamCachingStrategy.THRESHOLD, "16");
                 context.setStreamCaching(true);
 
                 // use a route so we got an unit of work

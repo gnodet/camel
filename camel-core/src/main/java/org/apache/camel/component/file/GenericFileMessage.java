@@ -26,23 +26,8 @@ import org.apache.camel.impl.DefaultMessage;
 public class GenericFileMessage<T> extends DefaultMessage {
     private GenericFile<T> file;
 
-    /**
-     * @deprecated use {@link #GenericFileMessage(CamelContext)}
-     */
-    @Deprecated
-    public GenericFileMessage() {
-    }
-
     public GenericFileMessage(CamelContext camelContext) {
         super(camelContext);
-    }
-
-    /**
-     * @deprecated use {@link #GenericFileMessage(CamelContext, GenericFile)}
-     */
-    @Deprecated
-    public GenericFileMessage(GenericFile<T> file) {
-        this.file = file;
     }
 
     public GenericFileMessage(CamelContext camelContext, GenericFile<T> file) {

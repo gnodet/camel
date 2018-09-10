@@ -72,7 +72,7 @@ public class ReduceStacksNeededDuringRoutingSendProcessorTest extends ContextTes
     public static final class MyEndpoint extends DefaultEndpoint {
 
         public MyEndpoint() {
-            super("myendpoint:foo");
+            super("myendpoint:foo", null);
         }
 
         @Override
