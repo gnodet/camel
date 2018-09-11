@@ -73,24 +73,6 @@ public class ConsulServiceCallServiceDiscoveryConfiguration extends ServiceCallS
         this.url = url;
     }
 
-    /**
-     * @deprecated replaced by {@link #getDatacenter()} ()}
-     */
-    @Deprecated
-    public String getDc() {
-        return datacenter;
-    }
-
-    /**
-     * The data center
-     *
-     * @deprecated replaced by {@link #setDatacenter(String)} ()}
-     */
-    @Deprecated
-    public void setDc(String dc) {
-        this.datacenter = dc;
-    }
-
     public String getDatacenter() {
         return datacenter;
     }
@@ -199,14 +181,6 @@ public class ConsulServiceCallServiceDiscoveryConfiguration extends ServiceCallS
      */
     public ConsulServiceCallServiceDiscoveryConfiguration url(String url) {
         setUrl(url);
-        return this;
-    }
-
-    /**
-     * The data center
-     */
-    public ConsulServiceCallServiceDiscoveryConfiguration dc(String dc) {
-        setDc(dc);
         return this;
     }
 

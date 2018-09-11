@@ -81,24 +81,6 @@ public class EhcacheConfiguration implements Cloneable {
         return ObjectHelper.isNotEmpty(configurationUri);
     }
 
-    /**
-     * @deprecated use {@link #getConfigurationUri()} instead
-     */
-    @Deprecated
-    public String getConfigUri() {
-        return getConfigurationUri();
-    }
-
-    /**
-     * URI pointing to the Ehcache XML configuration file's location
-     *
-     * @deprecated use {@link #setConfigurationUri(String)} instead
-     */
-    @Deprecated
-    public void setConfigUri(String configUri) {
-        setConfigurationUri(configUri);
-    }
-
     public boolean isCreateCacheIfNotExist() {
         return createCacheIfNotExist;
     }

@@ -118,7 +118,7 @@ public class CamelServlet extends HttpServlet {
         log.trace("Service: {}", request);
 
         // Is there a consumer registered for the request.
-        HttpConsumer consumer = resolve(request);
+        HttpConsumer consumer = getServletResolveConsumerStrategy().resolve(request, getConsumers());
         if (consumer == null) {
             // okay we cannot process this requires so return either 404 or 405.
             // to know if its 405 then we need to check if any other HTTP method would have a consumer for the "same" request
@@ -237,14 +237,6 @@ public class CamelServlet extends HttpServlet {
             consumer.doneUoW(exchange);
             restoreTccl(exchange, oldTccl);
         }
-    }
-
-    /**
-     * @deprecated use {@link ServletResolveConsumerStrategy#resolve(javax.servlet.http.HttpServletRequest, java.util.Map)}
-     */
-    @Deprecated
-    protected HttpConsumer resolve(HttpServletRequest request) {
-        return getServletResolveConsumerStrategy().resolve(request, getConsumers());
     }
 
     public void connect(HttpConsumer consumer) {

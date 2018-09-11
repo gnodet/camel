@@ -26,6 +26,8 @@ import java.io.File;
  */
 public class FileUtilTest extends Assert {
 
+    private File parentDir = new File(System.getProperty("java.io.tmpdir"));
+
     @Test
     public void testNormalizePath() {
         if (FileUtil.isWindows()) {
@@ -216,14 +218,14 @@ public class FileUtilTest extends Assert {
 
     @Test
     public void testDefaultTempFileSuffixAndPrefix() throws Exception {
-        File tmp = FileUtil.createTempFile("tmp-", ".tmp");
+        File tmp = FileUtil.createTempFile("tmp-", ".tmp", parentDir);
         assertNotNull(tmp);
         assertTrue("Should be a file", tmp.isFile());
     }
 
     @Test
     public void testDefaultTempFile() throws Exception {
-        File tmp = FileUtil.createTempFile(null, null);
+        File tmp = FileUtil.createTempFile(null, null, parentDir);
         assertNotNull(tmp);
         assertTrue("Should be a file", tmp.isFile());
     }
@@ -248,7 +250,7 @@ public class FileUtilTest extends Assert {
 
     @Test
     public void testShutdown() throws Exception {
-        File tmpFile = FileUtil.createTempFile(null, null);
+        File tmpFile = FileUtil.createTempFile(null, null, parentDir);
         File tmpDir = tmpFile.getParentFile();
         assertTrue(tmpDir.exists());
 

@@ -1033,18 +1033,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         return dataFormat(xsdf);
     }
-    
-    /**
-     * @deprecated Use {@link #secureXML(String, Map, boolean, String, String, String, String)} instead.
-     * Uses the XML Security data format
-     */
-    @Deprecated
-    public T secureXML(String secureTag, boolean secureTagContents, String recipientKeyAlias, String xmlCipherAlgorithm, 
-            String keyCipherAlgorithm) {
-        XMLSecurityDataFormat xsdf = new XMLSecurityDataFormat(secureTag, secureTagContents, recipientKeyAlias, xmlCipherAlgorithm, keyCipherAlgorithm);
-        return dataFormat(xsdf);
-    }
-    
+
     /**
      * Uses the XML Security data format
      */

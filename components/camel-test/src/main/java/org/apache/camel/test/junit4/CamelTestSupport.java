@@ -181,7 +181,7 @@ public abstract class CamelTestSupport extends TestSupport {
      * <p/>
      * Return <tt>*</tt> to mock all endpoints.
      *
-     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(String, String)
+     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(CamelContext, String, String)
      */
     public String isMockEndpoints() {
         return null;
@@ -193,7 +193,7 @@ public abstract class CamelTestSupport extends TestSupport {
      * <p/>
      * Return <tt>*</tt> to mock all endpoints.
      *
-     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(String, String)
+     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(CamelContext, String, String)
      */
     public String isMockEndpointsAndSkip() {
         return null;
@@ -607,16 +607,6 @@ public abstract class CamelTestSupport extends TestSupport {
      * @return <tt>false</tt> by default.
      */
     protected boolean useJmx() {
-        return false;
-    }
-
-    /**
-     * Whether or not type converters should be lazy loaded (notice core converters is always loaded)
-     *
-     * @return <tt>false</tt> by default.
-     */
-    @Deprecated
-    protected boolean isLazyLoadingTypeConverter() {
         return false;
     }
 

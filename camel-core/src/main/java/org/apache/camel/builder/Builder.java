@@ -139,16 +139,6 @@ public final class Builder {
 
     /**
      * Returns a predicate and value builder for properties on an exchange
-     *
-     * @deprecated use {@link #exchangeProperty(String)} instead
-     */
-    @Deprecated
-    public static ValueBuilder property(String name) {
-        return exchangeProperty(name);
-    }
-    
-    /**
-     * Returns a predicate and value builder for properties on an exchange
      */
     public static ValueBuilder exchangeProperty(String name) {
         Expression exp = new ExchangePropertyExpression(name);
@@ -171,51 +161,6 @@ public final class Builder {
         ObjectHelper.notNull(type, "type");
         Expression exp = new SimpleExpression(String.format("${bodyAs(%s)}", type.getCanonicalName()));
         return new ValueBuilder(exp);
-    }
-
-    /**
-     * Returns a predicate and value builder for the outbound body on an
-     * exchange
-     *
-     * @deprecated use {@link #body()}
-     */
-    @Deprecated
-    public static ValueBuilder outBody() {
-        Expression exp = new SimpleExpression("${out.body}");
-        return new ValueBuilder(exp);
-    }
-
-    /**
-     * Returns a predicate and value builder for the outbound message body as a
-     * specific type
-     *
-     * @deprecated use {@link #bodyAs(Class)}
-     */
-    @Deprecated
-    public static <T> ValueBuilder outBodyAs(Class<T> type) {
-        Expression expression = ExpressionBuilder.outBodyExpression(type);
-        return new ValueBuilder(expression);
-    }
-
-    /**
-     * Returns a predicate and value builder for the fault body on an
-     * exchange
-     */
-    public static ValueBuilder faultBody() {
-        Expression expression = ExpressionBuilder.faultBodyExpression();
-        return new ValueBuilder(expression);
-    }
-
-    /**
-     * Returns a predicate and value builder for the fault message body as a
-     * specific type
-     *
-     * @deprecated use {@link #bodyAs(Class)}
-     */
-    @Deprecated
-    public static <T> ValueBuilder faultBodyAs(Class<T> type) {
-        Expression expression = ExpressionBuilder.faultBodyExpression(type);
-        return new ValueBuilder(expression);
     }
 
     /**

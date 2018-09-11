@@ -69,7 +69,6 @@ public class ServiceCallConfigurationDefinition extends IdentifiedType {
     private Expression expression;
     @XmlElements({
         @XmlElement(name = "cachingServiceDiscovery", type = CachingServiceCallServiceDiscoveryConfiguration.class),
-        @XmlElement(name = "aggregatingServiceDiscovery", type = AggregatingServiceCallServiceDiscoveryConfiguration.class),
         @XmlElement(name = "combinedServiceDiscovery", type = CombinedServiceCallServiceDiscoveryConfiguration.class),
         @XmlElement(name = "consulServiceDiscovery", type = ConsulServiceCallServiceDiscoveryConfiguration.class),
         @XmlElement(name = "dnsServiceDiscovery", type = DnsServiceCallServiceDiscoveryConfiguration.class),
@@ -82,7 +81,6 @@ public class ServiceCallConfigurationDefinition extends IdentifiedType {
 
     @XmlElements({
         @XmlElement(name = "blacklistServiceFilter", type = BlacklistServiceCallServiceFilterConfiguration.class),
-        @XmlElement(name = "chainedServiceFilter", type = ChainedServiceCallServiceFilterConfiguration.class),
         @XmlElement(name = "combinedServiceFilter", type = CombinedServiceCallServiceFilterConfiguration.class),
         @XmlElement(name = "customServiceFilter", type = CustomServiceCallServiceFilterConfiguration.class),
         @XmlElement(name = "healthyServiceFilter", type = HealthyServiceCallServiceFilterConfiguration.class),

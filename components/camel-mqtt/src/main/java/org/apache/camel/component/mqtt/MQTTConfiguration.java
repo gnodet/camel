@@ -94,12 +94,6 @@ public class MQTTConfiguration extends MQTT {
     @UriParam(defaultValue = "MQTTQos")
     private String mqttQosPropertyName = "MQTTQos";
 
-    /**
-     * These are set on the Endpoint - together with properties inherited from MQTT
-     */
-    @UriParam
-    @Deprecated
-    private String subscribeTopicName = "";
     @UriParam
     private String subscribeTopicNames = "";
     @UriParam(defaultValue = "camel/mqtt/test")
@@ -130,19 +124,6 @@ public class MQTTConfiguration extends MQTT {
 
     public QoS getQoS() {
         return qos;
-    }
-
-    @Deprecated
-    public String getSubscribeTopicName() {
-        return subscribeTopicName;
-    }
-
-    /**
-     * The name of the Topic to subscribe to for messages.
-     */
-    @Deprecated
-    public void setSubscribeTopicName(String subscribeTopicName) {
-        this.subscribeTopicName = subscribeTopicName;
     }
 
     public String getSubscribeTopicNames() {

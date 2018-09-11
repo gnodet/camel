@@ -87,20 +87,6 @@ public class DefaultHttpBinding implements HttpBinding {
     public DefaultHttpBinding() {
     }
 
-    @Deprecated
-    public DefaultHttpBinding(HeaderFilterStrategy headerFilterStrategy) {
-        this.headerFilterStrategy = headerFilterStrategy;
-    }
-
-    @Deprecated
-    public DefaultHttpBinding(HttpCommonEndpoint endpoint) {
-        this.headerFilterStrategy = endpoint.getHeaderFilterStrategy();
-        this.transferException = endpoint.isTransferException();
-        if (endpoint.getComponent() != null) {
-            this.allowJavaSerializedObject = endpoint.getComponent().isAllowJavaSerializedObject();
-        }
-    }
-
     public void readRequest(HttpServletRequest request, HttpMessage message) {
         LOG.trace("readRequest {}", request);
 

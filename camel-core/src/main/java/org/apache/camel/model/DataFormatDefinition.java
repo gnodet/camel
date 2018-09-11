@@ -139,27 +139,8 @@ public class DataFormatDefinition extends IdentifiedType implements OtherAttribu
 
     /**
      * Allows derived classes to customize the data format
-     *
-     * @deprecated use {@link #configureDataFormat(org.apache.camel.spi.DataFormat, org.apache.camel.CamelContext)}
-     */
-    @Deprecated
-    protected void configureDataFormat(DataFormat dataFormat) {
-    }
-
-    /**
-     * Allows derived classes to customize the data format
      */
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
-    }
-
-    /**
-     * Sets a named property on the data format instance using introspection
-     *
-     * @deprecated use {@link #setProperty(org.apache.camel.CamelContext, Object, String, Object)}
-     */
-    @Deprecated
-    protected void setProperty(Object bean, String name, Object value) {
-        setProperty(null, bean, name, value);
     }
 
     /**

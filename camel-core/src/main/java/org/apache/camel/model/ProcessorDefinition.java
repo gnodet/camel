@@ -492,20 +492,6 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     }
 
     /**
-     * <a href="http://camel.apache.org/exchange-pattern.html">ExchangePattern:</a>
-     * set the exchange's ExchangePattern {@link ExchangePattern} to be InOnly
-     * <p/>
-     * The pattern set on the {@link Exchange} will be changed from this point going foward.
-     *
-     * @return the builder
-     * @deprecated use {@link #setExchangePattern(org.apache.camel.ExchangePattern)} instead
-     */
-    @Deprecated
-    public Type inOnly() {
-        return setExchangePattern(ExchangePattern.InOnly);
-    }
-
-    /**
      * Sends the message to the given endpoint using an
      * <a href="http://camel.apache.org/event-message.html">Event Message</a> or
      * <a href="http://camel.apache.org/exchange-pattern.html">InOnly exchange pattern</a>
@@ -573,18 +559,6 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type inOnly(Iterable<Endpoint> endpoints) {
         return to(ExchangePattern.InOnly, endpoints);
-    }
-
-    /**
-     * <a href="http://camel.apache.org/exchange-pattern.html">ExchangePattern:</a>
-     * set the exchange's ExchangePattern {@link ExchangePattern} to be InOut
-     *
-     * @return the builder
-     * @deprecated use {@link #setExchangePattern(org.apache.camel.ExchangePattern)} instead
-     */
-    @Deprecated
-    public Type inOut() {
-        return setExchangePattern(ExchangePattern.InOut);
     }
 
     /**
@@ -2841,50 +2815,6 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
         addOutput(answer);
         return (Type) this;
-    }
-
-    /**
-     * Adds a processor which sets the header on the OUT message
-     *
-     * @param name  the header name
-     * @return a expression builder clause to set the header
-     * @deprecated use {@link #setHeader(String)}
-     */
-    @Deprecated
-    public ExpressionClause<ProcessorDefinition<Type>> setOutHeader(String name) {
-        ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetOutHeaderDefinition answer = new SetOutHeaderDefinition(name, clause);
-        addOutput(answer);
-        return clause;
-    }
-
-    /**
-     * Adds a processor which sets the header on the OUT message
-     *
-     * @param name  the header name
-     * @param expression  the expression used to set the header
-     * @return the builder
-     * @deprecated use {@link #setHeader(String, org.apache.camel.Expression)}
-     */
-    @SuppressWarnings("unchecked")
-    @Deprecated
-    public Type setOutHeader(String name, Expression expression) {
-        SetOutHeaderDefinition answer = new SetOutHeaderDefinition(name, expression);
-        addOutput(answer);
-        return (Type) this;
-    }
-
-    /**
-     * Adds a processor which sets the header on the FAULT message
-     *
-     * @param name  the header name
-     * @param expression  the expression used to set the header
-     * @return the builder
-     * @deprecated use {@link #setHeader(String, org.apache.camel.Expression)}
-     */
-    @Deprecated
-    public Type setFaultHeader(String name, Expression expression) {
-        return process(ProcessorBuilder.setFaultHeader(name, expression));
     }
 
     /**

@@ -146,17 +146,6 @@ public final class EndpointHelper {
     }
 
     /**
-     * Matches the endpoint with the given pattern.
-     *
-     * @see #matchEndpoint(org.apache.camel.CamelContext, String, String)
-     * @deprecated use {@link #matchEndpoint(org.apache.camel.CamelContext, String, String)} instead.
-     */
-    @Deprecated
-    public static boolean matchEndpoint(String uri, String pattern) {
-        return matchEndpoint(null, uri, pattern);
-    }
-
-    /**
      * Matches the name with the given pattern.
      * <p/>
      * The match rules are applied in this order:
@@ -384,14 +373,6 @@ public final class EndpointHelper {
             result = context.getTypeConverter().convertTo(type, value);
         }
         return result;
-    }
-
-    /**
-     * @deprecated use {@link #resolveParameter(org.apache.camel.CamelContext, String, Class)}
-     */
-    @Deprecated
-    public static <T> T resloveStringParameter(CamelContext context, String value, Class<T> type) {
-        return resolveParameter(context, value, type);
     }
 
     /**

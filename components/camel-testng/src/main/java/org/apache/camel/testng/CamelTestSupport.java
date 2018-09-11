@@ -131,7 +131,7 @@ public abstract class CamelTestSupport extends TestSupport {
      * <p/>
      * Return <tt>*</tt> to mock all endpoints.
      *
-     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(String, String)
+     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(CamelContext, String, String)
      */
     public String isMockEndpoints() {
         return null;
@@ -143,7 +143,7 @@ public abstract class CamelTestSupport extends TestSupport {
      * <p/>
      * Return <tt>*</tt> to mock all endpoints.
      *
-     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(String, String)
+     * @see org.apache.camel.util.EndpointHelper#matchEndpoint(CamelContext, String, String)
      */
     public String isMockEndpointsAndSkip() {
         return null;

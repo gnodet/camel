@@ -64,31 +64,6 @@ public final class PGPDataFormatUtil {
     private PGPDataFormatUtil() {
     }
 
-    @Deprecated
-    public static PGPPublicKey findPublicKey(CamelContext context, String filename, String userid, boolean forEncryption)
-        throws IOException, PGPException, NoSuchProviderException {
-        return findPublicKey(context, filename, null, userid, forEncryption);
-    }
-
-    @Deprecated
-    public static PGPPublicKey findPublicKey(CamelContext context, String filename, byte[] keyRing, String userid, boolean forEncryption)
-        throws IOException, PGPException, NoSuchProviderException {
-
-        InputStream is = determineKeyRingInputStream(context, filename, keyRing, forEncryption);
-
-        try {
-            List<PGPPublicKey> result = findPublicKeys(is, Collections.singletonList(userid), forEncryption);
-            if (result.isEmpty()) {
-                return null;
-            } else {
-                return result.get(0);
-            }
-        } finally {
-            IOHelper.close(is);
-        }
-
-    }
-
     public static List<PGPPublicKey> findPublicKeys(CamelContext context, String filename, byte[] keyRing, List<String> userids,
             boolean forEncryption) throws IOException, PGPException, NoSuchProviderException {
         InputStream is = determineKeyRingInputStream(context, filename, keyRing, forEncryption);
@@ -97,19 +72,6 @@ public final class PGPDataFormatUtil {
         } finally {
             IOHelper.close(is);
         }
-    }
-
-    @Deprecated
-    public static PGPPublicKey findPublicKeyWithKeyId(CamelContext context, String filename, byte[] keyRing, long keyid,
-            boolean forEncryption) throws IOException, PGPException, NoSuchProviderException {
-        InputStream is = determineKeyRingInputStream(context, filename, keyRing, forEncryption);
-        PGPPublicKey pubKey;
-        try {
-            pubKey = findPublicKeyWithKeyId(is, keyid);
-        } finally {
-            IOHelper.close(is);
-        }
-        return pubKey;
     }
 
     public static PGPPublicKeyRingCollection getPublicKeyRingCollection(CamelContext context, String filename, byte[] keyRing, boolean forEncryption) throws IOException, PGPException {
@@ -188,14 +150,6 @@ public final class PGPDataFormatUtil {
             is = ResourceHelper.resolveMandatoryResourceAsInputStream(context, filename);
         }
         return is;
-    }
-
-    private static PGPPublicKey findPublicKeyWithKeyId(InputStream input, long keyid) throws IOException, PGPException,
-            NoSuchProviderException {
-        PGPPublicKeyRingCollection pgpSec = 
-            new PGPPublicKeyRingCollection(PGPUtil.getDecoderStream(input),
-                                           new BcKeyFingerprintCalculator());
-        return pgpSec.getPublicKey(keyid);
     }
 
     private static List<PGPPublicKey> findPublicKeys(InputStream input, List<String> userids, boolean forEncryption) throws IOException,

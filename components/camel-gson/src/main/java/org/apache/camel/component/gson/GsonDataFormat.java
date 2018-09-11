@@ -23,7 +23,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.ExclusionStrategy;
@@ -68,20 +67,6 @@ public class GsonDataFormat extends ServiceSupport implements DataFormat, DataFo
      */
     public GsonDataFormat(Class<?> unmarshalType) {
         this(null, unmarshalType);
-    }
-
-    /**
-     * Use the default Gson {@link Gson} and with a custom
-     * unmarshal type and {@link ExclusionStrategy}
-     *
-     * @param unmarshalType the custom unmarshal type
-     * @param exclusionStrategies one or more custom ExclusionStrategy implementations
-     * @deprecated use the setter instead
-     */
-    @Deprecated
-    public GsonDataFormat(Class<?> unmarshalType, ExclusionStrategy... exclusionStrategies) {
-        this(null, unmarshalType);
-        setExclusionStrategies(Arrays.asList(exclusionStrategies));
     }
 
     /**
@@ -235,48 +220,16 @@ public class GsonDataFormat extends ServiceSupport implements DataFormat, DataFo
         this.fieldNamingStrategy = fieldNamingStrategy;
     }
 
-    /**
-     * @deprecated use {@link #isSerializeNulls()} instead
-     */
-    @Deprecated
-    public Boolean getSerializeNulls() {
-        return serializeNulls;
-    }
-
     public boolean isSerializeNulls() {
         return serializeNulls;
-    }
-
-    /**
-     * @deprecated use {@link #setSerializeNulls(boolean)} instead
-     */
-    @Deprecated
-    public void setSerializeNulls(Boolean serializeNulls) {
-        this.serializeNulls = serializeNulls;
     }
 
     public void setSerializeNulls(boolean serializeNulls) {
         this.serializeNulls = serializeNulls;
     }
 
-    /**
-     * @deprecated use {@link #isPrettyPrint()} instead
-     */
-    @Deprecated
-    public Boolean getPrettyPrinting() {
-        return prettyPrint;
-    }
-
     public boolean isPrettyPrint() {
         return prettyPrint;
-    }
-
-    /**
-     * @deprecated use {@link #setPrettyPrint(boolean)} instead
-     */
-    @Deprecated
-    public void setPrettyPrinting(Boolean prettyPrinting) {
-        this.prettyPrint = prettyPrinting;
     }
 
     public void setPrettyPrint(boolean prettyPrint) {

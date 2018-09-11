@@ -50,9 +50,6 @@ public class FacebookEndpointConfiguration extends FacebookConfiguration {
     @UriParam
     private GeoLocation center;
     @UriParam
-    @Deprecated
-    private CheckinUpdate checkinUpdate;
-    @UriParam
     private String checkinId;
     @UriParam
     private String commentId;
@@ -234,19 +231,6 @@ public class FacebookEndpointConfiguration extends FacebookConfiguration {
      */
     public void setCenter(GeoLocation center) {
         this.center = center;
-    }
-
-    public CheckinUpdate getCheckinUpdate() {
-        return checkinUpdate;
-    }
-
-    /**
-     * The checkin to be created. Deprecated, instead create a Post with an attached location
-     * @deprecated instead create a Post with an attached location
-     */
-    @Deprecated
-    public void setCheckinUpdate(CheckinUpdate checkinUpdate) {
-        this.checkinUpdate = checkinUpdate;
     }
 
     public String getCheckinId() {

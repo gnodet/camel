@@ -85,11 +85,6 @@ public final class FileUtil {
         return windowsOs;
     }
 
-    @Deprecated
-    public static File createTempFile(String prefix, String suffix) throws IOException {
-        return createTempFile(prefix, suffix, null);
-    }
-
     public static File createTempFile(String prefix, String suffix, File parentDir) throws IOException {
         // TODO: parentDir should be mandatory
         File parent = (parentDir == null) ? getDefaultTempDir() : parentDir;

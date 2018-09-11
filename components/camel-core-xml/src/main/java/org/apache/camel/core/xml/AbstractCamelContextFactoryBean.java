@@ -175,9 +175,6 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
 
         // then set custom properties
         Map<String, String> mergedOptions = new HashMap<>();
-        if (getProperties() != null) {
-            mergedOptions.putAll(getProperties().asMap());
-        }
         if (getGlobalOptions() != null) {
             mergedOptions.putAll(getGlobalOptions().asMap());
         }
@@ -752,9 +749,6 @@ public abstract class AbstractCamelContextFactoryBean<T extends ModelCamelContex
     public abstract List<InterceptFromDefinition> getInterceptFroms();
 
     public abstract List<InterceptSendToEndpointDefinition> getInterceptSendToEndpoints();
-
-    @Deprecated
-    public abstract PropertiesDefinition getProperties();
 
     public abstract GlobalOptionsDefinition getGlobalOptions();
 

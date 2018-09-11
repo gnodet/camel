@@ -61,22 +61,6 @@ public class HazelcastSedaConfiguration {
         this.concurrentConsumers = concurrentConsumers;
     }
 
-    /**
-     * @deprecated use pollTimeout instead
-     */
-    @Deprecated
-    public int getPollInterval() {
-        return pollTimeout;
-    }
-
-    /**
-     * @deprecated use pollTimeout instead
-     */
-    @Deprecated
-    public void setPollInterval(int pollInterval) {
-        this.pollTimeout = pollInterval;
-    }
-
     public int getPollTimeout() {
         return pollTimeout;
     }

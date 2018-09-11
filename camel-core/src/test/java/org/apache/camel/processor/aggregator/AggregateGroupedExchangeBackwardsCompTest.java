@@ -24,6 +24,7 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy;
 
 /**
  * Unit test for aggregate grouped exchanges.
@@ -73,7 +74,7 @@ public class AggregateGroupedExchangeBackwardsCompTest extends ContextTestSuppor
                     // wait for 0.5 seconds to aggregate
                     .completionTimeout(500L)
                     // group the exchanges so we get one single exchange containing all the others
-                    .groupExchanges()
+                    .aggregationStrategy(new GroupedExchangeAggregationStrategy())
                     .to("mock:result");
                 // END SNIPPET: e1
             }

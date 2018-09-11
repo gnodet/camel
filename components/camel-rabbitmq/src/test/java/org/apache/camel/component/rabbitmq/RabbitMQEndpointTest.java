@@ -121,9 +121,9 @@ public class RabbitMQEndpointTest extends CamelTestSupport {
         customHeaders.put("byteArrayHeader", "foo".getBytes());
         customHeaders.put("longStringHeader", LongStringHelper.asLongString("Some really long string"));
         customHeaders.put("timestampHeader", new Timestamp(4200));
-        customHeaders.put("byteHeader", new Byte((byte)0));
-        customHeaders.put("floatHeader", new Float(42.4242));
-        customHeaders.put("longHeader", new Long(420000000000000000L));
+        customHeaders.put("byteHeader", (byte) 0);
+        customHeaders.put("floatHeader", 42.4242f);
+        customHeaders.put("longHeader", 420000000000000000L);
         Mockito.when(properties.getHeaders()).thenReturn(customHeaders);
 
         byte[] body = new byte[20];
@@ -140,9 +140,9 @@ public class RabbitMQEndpointTest extends CamelTestSupport {
         assertArrayEquals("foo".getBytes(), (byte[])exchange.getIn().getHeader("byteArrayHeader"));
         assertEquals("Some really long string", exchange.getIn().getHeader("longStringHeader"));
         assertEquals(new Timestamp(4200), exchange.getIn().getHeader("timestampHeader"));
-        assertEquals(new Byte((byte)0), exchange.getIn().getHeader("byteHeader"));
-        assertEquals(new Float(42.4242), exchange.getIn().getHeader("floatHeader"));
-        assertEquals(new Long(420000000000000000L), exchange.getIn().getHeader("longHeader"));
+        assertEquals((byte) 0, exchange.getIn().getHeader("byteHeader"));
+        assertEquals(42.4242f, exchange.getIn().getHeader("floatHeader"));
+        assertEquals(420000000000000000L, exchange.getIn().getHeader("longHeader"));
         assertEquals(body, exchange.getIn().getBody());
     }
 
@@ -158,7 +158,7 @@ public class RabbitMQEndpointTest extends CamelTestSupport {
     @Test
     public void createEndpointWithAutoAckDisabled() throws Exception {
         RabbitMQEndpoint endpoint = context.getEndpoint("rabbitmq:localhost/exchange?autoAck=false", RabbitMQEndpoint.class);
-        assertEquals(false, endpoint.isAutoAck());
+        assertFalse(endpoint.isAutoAck());
     }
 
     @Test
@@ -305,7 +305,7 @@ public class RabbitMQEndpointTest extends CamelTestSupport {
     @Test
     public void createEndpointWithTransferExceptionEnabled() throws Exception {
         RabbitMQEndpoint endpoint = context.getEndpoint("rabbitmq:localhost/exchange?transferException=true", RabbitMQEndpoint.class);
-        assertEquals(true, endpoint.isTransferException());
+        assertTrue(endpoint.isTransferException());
     }
 
     @Test

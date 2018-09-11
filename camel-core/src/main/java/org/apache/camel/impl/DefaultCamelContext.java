@@ -3119,11 +3119,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
             stopWatch.restart();
             log.info("Apache Camel {} (CamelContext: {}) is starting", getVersion(), getName());
 
-            // Note: This is done on context start as we want to avoid doing it during object construction
-            // where we could be dealing with CDI proxied camel contexts which may never be started (CAMEL-9657)
-            // [TODO] Remove in 3.0
-            Container.Instance.manage(this);
-
             // Start the route controller
             ServiceHelper.startServices(this.routeController);
 
@@ -3569,9 +3564,6 @@ public class DefaultCamelContext extends ServiceSupport implements ModelCamelCon
 
         // and clear start date
         startDate = null;
-
-        // [TODO] Remove in 3.0
-        Container.Instance.unmanage(this);
     }
 
     /**

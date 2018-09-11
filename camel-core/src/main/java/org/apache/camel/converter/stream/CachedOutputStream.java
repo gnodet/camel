@@ -122,14 +122,6 @@ public class CachedOutputStream extends OutputStream {
     }
 
     /**
-     * @deprecated  use {@link #newStreamCache()}
-     */
-    @Deprecated
-    public StreamCache getStreamCache() throws IOException {
-        return newStreamCache();
-    }
-
-    /**
      * Creates a new {@link StreamCache} from the data cached in this {@link OutputStream}.
      */
     public StreamCache newStreamCache() throws IOException {
@@ -160,14 +152,6 @@ public class CachedOutputStream extends OutputStream {
         }
     }
 
-    /**
-     * @deprecated  use {@link #getStrategyBufferSize()}
-     */
-    @Deprecated
-    public int getBufferSize() {
-        return getStrategyBufferSize();
-    }
-    
     public int getStrategyBufferSize() {
         return strategy.getBufferSize();
     }

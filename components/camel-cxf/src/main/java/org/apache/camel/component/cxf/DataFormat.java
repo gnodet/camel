@@ -47,18 +47,6 @@ public enum DataFormat {
      * 
      */
     RAW,
-    
-    /**
-     * MESSAGE is the raw message that is received from the transport layer.
-     * Streaming and non-streaming are both supported.
-     * @deprecated - equivalent to RAW mode for Camel 2.x
-     */
-    @Deprecated
-    MESSAGE {
-        public DataFormat dealias() {
-            return RAW;
-        }
-    },
 
     /**
      * CXF_MESSAGE is the message that is received from the transport layer

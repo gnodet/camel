@@ -89,10 +89,6 @@ public class CxfProducer extends DefaultProducer implements AsyncProcessor {
             Object jmsConfig = getJmsConfig.invoke(conduit);
             java.lang.reflect.Method getMessageType = jmsConfig.getClass().getMethod("getMessageType");
             boolean isTextPayload = "text".equals(getMessageType.invoke(jmsConfig));
-            if (isTextPayload && endpoint.getDataFormat().equals(DataFormat.MESSAGE)) {
-                //throw Exception as the Text JMS mesasge won't send as stream
-                throw new RuntimeException("Text JMS message coundn't be a stream");
-            }
         }
 
 

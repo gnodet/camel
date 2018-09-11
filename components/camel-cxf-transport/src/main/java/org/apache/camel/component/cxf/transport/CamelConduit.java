@@ -50,7 +50,6 @@ public class CamelConduit extends AbstractConduit implements Configurable {
     private EndpointInfo endpointInfo;
     private String targetCamelEndpointUri;
     private Producer producer;
-    private ProducerTemplate camelTemplate;
     private Bus bus;
     private HeaderFilterStrategy headerFilterStrategy;
 
@@ -135,19 +134,6 @@ public class CamelConduit extends AbstractConduit implements Configurable {
                 configurer.configureBean(this);
             }
         }
-    }
-
-    @Deprecated
-    public ProducerTemplate getCamelTemplate() throws Exception {
-        if (camelTemplate == null) {
-            camelTemplate = getCamelContext().createProducerTemplate();
-        }
-        return camelTemplate;
-    }
-
-    @Deprecated
-    public void setCamelTemplate(ProducerTemplate template) {
-        camelTemplate = template;
     }
 
 }

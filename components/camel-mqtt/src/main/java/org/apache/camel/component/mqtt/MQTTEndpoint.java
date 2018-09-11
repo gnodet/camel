@@ -357,13 +357,6 @@ public class MQTTEndpoint extends DefaultEndpoint implements AsyncEndpoint {
                 topics[i] = new Topic(topicNames[i].trim(), configuration.getQoS());
             }
             return topics;
-        } else { // fall back on singular topic name
-            String subscribeTopicName = configuration.getSubscribeTopicName();
-            subscribeTopicName = subscribeTopicName != null ? subscribeTopicName.trim() : null;
-            if (subscribeTopicName != null && !subscribeTopicName.isEmpty()) {
-                Topic[] topics = {new Topic(subscribeTopicName, configuration.getQoS())};
-                return topics;
-            }
         }
         LOG.warn("No topic subscriptions were specified in configuration");
         return null;

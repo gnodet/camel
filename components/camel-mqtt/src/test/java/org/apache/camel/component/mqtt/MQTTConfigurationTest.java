@@ -31,7 +31,6 @@ public class MQTTConfigurationTest extends MQTTBaseTest {
 
         assertEquals(mqttEndpoint.getConfiguration().getQoS(), QoS.EXACTLY_ONCE);
         assertEquals(mqttEndpoint.getConfiguration().getPublishTopicName(), TEST_TOPIC);
-        assertEquals(mqttEndpoint.getConfiguration().getSubscribeTopicName(), TEST_TOPIC);
         assertTrue(mqttEndpoint.getConfiguration().isByDefaultRetain());
     }
 

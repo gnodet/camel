@@ -122,9 +122,6 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
     private String autoStartup;
     @XmlAttribute @Metadata(defaultValue = "true")
     private String shutdownEager;
-    @XmlAttribute @Metadata(defaultValue = "false")
-    @Deprecated
-    private String registerEndpointIdsFromRoute;
     @XmlAttribute
     private String useMDCLogging;
     @XmlAttribute
@@ -151,9 +148,6 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
     private TypeConverterExists typeConverterExists;
     @XmlAttribute @Metadata(defaultValue = "WARN")
     private LoggingLevel typeConverterExistsLoggingLevel;
-    @Deprecated
-    @XmlElement(name = "properties")
-    private PropertiesDefinition properties;
     @XmlElement(name = "globalOptions")
     private GlobalOptionsDefinition globalOptions;
     @XmlElement(name = "propertyPlaceholder", type = CamelPropertyPlaceholderDefinition.class)
@@ -564,25 +558,9 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
         this.interceptSendToEndpoints = interceptSendToEndpoints;
     }
 
-    @Deprecated
-    public PropertiesDefinition getProperties() {
-        return properties;
-    }
-
     @Override
     public GlobalOptionsDefinition getGlobalOptions() {
         return globalOptions;
-    }
-
-    /**
-     * Configuration of CamelContext properties such as limit of debug logging
-     * and other general options.
-     * 
-     * @deprecated Use {@link GlobalOptionsDefinition} instead.
-     */
-    @Deprecated
-    public void setProperties(PropertiesDefinition properties) {
-        this.properties = properties;
     }
 
     /**
@@ -778,19 +756,6 @@ public class CamelContextFactoryBean extends AbstractCamelContextFactoryBean<Spr
      */
     public void setShutdownEager(String shutdownEager) {
         this.shutdownEager = shutdownEager;
-    }
-
-    public String getRegisterEndpointIdsFromRoute() {
-        return registerEndpointIdsFromRoute;
-    }
-
-    /**
-     * Sets whether to register endpoints that has id attribute assigned in the Spring registry.
-     * <p/>
-     * This mode is by default false, but can be turned on for backwards compatibility.
-     */
-    public void setRegisterEndpointIdsFromRoute(String registerEndpointIdsFromRoute) {
-        this.registerEndpointIdsFromRoute = registerEndpointIdsFromRoute;
     }
 
     public String getUseMDCLogging() {

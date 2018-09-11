@@ -18,7 +18,6 @@ package org.apache.camel.component.mllp.springboot;
 
 import javax.annotation.Generated;
 import org.apache.camel.ExchangePattern;
-import org.apache.camel.component.mllp.MllpComponent;
 import org.apache.camel.spring.boot.ComponentConfigurationPropertiesCommon;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
@@ -175,12 +174,6 @@ public class MllpComponentConfiguration
          */
         private Integer maxConcurrentConsumers = 5;
         /**
-         * The maximum number of timeouts (specified by receiveTimeout) allowed
-         * before the TCP Connection will be reset.
-         */
-        @Deprecated
-        private Integer maxReceiveTimeouts;
-        /**
          * The approximate idle time allowed before the Client TCP Connection
          * will be reset. A null value or a value less than or equal to zero
          * will disable the idle timeout.
@@ -248,12 +241,6 @@ public class MllpComponentConfiguration
          * MllpInvalidAcknowledgementException will be thrown.
          */
         private Boolean validatePayload = false;
-        /**
-         * Enable/Disable the buffering of HL7 payloads before writing to the
-         * socket.
-         */
-        @Deprecated
-        private Boolean bufferWrites = false;
 
         public Boolean getBridgeErrorHandler() {
             return bridgeErrorHandler;
@@ -349,17 +336,6 @@ public class MllpComponentConfiguration
 
         public void setMaxConcurrentConsumers(Integer maxConcurrentConsumers) {
             this.maxConcurrentConsumers = maxConcurrentConsumers;
-        }
-
-        @Deprecated
-        @DeprecatedConfigurationProperty
-        public Integer getMaxReceiveTimeouts() {
-            return maxReceiveTimeouts;
-        }
-
-        @Deprecated
-        public void setMaxReceiveTimeouts(Integer maxReceiveTimeouts) {
-            this.maxReceiveTimeouts = maxReceiveTimeouts;
         }
 
         public Integer getIdleTimeout() {
@@ -458,15 +434,5 @@ public class MllpComponentConfiguration
             this.validatePayload = validatePayload;
         }
 
-        @Deprecated
-        @DeprecatedConfigurationProperty
-        public Boolean getBufferWrites() {
-            return bufferWrites;
-        }
-
-        @Deprecated
-        public void setBufferWrites(Boolean bufferWrites) {
-            this.bufferWrites = bufferWrites;
-        }
     }
 }

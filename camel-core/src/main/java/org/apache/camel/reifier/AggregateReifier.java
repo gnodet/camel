@@ -187,19 +187,6 @@ class AggregateReifier extends ProcessorReifier<AggregateDefinition> {
             }
         }
 
-        if (definition.getGroupExchanges() != null && definition.getGroupExchanges()) {
-            if (strategy != null || definition.getStrategyRef() != null) {
-                throw new IllegalArgumentException("Options groupExchanges and AggregationStrategy cannot be enabled at the same time");
-            }
-            if (definition.getEagerCheckCompletion() != null && !definition.getEagerCheckCompletion()) {
-                throw new IllegalArgumentException("Option eagerCheckCompletion cannot be false when groupExchanges has been enabled");
-            }
-            // set eager check to enabled by default when using grouped exchanges
-            definition.setEagerCheckCompletion(true);
-            // if grouped exchange is enabled then use special strategy for that
-            strategy = new GroupedExchangeAggregationStrategy();
-        }
-
         if (strategy == null) {
             throw new IllegalArgumentException("AggregationStrategy or AggregationStrategyRef must be set on " + this);
         }

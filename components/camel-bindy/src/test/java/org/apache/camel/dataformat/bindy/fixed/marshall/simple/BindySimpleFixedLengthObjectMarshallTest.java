@@ -35,15 +35,17 @@ import org.apache.camel.model.dataformat.BindyType;
 import org.apache.camel.spring.boot.TypeConversionConfiguration;
 import org.apache.camel.spring.javaconfig.SingleRouteCamelConfiguration;
 import org.apache.camel.test.spring.CamelSpringDelegatingTestContextLoader;
-import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.apache.camel.test.spring.CamelSpringRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-@RunWith(CamelSpringJUnit4ClassRunner.class)
+@RunWith(CamelSpringRunner.class)
 @ContextConfiguration(
         classes = {
                 BindySimpleFixedLengthObjectMarshallTest.Configuration.class,

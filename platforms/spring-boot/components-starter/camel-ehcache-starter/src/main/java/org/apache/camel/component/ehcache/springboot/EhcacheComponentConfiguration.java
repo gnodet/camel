@@ -146,13 +146,6 @@ public class EhcacheComponentConfiguration
          */
         private String configurationUri;
         /**
-         * URI pointing to the Ehcache XML configuration file's location
-         * 
-         * @deprecated use {@link #setConfigurationUri(String)} instead
-         */
-        @Deprecated
-        private String configUri;
-        /**
          * Configure if a cache need to be created if it does exist or can't be
          * pre-configured.
          */
@@ -210,17 +203,6 @@ public class EhcacheComponentConfiguration
 
         public void setConfigurationUri(String configurationUri) {
             this.configurationUri = configurationUri;
-        }
-
-        @Deprecated
-        @DeprecatedConfigurationProperty
-        public String getConfigUri() {
-            return configUri;
-        }
-
-        @Deprecated
-        public void setConfigUri(String configUri) {
-            this.configUri = configUri;
         }
 
         public Boolean getCreateCacheIfNotExist() {

@@ -145,21 +145,6 @@ public final class HttpHelper {
      * Deserializes the input stream to a Java object
      *
      * @param is input stream for the Java object
-     * @return the java object, or <tt>null</tt> if input stream was <tt>null</tt>
-     * @throws ClassNotFoundException is thrown if class not found
-     * @throws IOException can be thrown
-     * @deprecated Camel 3.0 
-     * Please use the one which has the parameter of camel context
-     */
-    @Deprecated
-    public static Object deserializeJavaObjectFromStream(InputStream is) throws ClassNotFoundException, IOException {
-        return deserializeJavaObjectFromStream(is, null);
-    }
-    
-    /**
-     * Deserializes the input stream to a Java object
-     *
-     * @param is input stream for the Java object
      * @param context the camel context which could help us to apply the customer classloader
      * @return the java object, or <tt>null</tt> if input stream was <tt>null</tt>
      * @throws ClassNotFoundException is thrown if class not found

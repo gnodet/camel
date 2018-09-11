@@ -19,10 +19,8 @@ package org.apache.camel.component.disruptor.vm.springboot;
 import javax.annotation.Generated;
 import org.apache.camel.component.disruptor.DisruptorProducerType;
 import org.apache.camel.component.disruptor.DisruptorWaitStrategy;
-import org.apache.camel.component.disruptor.vm.DisruptorVmComponent;
 import org.apache.camel.spring.boot.ComponentConfigurationPropertiesCommon;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 
 /**
  * The disruptor component provides asynchronous SEDA behavior using LMAX
@@ -64,11 +62,6 @@ public class DisruptorVmComponentConfiguration
      * true.
      */
     private Boolean defaultBlockWhenFull = true;
-    /**
-     * To configure the ring buffer size
-     */
-    @Deprecated
-    private Integer queueSize;
     /**
      * To configure the ring buffer size
      */
@@ -118,17 +111,6 @@ public class DisruptorVmComponentConfiguration
 
     public void setDefaultBlockWhenFull(Boolean defaultBlockWhenFull) {
         this.defaultBlockWhenFull = defaultBlockWhenFull;
-    }
-
-    @Deprecated
-    @DeprecatedConfigurationProperty
-    public Integer getQueueSize() {
-        return queueSize;
-    }
-
-    @Deprecated
-    public void setQueueSize(Integer queueSize) {
-        this.queueSize = queueSize;
     }
 
     public Integer getBufferSize() {

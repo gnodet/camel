@@ -59,7 +59,7 @@
                    xmlns:person="http://camel.apache.org/wsdl-first">
    </cxf:cxfEndpoint>
    
-   <bean id="processor" class="org.apache.camel.processor.CamelLogger"/>
+   <bean id="processor" class="org.apache.camel.processor.CamelLogProcessor"/>
 
    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
       <route>

@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy;
 
 /**
  * Unit test for aggregate grouped exchanges.
@@ -48,7 +49,7 @@ public class AggregateGroupedExchangeCompletionExpressionSizeTest extends Contex
             public void configure() throws Exception {
                 from("direct:start")
                     .aggregate(constant(true)).completionSize(header("size"))
-                    .groupExchanges()
+                    .aggregationStrategy(new GroupedExchangeAggregationStrategy())
                     .to("mock:result");
             }
         };

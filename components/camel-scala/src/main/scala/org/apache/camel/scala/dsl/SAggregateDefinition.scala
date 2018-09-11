@@ -53,8 +53,7 @@ case class SAggregateDefinition(override val target: AggregateDefinition)(implic
   def completionFromBatchConsumer = wrap(target.completionFromBatchConsumer)
   def eagerCheckCompletion = wrap(target.eagerCheckCompletion)
   def ignoreInvalidCorrelationKeys = wrap(target.ignoreInvalidCorrelationKeys)
-  def groupExchanges = wrap(target.groupExchanges)
- 
+
   def discardOnCompletionTimeout = wrap(target.discardOnCompletionTimeout)
   def forceCompletionOnStop = wrap(target.forceCompletionOnStop())
   def timeoutCheckerExecutorService(executorService: ScheduledExecutorService) 
