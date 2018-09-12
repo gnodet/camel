@@ -26,7 +26,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.runtimecatalog.EndpointValidationResult;
 import org.apache.camel.runtimecatalog.LanguageValidationResult;
 import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
-import org.apache.camel.runtimecatalog.SimpleValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -302,13 +301,13 @@ public class RuntimeCamelCatalogTest {
 
     @Test
     public void testSimpleExpression() throws Exception {
-        SimpleValidationResult result = catalog.validateSimpleExpression(null, "${body}");
+        LanguageValidationResult result = catalog.validateLanguageExpression(null, "simple", "${body}");
         assertTrue(result.isSuccess());
-        assertEquals("${body}", result.getSimple());
+        assertEquals("${body}", result.getText());
 
-        result = catalog.validateSimpleExpression(null, "${body");
+        result = catalog.validateLanguageExpression(null, "simple", "${body");
         assertFalse(result.isSuccess());
-        assertEquals("${body", result.getSimple());
+        assertEquals("${body", result.getText());
         LOG.info(result.getError());
         assertTrue(result.getError().startsWith("expected symbol functionEnd but was eol at location 5"));
         assertEquals("expected symbol functionEnd but was eol", result.getShortError());
@@ -317,13 +316,13 @@ public class RuntimeCamelCatalogTest {
 
     @Test
     public void testSimplePredicate() throws Exception {
-        SimpleValidationResult result = catalog.validateSimplePredicate(null, "${body} == 'abc'");
+        LanguageValidationResult result = catalog.validateLanguagePredicate(null, "simple", "${body} == 'abc'");
         assertTrue(result.isSuccess());
-        assertEquals("${body} == 'abc'", result.getSimple());
+        assertEquals("${body} == 'abc'", result.getText());
 
-        result = catalog.validateSimplePredicate(null, "${body} > ${header.size");
+        result = catalog.validateLanguagePredicate(null, "simple", "${body} > ${header.size");
         assertFalse(result.isSuccess());
-        assertEquals("${body} > ${header.size", result.getSimple());
+        assertEquals("${body} > ${header.size", result.getText());
         LOG.info(result.getError());
         assertTrue(result.getError().startsWith("expected symbol functionEnd but was eol at location 22"));
         assertEquals("expected symbol functionEnd but was eol", result.getShortError());
@@ -332,13 +331,13 @@ public class RuntimeCamelCatalogTest {
 
     @Test
     public void testSimplePredicatePlaceholder() throws Exception {
-        SimpleValidationResult result = catalog.validateSimplePredicate(null, "${body} contains '{{danger}}'");
+        LanguageValidationResult result = catalog.validateLanguagePredicate(null, "simple", "${body} contains '{{danger}}'");
         assertTrue(result.isSuccess());
-        assertEquals("${body} contains '{{danger}}'", result.getSimple());
+        assertEquals("${body} contains '{{danger}}'", result.getText());
 
-        result = catalog.validateSimplePredicate(null, "${bdy} contains '{{danger}}'");
+        result = catalog.validateLanguagePredicate(null, "simple", "${bdy} contains '{{danger}}'");
         assertFalse(result.isSuccess());
-        assertEquals("${bdy} contains '{{danger}}'", result.getSimple());
+        assertEquals("${bdy} contains '{{danger}}'", result.getText());
         LOG.info(result.getError());
         assertTrue(result.getError().startsWith("Unknown function: bdy at location 0"));
         assertTrue(result.getError().contains("'{{danger}}'"));

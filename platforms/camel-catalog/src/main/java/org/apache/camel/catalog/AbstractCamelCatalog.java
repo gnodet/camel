@@ -1074,112 +1074,6 @@ public abstract class AbstractCamelCatalog {
         return tokens.toArray(new String[tokens.size()]);
     }
 
-    public SimpleValidationResult validateSimpleExpression(String simple) {
-        return doValidateSimple(null, simple, false);
-    }
-
-    public SimpleValidationResult validateSimpleExpression(ClassLoader classLoader, String simple) {
-        return doValidateSimple(classLoader, simple, false);
-    }
-
-    public SimpleValidationResult validateSimplePredicate(String simple) {
-        return doValidateSimple(null, simple, true);
-    }
-
-    public SimpleValidationResult validateSimplePredicate(ClassLoader classLoader, String simple) {
-        return doValidateSimple(classLoader, simple, true);
-    }
-
-    private SimpleValidationResult doValidateSimple(ClassLoader classLoader, String simple, boolean predicate) {
-        if (classLoader == null) {
-            classLoader = getClass().getClassLoader();
-        }
-
-        // if there are {{ }}} property placeholders then we need to resolve them to something else
-        // as the simple parse cannot resolve them before parsing as we dont run the actual Camel application
-        // with property placeholders setup so we need to dummy this by replace the {{ }} to something else
-        // therefore we use an more unlikely character: {{XXX}} to ~^XXX^~
-        String resolved = simple.replaceAll("\\{\\{(.+)\\}\\}", "~^$1^~");
-
-        SimpleValidationResult answer = new SimpleValidationResult(simple);
-
-        Object instance = null;
-        Class clazz = null;
-        try {
-            clazz = classLoader.loadClass("org.apache.camel.language.simple.SimpleLanguage");
-            instance = clazz.newInstance();
-        } catch (Exception e) {
-            // ignore
-        }
-
-        if (clazz != null && instance != null) {
-            Throwable cause = null;
-            try {
-                if (predicate) {
-                    instance.getClass().getMethod("createPredicate", String.class).invoke(instance, resolved);
-                } else {
-                    instance.getClass().getMethod("createExpression", String.class).invoke(instance, resolved);
-                }
-            } catch (InvocationTargetException e) {
-                cause = e.getTargetException();
-            } catch (Exception e) {
-                cause = e;
-            }
-
-            if (cause != null) {
-
-                // reverse ~^XXX^~ back to {{XXX}}
-                String errMsg = cause.getMessage();
-                errMsg = errMsg.replaceAll("\\~\\^(.+)\\^\\~", "{{$1}}");
-
-                answer.setError(errMsg);
-
-                // is it simple parser exception then we can grab the index where the problem is
-                if (cause.getClass().getName().equals("org.apache.camel.language.simple.types.SimpleIllegalSyntaxException")
-                    || cause.getClass().getName().equals("org.apache.camel.language.simple.types.SimpleParserException")) {
-                    try {
-                        // we need to grab the index field from those simple parser exceptions
-                        Method method = cause.getClass().getMethod("getIndex");
-                        Object result = method.invoke(cause);
-                        if (result != null) {
-                            int index = (int) result;
-                            answer.setIndex(index);
-                        }
-                    } catch (Throwable i) {
-                        // ignore
-                    }
-                }
-
-                // we need to grab the short message field from this simple syntax exception
-                if (cause.getClass().getName().equals("org.apache.camel.language.simple.types.SimpleIllegalSyntaxException")) {
-                    try {
-                        Method method = cause.getClass().getMethod("getShortMessage");
-                        Object result = method.invoke(cause);
-                        if (result != null) {
-                            String msg = (String) result;
-                            answer.setShortError(msg);
-                        }
-                    } catch (Throwable i) {
-                        // ignore
-                    }
-
-                    if (answer.getShortError() == null) {
-                        // fallback and try to make existing message short instead
-                        String msg = answer.getError();
-                        // grab everything before " at location " which would be regarded as the short message
-                        int idx = msg.indexOf(" at location ");
-                        if (idx > 0) {
-                            msg = msg.substring(0, idx);
-                            answer.setShortError(msg);
-                        }
-                    }
-                }
-            }
-        }
-
-        return answer;
-    }
-
     public LanguageValidationResult validateLanguagePredicate(ClassLoader classLoader, String language, String text) {
         return doValidateLanguage(classLoader, language, text, true);
     }
@@ -1193,7 +1087,7 @@ public abstract class AbstractCamelCatalog {
             classLoader = getClass().getClassLoader();
         }
 
-        SimpleValidationResult answer = new SimpleValidationResult(text);
+        LanguageValidationResult answer = new LanguageValidationResult(text);
 
         String json = jsonSchemaResolver.getLanguageJSonSchema(language);
         if (json == null) {
@@ -1215,10 +1109,10 @@ public abstract class AbstractCamelCatalog {
         }
 
         Object instance = null;
-        Class clazz = null;
+        Class<?> clazz = null;
         try {
             clazz = classLoader.loadClass(className);
-            instance = clazz.newInstance();
+            instance = clazz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             // ignore
         }
