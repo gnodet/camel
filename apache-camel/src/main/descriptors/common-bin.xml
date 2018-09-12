@@ -196,9 +196,7 @@
         <include>org.apache.camel:camel-mvel</include>
         <include>org.apache.camel:camel-mybatis</include>
         <include>org.apache.camel:camel-nagios</include>
-        <include>org.apache.camel:camel-netty</include>
         <include>org.apache.camel:camel-netty4</include>
-        <include>org.apache.camel:camel-netty-http</include>
         <include>org.apache.camel:camel-netty4-http</include>
         <include>org.apache.camel:camel-ognl</include>
         <include>org.apache.camel:camel-olingo2-api</include>
@@ -241,7 +239,6 @@
         <include>org.apache.camel:camel-service</include>
         <include>org.apache.camel:camel-servicenow</include>
         <include>org.apache.camel:camel-servlet</include>
-        <include>org.apache.camel:camel-servletlistener</include>
         <include>org.apache.camel:camel-shiro</include>
         <include>org.apache.camel:camel-sip</include>
         <include>org.apache.camel:camel-sjms</include>
@@ -441,15 +438,12 @@
         <include>org.apache.camel:camel-hawtdb-starter</include>
         <include>org.apache.camel:camel-hazelcast-starter</include>
         <include>org.apache.camel:camel-hbase-starter</include>
-        <include>org.apache.camel:camel-hdfs-starter</include>
         <include>org.apache.camel:camel-hdfs2-starter</include>
         <include>org.apache.camel:camel-headersmap-starter</include>
-        <include>org.apache.camel:camel-hessian-starter</include>
         <include>org.apache.camel:camel-hipchat-starter</include>
         <include>org.apache.camel:camel-hl7-starter</include>
         <include>org.apache.camel:camel-http4-starter</include>
         <include>org.apache.camel:camel-http-common-starter</include>
-        <include>org.apache.camel:camel-http-starter</include>
         <include>org.apache.camel:camel-hystrix-starter</include>
         <include>org.apache.camel:camel-ical-starter</include>
         <include>org.apache.camel:camel-iec60870-starter</include>
@@ -555,7 +549,6 @@
         <include>org.apache.camel:camel-script-starter</include>
         <include>org.apache.camel:camel-service-starter</include>
         <include>org.apache.camel:camel-servicenow-starter</include>
-        <include>org.apache.camel:camel-servletlistener-starter</include>
         <include>org.apache.camel:camel-servlet-starter</include>
         <include>org.apache.camel:camel-shiro-starter</include>
         <include>org.apache.camel:camel-sip-starter</include>

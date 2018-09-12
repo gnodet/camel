@@ -111,14 +111,6 @@ public class JpaEndpoint extends ScheduledPollEndpoint {
     public JpaEndpoint() {
     }
 
-    /**
-     * @deprecated use {@link JpaEndpoint#JpaEndpoint(String, JpaComponent)} instead
-     */
-    @Deprecated
-    public JpaEndpoint(String endpointUri) {
-        super(endpointUri);
-    }
-
     public JpaEndpoint(String uri, JpaComponent component) {
         super(uri, component);
         entityManagerFactory = component.getEntityManagerFactory();
@@ -130,18 +122,8 @@ public class JpaEndpoint extends ScheduledPollEndpoint {
      */
     @Deprecated
     public JpaEndpoint(String endpointUri, EntityManagerFactory entityManagerFactory) {
-        super(endpointUri);
+        super(endpointUri, null);
         this.entityManagerFactory = entityManagerFactory;
-    }
-
-    /**
-     * @deprecated use {@link JpaEndpoint#JpaEndpoint(String, JpaComponent)} instead
-     */
-    @Deprecated
-    public JpaEndpoint(String endpointUri, EntityManagerFactory entityManagerFactory, PlatformTransactionManager transactionManager) {
-        super(endpointUri);
-        this.entityManagerFactory = entityManagerFactory;
-        this.transactionManager = transactionManager;
     }
 
     @Override

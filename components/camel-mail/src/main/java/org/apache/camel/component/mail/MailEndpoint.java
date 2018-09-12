@@ -77,18 +77,6 @@ public class MailEndpoint extends ScheduledPollEndpoint {
         setDelay(MailConsumer.DEFAULT_CONSUMER_DELAY);
     }
 
-    @Deprecated
-    public MailEndpoint(String endpointUri, MailConfiguration configuration) {
-        super(endpointUri);
-        this.configuration = configuration;
-        setDelay(MailConsumer.DEFAULT_CONSUMER_DELAY);
-    }
-
-    public MailEndpoint(String endpointUri) {
-        this(endpointUri, new MailConfiguration());
-        setDelay(MailConsumer.DEFAULT_CONSUMER_DELAY);
-    }
-
     public Producer createProducer() throws Exception {
         JavaMailSender sender = configuration.getJavaMailSender();
         if (sender == null) {

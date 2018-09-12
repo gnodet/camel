@@ -50,8 +50,8 @@ public class SpringIntegrationEndpoint extends DefaultEndpoint {
     }
 
     @Deprecated
-    public SpringIntegrationEndpoint(String uri, MessageChannel channel, CamelContext context) {
-        super(uri, context);
+    public SpringIntegrationEndpoint(String uri, MessageChannel channel, SpringIntegrationComponent component) {
+        super(uri, component);
         this.messageChannel = channel;
     }
 

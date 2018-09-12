@@ -25,42 +25,40 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
-import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import org.junit.Test;
 
 public class MultiPartFormTest extends BaseUndertowTest {
-    private RequestEntity createMultipartRequestEntity() throws Exception {
+    private HttpEntity createMultipartRequestEntity() throws Exception {
         File file = new File("src/main/resources/META-INF/NOTICE.txt");
-
-        Part[] parts = {new StringPart("comment", "A binary file of some kind"),
-                        new FilePart(file.getName(), file)};
-
-        return new MultipartRequestEntity(parts, new HttpMethodParams());
+        return MultipartEntityBuilder.create()
+                .addTextBody("comment", "A binary file of some kind")
+                .addBinaryBody(file.getName(), file)
+                .build();
 
     }
 
     @Test
     public void testSendMultiPartForm() throws Exception {
-        HttpClient httpclient = new HttpClient();
+        HttpClient httpclient = HttpClientBuilder.create().build();
 
-        PostMethod httppost = new PostMethod("http://localhost:" + getPort() + "/test");
-        
-        httppost.setRequestEntity(createMultipartRequestEntity());
+        HttpPost httppost = new HttpPost("http://localhost:" + getPort() + "/test");
 
-        int status = httpclient.executeMethod(httppost);
+        httppost.setEntity(createMultipartRequestEntity());
 
-        assertEquals("Get a wrong response status", 200, status);
-        String result = httppost.getResponseBodyAsString();
+        HttpResponse response = httpclient.execute(httppost);
+
+        assertEquals("Get a wrong response status", 200, response.getStatusLine().getStatusCode());
+        String result = EntityUtils.toString(httppost.getEntity());
 
         assertEquals("Get a wrong result", "A binary file of some kind", result);
-
     }
 
     @Test

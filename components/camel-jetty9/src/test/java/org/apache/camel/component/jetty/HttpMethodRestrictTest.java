@@ -20,10 +20,14 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import org.junit.Test;
 
 public class HttpMethodRestrictTest extends BaseJettyTest {
@@ -34,27 +38,27 @@ public class HttpMethodRestrictTest extends BaseJettyTest {
     
     @Test
     public void testProperHttpMethod() throws Exception {
-        HttpClient httpClient = new HttpClient();
-        PostMethod httpPost = new PostMethod(getUrl());
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(getUrl());
 
-        StringRequestEntity reqEntity = new StringRequestEntity("This is a test", null, null);
-        httpPost.setRequestEntity(reqEntity);
+        StringEntity reqEntity = new StringEntity("This is a test");
+        httpPost.setEntity(reqEntity);
 
-        int status = httpClient.executeMethod(httpPost);
+        HttpResponse response = httpClient.execute(httpPost);
 
-        assertEquals("Get a wrong response status", 200, status);
+        assertEquals("Get a wrong response status", 200, response.getStatusLine().getStatusCode());
 
-        String result = httpPost.getResponseBodyAsString();
+        String result = EntityUtils.toString(httpPost.getEntity());
         assertEquals("Get a wrong result", "This is a test response", result);
     }
 
     @Test
     public void testImproperHttpMethod() throws Exception {
-        HttpClient httpClient = new HttpClient();
-        GetMethod httpGet = new GetMethod(getUrl());
-        int status = httpClient.executeMethod(httpGet);
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(getUrl());
+        HttpResponse response = httpClient.execute(httpGet);
 
-        assertEquals("Get a wrong response status", 405, status);
+        assertEquals("Get a wrong response status", 405, response.getStatusLine().getStatusCode());
     }
     
     protected RouteBuilder createRouteBuilder() throws Exception {

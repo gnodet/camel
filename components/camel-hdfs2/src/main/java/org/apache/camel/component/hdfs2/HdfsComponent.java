@@ -42,7 +42,7 @@ public class HdfsComponent extends DefaultComponent {
     }
 
     protected final Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        HdfsEndpoint hdfsEndpoint = new HdfsEndpoint(uri, this.getCamelContext());
+        HdfsEndpoint hdfsEndpoint = new HdfsEndpoint(uri, this);
         setProperties(hdfsEndpoint.getConfig(), parameters);
         return hdfsEndpoint;
     }

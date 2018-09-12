@@ -41,63 +41,6 @@ public class JpaEndpointTest extends CamelTestSupport {
         assertEquals("camel", jpa.getPersistenceUnit());
     }
 
-    /**
-     * 
-     * @deprecated 
-     */
-    @Deprecated
-    @Test
-    public void testJpaEndpointCtrUrl() throws Exception {
-        JpaEndpoint jpa = new JpaEndpoint("jpa://org.apache.camel.examples.SendEmail");
-        jpa.setEntityType(SendEmail.class);
-
-        assertNotNull(jpa.getEntityManagerFactory());
-        assertNotNull(jpa.getTransactionManager());
-
-        assertEquals("jpa://org.apache.camel.examples.SendEmail", jpa.getEndpointUri());
-        assertEquals("camel", jpa.getPersistenceUnit());
-    }
-
-    /**
-     * 
-     * @deprecated
-     */
-    @Deprecated
-    @Test
-    public void testJpaEndpointCtrUrlEMF() throws Exception {
-        EntityManagerFactory fac = Persistence.createEntityManagerFactory("camel");
-
-        JpaEndpoint jpa = new JpaEndpoint("jpa://org.apache.camel.examples.SendEmail", fac);
-        jpa.setEntityType(SendEmail.class);
-
-        assertSame(fac, jpa.getEntityManagerFactory());
-        assertNotNull(jpa.getTransactionManager());
-
-        assertEquals("jpa://org.apache.camel.examples.SendEmail", jpa.getEndpointUri());
-        assertEquals("camel", jpa.getPersistenceUnit());
-    }
-
-    /**
-     * 
-     * @deprecated
-     */
-    @Deprecated
-    @Test
-    public void testJpaEndpointCtrUrlEMFandTM() throws Exception {
-        EntityManagerFactory fac = Persistence.createEntityManagerFactory("camel");
-        JpaTransactionManager tm = new JpaTransactionManager(fac);
-        tm.afterPropertiesSet();
-
-        JpaEndpoint jpa = new JpaEndpoint("jpa://org.apache.camel.examples.SendEmail", fac, tm);
-        jpa.setEntityType(SendEmail.class);
-
-        assertSame(fac, jpa.getEntityManagerFactory());
-        assertSame(tm, jpa.getTransactionManager());
-
-        assertEquals("jpa://org.apache.camel.examples.SendEmail", jpa.getEndpointUri());
-        assertEquals("camel", jpa.getPersistenceUnit());
-    }
-
     @Test
     public void testJpaEndpointCustomEMFandTM() throws Exception {
         EntityManagerFactory fac = Persistence.createEntityManagerFactory("camel");

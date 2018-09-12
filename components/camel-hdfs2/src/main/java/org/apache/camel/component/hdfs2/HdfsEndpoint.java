@@ -19,7 +19,7 @@ package org.apache.camel.component.hdfs2;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.camel.CamelContext;
+import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
@@ -36,9 +36,8 @@ public class HdfsEndpoint extends ScheduledPollEndpoint {
     @UriParam
     private final HdfsConfiguration config;
 
-    @SuppressWarnings("deprecation")
-    public HdfsEndpoint(String endpointUri, CamelContext context) throws URISyntaxException {
-        super(endpointUri, context);
+    public HdfsEndpoint(String endpointUri, Component component) throws URISyntaxException {
+        super(endpointUri, component);
         this.config = new HdfsConfiguration();
         this.config.parseURI(new URI(endpointUri));
     }

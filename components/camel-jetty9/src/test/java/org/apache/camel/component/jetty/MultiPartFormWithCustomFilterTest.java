@@ -30,12 +30,13 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.eclipse.jetty.servlets.MultiPartFilter;
 import org.junit.Test;
 
@@ -53,45 +54,38 @@ public class MultiPartFormWithCustomFilterTest extends BaseJettyTest {
 
     @Test
     public void testSendMultiPartForm() throws Exception {
-        HttpClient httpclient = new HttpClient();
+        HttpClient httpclient = HttpClientBuilder.create().build();
         File file = new File("src/main/resources/META-INF/NOTICE.txt");
-        PostMethod httppost = new PostMethod("http://localhost:" + getPort() + "/test");
-        Part[] parts = {
-            new StringPart("comment", "A binary file of some kind"),
-            new FilePart(file.getName(), file)
-        };
+        HttpEntity reqEntity = MultipartEntityBuilder.create()
+                .addTextBody("comment", "A binary file of some kind")
+                .addBinaryBody(file.getName(), file)
+                .build();
+        HttpPost httppost = new HttpPost("http://localhost:" + getPort() + "/test");
+        httppost.setEntity(reqEntity);
 
-        MultipartRequestEntity reqEntity = new MultipartRequestEntity(parts, httppost.getParams());
-        httppost.setRequestEntity(reqEntity);
+        HttpResponse response = httpclient.execute(httppost);
 
-        int status = httpclient.executeMethod(httppost);
-
-        assertEquals("Get a wrong response status", 200, status);
-
-        String result = httppost.getResponseBodyAsString();
+        assertEquals("Get a wrong response status", 200, response.getStatusLine().getStatusCode());
+        String result = EntityUtils.toString(response.getEntity());
         assertEquals("Get a wrong result", "A binary file of some kind", result);
-        assertNotNull("Did not use custom multipart filter", httppost.getResponseHeader("MyMultipartFilter"));
+        assertNotNull("Did not use custom multipart filter", response.getFirstHeader("MyMultipartFilter"));
     }
     
     @Test
     public void testSendMultiPartFormOverrideEnableMultpartFilterFalse() throws Exception {
-        HttpClient httpclient = new HttpClient();
-
+        HttpClient httpclient = HttpClientBuilder.create().build();
         File file = new File("src/main/resources/META-INF/NOTICE.txt");
+        HttpEntity reqEntity = MultipartEntityBuilder.create()
+                .addTextBody("comment", "A binary file of some kind")
+                .addBinaryBody(file.getName(), file)
+                .build();
+        HttpPost httppost = new HttpPost("http://localhost:" + getPort() + "/test2");
+        httppost.setEntity(reqEntity);
 
-        PostMethod httppost = new PostMethod("http://localhost:" + getPort() + "/test2");
-        Part[] parts = {
-            new StringPart("comment", "A binary file of some kind"),
-            new FilePart(file.getName(), file)
-        };
+        HttpResponse response = httpclient.execute(httppost);
 
-        MultipartRequestEntity reqEntity = new MultipartRequestEntity(parts, httppost.getParams());
-        httppost.setRequestEntity(reqEntity);
-
-        int status = httpclient.executeMethod(httppost);
-
-        assertEquals("Get a wrong response status", 200, status);
-        assertNotNull("Did not use custom multipart filter", httppost.getResponseHeader("MyMultipartFilter"));
+        assertEquals("Get a wrong response status", 200, response.getStatusLine().getStatusCode());
+        assertNotNull("Did not use custom multipart filter", response.getFirstHeader("MyMultipartFilter"));
     }
 
     @Override

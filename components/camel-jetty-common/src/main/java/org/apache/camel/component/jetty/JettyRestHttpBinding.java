@@ -27,7 +27,6 @@ public class JettyRestHttpBinding extends DefaultHttpBinding {
     public JettyRestHttpBinding() {
     }
     public JettyRestHttpBinding(HttpCommonEndpoint ep) {
-        super(ep);
         setHeaderFilterStrategy(ep.getHeaderFilterStrategy());
         setTransferException(ep.isTransferException());
         setEagerCheckContentAvailable(ep.isEagerCheckContentAvailable());

@@ -17,36 +17,39 @@
 package org.apache.camel.component.netty4.http;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import org.junit.Test;
 
 public class NettyHttpHeaderMaxSizeTest extends BaseNettyTest {
 
     @Test
     public void testHttpHeaderMaxSizeOk() throws Exception {
-        HttpClient client = new HttpClient();
-        HttpMethod method = new PostMethod("http://localhost:" + getPort() + "/myapp/mytest");
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost method = new HttpPost("http://localhost:" + getPort() + "/myapp/mytest");
 
-        method.setRequestHeader("name", "you");
+        method.setHeader("name", "you");
 
-        client.executeMethod(method);
+        HttpResponse response = client.execute(method);
 
-        assertEquals(200, method.getStatusCode());
-        assertEquals("Bye World", method.getResponseBodyAsString());
+        assertEquals(200, response.getStatusLine().getStatusCode());
+        assertEquals("Bye World", EntityUtils.toString(response.getEntity()));
     }
 
     @Test
     public void testHttpHeaderMaxSizeFail() throws Exception {
-        HttpClient client = new HttpClient();
-        HttpMethod method = new PostMethod("http://localhost:" + getPort() + "/myapp/mytest");
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost method = new HttpPost("http://localhost:" + getPort() + "/myapp/mytest");
 
-        method.setRequestHeader("name", "12345678901234567890123456789012345678901234567890123456789012345678901234567890");
+        method.setHeader("name", "12345678901234567890123456789012345678901234567890123456789012345678901234567890");
 
-        client.executeMethod(method);
+        HttpResponse response = client.execute(method);
 
-        assertEquals(400, method.getStatusCode());
+        assertEquals(400, response.getStatusLine().getStatusCode());
     }
 
     @Override

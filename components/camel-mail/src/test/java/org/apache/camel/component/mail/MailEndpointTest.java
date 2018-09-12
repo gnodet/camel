@@ -45,7 +45,7 @@ public class MailEndpointTest extends CamelTestSupport {
 
     @Test
     public void testMailEndpointCtrEndpoint() throws Exception {
-        MailEndpoint endpoint = new MailEndpoint("smtp://myhost");
+        MailEndpoint endpoint = new MailEndpoint("smtp://myhost", null, null);
         assertNull(endpoint.getContentTypeResolver());
         assertNotNull(endpoint.getConfiguration());
         assertNotNull(endpoint.getBinding());

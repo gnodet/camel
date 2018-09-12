@@ -27,7 +27,6 @@ import org.ehcache.config.Configuration;
 import org.ehcache.event.EventFiring;
 import org.ehcache.event.EventOrdering;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 
 /**
  * The ehcache component enables you to perform caching operations using Ehcache

@@ -32,12 +32,17 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.converter.stream.InputStreamCache;
 import org.apache.camel.http.common.HttpMessage;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.EntityBuilder;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+
 import org.junit.Test;
 
 /**
@@ -102,50 +107,46 @@ public class HttpRouteTest extends BaseJettyTest {
 
     @Test
     public void testPostParameter() throws Exception {
-        NameValuePair[] data = {new NameValuePair("request", "PostParameter"),
-                                new NameValuePair("others", "bloggs")};
-        HttpClient client = new HttpClient();
-        PostMethod post = new PostMethod("http://localhost:" + port1 + "/parameter");
-        post.setRequestBody(data);
-        client.executeMethod(post);
-        InputStream response = post.getResponseBodyAsStream();
-        String out = context.getTypeConverter().convertTo(String.class, response);
+        BasicNameValuePair[] data = { new BasicNameValuePair("request", "PostParameter"),
+                new BasicNameValuePair("others", "bloggs") };
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost("http://localhost:" + port1 + "/parameter");
+        post.setEntity(EntityBuilder.create().setParameters(data).build());
+        HttpResponse response = client.execute(post);
+        String out = context.getTypeConverter().convertTo(String.class, response.getEntity().getContent());
         assertEquals("Get a wrong output ", "PostParameter", out);
     }
 
     @Test
     public void testPostXMLMessage() throws Exception {
-        HttpClient client = new HttpClient();
-        PostMethod post = new PostMethod("http://localhost:" + port1 + "/postxml");
-        StringRequestEntity entity = new StringRequestEntity(POST_MESSAGE, "application/xml", "UTF-8");
-        post.setRequestEntity(entity);
-        client.executeMethod(post);
-        InputStream response = post.getResponseBodyAsStream();
-        String out = context.getTypeConverter().convertTo(String.class, response);
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost("http://localhost:" + port1 + "/postxml");
+        StringEntity entity = new StringEntity(POST_MESSAGE, ContentType.create("application/xml", "UTF-8"));
+        post.setEntity(entity);
+        HttpResponse response = client.execute(post);
+        String out = context.getTypeConverter().convertTo(String.class, response.getEntity().getContent());
         assertEquals("Get a wrong output ", "OK", out);
     }
 
     @Test
     public void testPostParameterInURI() throws Exception {
-        HttpClient client = new HttpClient();
-        PostMethod post = new PostMethod("http://localhost:" + port1 + "/parameter?request=PostParameter&others=bloggs");
-        StringRequestEntity entity = new StringRequestEntity(POST_MESSAGE, "application/xml", "UTF-8");
-        post.setRequestEntity(entity);
-        client.executeMethod(post);
-        InputStream response = post.getResponseBodyAsStream();
-        String out = context.getTypeConverter().convertTo(String.class, response);
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost("http://localhost:" + port1 + "/parameter?request=PostParameter&others=bloggs");
+        StringEntity entity = new StringEntity(POST_MESSAGE, ContentType.create("application/xml", "UTF-8"));
+        post.setEntity(entity);
+        HttpResponse response = client.execute(post);
+        String out = context.getTypeConverter().convertTo(String.class, response.getEntity().getContent());
         assertEquals("Get a wrong output ", "PostParameter", out);
     }
 
     @Test
     public void testPutParameterInURI() throws Exception {
-        HttpClient client = new HttpClient();
-        PutMethod put = new PutMethod("http://localhost:" + port1 + "/parameter?request=PutParameter&others=bloggs");
-        StringRequestEntity entity = new StringRequestEntity(POST_MESSAGE, "application/xml", "UTF-8");
-        put.setRequestEntity(entity);
-        client.executeMethod(put);
-        InputStream response = put.getResponseBodyAsStream();
-        String out = context.getTypeConverter().convertTo(String.class, response);
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost("http://localhost:" + port1 + "/parameter?request=PutParameter&others=bloggs");
+        StringEntity entity = new StringEntity(POST_MESSAGE, ContentType.create("application/xml", "UTF-8"));
+        post.setEntity(entity);
+        HttpResponse response = client.execute(post);
+        String out = context.getTypeConverter().convertTo(String.class, response.getEntity().getContent());
         assertEquals("Get a wrong output ", "PutParameter", out);
     }
     
@@ -170,11 +171,11 @@ public class HttpRouteTest extends BaseJettyTest {
     
     @Test
     public void testResponseCode() throws Exception {
-        HttpClient client = new HttpClient();
-        GetMethod get = new GetMethod("http://localhost:" + port1 + "/responseCode");
-        client.executeMethod(get);
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet get = new HttpGet("http://localhost:" + port1 + "/responseCode");
+        HttpResponse response = client.execute(get);
         // just make sure we get the right
-        assertEquals("Get a wrong status code.", 400, get.getStatusCode());
+        assertEquals("Get a wrong status code.", 400, response.getStatusLine().getStatusCode());
     }
 
 

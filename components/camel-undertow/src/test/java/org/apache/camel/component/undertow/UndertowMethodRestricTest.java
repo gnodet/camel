@@ -15,18 +15,21 @@
  * limitations under the License.
  */
 package org.apache.camel.component.undertow;
-import org.junit.Before;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 public class UndertowMethodRestricTest extends BaseUndertowTest {
 
@@ -39,27 +42,27 @@ public class UndertowMethodRestricTest extends BaseUndertowTest {
 
     @Test
     public void testProperHttpMethod() throws Exception {
-        HttpClient httpClient = new HttpClient();
-        PostMethod httpPost = new PostMethod(url);
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost httpPost = new HttpPost(url);
 
-        StringRequestEntity reqEntity = new StringRequestEntity("This is a test", null, null);
-        httpPost.setRequestEntity(reqEntity);
+        StringEntity reqEntity = new StringEntity("This is a test");
+        httpPost.setEntity(reqEntity);
 
-        int status = httpClient.executeMethod(httpPost);
+        HttpResponse response = httpClient.execute(httpPost);
 
-        assertEquals(200, status);
+        assertEquals(200, response.getStatusLine().getStatusCode());
 
-        String result = httpPost.getResponseBodyAsString();
+        String result = EntityUtils.toString(httpPost.getEntity());
         assertEquals("This is a test response", result);
     }
 
     @Test
     public void testImproperHttpMethod() throws Exception {
-        HttpClient httpClient = new HttpClient();
-        GetMethod httpGet = new GetMethod(url);
-        int status = httpClient.executeMethod(httpGet);
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = httpClient.execute(httpGet);
 
-        assertEquals("Get a wrong response status", 405, status);
+        assertEquals("Get a wrong response status", 405, response.getStatusLine().getStatusCode());
     }
 
     @Override

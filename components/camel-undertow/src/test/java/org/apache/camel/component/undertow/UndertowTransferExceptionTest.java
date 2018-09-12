@@ -20,8 +20,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,14 +32,14 @@ public class UndertowTransferExceptionTest extends BaseUndertowTest {
 
     @Test
     public void getSerializedExceptionTest() throws IOException, ClassNotFoundException {
-        HttpClient client = new HttpClient();
-        GetMethod get = new GetMethod("http://localhost:" + getPort() + "/test/transfer");
-        get.setRequestHeader("Accept", "application/x-java-serialized-object");
-        client.executeMethod(get);
-        ObjectInputStream in = new ObjectInputStream(get.getResponseBodyAsStream());
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet get = new HttpGet("http://localhost:" + getPort() + "/test/transfer");
+        get.setHeader("Accept", "application/x-java-serialized-object");
+        HttpResponse response = client.execute(get);
+        ObjectInputStream in = new ObjectInputStream(response.getEntity().getContent());
         IllegalArgumentException e = (IllegalArgumentException)in.readObject();
         Assert.assertNotNull(e);
-        Assert.assertEquals(500, get.getStatusCode());
+        Assert.assertEquals(500, response.getStatusLine().getStatusCode());
         Assert.assertEquals("Camel cannot do this", e.getMessage());
     }
 

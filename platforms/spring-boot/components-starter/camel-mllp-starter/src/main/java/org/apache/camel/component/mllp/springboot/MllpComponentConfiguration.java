@@ -18,9 +18,9 @@ package org.apache.camel.component.mllp.springboot;
 
 import javax.annotation.Generated;
 import org.apache.camel.ExchangePattern;
+import org.apache.camel.component.mllp.MllpComponent;
 import org.apache.camel.spring.boot.ComponentConfigurationPropertiesCommon;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 
 /**
  * Provides functionality required by Healthcare providers to communicate with
@@ -433,6 +433,5 @@ public class MllpComponentConfiguration
         public void setValidatePayload(Boolean validatePayload) {
             this.validatePayload = validatePayload;
         }
-
     }
 }

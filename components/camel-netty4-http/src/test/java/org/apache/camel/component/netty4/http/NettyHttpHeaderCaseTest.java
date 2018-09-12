@@ -22,27 +22,30 @@ import java.util.Map;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import org.junit.Test;
 
 public class NettyHttpHeaderCaseTest extends BaseNettyTest {
 
     @Test
     public void testHttpHeaderCase() throws Exception {
-        HttpClient client = new HttpClient();
-        HttpMethod method = new PostMethod("http://localhost:" + getPort() + "/myapp/mytest");
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost method = new HttpPost("http://localhost:" + getPort() + "/myapp/mytest");
 
-        method.setRequestHeader("clientHeader", "fooBAR");
-        method.setRequestHeader("OTHER", "123");
-        method.setRequestHeader("beer", "Carlsberg");
+        method.setHeader("clientHeader", "fooBAR");
+        method.setHeader("OTHER", "123");
+        method.setHeader("beer", "Carlsberg");
 
-        client.executeMethod(method);
+        HttpResponse response = client.execute(method);
 
-        assertEquals("Bye World", method.getResponseBodyAsString());
-        assertEquals("aBc123", method.getResponseHeader("MyCaseHeader").getValue());
-        assertEquals("456DEf", method.getResponseHeader("otherCaseHeader").getValue());
+        assertEquals("Bye World", EntityUtils.toString(response.getEntity()));
+        assertEquals("aBc123", response.getFirstHeader("MyCaseHeader").getValue());
+        assertEquals("456DEf", response.getFirstHeader("otherCaseHeader").getValue());
     }
 
     @Override

@@ -17,10 +17,15 @@
 package org.apache.camel.component.jetty;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.http.HttpProducer;
+import org.apache.camel.component.http4.HttpProducer;
 import org.apache.camel.http.common.HttpCommonEndpoint;
+import org.apache.http.HttpHost;
+import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.eclipse.jetty.client.HttpClient;
 import org.junit.Test;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Unit test for http client options.
@@ -33,7 +38,10 @@ public class JettyHttpClientOptionsTest extends BaseJettyTest {
         HttpCommonEndpoint jettyEndpoint = context.getEndpoint("http://localhost:{{port}}/myapp/myservice?httpClient.soTimeout=5555", HttpCommonEndpoint.class);
         assertNotNull("Jetty endpoint should not be null ", jettyEndpoint);
         HttpProducer producer = (HttpProducer)jettyEndpoint.createProducer();
-        assertEquals("Get the wrong http client parameter", 5555, producer.getHttpClient().getParams().getSoTimeout());
+        int soTimeout = producer.getHttpClient().getConnectionManager().requestConnection(new HttpRoute(new HttpHost("localhost")), null)
+                .getConnection(5, TimeUnit.SECONDS).getSocketTimeout();
+        // producer.getHttpClient().getParams().getSoTimeout()
+        assertEquals("Get the wrong http client parameter", 5555, soTimeout);
 
         // send and receive
         Object out = template.requestBody("http://localhost:{{port}}/myapp/myservice", "Hello World");

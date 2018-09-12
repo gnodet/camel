@@ -22,14 +22,16 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.http.HttpEndpoint;
+import org.apache.camel.component.http4.HttpEndpoint;
 import org.apache.camel.impl.DefaultHeaderFilterStrategy;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import org.junit.Test;
 
 public class HttpBridgeMultipartRouteTest extends BaseJettyTest {
@@ -52,19 +54,21 @@ public class HttpBridgeMultipartRouteTest extends BaseJettyTest {
     public void testHttpClient() throws Exception {
         File jpg = new File("src/test/resources/java.jpg");
         String body = "TEST";
-        Part[] parts = new Part[] {new StringPart("body", body), new FilePart(jpg.getName(), jpg)};
+        HttpEntity reqEntity = MultipartEntityBuilder.create()
+                .addTextBody("body", body)
+                .addBinaryBody(jpg.getName(), jpg)
+                .build();
+
+        HttpPost method = new HttpPost("http://localhost:" + port2 + "/test/hello");
+        method.setEntity(reqEntity);
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpResponse response = client.execute(method);
         
-        PostMethod method = new PostMethod("http://localhost:" + port2 + "/test/hello");
-        MultipartRequestEntity requestEntity = new MultipartRequestEntity(parts, method.getParams());
-        method.setRequestEntity(requestEntity);
-        
-        HttpClient client = new HttpClient();
-        client.executeMethod(method);
-        
-        String responseBody = method.getResponseBodyAsString();
+        String responseBody = EntityUtils.toString(response.getEntity());
         assertEquals(body, responseBody);
         
-        String numAttachments = method.getResponseHeader("numAttachments").getValue();
+        String numAttachments = response.getFirstHeader("numAttachments").getValue();
         assertEquals(numAttachments, "2");
     }
 
