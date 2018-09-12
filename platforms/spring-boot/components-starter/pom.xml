@@ -218,7 +218,6 @@
     <module>camel-json-validator-starter</module>
     <module>camel-jsonpath-starter</module>
     <module>camel-jt400-starter</module>
-    <module>camel-jxpath-starter</module>
     <module>camel-kafka-starter</module>
     <module>camel-kubernetes-starter</module>
     <module>camel-kura-starter</module>
