@@ -87,7 +87,7 @@ public class SetBodyProcessorTest extends ContextTestSupport {
                     .to("mock:result");
                 
                 from("direct:start2")
-                    .setBody(simple("header.text.replace('a','b')")).to("mock:test");
+                    .setBody(simple("${header.text.replace('a','b')}")).to("mock:test");
             }
         };
     }

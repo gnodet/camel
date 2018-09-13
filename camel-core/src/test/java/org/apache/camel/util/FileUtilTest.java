@@ -249,16 +249,6 @@ public class FileUtilTest extends Assert {
     }
 
     @Test
-    public void testShutdown() throws Exception {
-        File tmpFile = FileUtil.createTempFile(null, null, parentDir);
-        File tmpDir = tmpFile.getParentFile();
-        assertTrue(tmpDir.exists());
-
-        FileUtil.shutdown();
-        assertFalse(tmpDir.exists());
-    }
-
-    @Test
     public void testRenameUsingDelete() throws Exception {
         File file = new File("target/foo.txt");
         if (!file.exists()) {

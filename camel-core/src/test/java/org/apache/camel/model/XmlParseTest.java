@@ -66,11 +66,11 @@ public class XmlParseTest extends XmlTestSupport {
     }
 
     @Test
-    public void testParseProcessorWithElFilterXml() throws Exception {
-        RouteDefinition route = assertOneRoute("processorWithElFilter.xml");
+    public void testParseProcessorWithSimpleFilterXml() throws Exception {
+        RouteDefinition route = assertOneRoute("processorWithSimpleFilter.xml");
         assertFrom(route, "seda:a");
         FilterDefinition filter = assertOneProcessorInstanceOf(FilterDefinition.class, route);
-        assertExpression(filter.getExpression(), "el", "$in.header.foo == 'bar'");
+        assertExpression(filter.getExpression(), "simple", "${in.header.foo} == 'bar'");
     }
 
     @Test
