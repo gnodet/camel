@@ -48,8 +48,6 @@ import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultProducer;
 import org.apache.camel.util.CastUtils;
 import org.apache.camel.util.ObjectHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.apache.camel.component.aws.common.AwsExchangeUtil.getMessageForResponse;
 
@@ -58,8 +56,6 @@ import static org.apache.camel.component.aws.common.AwsExchangeUtil.getMessageFo
  * href="https://aws.amazon.com/lambda/">AWS Lambda</a>
  */
 public class LambdaProducer extends DefaultProducer {
-
-    private static final Logger LOG = LoggerFactory.getLogger(LambdaProducer.class);
 
     public LambdaProducer(final Endpoint endpoint) {
         super(endpoint);
@@ -96,7 +92,7 @@ public class LambdaProducer extends DefaultProducer {
         try {
             result = lambdaClient.getFunction(new GetFunctionRequest().withFunctionName(getConfiguration().getFunction()));
         } catch (AmazonServiceException ase) {
-            LOG.trace("getFunction command returned the error code {}", ase.getErrorCode());
+            log.trace("getFunction command returned the error code {}", ase.getErrorCode());
             throw ase;
         }
         Message message = getMessageForResponse(exchange);
@@ -108,7 +104,7 @@ public class LambdaProducer extends DefaultProducer {
         try {
             result = lambdaClient.deleteFunction(new DeleteFunctionRequest().withFunctionName(getConfiguration().getFunction()));
         } catch (AmazonServiceException ase) {
-            LOG.trace("deleteFunction command returned the error code {}", ase.getErrorCode());
+            log.trace("deleteFunction command returned the error code {}", ase.getErrorCode());
             throw ase;
         }
         Message message = getMessageForResponse(exchange);
@@ -120,7 +116,7 @@ public class LambdaProducer extends DefaultProducer {
         try {
             result = lambdaClient.listFunctions();
         } catch (AmazonServiceException ase) {
-            LOG.trace("listFunctions command returned the error code {}", ase.getErrorCode());
+            log.trace("listFunctions command returned the error code {}", ase.getErrorCode());
             throw ase;
         }
         Message message = getMessageForResponse(exchange);
@@ -135,7 +131,7 @@ public class LambdaProducer extends DefaultProducer {
                 .withPayload(exchange.getIn().getBody(String.class));
             result = lambdaClient.invoke(request);
         } catch (AmazonServiceException ase) {
-            LOG.trace("invokeFunction command returned the error code {}", ase.getErrorCode());
+            log.trace("invokeFunction command returned the error code {}", ase.getErrorCode());
             throw ase;
         }
         Message message = getMessageForResponse(exchange);
@@ -269,7 +265,7 @@ public class LambdaProducer extends DefaultProducer {
             result = lambdaClient.createFunction(request);
 
         } catch (AmazonServiceException ase) {
-            LOG.trace("createFunction command returned the error code {}", ase.getErrorCode());
+            log.trace("createFunction command returned the error code {}", ase.getErrorCode());
             throw ase;
         }
 
@@ -333,7 +329,7 @@ public class LambdaProducer extends DefaultProducer {
             result = lambdaClient.updateFunctionCode(request);
 
         } catch (AmazonServiceException ase) {
-            LOG.trace("updateFunction command returned the error code {}", ase.getErrorCode());
+            log.trace("updateFunction command returned the error code {}", ase.getErrorCode());
             throw ase;
         }
 
