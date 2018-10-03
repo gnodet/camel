@@ -21,11 +21,9 @@ import org.apache.camel.AsyncProcessor;
 import org.apache.camel.AsyncProducer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
-import org.apache.camel.Producer;
-import org.apache.camel.util.AsyncProcessorConverterHelper;
-import org.apache.camel.util.ServiceHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.camel.support.AsyncProcessorConverterHelper;
+import org.apache.camel.support.DefaultAsyncProducer;
+import org.apache.camel.support.ServiceHelper;
 
 import static org.apache.camel.processor.PipelineHelper.continueProcessing;
 
