@@ -36,7 +36,9 @@ public interface ProducerCache extends Service {
 
     Exchange send(Endpoint endpoint, Exchange exchange, Processor resultProcessor);
 
-    CompletableFuture<Exchange> asyncSendExchange(Endpoint endpoint, ExchangePattern pattern, Processor processor, Processor resultProcessor, Exchange inExchange, CompletableFuture<Exchange> exchangeFuture);
+    CompletableFuture<Exchange> asyncSendExchange(Endpoint endpoint, ExchangePattern pattern,
+                                                  Processor processor, Processor resultProcessor, Exchange inExchange,
+                                                  CompletableFuture<Exchange> exchangeFuture);
 
     Object getSource();
 

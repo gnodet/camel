@@ -24,14 +24,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
-import org.apache.camel.NamedNode;
 import org.apache.camel.Predicate;
-import org.apache.camel.Processor;
 import org.apache.camel.api.management.mbean.BacklogTracerEventMessage;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.support.EndpointHelper;
 import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.StringHelper;

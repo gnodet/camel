@@ -33,7 +33,6 @@ import org.apache.camel.spi.EndpointUtilizationStatistics;
 import org.apache.camel.spi.IdAware;
 import org.apache.camel.spi.ProducerCache;
 import org.apache.camel.spi.RouteContext;
-import org.apache.camel.support.AsyncProcessorHelper;
 import org.apache.camel.support.AsyncProcessorSupport;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.support.ExchangeHelper;
@@ -355,12 +354,6 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
                 public void done(boolean doneSync) {
                     // cleanup producer after usage
                     ex.removeProperty(Exchange.SLIP_PRODUCER);
-
-                    // we only have to handle async completion of the routing slip
-                    if (doneSync) {
-                        cb.done(true);
-                        return;
-                    }
 
                     try {
                         // continue processing the routing slip asynchronously

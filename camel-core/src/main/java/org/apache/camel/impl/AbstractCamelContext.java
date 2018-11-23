@@ -45,7 +45,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.naming.Context;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.camel.CamelContext;

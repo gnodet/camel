@@ -51,6 +51,9 @@ import org.slf4j.LoggerFactory;
 public final class ObjectHelper {
     private static final Logger LOG = LoggerFactory.getLogger(ObjectHelper.class);
 
+    private static final Float FLOAT_NAN = Float.NaN;
+    private static final Double DOUBLE_NAN = Double.NaN;
+
     /**
      * Utility classes should not have a public constructor.
      */
@@ -1079,9 +1082,6 @@ public final class ObjectHelper {
 
         return null;
     }
-
-    private static final Float FLOAT_NAN = Float.NaN;
-    private static final Double DOUBLE_NAN = Double.NaN;
 
     /**
      * Is the given value a numeric NaN type

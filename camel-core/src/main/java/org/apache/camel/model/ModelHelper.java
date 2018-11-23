@@ -270,7 +270,7 @@ public final class ModelHelper {
     }
 
     private static class ModelJAXBContextFactoryHolder {
-        private static ModelJAXBContextFactory INSTANCE = new DefaultModelJAXBContextFactory();
+        private static final ModelJAXBContextFactory INSTANCE = new DefaultModelJAXBContextFactory();
     }
 
     private static ModelJAXBContextFactory getDefaultModelJAXBContextFactory() {

@@ -38,18 +38,18 @@ public abstract class ValidatorReifier<T> {
         VALIDATORS = map;
     }
 
+    protected final T definition;
+
+    ValidatorReifier(T definition) {
+        this.definition = definition;
+    }
+
     public static ValidatorReifier<? extends ValidatorDefinition> reifier(ValidatorDefinition definition) {
         Function<ValidatorDefinition, ValidatorReifier<? extends ValidatorDefinition>> reifier = VALIDATORS.get(definition.getClass());
         if (reifier != null) {
             return reifier.apply(definition);
         }
         throw new IllegalStateException("Unsupported definition: " + definition);
-    }
-
-    protected final T definition;
-
-    ValidatorReifier(T definition) {
-        this.definition = definition;
     }
 
     public Validator createValidator(CamelContext context) throws Exception {

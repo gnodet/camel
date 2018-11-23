@@ -73,8 +73,8 @@ public class ConverterBenchmark {
     // The JMH samples are the best documentation for how to use it
     // http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/
     @State (Scope.Thread)
-    public static class BenchmarkState
-    {
+    public static class BenchmarkState {
+
         DefaultPackageScanClassResolver packageScanClassResolver;
         Injector injector;
         FactoryFinder factoryFinder;
@@ -106,40 +106,45 @@ public class ConverterBenchmark {
     public void benchmarkConversionTimeEnum(BenchmarkState state, Blackhole bh) {
         DefaultTypeConverter converter = state.converter;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 1000; i++) {
             bh.consume(converter.convertTo(LoggingLevel.class, "DEBUG"));
+        }
     }
 
     @Benchmark
     public void benchmarkConversionIntToLong(BenchmarkState state, Blackhole bh) {
         DefaultTypeConverter converter = state.converter;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 1000; i++) {
             bh.consume(converter.convertTo(Long.class, 3));
+        }
     }
 
     @Benchmark
     public void benchmarkConversionStringToChar(BenchmarkState state, Blackhole bh) {
         DefaultTypeConverter converter = state.converter;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 1000; i++) {
             bh.consume(converter.convertTo(char[].class, "Hello world"));
+        }
     }
 
     @Benchmark
     public void benchmarkConversionStringToURI(BenchmarkState state, Blackhole bh) {
         DefaultTypeConverter converter = state.converter;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 1000; i++) {
             bh.consume(converter.convertTo(URI.class, "uri:foo"));
+        }
     }
 
     @Benchmark
     public void benchmarkConversionListToStringArray(BenchmarkState state, Blackhole bh) {
         DefaultTypeConverter converter = state.converter;
 
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 1000; i++) {
             bh.consume(converter.convertTo(String[].class, Arrays.asList("DEBUG")));
+        }
     }
 
     @Ignore

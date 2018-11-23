@@ -177,19 +177,19 @@ public final class LRUCacheFactory {
         private final int maximumCacheSize;
         private final Consumer<V> evict;
 
-        public SimpleLRUCache(int maximumCacheSize) {
+        SimpleLRUCache(int maximumCacheSize) {
             this(16, maximumCacheSize, maximumCacheSize > 0);
         }
 
-        public SimpleLRUCache(int initialCapacity, int maximumCacheSize) {
+        SimpleLRUCache(int initialCapacity, int maximumCacheSize) {
             this(initialCapacity, maximumCacheSize, maximumCacheSize > 0);
         }
 
-        public SimpleLRUCache(int initialCapacity, int maximumCacheSize, boolean stopOnEviction) {
+        SimpleLRUCache(int initialCapacity, int maximumCacheSize, boolean stopOnEviction) {
             this(initialCapacity, maximumCacheSize, stopOnEviction ? SimpleLRUCache::doStop : SimpleLRUCache::doNothing);
         }
 
-        public SimpleLRUCache(int initialCapacity, int maximumCacheSize, Consumer<V> evicted) {
+        SimpleLRUCache(int initialCapacity, int maximumCacheSize, Consumer<V> evicted) {
             super(initialCapacity, DEFAULT_LOAD_FACTOR, true);
             this.maximumCacheSize = maximumCacheSize;
             this.evict = Objects.requireNonNull(evicted);

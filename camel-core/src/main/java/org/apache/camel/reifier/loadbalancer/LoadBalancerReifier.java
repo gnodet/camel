@@ -48,18 +48,18 @@ public class LoadBalancerReifier<T extends LoadBalancerDefinition> {
         LOAD_BALANCERS = map;
     }
 
+    protected final T definition;
+
+    LoadBalancerReifier(T definition) {
+        this.definition = definition;
+    }
+
     public static LoadBalancerReifier<? extends LoadBalancerDefinition> reifier(LoadBalancerDefinition definition) {
         Function<LoadBalancerDefinition, LoadBalancerReifier<? extends LoadBalancerDefinition>> reifier = LOAD_BALANCERS.get(definition.getClass());
         if (reifier != null) {
             return reifier.apply(definition);
         }
         throw new IllegalStateException("Unsupported definition: " + definition);
-    }
-
-    protected final T definition;
-
-    LoadBalancerReifier(T definition) {
-        this.definition = definition;
     }
 
     /**

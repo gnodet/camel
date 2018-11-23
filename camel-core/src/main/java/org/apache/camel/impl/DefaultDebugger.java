@@ -44,8 +44,6 @@ import org.apache.camel.support.EventNotifierSupport;
 import org.apache.camel.support.ServiceHelper;
 import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.ObjectHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The default implementation of the {@link Debugger}.

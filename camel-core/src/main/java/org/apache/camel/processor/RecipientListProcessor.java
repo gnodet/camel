@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.camel.AggregationStrategy;
 import org.apache.camel.AsyncProducer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -32,7 +33,6 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.impl.DefaultProducerCache;
-import org.apache.camel.AggregationStrategy;
 import org.apache.camel.spi.ProducerCache;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.AsyncProcessorConverterHelper;
@@ -41,8 +41,6 @@ import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.support.ServiceHelper;
 import org.apache.camel.util.URISupport;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Implements a dynamic <a
@@ -59,7 +57,6 @@ import org.slf4j.LoggerFactory;
  */
 public class RecipientListProcessor extends MulticastProcessor {
 
-    private static final Logger log = LoggerFactory.getLogger(RecipientListProcessor.class);
     private final Iterator<?> iter;
     private boolean ignoreInvalidEndpoints;
     private ProducerCache producerCache;
@@ -70,7 +67,8 @@ public class RecipientListProcessor extends MulticastProcessor {
      * This implementation ensures the provided producer is being released back in the producer cache when
      * its done using it.
      */
-    static final class RecipientProcessorExchangePair implements ProcessorExchangePair {
+    final class RecipientProcessorExchangePair implements ProcessorExchangePair {
+
         private final int index;
         private final Endpoint endpoint;
         private final AsyncProducer producer;

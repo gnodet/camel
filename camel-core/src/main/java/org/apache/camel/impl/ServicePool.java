@@ -61,7 +61,7 @@ public class ServicePool<S extends Service> extends ServiceSupport implements No
 
     static class Key<S> {
         private final S s;
-        public Key(S s) {
+        Key(S s) {
             this.s = Objects.requireNonNull(s);
         }
         @Override
@@ -212,7 +212,7 @@ public class ServicePool<S extends Service> extends ServiceSupport implements No
         private final Endpoint endpoint;
         private volatile S s;
 
-        public SinglePool(Endpoint endpoint) {
+        SinglePool(Endpoint endpoint) {
             this.endpoint = endpoint;
         }
 
@@ -274,7 +274,7 @@ public class ServicePool<S extends Service> extends ServiceSupport implements No
         private final Endpoint endpoint;
         private final ConcurrentLinkedQueue<S> queue = new ConcurrentLinkedQueue<>();
 
-        public MultiplePool(Endpoint endpoint) {
+        MultiplePool(Endpoint endpoint) {
             this.endpoint = endpoint;
         }
 

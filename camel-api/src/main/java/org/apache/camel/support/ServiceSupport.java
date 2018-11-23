@@ -73,23 +73,21 @@ public abstract class ServiceSupport implements StatefulService {
         synchronized (lock) {
             if (status == STARTED) {
                 log.trace("Service already started");
-                return;
-            }
-            if (status == STARTING) {
+            } else if (status == STARTING) {
                 log.trace("Service already starting");
-                return;
-            }
-            init();
-            try {
-                status = STARTING;
-                log.trace("Starting service");
-                doStart();
-                status = STARTED;
-                log.trace("Service started");
-            } catch (Exception e) {
-                status = FAILED;
-                log.trace("Error while starting service", e);
-                throw e;
+            } else {
+                init();
+                try {
+                    status = STARTING;
+                    log.trace("Starting service");
+                    doStart();
+                    status = STARTED;
+                    log.trace("Service started");
+                } catch (Exception e) {
+                    status = FAILED;
+                    log.trace("Error while starting service", e);
+                    throw e;
+                }
             }
         }
     }
@@ -104,22 +102,20 @@ public abstract class ServiceSupport implements StatefulService {
         synchronized (lock) {
             if (status == STOPPED || status == SHUTTINGDOWN || status == SHUTDOWN) {
                 log.trace("Service already stopped");
-                return;
-            }
-            if (status == STOPPING) {
+            } else if (status == STOPPING) {
                 log.trace("Service already stopping");
-                return;
-            }
-            status = STOPPING;
-            log.trace("Stopping service");
-            try {
-                doStop();
-                status = STOPPED;
-                log.trace("Service stopped service");
-            } catch (Exception e) {
-                status = FAILED;
-                log.trace("Error while stopping service", e);
-                throw e;
+            } else {
+                status = STOPPING;
+                log.trace("Stopping service");
+                try {
+                    doStop();
+                    status = STOPPED;
+                    log.trace("Service stopped service");
+                } catch (Exception e) {
+                    status = FAILED;
+                    log.trace("Error while stopping service", e);
+                    throw e;
+                }
             }
         }
     }
@@ -135,22 +131,20 @@ public abstract class ServiceSupport implements StatefulService {
         synchronized (lock) {
             if (status == SUSPENDED) {
                 log.trace("Service already suspended");
-                return;
-            }
-            if (status == SUSPENDING) {
+            } else if (status == SUSPENDING) {
                 log.trace("Service already suspending");
-                return;
-            }
-            status = SUSPENDING;
-            log.trace("Suspending service");
-            try {
-                doSuspend();
-                status = SUSPENDED;
-                log.trace("Service suspended");
-            } catch (Exception e) {
-                status = FAILED;
-                log.trace("Error while suspending service", e);
-                throw e;
+            } else {
+                status = SUSPENDING;
+                log.trace("Suspending service");
+                try {
+                    doSuspend();
+                    status = SUSPENDED;
+                    log.trace("Service suspended");
+                } catch (Exception e) {
+                    status = FAILED;
+                    log.trace("Error while suspending service", e);
+                    throw e;
+                }
             }
         }
     }
@@ -166,18 +160,18 @@ public abstract class ServiceSupport implements StatefulService {
         synchronized (lock) {
             if (status != SUSPENDED) {
                 log.trace("Service is not suspended");
-                return;
-            }
-            status = STARTING;
-            log.trace("Resuming service");
-            try {
-                doResume();
-                status = STARTED;
-                log.trace("Service resumed");
-            } catch (Exception e) {
-                status = FAILED;
-                log.trace("Error while resuming service", e);
-                throw e;
+            } else {
+                status = STARTING;
+                log.trace("Resuming service");
+                try {
+                    doResume();
+                    status = STARTED;
+                    log.trace("Service resumed");
+                } catch (Exception e) {
+                    status = FAILED;
+                    log.trace("Error while resuming service", e);
+                    throw e;
+                }
             }
         }
     }
@@ -193,23 +187,21 @@ public abstract class ServiceSupport implements StatefulService {
         synchronized (lock) {
             if (status == SHUTDOWN) {
                 log.trace("Service already shut down");
-                return;
-            }
-            if (status == SHUTTINGDOWN) {
+            } else if (status == SHUTTINGDOWN) {
                 log.trace("Service already shutting down");
-                return;
-            }
-            stop();
-            status = SHUTDOWN;
-            log.trace("Shutting down service");
-            try {
-                doShutdown();
-                log.trace("Service shut down");
+            } else {
+                stop();
                 status = SHUTDOWN;
-            } catch (Exception e) {
-                status = FAILED;
-                log.trace("Error shutting down service", e);
-                throw e;
+                log.trace("Shutting down service");
+                try {
+                    doShutdown();
+                    log.trace("Service shut down");
+                    status = SHUTDOWN;
+                } catch (Exception e) {
+                    status = FAILED;
+                    log.trace("Error shutting down service", e);
+                    throw e;
+                }
             }
         }
     }
@@ -217,18 +209,18 @@ public abstract class ServiceSupport implements StatefulService {
     @Override
     public ServiceStatus getStatus() {
         switch (status) {
-            case STARTING:
-                return ServiceStatus.Starting;
-            case STARTED:
-                return ServiceStatus.Started;
-            case SUSPENDING:
-                return ServiceStatus.Suspending;
-            case SUSPENDED:
-                return ServiceStatus.Suspended;
-            case STOPPING:
-                return ServiceStatus.Stopping;
-            default:
-                return ServiceStatus.Stopped;
+        case STARTING:
+            return ServiceStatus.Starting;
+        case STARTED:
+            return ServiceStatus.Started;
+        case SUSPENDING:
+            return ServiceStatus.Suspending;
+        case SUSPENDED:
+            return ServiceStatus.Suspended;
+        case STOPPING:
+            return ServiceStatus.Stopping;
+        default:
+            return ServiceStatus.Stopped;
         }
     }
 

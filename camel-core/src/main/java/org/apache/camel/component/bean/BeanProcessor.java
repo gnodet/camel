@@ -108,19 +108,19 @@ public class BeanProcessor extends ServiceSupport implements AsyncProcessor {
 
     private static final class DelegateBeanProcessor extends AbstractBeanProcessor {
 
-        public DelegateBeanProcessor(Object pojo, BeanInfo beanInfo) {
+        DelegateBeanProcessor(Object pojo, BeanInfo beanInfo) {
             super(pojo, beanInfo);
         }
 
-        public DelegateBeanProcessor(Object pojo, CamelContext camelContext, ParameterMappingStrategy parameterMappingStrategy) {
+        DelegateBeanProcessor(Object pojo, CamelContext camelContext, ParameterMappingStrategy parameterMappingStrategy) {
             super(pojo, camelContext, parameterMappingStrategy);
         }
 
-        public DelegateBeanProcessor(Object pojo, CamelContext camelContext) {
+        DelegateBeanProcessor(Object pojo, CamelContext camelContext) {
             super(pojo, camelContext);
         }
 
-        public DelegateBeanProcessor(BeanHolder beanHolder) {
+        DelegateBeanProcessor(BeanHolder beanHolder) {
             super(beanHolder);
         }
     }

@@ -72,7 +72,7 @@ public class TryProcessor extends AsyncProcessorSupport implements Navigate<Proc
         final Iterator<Processor> processors;
         final Object lastHandled;
 
-        public TryState(Exchange exchange, AsyncCallback callback) {
+        TryState(Exchange exchange, AsyncCallback callback) {
             this.exchange = exchange;
             this.callback = callback;
             this.processors = next().iterator();

@@ -33,8 +33,6 @@ import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.FilePathResolver;
 import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.IOHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of {@link StreamCachingStrategy}

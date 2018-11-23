@@ -39,7 +39,7 @@ class MethodsFilter {
      * @param clazz The {@link java.lang.Class} whose methods are to be
      *            filtered.
      */
-    public MethodsFilter(Class<?> clazz) {
+    MethodsFilter(Class<?> clazz) {
         this.inheritingClass = clazz;
     }
 

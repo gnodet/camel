@@ -31,8 +31,6 @@ import org.apache.camel.cluster.CamelClusterView;
 import org.apache.camel.support.ServiceSupport;
 import org.apache.camel.util.ReferenceCount;
 import org.apache.camel.util.concurrent.LockHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractCamelClusterService<T extends CamelClusterView> extends ServiceSupport implements CamelClusterService {
 

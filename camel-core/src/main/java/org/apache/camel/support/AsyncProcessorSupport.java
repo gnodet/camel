@@ -17,7 +17,6 @@
 package org.apache.camel.support;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;

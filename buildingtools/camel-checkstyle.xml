@@ -112,6 +112,9 @@ lengths, if/try depths, etc...
         <module name="ImportOrder">
             <property name="groups" value="java,javax,org.w3c,org.xml,junit"/>
             <property name="ordered" value="true"/>
+            <property name="separated" value="true"/>
+            <property name="separatedStaticGroups" value="true"/>
+            <property name="option" value="bottom"/>
         </module>
         <!--
         <module name="ImportControl">
@@ -237,6 +240,7 @@ lengths, if/try depths, etc...
         -->
         <module name="ReturnCount">
             <property name="max" value="25"/>
+            <property name="maxForVoid" value="10"/>
         </module>
 
         <!-- Um.. we tend to use these alot.. perhaps enable this check later.

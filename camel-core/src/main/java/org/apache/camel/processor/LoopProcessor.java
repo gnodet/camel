@@ -77,7 +77,7 @@ public class LoopProcessor extends DelegateAsyncProcessor implements Traceable, 
         int index;
         int count;
 
-        public LoopState(Exchange exchange, AsyncCallback callback) throws NoTypeConversionAvailableException {
+        LoopState(Exchange exchange, AsyncCallback callback) throws NoTypeConversionAvailableException {
             this.exchange = exchange;
             this.callback = callback;
             this.current = exchange;

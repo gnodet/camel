@@ -31,7 +31,7 @@ import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.core.xml.AbstractCamelFactoryBean;
 import org.apache.camel.model.RedeliveryPolicyDefinition;
 import org.apache.camel.processor.RedeliveryPolicy;
-import org.apache.camel.reifier.ErrorHandlerReifier;
+import org.apache.camel.reifier.ErrorHandlerReifierHelper;
 import org.osgi.service.blueprint.container.BlueprintContainer;
 
 @XmlRootElement(name = "errorHandler")
@@ -78,7 +78,7 @@ public class CamelErrorHandlerFactoryBean extends AbstractCamelFactoryBean<Error
                 handler.setUseOriginalMessage(useOriginalMessage);
             }
             if (redeliveryPolicy != null) {
-                handler.setRedeliveryPolicy(ErrorHandlerReifier.createRedeliveryPolicy(redeliveryPolicy, getCamelContext(), null));
+                handler.setRedeliveryPolicy(ErrorHandlerReifierHelper.createRedeliveryPolicy(redeliveryPolicy, getCamelContext(), null));
             }
             if (redeliveryPolicyRef != null) {
                 handler.setRedeliveryPolicy(lookup(redeliveryPolicyRef, RedeliveryPolicy.class));
