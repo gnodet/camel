@@ -56,17 +56,17 @@ public class ShiroSecurityProcessor extends DelegateAsyncProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             applySecurityPolicy(exchange);
         } catch (Exception e) {
             // exception occurred so break out
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
-        return super.process(exchange, callback);
+        super.process(exchange, callback);
     }
 
     private void applySecurityPolicy(Exchange exchange) throws Exception {

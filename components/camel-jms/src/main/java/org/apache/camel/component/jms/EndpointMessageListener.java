@@ -112,18 +112,15 @@ public class EndpointMessageListener implements SessionAwareMessageListener {
                 } catch (Exception e) {
                     exchange.setException(e);
                 } finally {
-                    callback.done(true);
+                    callback.done();
                 }
             } else {
                 // process asynchronous using the async routing engine
                 if (LOG.isTraceEnabled()) {
                     LOG.trace("Processing exchange {} asynchronously", exchange.getExchangeId());
                 }
-                boolean sync = processor.process(exchange, callback);
-                if (!sync) {
-                    // will be done async so return now
-                    return;
-                }
+                processor.process(exchange, callback);
+                return;
             }
             // if we failed processed the exchange from the async callback task, then grab the exception
             rce = exchange.getException(RuntimeCamelException.class);
@@ -166,7 +163,7 @@ public class EndpointMessageListener implements SessionAwareMessageListener {
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             LOG.trace("onMessage.process END");
 
             // now we evaluate the processing of the exchange and determine if it was a success or failure
@@ -227,15 +224,9 @@ public class EndpointMessageListener implements SessionAwareMessageListener {
 
             // if an exception occurred
             if (rce != null) {
-                if (doneSync) {
-                    // we were done sync, so put exception on exchange, so we can grab it in the onMessage
-                    // method and rethrow it
-                    exchange.setException(rce);
-                } else {
-                    // we were done async, so use the endpoint error handler
-                    if (endpoint.getErrorHandler() != null) {
-                        endpoint.getErrorHandler().handleError(rce);
-                    }
+                // we were done async, so use the endpoint error handler
+                if (endpoint.getErrorHandler() != null) {
+                    endpoint.getErrorHandler().handleError(rce);
                 }
             }
         }

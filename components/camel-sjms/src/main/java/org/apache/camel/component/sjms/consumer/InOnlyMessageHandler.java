@@ -53,7 +53,7 @@ public class InOnlyMessageHandler extends AbstractMessageHandler {
                 } catch (Exception e) {
                     exchange.setException(e);
                 } finally {
-                    callback.done(true);
+                    callback.done();
                 }
             } else {
                 // process asynchronous using the async routing engine
@@ -77,7 +77,7 @@ public class InOnlyMessageHandler extends AbstractMessageHandler {
         }
 
         @Override
-        public void done(boolean sync) {
+        public void done() {
             log.debug("NoOpAsyncCallback InOnly Exchange complete");
         }
     }

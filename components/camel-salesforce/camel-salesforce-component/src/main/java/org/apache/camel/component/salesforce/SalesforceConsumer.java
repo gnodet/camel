@@ -147,11 +147,10 @@ public class SalesforceConsumer extends DefaultConsumer {
         try {
             getAsyncProcessor().process(exchange, new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     // noop
                     if (log.isTraceEnabled()) {
-                        log.trace("Done processing event: {} {}", channel.getId(),
-                                doneSync ? "synchronously" : "asynchronously");
+                        log.trace("Done processing event: {}", channel.getId());
                     }
                 }
             });

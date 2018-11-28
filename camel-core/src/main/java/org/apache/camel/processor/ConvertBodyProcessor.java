@@ -16,13 +16,10 @@
  */
 package org.apache.camel.processor;
 
-import java.util.concurrent.CompletableFuture;
-
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.spi.IdAware;
 import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.ExchangeHelper;
@@ -117,21 +114,13 @@ public class ConvertBodyProcessor extends ServiceSupport implements AsyncProcess
     }
 
     @Override
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
-    }
-
-    @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             process(exchange);
         } catch (Exception e) {
             exchange.setException(e);
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public Class<?> getType() {

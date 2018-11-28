@@ -42,35 +42,31 @@ public class MyAsyncProducer extends DefaultAsyncProducer {
         return (MyAsyncEndpoint) super.getEndpoint();
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
-        executor.submit(new Callable<Object>() {
-            public Object call() throws Exception {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
+        executor.submit(() -> {
+            LOG.info("Simulating a task which takes " + getEndpoint().getDelay() + " millis to reply");
+            Thread.sleep(getEndpoint().getDelay());
 
-                LOG.info("Simulating a task which takes " + getEndpoint().getDelay() + " millis to reply");
-                Thread.sleep(getEndpoint().getDelay());
-
-                int count = counter.incrementAndGet();
-                if (getEndpoint().getFailFirstAttempts() >= count) {
-                    LOG.info("Simulating a failure at attempt " + count);
-                    exchange.setException(new CamelExchangeException("Simulated error at attempt " + count, exchange));
-                } else {
-                    String reply = getEndpoint().getReply();
-                    reply = getEndpoint().isAppend() ? exchange.getIn().getBody() + " " + reply : reply;
-                    exchange.getOut().setBody(reply);
-                    // propagate headers
-                    exchange.getOut().setHeaders(exchange.getIn().getHeaders());
-                    LOG.info("Setting reply " + reply);
-                }
-
-                LOG.info("Callback done(false)");
-                callback.done(false);
-                return null;
+            int count = counter.incrementAndGet();
+            if (getEndpoint().getFailFirstAttempts() >= count) {
+                LOG.info("Simulating a failure at attempt " + count);
+                exchange.setException(new CamelExchangeException("Simulated error at attempt " + count, exchange));
+            } else {
+                String reply = getEndpoint().getReply();
+                reply = getEndpoint().isAppend() ? exchange.getIn().getBody() + " " + reply : reply;
+                exchange.getOut().setBody(reply);
+                // propagate headers
+                exchange.getOut().setHeaders(exchange.getIn().getHeaders());
+                LOG.info("Setting reply " + reply);
             }
+
+            LOG.info("Callback done(false)");
+            callback.done();
+            return null;
         });
 
         // indicate from this point forward its being routed asynchronously
         LOG.info("Task submitted, now tell Camel routing engine to that this Exchange is being continued asynchronously");
-        return false;
     }
 
 }

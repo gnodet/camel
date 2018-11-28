@@ -46,7 +46,7 @@ public class MiloClientProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback async) {
+    public void process(Exchange exchange, AsyncCallback async) {
         final Message msg = exchange.getIn();
         final Object value = msg.getBody();
 
@@ -63,10 +63,9 @@ public class MiloClientProducer extends DefaultAsyncProducer {
         final Boolean await = msg.getHeader("await", this.defaultAwaitWrites, Boolean.class);
 
         if (TRUE.equals(await)) {
-            future.whenComplete((v, ex) -> async.done(false));
-            return false;
+            future.whenComplete((v, ex) -> async.done());
         } else {
-            return true;
+            async.done();
         }
     }
 

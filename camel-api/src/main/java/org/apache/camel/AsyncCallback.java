@@ -25,17 +25,29 @@ package org.apache.camel;
  * routing {@link Exchange} when all the data has been gathered. This allows to build non blocking
  * request/reply communication.
  */
-public interface AsyncCallback {
+public interface AsyncCallback extends Runnable {
+
+    AsyncCallback EMPTY = () -> { };
 
     /**
      * This method is invoked once the {@link Exchange} is done.
      * <p/>
      * If an exception occurred while processing the exchange, the exception field of the
      * {@link Exchange} being processed will hold the caused exception.
-     *
-     * @param doneSync is <tt>true</tt> if the processing of the {@link Exchange} was completed by a synchronous thread.
-     *                 Otherwise its <tt>false</tt> to indicate it was completed by an asynchronous thread.
      */
-    void done(boolean doneSync);
+    void done();
 
+    default void run() {
+        done();
+    }
+
+    default AsyncCallback then(AsyncCallback cb) {
+        return () -> {
+            try {
+                this.done();
+            } finally {
+                cb.done();
+            }
+        };
+    }
 }

@@ -52,7 +52,7 @@ public class ControlBusProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (getEndpoint().getLanguage() != null) {
             try {
                 processByLanguage(exchange, getEndpoint().getLanguage());
@@ -67,8 +67,7 @@ public class ControlBusProducer extends DefaultAsyncProducer {
             }
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     protected void processByLanguage(Exchange exchange, Language language) throws Exception {

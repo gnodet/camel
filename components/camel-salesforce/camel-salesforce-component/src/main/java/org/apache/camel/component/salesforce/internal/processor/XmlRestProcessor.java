@@ -264,7 +264,7 @@ public class XmlRestProcessor extends AbstractRestProcessor {
             }
 
             // notify callback that exchange is done
-            callback.done(false);
+            callback.done();
         }
     }
 

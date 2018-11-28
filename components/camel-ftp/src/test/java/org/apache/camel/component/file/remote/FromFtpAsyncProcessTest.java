@@ -75,7 +75,7 @@ public class FromFtpAsyncProcessTest extends FtpServerTestSupport {
         private ExecutorService executor = Executors.newSingleThreadExecutor();
 
         @Override
-        public boolean process(final Exchange exchange, final AsyncCallback callback) {
+        public void process(final Exchange exchange, final AsyncCallback callback) {
             executor.submit(new Runnable() {
                 @Override
                 public void run() {
@@ -86,11 +86,9 @@ public class FromFtpAsyncProcessTest extends FtpServerTestSupport {
                     }
 
                     exchange.getIn().setHeader("foo", 123);
-                    callback.done(false);
+                    callback.done();
                 }
             });
-
-            return false;
         }
 
     }

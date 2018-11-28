@@ -31,10 +31,9 @@ import org.apache.camel.support.ReactiveHelper;
  */
 public class TopicLoadBalancer extends LoadBalancerSupport {
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         AsyncProcessor[] processors = doGetProcessors();
         ReactiveHelper.schedule(new State(exchange, callback, processors)::run);
-        return false;
     }
 
     protected class State {
@@ -53,16 +52,16 @@ public class TopicLoadBalancer extends LoadBalancerSupport {
             if (index < processors.length) {
                 AsyncProcessor processor = processors[index++];
                 Exchange copy = copyExchangeStrategy(processor, exchange);
-                processor.process(copy, doneSync -> done(copy));
+                processor.process(copy, () -> done(copy));
             } else {
-                callback.done(false);
+                callback.done();
             }
         }
 
         public void done(Exchange current) {
             if (current.getException() != null) {
                 exchange.setException(current.getException());
-                callback.done(false);
+                callback.done();
             } else {
                 ReactiveHelper.schedule(this::run);
             }

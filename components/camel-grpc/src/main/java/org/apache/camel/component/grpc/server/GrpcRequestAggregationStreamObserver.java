@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 import io.grpc.stub.StreamObserver;
+import org.apache.camel.AsyncCallback;
 import org.apache.camel.component.grpc.GrpcConsumer;
 import org.apache.camel.component.grpc.GrpcEndpoint;
 
@@ -55,9 +56,7 @@ public class GrpcRequestAggregationStreamObserver extends GrpcRequestAbstractStr
         exchange.getIn().setBody(requestList);
         exchange.getIn().setHeaders(headers);
 
-        consumer.process(exchange, doneSync -> {
-            latch.countDown();
-        });
+        consumer.process(exchange, latch::countDown);
         
         try {
             latch.await();

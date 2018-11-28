@@ -93,12 +93,12 @@ public class AsyncEndpointCustomAsyncInterceptorTest extends ContextTestSupport 
             // in the constructor of the DelegateAsyncProcessor
             return new DelegateAsyncProcessor(target) {
                 @Override
-                public boolean process(Exchange exchange, AsyncCallback callback) {
+                public void process(Exchange exchange, AsyncCallback callback) {
                     // we just want to count number of interceptions
                     counter.incrementAndGet();
 
                     // invoke processor to continue routing the message
-                    return processor.process(exchange, callback);
+                    processor.process(exchange, callback);
                 }
             };
         }

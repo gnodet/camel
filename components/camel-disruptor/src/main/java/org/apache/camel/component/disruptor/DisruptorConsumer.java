@@ -45,7 +45,7 @@ public class DisruptorConsumer extends ServiceSupport implements Consumer, Suspe
 
     private static final AsyncCallback NOOP_ASYNC_CALLBACK = new AsyncCallback() {
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             //Noop
         }
     };

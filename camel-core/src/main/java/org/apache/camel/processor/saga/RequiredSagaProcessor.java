@@ -37,7 +37,7 @@ public class RequiredSagaProcessor extends SagaProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         getCurrentSagaCoordinator(exchange).whenComplete((existingCoordinator, ex) -> ifNotException(ex, exchange, callback, () -> {
             CompletableFuture<CamelSagaCoordinator> coordinatorFuture;
             final boolean inheritedCoordinator;
@@ -52,18 +52,16 @@ public class RequiredSagaProcessor extends SagaProcessor {
             coordinatorFuture.whenComplete((coordinator, ex2) -> ifNotException(ex2, exchange, !inheritedCoordinator, coordinator, existingCoordinator, callback, () -> {
                 setCurrentSagaCoordinator(exchange, coordinator);
                 coordinator.beginStep(exchange, step).whenComplete((done, ex3) -> ifNotException(ex3, exchange, !inheritedCoordinator, coordinator, existingCoordinator, callback, () -> {
-                    super.process(exchange, doneSync -> {
+                    super.process(exchange, () -> {
                         if (!inheritedCoordinator) {
                             // Saga starts and ends here
                             handleSagaCompletion(exchange, coordinator, null, callback);
                         } else {
-                            callback.done(false);
+                            callback.done();
                         }
                     });
                 }));
             }));
         }));
-
-        return false;
     }
 }

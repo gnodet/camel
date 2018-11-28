@@ -293,7 +293,7 @@ public class TransformerRouteTest extends ContextTestSupport {
         public Producer createProducer() throws Exception {
             return new DefaultAsyncProducer(this) {
                 @Override
-                public boolean process(Exchange exchange, AsyncCallback callback) {
+                public void process(Exchange exchange, AsyncCallback callback) {
                     Object input = exchange.getIn().getBody();
                     if (input instanceof XOrderResponse) {
                         log.info("Endpoint: XOrderResponse -> XML");
@@ -304,8 +304,7 @@ public class TransformerRouteTest extends ContextTestSupport {
                         exchange.getIn().setBody(new XOrder());
                         
                     }
-                    callback.done(true);
-                    return true;
+                    callback.done();
                 }
             };
         }

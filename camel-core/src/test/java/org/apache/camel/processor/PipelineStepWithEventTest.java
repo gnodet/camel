@@ -162,16 +162,16 @@ public class PipelineStepWithEventTest extends ContextTestSupport {
         }
 
         @Override
-        public boolean process(final Exchange exchange, final AsyncCallback callback) {
+        public void process(final Exchange exchange, final AsyncCallback callback) {
             final StopWatch watch = new StopWatch();
             if (listener != null) {
                 listener.beforeStep(new BeforeStepEvent(exchange, id));
             }
-            return super.process(exchange, doneSync -> {
+            super.process(exchange, () -> {
                 if (listener != null) {
                     listener.afterStep(new AfterStepEvent(exchange, id, watch.taken()));
                 }
-                callback.done(doneSync);
+                callback.done();
             });
         }
 

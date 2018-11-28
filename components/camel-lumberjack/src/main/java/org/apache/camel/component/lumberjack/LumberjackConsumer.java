@@ -70,6 +70,6 @@ public class LumberjackConsumer extends DefaultConsumer {
         exchange.getIn().setBody(payload);
 
         // Process the exchange
-        getAsyncProcessor().process(exchange, doneSync -> callback.onComplete(!exchange.isFailed()));
+        getAsyncProcessor().process(exchange, () -> callback.onComplete(!exchange.isFailed()));
     }
 }

@@ -79,7 +79,7 @@ public class ThreadsProcessor extends AsyncProcessorSupport implements IdAware {
             if (shutdown.get()) {
                 exchange.setException(new RejectedExecutionException("ThreadsProcessor is not running."));
             }
-            callback.done(done);
+            callback.done();
         }
 
         @Override
@@ -90,7 +90,7 @@ public class ThreadsProcessor extends AsyncProcessorSupport implements IdAware {
             if (shutdown.get()) {
                 exchange.setException(new RejectedExecutionException("ThreadsProcessor is not running."));
             }
-            callback.done(done);
+            callback.done();
         }
 
         @Override
@@ -109,7 +109,7 @@ public class ThreadsProcessor extends AsyncProcessorSupport implements IdAware {
         this.rejectedPolicy = rejectedPolicy;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (shutdown.get()) {
             throw new IllegalStateException("ThreadsProcessor is not running.");
         }
@@ -118,8 +118,8 @@ public class ThreadsProcessor extends AsyncProcessorSupport implements IdAware {
         // using different threads in the same transaction
         if (exchange.isTransacted()) {
             log.trace("Transacted Exchange must be routed synchronously for exchangeId: {} -> {}", exchange.getExchangeId(), exchange);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         try {
@@ -128,18 +128,15 @@ public class ThreadsProcessor extends AsyncProcessorSupport implements IdAware {
             log.trace("Submitting task {}", call);
             executorService.submit(call);
             // tell Camel routing engine we continue routing asynchronous
-            return false;
         } catch (Throwable e) {
             if (executorService instanceof ThreadPoolExecutor) {
                 ThreadPoolExecutor tpe = (ThreadPoolExecutor) executorService;
                 // process the call in synchronous mode
                 ProcessCall call = new ProcessCall(exchange, callback, true);
                 rejectedPolicy.asRejectedExecutionHandler().rejectedExecution(call, tpe);
-                return true;
             } else {
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
             }
         }
     }

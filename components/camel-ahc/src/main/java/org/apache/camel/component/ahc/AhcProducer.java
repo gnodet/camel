@@ -46,17 +46,15 @@ public class AhcProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             // AHC supports async processing
             Request request = getEndpoint().getBinding().prepareRequest(getEndpoint(), exchange);
             log.debug("Executing request {}", request);
             client.executeRequest(request, new AhcAsyncHandler(exchange, callback, request.getUrl(), getEndpoint().getBufferSize()));
-            return false;
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
@@ -90,7 +88,7 @@ public class AhcProducer extends DefaultAsyncProducer {
             } catch (Exception e) {
                 exchange.setException(e);
             } finally {
-                callback.done(false);
+                callback.done();
             }
         }
 
@@ -105,7 +103,7 @@ public class AhcProducer extends DefaultAsyncProducer {
                 exchange.setException(e);
             } finally {
                 // signal we are done
-                callback.done(false);
+                callback.done();
             }
             return exchange;
         }

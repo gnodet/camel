@@ -41,26 +41,24 @@ public class Debug implements InterceptStrategy {
                                                  final Processor target, final Processor nextTarget) throws Exception {
         return new DelegateAsyncProcessor(target) {
             @Override
-            public boolean process(final Exchange exchange, final AsyncCallback callback) {
+            public void process(final Exchange exchange, final AsyncCallback callback) {
                 try {
                     debugger.beforeProcess(exchange, target, definition);
                 } catch (Throwable e) {
                     exchange.setException(e);
-                    callback.done(true);
-                    return true;
+                    callback.done();
+                    return;
                 }
 
                 final StopWatch watch = new StopWatch();
 
-                return processor.process(exchange, new AsyncCallback() {
-                    public void done(boolean doneSync) {
-                        long diff = watch.taken();
-                        try {
-                            debugger.afterProcess(exchange, processor, definition, diff);
-                        } finally {
-                            // must notify original callback
-                            callback.done(doneSync);
-                        }
+                processor.process(exchange, () -> {
+                    long diff = watch.taken();
+                    try {
+                        debugger.afterProcess(exchange, processor, definition, diff);
+                    } finally {
+                        // must notify original callback
+                        callback.done();
                     }
                 });
             }

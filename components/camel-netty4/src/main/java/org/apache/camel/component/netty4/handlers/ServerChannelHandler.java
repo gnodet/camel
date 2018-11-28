@@ -140,7 +140,7 @@ public class ServerChannelHandler extends SimpleChannelInboundHandler<Object> {
     private void processAsynchronously(final Exchange exchange, final ChannelHandlerContext ctx, final Object message) {
         consumer.getAsyncProcessor().process(exchange, new AsyncCallback() {
             @Override
-            public void done(boolean doneSync) {
+            public void done() {
                 // send back response if the communication is synchronous
                 try {
                     if (consumer.getConfiguration().isSync()) {

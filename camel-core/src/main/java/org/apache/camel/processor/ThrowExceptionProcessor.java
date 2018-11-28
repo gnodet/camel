@@ -50,7 +50,7 @@ public class ThrowExceptionProcessor extends AsyncProcessorSupport implements Tr
         this.message = message;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Exception cause = exception;
 
         try {
@@ -73,8 +73,7 @@ public class ThrowExceptionProcessor extends AsyncProcessorSupport implements Tr
             exchange.setException(new CamelExchangeException("Error creating new instance of " + exception.getClass(), exchange, e));
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public String getTraceLabel() {

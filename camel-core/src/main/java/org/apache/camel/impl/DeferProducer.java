@@ -16,14 +16,13 @@
  */
 package org.apache.camel.impl;
 
-import java.util.concurrent.CompletableFuture;
-
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Producer;
 import org.apache.camel.support.ServiceHelper;
+import org.apache.camel.support.ServiceSupport;
 
 /**
  * A {@link Producer} that defers being started, until {@link org.apache.camel.CamelContext} has been started, this
@@ -31,7 +30,7 @@ import org.apache.camel.support.ServiceHelper;
  * CamelContext. If we do not defer starting the producer it may not adapt to those changes, and
  * send messages to wrong endpoints.
  */
-public class DeferProducer extends org.apache.camel.support.ServiceSupport implements Producer, AsyncProcessor {
+public class DeferProducer extends ServiceSupport implements Producer, AsyncProcessor {
 
     private Producer delegate;
     private final Endpoint endpoint;
@@ -49,15 +48,16 @@ public class DeferProducer extends org.apache.camel.support.ServiceSupport imple
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (delegate == null) {
             exchange.setException(new IllegalStateException("Not started"));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         if (delegate instanceof AsyncProcessor) {
-            return ((AsyncProcessor) delegate).process(exchange, callback);
+            ((AsyncProcessor) delegate).process(exchange, callback);
+            return;
         }
 
         // fallback to sync mode
@@ -67,15 +67,7 @@ public class DeferProducer extends org.apache.camel.support.ServiceSupport imple
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
-    }
-
-    @Override
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
+        callback.done();
     }
 
     @Override

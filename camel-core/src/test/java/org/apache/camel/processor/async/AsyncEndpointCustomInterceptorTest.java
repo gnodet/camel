@@ -94,11 +94,11 @@ public class AsyncEndpointCustomInterceptorTest extends ContextTestSupport {
                                                      final Processor target, final Processor nextTarget) throws Exception {
 
             return new DelegateAsyncProcessor(target) {
-                public boolean process(final Exchange exchange, final AsyncCallback callback) {
+                public void process(final Exchange exchange, final AsyncCallback callback) {
                     // we just want to count number of interceptions
                     counter.incrementAndGet();
                     // and continue processing the exchange
-                    return super.process(exchange, callback);
+                    super.process(exchange, callback);
                 }
             };
         }

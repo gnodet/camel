@@ -157,10 +157,9 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
         return !forceShutdown && super.isRunAllowed();
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         AsyncProcessor[] processors = doGetProcessors();
         ReactiveHelper.schedule(new State(exchange, callback, processors)::run);
-        return false;
     }
 
     protected class State {
@@ -196,7 +195,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
                 // and copy the current result to original so it will contain this result of this eip
                 ExchangeHelper.copyResults(exchange, copy);
                 log.debug("Failover complete for exchangeId: {} >>> {}", exchange.getExchangeId(), exchange);
-                callback.done(false);
+                callback.done();
                 return;
             }
 
@@ -207,7 +206,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
                     exchange.setException(new RejectedExecutionException());
                 }
                 // we cannot process so invoke callback
-                callback.done(false);
+                callback.done();
                 return;
             }
 
@@ -217,7 +216,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
                 if (maximumFailoverAttempts > -1 && attempts > maximumFailoverAttempts) {
                     log.debug("Breaking out of failover after {} failover attempts", attempts);
                     ExchangeHelper.copyResults(exchange, copy);
-                    callback.done(false);
+                    callback.done();
                     return;
                 }
 
@@ -235,7 +234,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
                     // no more processors to try
                     log.trace("Breaking out of failover as we reached the end of endpoints to use for failover");
                     ExchangeHelper.copyResults(exchange, copy);
-                    callback.done(false);
+                    callback.done();
                     return;
                 }
             }
@@ -246,7 +245,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
 
             // process the exchange
             log.debug("Processing failover at attempt {} for {}", attempts, copy);
-            processor.process(copy, doneSync -> ReactiveHelper.schedule(this::run));
+            processor.process(copy, () -> ReactiveHelper.schedule(this::run));
         }
 
     }

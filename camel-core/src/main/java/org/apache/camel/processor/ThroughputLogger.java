@@ -95,14 +95,13 @@ public class ThroughputLogger extends AsyncProcessorSupport implements AsyncProc
         }
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             process(exchange);
         } catch (Exception e) {
             exchange.setException(e);
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public Integer getGroupSize() {

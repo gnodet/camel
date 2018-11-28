@@ -18,7 +18,6 @@ package org.apache.camel.cdi.transaction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledExecutorService;
 
 import javax.transaction.TransactionRolledbackException;
@@ -31,7 +30,6 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.Navigate;
 import org.apache.camel.Processor;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.processor.ErrorHandlerSupport;
 import org.apache.camel.processor.exceptionpolicy.ExceptionPolicyStrategy;
 import org.apache.camel.spi.ShutdownPrepared;
@@ -104,7 +102,7 @@ public class TransactionErrorHandler extends ErrorHandlerSupport
         }
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // invoke this synchronous method as JTA Transaction does *not*
         // support using multiple threads to span a transaction
         try {
@@ -114,15 +112,7 @@ public class TransactionErrorHandler extends ErrorHandlerSupport
         }
 
         // notify callback we are done synchronously
-        callback.done(true);
-        return true;
-    }
-
-    @Override
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
+        callback.done();
     }
 
     protected void processInTransaction(final Exchange exchange) throws Exception {

@@ -31,11 +31,12 @@ public class DefaultServiceLoadBalancer implements ServiceLoadBalancer {
     }
 
     @Override
-    public <T> T process(String serviceName, ServiceLoadBalancerFunction<T> function) throws Exception {
-        return client.execute(serviceName, instance -> {
-            return function.apply(
+    public void process(String serviceName, ServiceLoadBalancerFunction function) throws Exception {
+        client.execute(serviceName, instance -> {
+            function.apply(
                 convertServiceInstanceToServiceDefinition(instance)
             );
+            return null;
         });
     }
 

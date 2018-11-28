@@ -52,10 +52,9 @@ public class ExchangePatternProcessor extends AsyncProcessorSupport implements I
         return exchangePattern;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         exchange.setPattern(exchangePattern);
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

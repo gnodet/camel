@@ -156,7 +156,7 @@ public class CamelWebSocketHandler implements HttpHandler {
             final Exchange camelExchange, final AsyncCallback camelCallback) throws IOException {
         List<WebSocketChannel> targetPeers = delegate.getPeerConnections().stream().filter(peerFilter).collect(Collectors.toList());
         if (targetPeers.isEmpty()) {
-            camelCallback.done(true);
+            camelCallback.done();
             return true;
         } else {
             /* There are some peers to send the message to */
@@ -260,7 +260,7 @@ public class CamelWebSocketHandler implements HttpHandler {
                     camelExchange.setException(new CamelExchangeException(msg.toString(), camelExchange));
                 }
             }
-            camelCallback.done(false);
+            camelCallback.done();
         }
 
         @Override

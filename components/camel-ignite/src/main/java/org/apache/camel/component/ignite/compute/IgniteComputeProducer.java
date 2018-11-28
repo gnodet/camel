@@ -49,7 +49,7 @@ public class IgniteComputeProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         IgniteCompute compute = endpoint.createIgniteCompute().withAsync();
 
         try {
@@ -85,17 +85,15 @@ public class IgniteComputeProducer extends DefaultAsyncProducer {
                 
             default:
                 exchange.setException(new UnsupportedOperationException("Operation not supported by Ignite Compute producer."));
-                callback.done(false);
-                return false;
+                callback.done();
+                return;
             }
 
             compute.future().listen(IgniteInCamelClosure.create(exchange, callback));
-            return false;
 
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(false);
-            return false;
+            callback.done();
         }
     }
 
@@ -264,12 +262,12 @@ public class IgniteComputeProducer extends DefaultAsyncProducer {
                 result = future.get();
             } catch (Exception e) {
                 exchange.setException(e);
-                callback.done(false);
+                callback.done();
                 return;
             }
 
             exchange.getOut().setBody(result);
-            callback.done(false);
+            callback.done();
         }
     };
 

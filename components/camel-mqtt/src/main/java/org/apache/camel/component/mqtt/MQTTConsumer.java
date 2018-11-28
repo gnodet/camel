@@ -46,11 +46,10 @@ public class MQTTConsumer extends DefaultConsumer {
     }
 
     void processExchange(final Exchange exchange) {
-        boolean sync = true;
         try {
-            sync = getAsyncProcessor().process(exchange, new AsyncCallback() {
+            getAsyncProcessor().process(exchange, new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     if (exchange.getException() != null) {
                         getExceptionHandler().handleException("Error processing exchange.", exchange, exchange.getException());
                     }
@@ -58,12 +57,6 @@ public class MQTTConsumer extends DefaultConsumer {
             });
         } catch (Throwable e) {
             exchange.setException(e);
-        }
-
-        if (sync) {
-            if (exchange.getException() != null) {
-                getExceptionHandler().handleException("Error processing exchange.", exchange, exchange.getException());
-            }
         }
     }
 }

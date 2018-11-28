@@ -73,7 +73,7 @@ public class WebsocketConsumer extends DefaultConsumer implements WebsocketProdu
 
         // send exchange using the async routing engine
         getAsyncProcessor().process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
+            public void done() {
                 if (exchange.getException() != null) {
                     getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
                 }

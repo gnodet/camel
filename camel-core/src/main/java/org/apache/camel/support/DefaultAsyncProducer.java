@@ -16,12 +16,10 @@
  */
 package org.apache.camel.support;
 
-import java.util.concurrent.CompletableFuture;
-
+import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProducer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 
 /**
@@ -39,9 +37,6 @@ public abstract class DefaultAsyncProducer extends DefaultProducer implements As
         awaitManager.process(this, exchange);
     }
 
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
-    }
+    @Override
+    public abstract void process(Exchange exchange, AsyncCallback callback);
 }

@@ -134,11 +134,10 @@ public class ValidatorRouteTest extends ContextTestSupport {
         public Producer createProducer() throws Exception {
             return new DefaultAsyncProducer(this) {
                 @Override
-                public boolean process(Exchange exchange, AsyncCallback callback) {
+                public void process(Exchange exchange, AsyncCallback callback) {
                     exchange.setProperty(VALIDATOR_INVOKED, MyXmlEndpoint.class);
                     assertEquals("<XOrderResponse/>", exchange.getIn().getBody());
-                    callback.done(true);
-                    return true;
+                    callback.done();
                 }
             };
         }

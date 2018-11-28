@@ -71,13 +71,13 @@ public class GrpcProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         StreamObserver<Object> streamObserver = this.globalResponseObserver;
         if (globalResponseObserver == null) {
             streamObserver = new GrpcResponseAggregationStreamObserver(exchange, callback);
         }
 
-        return forwarder.forward(exchange, streamObserver, callback);
+        forwarder.forward(exchange, streamObserver, callback);
     }
 
     @Override

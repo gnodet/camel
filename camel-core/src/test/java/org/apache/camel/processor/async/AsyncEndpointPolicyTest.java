@@ -16,8 +16,6 @@
  */
 package org.apache.camel.processor.async;
 
-import java.util.concurrent.CompletableFuture;
-
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.ContextTestSupport;
@@ -25,7 +23,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.Policy;
@@ -119,16 +116,15 @@ public class AsyncEndpointPolicyTest extends ContextTestSupport {
 
         public Processor wrap(RouteContext routeContext, final Processor processor) {
             return new AsyncProcessor() {
-                public boolean process(final Exchange exchange, final AsyncCallback callback) {
+                public void process(final Exchange exchange, final AsyncCallback callback) {
                     invoked++;
                     // let the original processor continue routing
                     exchange.getIn().setHeader(name, "was wrapped");
                     AsyncProcessor ap = AsyncProcessorConverterHelper.convert(processor);
-                    ap.process(exchange, doneSync -> {
+                    ap.process(exchange, () -> {
                         exchange.getIn().setHeader(name, "policy finished execution");
-                        callback.done(false);
+                        callback.done();
                     });
-                    return false;
                 }
 
                 public void process(Exchange exchange) throws Exception {
@@ -136,11 +132,6 @@ public class AsyncEndpointPolicyTest extends ContextTestSupport {
                     awaitManager.process(this, exchange);
                 }
 
-                public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-                    AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-                    process(exchange, callback);
-                    return callback.getFuture();
-                }
             };
         }
 

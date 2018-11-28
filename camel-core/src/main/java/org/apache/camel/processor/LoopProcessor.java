@@ -47,7 +47,7 @@ public class LoopProcessor extends DelegateAsyncProcessor implements Traceable, 
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
 
             LoopState state = new LoopState(exchange, callback);
@@ -57,12 +57,10 @@ public class LoopProcessor extends DelegateAsyncProcessor implements Traceable, 
             } else {
                 ReactiveHelper.scheduleMain(state);
             }
-            return false;
 
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
@@ -109,7 +107,7 @@ public class LoopProcessor extends DelegateAsyncProcessor implements Traceable, 
                     log.debug("LoopProcessor: iteration #{}", index);
                     current.setProperty(Exchange.LOOP_INDEX, index);
 
-                    processor.process(current, doneSync -> {
+                    processor.process(current, () -> {
                         // increment counter after done
                         index++;
                         ReactiveHelper.schedule(this);
@@ -118,12 +116,12 @@ public class LoopProcessor extends DelegateAsyncProcessor implements Traceable, 
                     // we are done so prepare the result
                     ExchangeHelper.copyResults(exchange, current);
                     log.trace("Processing complete for exchangeId: {} >>> {}", exchange.getExchangeId(), exchange);
-                    callback.done(false);
+                    callback.done();
                 }
             } catch (Exception e) {
                 log.trace("Processing failed for exchangeId: {} >>> {}", exchange.getExchangeId(), e.getMessage());
                 exchange.setException(e);
-                callback.done(false);
+                callback.done();
             }
         }
 

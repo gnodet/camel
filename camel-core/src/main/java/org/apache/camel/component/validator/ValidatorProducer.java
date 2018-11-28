@@ -33,8 +33,8 @@ public class ValidatorProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
-        return validatingProcessor.process(exchange, callback);
+    public void process(Exchange exchange, AsyncCallback callback) {
+        validatingProcessor.process(exchange, callback);
     }
 
     @Override

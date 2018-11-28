@@ -32,7 +32,6 @@ import com.amazonaws.services.kinesis.model.Record;
 import com.amazonaws.services.kinesis.model.Shard;
 import com.amazonaws.services.kinesis.model.ShardIteratorType;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.support.ScheduledBatchPollingConsumer;
@@ -87,11 +86,8 @@ public class KinesisConsumer extends ScheduledBatchPollingConsumer {
             final Exchange exchange = ObjectHelper.cast(Exchange.class, exchanges.poll());
 
             log.trace("Processing exchange [{}] started.", exchange);
-            getAsyncProcessor().process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    log.trace("Processing exchange [{}] done.", exchange);
-                }
+            getAsyncProcessor().process(exchange, () -> {
+                log.trace("Processing exchange [{}] done.", exchange);
             });
             processedExchanges++;
         }

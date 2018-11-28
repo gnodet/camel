@@ -99,7 +99,7 @@ public class ClaimCheckProcessor extends AsyncProcessorSupport implements IdAwar
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // the repository is scoped per exchange
         ClaimCheckRepository repo = exchange.getProperty(Exchange.CLAIM_CHECK_REPOSITORY, ClaimCheckRepository.class);
         if (repo == null) {
@@ -158,8 +158,7 @@ public class ClaimCheckProcessor extends AsyncProcessorSupport implements IdAwar
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

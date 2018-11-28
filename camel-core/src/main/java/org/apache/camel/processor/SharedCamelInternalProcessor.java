@@ -19,7 +19,6 @@ package org.apache.camel.processor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.RejectedExecutionException;
 
 import org.apache.camel.AsyncCallback;
@@ -28,7 +27,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Ordered;
 import org.apache.camel.Processor;
 import org.apache.camel.Service;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.Transformer;
@@ -85,15 +83,8 @@ public class SharedCamelInternalProcessor {
         final AsyncProcessorAwaitManager awaitManager = exchange.getContext().getAsyncProcessorAwaitManager();
         awaitManager.process(new AsyncProcessor() {
             @Override
-            public boolean process(Exchange exchange, AsyncCallback callback) {
-                return SharedCamelInternalProcessor.this.process(exchange, callback, processor, resultProcessor);
-            }
-
-            @Override
-            public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-                AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-                process(exchange, callback);
-                return callback.getFuture();
+            public void process(Exchange exchange, AsyncCallback callback) {
+                SharedCamelInternalProcessor.this.process(exchange, callback, processor, resultProcessor);
             }
 
             @Override
@@ -106,7 +97,7 @@ public class SharedCamelInternalProcessor {
     /**
      * Asynchronous API
      */
-    public boolean process(Exchange exchange, AsyncCallback ocallback, AsyncProcessor processor, Processor resultProcessor) {
+    public void process(Exchange exchange, AsyncCallback ocallback, AsyncProcessor processor, Processor resultProcessor) {
         // ----------------------------------------------------------
         // CAMEL END USER - READ ME FOR DEBUGGING TIPS
         // ----------------------------------------------------------
@@ -123,8 +114,8 @@ public class SharedCamelInternalProcessor {
 
         if (processor == null || !continueProcessing(exchange, processor)) {
             // no processor or we should not continue then we are done
-            ocallback.done(true);
-            return true;
+            ocallback.done();
+            return;
         }
 
         // optimise to use object array for states
@@ -137,8 +128,8 @@ public class SharedCamelInternalProcessor {
                 states[i] = state;
             } catch (Throwable e) {
                 exchange.setException(e);
-                ocallback.done(true);
-                return true;
+                ocallback.done();
+                return;
             }
         }
 
@@ -167,17 +158,15 @@ public class SharedCamelInternalProcessor {
             // ----------------------------------------------------------
             // CAMEL END USER - DEBUG ME HERE +++ END +++
             // ----------------------------------------------------------
-            callback.done(true);
-            return true;
+            callback.done();
         } else {
             final UnitOfWork uow = exchange.getUnitOfWork();
 
             // allow unit of work to wrap callback in case it need to do some special work
             // for example the MDCUnitOfWork
-            AsyncCallback async = callback;
-            if (uow != null) {
-                async = uow.beforeProcess(processor, exchange, callback);
-            }
+            AsyncCallback async = uow != null
+                    ? uow.beforeProcess(processor, exchange, callback)
+                    : callback;
 
             // ----------------------------------------------------------
             // CAMEL END USER - DEBUG ME HERE +++ START +++
@@ -185,7 +174,7 @@ public class SharedCamelInternalProcessor {
             if (LOG.isTraceEnabled()) {
                 LOG.trace("Processing exchange for exchangeId: {} -> {}", exchange.getExchangeId(), exchange);
             }
-            boolean sync = processor.process(exchange, async);
+            processor.process(exchange, async);
             // ----------------------------------------------------------
             // CAMEL END USER - DEBUG ME HERE +++ END +++
             // ----------------------------------------------------------
@@ -193,7 +182,7 @@ public class SharedCamelInternalProcessor {
             ReactiveHelper.scheduleLast(() -> {
                 // execute any after processor work (in current thread, not in the callback)
                 if (uow != null) {
-                    uow.afterProcess(processor, exchange, callback, sync);
+                    uow.afterProcess(processor, exchange, async);
                 }
 
                 if (LOG.isTraceEnabled()) {
@@ -201,7 +190,6 @@ public class SharedCamelInternalProcessor {
                             exchange.getExchangeId(), exchange);
                 }
             }, "SharedCamelInternalProcessor - UnitOfWork - afterProcess - " + processor + " - " + exchange.getExchangeId());
-            return sync;
         }
     }
 
@@ -212,19 +200,18 @@ public class SharedCamelInternalProcessor {
 
         private final Object[] states;
         private final Exchange exchange;
-        private final AsyncCallback callback;
+        private final Runnable callback;
         private final Processor resultProcessor;
 
-        private InternalCallback(Object[] states, Exchange exchange, AsyncCallback callback, Processor resultProcessor) {
+        private InternalCallback(Object[] states, Exchange exchange, Runnable callback, Processor resultProcessor) {
             this.states = states;
             this.exchange = exchange;
             this.callback = callback;
             this.resultProcessor = resultProcessor;
         }
 
-        @Override
         @SuppressWarnings("unchecked")
-        public void done(boolean doneSync) {
+        public void done() {
             // NOTE: if you are debugging Camel routes, then all the code in the for loop below is internal only
             // so you can step straight to the finally block and invoke the callback
 
@@ -253,7 +240,7 @@ public class SharedCamelInternalProcessor {
                 // CAMEL END USER - DEBUG ME HERE +++ START +++
                 // ----------------------------------------------------------
                 // callback must be called
-                ReactiveHelper.callback(callback);
+                ReactiveHelper.schedule(callback);
                 // ----------------------------------------------------------
                 // CAMEL END USER - DEBUG ME HERE +++ END +++
                 // ----------------------------------------------------------

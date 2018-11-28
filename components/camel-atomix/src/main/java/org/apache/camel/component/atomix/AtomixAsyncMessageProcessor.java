@@ -27,5 +27,5 @@ public interface AtomixAsyncMessageProcessor {
      * @return
      * @throws Exception
      */
-    boolean process(Message message, AsyncCallback callback) throws Exception;
+    void process(Message message, AsyncCallback callback) throws Exception;
 }

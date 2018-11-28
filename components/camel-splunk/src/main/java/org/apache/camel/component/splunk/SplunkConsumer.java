@@ -69,7 +69,7 @@ public class SplunkConsumer extends ScheduledBatchPollingConsumer {
                             log.trace("Processing exchange [{}]...", exchange);
                             getAsyncProcessor().process(exchange, new AsyncCallback() {
                                 @Override
-                                public void done(boolean doneSync) {
+                                public void done() {
                                     log.trace("Done processing exchange [{}]...", exchange);
                                 }
                             });

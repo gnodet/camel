@@ -33,14 +33,14 @@ public class MQTTProducer extends DefaultAsyncProducer implements Processor {
     }
     
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         if (!mqttEndpoint.isConnected()) {
             try {
                 ensureConnected();
             } catch (Exception e) {
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
         }
 
@@ -70,29 +70,24 @@ public class MQTTProducer extends DefaultAsyncProducer implements Processor {
                     @Override
                     public void onSuccess(Void aVoid) {
                         log.trace("onSuccess from {}", name);
-                        callback.done(false);
+                        callback.done();
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
                         log.trace("onFailure from {}", name);
                         exchange.setException(throwable);
-                        callback.done(false);
+                        callback.done();
                     }
                 });
             } catch (Exception e) {
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
             }
-
-            // we continue async, as the mqtt endpoint will invoke the callback when its done
-            return false;
         } else {
             // no data to send so we are done
             log.trace("No data to publish");
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 

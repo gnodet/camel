@@ -71,20 +71,20 @@ public final class SubscribeMethodProcessor extends AsyncProcessorSupport implem
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             // evaluate which predicate matches and call the method
             for (Map.Entry<AsyncProcessor, Predicate> entry : methods.entrySet()) {
                 Predicate predicate = entry.getValue();
                 if (predicate.matches(exchange)) {
-                    return entry.getKey().process(exchange, callback);
+                    entry.getKey().process(exchange, callback);
+                    return;
                 }
             }
         } catch (Throwable e) {
             exchange.setException(e);
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

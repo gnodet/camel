@@ -43,7 +43,7 @@ public class IgniteQueueProducer extends DefaultAsyncProducer {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Message in = exchange.getIn();
         Message out = exchange.getOut();
         MessageHelper.copyHeaders(exchange.getIn(), out, true);
@@ -160,8 +160,7 @@ public class IgniteQueueProducer extends DefaultAsyncProducer {
             break;
         }
 
-        callback.done(false);
-        return false;
+        callback.done();
     }
 
     private IgniteQueueOperation queueOperationFor(Exchange exchange) {

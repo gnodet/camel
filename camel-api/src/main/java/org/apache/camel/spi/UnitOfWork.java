@@ -198,9 +198,8 @@ public interface UnitOfWork extends Service {
      * @param processor the processor executed
      * @param exchange  the current exchange
      * @param callback  the callback used
-     * @param doneSync  whether the process was done synchronously or asynchronously
      */
-    void afterProcess(Processor processor, Exchange exchange, AsyncCallback callback, boolean doneSync);
+    void afterProcess(Processor processor, Exchange exchange, AsyncCallback callback);
 
     /**
      * Create a child unit of work, which is associated to this unit of work as its parent.

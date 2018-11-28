@@ -43,7 +43,7 @@ public class BeanInfoTest extends Assert {
 
         AtomicBoolean sync = new AtomicBoolean(true);
         invocation.proceed(new AsyncCallback() {
-            public void done(boolean doneSync) {
+            public void done() {
                 // nnop
             }
         });

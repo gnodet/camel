@@ -183,7 +183,7 @@ public class HystrixProcessor extends AsyncProcessorSupport implements Navigate<
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // run this as if we run inside try .. catch so there is no regular Camel error handler
         exchange.setProperty(Exchange.TRY_ROUTE_BLOCK, true);
 
@@ -203,8 +203,7 @@ public class HystrixProcessor extends AsyncProcessorSupport implements Navigate<
         }
 
         exchange.removeProperty(Exchange.TRY_ROUTE_BLOCK);
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     private void commandResponse(Exchange exchange, HystrixCommand command) {

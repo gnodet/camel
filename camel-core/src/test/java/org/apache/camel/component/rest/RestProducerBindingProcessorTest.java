@@ -35,6 +35,7 @@ import org.mockito.ArgumentCaptor;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.same;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -75,7 +76,7 @@ public class RestProducerBindingProcessorTest {
 
         final ArgumentCaptor<AsyncCallback> bindingCallback = ArgumentCaptor.forClass(AsyncCallback.class);
 
-        when(processor.process(same(exchange), bindingCallback.capture())).thenReturn(false);
+        doNothing().when(processor).process(same(exchange), bindingCallback.capture());
 
         bindingProcessor.process(exchange, callback);
 
@@ -85,7 +86,7 @@ public class RestProducerBindingProcessorTest {
 
         final AsyncCallback that = bindingCallback.getValue();
 
-        that.done(false);
+        that.done();
 
         Assert.assertSame(response, exchange.getOut().getBody());
     }
@@ -109,7 +110,7 @@ public class RestProducerBindingProcessorTest {
 
         final ArgumentCaptor<AsyncCallback> bindingCallback = ArgumentCaptor.forClass(AsyncCallback.class);
 
-        when(processor.process(same(exchange), bindingCallback.capture())).thenReturn(false);
+        doNothing().when(processor).process(same(exchange), bindingCallback.capture());
 
         bindingProcessor.process(exchange, callback);
 
@@ -119,7 +120,7 @@ public class RestProducerBindingProcessorTest {
 
         final AsyncCallback that = bindingCallback.getValue();
 
-        that.done(false);
+        that.done();
 
         Assert.assertSame(response, exchange.getOut().getBody());
     }
@@ -140,7 +141,7 @@ public class RestProducerBindingProcessorTest {
 
         final ArgumentCaptor<AsyncCallback> bindingCallback = ArgumentCaptor.forClass(AsyncCallback.class);
 
-        when(processor.process(same(exchange), bindingCallback.capture())).thenReturn(false);
+        doNothing().when(processor).process(same(exchange), bindingCallback.capture());
 
         bindingProcessor.process(exchange, callback);
 
@@ -148,6 +149,6 @@ public class RestProducerBindingProcessorTest {
 
         final AsyncCallback that = bindingCallback.getValue();
 
-        that.done(false);
+        that.done();
     }
 }

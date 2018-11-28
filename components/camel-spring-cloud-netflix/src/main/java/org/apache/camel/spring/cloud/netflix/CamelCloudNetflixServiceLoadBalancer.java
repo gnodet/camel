@@ -37,8 +37,8 @@ public class CamelCloudNetflixServiceLoadBalancer implements ServiceLoadBalancer
     }
 
     @Override
-    public <T> T process(String serviceName, ServiceLoadBalancerFunction<T> function) throws Exception {
-        return client.execute(serviceName, instance -> {
+    public void process(String serviceName, ServiceLoadBalancerFunction function) throws Exception {
+        client.execute(serviceName, instance -> {
             ServiceDefinition definition = null;
 
             //
@@ -82,7 +82,8 @@ public class CamelCloudNetflixServiceLoadBalancer implements ServiceLoadBalancer
                 );
             }
 
-            return function.apply(definition);
+            function.apply(definition);
+            return null;
         });
     }
 }

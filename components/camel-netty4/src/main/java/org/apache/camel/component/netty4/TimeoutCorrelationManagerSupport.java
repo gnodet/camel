@@ -233,7 +233,7 @@ public abstract class TimeoutCorrelationManagerSupport extends ServiceSupport im
                     } else {
                         exchange.setException(new ExchangeTimedOutException(exchange, timeout));
                     }
-                    callback.done(false);
+                    callback.done();
                 }
             });
 

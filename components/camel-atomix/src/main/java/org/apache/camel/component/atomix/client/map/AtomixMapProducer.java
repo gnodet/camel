@@ -71,7 +71,7 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
     }
 
     @InvokeOnHeader("PUT_IF_ABSENT")
-    boolean onPutIfAbsent(Message message, AsyncCallback callback) throws Exception {
+    void onPutIfAbsent(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final Object key = message.getHeader(RESOURCE_KEY, configuration::getKey, Object.class);
         final Object val = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -89,12 +89,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("GET")
-    boolean onGet(Message message, AsyncCallback callback) throws Exception {
+    void onGet(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final Object key = message.getHeader(RESOURCE_KEY, configuration::getKey, Object.class);
         final Object defaultValue = message.getHeader(RESOURCE_DEFAULT_VALUE);
@@ -123,23 +121,19 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 );
             }
         }
-
-        return false;
     }
 
     @InvokeOnHeader("CLEAR")
-    boolean onClear(Message message, AsyncCallback callback) throws Exception {
+    void onClear(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
 
         map.clear().thenAccept(
             result -> processResult(message, callback, result)
         );
-
-        return false;
     }
 
     @InvokeOnHeader("SIZE")
-    boolean onSize(Message message, AsyncCallback callback) throws Exception {
+    void onSize(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 
@@ -152,12 +146,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("IS_EMPTY")
-    boolean onIsEmpty(Message message, AsyncCallback callback) throws Exception {
+    void onIsEmpty(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 
@@ -170,12 +162,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("ENTRY_SET")
-    boolean onEntrySet(Message message, AsyncCallback callback) throws Exception {
+    void onEntrySet(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY, configuration::getReadConsistency, ReadConsistency.class);
 
@@ -188,12 +178,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("VALUES")
-    boolean onValues(Message message, AsyncCallback callback) throws Exception {
+    void onValues(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY, configuration::getReadConsistency, ReadConsistency.class);
 
@@ -206,12 +194,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("CONTAINS_KEY")
-    boolean onContainsKey(Message message, AsyncCallback callback) throws Exception {
+    void onContainsKey(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
         final Object key = message.getHeader(RESOURCE_KEY, message::getBody, Object.class);
@@ -227,12 +213,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("CONTAINS_VALUE")
-    boolean onContainsValue(Message message, AsyncCallback callback) throws Exception {
+    void onContainsValue(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
         final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -248,12 +232,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("REMOVE")
-    boolean onRemove(Message message, AsyncCallback callback) throws Exception {
+    void onRemove(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final Object key = message.getHeader(RESOURCE_KEY, message::getBody, Object.class);
         final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -269,12 +251,10 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("REPLACE")
-    boolean onReplace(Message message, AsyncCallback callback) throws Exception {
+    void onReplace(Message message, AsyncCallback callback) throws Exception {
         final DistributedMap<Object, Object> map = getResource(message);
         final long ttl = message.getHeader(RESOURCE_TTL, configuration::getTtl, long.class);
         final Object key = message.getHeader(RESOURCE_KEY, configuration::getKey, Object.class);
@@ -305,8 +285,6 @@ final class AtomixMapProducer extends AbstractAtomixClientProducer<AtomixMapEndp
                 );
             }
         }
-
-        return false;
     }
 
     // *********************************

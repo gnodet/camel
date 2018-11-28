@@ -85,13 +85,13 @@ public class AnalyticsApiProcessor extends AbstractSalesforceProcessor {
             exchange.setException(new SalesforceException(
                     String.format("Error processing %s: [%s] \"%s\"",
                             operationName.value(), e.getStatusCode(), e.getMessage()), e));
-            callback.done(true);
+            callback.done();
             done = true;
         } catch (RuntimeException e) {
             exchange.setException(new SalesforceException(
                     String.format("Unexpected Error processing %s: \"%s\"",
                             operationName.value(), e.getMessage()), e));
-            callback.done(true);
+            callback.done();
             done = true;
         }
 
@@ -218,7 +218,7 @@ public class AnalyticsApiProcessor extends AbstractSalesforceProcessor {
         out.copyAttachments(inboundMessage);
 
         // signal exchange completion
-        callback.done(false);
+        callback.done();
     }
 
     @Override

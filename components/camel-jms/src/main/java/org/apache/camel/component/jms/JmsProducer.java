@@ -133,35 +133,34 @@ public class JmsProducer extends DefaultAsyncProducer {
         }
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // deny processing if we are not started
         if (!isRunAllowed()) {
             if (exchange.getException() == null) {
                 exchange.setException(new RejectedExecutionException());
             }
             // we cannot process so invoke callback
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         try {
             if (!endpoint.isDisableReplyTo() && exchange.getPattern().isOutCapable()) {
                 // in out requires a bit more work than in only
-                return processInOut(exchange, callback);
+                processInOut(exchange, callback);
             } else {
                 // in only
-                return processInOnly(exchange, callback);
+                processInOnly(exchange, callback);
             }
         } catch (Throwable e) {
             // must catch exception to ensure callback is invoked as expected
             // to let Camel error handling deal with this
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
-    protected boolean processInOut(final Exchange exchange, final AsyncCallback callback) {
+    protected void processInOut(final Exchange exchange, final AsyncCallback callback) {
         final org.apache.camel.Message in = exchange.getIn();
 
         String destinationName = in.getHeader(JmsConstants.JMS_DESTINATION_NAME, String.class);
@@ -239,7 +238,7 @@ public class JmsProducer extends DefaultAsyncProducer {
 
                 if (log.isDebugEnabled()) {
                     log.debug("Using {}: {}, JMSReplyTo destination: {}, with request timeout: {} ms.",
-                           new Object[]{correlationPropertyToUse, correlationId, replyTo, timeout});
+                           correlationPropertyToUse, correlationId, replyTo, timeout);
                 }
 
                 log.trace("Created javax.jms.Message: {}", answer);
@@ -248,9 +247,6 @@ public class JmsProducer extends DefaultAsyncProducer {
         };
 
         doSend(true, destinationName, destination, messageCreator, messageSentCallback);
-
-        // continue routing asynchronously (reply will be processed async when its received)
-        return false;
     }
 
     /**
@@ -290,7 +286,7 @@ public class JmsProducer extends DefaultAsyncProducer {
         }
     }
 
-    protected boolean processInOnly(final Exchange exchange, final AsyncCallback callback) {
+    protected void processInOnly(final Exchange exchange, final AsyncCallback callback) {
         final org.apache.camel.Message in = exchange.getIn();
 
         String destinationName = in.getHeader(JmsConstants.JMS_DESTINATION_NAME, String.class);
@@ -352,7 +348,7 @@ public class JmsProducer extends DefaultAsyncProducer {
                     // this behavior is also documented at the camel website
                     if (log.isDebugEnabled()) {
                         log.debug("Disabling JMSReplyTo: {} for destination: {}. Use preserveMessageQos=true to force Camel to keep the JMSReplyTo on endpoint: {}",
-                                new Object[]{jmsReplyTo, to, endpoint});
+                                jmsReplyTo, to, endpoint);
                     }
                     jmsReplyTo = null;
                 }
@@ -370,7 +366,7 @@ public class JmsProducer extends DefaultAsyncProducer {
                 String replyToOverride = endpoint.getConfiguration().getReplyToOverride();
                 if (replyToOverride != null) {
                     replyTo = resolveOrCreateDestination(replyToOverride, session);
-                } else if (jmsReplyTo instanceof Destination) {
+                } else if (jmsReplyTo != null) {
                     replyTo = (Destination)jmsReplyTo;
                 }
                 if (replyTo != null) {
@@ -393,8 +389,7 @@ public class JmsProducer extends DefaultAsyncProducer {
         setMessageId(exchange);
 
         // we are synchronous so return true
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     /**

@@ -76,14 +76,13 @@ public class ValidatingProcessor extends AsyncProcessorSupport {
         this.schemaReader = schemaReader;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             doProcess(exchange);
         } catch (Exception e) {
             exchange.setException(e);
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     protected void doProcess(Exchange exchange) throws Exception {

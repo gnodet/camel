@@ -71,7 +71,7 @@ public class CxfClientCallback extends ClientCallback {
             // process method of org.apache.camel.component.cxf.CxfProducer
             if (!boi.getOperationInfo().isOneWay()) {
                 endpoint.getCxfBinding().populateExchangeFromCxfResponse(camelExchange, cxfExchange, ctx);
-                camelAsyncCallback.done(false);
+                camelAsyncCallback.done();
             }
             if (LOG.isDebugEnabled()) {
                 LOG.debug("{} calling handleResponse", Thread.currentThread().getName());
@@ -112,7 +112,7 @@ public class CxfClientCallback extends ClientCallback {
             // process method of org.apache.camel.component.cxf.CxfProducer
             if (!boi.getOperationInfo().isOneWay()) {
                 endpoint.getCxfBinding().populateExchangeFromCxfResponse(camelExchange, cxfExchange, ctx);
-                camelAsyncCallback.done(false);
+                camelAsyncCallback.done();
             }
             if (LOG.isDebugEnabled()) {
                 LOG.debug("{} calling handleException", Thread.currentThread().getName());

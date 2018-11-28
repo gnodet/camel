@@ -55,7 +55,7 @@ public class InterceptSendToEndpointProcessor extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // process the detour so we do the detour routing
         if (log.isDebugEnabled()) {
             log.debug("Sending to endpoint: {} is intercepted and detoured to: {} for exchange: {}", getEndpoint(), endpoint.getDetour(), exchange);
@@ -68,22 +68,23 @@ public class InterceptSendToEndpointProcessor extends DefaultAsyncProducer {
             AsyncProcessor detour = AsyncProcessorConverterHelper.convert(endpoint.getDetour());
             AsyncProcessor ascb = new AsyncProcessorSupport() {
                 @Override
-                public boolean process(Exchange exchange, AsyncCallback callback) {
-                    return callback(exchange, callback, true);
+                public void process(Exchange exchange, AsyncCallback callback) {
+                    callback(exchange, callback);
                 }
             };
-            return new Pipeline(exchange.getContext(), Arrays.asList(detour, ascb)).process(exchange, callback);
+            new Pipeline(exchange.getContext(), Arrays.asList(detour, ascb)).process(exchange, callback);
+            return;
         }
 
-        return callback(exchange, callback, true);
+        callback(exchange, callback);
     }
 
-    private boolean callback(Exchange exchange, AsyncCallback callback, boolean doneSync) {
+    private void callback(Exchange exchange, AsyncCallback callback) {
         // Decide whether to continue or not; similar logic to the Pipeline
         // check for error if so we should break out
         if (!continueProcessing(exchange, "skip sending to original intended destination: " + getEndpoint(), log)) {
-            callback.done(doneSync);
-            return doneSync;
+            callback.done();
+            return;
         }
 
         // determine if we should skip or not
@@ -103,16 +104,12 @@ public class InterceptSendToEndpointProcessor extends DefaultAsyncProducer {
             }
 
             // route to original destination leveraging the asynchronous routing engine if possible
-            boolean s = producer.process(exchange, ds -> {
-                callback.done(doneSync && ds);
-            });
-            return doneSync && s;
+            producer.process(exchange, callback);
         } else {
             if (log.isDebugEnabled()) {
                 log.debug("Stop() means skip sending exchange to original intended destination: {} for exchange: {}", getEndpoint(), exchange);
             }
-            callback.done(doneSync);
-            return doneSync;
+            callback.done();
         }
     }
 

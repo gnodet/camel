@@ -16,21 +16,22 @@
  */
 package org.apache.camel.support;
 
+import java.util.function.Consumer;
+
 import org.apache.camel.AsyncCallback;
+import org.apache.camel.Exchange;
 
 /**
  * An empty {@link AsyncCallback} which allows to share the same instance instead of creating a new instance for each message.
  */
 public final class EmptyAsyncCallback implements AsyncCallback {
 
-    private static final EmptyAsyncCallback INSTANCE = new EmptyAsyncCallback();
-
     public static AsyncCallback get() {
-        return INSTANCE;
+        return AsyncCallback.EMPTY;
     }
 
     @Override
-    public void done(boolean doneSync) {
+    public void done() {
         // noop
     }
 

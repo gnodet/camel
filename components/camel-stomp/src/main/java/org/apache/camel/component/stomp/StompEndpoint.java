@@ -156,12 +156,12 @@ public class StompEndpoint extends DefaultEndpoint implements AsyncEndpoint, Hea
                     @Override
                     public void onFailure(Throwable e) {
                         exchange.setException(e);
-                        callback.done(false);
+                        callback.done();
                     }
 
                     @Override
                     public void onSuccess(Void v) {
-                        callback.done(false);
+                        callback.done();
                     }
                 });
             }

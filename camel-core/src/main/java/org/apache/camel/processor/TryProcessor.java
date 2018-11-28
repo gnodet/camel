@@ -59,10 +59,8 @@ public class TryProcessor extends AsyncProcessorSupport implements Navigate<Proc
         return "doTry";
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
-
+    public void process(Exchange exchange, AsyncCallback callback) {
         ReactiveHelper.schedule(new TryState(exchange, callback));
-        return false;
     }
 
     class TryState implements Runnable {
@@ -90,13 +88,13 @@ public class TryProcessor extends AsyncProcessorSupport implements Navigate<Proc
                 Processor processor = processors.next();
                 AsyncProcessor async = AsyncProcessorConverterHelper.convert(processor);
                 log.trace("Processing exchangeId: {} >>> {}", exchange.getExchangeId(), exchange);
-                async.process(exchange, doneSync -> ReactiveHelper.schedule(this));
+                async.process(exchange, () -> ReactiveHelper.schedule(this));
             } else {
                 ExchangeHelper.prepareOutToIn(exchange);
                 exchange.removeProperty(Exchange.TRY_ROUTE_BLOCK);
                 exchange.setProperty(Exchange.EXCEPTION_HANDLED, lastHandled);
                 log.trace("Processing complete for exchangeId: {} >>> {}", exchange.getExchangeId(), exchange);
-                callback.done(false);
+                callback.done();
             }
         }
 

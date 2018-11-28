@@ -261,26 +261,24 @@ public class MethodInfo {
                 return arguments;
             }
 
-            public boolean proceed(AsyncCallback callback) {
+            public void proceed(AsyncCallback callback) {
                 Object body = exchange.getIn().getBody();
                 if (body instanceof StreamCache) {
                     // ensure the stream cache is reset before calling the method
                     ((StreamCache) body).reset();
                 }
                 try {
-                    return doProceed(callback);
+                    doProceed(callback);
                 } catch (InvocationTargetException e) {
                     exchange.setException(e.getTargetException());
-                    callback.done(true);
-                    return true;
+                    callback.done();
                 } catch (Throwable e) {
                     exchange.setException(e);
-                    callback.done(true);
-                    return true;
+                    callback.done();
                 }
             }
 
-            private boolean doProceed(AsyncCallback callback) throws Exception {
+            private void doProceed(AsyncCallback callback) throws Exception {
                 // dynamic router should be invoked beforehand
                 if (dynamicRouter != null) {
                     if (!dynamicRouter.isStarted()) {
@@ -288,7 +286,8 @@ public class MethodInfo {
                     }
                     // use a expression which invokes the method to be used by dynamic router
                     Expression expression = new DynamicRouterExpression(pojo);
-                    return dynamicRouter.doRoutingSlip(exchange, expression, callback);
+                    dynamicRouter.doRoutingSlip(exchange, expression, callback);
+                    return;
                 }
 
                 // invoke pojo
@@ -314,13 +313,15 @@ public class MethodInfo {
                     if (!recipientList.isStarted()) {
                         ServiceHelper.startService(recipientList);
                     }
-                    return recipientList.sendToRecipientList(exchange, result, callback);
+                    recipientList.sendToRecipientList(exchange, result, callback);
+                    return;
                 }
                 if (routingSlip != null) {
                     if (!routingSlip.isStarted()) {
                         ServiceHelper.startService(routingSlip);
                     }
-                    return routingSlip.doRoutingSlip(exchange, result, callback);
+                    routingSlip.doRoutingSlip(exchange, result, callback);
+                    return;
                 }
 
                 //If it's Java 8 async result
@@ -334,9 +335,9 @@ public class MethodInfo {
                                 } else if (resultObject != null) {
                                     fillResult(exchange, resultObject);
                                 }
-                                callback.done(false);
+                                callback.done();
                             });
-                    return false;
+                    return;
                 }
 
                 // if the method returns something then set the value returned on the Exchange
@@ -346,8 +347,7 @@ public class MethodInfo {
 
                 // we did not use any of the eips, but just invoked the bean
                 // so notify the callback we are done synchronously
-                callback.done(true);
-                return true;
+                callback.done();
             }
 
             public Object getThis() {

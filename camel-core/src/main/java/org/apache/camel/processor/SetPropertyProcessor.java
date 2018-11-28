@@ -40,14 +40,14 @@ public class SetPropertyProcessor extends AsyncProcessorSupport implements Trace
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Object newProperty = expression.evaluate(exchange, Object.class);
 
             if (exchange.getException() != null) {
                 // the expression threw an exception so we should break-out
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
 
             String key = propertyName.evaluate(exchange, String.class);
@@ -56,8 +56,7 @@ public class SetPropertyProcessor extends AsyncProcessorSupport implements Trace
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

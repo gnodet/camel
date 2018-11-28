@@ -118,7 +118,7 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback ocallback) {
+    public void process(Exchange exchange, AsyncCallback ocallback) {
         // ----------------------------------------------------------
         // CAMEL END USER - READ ME FOR DEBUGGING TIPS
         // ----------------------------------------------------------
@@ -135,8 +135,8 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
 
         if (processor == null || !continueProcessing(exchange)) {
             // no processor or we should not continue then we are done
-            ocallback.done(true);
-            return true;
+            ocallback.done();
+            return;
         }
 
         // optimise to use object array for states
@@ -149,13 +149,13 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
                 states[i] = state;
             } catch (Throwable e) {
                 exchange.setException(e);
-                ocallback.done(true);
-                return true;
+                ocallback.done();
+                return;
             }
         }
 
         // create internal callback which will execute the advices in reverse order when done
-        AsyncCallback callback = doneSync -> {
+        AsyncCallback callback = () -> {
             try {
                 for (int i = advices.size() - 1; i >= 0; i--) {
                     CamelInternalProcessorAdvice task = advices.get(i);
@@ -199,17 +199,15 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
             // ----------------------------------------------------------
             // CAMEL END USER - DEBUG ME HERE +++ END +++
             // ----------------------------------------------------------
-            callback.done(true);
-            return true;
+            callback.done();
         } else {
             final UnitOfWork uow = exchange.getUnitOfWork();
 
             // allow unit of work to wrap callback in case it need to do some special work
             // for example the MDCUnitOfWork
-            AsyncCallback async = callback;
-            if (uow != null) {
-                async = uow.beforeProcess(processor, exchange, callback);
-            }
+            AsyncCallback async = uow != null
+                    ? uow.beforeProcess(processor, exchange, callback)
+                    : callback;
 
             // ----------------------------------------------------------
             // CAMEL END USER - DEBUG ME HERE +++ START +++
@@ -225,7 +223,7 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
             ReactiveHelper.scheduleLast(() -> {
                 // execute any after processor work (in current thread, not in the callback)
                 if (uow != null) {
-                    uow.afterProcess(processor, exchange, callback, false);
+                    uow.afterProcess(processor, exchange, async);
                 }
 
                 if (log.isTraceEnabled()) {
@@ -233,7 +231,6 @@ public class CamelInternalProcessor extends DelegateAsyncProcessor {
                              exchange.getExchangeId(), exchange);
                 }
             }, "CamelInternalProcessor - UnitOfWork - afterProcess - " + processor + " - " + exchange.getExchangeId());
-            return false;
         }
     }
 

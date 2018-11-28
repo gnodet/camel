@@ -65,7 +65,7 @@ public class DefaultInstrumentationProcessor extends DelegateAsyncProcessor
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // only record time if stats is enabled
         final StopWatch watch = (counter != null && counter.isStatisticsEnabled()) ? new StopWatch() : null;
 
@@ -74,22 +74,15 @@ public class DefaultInstrumentationProcessor extends DelegateAsyncProcessor
             beginTime(exchange);
         }
 
-        return processor.process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
-                try {
-                    // record end time
-                    if (watch != null) {
-                        recordTime(exchange, watch.taken());
-                    }
-                } finally {
-                    // and let the original callback know we are done as well
-                    callback.done(doneSync);
+        processor.process(exchange, () -> {
+            try {
+                // record end time
+                if (watch != null) {
+                    recordTime(exchange, watch.taken());
                 }
-            }
-
-            @Override
-            public String toString() {
-                return DefaultInstrumentationProcessor.this.toString();
+            } finally {
+                // and let the original callback know we are done as well
+                callback.done();
             }
         });
     }

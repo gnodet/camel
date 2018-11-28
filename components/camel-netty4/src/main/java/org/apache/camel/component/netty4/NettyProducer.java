@@ -192,13 +192,13 @@ public class NettyProducer extends DefaultAsyncProducer {
         super.doStop();
     }
 
-    public boolean process(final Exchange exchange, AsyncCallback callback) {
+    public void process(final Exchange exchange, AsyncCallback callback) {
         if (!isRunAllowed()) {
             if (exchange.getException() == null) {
                 exchange.setException(new RejectedExecutionException());
             }
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         Object body;
@@ -206,14 +206,13 @@ public class NettyProducer extends DefaultAsyncProducer {
             body = getRequestBody(exchange);
             if (body == null) {
                 noReplyLogger.log("No payload to send for exchange: " + exchange);
-                callback.done(true);
-                return true;
+                callback.done();
+            } else {
+                processWithBody(exchange, body, new BodyReleaseCallback(callback, body));
             }
-            return processWithBody(exchange, body, new BodyReleaseCallback(callback, body));
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
@@ -245,14 +244,14 @@ public class NettyProducer extends DefaultAsyncProducer {
             }
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
+            callback.done();
             return true;
         }
 
         // we must have a channel
         if (channelFuture == null) {
             exchange.setException(new CamelExchangeException("Cannot get channel from pool", exchange));
-            callback.done(true);
+            callback.done();
             return true;
         }
 
@@ -358,7 +357,7 @@ public class NettyProducer extends DefaultAsyncProducer {
                         }
                     } finally {
                         // signal callback to continue routing
-                        producerCallback.done(false);
+                        producerCallback.done();
                     }
                 }
             }
@@ -537,13 +536,13 @@ public class NettyProducer extends DefaultAsyncProducer {
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             // put back in pool
             try {
                 releaseChannel(channelFuture);
             } finally {
                 // ensure we call the delegated callback
-                callback.done(doneSync);
+                callback.done();
             }
         }
     }
@@ -633,7 +632,7 @@ public class NettyProducer extends DefaultAsyncProducer {
                     cause.initCause(future.cause());
                 }
                 exchange.setException(cause);
-                callback.done(false);
+                callback.done();
                 releaseChannel(future);
                 return;
             }
@@ -642,7 +641,7 @@ public class NettyProducer extends DefaultAsyncProducer {
                 processWithConnectedChannel(exchange, callback, future, body);
             } catch (Throwable e) {
                 exchange.setException(e);
-                callback.done(false);
+                callback.done();
             }
         }
     }
@@ -664,9 +663,9 @@ public class NettyProducer extends DefaultAsyncProducer {
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             ReferenceCountUtil.release(body);
-            originalCallback.done(doneSync);
+            originalCallback.done();
         }
     }
 }

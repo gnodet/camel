@@ -39,7 +39,7 @@ public class IgniteIdGenProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Message in = exchange.getIn();
         Message out = exchange.getOut();
         MessageHelper.copyHeaders(in, out, true);
@@ -73,8 +73,7 @@ public class IgniteIdGenProducer extends DefaultAsyncProducer {
             break;
         }
 
-        callback.done(false);
-        return false;
+        callback.done();
     }
 
     private IgniteIdGenOperation idGenOperationFor(Exchange exchange) {

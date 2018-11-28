@@ -50,7 +50,7 @@ public class IgniteCacheProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Message in = exchange.getIn();
         Message out = exchange.getOut();
         MessageHelper.copyHeaders(exchange.getIn(), out, true);
@@ -89,8 +89,7 @@ public class IgniteCacheProducer extends DefaultAsyncProducer {
             break;
         }
 
-        callback.done(false);
-        return false;
+        callback.done();
     }
 
     @SuppressWarnings("unchecked")

@@ -35,7 +35,7 @@ public class RemoveHeaderProcessor extends AsyncProcessorSupport implements Trac
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Message message = exchange.hasOut() ? exchange.getOut() : exchange.getIn();
             message.removeHeader(headerName);
@@ -43,8 +43,7 @@ public class RemoveHeaderProcessor extends AsyncProcessorSupport implements Trac
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

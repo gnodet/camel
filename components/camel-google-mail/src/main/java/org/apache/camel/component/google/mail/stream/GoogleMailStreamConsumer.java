@@ -126,7 +126,7 @@ public class GoogleMailStreamConsumer extends ScheduledBatchPollingConsumer {
 
             getAsyncProcessor().process(exchange, new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     LOG.trace("Processing exchange done");
                 }
             });

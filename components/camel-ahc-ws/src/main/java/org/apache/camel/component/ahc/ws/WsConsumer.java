@@ -19,7 +19,6 @@ package org.apache.camel.component.ahc.ws;
 import java.io.InputStream;
 import java.io.Reader;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.support.DefaultConsumer;
@@ -80,11 +79,9 @@ public class WsConsumer extends DefaultConsumer {
         }
 
         // send exchange using the async routing engine
-        getAsyncProcessor().process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
-                if (exchange.getException() != null) {
-                    getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
-                }
+        getAsyncProcessor().process(exchange, () -> {
+            if (exchange.getException() != null) {
+                getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
             }
         });
     }

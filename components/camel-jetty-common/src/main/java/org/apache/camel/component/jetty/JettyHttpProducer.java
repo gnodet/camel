@@ -79,19 +79,15 @@ public class JettyHttpProducer extends DefaultAsyncProducer implements AsyncProc
         return (JettyHttpEndpoint) super.getEndpoint();
     }
 
-    public boolean process(Exchange exchange, final AsyncCallback callback) {
+    public void process(Exchange exchange, final AsyncCallback callback) {
         try {
             processInternal(exchange, callback);
         } catch (Exception e) {
             // error occurred before we had a chance to go async
             // so set exception and invoke callback true
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
-
-        // we should continue processing this asynchronously
-        return false;
     }
 
     private void processInternal(Exchange exchange, AsyncCallback callback) throws Exception {

@@ -210,15 +210,15 @@ public class StreamResequencer extends AsyncProcessorSupport implements Sequence
         processor.process(exchange);
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         while (engine.size() >= capacity) {
             try {
                 Thread.sleep(getTimeout());
             } catch (InterruptedException e) {
                 // we was interrupted so break out
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
         }
 
@@ -233,8 +233,7 @@ public class StreamResequencer extends AsyncProcessorSupport implements Sequence
             }
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public boolean hasNext() {

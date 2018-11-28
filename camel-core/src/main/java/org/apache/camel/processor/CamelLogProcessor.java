@@ -73,7 +73,7 @@ public class CamelLogProcessor extends AsyncProcessorSupport implements IdAware 
         this.id = id;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (logger.shouldLog()) {
             String output = formatter.format(exchange);
             if (maskingFormatter != null) {
@@ -82,8 +82,7 @@ public class CamelLogProcessor extends AsyncProcessorSupport implements IdAware 
             output = fireListeners(exchange, output);
             logger.log(output);
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public void process(Exchange exchange, Throwable exception) {

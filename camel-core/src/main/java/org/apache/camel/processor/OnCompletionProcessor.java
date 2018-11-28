@@ -98,7 +98,7 @@ public class OnCompletionProcessor extends AsyncProcessorSupport implements Trac
         this.id = id;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (processor != null) {
             // register callback
             if (afterConsumer) {
@@ -108,8 +108,7 @@ public class OnCompletionProcessor extends AsyncProcessorSupport implements Trac
             }
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     protected boolean isCreateCopy() {

@@ -39,7 +39,6 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.AsyncCallback;
-import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelExchangeException;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -48,7 +47,6 @@ import org.apache.camel.component.cxf.CxfOperationException;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.http.common.cookie.CookieHandler;
 import org.apache.camel.support.DefaultAsyncProducer;
-import org.apache.camel.support.DefaultProducer;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.LRUSoftCache;
 import org.apache.camel.util.ObjectHelper;
@@ -105,7 +103,7 @@ public class CxfRsProducer extends DefaultAsyncProducer {
         }
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Message inMessage = exchange.getIn();
             Boolean httpClientAPI = inMessage.getHeader(CxfConstants.CAMEL_CXF_RS_USING_HTTP_API, Boolean.class);
@@ -113,17 +111,15 @@ public class CxfRsProducer extends DefaultAsyncProducer {
             if (httpClientAPI == null) {
                 httpClientAPI = ((CxfRsEndpoint) getEndpoint()).isHttpClientAPI();
             }
-            if (httpClientAPI.booleanValue()) {
+            if (httpClientAPI) {
                 invokeAsyncHttpClient(exchange, callback);
             } else {
                 invokeAsyncProxyClient(exchange, callback);
             }
-            return false;
         } catch (Exception exception) {
             LOG.error("Error invoking request", exception);
             exchange.setException(exception);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
@@ -694,7 +690,7 @@ public class CxfRsProducer extends DefaultAsyncProducer {
                 LOG.error("Error while processing response", exception);
                 fail(exception);
             } finally {
-                callback.done(false);
+                callback.done();
             }
         }
 
@@ -708,7 +704,7 @@ public class CxfRsProducer extends DefaultAsyncProducer {
             } catch (Exception error) {
                 LOG.error("Error while processing failed request", error);
             } finally {
-                callback.done(false);
+                callback.done();
             }
         }
 
@@ -786,7 +782,7 @@ public class CxfRsProducer extends DefaultAsyncProducer {
                 LOG.error("Error while processing response", exception);
                 fail(exception);
             } finally {
-                callback.done(false);
+                callback.done();
             }
         }
 
@@ -800,7 +796,7 @@ public class CxfRsProducer extends DefaultAsyncProducer {
             } catch (Exception error) {
                 LOG.error("Error while processing failed request", error);
             } finally {
-                callback.done(false);
+                callback.done();
             }
         }
 

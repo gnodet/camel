@@ -76,19 +76,18 @@ public class RestProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             prepareExchange(exchange);
             if (binding != null) {
-                return binding.process(exchange, callback);
+                binding.process(exchange, callback);
             } else {
                 // no binding in use call the producer directly
-                return producer.process(exchange, callback);
+                producer.process(exchange, callback);
             }
         } catch (Throwable e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 

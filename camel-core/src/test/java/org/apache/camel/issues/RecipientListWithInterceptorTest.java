@@ -44,14 +44,12 @@ public class RecipientListWithInterceptorTest extends ContextTestSupport {
                 final DelegateAsyncProcessor delegateAsyncProcessor = new DelegateAsyncProcessor() {
 
                     @Override
-                    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+                    public void process(final Exchange exchange, final AsyncCallback callback) {
                         LOGGER.info("I'm doing someting");
-                        return super.process(exchange, new AsyncCallback() {
-                            public void done(final boolean doneSync) {
-                                LOGGER.info("I'm done");
-                                doneCount++;
-                                callback.done(doneSync);
-                            }
+                        super.process(exchange, () -> {
+                            LOGGER.info("I'm done");
+                            doneCount++;
+                            callback.done();
                         });
                     }
                 };

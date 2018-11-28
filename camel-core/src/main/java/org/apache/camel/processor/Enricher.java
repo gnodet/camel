@@ -144,10 +144,9 @@ public class Enricher extends AsyncProcessorSupport implements IdAware, CamelCon
      * original message exchange.
      *
      * @param exchange input data.
+     * @param callback
      */
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
-        // which producer to use
-        final AsyncProducer producer;
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         final Endpoint endpoint;
 
         // use dynamic endpoint so calculate the endpoint to use
@@ -156,7 +155,6 @@ public class Enricher extends AsyncProcessorSupport implements IdAware, CamelCon
             recipient = expression.evaluate(exchange, Object.class);
             endpoint = resolveEndpoint(exchange, recipient);
             // acquire the consumer from the cache
-            producer = producerCache.acquireProducer(endpoint);
         } catch (Throwable e) {
             if (isIgnoreInvalidEndpoint()) {
                 if (log.isDebugEnabled()) {
@@ -165,122 +163,44 @@ public class Enricher extends AsyncProcessorSupport implements IdAware, CamelCon
             } else {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
-        final Exchange resourceExchange = createResourceExchange(exchange, ExchangePattern.InOut);
-        final Endpoint destination = producer.getEndpoint();
+        producerCache.doInAsyncProducer(endpoint, exchange, callback, (p, ex, c) -> {
+            final Exchange resourceExchange = createResourceExchange(ex, ExchangePattern.InOut);
 
-        StopWatch sw = null;
-        boolean sending = EventHelper.notifyExchangeSending(exchange.getContext(), resourceExchange, destination);
-        if (sending) {
-            sw = new StopWatch();
-        }
-        // record timing for sending the exchange using the producer
-        final StopWatch watch = sw;
-        AsyncProcessor ap = AsyncProcessorConverterHelper.convert(producer);
-        boolean sync = ap.process(resourceExchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
-                // we only have to handle async completion of the routing slip
-                if (doneSync) {
-                    return;
-                }
+            p.process(resourceExchange, () -> {
 
-                // emit event that the exchange was sent to the endpoint
-                if (watch != null) {
-                    long timeTaken = watch.taken();
-                    EventHelper.notifyExchangeSent(resourceExchange.getContext(), resourceExchange, destination, timeTaken);
-                }
-                
                 if (!isAggregateOnException() && resourceExchange.isFailed()) {
                     // copy resource exchange onto original exchange (preserving pattern)
-                    copyResultsPreservePattern(exchange, resourceExchange);
+                    copyResultsPreservePattern(ex, resourceExchange);
                 } else {
-                    prepareResult(exchange);
+                    prepareResult(ex);
                     try {
                         // prepare the exchanges for aggregation
-                        ExchangeHelper.prepareAggregation(exchange, resourceExchange);
+                        ExchangeHelper.prepareAggregation(ex, resourceExchange);
 
-                        Exchange aggregatedExchange = aggregationStrategy.aggregate(exchange, resourceExchange);
+                        Exchange aggregatedExchange = aggregationStrategy.aggregate(ex, resourceExchange);
                         if (aggregatedExchange != null) {
                             // copy aggregation result onto original exchange (preserving pattern)
-                            copyResultsPreservePattern(exchange, aggregatedExchange);
+                            copyResultsPreservePattern(ex, aggregatedExchange);
                         }
                     } catch (Throwable e) {
                         // if the aggregationStrategy threw an exception, set it on the original exchange
-                        exchange.setException(new CamelExchangeException("Error occurred during aggregation", exchange, e));
-                        callback.done(false);
+                        ex.setException(new CamelExchangeException("Error occurred during aggregation", ex, e));
+                        c.done();
                         // we failed so break out now
                         return;
                     }
                 }
 
                 // set property with the uri of the endpoint enriched so we can use that for tracing etc
-                exchange.setProperty(Exchange.TO_ENDPOINT, producer.getEndpoint().getEndpointUri());
+                ex.setProperty(Exchange.TO_ENDPOINT, p.getEndpoint().getEndpointUri());
+                c.done();
+            });
 
-                // return the producer back to the cache
-                try {
-                    producerCache.releaseProducer(endpoint, producer);
-                } catch (Exception e) {
-                    // ignore
-                }
-
-                callback.done(false);
-            }
         });
-
-        if (!sync) {
-            log.trace("Processing exchangeId: {} is continued being processed asynchronously", exchange.getExchangeId());
-            // the remainder of the routing slip will be completed async
-            // so we break out now, then the callback will be invoked which then continue routing from where we left here
-            return false;
-        }
-
-        log.trace("Processing exchangeId: {} is continued being processed synchronously", exchange.getExchangeId());
-
-        if (watch != null) {
-            // emit event that the exchange was sent to the endpoint
-            long timeTaken = watch.taken();
-            EventHelper.notifyExchangeSent(resourceExchange.getContext(), resourceExchange, destination, timeTaken);
-        }
-        
-        if (!isAggregateOnException() && resourceExchange.isFailed()) {
-            // copy resource exchange onto original exchange (preserving pattern)
-            copyResultsPreservePattern(exchange, resourceExchange);
-        } else {
-            prepareResult(exchange);
-
-            try {
-                // prepare the exchanges for aggregation
-                ExchangeHelper.prepareAggregation(exchange, resourceExchange);
-
-                Exchange aggregatedExchange = aggregationStrategy.aggregate(exchange, resourceExchange);
-                if (aggregatedExchange != null) {
-                    // copy aggregation result onto original exchange (preserving pattern)
-                    copyResultsPreservePattern(exchange, aggregatedExchange);
-                }
-            } catch (Throwable e) {
-                // if the aggregationStrategy threw an exception, set it on the original exchange
-                exchange.setException(new CamelExchangeException("Error occurred during aggregation", exchange, e));
-                callback.done(true);
-                // we failed so break out now
-                return true;
-            }
-        }
-
-        // set property with the uri of the endpoint enriched so we can use that for tracing etc
-        exchange.setProperty(Exchange.TO_ENDPOINT, producer.getEndpoint().getEndpointUri());
-
-        // return the producer back to the cache
-        try {
-            producerCache.releaseProducer(endpoint, producer);
-        } catch (Exception e) {
-            // ignore
-        }
-
-        callback.done(true);
-        return true;
     }
 
     protected Endpoint resolveEndpoint(Exchange exchange, Object recipient) {

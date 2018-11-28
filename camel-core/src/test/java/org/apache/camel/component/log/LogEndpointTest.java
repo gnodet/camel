@@ -31,9 +31,9 @@ public class LogEndpointTest extends ContextTestSupport {
     private static class MyLogger extends CamelLogProcessor {
 
         @Override
-        public boolean process(Exchange exchange, AsyncCallback callback) {
+        public void process(Exchange exchange, AsyncCallback callback) {
             logged = exchange;
-            return super.process(exchange, callback);
+            super.process(exchange, callback);
         }
 
         @Override

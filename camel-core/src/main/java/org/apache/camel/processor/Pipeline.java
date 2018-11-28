@@ -80,7 +80,7 @@ public class Pipeline extends AsyncProcessorSupport implements Navigate<Processo
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (exchange.isTransacted()) {
             ReactiveHelper.scheduleSync(() -> Pipeline.this.doProcess(exchange, callback, processors.iterator(), true),
                     "Step[" + exchange.getExchangeId() + "," + Pipeline.this + "]");
@@ -88,7 +88,6 @@ public class Pipeline extends AsyncProcessorSupport implements Navigate<Processo
             ReactiveHelper.scheduleMain(() -> Pipeline.this.doProcess(exchange, callback, processors.iterator(), true),
                     "Step[" + exchange.getExchangeId() + "," + Pipeline.this + "]");
         }
-        return false;
     }
 
     protected void doProcess(Exchange exchange, AsyncCallback callback, Iterator<AsyncProcessor> processors, boolean first) {
@@ -104,7 +103,7 @@ public class Pipeline extends AsyncProcessorSupport implements Navigate<Processo
             // get the next processor
             AsyncProcessor processor = processors.next();
 
-            processor.process(exchange, doneSync ->
+            processor.process(exchange, () ->
                     ReactiveHelper.schedule(() -> doProcess(exchange, callback, processors, false),
                             "Step[" + exchange.getExchangeId() + "," + Pipeline.this + "]"));
         } else {

@@ -66,7 +66,7 @@ public class DisruptorProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         WaitForTaskToComplete wait = waitForTaskToComplete;
         if (exchange.getProperty(Exchange.ASYNC_WAIT) != null) {
             wait = exchange.getProperty(Exchange.ASYNC_WAIT, WaitForTaskToComplete.class);
@@ -169,8 +169,7 @@ public class DisruptorProducer extends DefaultAsyncProducer {
 
         // we use OnCompletion on the Exchange to callback and wait for the Exchange to be done
         // so we should just signal the callback we are done synchronously
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     private void doPublish(Exchange exchange) {

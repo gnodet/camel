@@ -72,7 +72,7 @@ public class AsyncDockerProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
 
             Message message = exchange.getIn();
@@ -220,8 +220,7 @@ public class AsyncDockerProducer extends DefaultAsyncProducer {
             log.error(e.getMessage(), e);
         }
 
-        callback.done(false);
-        return false;
+        callback.done();
     }
 
     /**

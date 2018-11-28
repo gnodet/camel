@@ -16,6 +16,8 @@
  */
 package org.apache.camel.impl;
 
+import java.util.function.Consumer;
+
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -46,11 +48,11 @@ public class EventNotifierCallback implements AsyncCallback {
     }
 
     @Override
-    public void done(boolean doneSync) {
+    public void done() {
         if (watch != null) {
             long timeTaken = watch.taken();
             EventHelper.notifyExchangeSent(exchange.getContext(), exchange, endpoint, timeTaken);
         }
-        originalCallback.done(doneSync);
+        originalCallback.done();
     }
 }

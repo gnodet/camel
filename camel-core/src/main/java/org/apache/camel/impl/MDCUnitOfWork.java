@@ -131,50 +131,47 @@ public class MDCUnitOfWork extends DefaultUnitOfWork {
     }
 
     @Override
-    public void afterProcess(Processor processor, Exchange exchange, AsyncCallback callback, boolean doneSync) {
-        if (!doneSync) {
-            // must clear MDC on current thread as the exchange is being processed asynchronously
-            // by another thread
-            clear();
-        }
-        super.afterProcess(processor, exchange, callback, doneSync);
+    public void afterProcess(Processor processor, Exchange exchange, AsyncCallback callback) {
+        // must clear MDC on current thread as the exchange is being processed asynchronously by another thread
+        ((MDCCallback) callback).clear();
+        super.afterProcess(processor, exchange, callback);
     }
 
     /**
      * Clears information put on the MDC by this {@link MDCUnitOfWork}
      */
     public void clear() {
-        if (this.originalBreadcrumbId != null) {
+        if (originalBreadcrumbId != null) {
             MDC.put(MDC_BREADCRUMB_ID, originalBreadcrumbId);
         } else {
             MDC.remove(MDC_BREADCRUMB_ID);
         }
-        if (this.originalExchangeId != null) {
+        if (originalExchangeId != null) {
             MDC.put(MDC_EXCHANGE_ID, originalExchangeId);
         } else {
             MDC.remove(MDC_EXCHANGE_ID);
         }
-        if (this.originalMessageId != null) {
+        if (originalMessageId != null) {
             MDC.put(MDC_MESSAGE_ID, originalMessageId);
         } else {
             MDC.remove(MDC_MESSAGE_ID);
         }
-        if (this.originalCorrelationId != null) {
+        if (originalCorrelationId != null) {
             MDC.put(MDC_CORRELATION_ID, originalCorrelationId);
         } else {
             MDC.remove(MDC_CORRELATION_ID);
         }
-        if (this.originalRouteId != null) {
+        if (originalRouteId != null) {
             MDC.put(MDC_ROUTE_ID, originalRouteId);
         } else {
             MDC.remove(MDC_ROUTE_ID);
         }
-        if (this.originalCamelContextId != null) {
+        if (originalCamelContextId != null) {
             MDC.put(MDC_CAMEL_CONTEXT_ID, originalCamelContextId);
         } else {
             MDC.remove(MDC_CAMEL_CONTEXT_ID);
         }
-        if (this.originalTransactionKey != null) {
+        if (originalTransactionKey != null) {
             MDC.put(MDC_TRANSACTION_KEY, originalTransactionKey);
         } else {
             MDC.remove(MDC_TRANSACTION_KEY);
@@ -190,9 +187,10 @@ public class MDCUnitOfWork extends DefaultUnitOfWork {
      * {@link AsyncCallback} which preserves {@link org.slf4j.MDC} when
      * the asynchronous routing engine is being used.
      */
-    private static final class MDCCallback implements AsyncCallback {
+    private final class MDCCallback implements AsyncCallback {
 
         private final AsyncCallback delegate;
+        private final Thread thread;
         private final String breadcrumbId;
         private final String exchangeId;
         private final String messageId;
@@ -202,6 +200,7 @@ public class MDCUnitOfWork extends DefaultUnitOfWork {
 
         private MDCCallback(AsyncCallback delegate) {
             this.delegate = delegate;
+            this.thread = Thread.currentThread();
             this.exchangeId = MDC.get(MDC_EXCHANGE_ID);
             this.messageId = MDC.get(MDC_MESSAGE_ID);
             this.breadcrumbId = MDC.get(MDC_BREADCRUMB_ID);
@@ -210,7 +209,8 @@ public class MDCUnitOfWork extends DefaultUnitOfWork {
             this.routeId = MDC.get(MDC_ROUTE_ID);
         }
 
-        public void done(boolean doneSync) {
+        public void done() {
+            boolean doneSync = Thread.currentThread() == thread;
             try {
                 if (!doneSync) {
                     // when done asynchronously then restore information from previous thread
@@ -237,7 +237,17 @@ public class MDCUnitOfWork extends DefaultUnitOfWork {
                 
             } finally {
                 // muse ensure delegate is invoked
-                delegate.done(doneSync);
+                delegate.run();
+            }
+        }
+
+        /**
+         * Clears information put on the MDC by this {@link MDCUnitOfWork}
+         */
+        public void clear() {
+            boolean doneSync = Thread.currentThread() == thread;
+            if (!doneSync) {
+                MDCUnitOfWork.this.clear();
             }
         }
 

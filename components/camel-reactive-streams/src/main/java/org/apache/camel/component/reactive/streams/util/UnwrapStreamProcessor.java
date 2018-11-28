@@ -22,7 +22,6 @@ import java.util.List;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.support.AsyncProcessorSupport;
-import org.apache.camel.support.AsyncProcessorHelper;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -33,7 +32,7 @@ import org.reactivestreams.Subscription;
 public class UnwrapStreamProcessor extends AsyncProcessorSupport {
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Object content = exchange.getIn().getBody();
         if (content instanceof Publisher) {
             Publisher<?> pub = Publisher.class.cast(content);
@@ -56,13 +55,13 @@ public class UnwrapStreamProcessor extends AsyncProcessorSupport {
                 public void onError(Throwable throwable) {
                     addData();
                     exchange.setException(throwable);
-                    callback.done(false);
+                    callback.done();
                 }
 
                 @Override
                 public void onComplete() {
                     addData();
-                    callback.done(false);
+                    callback.done();
                 }
 
                 private void addData() {
@@ -89,12 +88,9 @@ public class UnwrapStreamProcessor extends AsyncProcessorSupport {
                 }
 
             });
-
-            return false;
+        } else {
+            callback.done();
         }
-
-        callback.done(true);
-        return true;
     }
 
 }

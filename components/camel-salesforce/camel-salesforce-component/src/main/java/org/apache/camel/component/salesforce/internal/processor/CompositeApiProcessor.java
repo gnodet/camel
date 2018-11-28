@@ -120,7 +120,7 @@ public final class CompositeApiProcessor extends AbstractSalesforceProcessor {
             }
         } finally {
             // notify callback that exchange is done
-            callback.done(false);
+            callback.done();
         }
     }
 
@@ -140,7 +140,7 @@ public final class CompositeApiProcessor extends AbstractSalesforceProcessor {
             }
         } finally {
             // notify callback that exchange is done
-            callback.done(false);
+            callback.done();
         }
     }
 
@@ -180,7 +180,7 @@ public final class CompositeApiProcessor extends AbstractSalesforceProcessor {
             }
         } finally {
             // notify callback that exchange is done
-            callback.done(false);
+            callback.done();
         }
     }
 
@@ -205,7 +205,7 @@ public final class CompositeApiProcessor extends AbstractSalesforceProcessor {
 
     static boolean processException(final Exchange exchange, final AsyncCallback callback, final Exception e) {
         exchange.setException(e);
-        callback.done(true);
+        callback.done();
 
         return true;
     }

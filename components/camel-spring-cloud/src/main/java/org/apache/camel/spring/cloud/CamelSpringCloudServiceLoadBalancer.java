@@ -63,8 +63,8 @@ public class CamelSpringCloudServiceLoadBalancer extends ServiceSupport implemen
     }
 
     @Override
-    public <T> T process(String serviceName, ServiceLoadBalancerFunction<T> function) throws Exception {
-        return loadBalancer.process(serviceName, function);
+    public void process(String serviceName, ServiceLoadBalancerFunction function) throws Exception {
+        loadBalancer.process(serviceName, function);
     }
 
     // *******************************

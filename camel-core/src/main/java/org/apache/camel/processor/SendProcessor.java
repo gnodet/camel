@@ -33,10 +33,8 @@ import org.apache.camel.spi.IdAware;
 import org.apache.camel.spi.ProducerCache;
 import org.apache.camel.support.AsyncProcessorSupport;
 import org.apache.camel.support.EndpointHelper;
-import org.apache.camel.support.EventHelper;
 import org.apache.camel.support.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.StopWatch;
 import org.apache.camel.util.URISupport;
 
 /**
@@ -50,7 +48,6 @@ public class SendProcessor extends AsyncProcessorSupport implements Traceable, E
     protected final CamelContext camelContext;
     protected final ExchangePattern pattern;
     protected ProducerCache producerCache;
-    protected AsyncProducer producer;
     protected Endpoint destination;
     protected ExchangePattern destinationExchangePattern;
     protected String id;
@@ -99,11 +96,11 @@ public class SendProcessor extends AsyncProcessorSupport implements Traceable, E
         return destination;
     }
 
-    public boolean process(Exchange exchange, final AsyncCallback callback) {
+    public void process(Exchange exchange, final AsyncCallback callback) {
         if (!isStarted()) {
             exchange.setException(new IllegalStateException("SendProcessor has not been started: " + this));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // we should preserve existing MEP so remember old MEP
@@ -112,55 +109,15 @@ public class SendProcessor extends AsyncProcessorSupport implements Traceable, E
 
         counter++;
 
-        // if we have a producer then use that as its optimized
-        if (producer != null) {
-
-            final Exchange target = configureExchange(exchange, pattern);
-
-            final boolean sending = EventHelper.notifyExchangeSending(exchange.getContext(), target, destination);
-            // record timing for sending the exchange using the producer
-            StopWatch watch;
-            if (sending) {
-                watch = new StopWatch();
-            } else {
-                watch = null;
-            }
-
-            try {
-                log.debug(">>>> {} {}", destination, exchange);
-                return producer.process(exchange, new AsyncCallback() {
-                    @Override
-                    public void done(boolean doneSync) {
-                        try {
-                            // restore previous MEP
-                            target.setPattern(existingPattern);
-                            // emit event that the exchange was sent to the endpoint
-                            if (watch != null) {
-                                long timeTaken = watch.taken();
-                                EventHelper.notifyExchangeSent(target.getContext(), target, destination, timeTaken);
-                            }
-                        } finally {
-                            callback.done(doneSync);
-                        }
-                    }
-                });
-            } catch (Throwable throwable) {
-                exchange.setException(throwable);
-                callback.done(true);
-            }
-
-            return true;
-        }
-
         configureExchange(exchange, pattern);
         log.debug(">>>> {} {}", destination, exchange);
 
         // send the exchange to the destination using the producer cache for the non optimized producers
-        return producerCache.doInAsyncProducer(destination, exchange, callback, (producer, ex, cb) -> producer.process(ex, doneSync -> {
+        producerCache.doInAsyncProducer(destination, exchange, callback, (producer, ex, cb) -> producer.process(ex, () -> {
             // restore previous MEP
             exchange.setPattern(existingPattern);
             // signal we are done
-            cb.done(doneSync);
+            cb.done();
         }));
     }
     
@@ -223,21 +180,14 @@ public class SendProcessor extends AsyncProcessorSupport implements Traceable, E
         // kind of producer better (though these kind of producer should be rare)
 
         AsyncProducer producer = producerCache.acquireProducer(destination);
-        if (!producer.isSingleton()) {
-            // no we cannot optimize it - so release the producer back to the producer cache
-            // and use the producer cache for sending
-            producerCache.releaseProducer(destination, producer);
-        } else {
-            // yes we can optimize and use the producer directly for sending
-            this.producer = producer;
-        }
+        producerCache.releaseProducer(destination, producer);
     }
 
     protected void doStop() throws Exception {
-        ServiceHelper.stopService(producerCache, producer);
+        ServiceHelper.stopService(producerCache);
     }
 
     protected void doShutdown() throws Exception {
-        ServiceHelper.stopAndShutdownServices(producerCache, producer);
+        ServiceHelper.stopAndShutdownServices(producerCache);
     }
 }

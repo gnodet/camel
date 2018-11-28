@@ -16,7 +16,6 @@
  */
 package org.apache.camel.spring.spi;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.apache.camel.AsyncCallback;
@@ -107,7 +106,7 @@ public class TransactionErrorHandler extends RedeliveryErrorHandler {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // invoke ths synchronous method as Spring Transaction does *not* support
         // using multiple threads to span a transaction
         try {
@@ -117,8 +116,7 @@ public class TransactionErrorHandler extends RedeliveryErrorHandler {
         }
 
         // notify callback we are done synchronously
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     protected void processInTransaction(final Exchange exchange) {
@@ -218,8 +216,8 @@ public class TransactionErrorHandler extends RedeliveryErrorHandler {
     protected void processByErrorHandler(final Exchange exchange) {
         awaitManager.process(new AsyncProcessorSupport() {
             @Override
-            public boolean process(Exchange exchange, AsyncCallback callback) {
-                return TransactionErrorHandler.super.process(exchange, callback);
+            public void process(Exchange exchange, AsyncCallback callback) {
+                TransactionErrorHandler.super.process(exchange, callback);
             }
         }, exchange);
     }

@@ -52,7 +52,7 @@ public class ThriftProducer extends DefaultAsyncProducer implements AsyncProduce
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Message message = exchange.getIn();
 
         try {
@@ -63,11 +63,8 @@ public class ThriftProducer extends DefaultAsyncProducer implements AsyncProduce
             } else {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
         }
-
-        return false;
     }
 
     @Override

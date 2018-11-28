@@ -42,7 +42,7 @@ public abstract class AvroProducer extends DefaultAsyncProducer {
     public abstract Transceiver createTransceiver() throws Exception;
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         Object request = exchange.getIn().getBody();
 
         try {
@@ -62,7 +62,7 @@ public abstract class AvroProducer extends DefaultAsyncProducer {
                         exchange.getOut().setHeaders(exchange.getIn().getHeaders());
                         exchange.getOut().setBody(result);
                     } finally {
-                        callback.done(false);
+                        callback.done();
                     }
                 }
 
@@ -72,18 +72,14 @@ public abstract class AvroProducer extends DefaultAsyncProducer {
                     try {
                         exchange.setException(error);
                     } finally {
-                        callback.done(false);
+                        callback.done();
                     }
                 }
             });
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
-
-        // okay we continue routing asynchronously
-        return false;
     }
 
     public Object[] wrapObjectToArray(Object object) {

@@ -130,7 +130,7 @@ public class RibbonServiceLoadBalancer
     // ************************
 
     @Override
-    public <T> T process(String serviceName, ServiceLoadBalancerFunction<T> request) throws Exception {
+    public void process(String serviceName, ServiceLoadBalancerFunction request) throws Exception {
         ILoadBalancer loadBalancer = loadBalancers.computeIfAbsent(serviceName, key -> createLoadBalancer(key));
         Server server = loadBalancer.chooseServer(serviceName);
 
@@ -160,7 +160,7 @@ public class RibbonServiceLoadBalancer
             }
         }
 
-        return request.apply(definition);
+        request.apply(definition);
     }
 
     // ************************

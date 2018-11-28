@@ -271,14 +271,13 @@ public class AggregateProcessor extends AsyncProcessorSupport implements Navigat
         this.id = id;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             doProcess(exchange, callback);
         } catch (Throwable e) {
             exchange.setException(e);
-            callback.done(false);
+            callback.done();
         }
-        return false;
     }
 
     protected void doProcess(Exchange exchange, AsyncCallback callback) throws Exception {
@@ -290,7 +289,7 @@ public class AggregateProcessor extends AsyncProcessorSupport implements Navigat
         //check for the special header to force completion of all groups (and ignore the exchange otherwise)
         if (getAndRemoveBooleanHeader(exchange, Exchange.AGGREGATION_COMPLETE_ALL_GROUPS)) {
             forceCompletionOfAllGroups();
-            callback.done(false);
+            callback.done();
             return;
         }
 
@@ -303,14 +302,14 @@ public class AggregateProcessor extends AsyncProcessorSupport implements Navigat
             } else {
                 exchange.setException(new CamelExchangeException("Invalid correlation key", exchange));
             }
-            callback.done(false);
+            callback.done();
             return;
         }
 
         // is the correlation key closed?
         if (closedCorrelationKeys != null && closedCorrelationKeys.containsKey(key)) {
             exchange.setException(new ClosedCorrelationKeyException(key, exchange));
-            callback.done(false);
+            callback.done();
             return;
         }
 
@@ -339,7 +338,7 @@ public class AggregateProcessor extends AsyncProcessorSupport implements Navigat
                 } else {
                     exchange.setException(new CamelExchangeException("Exhausted optimistic locking retry attempts, tried " + attempt + " times", exchange,
                             new OptimisticLockingAggregationRepository.OptimisticLockingException()));
-                    callback.done(false);
+                    callback.done();
                     return;
                 }
             }
@@ -377,7 +376,7 @@ public class AggregateProcessor extends AsyncProcessorSupport implements Navigat
             forceCompletionOfAllGroups();
         }
 
-        callback.done(false);
+        callback.done();
     }
 
     protected boolean getBooleanProperty(Exchange exchange, String key) {
@@ -767,7 +766,7 @@ public class AggregateProcessor extends AsyncProcessorSupport implements Navigat
 
         // send this exchange
         // the call to schedule last if needed to ensure in-order processing of the aggregates
-        executorService.submit(() -> ReactiveHelper.scheduleLast(() -> processor.process(exchange, done -> {
+        executorService.submit(() -> ReactiveHelper.scheduleLast(() -> processor.process(exchange, () -> {
             // log exception if there was a problem
             if (exchange.getException() != null) {
                 // if there was an exception then let the exception handler handle it

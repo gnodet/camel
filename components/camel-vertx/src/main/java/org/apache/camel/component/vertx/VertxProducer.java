@@ -41,12 +41,12 @@ public class VertxProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         EventBus eventBus = getEndpoint().getEventBus();
         if (eventBus == null) {
             exchange.setException(new IllegalStateException("EventBus is not started or not configured"));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         String address = getEndpoint().getAddress();
@@ -59,7 +59,7 @@ public class VertxProducer extends DefaultAsyncProducer {
             if (reply) {
                 log.debug("Sending to: {} with body: {}", address, body);
                 eventBus.send(address, body, new CamelReplyHandler(exchange, callback));
-                return false;
+                return;
             } else {
                 if (pubSub) {
                     log.debug("Publishing to: {} with body: {}", address, body);
@@ -68,14 +68,13 @@ public class VertxProducer extends DefaultAsyncProducer {
                     log.debug("Sending to: {} with body: {}", address, body);
                     eventBus.send(address, body);
                 }
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
         }
 
         exchange.setException(new InvalidPayloadRuntimeException(exchange, String.class));
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     private static final class CamelReplyHandler implements Handler<AsyncResult<Message<Object>>> {
@@ -100,7 +99,7 @@ public class VertxProducer extends DefaultAsyncProducer {
                     exchange.getOut().setBody(event.result().body());
                 }
             } finally {
-                callback.done(false);
+                callback.done();
             }
         }
 

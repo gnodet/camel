@@ -17,6 +17,7 @@
 package org.apache.camel.component.grpc.client;
 
 import io.grpc.stub.StreamObserver;
+import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -74,8 +75,7 @@ public class GrpcResponseRouterStreamObserver implements StreamObserver<Object> 
 
 
     private void doSend(Exchange exchange) {
-
-        producerCache.doInAsyncProducer(endpoint, exchange, doneSync -> { }, AsyncProcessor::process);
+        producerCache.doInAsyncProducer(endpoint, exchange, AsyncCallback.EMPTY, AsyncProcessor::process);
     }
 
 }

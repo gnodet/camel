@@ -37,8 +37,8 @@ public class BeanProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
-        return processor.process(exchange, callback);
+    public void process(Exchange exchange, AsyncCallback callback) {
+        processor.process(exchange, callback);
     }
 
     @Override

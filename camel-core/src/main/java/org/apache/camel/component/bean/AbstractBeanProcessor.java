@@ -60,7 +60,7 @@ public abstract class AbstractBeanProcessor extends AsyncProcessorSupport {
         return "BeanProcessor[" + beanHolder + "]";
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // do we have an explicit method name we always should invoke (either configured on endpoint or as a header)
         String explicitMethodName = exchange.getIn().getHeader(Exchange.BEAN_METHOD_NAME, method, String.class);
 
@@ -76,8 +76,8 @@ public abstract class AbstractBeanProcessor extends AsyncProcessorSupport {
             }
         } catch (Throwable e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // do we have a custom adapter for this POJO to a Processor
@@ -111,8 +111,8 @@ public abstract class AbstractBeanProcessor extends AsyncProcessorSupport {
                 } catch (Throwable e) {
                     exchange.setException(e);
                 }
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
         }
 
@@ -150,8 +150,8 @@ public abstract class AbstractBeanProcessor extends AsyncProcessorSupport {
                 } catch (Throwable e) {
                     exchange.setException(e);
                 }
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
         }
 
@@ -165,8 +165,8 @@ public abstract class AbstractBeanProcessor extends AsyncProcessorSupport {
             invocation = beanInfo.createInvocation(bean, exchange);
         } catch (Throwable e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         } finally {
             // must remove headers as they were provisional
             if (explicitMethodName != null) {
@@ -176,12 +176,12 @@ public abstract class AbstractBeanProcessor extends AsyncProcessorSupport {
 
         if (invocation == null) {
             exchange.setException(new IllegalStateException("No method invocation could be created, no matching method could be found on: " + bean));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // invoke invocation
-        return invocation.proceed(callback);
+        invocation.proceed(callback);
     }
 
     protected Processor getProcessor() {

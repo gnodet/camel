@@ -17,6 +17,7 @@
 package org.apache.camel.impl;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
@@ -244,12 +245,12 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
         try {
             if (processor instanceof AsyncProcessor) {
                 ((AsyncProcessor) processor).process(exchange,
-                    doneSync -> doInAsyncProducer(endpoint, exchange, ds -> future.complete(exchange), cb));
+                    () -> doInAsyncProducer(endpoint, exchange, () -> future.complete(exchange), cb));
             } else {
                 if (processor != null) {
                     processor.process(exchange);
                 }
-                doInAsyncProducer(endpoint, exchange, ds -> future.complete(exchange), cb);
+                doInAsyncProducer(endpoint, exchange, () -> future.complete(exchange), cb);
             }
         } catch (Throwable e) {
             // populate failed so return
@@ -268,12 +269,11 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
      * @param exchange         the exchange, can be <tt>null</tt> if so then create a new exchange from the producer
      * @param callback         the asynchronous callback
      * @param producerCallback the producer template callback to be executed
-     * @return (doneSync) <tt>true</tt> to continue execute synchronously, <tt>false</tt> to continue being executed asynchronously
      */
-    public boolean doInAsyncProducer(Endpoint endpoint,
-                                     Exchange exchange,
-                                     AsyncCallback callback,
-                                     AsyncProducerCallback producerCallback) {
+    public void doInAsyncProducer(Endpoint endpoint,
+                                  Exchange exchange,
+                                  AsyncCallback callback,
+                                  AsyncProducerCallback producerCallback) {
 
         AsyncProducer producer;
         try {
@@ -283,18 +283,18 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
             if (producer == null) {
                 if (isStopped()) {
                     log.warn("Ignoring exchange sent after processor is stopped: {}", exchange);
-                    callback.done(true);
-                    return true;
+                    callback.done();
+                    return;
                 } else {
                     exchange.setException(new IllegalStateException("No producer, this processor has not been started: " + this));
-                    callback.done(true);
-                    return true;
+                    callback.done();
+                    return;
                 }
             }
         } catch (Throwable e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         try {
@@ -312,7 +312,7 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
             }
 
             // invoke the callback
-            return producerCallback.doInAsyncProducer(producer, exchange, doneSync -> {
+            producerCallback.doInAsyncProducer(producer, exchange, () -> {
                 try {
                     if (eventNotifierEnabled && watch != null) {
                         long timeTaken = watch.taken();
@@ -323,7 +323,7 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
                     // release back to the pool
                     producers.release(endpoint, producer);
                 } finally {
-                    callback.done(doneSync);
+                    callback.done();
                 }
             });
         } catch (Throwable e) {
@@ -331,13 +331,13 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
             if (exchange != null) {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
-    protected boolean asyncDispatchExchange(Endpoint endpoint, AsyncProducer producer,
-                                            Processor resultProcessor, Exchange exchange, AsyncCallback callback) {
+    protected void asyncDispatchExchange(Endpoint endpoint, AsyncProducer producer,
+                                         Processor resultProcessor, Exchange exchange,
+                                         AsyncCallback callback) {
         // now lets dispatch
         log.debug(">>>> {} {}", endpoint, exchange);
 
@@ -350,14 +350,12 @@ public class DefaultProducerCache extends ServiceSupport implements ProducerCach
                 callback = new EventNotifierCallback(callback, exchange, endpoint);
             }
             // invoke the asynchronous method
-            return internalProcessor.process(exchange, callback, producer, resultProcessor);
+            internalProcessor.process(exchange, callback, producer, resultProcessor);
         } catch (Throwable e) {
             // ensure exceptions is caught and set on the exchange
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
-
     }
 
     protected AsyncProducer doGetProducer(Endpoint endpoint) throws Exception {

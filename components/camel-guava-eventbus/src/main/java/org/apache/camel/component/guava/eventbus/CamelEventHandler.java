@@ -16,7 +16,6 @@
  */
 package org.apache.camel.component.guava.eventbus;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -52,12 +51,7 @@ public class CamelEventHandler {
         final Exchange exchange = eventBusEndpoint.createExchange(event);
         log.debug("Processing event: {}", event);
         // use async processor to support async routing engine
-        processor.process(exchange, new AsyncCallback() {
-            @Override
-            public void done(boolean doneSync) {
-                // noop
-            }
-        });
+        processor.process(exchange, () -> { });
     }
 
 }

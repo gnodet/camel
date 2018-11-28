@@ -41,8 +41,8 @@ public class ConnectorProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
-        return processor.process(exchange, callback);
+    public void process(Exchange exchange, AsyncCallback callback) {
+        processor.process(exchange, callback);
     }
 
     @Override

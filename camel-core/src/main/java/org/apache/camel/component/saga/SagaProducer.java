@@ -46,12 +46,12 @@ public class SagaProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         String currentSaga = exchange.getIn().getHeader(Exchange.SAGA_LONG_RUNNING_ACTION, String.class);
         if (currentSaga == null) {
             exchange.setException(new IllegalStateException("Current exchange is not bound to a saga context: cannot complete"));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
 
@@ -70,9 +70,8 @@ public class SagaProducer extends DefaultAsyncProducer {
             if (ex != null) {
                 exchange.setException(ex);
             }
-            callback.done(false);
+            callback.done();
         });
-        return false;
     }
 
 }

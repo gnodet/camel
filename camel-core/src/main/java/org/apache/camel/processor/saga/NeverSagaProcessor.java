@@ -41,15 +41,14 @@ public class NeverSagaProcessor extends SagaProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         getCurrentSagaCoordinator(exchange).whenComplete((coordinator, ex) -> ifNotException(ex, exchange, callback, () -> {
             if (coordinator != null) {
                 exchange.setException(new CamelExchangeException("Route cannot handle exchanges that are joining a saga", exchange));
-                callback.done(false);
+                callback.done();
             } else {
-                super.process(exchange, doneSync -> callback.done(false));
+                super.process(exchange, callback);
             }
         }));
-        return false;
     }
 }

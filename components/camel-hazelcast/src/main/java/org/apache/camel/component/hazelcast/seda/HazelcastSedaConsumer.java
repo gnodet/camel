@@ -97,7 +97,7 @@ public class HazelcastSedaConsumer extends DefaultConsumer implements Runnable {
                     try {
                         // process using the asynchronous routing engine
                         processor.process(exchange, new AsyncCallback() {
-                            public void done(boolean asyncDone) {
+                            public void done() {
                                 // noop
                             }
                         });

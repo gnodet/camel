@@ -40,18 +40,16 @@ public class ReactiveStreamsProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         ReactiveStreamsHelper.attachCallback(exchange, (data, error) -> {
             if (error != null) {
                 data.setException(error);
             }
 
-            callback.done(false);
+            callback.done();
         });
 
         service.sendCamelExchange(name, exchange);
-
-        return false;
     }
 
     @Override

@@ -63,13 +63,13 @@ public class CatchProcessor extends DelegateAsyncProcessor implements Traceable,
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Exception e = exchange.getException();
         Throwable caught = catches(exchange, e);
         // If a previous catch clause handled the exception or if this clause does not match, exit
         if (exchange.getProperty(Exchange.EXCEPTION_HANDLED) != null || caught == null) {
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
         if (log.isTraceEnabled()) {
             log.trace("This CatchProcessor catches the exception: {} caused by: {}", caught.getClass().getName(), e.getMessage());
@@ -91,7 +91,7 @@ public class CatchProcessor extends DelegateAsyncProcessor implements Traceable,
 
         if (log.isDebugEnabled()) {
             log.debug("The exception is handled: {} for the exception: {} caused by: {}",
-                    new Object[]{handled, e.getClass().getName(), e.getMessage()});
+                    handled, e.getClass().getName(), e.getMessage());
         }
 
         if (handled) {
@@ -99,29 +99,23 @@ public class CatchProcessor extends DelegateAsyncProcessor implements Traceable,
             EventHelper.notifyExchangeFailureHandling(exchange.getContext(), exchange, processor, false, null);
         }
 
-        boolean sync = processor.process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
-                if (handled) {
-                    // emit event that the failure was handled
-                    EventHelper.notifyExchangeFailureHandled(exchange.getContext(), exchange, processor, false, null);
-                } else {
-                    if (exchange.getException() == null) {
-                        exchange.setException(exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class));
-                    }
+        processor.process(exchange, () -> {
+            if (handled) {
+                // emit event that the failure was handled
+                EventHelper.notifyExchangeFailureHandled(exchange.getContext(), exchange, processor, false, null);
+            } else {
+                if (exchange.getException() == null) {
+                    exchange.setException(exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class));
                 }
-                // always clear redelivery exhausted in a catch clause
-                exchange.removeProperty(Exchange.REDELIVERY_EXHAUSTED);
-
-                if (!doneSync) {
-                    // signal callback to continue routing async
-                    ExchangeHelper.prepareOutToIn(exchange);
-                }
-
-                callback.done(doneSync);
             }
-        });
+            // always clear redelivery exhausted in a catch clause
+            exchange.removeProperty(Exchange.REDELIVERY_EXHAUSTED);
 
-        return sync;
+            // signal callback to continue routing async
+            ExchangeHelper.prepareOutToIn(exchange);
+
+            callback.done();
+        });
     }
 
     /**

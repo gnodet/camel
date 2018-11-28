@@ -156,21 +156,21 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
         return "routingSlip[" + expression + "]";
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (!isStarted()) {
             exchange.setException(new IllegalStateException("RoutingSlip has not been started: " + this));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
-        return doRoutingSlipWithExpression(exchange, this.expression, callback);
+        doRoutingSlipWithExpression(exchange, this.expression, callback);
     }
 
-    public boolean doRoutingSlip(Exchange exchange, Object routingSlip, AsyncCallback callback) {
+    public void doRoutingSlip(Exchange exchange, Object routingSlip, AsyncCallback callback) {
         if (routingSlip instanceof Expression) {
-            return doRoutingSlipWithExpression(exchange, (Expression) routingSlip, callback);
+            doRoutingSlipWithExpression(exchange, (Expression) routingSlip, callback);
         } else {
-            return doRoutingSlipWithExpression(exchange, ExpressionBuilder.constantExpression(routingSlip), callback);
+            doRoutingSlipWithExpression(exchange, ExpressionBuilder.constantExpression(routingSlip), callback);
         }
     }
 
@@ -201,15 +201,15 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
         };
     }
 
-    private boolean doRoutingSlipWithExpression(final Exchange exchange, final Expression expression, final AsyncCallback originalCallback) {
+    private void doRoutingSlipWithExpression(final Exchange exchange, final Expression expression, final AsyncCallback originalCallback) {
         Exchange current = exchange;
         RoutingSlipIterator iter;
         try {
             iter = createRoutingSlipIterator(exchange, expression);
         } catch (Exception e) {
             exchange.setException(e);
-            originalCallback.done(true);
-            return true;
+            originalCallback.done();
+            return;
         }
 
         // ensure the slip is empty when we start
@@ -232,34 +232,14 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
             }
 
             //process and prepare the routing slip
-            boolean sync = processExchange(endpoint, current, exchange, originalCallback, iter);
+            processExchange(endpoint, current, exchange, originalCallback, iter);
             current = prepareExchangeForRoutingSlip(current, endpoint);
             
-            if (!sync) {
-                log.trace("Processing exchangeId: {} is continued being processed asynchronously", exchange.getExchangeId());
-                // the remainder of the routing slip will be completed async
-                // so we break out now, then the callback will be invoked which then continue routing from where we left here
-                return false;
-            }
+            log.trace("Processing exchangeId: {} is continued being processed asynchronously", exchange.getExchangeId());
+            // the remainder of the routing slip will be completed async
+            // so we break out now, then the callback will be invoked which then continue routing from where we left here
+            return;
 
-            log.trace("Processing exchangeId: {} is continued being processed synchronously", exchange.getExchangeId());
-
-            // we ignore some kind of exceptions and allow us to continue
-            if (isIgnoreInvalidEndpoints()) {
-                FailedToCreateProducerException e = current.getException(FailedToCreateProducerException.class);
-                if (e != null) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Endpoint uri is invalid: " + endpoint + ". This exception will be ignored.", e);
-                    }
-                    current.setException(null);
-                }
-            }
-
-            // Decide whether to continue with the recipients or not; similar logic to the Pipeline
-            // check for error if so we should break out
-            if (!continueProcessing(current, "so breaking out of the routing slip", log)) {
-                break;
-            }
         }
 
         // logging nextExchange as it contains the exchange that might have altered the payload and since
@@ -272,8 +252,7 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
 
         // okay we are completely done with the routing slip
         // so we need to signal done on the original callback so it can continue
-        originalCallback.done(true);
-        return true;
+        originalCallback.done();
     }
 
     protected Endpoint resolveEndpoint(RoutingSlipIterator iter, Exchange exchange) throws Exception {
@@ -324,7 +303,7 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
         return answer;
     }
 
-    protected boolean processExchange(final Endpoint endpoint, final Exchange exchange, final Exchange original,
+    protected void processExchange(final Endpoint endpoint, final Exchange exchange, final Exchange original,
                                       final AsyncCallback originalCallback, final RoutingSlipIterator iter) {
 
         // this does the actual processing so log at trace level
@@ -334,12 +313,7 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
         // - routing slip was routed asynchronously
         // - and we are completely done with the routing slip
         // so we need to signal done on the original callback so it can continue
-        AsyncCallback callback = doneSync -> {
-            if (!doneSync) {
-                originalCallback.done(false);
-            }
-        };
-        return producerCache.doInAsyncProducer(endpoint, exchange, callback, (p, ex, cb) -> {
+        producerCache.doInAsyncProducer(endpoint, exchange, originalCallback, (p, ex, cb) -> {
 
             // rework error handling to support fine grained error handling
             RouteContext routeContext = ex.getUnitOfWork() != null ? ex.getUnitOfWork().getRouteContext() : null;
@@ -350,72 +324,68 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
             ex.setProperty(Exchange.SLIP_ENDPOINT, endpoint.getEndpointUri());
             ex.setProperty(Exchange.SLIP_PRODUCER, p);
 
-            return target.process(ex, new AsyncCallback() {
-                public void done(boolean doneSync) {
-                    // cleanup producer after usage
-                    ex.removeProperty(Exchange.SLIP_PRODUCER);
+            target.process(ex, () -> {
+                // cleanup producer after usage
+                ex.removeProperty(Exchange.SLIP_PRODUCER);
 
-                    try {
-                        // continue processing the routing slip asynchronously
-                        Exchange current = prepareExchangeForRoutingSlip(ex, endpoint);
+                try {
+                    // continue processing the routing slip asynchronously
+                    Exchange current = prepareExchangeForRoutingSlip(ex, endpoint);
 
-                        while (iter.hasNext(current)) {
+                    while (iter.hasNext(current)) {
 
-                            // we ignore some kind of exceptions and allow us to continue
-                            if (isIgnoreInvalidEndpoints()) {
-                                FailedToCreateProducerException e = current.getException(FailedToCreateProducerException.class);
-                                if (e != null) {
-                                    if (log.isDebugEnabled()) {
-                                        log.debug("Endpoint uri is invalid: " + endpoint + ". This exception will be ignored.", e);
-                                    }
-                                    current.setException(null);
+                        // we ignore some kind of exceptions and allow us to continue
+                        if (isIgnoreInvalidEndpoints()) {
+                            FailedToCreateProducerException e = current.getException(FailedToCreateProducerException.class);
+                            if (e != null) {
+                                if (log.isDebugEnabled()) {
+                                    log.debug("Endpoint uri is invalid: " + endpoint + ". This exception will be ignored.", e);
                                 }
-                            }
-
-                            // Decide whether to continue with the recipients or not; similar logic to the Pipeline
-                            // check for error if so we should break out
-                            if (!continueProcessing(current, "so breaking out of the routing slip", log)) {
-                                break;
-                            }
-
-                            Endpoint endpoint1;
-                            try {
-                                endpoint1 = resolveEndpoint(iter, ex);
-                                // if no endpoint was resolved then try the next
-                                if (endpoint1 == null) {
-                                    continue;
-                                }
-                            } catch (Exception e) {
-                                // error resolving endpoint so we should break out
-                                current.setException(e);
-                                break;
-                            }
-
-                            // prepare and process the routing slip
-                            boolean sync = processExchange(endpoint1, current, original, cb, iter);
-                            current = prepareExchangeForRoutingSlip(current, endpoint1);
-
-                            if (!sync) {
-                                log.trace("Processing exchangeId: {} is continued being processed asynchronously", original.getExchangeId());
-                                return;
+                                current.setException(null);
                             }
                         }
 
-                        // logging nextExchange as it contains the exchange that might have altered the payload and since
-                        // we are logging the completion if will be confusing if we log the original instead
-                        // we could also consider logging the original and the nextExchange then we have *before* and *after* snapshots
-                        log.trace("Processing complete for exchangeId: {} >>> {}", original.getExchangeId(), current);
+                        // Decide whether to continue with the recipients or not; similar logic to the Pipeline
+                        // check for error if so we should break out
+                        if (!continueProcessing(current, "so breaking out of the routing slip", log)) {
+                            break;
+                        }
 
-                        // copy results back to the original exchange
-                        ExchangeHelper.copyResults(original, current);
-                    } catch (Throwable e) {
-                        ex.setException(e);
+                        Endpoint endpoint1;
+                        try {
+                            endpoint1 = resolveEndpoint(iter, ex);
+                            // if no endpoint was resolved then try the next
+                            if (endpoint1 == null) {
+                                continue;
+                            }
+                        } catch (Exception e) {
+                            // error resolving endpoint so we should break out
+                            current.setException(e);
+                            break;
+                        }
+
+                        // prepare and process the routing slip
+                        processExchange(endpoint1, current, original, cb, iter);
+                        current = prepareExchangeForRoutingSlip(current, endpoint1);
+
+                        log.trace("Processing exchangeId: {} is continued being processed asynchronously", original.getExchangeId());
+                        return;
                     }
 
-                    // okay we are completely done with the routing slip
-                    // so we need to signal done on the original callback so it can continue
-                    cb.done(false);
+                    // logging nextExchange as it contains the exchange that might have altered the payload and since
+                    // we are logging the completion if will be confusing if we log the original instead
+                    // we could also consider logging the original and the nextExchange then we have *before* and *after* snapshots
+                    log.trace("Processing complete for exchangeId: {} >>> {}", original.getExchangeId(), current);
+
+                    // copy results back to the original exchange
+                    ExchangeHelper.copyResults(original, current);
+                } catch (Throwable e) {
+                    ex.setException(e);
                 }
+
+                // okay we are completely done with the routing slip
+                // so we need to signal done on the original callback so it can continue
+                cb.done();
             });
         });
     }
@@ -478,9 +448,9 @@ public class RoutingSlip extends AsyncProcessorSupport implements Traceable, IdA
     private final class RoutingSlipProcessor extends AsyncProcessorSupport {
 
         @Override
-        public boolean process(Exchange exchange, AsyncCallback callback) {
+        public void process(Exchange exchange, AsyncCallback callback) {
             AsyncProcessor producer = exchange.getProperty(Exchange.SLIP_PRODUCER, AsyncProcessor.class);
-            return producer.process(exchange, callback);
+            producer.process(exchange, callback);
         }
 
         @Override

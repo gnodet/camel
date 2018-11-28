@@ -207,7 +207,7 @@ public class MulticastProcessor extends AsyncProcessorSupport implements Navigat
         return camelContext;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Iterable<ProcessorExchangePair> pairs;
         try {
             pairs = createProcessorExchangePairs(exchange);
@@ -216,7 +216,7 @@ public class MulticastProcessor extends AsyncProcessorSupport implements Navigat
             // unexpected exception was thrown, maybe from iterator etc. so do not regard as exhausted
             // and do the done work
             doDone(exchange, null, null, callback, true, false);
-            return true;
+            return;
         }
 
         MulticastState state = new MulticastState(exchange, pairs, callback);
@@ -229,11 +229,6 @@ public class MulticastProcessor extends AsyncProcessorSupport implements Navigat
                 ReactiveHelper.scheduleMain(state);
             }
         }
-
-        // the remainder of the multicast will be completed async
-        // so we break out now, then the callback will be invoked which then
-        // continue routing from where we left here
-        return false;
     }
 
     protected void schedule(Runnable runnable) {
@@ -310,7 +305,7 @@ public class MulticastProcessor extends AsyncProcessorSupport implements Navigat
                     StopWatch watch = beforeSend(pair);
 
                     AsyncProcessor async = AsyncProcessorConverterHelper.convert(pair.getProcessor());
-                    async.process(exchange, doneSync -> {
+                    async.process(exchange, () -> {
                         afterSend(pair, watch);
 
                         // Decide whether to continue with the multicast or not; similar logic to the Pipeline

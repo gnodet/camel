@@ -50,7 +50,7 @@ public class PubNubProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
 
         Operation operation = getOperation(exchange);
 
@@ -90,10 +90,8 @@ public class PubNubProducer extends DefaultAsyncProducer {
             }
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
-        return false;
     }
 
 
@@ -123,7 +121,7 @@ public class PubNubProducer extends DefaultAsyncProducer {
         Object body = exchange.getIn().getBody();
         if (ObjectHelper.isEmpty(body)) {
             exchange.setException(new CamelException("Can not fire empty message"));
-            callback.done(true);
+            callback.done();
         }
         log.debug("Sending message [{}] to channel [{}]", body, getChannel(exchange));
         endpoint.getPubnub()
@@ -158,7 +156,7 @@ public class PubNubProducer extends DefaultAsyncProducer {
         Object body = exchange.getIn().getBody();
         if (ObjectHelper.isEmpty(body)) {
             exchange.setException(new CamelException("Can not publish empty message"));
-            callback.done(true);
+            callback.done();
         }
         log.debug("Sending setState [{}] to channel [{}]", body, getChannel(exchange));
         endpoint.getPubnub()
@@ -234,7 +232,7 @@ public class PubNubProducer extends DefaultAsyncProducer {
         }
 
         // signal exchange completion
-        callback.done(false);
+        callback.done();
     }
 
     private Operation getOperation(Exchange exchange) {

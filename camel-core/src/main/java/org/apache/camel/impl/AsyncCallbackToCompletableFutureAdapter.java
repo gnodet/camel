@@ -49,7 +49,7 @@ public class AsyncCallbackToCompletableFutureAdapter<T> implements AsyncCallback
     }
 
     @Override
-    public void done(boolean doneSync) {
+    public void done() {
         future.complete(result);
     }
 }

@@ -106,7 +106,7 @@ public class SamplingThrottler extends AsyncProcessorSupport implements Traceabl
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         boolean doSend = false;
 
         synchronized (calculationLock) {
@@ -142,8 +142,7 @@ public class SamplingThrottler extends AsyncProcessorSupport implements Traceabl
         }
 
         // we are done synchronously
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     private static class SampleStats {

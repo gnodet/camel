@@ -125,7 +125,7 @@ public class WireTapProcessor extends AsyncProcessorSupport implements Traceable
         return dynamicProcessor.getEndpointUtilizationStatistics();
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         if (!isStarted()) {
             throw new IllegalStateException("WireTapProcessor has not been started: " + this);
         }
@@ -136,8 +136,8 @@ public class WireTapProcessor extends AsyncProcessorSupport implements Traceable
             target = configureExchange(exchange, exchangePattern);
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         final Exchange wireTapExchange = target;
@@ -146,7 +146,7 @@ public class WireTapProcessor extends AsyncProcessorSupport implements Traceable
         executorService.submit(() -> {
             taskCount.increment();
             log.debug(">>>> (wiretap) {} {}", uri, wireTapExchange);
-            AsyncProcessorConverterHelper.convert(processor).process(wireTapExchange, doneSync -> {
+            AsyncProcessorConverterHelper.convert(processor).process(wireTapExchange, () -> {
                 if (wireTapExchange.getException() != null) {
                     log.warn("Error occurred during processing " + wireTapExchange + " wiretap to " + uri + ". This exception will be ignored.", wireTapExchange.getException());
                 }
@@ -155,8 +155,7 @@ public class WireTapProcessor extends AsyncProcessorSupport implements Traceable
         });
 
         // continue routing this synchronously
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
 

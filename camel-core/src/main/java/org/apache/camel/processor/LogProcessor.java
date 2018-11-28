@@ -47,7 +47,7 @@ public class LogProcessor extends AsyncProcessorSupport implements Traceable, Id
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             if (logger.shouldLog()) {
                 String msg = expression.evaluate(exchange, String.class);
@@ -61,9 +61,8 @@ public class LogProcessor extends AsyncProcessorSupport implements Traceable, Id
             exchange.setException(e);
         } finally {
             // callback must be invoked
-            callback.done(true);
+            callback.done();
         }
-        return true;
     }
 
     private String fireListeners(Exchange exchange, String message) {

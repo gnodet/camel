@@ -30,12 +30,10 @@ import javax.xml.ws.Holder;
 import javax.xml.ws.handler.MessageContext.Scope;
 
 import org.apache.camel.AsyncCallback;
-import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.support.DefaultAsyncProducer;
-import org.apache.camel.support.DefaultProducer;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.support.ServiceHelper;
 import org.apache.cxf.Bus;
@@ -96,7 +94,7 @@ public class CxfProducer extends DefaultAsyncProducer {
    
     // As the cxf client async and sync api is implement different,
     // so we don't delegate the sync process call to the async process 
-    public boolean process(Exchange camelExchange, AsyncCallback callback) {
+    public void process(Exchange camelExchange, AsyncCallback callback) {
         log.trace("Process exchange: {} in an async way.", camelExchange);
         
         try {
@@ -118,16 +116,14 @@ public class CxfProducer extends DefaultAsyncProducer {
             client.invoke(cxfClientCallback, boi, getParams(endpoint, camelExchange), 
                           invocationContext, cxfExchange);
             if (boi.getOperationInfo().isOneWay()) {
-                callback.done(false);
+                callback.done();
             }
         } catch (Throwable ex) {
             // error occurred before we had a chance to go async
             // so set exception and invoke callback true
             camelExchange.setException(ex);
-            callback.done(true);
-            return true;
+            callback.done();
         }
-        return false;
     }
 
     /**

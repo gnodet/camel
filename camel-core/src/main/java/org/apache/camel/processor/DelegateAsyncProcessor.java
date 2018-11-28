@@ -84,8 +84,8 @@ public class DelegateAsyncProcessor extends AsyncProcessorSupport implements Del
         ServiceHelper.stopAndShutdownServices(processor);
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
-        return processor.process(exchange, callback);
+    public void process(final Exchange exchange, final AsyncCallback callback) {
+        processor.process(exchange, callback);
     }
 
     public boolean hasNext() {

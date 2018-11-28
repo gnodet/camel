@@ -63,7 +63,7 @@ public class ServerConsumer extends DefaultConsumer {
 
             // process and map async callback to our future
 
-            getAsyncProcessor().process(exchange, doneSync -> result.complete(null));
+            getAsyncProcessor().process(exchange, () -> result.complete(null));
 
             // return future
 

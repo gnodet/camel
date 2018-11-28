@@ -65,15 +65,12 @@ public abstract class DelayProcessorSupport extends DelegateAsyncProcessor imple
             }
 
             // process the exchange now that we woke up
-            DelayProcessorSupport.this.processor.process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    log.trace("Delayed task done for exchangeId: {}", exchange.getExchangeId());
-                    // we must done the callback from this async callback as well, to ensure callback is done correctly
-                    // must invoke done on callback with false, as that is what the original caller would
-                    // expect as we returned false in the process method
-                    callback.done(false);
-                }
+            DelayProcessorSupport.this.processor.process(exchange, () ->  {
+                log.trace("Delayed task done for exchangeId: {}", exchange.getExchangeId());
+                // we must done the callback from this async callback as well, to ensure callback is done correctly
+                // must invoke done on callback with false, as that is what the original caller would
+                // expect as we returned false in the process method
+                callback.done();
             });
         }
     }
@@ -89,18 +86,17 @@ public abstract class DelayProcessorSupport extends DelegateAsyncProcessor imple
         this.shutdownExecutorService = shutdownExecutorService;
     }
     
-    protected boolean processDelay(Exchange exchange, AsyncCallback callback, long delay) {
+    protected void processDelay(Exchange exchange, AsyncCallback callback, long delay) {
         if (!isAsyncDelayed() || exchange.isTransacted()) {
             // use synchronous delay (also required if using transactions)
             try {
                 delay(delay, exchange);
                 // then continue routing
-                return processor.process(exchange, callback);
+                processor.process(exchange, callback);
             } catch (Exception e) {
                 // exception occurred so we are done
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
             }
         } else {
             // asynchronous delay so schedule a process call task
@@ -112,13 +108,13 @@ public abstract class DelayProcessorSupport extends DelegateAsyncProcessor imple
                         delay, exchange.getExchangeId());
                 executorService.schedule(call, delay, TimeUnit.MILLISECONDS);
                 // tell Camel routing engine we continue routing asynchronous
-                return false;
             } catch (RejectedExecutionException e) {
                 // we were not allowed to run the ProcessCall, so need to decrement the counter here
                 delayedCount.decrementAndGet();
                 if (isCallerRunsWhenRejected()) {
                     if (!isRunAllowed()) {
                         exchange.setException(new RejectedExecutionException());
+                        callback.done();
                     } else {
                         log.debug("Scheduling rejected task, so letting caller run, delaying at first for {} millis for exchangeId: {}", delay, exchange.getExchangeId());
                         // let caller run by processing
@@ -128,24 +124,22 @@ public abstract class DelayProcessorSupport extends DelegateAsyncProcessor imple
                             exchange.setException(ie);
                         }
                         // then continue routing
-                        return processor.process(exchange, callback);
+                        processor.process(exchange, callback);
                     }
                 } else {
                     exchange.setException(e);
+                    callback.done();
                 }
-                // caller don't run the task so we are done
-                callback.done(true);
-                return true;
             }
         }
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (!isRunAllowed()) {
             exchange.setException(new RejectedExecutionException("Run is not allowed"));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // calculate delay and wait
@@ -155,15 +149,16 @@ public abstract class DelayProcessorSupport extends DelegateAsyncProcessor imple
             if (delay <= 0) {
                 // no delay then continue routing
                 log.trace("No delay for exchangeId: {}", exchange.getExchangeId());
-                return processor.process(exchange, callback);
+                processor.process(exchange, callback);
+                return;
             }
         } catch (Throwable e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
         
-        return processDelay(exchange, callback, delay);
+        processDelay(exchange, callback, delay);
     }
 
     public boolean isAsyncDelayed() {

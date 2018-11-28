@@ -19,13 +19,11 @@ package org.apache.camel.component.cxf;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.camel.AsyncCallback;
-import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.support.AsyncProcessorSupport;
 import org.apache.camel.test.junit4.CamelTestSupport;
-import org.apache.camel.support.AsyncProcessorHelper;
 import org.junit.Test;
 
 public class CxfConsumerContinuationTimeoutTest extends CamelTestSupport {
@@ -64,7 +62,7 @@ public class CxfConsumerContinuationTimeoutTest extends CamelTestSupport {
 
                 from(simpleEndpointURI + "&continuationTimeout=5000&dataFormat=RAW").process(new AsyncProcessorSupport() {
                     @Override
-                    public boolean process(Exchange exchange, AsyncCallback asyncCallback) {
+                    public void process(Exchange exchange, AsyncCallback asyncCallback) {
                         Message in = exchange.getIn();
                         // check the content-length header is filtered
                         Object value = in.getHeader("Content-Length");
@@ -82,10 +80,9 @@ public class CxfConsumerContinuationTimeoutTest extends CamelTestSupport {
                                 } catch (InterruptedException e) {
                                     // ignore
                                 } finally {
-                                    asyncCallback.done(false);
+                                    asyncCallback.done();
                                 }
                             });
-                            return false;
                         } else {
                             // Send the response message back
                             if (request.indexOf(ECHO_METHOD) > 0) {
@@ -93,9 +90,8 @@ public class CxfConsumerContinuationTimeoutTest extends CamelTestSupport {
                             } else { // echoBoolean call
                                 exchange.getOut().setBody(ECHO_BOOLEAN_RESPONSE);
                             }
+                            asyncCallback.done();
                         }
-                        asyncCallback.done(true);
-                        return true;
                     }
                 });
             }

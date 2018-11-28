@@ -46,7 +46,7 @@ final class AtomixValueProducer extends AbstractAtomixClientProducer<AtomixValue
     // *********************************
 
     @InvokeOnHeader("SET")
-    boolean onSet(Message message, AsyncCallback callback) throws Exception {
+    void onSet(Message message, AsyncCallback callback) throws Exception {
         final DistributedValue<Object> value = getResource(message);
         final long ttl = message.getHeader(RESOURCE_TTL, configuration::getTtl, long.class);
         final Object val = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -62,12 +62,10 @@ final class AtomixValueProducer extends AbstractAtomixClientProducer<AtomixValue
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("GET")
-    boolean onGet(Message message, AsyncCallback callback) throws Exception {
+    void onGet(Message message, AsyncCallback callback) throws Exception {
         final DistributedValue<Object> value = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 
@@ -80,12 +78,10 @@ final class AtomixValueProducer extends AbstractAtomixClientProducer<AtomixValue
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("GET_AND_SET")
-    boolean onGetAndSet(Message message, AsyncCallback callback) throws Exception {
+    void onGetAndSet(Message message, AsyncCallback callback) throws Exception {
         final DistributedValue<Object> value = getResource(message);
         final long ttl = message.getHeader(RESOURCE_TTL, configuration::getTtl, long.class);
         final Object val = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -101,12 +97,10 @@ final class AtomixValueProducer extends AbstractAtomixClientProducer<AtomixValue
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("COMPARE_AND_SET")
-    boolean onCompareAndSet(Message message, AsyncCallback callback) throws Exception {
+    void onCompareAndSet(Message message, AsyncCallback callback) throws Exception {
         final DistributedValue<Object> value = getResource(message);
         final long ttl = message.getHeader(RESOURCE_TTL, configuration::getTtl, long.class);
         final Object newVal = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -124,8 +118,6 @@ final class AtomixValueProducer extends AbstractAtomixClientProducer<AtomixValue
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     // *********************************

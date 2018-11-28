@@ -93,7 +93,7 @@ public class ClientChannelHandler extends SimpleChannelInboundHandler<Object> {
             NettyHelper.close(ctx.channel());
 
             // signal callback
-            callback.done(false);
+            callback.done();
         }
     }
 
@@ -133,7 +133,7 @@ public class ClientChannelHandler extends SimpleChannelInboundHandler<Object> {
                     exchange.setException(new CamelExchangeException("No response received from remote server: " + address, exchange));
                 }
                 // signal callback
-                callback.done(false);
+                callback.done();
             }
         }
         
@@ -168,7 +168,7 @@ public class ClientChannelHandler extends SimpleChannelInboundHandler<Object> {
             message = getResponseMessage(exchange, ctx, msg);
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(false);
+            callback.done();
             return;
         }
 
@@ -207,7 +207,7 @@ public class ClientChannelHandler extends SimpleChannelInboundHandler<Object> {
             }
         } finally {
             // signal callback
-            callback.done(false);
+            callback.done();
         }
     }
 

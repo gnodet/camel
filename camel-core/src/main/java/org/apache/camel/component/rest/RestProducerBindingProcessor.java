@@ -119,7 +119,7 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         boolean isXml = false;
         boolean isJson = false;
 
@@ -131,7 +131,8 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                 callback = new RestProducerBindingUnmarshalCallback(exchange, callback, jsonMarshal, xmlMarshal, false);
             }
             // okay now we can continue routing to the producer
-            return getProcessor().process(exchange, callback);
+            getProcessor().process(exchange, callback);
+            return;
         }
 
         // we only need to perform before binding if the message body is POJO based
@@ -142,7 +143,8 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                 callback = new RestProducerBindingUnmarshalCallback(exchange, callback, jsonMarshal, xmlMarshal, false);
             }
             // okay now we can continue routing to the producer
-            return getProcessor().process(exchange, callback);
+            getProcessor().process(exchange, callback);
+            return;
         } else {
             // if its convertable to stream based then its not POJO based
             InputStream is = camelContext.getTypeConverter().tryConvertTo(InputStream.class, exchange, body);
@@ -153,7 +155,8 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                     callback = new RestProducerBindingUnmarshalCallback(exchange, callback, jsonMarshal, xmlMarshal, false);
                 }
                 // okay now we can continue routing to the producer
-                return getProcessor().process(exchange, callback);
+                getProcessor().process(exchange, callback);
+                return;
             }
         }
 
@@ -182,8 +185,8 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
             } catch (Exception e) {
                 // we failed so cannot call producer
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
             // need to prepare exchange first
             ExchangeHelper.prepareOutToIn(exchange);
@@ -192,15 +195,16 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                 callback = new RestProducerBindingUnmarshalCallback(exchange, callback, jsonMarshal, xmlMarshal, false);
             }
             // okay now we can continue routing to the producer
-            return getProcessor().process(exchange, callback);
+            getProcessor().process(exchange, callback);
+            return;
         } else if (isXml && xmlMarshal != null) {
             try {
                 xmlMarshal.process(exchange);
             } catch (Exception e) {
                 // we failed so cannot call producer
                 exchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
             // need to prepare exchange first
             ExchangeHelper.prepareOutToIn(exchange);
@@ -209,7 +213,8 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                 callback = new RestProducerBindingUnmarshalCallback(exchange, callback, jsonMarshal, xmlMarshal, true);
             }
             // okay now we can continue routing to the producer
-            return getProcessor().process(exchange, callback);
+            getProcessor().process(exchange, callback);
+            return;
         }
 
         // we could not bind
@@ -219,7 +224,7 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                 callback = new RestProducerBindingUnmarshalCallback(exchange, callback, jsonMarshal, xmlMarshal, false);
             }
             // okay now we can continue routing to the producer
-            return getProcessor().process(exchange, callback);
+            getProcessor().process(exchange, callback);
         } else {
             if (bindingMode.contains("xml")) {
                 exchange.setException(new BindingException("Cannot bind to xml as message body is not xml compatible", exchange));
@@ -227,8 +232,7 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
                 exchange.setException(new BindingException("Cannot bind to json as message body is not json compatible", exchange));
             }
             // we failed so cannot call producer
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
@@ -250,14 +254,14 @@ public class RestProducerBindingProcessor extends DelegateAsyncProcessor {
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             try {
                 doDone();
             } catch (Throwable e) {
                 exchange.setException(e);
             } finally {
                 // ensure callback is called
-                callback.done(doneSync);
+                callback.done();
             }
         }
 

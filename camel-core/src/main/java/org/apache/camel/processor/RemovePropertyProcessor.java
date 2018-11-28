@@ -34,15 +34,14 @@ public class RemovePropertyProcessor extends AsyncProcessorSupport implements Tr
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             exchange.removeProperty(propertyName);
         } catch (Exception e) {
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

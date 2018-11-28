@@ -53,7 +53,7 @@ public class VertxConsumer extends DefaultConsumer {
         try {
             getAsyncProcessor().process(exchange, new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     if (reply) {
                         Object body = getVertxBody(exchange);
                         if (body != null) {

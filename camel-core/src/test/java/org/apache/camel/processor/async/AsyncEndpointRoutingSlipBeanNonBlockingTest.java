@@ -16,13 +16,11 @@
  */
 package org.apache.camel.processor.async;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.AsyncCallback;
-import org.apache.camel.AsyncProcessor;
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -31,10 +29,8 @@ import org.apache.camel.RoutingSlip;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.processor.SendProcessor;
-import org.apache.camel.support.AsyncProcessorHelper;
 import org.apache.camel.support.AsyncProcessorSupport;
 import org.apache.camel.support.ServiceHelper;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class AsyncEndpointRoutingSlipBeanNonBlockingTest extends ContextTestSupport {
@@ -57,10 +53,10 @@ public class AsyncEndpointRoutingSlipBeanNonBlockingTest extends ContextTestSupp
 
         ExecutorService executorService = context.getExecutorServiceManager().newSingleThreadExecutor(this, "test");
         try {
-            Future<Boolean> asyncFuture = executorService.submit(new ExchangeSubmitter(startEndpoint, asyncSender));
-            Assert.assertFalse(asyncFuture.get(5, TimeUnit.SECONDS));
+            Future<Void> asyncFuture = executorService.submit(new ExchangeSubmitter(startEndpoint, asyncSender), null);
+            asyncFuture.get(5, TimeUnit.SECONDS);
             innerExchange.getOut().setBody("Bye Camel");
-            innerCallback.done(false);
+            innerCallback.done();
 
             assertMockEndpointsSatisfied();
         } finally {
@@ -92,7 +88,7 @@ public class AsyncEndpointRoutingSlipBeanNonBlockingTest extends ContextTestSupp
         }
     }
 
-    private static class ExchangeSubmitter implements Callable<Boolean> {
+    private static class ExchangeSubmitter implements Runnable {
         private final Endpoint startEndpoint;
         private final SendProcessor asyncSender;
 
@@ -102,26 +98,19 @@ public class AsyncEndpointRoutingSlipBeanNonBlockingTest extends ContextTestSupp
         }
 
         @Override
-        public Boolean call() throws Exception {
+        public void run() {
             Exchange exchange = startEndpoint.createExchange(ExchangePattern.InOut);
             exchange.getIn().setBody("Hello Camel");
-            return asyncSender.process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    Assert.assertFalse(doneSync);
-                }
-            });
+            asyncSender.process(exchange, () -> { });
         }
     }
 
     private class MyAsyncProcessor extends AsyncProcessorSupport {
 
         @Override
-        public boolean process(Exchange exchange, AsyncCallback callback) {
+        public void process(Exchange exchange, AsyncCallback callback) {
             innerCallback = callback;
             innerExchange = exchange;
-
-            return false;
         }
     }
 }

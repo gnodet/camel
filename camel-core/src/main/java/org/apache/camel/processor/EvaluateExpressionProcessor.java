@@ -39,16 +39,15 @@ public class EvaluateExpressionProcessor extends AsyncProcessorSupport implement
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Object result = expression.evaluate(exchange, Object.class);
             exchange.setProperty(Exchange.EVALUATE_EXPRESSION_RESULT, result);
         } catch (Throwable e) {
             exchange.setException(e);
         } finally {
-            callback.done(true);
+            callback.done();
         }
-        return true;
     }
 
     @Override

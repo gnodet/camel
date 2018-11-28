@@ -18,7 +18,6 @@ package org.apache.camel.support;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
@@ -30,7 +29,6 @@ import org.apache.camel.Navigate;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.Service;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 
 /**
  * A simple converter that can convert any {@link Processor} to an {@link AsyncProcessor}.
@@ -47,18 +45,18 @@ public final class AsyncProcessorConverterHelper {
      * Creates a {@link AsyncProcessor} that delegates to the given processor.
      * It is important that this implements {@link DelegateProcessor}
      */
-    private static final class ProcessorToAsyncProcessorBridge implements DelegateProcessor, AsyncProcessor, Navigate<Processor>, Service {
+    private static class ProcessorToAsyncProcessorBridge implements DelegateProcessor, AsyncProcessor, Navigate<Processor>, Service {
         protected final Processor processor;
 
         private ProcessorToAsyncProcessorBridge(Processor processor) {
             this.processor = processor;
         }
 
-        public boolean process(Exchange exchange, AsyncCallback callback) {
+        public void process(Exchange exchange, AsyncCallback callback) {
             if (processor == null) {
                 // no processor then we are done
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
             try {
                 processor.process(exchange);
@@ -67,16 +65,8 @@ public final class AsyncProcessorConverterHelper {
                 exchange.setException(e);
             } finally {
                 // we are bridging a sync processor as async so callback with true
-                callback.done(true);
+                callback.done();
             }
-            return true;
-        }
-
-        @Override
-        public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-            AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-            process(exchange, callback);
-            return callback.getFuture();
         }
 
         @Override

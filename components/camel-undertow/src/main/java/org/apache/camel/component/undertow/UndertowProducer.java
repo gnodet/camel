@@ -86,9 +86,9 @@ public class UndertowProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange camelExchange, final AsyncCallback callback) {
+    public void process(final Exchange camelExchange, final AsyncCallback callback) {
         if (endpoint.isWebSocket()) {
-            return processWebSocket(camelExchange, callback);
+            processWebSocket(camelExchange, callback);
         } else {
             /* not a WebSocket */
             final URI uri;
@@ -99,8 +99,8 @@ public class UndertowProducer extends DefaultAsyncProducer {
                 method = UndertowHelper.createMethod(camelExchange, endpoint, camelExchange.getIn().getBody() != null);
             } catch (final URISyntaxException e) {
                 camelExchange.setException(e);
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
 
             final String pathAndQuery = URISupport.pathAndQueryOf(uri);
@@ -114,8 +114,8 @@ public class UndertowProducer extends DefaultAsyncProducer {
                     cookieHeaders = cookieHandler.loadCookies(camelExchange, uri);
                 } catch (final IOException e) {
                     camelExchange.setException(e);
-                    callback.done(true);
-                    return true;
+                    callback.done();
+                    return;
                 }
             } else {
                 cookieHeaders = Collections.emptyMap();
@@ -163,7 +163,6 @@ public class UndertowProducer extends DefaultAsyncProducer {
             // the call above will proceed on Xnio I/O thread we will
             // notify the exchange asynchronously when the HTTP exchange
             // ends with success or failure from UndertowClientCallback
-            return false;
         }
 
     }
@@ -200,12 +199,12 @@ public class UndertowProducer extends DefaultAsyncProducer {
                                 UndertowConstants.CONNECTION_KEY, in));
             } else {
                 /* nothing to do for a null body */
-                camelCallback.done(true);
+                camelCallback.done();
                 return true;
             }
         } catch (Exception e) {
             camelExchange.setException(e);
-            camelCallback.done(true);
+            camelCallback.done();
             return true;
         }
     }

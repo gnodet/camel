@@ -75,7 +75,7 @@ public class DefaultAsyncProcessorAwaitManager extends ServiceSupport implements
      */
     public void process(final AsyncProcessor processor, final Exchange exchange) {
         CountDownLatch latch = new CountDownLatch(1);
-        processor.process(exchange, doneSync -> countDown(exchange, latch));
+        processor.process(exchange, () -> countDown(exchange, latch));
         if (latch.getCount() > 0) {
             await(exchange, latch);
         }

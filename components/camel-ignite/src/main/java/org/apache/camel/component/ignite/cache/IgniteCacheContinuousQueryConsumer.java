@@ -73,7 +73,7 @@ public class IgniteCacheContinuousQueryConsumer extends DefaultConsumer {
             exchange.getIn().setHeader(IgniteConstants.IGNITE_CACHE_KEY, entry.getKey());
             getAsyncProcessor().process(createExchange(entry), new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     // do nothing
                 }
             });
@@ -132,7 +132,7 @@ public class IgniteCacheContinuousQueryConsumer extends DefaultConsumer {
         exchange.getIn().setHeader(IgniteConstants.IGNITE_CACHE_KEY, entry.getKey());
         getAsyncProcessor().process(exchange, new AsyncCallback() {
             @Override
-            public void done(boolean doneSync) {
+            public void done() {
                 // do nothing
             }
         });
@@ -142,7 +142,7 @@ public class IgniteCacheContinuousQueryConsumer extends DefaultConsumer {
         Exchange exchange = createExchange(events);
         getAsyncProcessor().process(exchange, new AsyncCallback() {
             @Override
-            public void done(boolean doneSync) {
+            public void done() {
                 // do nothing
             }
         });

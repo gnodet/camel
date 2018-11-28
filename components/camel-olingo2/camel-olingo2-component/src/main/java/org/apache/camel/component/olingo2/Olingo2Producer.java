@@ -45,7 +45,7 @@ public class Olingo2Producer extends AbstractApiProducer<Olingo2ApiName, Olingo2
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // properties for method arguments
         final Map<String, Object> properties = new HashMap<>();
         properties.putAll(endpoint.getEndpointProperties());
@@ -69,19 +69,19 @@ public class Olingo2Producer extends AbstractApiProducer<Olingo2ApiName, Olingo2
 
                 interceptResult(response, exchange);
 
-                callback.done(false);
+                callback.done();
             }
 
             @Override
             public void onException(Exception ex) {
                 exchange.setException(ex);
-                callback.done(false);
+                callback.done();
             }
 
             @Override
             public void onCanceled() {
                 exchange.setException(new RuntimeCamelException("OData HTTP Request cancelled!"));
-                callback.done(false);
+                callback.done();
             }
         });
 
@@ -89,8 +89,8 @@ public class Olingo2Producer extends AbstractApiProducer<Olingo2ApiName, Olingo2
         final ApiMethod method = findMethod(exchange, properties);
         if (method == null) {
             // synchronous failure
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         if (LOG.isDebugEnabled()) {
@@ -101,10 +101,7 @@ public class Olingo2Producer extends AbstractApiProducer<Olingo2ApiName, Olingo2
             doInvokeMethod(method, properties);
         } catch (Throwable t) {
             exchange.setException(RuntimeCamelException.wrapRuntimeCamelException(t));
-            callback.done(true);
-            return true;
+            callback.done();
         }
-
-        return false;
     }
 }

@@ -48,7 +48,7 @@ public class FatalFallbackErrorHandler extends DelegateAsyncProcessor implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // get the current route id we use
         final String id = routeIdExpression().evaluate(exchange, String.class);
 
@@ -65,88 +65,84 @@ public class FatalFallbackErrorHandler extends DelegateAsyncProcessor implements
             // exception to be propagated back to the caller, and to break out routing
             exchange.setProperty(Exchange.ERRORHANDLER_HANDLED, false);
             exchange.setProperty(Exchange.ERRORHANDLER_CIRCUIT_DETECTED, true);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // okay we run under this fatal error handler now
         fatals.push(id);
 
         // support the asynchronous routing engine
-        boolean sync = processor.process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
-                try {
-                    if (exchange.getException() != null) {
-                        // an exception occurred during processing onException
+        processor.process(exchange, () -> {
+            try {
+                if (exchange.getException() != null) {
+                    // an exception occurred during processing onException
 
-                        // log detailed error message with as much detail as possible
-                        Throwable previous = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
+                    // log detailed error message with as much detail as possible
+                    Throwable previous = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
 
-                        // check if previous and this exception are set as the same exception
-                        // which happens when using global scoped onException and you call a direct route that causes the 2nd exception
-                        // then we need to find the original previous exception as the suppressed exception
-                        if (previous != null && previous == exchange.getException()) {
-                            previous = null;
-                            // maybe previous was suppressed?
-                            if (exchange.getException().getSuppressed().length > 0) {
-                                previous = exchange.getException().getSuppressed()[0];
-                            }
-                        }
-
-                        String msg = "Exception occurred while trying to handle previously thrown exception on exchangeId: "
-                            + exchange.getExchangeId() + " using: [" + processor + "].";
-                        if (previous != null) {
-                            msg += " The previous and the new exception will be logged in the following.";
-                            log(msg);
-                            log("\\--> Previous exception on exchangeId: " + exchange.getExchangeId(), previous);
-                            log("\\--> New exception on exchangeId: " + exchange.getExchangeId(), exchange.getException());
-                        } else {
-                            log(msg);
-                            log("\\--> New exception on exchangeId: " + exchange.getExchangeId(), exchange.getException());
-                        }
-
-                        // add previous as suppressed to exception if not already there
-                        if (previous != null) {
-                            Throwable[] suppressed = exchange.getException().getSuppressed();
-                            boolean found = false;
-                            for (Throwable t : suppressed) {
-                                if (t == previous) {
-                                    found = true;
-                                }
-                            }
-                            if (!found) {
-                                exchange.getException().addSuppressed(previous);
-                            }
-                        }
-
-                        // we can propagated that exception to the caught property on the exchange
-                        // which will shadow any previously caught exception and cause this new exception
-                        // to be visible in the error handler
-                        exchange.setProperty(Exchange.EXCEPTION_CAUGHT, exchange.getException());
-
-                        if (deadLetterChannel) {
-                            // special for dead letter channel as we want to let it determine what to do, depending how
-                            // it has been configured
-                            exchange.removeProperty(Exchange.ERRORHANDLER_HANDLED);
-                        } else {
-                            // mark this exchange as already been error handler handled (just by having this property)
-                            // the false value mean the caught exception will be kept on the exchange, causing the
-                            // exception to be propagated back to the caller, and to break out routing
-                            exchange.setProperty(Exchange.ERRORHANDLER_HANDLED, false);
+                    // check if previous and this exception are set as the same exception
+                    // which happens when using global scoped onException and you call a direct route that causes the 2nd exception
+                    // then we need to find the original previous exception as the suppressed exception
+                    if (previous != null && previous == exchange.getException()) {
+                        previous = null;
+                        // maybe previous was suppressed?
+                        if (exchange.getException().getSuppressed().length > 0) {
+                            previous = exchange.getException().getSuppressed()[0];
                         }
                     }
-                } finally {
-                    // no longer running under this fatal fallback error handler
-                    Deque<String> fatals = exchange.getProperty(Exchange.FATAL_FALLBACK_ERROR_HANDLER, null, Deque.class);
-                    if (fatals != null) {
-                        fatals.removeLastOccurrence(id);
+
+                    String msg = "Exception occurred while trying to handle previously thrown exception on exchangeId: "
+                        + exchange.getExchangeId() + " using: [" + processor + "].";
+                    if (previous != null) {
+                        msg += " The previous and the new exception will be logged in the following.";
+                        log(msg);
+                        log("\\--> Previous exception on exchangeId: " + exchange.getExchangeId(), previous);
+                        log("\\--> New exception on exchangeId: " + exchange.getExchangeId(), exchange.getException());
+                    } else {
+                        log(msg);
+                        log("\\--> New exception on exchangeId: " + exchange.getExchangeId(), exchange.getException());
                     }
-                    callback.done(doneSync);
+
+                    // add previous as suppressed to exception if not already there
+                    if (previous != null) {
+                        Throwable[] suppressed = exchange.getException().getSuppressed();
+                        boolean found = false;
+                        for (Throwable t : suppressed) {
+                            if (t == previous) {
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+                            exchange.getException().addSuppressed(previous);
+                        }
+                    }
+
+                    // we can propagated that exception to the caught property on the exchange
+                    // which will shadow any previously caught exception and cause this new exception
+                    // to be visible in the error handler
+                    exchange.setProperty(Exchange.EXCEPTION_CAUGHT, exchange.getException());
+
+                    if (deadLetterChannel) {
+                        // special for dead letter channel as we want to let it determine what to do, depending how
+                        // it has been configured
+                        exchange.removeProperty(Exchange.ERRORHANDLER_HANDLED);
+                    } else {
+                        // mark this exchange as already been error handler handled (just by having this property)
+                        // the false value mean the caught exception will be kept on the exchange, causing the
+                        // exception to be propagated back to the caller, and to break out routing
+                        exchange.setProperty(Exchange.ERRORHANDLER_HANDLED, false);
+                    }
                 }
+            } finally {
+                // no longer running under this fatal fallback error handler
+                Deque<String> f = exchange.getProperty(Exchange.FATAL_FALLBACK_ERROR_HANDLER, null, Deque.class);
+                if (f != null) {
+                    f.removeLastOccurrence(id);
+                }
+                callback.done();
             }
         });
-
-        return sync;
     }
 
     private void log(String message) {

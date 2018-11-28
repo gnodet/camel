@@ -95,7 +95,7 @@ public class ReduceStacksNeededDuringRoutingSendProcessorTest extends ContextTes
         }
 
         @Override
-        public boolean process(Exchange exchange, AsyncCallback callback) {
+        public void process(Exchange exchange, AsyncCallback callback) {
             try {
                 throw new IllegalArgumentException("Forced to dump stacktrace");
             } catch (Exception e) {
@@ -103,8 +103,7 @@ public class ReduceStacksNeededDuringRoutingSendProcessorTest extends ContextTes
                 log.info("There are " + e.getStackTrace().length + " lines in the stacktrace");
                 log.error("Dump stacktrace to log", e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 }

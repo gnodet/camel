@@ -72,17 +72,17 @@ public abstract class SagaProcessor extends DelegateAsyncProcessor {
             if (exchange.getException() != null) {
                 coordinator.compensate().whenComplete((done, ex) -> ifNotException(ex, exchange, callback, () -> {
                     setCurrentSagaCoordinator(exchange, previousCoordinator);
-                    callback.done(false);
+                    callback.done();
                 }));
             } else {
                 coordinator.complete().whenComplete((done, ex) -> ifNotException(ex, exchange, callback, () -> {
                     setCurrentSagaCoordinator(exchange, previousCoordinator);
-                    callback.done(false);
+                    callback.done();
                 }));
             }
         } else if (this.completionMode == SagaCompletionMode.MANUAL) {
             // Completion will be handled manually by the user
-            callback.done(false);
+            callback.done();
         } else {
             throw new IllegalStateException("Unsupported completion mode: " + this.completionMode);
         }
@@ -108,7 +108,7 @@ public abstract class SagaProcessor extends DelegateAsyncProcessor {
             if (handleCompletion) {
                 handleSagaCompletion(exchange, coordinator, previousCoordinator, callback);
             } else {
-                callback.done(false);
+                callback.done();
             }
         } else {
             code.run();

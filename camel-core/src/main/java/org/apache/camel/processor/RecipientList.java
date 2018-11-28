@@ -107,7 +107,7 @@ public class RecipientList extends AsyncProcessorSupport implements IdAware {
         this.id = id;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (!isStarted()) {
             throw new IllegalStateException("RecipientList has not been started: " + this);
         }
@@ -119,13 +119,13 @@ public class RecipientList extends AsyncProcessorSupport implements IdAware {
             recipientList = expression.evaluate(exchange, Object.class);
         }
 
-        return sendToRecipientList(exchange, recipientList, callback);
+        sendToRecipientList(exchange, recipientList, callback);
     }
 
     /**
      * Sends the given exchange to the recipient list
      */
-    public boolean sendToRecipientList(Exchange exchange, Object recipientList, AsyncCallback callback) {
+    public void sendToRecipientList(Exchange exchange, Object recipientList, AsyncCallback callback) {
         Iterator<?> iter;
 
         if (delimiter != null && delimiter.equalsIgnoreCase(IGNORE_DELIMITER_MARKER)) {
@@ -154,12 +154,12 @@ public class RecipientList extends AsyncProcessorSupport implements IdAware {
             ServiceHelper.startService(rlp);
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // now let the multicast process the exchange
-        return rlp.process(exchange, callback);
+        rlp.process(exchange, callback);
     }
 
     protected Endpoint resolveEndpoint(Exchange exchange, Object recipient) {

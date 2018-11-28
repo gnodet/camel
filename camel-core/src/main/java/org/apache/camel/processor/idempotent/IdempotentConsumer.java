@@ -90,7 +90,7 @@ public class IdempotentConsumer extends AsyncProcessorSupport implements CamelCo
         this.id = id;
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         final AsyncCallback target;
 
         final String messageId;
@@ -98,13 +98,13 @@ public class IdempotentConsumer extends AsyncProcessorSupport implements CamelCo
             messageId = messageIdExpression.evaluate(exchange, String.class);
             if (messageId == null) {
                 exchange.setException(new NoMessageIdException(exchange, messageIdExpression));
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         try {
@@ -127,8 +127,8 @@ public class IdempotentConsumer extends AsyncProcessorSupport implements CamelCo
                 if (skipDuplicate) {
                     // if we should skip duplicate then we are done
                     log.debug("Ignoring duplicate message with id: {} for exchange: {}", messageId, exchange);
-                    callback.done(true);
-                    return true;
+                    callback.done();
+                    return;
                 }
             }
 
@@ -140,12 +140,12 @@ public class IdempotentConsumer extends AsyncProcessorSupport implements CamelCo
             }
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // process the exchange
-        return processor.process(exchange, target);
+        processor.process(exchange, target);
     }
 
     public List<Processor> next() {
@@ -264,7 +264,7 @@ public class IdempotentConsumer extends AsyncProcessorSupport implements CamelCo
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             try {
                 if (completionEager) {
                     if (exchange.isFailed()) {
@@ -275,7 +275,7 @@ public class IdempotentConsumer extends AsyncProcessorSupport implements CamelCo
                 }
                 // if completion is not eager then the onCompletion is invoked as part of the UoW of the Exchange
             } finally {
-                callback.done(doneSync);
+                callback.done();
             }
         }
 

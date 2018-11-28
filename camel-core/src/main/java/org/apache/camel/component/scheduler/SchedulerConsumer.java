@@ -51,13 +51,10 @@ public class SchedulerConsumer extends ScheduledPollConsumer {
         }
 
         if (!getEndpoint().isSynchronous()) {
-            getAsyncProcessor().process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    // handle any thrown exception
-                    if (exchange.getException() != null) {
-                        getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
-                    }
+            getAsyncProcessor().process(exchange, () -> {
+                // handle any thrown exception
+                if (exchange.getException() != null) {
+                    getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
                 }
             });
         } else {

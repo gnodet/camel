@@ -30,7 +30,6 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.Processor;
@@ -165,12 +164,8 @@ public class S3Consumer extends ScheduledBatchPollingConsumer {
             });
 
             log.trace("Processing exchange [{}]...", exchange);
-            getAsyncProcessor().process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    log.trace("Processing exchange [{}] done.", exchange);
-                }
-            });
+            getAsyncProcessor().process(exchange,
+                () -> log.trace("Processing exchange [{}] done.", exchange));
         }
 
         return total;

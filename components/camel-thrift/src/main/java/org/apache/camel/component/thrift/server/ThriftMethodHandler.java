@@ -58,7 +58,7 @@ public class ThriftMethodHandler implements MethodHandler {
                 }
                 exchange.getIn().setHeader(ThriftConstants.THRIFT_METHOD_NAME_HEADER, thisMethod.getName());
 
-                consumer.process(exchange, doneSync -> {
+                consumer.process(exchange, () -> {
                     Message message = null;
                     Object response = null;
                     Exception exception = exchange.getException();

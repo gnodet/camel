@@ -137,16 +137,15 @@ public class GrpcConsumer extends DefaultConsumer {
                               .build();
     }
     
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         exchange.getIn().setHeader(GrpcConstants.GRPC_EVENT_TYPE_HEADER, GrpcConstants.GRPC_EVENT_TYPE_ON_NEXT);
-        return doSend(exchange, callback);
+        doSend(exchange, callback);
     }
     
     public void onCompleted(Exchange exchange) {
         if (configuration.isForwardOnCompleted()) {
             exchange.getIn().setHeader(GrpcConstants.GRPC_EVENT_TYPE_HEADER, GrpcConstants.GRPC_EVENT_TYPE_ON_COMPLETED);
-            doSend(exchange, done -> {
-            });
+            doSend(exchange, AsyncCallback.EMPTY);
         }
     }
 
@@ -155,24 +154,21 @@ public class GrpcConsumer extends DefaultConsumer {
             exchange.getIn().setHeader(GrpcConstants.GRPC_EVENT_TYPE_HEADER, GrpcConstants.GRPC_EVENT_TYPE_ON_ERROR);
             exchange.getIn().setBody(error);
         
-            doSend(exchange, done -> {
-            });
+            doSend(exchange, AsyncCallback.EMPTY);
         }
     }
         
-    private boolean doSend(Exchange exchange, AsyncCallback callback) {
+    private void doSend(Exchange exchange, AsyncCallback callback) {
         if (this.isRunAllowed()) {
-            this.getAsyncProcessor().process(exchange, doneSync -> {
+            this.getAsyncProcessor().process(exchange, () -> {
                 if (exchange.getException() != null) {
                     getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
                 }
-                callback.done(doneSync);
+                callback.done();
             });
-            return false;
         } else {
             log.warn("Consumer not ready to process exchanges. The exchange {} will be discarded", exchange);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 }

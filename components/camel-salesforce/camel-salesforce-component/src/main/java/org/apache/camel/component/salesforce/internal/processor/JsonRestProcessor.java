@@ -223,7 +223,7 @@ public class JsonRestProcessor extends AbstractRestProcessor {
             }
 
             // notify callback that exchange is done
-            callback.done(false);
+            callback.done();
         }
 
     }

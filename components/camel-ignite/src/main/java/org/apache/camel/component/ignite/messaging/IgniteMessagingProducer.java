@@ -43,7 +43,7 @@ public class IgniteMessagingProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Message in = exchange.getIn();
         Message out = exchange.getOut();
         MessageHelper.copyHeaders(exchange.getIn(), out, true);
@@ -61,8 +61,7 @@ public class IgniteMessagingProducer extends DefaultAsyncProducer {
         }
 
         IgniteHelper.maybePropagateIncomingBody(endpoint, in, out);
-        callback.done(false);
-        return false;
+        callback.done();
     }
 
     private String topicFor(Exchange exchange) {

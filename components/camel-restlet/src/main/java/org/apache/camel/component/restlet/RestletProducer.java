@@ -173,7 +173,7 @@ public class RestletProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         RestletEndpoint endpoint = (RestletEndpoint) getEndpoint();
 
         // force processing synchronously using different api
@@ -183,8 +183,8 @@ public class RestletProducer extends DefaultAsyncProducer {
             } catch (Throwable e) {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         log.trace("Processing asynchronously");
@@ -200,8 +200,8 @@ public class RestletProducer extends DefaultAsyncProducer {
         } catch (Throwable e) {
             // break out in case of exception
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // process the request asynchronously
@@ -225,13 +225,10 @@ public class RestletProducer extends DefaultAsyncProducer {
                 } catch (Throwable e) {
                     exchange.setException(e);
                 } finally {
-                    callback.done(false);
+                    callback.done();
                 }
             }
         });
-
-        // we continue routing async
-        return false;
     }
 
     private String buildUri(RestletEndpoint endpoint, Exchange exchange) throws Exception {

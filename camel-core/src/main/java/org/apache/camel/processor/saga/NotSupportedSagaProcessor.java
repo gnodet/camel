@@ -40,16 +40,15 @@ public class NotSupportedSagaProcessor extends SagaProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         getCurrentSagaCoordinator(exchange).whenComplete((coordinator, ex) -> ifNotException(ex, exchange, callback, () -> {
             setCurrentSagaCoordinator(exchange, null);
 
-            super.process(exchange, doneSync -> {
+            super.process(exchange, () -> {
                 // Restore existing coordinator
                 setCurrentSagaCoordinator(exchange, coordinator);
-                callback.done(false);
+                callback.done();
             });
         }));
-        return false;
     }
 }

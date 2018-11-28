@@ -206,7 +206,7 @@ public abstract class ReplyManagerSupport extends ServiceSupport implements Repl
             } finally {
                 // notify callback
                 AsyncCallback callback = holder.getCallback();
-                callback.done(false);
+                callback.done();
             }
         }
     }

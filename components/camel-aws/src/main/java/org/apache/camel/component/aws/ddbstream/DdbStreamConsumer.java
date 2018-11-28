@@ -26,7 +26,6 @@ import com.amazonaws.services.dynamodbv2.model.ExpiredIteratorException;
 import com.amazonaws.services.dynamodbv2.model.GetRecordsRequest;
 import com.amazonaws.services.dynamodbv2.model.GetRecordsResult;
 import com.amazonaws.services.dynamodbv2.model.Record;
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.support.ScheduledBatchPollingConsumer;
@@ -82,12 +81,9 @@ public class DdbStreamConsumer extends ScheduledBatchPollingConsumer {
             final Exchange exchange = ObjectHelper.cast(Exchange.class, exchanges.poll());
 
             log.trace("Processing exchange [{}] started.", exchange);
-            getAsyncProcessor().process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    log.trace("Processing exchange [{}] done.", exchange);
-                }
-            });
+            getAsyncProcessor().process(exchange,
+                    () -> log.trace("Processing exchange [{}] done.", exchange));
+
             processedExchanges++;
         }
         return processedExchanges;

@@ -30,15 +30,13 @@ public class StompProducer extends DefaultAsyncProducer implements Processor {
         this.stompEndpoint = stompEndpoint;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             stompEndpoint.send(exchange, callback);
-            return false;
         } catch (Exception e) {
             exchange.setException(e);
+            callback.done();
         }
-        callback.done(true);
-        return true;
     }
 
 }

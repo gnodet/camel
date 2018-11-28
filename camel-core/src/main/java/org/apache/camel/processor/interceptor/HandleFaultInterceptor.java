@@ -38,16 +38,14 @@ public class HandleFaultInterceptor extends DelegateAsyncProcessor {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
-        return processor.process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
-                try {
-                    // handle fault after we are done
-                    handleFault(exchange);
-                } finally {
-                    // and let the original callback know we are done as well
-                    callback.done(doneSync);
-                }
+    public void process(final Exchange exchange, final AsyncCallback callback) {
+        processor.process(exchange, () -> {
+            try {
+                // handle fault after we are done
+                handleFault(exchange);
+            } finally {
+                // and let the original callback know we are done as well
+                callback.done();
             }
         });
     }

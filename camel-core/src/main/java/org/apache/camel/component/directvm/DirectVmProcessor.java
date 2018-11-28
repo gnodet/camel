@@ -35,7 +35,7 @@ public final class DirectVmProcessor extends DelegateAsyncProcessor {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // need to use a copy of the incoming exchange, so we route using this camel context
         final Exchange copy = prepareExchange(exchange);
 
@@ -51,21 +51,18 @@ public final class DirectVmProcessor extends DelegateAsyncProcessor {
             }
             
             final boolean chgd = changed;
-            return processor.process(copy, new AsyncCallback() {
-                @Override
-                public void done(boolean done) {
-                    try {
-                        // restore TCCL if it was changed during processing
-                        if (chgd) {
-                            log.trace("Restoring Thread ContextClassLoader to {}", current);
-                            Thread.currentThread().setContextClassLoader(current);
-                        }
-                        // make sure to copy results back
-                        ExchangeHelper.copyResults(exchange, copy);
-                    } finally {
-                        // must call callback when we are done
-                        callback.done(done);
+            processor.process(copy, () -> {
+                try {
+                    // restore TCCL if it was changed during processing
+                    if (chgd) {
+                        log.trace("Restoring Thread ContextClassLoader to {}", current);
+                        Thread.currentThread().setContextClassLoader(current);
                     }
+                    // make sure to copy results back
+                    ExchangeHelper.copyResults(exchange, copy);
+                } finally {
+                    // must call callback when we are done
+                    callback.done();
                 }
             });
         } finally {

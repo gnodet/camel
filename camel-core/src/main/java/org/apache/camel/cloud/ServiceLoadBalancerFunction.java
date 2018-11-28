@@ -20,6 +20,6 @@ package org.apache.camel.cloud;
  * Represents a load balancer function to be executed by the LoadBalancer.
  */
 @FunctionalInterface
-public interface ServiceLoadBalancerFunction<T> {
-    T apply(ServiceDefinition serviceDefinition) throws Exception;
+public interface ServiceLoadBalancerFunction {
+    void apply(ServiceDefinition serviceDefinition) throws Exception;
 }

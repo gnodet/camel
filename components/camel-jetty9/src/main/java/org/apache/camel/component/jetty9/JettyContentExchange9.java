@@ -100,7 +100,7 @@ public class JettyContentExchange9 implements JettyContentExchange {
         } catch (Exception e) {
             exchange.setException(e);
         } finally {
-            callback.done(false);
+            callback.done();
         }
     }
 
@@ -165,7 +165,7 @@ public class JettyContentExchange9 implements JettyContentExchange {
 
         if (callback != null) {
             // now invoke callback to indicate we are done async
-            callback.done(false);
+            callback.done();
         }
     }
 

@@ -113,7 +113,7 @@ public class ReactiveStreamsCamelSubscriber implements Subscriber<Exchange>, Clo
         }
 
         if (target != null) {
-            target.process(exchange, doneSync -> {
+            target.process(exchange, () -> {
                 synchronized (this) {
                     inflightCount--;
                 }

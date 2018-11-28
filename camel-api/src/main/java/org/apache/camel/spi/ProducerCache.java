@@ -24,7 +24,6 @@ import org.apache.camel.AsyncProducer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
-import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Service;
 
@@ -64,7 +63,7 @@ public interface ProducerCache extends Service {
 
     EndpointUtilizationStatistics getEndpointUtilizationStatistics();
 
-    boolean doInAsyncProducer(Endpoint endpoint, Exchange exchange, AsyncCallback callback, AsyncProducerCallback asyncProducerCallback);
+    void doInAsyncProducer(Endpoint endpoint, Exchange exchange, AsyncCallback callback, AsyncProducerCallback asyncProducerCallback);
 
     /**
      * Callback for sending a exchange message to a endpoint using an {@link AsyncProcessor} capable producer.
@@ -81,9 +80,8 @@ public interface ProducerCache extends Service {
          * @param asyncProducer   the async producer, is never <tt>null</tt>
          * @param exchange        the exchange to process
          * @param callback        the async callback
-         * @return (doneSync) <tt>true</tt> to continue execute synchronously, <tt>false</tt> to continue being executed asynchronously
          */
-        boolean doInAsyncProducer(AsyncProducer asyncProducer, Exchange exchange, AsyncCallback callback);
+        void doInAsyncProducer(AsyncProducer asyncProducer, Exchange exchange, AsyncCallback callback);
     }
 
 }

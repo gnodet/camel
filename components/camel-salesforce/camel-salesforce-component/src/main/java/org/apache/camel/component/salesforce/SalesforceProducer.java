@@ -108,10 +108,10 @@ public class SalesforceProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         log.debug("Processing {}",
                 ((SalesforceEndpoint) getEndpoint()).getOperationName());
-        return processor.process(exchange, callback);
+        processor.process(exchange, callback);
     }
 
     @Override

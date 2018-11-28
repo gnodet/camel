@@ -172,13 +172,13 @@ public class PollEnricher extends AsyncProcessorSupport implements IdAware, Came
      * @param exchange input data.
      */
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             preCheckPoll(exchange);
         } catch (Exception e) {
             exchange.setException(new CamelExchangeException("Error during pre poll check", exchange, e));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // which consumer to use
@@ -200,8 +200,8 @@ public class PollEnricher extends AsyncProcessorSupport implements IdAware, Came
             } else {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // grab the real delegate consumer that performs the actual polling
@@ -239,8 +239,8 @@ public class PollEnricher extends AsyncProcessorSupport implements IdAware, Came
             }
         } catch (Exception e) {
             exchange.setException(new CamelExchangeException("Error during poll", exchange, e));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         } finally {
             // return the consumer back to the cache
             consumerCache.releasePollingConsumer(endpoint, consumer);
@@ -318,12 +318,11 @@ public class PollEnricher extends AsyncProcessorSupport implements IdAware, Came
             }
         } catch (Throwable e) {
             exchange.setException(new CamelExchangeException("Error occurred during aggregation", exchange, e));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     protected Endpoint resolveEndpoint(Exchange exchange, Object recipient) {

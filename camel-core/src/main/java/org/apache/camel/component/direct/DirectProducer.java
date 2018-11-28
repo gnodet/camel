@@ -57,7 +57,7 @@ public class DirectProducer extends DefaultAsyncProducer {
         }
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             DirectConsumer consumer = endpoint.getConsumer();
             if (consumer == null) {
@@ -66,15 +66,13 @@ public class DirectProducer extends DefaultAsyncProducer {
                 } else {
                     log.debug("message ignored, no consumers available on endpoint: {}", endpoint);
                 }
-                callback.done(true);
-                return true;
+                callback.done();
             } else {
-                return consumer.getAsyncProcessor().process(exchange, callback);
+                consumer.getAsyncProcessor().process(exchange, callback);
             }
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 

@@ -33,6 +33,7 @@ import javax.management.openmbean.TabularData;
 import javax.management.openmbean.TabularDataSupport;
 import javax.management.openmbean.TabularType;
 
+import org.apache.camel.AsyncCallback;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.RuntimeCamelException;
@@ -184,8 +185,7 @@ public class DefaultCamelReactiveStreamsService extends ServiceSupport implement
             }
         });
 
-        consumer.process(data, doneSync -> {
-        });
+        consumer.process(data, AsyncCallback.EMPTY);
 
         return publisher;
     }

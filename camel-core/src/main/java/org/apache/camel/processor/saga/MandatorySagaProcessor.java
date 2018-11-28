@@ -35,17 +35,16 @@ public class MandatorySagaProcessor extends SagaProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         getCurrentSagaCoordinator(exchange).whenComplete((coordinator, ex) -> ifNotException(ex, exchange, callback, () -> {
             if (coordinator == null) {
                 exchange.setException(new CamelExchangeException("Exchange is not part of a saga", exchange));
-                callback.done(false);
+                callback.done();
             } else {
                 coordinator.beginStep(exchange, step).whenComplete((done, ex2) -> ifNotException(ex2, exchange, callback, () -> {
-                    super.process(exchange, doneSync -> callback.done(false));
+                    super.process(exchange, callback);
                 }));
             }
         }));
-        return false;
     }
 }

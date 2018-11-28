@@ -45,7 +45,7 @@ final class AtomixSetProducer extends AbstractAtomixClientProducer<AtomixSetEndp
     // *********************************
 
     @InvokeOnHeader("ADD")
-    boolean onAdd(Message message, AsyncCallback callback) throws Exception {
+    void onAdd(Message message, AsyncCallback callback) throws Exception {
         final DistributedSet<Object> set = getResource(message);
         final long ttl = message.getHeader(RESOURCE_TTL, configuration::getTtl, long.class);
         final Object val = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -61,23 +61,19 @@ final class AtomixSetProducer extends AbstractAtomixClientProducer<AtomixSetEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("CLEAR")
-    boolean onClear(Message message, AsyncCallback callback) throws Exception {
+    void onClear(Message message, AsyncCallback callback) throws Exception {
         final DistributedSet<Object> set = getResource(message);
 
         set.clear().thenAccept(
             result -> processResult(message, callback, result)
         );
-
-        return false;
     }
 
     @InvokeOnHeader("CONTAINS")
-    boolean onContains(Message message, AsyncCallback callback) throws Exception {
+    void onContains(Message message, AsyncCallback callback) throws Exception {
         final DistributedSet<Object> set = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
         final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -93,12 +89,10 @@ final class AtomixSetProducer extends AbstractAtomixClientProducer<AtomixSetEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("IS_EMPTY")
-    boolean onIsEmpty(Message message, AsyncCallback callback) throws Exception {
+    void onIsEmpty(Message message, AsyncCallback callback) throws Exception {
         final DistributedSet<Object> set = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 
@@ -111,12 +105,10 @@ final class AtomixSetProducer extends AbstractAtomixClientProducer<AtomixSetEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("REMOVE")
-    boolean onRemove(Message message, AsyncCallback callback) throws Exception {
+    void onRemove(Message message, AsyncCallback callback) throws Exception {
         final DistributedSet<Object> set = getResource(message);
         final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
 
@@ -125,12 +117,10 @@ final class AtomixSetProducer extends AbstractAtomixClientProducer<AtomixSetEndp
         set.remove(value).thenAccept(
             result -> processResult(message, callback, result)
         );
-
-        return false;
     }
 
     @InvokeOnHeader("SIZE")
-    boolean onSize(Message message, AsyncCallback callback) throws Exception {
+    void onSize(Message message, AsyncCallback callback) throws Exception {
         final DistributedSet<Object> set = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 
@@ -143,8 +133,6 @@ final class AtomixSetProducer extends AbstractAtomixClientProducer<AtomixSetEndp
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     // *********************************

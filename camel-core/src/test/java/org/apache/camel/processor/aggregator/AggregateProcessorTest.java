@@ -26,7 +26,6 @@ import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
-import org.apache.camel.Processor;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.processor.BodyInAggregatingStrategy;
 import org.apache.camel.processor.SendProcessor;
@@ -517,7 +516,7 @@ public class AggregateProcessorTest extends ContextTestSupport {
         mock.expectedBodiesReceived("A+END");
 
         AsyncProcessor done = new AsyncProcessorSupport() {
-            public boolean process(Exchange exchange, AsyncCallback callback) {
+            public void process(Exchange exchange, AsyncCallback callback) {
                 try {
                     if (exchange.getIn().getBody(String.class).contains("Kaboom")) {
                         throw new IllegalArgumentException("Damn");
@@ -528,9 +527,8 @@ public class AggregateProcessorTest extends ContextTestSupport {
                     }
                 } catch (Exception e) {
                     exchange.setException(e);
-                    callback.done(false);
+                    callback.done();
                 }
-                return false;
             }
         };
                 

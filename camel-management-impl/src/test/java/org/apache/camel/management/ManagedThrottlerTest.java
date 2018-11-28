@@ -291,7 +291,7 @@ public class ManagedThrottlerTest extends ManagementTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         final ScheduledExecutorService badService = new ScheduledThreadPoolExecutor(1) {
             @Override
-            public <V> ScheduledFuture<V> schedule(Callable<V> command, long delay, TimeUnit unit) {
+            public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
                 throw new RejectedExecutionException();
             }
         };

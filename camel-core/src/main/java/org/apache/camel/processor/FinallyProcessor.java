@@ -35,7 +35,7 @@ public class FinallyProcessor extends DelegateAsyncProcessor implements Traceabl
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // clear exception and fault so finally block can be executed
         final boolean fault;
         if (exchange.hasOut()) {
@@ -59,7 +59,7 @@ public class FinallyProcessor extends DelegateAsyncProcessor implements Traceabl
         }
 
         // continue processing
-        return processor.process(exchange, new FinallyAsyncCallback(exchange, callback, exception, fault));
+        processor.process(exchange, new FinallyAsyncCallback(exchange, callback, exception, fault));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class FinallyProcessor extends DelegateAsyncProcessor implements Traceabl
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             try {
                 if (exception == null) {
                     exchange.removeProperty(Exchange.FAILURE_ENDPOINT);
@@ -112,14 +112,12 @@ public class FinallyProcessor extends DelegateAsyncProcessor implements Traceabl
                     }
                 }
 
-                if (!doneSync) {
-                    // signal callback to continue routing async
-                    ExchangeHelper.prepareOutToIn(exchange);
-                    log.trace("Processing complete for exchangeId: {} >>> {}", exchange.getExchangeId(), exchange);
-                }
+                // signal callback to continue routing async
+                ExchangeHelper.prepareOutToIn(exchange);
+                log.trace("Processing complete for exchangeId: {} >>> {}", exchange.getExchangeId(), exchange);
             } finally {
                 // callback must always be called
-                callback.done(doneSync);
+                callback.done();
             }
         }
 

@@ -40,7 +40,7 @@ public class FilterProcessor extends DelegateAsyncProcessor implements Traceable
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         boolean matches = false;
 
         try {
@@ -50,10 +50,9 @@ public class FilterProcessor extends DelegateAsyncProcessor implements Traceable
         }
 
         if (matches) {
-            return processor.process(exchange, callback);
+            processor.process(exchange, callback);
         } else {
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 

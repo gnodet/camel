@@ -24,7 +24,6 @@ import javax.xml.ws.WebFault;
 
 import org.w3c.dom.Element;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ExchangeTimedOutException;
 import org.apache.camel.Processor;
@@ -179,14 +178,12 @@ public class CxfConsumer extends DefaultConsumer implements Suspendable {
                     continuation.setObject(camelExchange);
 
                     // use the asynchronous API to process the exchange
-                    getAsyncProcessor().process(camelExchange, new AsyncCallback() {
-                        public void done(boolean doneSync) {
-                            // make sure the continuation resume will not be called before the suspend method in other thread
-                            synchronized (continuation) {
-                                log.trace("Resuming continuation of exchangeId: {}", camelExchange.getExchangeId());
-                                // resume processing after both, sync and async callbacks
-                                continuation.resume();
-                            }
+                    getAsyncProcessor().process(camelExchange, () -> {
+                        // make sure the continuation resume will not be called before the suspend method in other thread
+                        synchronized (continuation) {
+                            log.trace("Resuming continuation of exchangeId: {}", camelExchange.getExchangeId());
+                            // resume processing after both, sync and async callbacks
+                            continuation.resume();
                         }
                     });
 

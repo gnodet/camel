@@ -18,14 +18,12 @@ package org.apache.camel.processor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Navigate;
 import org.apache.camel.Processor;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.support.ServiceHelper;
 import org.apache.camel.support.ServiceSupport;
 
@@ -57,7 +55,7 @@ public class DelegateSyncProcessor extends ServiceSupport implements org.apache.
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // force calling the sync method
         try {
             processor.process(exchange);
@@ -66,16 +64,8 @@ public class DelegateSyncProcessor extends ServiceSupport implements org.apache.
             exchange.setException(e);
         } finally {
             // we are bridging a sync processor as async so callback with true
-            callback.done(false);
+            callback.done();
         }
-        return false;
-    }
-
-    @Override
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
     }
 
     @Override

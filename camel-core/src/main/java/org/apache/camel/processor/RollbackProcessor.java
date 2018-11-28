@@ -40,7 +40,7 @@ public class RollbackProcessor extends AsyncProcessorSupport implements Traceabl
         this.message = message;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         if (isMarkRollbackOnlyLast()) {
             // only mark the last route (current) as rollback
             // this is needed when you have multiple transactions in play
@@ -52,8 +52,8 @@ public class RollbackProcessor extends AsyncProcessorSupport implements Traceabl
 
         if (markRollbackOnly || markRollbackOnlyLast) {
             // do not do anything more as we should only mark the rollback
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // throw exception to rollback
@@ -63,8 +63,7 @@ public class RollbackProcessor extends AsyncProcessorSupport implements Traceabl
             exchange.setException(new RollbackExchangeException(exchange));
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

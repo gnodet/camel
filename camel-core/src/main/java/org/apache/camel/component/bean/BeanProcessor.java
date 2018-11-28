@@ -16,8 +16,6 @@
  */
 package org.apache.camel.component.bean;
 
-import java.util.concurrent.CompletableFuture;
-
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
@@ -51,13 +49,8 @@ public class BeanProcessor extends ServiceSupport implements AsyncProcessor {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
-        return delegate.process(exchange, callback);
-    }
-
-    @Override
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        return delegate.processAsync(exchange);
+    public void process(Exchange exchange, AsyncCallback callback) {
+        delegate.process(exchange, callback);
     }
 
     public Processor getProcessor() {

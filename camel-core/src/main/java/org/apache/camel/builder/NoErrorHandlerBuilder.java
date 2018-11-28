@@ -34,13 +34,10 @@ public class NoErrorHandlerBuilder extends ErrorHandlerBuilderSupport {
     public Processor createErrorHandler(RouteContext routeContext, Processor processor) {
         return new DelegateAsyncProcessor(processor) {
             @Override
-            public boolean process(final Exchange exchange, final AsyncCallback callback) {
-                return super.process(exchange, new AsyncCallback() {
-                    @Override
-                    public void done(boolean doneSync) {
-                        exchange.removeProperty(Exchange.REDELIVERY_EXHAUSTED);
-                        callback.done(doneSync);
-                    }
+            public void process(final Exchange exchange, final AsyncCallback callback) {
+                super.process(exchange, () -> {
+                    exchange.removeProperty(Exchange.REDELIVERY_EXHAUSTED);
+                    callback.done();
                 });
             }
 

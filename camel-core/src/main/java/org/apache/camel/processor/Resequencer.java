@@ -294,7 +294,7 @@ public class Resequencer extends AsyncProcessorSupport implements Navigate<Proce
      * custom processing before or after an individual exchange is processed
      */
     protected void processExchange(Exchange exchange) {
-        processor.process(exchange, sync -> postProcess(exchange));
+        processor.process(exchange, () -> postProcess(exchange));
     }
 
     protected void postProcess(Exchange exchange) {
@@ -317,7 +317,7 @@ public class Resequencer extends AsyncProcessorSupport implements Navigate<Proce
     /**
      * Enqueues an exchange for later batch processing.
      */
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             // if batch consumer is enabled then we need to adjust the batch size
             // with the size from the batch consumer
@@ -343,8 +343,7 @@ public class Resequencer extends AsyncProcessorSupport implements Navigate<Proce
         } catch (Throwable e) {
             exchange.setException(e);
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     /**

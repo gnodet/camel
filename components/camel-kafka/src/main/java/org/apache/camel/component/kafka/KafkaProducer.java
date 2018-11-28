@@ -286,7 +286,7 @@ public class KafkaProducer extends DefaultAsyncProducer {
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Iterator<ProducerRecord> c = createRecorder(exchange);
             KafkaProducerCallBack cb = new KafkaProducerCallBack(exchange, callback);
@@ -298,12 +298,11 @@ public class KafkaProducer extends DefaultAsyncProducer {
                 }
                 kafkaProducer.send(rec, cb);
             }
-            return cb.allSent();
+            cb.allSent();
         } catch (Exception ex) {
             exchange.setException(ex);
+            callback.done();
         }
-        callback.done(true);
-        return true;
     }
 
     /**
@@ -356,7 +355,7 @@ public class KafkaProducer extends DefaultAsyncProducer {
             if (count.decrementAndGet() == 0) {
                 log.trace("All messages sent, continue routing.");
                 //was able to get all the work done while queuing the requests
-                callback.done(true);
+                callback.done();
                 return true;
             }
             return false;
@@ -377,7 +376,7 @@ public class KafkaProducer extends DefaultAsyncProducer {
                     @Override
                     public void run() {
                         log.trace("All messages sent, continue routing.");
-                        callback.done(false);
+                        callback.done();
                     }
                 });
             }

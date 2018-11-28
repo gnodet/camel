@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.apache.camel.AsyncCallback;
@@ -330,7 +331,7 @@ public class DefaultUnitOfWork implements UnitOfWork, Service {
         return callback;
     }
 
-    public void afterProcess(Processor processor, Exchange exchange, AsyncCallback callback, boolean doneSync) {
+    public void afterProcess(Processor processor, Exchange exchange, AsyncCallback callback) {
     }
 
     @Override

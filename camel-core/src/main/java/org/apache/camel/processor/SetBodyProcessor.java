@@ -38,14 +38,14 @@ public class SetBodyProcessor extends AsyncProcessorSupport implements Traceable
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Object newBody = expression.evaluate(exchange, Object.class);
 
             if (exchange.getException() != null) {
                 // the expression threw an exception so we should break-out
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
 
             boolean out = exchange.hasOut();
@@ -70,8 +70,7 @@ public class SetBodyProcessor extends AsyncProcessorSupport implements Traceable
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

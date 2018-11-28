@@ -126,7 +126,7 @@ public class DefaultServiceLoadBalancer
     // *************************************
 
     @Override
-    public <T> T process(String serviceName, ServiceLoadBalancerFunction<T> function) throws Exception {
+    public void process(String serviceName, ServiceLoadBalancerFunction function) throws Exception {
         ServiceDefinition service;
 
         List<ServiceDefinition> services = serviceDiscovery.getServices(serviceName);
@@ -142,6 +142,6 @@ public class DefaultServiceLoadBalancer
             }
         }
 
-        return function.apply(service);
+        function.apply(service);
     }
 }

@@ -45,11 +45,9 @@ public class LoadBalancerTest {
         loadBalancer.setServiceChooser(new RoundRobinServiceChooser());
         loadBalancer.process("no-name", service -> {
             assertEquals(1001, service.getPort());
-            return false;
         });
         loadBalancer.process("no-name", service -> {
             assertEquals(1002, service.getPort());
-            return false;
         });
     }
 
@@ -60,6 +58,6 @@ public class LoadBalancerTest {
         loadBalancer.setServiceDiscovery(serviceDiscovery);
         loadBalancer.setServiceFilter(services -> services.stream().filter(s -> s.getPort() < 1000).collect(Collectors.toList()));
         loadBalancer.setServiceChooser(new RoundRobinServiceChooser());
-        loadBalancer.process("no-name", service -> false);
+        loadBalancer.process("no-name", service -> { });
     }
 }

@@ -61,7 +61,7 @@ public class FacebookProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // properties for method arguments
         final Map<String, Object> properties = new HashMap<>();
 
@@ -73,8 +73,8 @@ public class FacebookProducer extends DefaultAsyncProducer {
         final FacebookMethodsType method = findMethod(exchange, properties);
         if (method == null) {
             // synchronous failure
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // create a runnable invocation task to be submitted on a background thread pool
@@ -116,13 +116,12 @@ public class FacebookProducer extends DefaultAsyncProducer {
                 } catch (Throwable t) {
                     exchange.setException(RuntimeCamelException.wrapRuntimeCamelException(t));
                 } finally {
-                    callback.done(false);
+                    callback.done();
                 }
             }
         };
 
         getExecutorService(getEndpoint().getCamelContext()).submit(invocation);
-        return false;
     }
 
     private boolean hasReadingParameters(Map<String, Object> properties) {

@@ -35,7 +35,7 @@ public class DirectVmProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // send to consumer
         DirectVmConsumer consumer = endpoint.getComponent().getConsumer(endpoint);
         
@@ -45,8 +45,8 @@ public class DirectVmProducer extends DefaultAsyncProducer {
             } else {
                 log.debug("message ignored, no consumers available on endpoint: {}", endpoint);
             }
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
         
         final HeaderFilterStrategy headerFilterStrategy = endpoint.getHeaderFilterStrategy();
@@ -64,7 +64,7 @@ public class DirectVmProducer extends DefaultAsyncProducer {
             submitted.getIn().getHeaders().entrySet().removeIf(e -> headerFilterStrategy.applyFilterToCamelHeaders(e.getKey(), e.getValue(), submitted));
         }
         
-        return consumer.getAsyncProcessor().process(submitted, done -> {
+        consumer.getAsyncProcessor().process(submitted, () -> {
             Message msg = submitted.hasOut() ? submitted.getOut() : submitted.getIn();
 
             if (headerFilterStrategy != null) {
@@ -81,7 +81,7 @@ public class DirectVmProducer extends DefaultAsyncProducer {
                 exchange.getProperties().putAll(submitted.getProperties());
             }
 
-            callback.done(done);
+            callback.done();
         });
     }
     

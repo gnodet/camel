@@ -36,15 +36,14 @@ public class ScriptProcessor extends AsyncProcessorSupport implements Traceable,
         this.expression = expression;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             expression.evaluate(exchange, Object.class);
         } catch (Throwable e) {
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

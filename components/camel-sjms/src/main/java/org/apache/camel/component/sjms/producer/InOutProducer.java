@@ -231,7 +231,7 @@ public class InOutProducer extends SjmsProducer {
             }
         }
 
-        callback.done(isSynchronous());
+        callback.done();
     }
 
 }

@@ -46,13 +46,12 @@ public class DirectVmBlockingProducer extends DefaultAsyncProducer {
         getConsumer(exchange).getProcessor().process(exchange);
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
-            return getConsumer(exchange).getAsyncProcessor().process(exchange, callback);
+            getConsumer(exchange).getAsyncProcessor().process(exchange, callback);
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 

@@ -45,7 +45,7 @@ class GrpcStreamingExchangeForwarder implements GrpcExchangeForwarder {
     public boolean forward(Exchange exchange, StreamObserver<Object> responseObserver, AsyncCallback callback) {
         Message message = exchange.getIn();
         checkAndRecreateStreamObserver(responseObserver).onNext(message.getBody());
-        callback.done(true);
+        callback.done();
         return true;
     }
 

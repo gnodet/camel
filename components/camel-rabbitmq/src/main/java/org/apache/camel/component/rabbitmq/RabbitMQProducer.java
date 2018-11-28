@@ -176,35 +176,34 @@ public class RabbitMQProducer extends DefaultAsyncProducer {
         }
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // deny processing if we are not started
         if (!isRunAllowed()) {
             if (exchange.getException() == null) {
                 exchange.setException(new RejectedExecutionException());
             }
             // we cannot process so invoke callback
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         try {
             if (exchange.getPattern().isOutCapable()) {
                 // in out requires a bit more work than in only
-                return processInOut(exchange, callback);
+                processInOut(exchange, callback);
             } else {
                 // in only
-                return processInOnly(exchange, callback);
+                processInOnly(exchange, callback);
             }
         } catch (Throwable e) {
             // must catch exception to ensure callback is invoked as expected
             // to let Camel error handling deal with this
             exchange.setException(e);
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
 
-    protected boolean processInOut(final Exchange exchange, final AsyncCallback callback) throws Exception {
+    protected void processInOut(final Exchange exchange, final AsyncCallback callback) throws Exception {
         final org.apache.camel.Message in = exchange.getIn();
 
         initReplyManager();
@@ -245,10 +244,7 @@ public class RabbitMQProducer extends DefaultAsyncProducer {
         } catch (Exception e) {
             replyManager.cancelCorrelationId(correlationId);
             exchange.setException(e);
-            return true;
         }
-        // continue routing asynchronously (reply will be processed async when its received)
-        return false;
     }
 
     private boolean processInOnly(Exchange exchange, AsyncCallback callback) throws Exception {
@@ -271,7 +267,7 @@ public class RabbitMQProducer extends DefaultAsyncProducer {
         }
 
         basicPublish(exchange, exchangeName, key);
-        callback.done(true);
+        callback.done();
         return true;
     }
 

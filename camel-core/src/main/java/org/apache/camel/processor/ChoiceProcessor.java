@@ -50,21 +50,18 @@ public class ChoiceProcessor extends AsyncProcessorSupport implements Navigate<P
         this.otherwise = otherwise;
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         Iterator<Processor> processors = next().iterator();
 
         // callback to restore existing FILTER_MATCHED property on the Exchange
         final Object existing = exchange.getProperty(Exchange.FILTER_MATCHED);
-        final AsyncCallback choiceCallback = new AsyncCallback() {
-            @Override
-            public void done(boolean doneSync) {
-                if (existing != null) {
-                    exchange.setProperty(Exchange.FILTER_MATCHED, existing);
-                } else {
-                    exchange.removeProperty(Exchange.FILTER_MATCHED);
-                }
-                callback.done(doneSync);
+        final AsyncCallback choiceCallback = () ->  {
+            if (existing != null) {
+                exchange.setProperty(Exchange.FILTER_MATCHED, existing);
+            } else {
+                exchange.removeProperty(Exchange.FILTER_MATCHED);
             }
+            callback.done();
         };
 
         // as we only pick one processor to process, then no need to have async callback that has a while loop as well
@@ -105,12 +102,11 @@ public class ChoiceProcessor extends AsyncProcessorSupport implements Navigate<P
 
             // okay we found a filter or its the otherwise we are processing
             AsyncProcessor async = AsyncProcessorConverterHelper.convert(processor);
-            return async.process(exchange, choiceCallback);
+            async.process(exchange, choiceCallback);
+            return;
         }
-
         // when no filter matches and there is no otherwise, then just continue
-        choiceCallback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

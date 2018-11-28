@@ -54,10 +54,9 @@ public abstract class AbstractApiProducer<E extends Enum<E> & ApiName, T>
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // properties for method arguments
-        final Map<String, Object> properties = new HashMap<>();
-        properties.putAll(endpoint.getEndpointProperties());
+        final Map<String, Object> properties = new HashMap<>(endpoint.getEndpointProperties());
         propertiesHelper.getExchangeProperties(exchange, properties);
 
         // let the endpoint and the Producer intercept properties
@@ -68,39 +67,33 @@ public abstract class AbstractApiProducer<E extends Enum<E> & ApiName, T>
         final ApiMethod method = findMethod(exchange, properties);
         if (method == null) {
             // synchronous failure
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // create a runnable invocation task to be submitted on a background thread pool
         // this way we avoid blocking the current thread for long running methods
-        Runnable invocation = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Invoking operation {} with {}", method.getName(), properties.keySet());
-                    }
-
-                    Object result = doInvokeMethod(method, properties);
-
-                    // producer returns a single response, even for methods with List return types
-                    exchange.getOut().setBody(result);
-                    // copy headers
-                    exchange.getOut().setHeaders(exchange.getIn().getHeaders());
-
-                    interceptResult(result, exchange);
-
-                } catch (Throwable t) {
-                    exchange.setException(RuntimeCamelException.wrapRuntimeCamelException(t));
-                } finally {
-                    callback.done(false);
+        endpoint.getExecutorService().submit(() -> {
+            try {
+                if (log.isDebugEnabled()) {
+                    log.debug("Invoking operation {} with {}", method.getName(), properties.keySet());
                 }
-            }
-        };
 
-        endpoint.getExecutorService().submit(invocation);
-        return false;
+                Object result = doInvokeMethod(method, properties);
+
+                // producer returns a single response, even for methods with List return types
+                exchange.getOut().setBody(result);
+                // copy headers
+                exchange.getOut().setHeaders(exchange.getIn().getHeaders());
+
+                interceptResult(result, exchange);
+
+            } catch (Throwable t) {
+                exchange.setException(RuntimeCamelException.wrapRuntimeCamelException(t));
+            } finally {
+                callback.done();
+            }
+        });
     }
 
     @Override

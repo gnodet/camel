@@ -70,7 +70,7 @@ class UndertowClientCallback implements ClientCallback<ClientConnection> {
     /**
      * {@link ClientCallback} that handles failures automatically by propagating
      * the exception to Camel {@link Exchange} and notifies Camel that the
-     * exchange finished by calling {@link AsyncCallback#done(boolean)}.
+     * exchange finished by calling {@link #done()}.
      */
     final class ErrorHandlingClientCallback<T> implements ClientCallback<T> {
 
@@ -174,7 +174,7 @@ class UndertowClientCallback implements ClientCallback<ClientConnection> {
             }
         }
 
-        callback.done(false);
+        callback.done();
     }
 
     void hasFailedWith(final Throwable e) {

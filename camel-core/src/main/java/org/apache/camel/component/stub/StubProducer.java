@@ -36,7 +36,7 @@ public class StubProducer extends SedaProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         AsyncCallback cb = callback;
 
         QueueReference queueReference = getEndpoint().getQueueReference();
@@ -46,14 +46,14 @@ public class StubProducer extends SedaProducer {
         final ExchangePattern pattern = exchange.getPattern();
         if (empty && pattern != ExchangePattern.InOnly) {
             exchange.setPattern(ExchangePattern.InOnly);
-            cb = doneSync -> {
+            cb = () -> {
                 // and restore the old pattern after processing
                 exchange.setPattern(pattern);
-                callback.done(doneSync);
+                callback.done();
             };
         }
 
-        return super.process(exchange, cb);
+        super.process(exchange, cb);
     }
     
 }

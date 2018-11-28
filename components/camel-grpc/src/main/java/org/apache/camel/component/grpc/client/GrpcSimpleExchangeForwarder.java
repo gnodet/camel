@@ -45,7 +45,7 @@ class GrpcSimpleExchangeForwarder implements GrpcExchangeForwarder {
             GrpcUtils.invokeAsyncMethod(grpcStub, configuration.getMethod(), message.getBody(), responseObserver);
         } catch (Exception e) {
             exchange.setException(e);
-            callback.done(true);
+            callback.done();
             return true;
         }
         return false;

@@ -87,8 +87,8 @@ public class DataFormatEndpoint extends DefaultEndpoint {
     public Producer createProducer() throws Exception {
         return new DefaultAsyncProducer(this) {
             @Override
-            public boolean process(Exchange exchange, AsyncCallback callback) {
-                return processor.process(exchange, callback);
+            public void process(Exchange exchange, AsyncCallback callback) {
+                processor.process(exchange, callback);
             }
 
             @Override

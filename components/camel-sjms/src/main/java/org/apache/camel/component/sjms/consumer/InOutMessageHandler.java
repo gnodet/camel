@@ -99,7 +99,7 @@ public class InOutMessageHandler extends AbstractMessageHandler {
                     } catch (Exception e) {
                         exchange.setException(e);
                     } finally {
-                        callback.done(true);
+                        callback.done();
                     }
                 } else {
                     // process asynchronous using the async routing engine
@@ -156,7 +156,7 @@ public class InOutMessageHandler extends AbstractMessageHandler {
         }
 
         @Override
-        public void done(boolean sync) {
+        public void done() {
             try {
                 // the response can either be in OUT or IN
                 org.apache.camel.Message msg = exchange.hasOut() ? exchange.getOut() : exchange.getIn();

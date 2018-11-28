@@ -197,16 +197,16 @@ public class ThriftConsumer extends DefaultConsumer {
 
     private boolean doSend(Exchange exchange, AsyncCallback callback) {
         if (isRunAllowed()) {
-            getAsyncProcessor().process(exchange, doneSync -> {
+            getAsyncProcessor().process(exchange, () -> {
                 if (exchange.getException() != null) {
                     getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
                 }
-                callback.done(doneSync);
+                callback.done();
             });
             return false;
         } else {
             log.warn("Consumer not ready to process exchanges. The exchange {} will be discarded", exchange);
-            callback.done(true);
+            callback.done();
             return true;
         }
     }

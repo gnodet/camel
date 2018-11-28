@@ -144,7 +144,7 @@ public class DefaultServiceCallProcessor extends AsyncProcessorSupport {
     // *************************************
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         final Message message = exchange.getIn();
 
         // the values can be dynamic using simple language so compute those
@@ -159,14 +159,14 @@ public class DefaultServiceCallProcessor extends AsyncProcessorSupport {
         message.setHeader(ServiceCallConstants.SERVICE_NAME, serviceName);
 
         try {
-            return loadBalancer.process(serviceName, server -> execute(server, exchange, callback));
+            loadBalancer.process(serviceName, server -> execute(server, exchange, callback));
         } catch (Exception e) {
             exchange.setException(e);
-            return true;
+            callback.done();
         }
     }
 
-    private boolean execute(ServiceDefinition service, Exchange exchange, AsyncCallback callback) throws Exception {
+    private void execute(ServiceDefinition service, Exchange exchange, AsyncCallback callback) throws Exception {
         final Message message = exchange.getIn();
         final String host = service.getHost();
         final int port = service.getPort();
@@ -193,7 +193,7 @@ public class DefaultServiceCallProcessor extends AsyncProcessorSupport {
         );
 
         // use the dynamic send processor to call the service
-        return processor.process(exchange, callback);
+        processor.process(exchange, callback);
     }
 
     /**

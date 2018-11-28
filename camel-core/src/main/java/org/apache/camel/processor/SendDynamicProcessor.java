@@ -78,11 +78,11 @@ public class SendDynamicProcessor extends AsyncProcessorSupport implements IdAwa
         this.id = id;
     }
 
-    public boolean process(Exchange exchange, final AsyncCallback callback) {
+    public void process(Exchange exchange, final AsyncCallback callback) {
         if (!isStarted()) {
             exchange.setException(new IllegalStateException("SendProcessor has not been started: " + this));
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // we should preserve existing MEP so remember old MEP
@@ -128,8 +128,8 @@ public class SendDynamicProcessor extends AsyncProcessorSupport implements IdAwa
                     log.debug("Send dynamic evaluated as null so cannot send to any endpoint");
                 }
                 // no endpoint to send to, so ignore
-                callback.done(true);
-                return true;
+                callback.done();
+                return;
             }
             destinationExchangePattern = EndpointHelper.resolveExchangePatternFromUrl(endpoint.getEndpointUri());
         } catch (Throwable e) {
@@ -140,8 +140,8 @@ public class SendDynamicProcessor extends AsyncProcessorSupport implements IdAwa
             } else {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
+            return;
         }
 
         // send the exchange to the destination using the producer cache
@@ -149,35 +149,33 @@ public class SendDynamicProcessor extends AsyncProcessorSupport implements IdAwa
         final Processor postProcessor = postAwareProcessor;
         // destination exchange pattern overrides pattern
         final ExchangePattern pattern = destinationExchangePattern != null ? destinationExchangePattern : this.pattern;
-        return producerCache.doInAsyncProducer(endpoint, exchange, callback, (p, e, c) -> {
-            final Exchange target = configureExchange(e, pattern, endpoint);
+        producerCache.doInAsyncProducer(endpoint, exchange, callback, (p, ex, c) -> {
+            final Exchange target = configureExchange(ex, pattern, endpoint);
             try {
                 if (preProcessor != null) {
                     preProcessor.process(target);
                 }
             } catch (Throwable t) {
-                e.setException(t);
+                ex.setException(t);
                 // restore previous MEP
                 target.setPattern(existingPattern);
                 // we failed
-                c.done(true);
+                c.done();
             }
 
-            log.debug(">>>> {} {}", endpoint, e);
-            return p.process(target, new AsyncCallback() {
-                public void done(boolean doneSync) {
-                    // restore previous MEP
-                    target.setPattern(existingPattern);
-                    try {
-                        if (postProcessor != null) {
-                            postProcessor.process(target);
-                        }
-                    } catch (Throwable e) {
-                        target.setException(e);
+            log.debug(">>>> {} {}", endpoint, ex);
+            p.process(target, () -> {
+                // restore previous MEP
+                target.setPattern(existingPattern);
+                try {
+                    if (postProcessor != null) {
+                        postProcessor.process(target);
                     }
-                    // signal we are done
-                    c.done(doneSync);
+                } catch (Throwable e) {
+                    target.setException(e);
                 }
+                // signal we are done
+                c.done();
             });
         });
     }

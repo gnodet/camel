@@ -46,7 +46,7 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
     // *********************************
 
     @InvokeOnHeader("PUT")
-    boolean onPut(Message message, AsyncCallback callback) throws Exception {
+    void onPut(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final Object key = message.getHeader(RESOURCE_KEY, configuration::getKey, Object.class);
         final Object val = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -64,12 +64,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("GET")
-    boolean onGet(Message message, AsyncCallback callback) throws Exception {
+    void onGet(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final Object key = message.getHeader(RESOURCE_KEY, configuration::getKey, Object.class);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
@@ -85,23 +83,19 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("CLEAR")
-    boolean onClear(Message message, AsyncCallback callback) throws Exception {
+    void onClear(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
 
         map.clear().thenAccept(
             result -> processResult(message, callback, result)
         );
-
-        return false;
     }
 
     @InvokeOnHeader("SIZE")
-    boolean onSize(Message message, AsyncCallback callback) throws Exception {
+    void onSize(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
         final Object key = message.getHeader(RESOURCE_KEY, message::getBody, Object.class);
@@ -127,12 +121,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
                 );
             }
         }
-
-        return false;
     }
 
     @InvokeOnHeader("IS_EMPTY")
-    boolean onIsEmpty(Message message, AsyncCallback callback) throws Exception {
+    void onIsEmpty(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 
@@ -145,12 +137,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("CONTAINS_KEY")
-    boolean onContainsKey(Message message, AsyncCallback callback) throws Exception {
+    void onContainsKey(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
         final Object key = message.getHeader(RESOURCE_KEY, message::getBody, Object.class);
@@ -166,12 +156,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
 //    @InvokeOnHeader("CONTAINS_VALUE")
-//    boolean onContainsValue(Message message, AsyncCallback callback) throws Exception {
+//    void onContainsValue(Message message, AsyncCallback callback) throws Exception {
 //        final DistributedMultiMap<Object, Object> map = getResource(message);
 //        final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 //        final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -187,12 +175,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
 //                result -> processResult(message, callback, result)
 //            );
 //        }
-//
-//        return false;
 //    }
 
 //    @InvokeOnHeader("CONTAINS_ENTRY")
-//    boolean onContainsEntry(Message message, AsyncCallback callback) throws Exception {
+//    void onContainsEntry(Message message, AsyncCallback callback) throws Exception {
 //        final DistributedMultiMap<Object, Object> map = getResource(message);
 //        final ReadConsistency consistency = message.getHeader(RESOURCE_READ_CONSISTENCY,  configuration::getReadConsistency, ReadConsistency.class);
 //        final Object key = message.getHeader(RESOURCE_KEY, message::getBody, Object.class);
@@ -210,12 +196,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
 //                result -> processResult(message, callback, result)
 //            );
 //        }
-//
-//        return false;
 //    }
 
     @InvokeOnHeader("REMOVE")
-    boolean onRemove(Message message, AsyncCallback callback) throws Exception {
+    void onRemove(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final Object key = message.getHeader(RESOURCE_KEY, message::getBody, Object.class);
         final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
@@ -231,12 +215,10 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
                 result -> processResult(message, callback, result)
             );
         }
-
-        return false;
     }
 
     @InvokeOnHeader("REMOVE_VALUE")
-    boolean onRemoveValue(Message message, AsyncCallback callback) throws Exception {
+    void onRemoveValue(Message message, AsyncCallback callback) throws Exception {
         final DistributedMultiMap<Object, Object> map = getResource(message);
         final Object value = message.getHeader(RESOURCE_VALUE, message::getBody, Object.class);
 
@@ -245,8 +227,6 @@ final class AtomixMultiMapProducer extends AbstractAtomixClientProducer<AtomixMu
         map.removeValue(value).thenAccept(
             result -> processResult(message, callback, result)
         );
-
-        return false;
     }
 
     // *********************************

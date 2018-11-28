@@ -73,7 +73,7 @@ public class CustomLoadBalanceTest extends ContextTestSupport {
     // START SNIPPET: e2
     public static class MyLoadBalancer extends LoadBalancerSupport {
 
-        public boolean process(Exchange exchange, AsyncCallback callback) {
+        public void process(Exchange exchange, AsyncCallback callback) {
             String body = exchange.getIn().getBody(String.class);
             try {
                 if ("x".equals(body)) {
@@ -86,8 +86,7 @@ public class CustomLoadBalanceTest extends ContextTestSupport {
             } catch (Throwable e) {
                 exchange.setException(e);
             }
-            callback.done(true);
-            return true;
+            callback.done();
         }
     }
     // END SNIPPET: e2

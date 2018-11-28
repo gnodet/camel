@@ -110,11 +110,11 @@ public abstract class AbstractRestProcessor extends AbstractSalesforceProcessor 
             processRequest(exchange);
         } catch (SalesforceException e) {
             exchange.setException(e);
-            callback.done(true);
+            callback.done();
             return true;
         } catch (RuntimeException e) {
             exchange.setException(new SalesforceException(e.getMessage(), e));
-            callback.done(true);
+            callback.done();
             return true;
         }
 
@@ -196,14 +196,14 @@ public abstract class AbstractRestProcessor extends AbstractSalesforceProcessor 
                     String.format("Error processing %s: [%s] \"%s\"",
                             operationName.value(), e.getStatusCode(), e.getMessage()),
                     e));
-            callback.done(true);
+            callback.done();
             return true;
         } catch (RuntimeException e) {
             exchange.setException(new SalesforceException(
                     String.format("Unexpected Error processing %s: \"%s\"",
                             operationName.value(), e.getMessage()),
                     e));
-            callback.done(true);
+            callback.done();
             return true;
         }
 

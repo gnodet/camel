@@ -42,7 +42,7 @@ public class MarshalProcessor extends AsyncProcessorSupport implements Traceable
         this.dataFormat = dataFormat;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         ObjectHelper.notNull(dataFormat, "dataFormat");
 
         // if stream caching is enabled then use that so we can stream accordingly
@@ -66,8 +66,7 @@ public class MarshalProcessor extends AsyncProcessorSupport implements Traceable
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

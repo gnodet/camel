@@ -36,15 +36,14 @@ public class RemovePropertiesProcessor extends AsyncProcessorSupport implements 
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             exchange.removeProperties(pattern, excludePattern);
         } catch (Exception e) {
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     @Override

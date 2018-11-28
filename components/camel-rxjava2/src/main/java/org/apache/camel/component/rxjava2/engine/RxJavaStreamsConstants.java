@@ -29,7 +29,7 @@ public final class RxJavaStreamsConstants {
      */
     public static final AsyncCallback EMPTY_ASYNC_CALLBACK = new AsyncCallback() {
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
         }
     };
 

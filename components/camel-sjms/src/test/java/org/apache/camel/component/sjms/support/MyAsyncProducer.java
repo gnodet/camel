@@ -45,7 +45,7 @@ public class MyAsyncProducer extends DefaultAsyncProducer {
         return (MyAsyncEndpoint) super.getEndpoint();
     }
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         executor.submit(new Callable<Object>() {
             public Object call() throws Exception {
 
@@ -65,14 +65,13 @@ public class MyAsyncProducer extends DefaultAsyncProducer {
                 }
 
                 LOG.info("Callback done(false)");
-                callback.done(false);
+                callback.done();
                 return null;
             }
         });
 
         // indicate from this point forward its being routed asynchronously
         LOG.info("Task submitted, now tell Camel routing engine to that this Exchange is being continued asynchronously");
-        return false;
     }
 
 }

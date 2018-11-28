@@ -24,16 +24,12 @@ import java.util.concurrent.ConcurrentMap;
 
 import io.atomix.resource.Resource;
 import org.apache.camel.AsyncCallback;
-import org.apache.camel.AsyncProcessor;
-import org.apache.camel.AsyncProducer;
 import org.apache.camel.Exchange;
 import org.apache.camel.InvokeOnHeader;
 import org.apache.camel.Message;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.atomix.AtomixAsyncMessageProcessor;
 import org.apache.camel.support.DefaultAsyncProducer;
-import org.apache.camel.support.DefaultProducer;
-import org.apache.camel.support.AsyncProcessorHelper;
 import org.apache.camel.util.ObjectHelper;
 
 import static org.apache.camel.component.atomix.client.AtomixClientConstants.RESOURCE_ACTION_HAS_RESULT;
@@ -66,14 +62,14 @@ public abstract class AbstractAtomixClientProducer<E extends AbstractAtomixClien
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         final Message message = exchange.getIn();
         final String key = getProcessorKey(message);
 
         AtomixAsyncMessageProcessor processor = this.processors.get(key);
         if (processor != null) {
             try {
-                return processor.process(message, callback);
+                processor.process(message, callback);
             } catch (Exception e) {
                 throw new RuntimeCamelException(e);
             }
@@ -105,7 +101,7 @@ public abstract class AbstractAtomixClientProducer<E extends AbstractAtomixClien
             message.setHeader(RESOURCE_ACTION_HAS_RESULT, false);
         }
 
-        callback.done(false);
+        callback.done();
     }
 
     protected R getResource(Message message) {
@@ -113,7 +109,7 @@ public abstract class AbstractAtomixClientProducer<E extends AbstractAtomixClien
 
         ObjectHelper.notNull(resourceName, RESOURCE_NAME);
 
-        return resources.computeIfAbsent(resourceName, name -> createResource(name));
+        return resources.computeIfAbsent(resourceName, this::createResource);
     }
 
     protected abstract String getProcessorKey(Message message);
@@ -140,7 +136,7 @@ public abstract class AbstractAtomixClientProducer<E extends AbstractAtomixClien
             log.debug("bind key={}, class={}, method={}",
                 annotation.value(), this.getClass(), method.getName());
 
-            this.processors.put(annotation.value(), (m, c) -> (boolean)method.invoke(this, m, c));
+            this.processors.put(annotation.value(), (m, c) -> method.invoke(this, m, c));
         } else {
             throw new IllegalArgumentException(
                 "Illegal number of parameters for method: " + method.getName() + ", required: 2, found: " + method.getParameterCount()

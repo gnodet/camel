@@ -82,7 +82,7 @@ public class InOnlyProducer extends SjmsProducer {
             exchange.setException(new CamelExchangeException("Unable to complete sending the JMS message", exchange, e));
         } finally {
             releaseProducerCallback.release(producer);
-            callback.done(isSynchronous());
+            callback.done();
         }
     }
 

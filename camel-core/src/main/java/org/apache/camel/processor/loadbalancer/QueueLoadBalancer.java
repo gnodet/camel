@@ -26,7 +26,7 @@ import org.apache.camel.Exchange;
  */
 public abstract class QueueLoadBalancer extends LoadBalancerSupport {
 
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         AsyncProcessor[] list = doGetProcessors();
         if (list.length > 0) {
             AsyncProcessor processor = chooseProcessor(list, exchange);
@@ -35,12 +35,11 @@ public abstract class QueueLoadBalancer extends LoadBalancerSupport {
                 exchange.setException(e);
             } else {
                 processor.process(exchange, callback);
-                return false;
+                return;
             }
         }
         // no processors but indicate we are done
-        callback.done(false);
-        return false;
+        callback.done();
     }
 
     protected abstract AsyncProcessor chooseProcessor(AsyncProcessor[] processors, Exchange exchange);

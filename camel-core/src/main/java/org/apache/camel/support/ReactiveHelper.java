@@ -67,7 +67,7 @@ public final class ReactiveHelper {
         schedule(new Runnable() {
             @Override
             public void run() {
-                callback.done(false);
+                callback.done();
             }
             @Override
             public String toString() {

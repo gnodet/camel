@@ -45,14 +45,14 @@ public class GrpcResponseAggregationStreamObserver implements StreamObserver<Obj
     @Override
     public void onError(Throwable throwable) {
         exchange.setException(throwable);
-        callback.done(false);
+        callback.done();
     }
 
     @Override
     public void onCompleted() {
         exchange.getOut().setHeaders(exchange.getIn().getHeaders());
         exchange.getOut().setBody(responseCollection);
-        callback.done(false);
+        callback.done();
     }
 
 }

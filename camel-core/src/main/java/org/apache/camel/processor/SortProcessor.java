@@ -41,7 +41,7 @@ public class SortProcessor<T> extends AsyncProcessorSupport implements IdAware, 
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         try {
             Message in = exchange.getIn();
 
@@ -59,8 +59,7 @@ public class SortProcessor<T> extends AsyncProcessorSupport implements IdAware, 
             exchange.setException(e);
         }
 
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public String toString() {

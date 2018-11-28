@@ -52,8 +52,8 @@ public class NettyHttpProducer extends NettyProducer {
     }
 
     @Override
-    public boolean process(Exchange exchange, AsyncCallback callback) {
-        return super.process(exchange, new NettyHttpProducerCallback(exchange, callback, getConfiguration()));
+    public void process(Exchange exchange, AsyncCallback callback) {
+        super.process(exchange, new NettyHttpProducerCallback(exchange, callback, getConfiguration()));
     }
 
     @Override
@@ -104,46 +104,44 @@ public class NettyHttpProducer extends NettyProducer {
         }
 
         @Override
-        public void done(boolean doneSync) {
+        public void done() {
             try {
                 // only handle when we are done asynchronous as then the netty producer is done sending, and we have a response
-                if (!doneSync) {
-                    NettyHttpMessage nettyMessage = exchange.hasOut() ? exchange.getOut(NettyHttpMessage.class) : exchange.getIn(NettyHttpMessage.class);
-                    if (nettyMessage != null) {
-                        final FullHttpResponse response = nettyMessage.getHttpResponse();
-                        // Need to retain the ByteBuffer for producer to consumer
-                        if (response != null) {
-                            response.content().retain();
+                NettyHttpMessage nettyMessage = exchange.hasOut() ? exchange.getOut(NettyHttpMessage.class) : exchange.getIn(NettyHttpMessage.class);
+                if (nettyMessage != null) {
+                    final FullHttpResponse response = nettyMessage.getHttpResponse();
+                    // Need to retain the ByteBuffer for producer to consumer
+                    if (response != null) {
+                        response.content().retain();
 
-                            // need to release the response when we are done
-                            exchange.addOnCompletion(new SynchronizationAdapter() {
-                                @Override
-                                public void onDone(Exchange exchange) {
-                                    if (response.refCnt() > 0) {
-                                        log.debug("Releasing Netty HttpResonse ByteBuf");
-                                        ReferenceCountUtil.release(response);
-                                    }
+                        // need to release the response when we are done
+                        exchange.addOnCompletion(new SynchronizationAdapter() {
+                            @Override
+                            public void onDone(Exchange exchange) {
+                                if (response.refCnt() > 0) {
+                                    log.debug("Releasing Netty HttpResonse ByteBuf");
+                                    ReferenceCountUtil.release(response);
                                 }
-                            });
-
-                            // the actual url is stored on the IN message in the getRequestBody method as its accessed on-demand
-                            String actualUrl = exchange.getIn().getHeader(Exchange.HTTP_URL, String.class);
-                            int code = response.status() != null ? response.status().code() : -1;
-                            log.debug("Http responseCode: {}", code);
-
-                            // if there was a http error code then check if we should throw an exception
-                            boolean ok = NettyHttpHelper.isStatusCodeOk(code, configuration.getOkStatusCodeRange());
-                            if (!ok && getConfiguration().isThrowExceptionOnFailure()) {
-                                // operation failed so populate exception to throw
-                                Exception cause = NettyHttpHelper.populateNettyHttpOperationFailedException(exchange, actualUrl, response, code, getConfiguration().isTransferException());
-                                exchange.setException(cause);
                             }
+                        });
+
+                        // the actual url is stored on the IN message in the getRequestBody method as its accessed on-demand
+                        String actualUrl = exchange.getIn().getHeader(Exchange.HTTP_URL, String.class);
+                        int code = response.status() != null ? response.status().code() : -1;
+                        log.debug("Http responseCode: {}", code);
+
+                        // if there was a http error code then check if we should throw an exception
+                        boolean ok = NettyHttpHelper.isStatusCodeOk(code, configuration.getOkStatusCodeRange());
+                        if (!ok && getConfiguration().isThrowExceptionOnFailure()) {
+                            // operation failed so populate exception to throw
+                            Exception cause = NettyHttpHelper.populateNettyHttpOperationFailedException(exchange, actualUrl, response, code, getConfiguration().isTransferException());
+                            exchange.setException(cause);
                         }
                     }
                 }
             } finally {
                 // ensure we call the delegated callback
-                callback.done(doneSync);
+                callback.done();
             }
         }
     }

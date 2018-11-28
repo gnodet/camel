@@ -129,7 +129,7 @@ public class GoogleCalendarStreamConsumer extends ScheduledBatchPollingConsumer 
 
             getAsyncProcessor().process(exchange, new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     log.trace("Processing exchange done");
                 }
             });

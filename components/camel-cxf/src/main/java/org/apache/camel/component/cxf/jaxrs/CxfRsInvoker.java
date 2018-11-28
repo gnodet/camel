@@ -92,14 +92,12 @@ public class CxfRsInvoker extends JAXRSInvoker {
                 continuation.suspend(endpoint.getContinuationTimeout());
                 cxfExchange.put(SUSPENED, Boolean.TRUE);
                 continuation.setObject(camelExchange);
-                cxfRsConsumer.getAsyncProcessor().process(camelExchange, new AsyncCallback() {
-                    public void done(boolean doneSync) {
-                        // make sure the continuation resume will not be called before the suspend method in other thread
-                        synchronized (continuation) {
-                            LOG.trace("Resuming continuation of exchangeId: {}", camelExchange.getExchangeId());
-                            // resume processing after both, sync and async callbacks
-                            continuation.resume();
-                        }
+                cxfRsConsumer.getAsyncProcessor().process(camelExchange, () -> {
+                    // make sure the continuation resume will not be called before the suspend method in other thread
+                    synchronized (continuation) {
+                        LOG.trace("Resuming continuation of exchangeId: {}", camelExchange.getExchangeId());
+                        // resume processing after both, sync and async callbacks
+                        continuation.resume();
                     }
                 });
                 return null;

@@ -46,7 +46,7 @@ public class UnmarshalProcessor extends AsyncProcessorSupport implements Traceab
         this.dataFormat = dataFormat;
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         ObjectHelper.notNull(dataFormat, "dataFormat");
 
         InputStream stream = null;
@@ -80,8 +80,7 @@ public class UnmarshalProcessor extends AsyncProcessorSupport implements Traceab
                 IOHelper.close(stream, "input stream");
             }
         }
-        callback.done(true);
-        return true;
+        callback.done();
     }
 
     public String toString() {

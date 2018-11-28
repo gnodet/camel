@@ -82,7 +82,7 @@ public class Splitter extends MulticastProcessor implements AsyncProcessor, Trac
     }
 
     @Override
-    public boolean process(Exchange exchange, final AsyncCallback callback) {
+    public void process(Exchange exchange, final AsyncCallback callback) {
         AggregationStrategy strategy = getAggregationStrategy();
 
 
@@ -108,7 +108,7 @@ public class Splitter extends MulticastProcessor implements AsyncProcessor, Trac
             setAggregationStrategyOnExchange(exchange, original);
         }
 
-        return super.process(exchange, callback);
+        super.process(exchange, callback);
     }
 
     @Override

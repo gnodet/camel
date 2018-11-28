@@ -96,8 +96,8 @@ public class ProducerCacheNonSingletonTest extends ContextTestSupport {
         }
 
         @Override
-        public boolean process(Exchange exchange, AsyncCallback callback) {
-            return false;
+        public void process(Exchange exchange, AsyncCallback callback) {
+            callback.done();
         }
     }
 }

@@ -18,7 +18,6 @@ package org.apache.camel.processor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -35,7 +34,6 @@ import org.apache.camel.Navigate;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.reifier.ErrorHandlerReifierHelper;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
@@ -148,7 +146,7 @@ public abstract class RedeliveryErrorHandler extends ErrorHandlerSupport impleme
     /**
      * Process the exchange using redelivery error handling.
      */
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         // Create the redelivery state object for this exchange
         RedeliveryState state = new RedeliveryState(exchange, callback);
         // Run it
@@ -157,13 +155,6 @@ public abstract class RedeliveryErrorHandler extends ErrorHandlerSupport impleme
         } else {
             ReactiveHelper.scheduleMain(state);
         }
-        return false;
-    }
-
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
     }
 
     /**
@@ -385,7 +376,7 @@ public abstract class RedeliveryErrorHandler extends ErrorHandlerSupport impleme
                 if (exchange.getException() == null) {
                     exchange.setException(new RejectedExecutionException());
                 }
-                callback.done(false);
+                callback.done();
                 return;
             }
 
@@ -478,7 +469,7 @@ public abstract class RedeliveryErrorHandler extends ErrorHandlerSupport impleme
                 }
             } else {
                 // Simple delivery
-                outputAsync.process(exchange, doneSync -> {
+                outputAsync.process(exchange, () -> {
                     // only process if the exchange hasn't failed
                     // and it has not been handled by the error processor
                     if (isDone(exchange)) {
@@ -557,7 +548,7 @@ public abstract class RedeliveryErrorHandler extends ErrorHandlerSupport impleme
             EventHelper.notifyExchangeRedelivery(exchange.getContext(), exchange, redeliveryCounter);
 
             // process the exchange (also redelivery)
-            outputAsync.process(exchange, doneSync -> {
+            outputAsync.process(exchange, () -> {
                 log.trace("Redelivering exchangeId: {}", exchange.getExchangeId());
 
                 // only process if the exchange hasn't failed
@@ -839,7 +830,7 @@ public abstract class RedeliveryErrorHandler extends ErrorHandlerSupport impleme
 
                 // the failure processor could also be asynchronous
                 AsyncProcessor afp = AsyncProcessorConverterHelper.convert(processor);
-                afp.process(exchange, sync -> {
+                afp.process(exchange, () -> {
                     log.trace("Failure processor done: {} processing Exchange: {}", processor, exchange);
                     try {
                         prepareExchangeAfterFailure(exchange, isDeadLetterChannel, shouldHandle, shouldContinue);

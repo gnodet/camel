@@ -34,9 +34,9 @@ public interface MethodInvocation {
      * Proceed and invokes the method.
      *
      * @param callback   the callback
-     * @return see {@link org.apache.camel.AsyncProcessor#process(org.apache.camel.Exchange, org.apache.camel.AsyncCallback)}
+     * @return see {@link org.apache.camel.AsyncProcessor#process(org.apache.camel.Exchange, AsyncCallback)}
      */
-    boolean proceed(AsyncCallback callback);
+    void proceed(AsyncCallback callback);
 
     Object getThis();
 

@@ -16,13 +16,12 @@
  */
 package org.apache.camel.processor;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.impl.AsyncCallbackToCompletableFutureAdapter;
 import org.apache.camel.support.AsyncProcessorConverterHelper;
 import org.apache.camel.support.ServiceHelper;
 import org.apache.camel.support.ServiceSupport;
@@ -36,7 +35,6 @@ public class InterceptorToAsyncProcessorBridge extends ServiceSupport implements
     private final AsyncProcessor interceptor;
     private volatile AsyncProcessor target;
     private volatile ThreadLocal<AsyncCallback> callback = new ThreadLocal<>();
-    private volatile ThreadLocal<Boolean> interceptorDone = new ThreadLocal<>();
 
     /**
      * Constructs the bridge
@@ -45,7 +43,6 @@ public class InterceptorToAsyncProcessorBridge extends ServiceSupport implements
      */
     public InterceptorToAsyncProcessorBridge(Processor interceptor) {
         this.interceptor = AsyncProcessorConverterHelper.convert(interceptor);
-        this.target = AsyncProcessorConverterHelper.convert(target);
     }
 
     /**
@@ -55,35 +52,19 @@ public class InterceptorToAsyncProcessorBridge extends ServiceSupport implements
      */
     public void process(Exchange exchange) throws Exception {
         // invoke when interceptor wants to invoke
-        boolean done = interceptor.process(exchange, callback.get());
-        interceptorDone.set(done);
+        interceptor.process(exchange, callback.get());
     }
 
-    public boolean process(Exchange exchange, AsyncCallback callback) {
+    public void process(Exchange exchange, AsyncCallback callback) {
         // remember the callback to be used by the interceptor
         this.callback.set(callback);
         try {
             // invoke the target
-            boolean done = target.process(exchange, callback);
-            if (interceptorDone.get() != null) {
-                // return the result from the interceptor if it was invoked
-                return interceptorDone.get();
-            } else {
-                // otherwise from the target
-                return done;
-            }
+            target.process(exchange, callback);
         } finally {
             // cleanup
             this.callback.remove();
-            this.interceptorDone.remove();
         }
-    }
-
-    @Override
-    public CompletableFuture<Exchange> processAsync(Exchange exchange) {
-        AsyncCallbackToCompletableFutureAdapter<Exchange> callback = new AsyncCallbackToCompletableFutureAdapter<>(exchange);
-        process(exchange, callback);
-        return callback.getFuture();
     }
 
     public void setTarget(Processor target) {
@@ -103,7 +84,6 @@ public class InterceptorToAsyncProcessorBridge extends ServiceSupport implements
     @Override
     protected void doStop() throws Exception {
         callback.remove();
-        interceptorDone.remove();
         ServiceHelper.stopService(interceptor, target);
     }
 }

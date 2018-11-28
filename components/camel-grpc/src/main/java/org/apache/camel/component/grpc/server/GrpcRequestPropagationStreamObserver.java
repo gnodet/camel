@@ -43,9 +43,7 @@ public class GrpcRequestPropagationStreamObserver extends GrpcRequestAbstractStr
         exchange.getIn().setBody(request);
         exchange.getIn().setHeaders(headers);
         
-        consumer.process(exchange, doneSync -> {
-            latch.countDown();
-        });
+        consumer.process(exchange, latch::countDown);
         
         try {
             latch.await();

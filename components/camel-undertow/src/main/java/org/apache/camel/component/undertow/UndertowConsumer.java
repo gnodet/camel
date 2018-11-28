@@ -177,7 +177,7 @@ public class UndertowConsumer extends DefaultConsumer implements HttpHandler {
 
         // send exchange using the async routing engine
         getAsyncProcessor().process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
+            public void done() {
                 if (exchange.getException() != null) {
                     getExceptionHandler().handleException("Error processing exchange", exchange,
                             exchange.getException());
@@ -202,7 +202,7 @@ public class UndertowConsumer extends DefaultConsumer implements HttpHandler {
 
         // send exchange using the async routing engine
         getAsyncProcessor().process(exchange, new AsyncCallback() {
-            public void done(boolean doneSync) {
+            public void done() {
                 if (exchange.getException() != null) {
                     getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
                 }

@@ -25,5 +25,5 @@ package org.apache.camel.cloud;
  */
 @FunctionalInterface
 public interface ServiceLoadBalancer {
-    <T> T process(String serviceName, ServiceLoadBalancerFunction<T> function) throws Exception;
+    void process(String serviceName, ServiceLoadBalancerFunction function) throws Exception;
 }

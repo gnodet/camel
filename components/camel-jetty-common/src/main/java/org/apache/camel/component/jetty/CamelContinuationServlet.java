@@ -26,7 +26,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.http.common.CamelServlet;
@@ -215,20 +214,18 @@ public class CamelContinuationServlet extends CamelServlet {
             }
             // use the asynchronous API to process the exchange
             
-            consumer.getAsyncProcessor().process(exchange, new AsyncCallback() {
-                public void done(boolean doneSync) {
-                    // check if the exchange id is already expired
-                    boolean expired = expiredExchanges.remove(exchange.getExchangeId()) != null;
-                    if (!expired) {
-                        if (log.isTraceEnabled()) {
-                            log.trace("Resuming continuation of exchangeId: {}", exchange.getExchangeId());
-                        }
-                        // resume processing after both, sync and async callbacks
-                        continuation.setAttribute(EXCHANGE_ATTRIBUTE_NAME, exchange);
-                        continuation.resume();
-                    } else {
-                        log.warn("Cannot resume expired continuation of exchangeId: {}", exchange.getExchangeId());
+            consumer.getAsyncProcessor().process(exchange, () -> {
+                // check if the exchange id is already expired
+                boolean expired = expiredExchanges.remove(exchange.getExchangeId()) != null;
+                if (!expired) {
+                    if (log.isTraceEnabled()) {
+                        log.trace("Resuming continuation of exchangeId: {}", exchange.getExchangeId());
                     }
+                    // resume processing after both, sync and async callbacks
+                    continuation.setAttribute(EXCHANGE_ATTRIBUTE_NAME, exchange);
+                    continuation.resume();
+                } else {
+                    log.warn("Cannot resume expired continuation of exchangeId: {}", exchange.getExchangeId());
                 }
             });
 

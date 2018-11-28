@@ -62,7 +62,7 @@ public class PahoConsumer extends DefaultConsumer {
 
                 getAsyncProcessor().process(exchange, new AsyncCallback() {
                     @Override
-                    public void done(boolean doneSync) {
+                    public void done() {
                         // noop
                     }
                 });

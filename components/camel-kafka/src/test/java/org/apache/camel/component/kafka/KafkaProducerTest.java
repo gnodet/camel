@@ -153,7 +153,7 @@ public class KafkaProducerTest {
         ArgumentCaptor<Callback> callBackCaptor = ArgumentCaptor.forClass(Callback.class);
         Mockito.verify(producer.getKafkaProducer()).send(any(ProducerRecord.class), callBackCaptor.capture());
         Mockito.verify(exchange).setException(isA(ApiException.class));
-        Mockito.verify(callback).done(eq(true));
+        Mockito.verify(callback).done();
         Callback kafkaCallback = callBackCaptor.getValue();
         kafkaCallback.onCompletion(new RecordMetadata(null, 0, 0, 0, new Long(0), 0, 0), null);
         assertRecordMetadataExists();

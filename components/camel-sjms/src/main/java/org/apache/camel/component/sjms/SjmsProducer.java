@@ -205,7 +205,7 @@ public abstract class SjmsProducer extends DefaultAsyncProducer {
     public abstract void sendMessage(Exchange exchange, AsyncCallback callback, MessageProducerResources producer, ReleaseProducerCallback releaseProducerCallback) throws Exception;
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         if (log.isDebugEnabled()) {
             log.debug("Processing Exchange.id:{}", exchange.getExchangeId());
         }
@@ -269,8 +269,6 @@ public abstract class SjmsProducer extends DefaultAsyncProducer {
             exchange.setException(e);
         }
         log.debug("Processing Exchange.id:{}", exchange.getExchangeId() + " - SUCCESS");
-
-        return isSynchronous();
     }
 
     /**

@@ -73,8 +73,7 @@ public class ReactiveStreamsConsumer extends DefaultConsumer {
             Exchange exchange = endpoint.createExchange();
             exchange.getIn().setHeader(ReactiveStreamsConstants.REACTIVE_STREAMS_EVENT_TYPE, "onComplete");
 
-            doSend(exchange, done -> {
-            });
+            doSend(exchange, AsyncCallback.EMPTY);
         }
     }
 
@@ -84,8 +83,7 @@ public class ReactiveStreamsConsumer extends DefaultConsumer {
             exchange.getIn().setHeader(ReactiveStreamsConstants.REACTIVE_STREAMS_EVENT_TYPE, "onError");
             exchange.getIn().setBody(error);
 
-            doSend(exchange, done -> {
-            });
+            doSend(exchange, AsyncCallback.EMPTY);
         }
     }
 
@@ -93,18 +91,18 @@ public class ReactiveStreamsConsumer extends DefaultConsumer {
         ExecutorService executorService = this.executor;
         if (executorService != null && this.isRunAllowed()) {
 
-            executorService.execute(() -> this.getAsyncProcessor().process(exchange, doneSync -> {
+            executorService.execute(() -> this.getAsyncProcessor().process(exchange, () -> {
                 if (exchange.getException() != null) {
                     getExceptionHandler().handleException("Error processing exchange", exchange, exchange.getException());
                 }
 
-                callback.done(doneSync);
+                callback.done();
             }));
             return false;
 
         } else {
             log.warn("Consumer not ready to process exchanges. The exchange {} will be discarded", exchange);
-            callback.done(true);
+            callback.done();
             return true;
         }
     }

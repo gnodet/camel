@@ -37,7 +37,6 @@ import com.amazonaws.services.sqs.model.ReceiptHandleIsInvalidException;
 import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
 import com.amazonaws.services.sqs.model.ReceiveMessageResult;
 
-import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.Processor;
@@ -200,12 +199,8 @@ public class SqsConsumer extends ScheduledBatchPollingConsumer {
             });
 
             log.trace("Processing exchange [{}]...", exchange);
-            getAsyncProcessor().process(exchange, new AsyncCallback() {
-                @Override
-                public void done(boolean doneSync) {
-                    log.trace("Processing exchange [{}] done.", exchange);
-                }
-            });
+            getAsyncProcessor().process(exchange,
+                () -> log.trace("Processing exchange [{}] done.", exchange));
         }
 
         return total;

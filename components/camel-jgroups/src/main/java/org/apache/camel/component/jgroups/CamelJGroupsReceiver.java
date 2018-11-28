@@ -55,7 +55,7 @@ public class CamelJGroupsReceiver extends ReceiverAdapter {
                 LOG.debug("Processing view: {}", view);
                 processor.process(exchange, new AsyncCallback() {
                     @Override
-                    public void done(boolean doneSync) {
+                    public void done() {
                         // noop
                     }
                 });
@@ -74,7 +74,7 @@ public class CamelJGroupsReceiver extends ReceiverAdapter {
             LOG.debug("Processing message: {}", message);
             processor.process(exchange, new AsyncCallback() {
                 @Override
-                public void done(boolean doneSync) {
+                public void done() {
                     // noop
                 }
             });

@@ -98,7 +98,7 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         long queuedStart = 0;
         if (log.isTraceEnabled()) {
             queuedStart = exchange.getProperty(PROPERTY_EXCHANGE_QUEUED_TIMESTAMP, 0L, Long.class);
@@ -106,7 +106,6 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
         }
         State state = exchange.getProperty(PROPERTY_EXCHANGE_STATE, State.SYNC, State.class);
         exchange.removeProperty(PROPERTY_EXCHANGE_STATE);
-        boolean doneSync = state == State.SYNC || state == State.ASYNC_REJECTED;
 
         try {
             if (!isRunAllowed()) {
@@ -130,7 +129,8 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
                     // delegate to async pool
                     if (isAsyncDelayed() && !exchange.isTransacted() && state == State.SYNC) {
                         log.debug("Throttle rate exceeded but AsyncDelayed enabled, so queueing for async processing, exchangeId: {}", exchange.getExchangeId());
-                        return processAsynchronously(exchange, callback, throttlingState);
+                        processAsynchronously(exchange, callback, throttlingState);
+                        return;
                     }
 
                     // block waiting for a permit
@@ -167,8 +167,7 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
                 }
             }
 
-            callback.done(doneSync);
-            return doneSync;
+            callback.done();
 
         } catch (final InterruptedException e) {
             // determine if we can still run, or the camel context is forcing a shutdown
@@ -180,12 +179,10 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
             } else {
                 exchange.setException(e);
             }
-            callback.done(doneSync);
-            return doneSync;
+            callback.done();
         } catch (final Throwable t) {
             exchange.setException(t);
-            callback.done(doneSync);
-            return doneSync;
+            callback.done();
         }
     }
 
@@ -194,7 +191,7 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
      * and isCallerRunsWhenRejected() is enabled, then this method will delegate back to process(), but not
      * before changing the exchange state to stop any recursion.
      */
-    protected boolean processAsynchronously(final Exchange exchange, final AsyncCallback callback, ThrottlingState throttlingState) {
+    protected void processAsynchronously(final Exchange exchange, final AsyncCallback callback, ThrottlingState throttlingState) {
         try {
             if (log.isTraceEnabled()) {
                 exchange.setProperty(PROPERTY_EXCHANGE_QUEUED_TIMESTAMP, System.currentTimeMillis());
@@ -202,14 +199,14 @@ public class Throttler extends AsyncProcessorSupport implements Traceable, IdAwa
             exchange.setProperty(PROPERTY_EXCHANGE_STATE, State.ASYNC);
             long delay = throttlingState.peek().getDelay(TimeUnit.NANOSECONDS);
             asyncExecutor.schedule(() -> process(exchange, callback), delay, TimeUnit.NANOSECONDS);
-            return false;
         } catch (final RejectedExecutionException e) {
             if (isCallerRunsWhenRejected()) {
                 log.debug("AsyncExecutor is full, rejected exchange will run in the current thread, exchangeId: {}", exchange.getExchangeId());
                 exchange.setProperty(PROPERTY_EXCHANGE_STATE, State.ASYNC_REJECTED);
-                return process(exchange, callback);
+                process(exchange, callback);
+            } else {
+                throw e;
             }
-            throw e;
         }
     }
 

@@ -38,12 +38,12 @@ public class AsyncClientMethodCallback implements AsyncMethodCallback {
         } else {
             exchange.getOut().setBody(response, response.getClass());
         }
-        callback.done(false);
+        callback.done();
     }
 
     @Override
     public void onError(Exception exception) {
         exchange.setException(exception);
-        callback.done(false);
+        callback.done();
     }
 }

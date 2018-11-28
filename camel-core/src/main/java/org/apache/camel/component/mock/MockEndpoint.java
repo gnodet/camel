@@ -286,10 +286,9 @@ public class MockEndpoint extends DefaultEndpoint implements BrowsableEndpoint {
 
     public Producer createProducer() throws Exception {
         return new DefaultAsyncProducer(this) {
-            public boolean process(Exchange exchange, AsyncCallback callback) {
+            public void process(Exchange exchange, AsyncCallback callback) {
                 onExchange(exchange);
-                callback.done(true);
-                return true;
+                callback.done();
             }
         };
     }

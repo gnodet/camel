@@ -47,15 +47,13 @@ public class BeanstalkProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange exchange, final AsyncCallback callback) {
+    public void process(final Exchange exchange, final AsyncCallback callback) {
         try {
             executor.submit(new RunCommand(exchange, callback));
         } catch (Throwable t) {
             exchange.setException(t);
-            callback.done(true);
-            return true;
+            callback.done();
         }
-        return false;
     }
 
     protected void resetClient() {
@@ -123,7 +121,7 @@ public class BeanstalkProducer extends DefaultAsyncProducer {
                 exchange.setException(t);
             } finally {
                 if (callback != null) {
-                    callback.done(false);
+                    callback.done();
                 }
             }
         }
