@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.camel.AsyncProcessor;
+import org.apache.camel.LoadBalancer;
 import org.apache.camel.Navigate;
 import org.apache.camel.Processor;
 import org.apache.camel.spi.IdAware;

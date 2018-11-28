@@ -33,7 +33,7 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.support.DefaultPollingEndpoint;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.LoadBalancer;
 import org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;

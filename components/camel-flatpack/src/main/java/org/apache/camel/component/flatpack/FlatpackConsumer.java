@@ -18,7 +18,7 @@ package org.apache.camel.component.flatpack;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.LoadBalancer;
 import org.apache.camel.processor.loadbalancer.LoadBalancerConsumer;
 
 public class FlatpackConsumer extends LoadBalancerConsumer {

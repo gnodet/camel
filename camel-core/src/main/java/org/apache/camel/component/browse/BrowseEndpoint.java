@@ -24,7 +24,7 @@ import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.LoadBalancer;
 import org.apache.camel.processor.loadbalancer.LoadBalancerConsumer;
 import org.apache.camel.processor.loadbalancer.TopicLoadBalancer;
 import org.apache.camel.spi.BrowsableEndpoint;

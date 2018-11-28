@@ -19,6 +19,7 @@ package org.apache.camel.processor.loadbalancer;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
+import org.apache.camel.LoadBalancer;
 import org.apache.camel.Processor;
 import org.apache.camel.support.ReactiveHelper;
 

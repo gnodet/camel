@@ -41,7 +41,6 @@ import org.apache.camel.Expression;
 import org.apache.camel.NamedNode;
 import org.apache.camel.TypeConversionException;
 import org.apache.camel.converter.jaxp.XmlConverter;
-import org.apache.camel.impl.DefaultModelJAXBContextFactory;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.NamespaceAware;
@@ -239,10 +238,7 @@ public final class ModelHelper {
     }
 
     private static JAXBContext getJAXBContext(CamelContext context) throws JAXBException {
-        ModelJAXBContextFactory factory = context != null
-                ? context.getModelJAXBContextFactory()
-                : getDefaultModelJAXBContextFactory();
-        return factory.newJAXBContext();
+        return context.getModelJAXBContextFactory().newJAXBContext();
     }
 
     private static void applyNamespaces(RouteDefinition route, Map<String, String> namespaces) {
@@ -267,14 +263,6 @@ public final class ModelHelper {
         }
 
         return na;
-    }
-
-    private static class ModelJAXBContextFactoryHolder {
-        private static final ModelJAXBContextFactory INSTANCE = new DefaultModelJAXBContextFactory();
-    }
-
-    private static ModelJAXBContextFactory getDefaultModelJAXBContextFactory() {
-        return ModelJAXBContextFactoryHolder.INSTANCE;
     }
 
     /**
