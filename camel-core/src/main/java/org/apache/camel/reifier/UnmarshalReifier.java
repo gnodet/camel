@@ -17,7 +17,6 @@
 package org.apache.camel.reifier;
 
 import org.apache.camel.Processor;
-import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.UnmarshalDefinition;
 import org.apache.camel.processor.UnmarshalProcessor;
@@ -32,7 +31,7 @@ class UnmarshalReifier extends ProcessorReifier<UnmarshalDefinition> {
 
     @Override
     public Processor createProcessor(RouteContext routeContext) {
-        DataFormat dataFormat = DataFormatDefinition.getDataFormat(routeContext, definition.getDataFormatType(), null);
+        DataFormat dataFormat = DataFormatReifier.getDataFormat(routeContext, definition.getDataFormatType(), null);
         return new UnmarshalProcessor(dataFormat);
     }
 }

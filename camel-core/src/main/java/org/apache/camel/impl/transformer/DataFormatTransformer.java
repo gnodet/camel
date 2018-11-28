@@ -23,6 +23,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.converter.stream.OutputStreamBuilder;
 import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.reifier.DataFormatReifier;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Transformer;
@@ -98,7 +99,7 @@ public class DataFormatTransformer extends Transformer {
      */
     private DataFormat getDataFormat(Exchange exchange) throws Exception {
         if (this.dataFormat == null) {
-            this.dataFormat = DataFormatDefinition.getDataFormat(
+            this.dataFormat = DataFormatReifier.getDataFormat(
                 exchange.getUnitOfWork().getRouteContext(), this.dataFormatType, this.dataFormatRef);
             if (this.dataFormat != null && !getCamelContext().hasService(this.dataFormat)) {
                 getCamelContext().addService(this.dataFormat, false);

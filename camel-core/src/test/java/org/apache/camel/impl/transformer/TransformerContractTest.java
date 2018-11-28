@@ -30,6 +30,7 @@ import org.apache.camel.TypeConverters;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.reifier.DataFormatReifier;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.DataTypeAware;
@@ -141,9 +142,14 @@ public class TransformerContractTest extends ContextTestSupport {
         }
     }
 
+    static {
+        DataFormatReifier.register(MyDataFormatDefinition.class, MyDataFormatReifier::new);
+    }
     public static class MyDataFormatDefinition extends DataFormatDefinition {
-        public static DataFormat getDataFormat(RouteContext routeContext, DataFormatDefinition type, String ref) {
-            return new MyDataFormatDefinition().createDataFormat();
+    }
+    public static class MyDataFormatReifier extends DataFormatReifier<MyDataFormatDefinition> {
+        public MyDataFormatReifier(DataFormatDefinition definition) {
+            super(MyDataFormatDefinition.class.cast(definition));
         }
         public DataFormat getDataFormat(RouteContext routeContext) {
             return createDataFormat();

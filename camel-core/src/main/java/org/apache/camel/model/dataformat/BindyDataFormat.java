@@ -22,12 +22,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
 
 /**
  * The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
@@ -80,6 +76,14 @@ public class BindyDataFormat extends DataFormatDefinition {
         this.clazz = classType;
     }
 
+    public void setClazz(Class<?> clazz) {
+        this.clazz = clazz;
+    }
+
+    public Class<?> getClazz() {
+        return clazz;
+    }
+
     public String getLocale() {
         return locale;
     }
@@ -102,38 +106,6 @@ public class BindyDataFormat extends DataFormatDefinition {
      */
     public void setUnwrapSingleInstance(Boolean unwrapSingleInstance) {
         this.unwrapSingleInstance = unwrapSingleInstance;
-    }
-
-    protected DataFormat createDataFormat(RouteContext routeContext) {
-        if (classType == null && clazz == null) {
-            throw new IllegalArgumentException("Either packages or classType must be specified");
-        }
-
-        if (type == BindyType.Csv) {
-            setDataFormatName("bindy-csv");
-        } else if (type == BindyType.Fixed) {
-            setDataFormatName("bindy-fixed");
-        } else {
-            setDataFormatName("bindy-kvp");
-        }
-
-        if (clazz == null && classType != null) {
-            try {
-                clazz = routeContext.getCamelContext().getClassResolver().resolveMandatoryClass(classType);
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
-        return super.createDataFormat(routeContext);
-    }
-
-    @Override
-    protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
-        setProperty(camelContext, dataFormat, "locale", locale);
-        setProperty(camelContext, dataFormat, "classType", clazz);
-        if (unwrapSingleInstance != null) {
-            setProperty(camelContext, dataFormat, "unwrapSingleInstance", unwrapSingleInstance);
-        }
     }
 
 }

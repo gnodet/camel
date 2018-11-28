@@ -19,9 +19,7 @@ package org.apache.camel.model.dataformat;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.RouteContext;
 
 /**
  * The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
@@ -34,8 +32,4 @@ public class GzipDataFormat extends DataFormatDefinition {
         super("gzip");
     }
 
-    @Override
-    protected DataFormat createDataFormat(RouteContext routeContext) {
-        return new org.apache.camel.impl.GzipDataFormat();
-    }
 }

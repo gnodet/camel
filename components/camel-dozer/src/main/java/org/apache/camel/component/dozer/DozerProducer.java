@@ -18,8 +18,8 @@ package org.apache.camel.component.dozer;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.camel.reifier.DataFormatReifier;
 import org.apache.camel.support.DefaultProducer;
-import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.processor.MarshalProcessor;
 import org.apache.camel.processor.UnmarshalProcessor;
 import org.apache.camel.spi.DataFormat;
@@ -129,7 +129,7 @@ public class DozerProducer extends DefaultProducer {
             Exchange exchange, String dataFormatId) throws Exception {
         
         if (unmarshaller == null) {
-            DataFormat dataFormat = DataFormatDefinition.getDataFormat(
+            DataFormat dataFormat = DataFormatReifier.getDataFormat(
                     exchange.getUnitOfWork().getRouteContext(), null, dataFormatId);
             if (dataFormat == null) {
                 throw new Exception("Unable to resolve data format for unmarshalling: " + dataFormatId);
@@ -152,7 +152,7 @@ public class DozerProducer extends DefaultProducer {
             Exchange exchange, String dataFormatId) throws Exception {
         
         if (marshaller == null) {
-            DataFormat dataFormat = DataFormatDefinition.getDataFormat(
+            DataFormat dataFormat = DataFormatReifier.getDataFormat(
                     exchange.getUnitOfWork().getRouteContext(), null, dataFormatId);
             if (dataFormat == null) {
                 throw new Exception("Unable to resolve data format for marshalling: " + dataFormatId);
