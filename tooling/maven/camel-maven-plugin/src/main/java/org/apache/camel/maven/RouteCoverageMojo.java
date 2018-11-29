@@ -44,6 +44,8 @@ import org.apache.camel.util.FileUtil;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.exec.AbstractExecMojo;
 import org.jboss.forge.roaster.Roaster;
@@ -52,51 +54,40 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 
 /**
  * Performs route coverage reports after running Camel unit tests with camel-test modules
- *
- * @goal route-coverage
- * @threadSafe
  */
+@Mojo(name = "route-coverage", threadSafe = true)
 public class RouteCoverageMojo extends AbstractExecMojo {
 
     /**
      * The maven project.
-     *
-     * @parameter property="project"
-     * @required
-     * @readonly
      */
+    @Parameter(property = "project", required = true, readonly = true)
     protected MavenProject project;
 
     /**
      * Whether to fail if a route was not fully covered
-     *
-     * @parameter property="camel.failOnError"
-     *            default-value="false"
      */
+    @Parameter(property = "camel.failOnError", defaultValue = "false")
     private boolean failOnError;
 
     /**
      * Whether to include test source code
-     *
-     * @parameter property="camel.includeTest"
-     *            default-value="false"
      */
+    @Parameter(property = "camel.includeTest", defaultValue = "false")
     private boolean includeTest;
 
     /**
      * To filter the names of java and xml files to only include files matching any of the given list of patterns (wildcard and regular expression).
      * Multiple values can be separated by comma.
-     *
-     * @parameter property="camel.includes"
      */
+    @Parameter(property = "camel.includes")
     private String includes;
 
     /**
      * To filter the names of java and xml files to exclude files matching any of the given list of patterns (wildcard and regular expression).
      * Multiple values can be separated by comma.
-     *
-     * @parameter property="camel.excludes"
      */
+    @Parameter(property = "camel.excludes")
     private String excludes;
 
     /**
@@ -104,10 +95,8 @@ public class RouteCoverageMojo extends AbstractExecMojo {
      * By using route id's then its safer to match the route cover data with the route source code.
      * Anonymous routes are less safe to use for route coverage as its harder to know
      * exactly which route that was tested corresponds to which of the routes from the source code.
-     *
-     * @parameter property="camel.anonymousRoutes"
-     *            default-value="false"
      */
+    @Parameter(property = "camel.anonymousRoutes", defaultValue = "false")
     private boolean anonymousRoutes;
 
     // CHECKSTYLE:OFF
