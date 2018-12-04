@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
@@ -37,6 +38,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -50,7 +52,7 @@ import static org.apache.camel.maven.packaging.PackageHelper.parseAsMap;
 /**
  * Analyses the Camel plugins in a project and generates extra descriptor information for easier auto-discovery in Camel.
  */
-@Mojo(name = "generate-dataformats-list", threadSafe = true)
+@Mojo(name = "generate-dataformats-list", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
 public class PackageDataFormatMojo extends AbstractMojo {
 
     /**
@@ -110,9 +112,8 @@ public class PackageDataFormatMojo extends AbstractMojo {
             return;
         }
 
-        Map<String, String> javaTypes = new HashMap<>();
+        Map<String, String> javaTypes = new TreeMap<>();
 
-        StringBuilder buffer = new StringBuilder();
         int count = 0;
         for (Resource r : project.getBuild().getResources()) {
             File f = new File(r.getDirectory());
@@ -125,12 +126,12 @@ public class PackageDataFormatMojo extends AbstractMojo {
                 File[] files = f.listFiles();
                 if (files != null) {
                     for (File file : files) {
-                        String javaType = readClassFromCamelResource(file, buffer, buildContext);
-                        if (!file.isDirectory() && file.getName().charAt(0) != '.') {
+                        if (file.isFile() && file.getName().charAt(0) != '.') {
                             count++;
-                        }
-                        if (javaType != null) {
-                            javaTypes.put(file.getName(), javaType);
+                            String javaType = readClassFromCamelResource(file, buildContext);
+                            if (javaType != null) {
+                                javaTypes.put(file.getName(), javaType);
+                            }
                         }
                     }
                 }
@@ -200,7 +201,7 @@ public class PackageDataFormatMojo extends AbstractMojo {
 
         if (count > 0) {
             Properties properties = new Properties();
-            String names = buffer.toString();
+            String names = String.join(" ", javaTypes.keySet());
             properties.put("dataFormats", names);
             properties.put("groupId", project.getGroupId());
             properties.put("artifactId", project.getArtifactId());
@@ -352,17 +353,10 @@ public class PackageDataFormatMojo extends AbstractMojo {
         return null;
     }
 
-    private static String readClassFromCamelResource(File file, StringBuilder buffer, BuildContext buildContext) throws MojoExecutionException {
+    private static String readClassFromCamelResource(File file, BuildContext buildContext) throws MojoExecutionException {
         // skip directories as there may be a sub .resolver directory
         if (file.isDirectory()) {
             return null;
-        }
-        String name = file.getName();
-        if (name.charAt(0) != '.') {
-            if (buffer.length() > 0) {
-                buffer.append(" ");
-            }
-            buffer.append(name);
         }
 
         if (!buildContext.hasDelta(file)) {

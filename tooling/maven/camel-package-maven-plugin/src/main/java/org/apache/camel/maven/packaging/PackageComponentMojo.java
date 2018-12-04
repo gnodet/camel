@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
@@ -30,6 +32,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -39,7 +42,7 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 /**
  * Analyses the Camel plugins in a project and generates extra descriptor information for easier auto-discovery in Camel.
  */
-@Mojo(name = "generate-components-list", threadSafe = true)
+@Mojo(name = "generate-components-list", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
 public class PackageComponentMojo extends AbstractMojo {
 
     /**
@@ -92,7 +95,7 @@ public class PackageComponentMojo extends AbstractMojo {
             return;
         }
 
-        StringBuilder buffer = new StringBuilder();
+        Set<String> names = new TreeSet<>();
         int count = 0;
         for (Resource r : project.getBuild().getResources()) {
             File f = new File(r.getDirectory());
@@ -105,17 +108,9 @@ public class PackageComponentMojo extends AbstractMojo {
                 File[] files = f.listFiles();
                 if (files != null) {
                     for (File file : files) {
-                        // skip directories as there may be a sub .resolver directory
-                        if (file.isDirectory()) {
-                            continue;
-                        }
-                        String name = file.getName();
-                        if (name.charAt(0) != '.') {
+                        if (file.isFile() && file.getName().charAt(0) != '.') {
                             count++;
-                            if (buffer.length() > 0) {
-                                buffer.append(" ");
-                            }
-                            buffer.append(name);
+                            names.add(file.getName());
                         }
                     }
                 }
@@ -124,8 +119,7 @@ public class PackageComponentMojo extends AbstractMojo {
 
         if (count > 0) {
             Properties properties = new Properties();
-            String names = buffer.toString();
-            properties.put("components", names);
+            properties.put("components", String.join(" ", names));
             properties.put("groupId", project.getGroupId());
             properties.put("artifactId", project.getArtifactId());
             properties.put("version", project.getVersion());

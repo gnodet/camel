@@ -33,6 +33,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -42,7 +43,7 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 /**
  * Analyses the Camel EIPs in a project and generates extra descriptor information for easier auto-discovery in Camel.
  */
-@Mojo(name = "generate-eips-list", threadSafe = true)
+@Mojo(name = "generate-eips-list", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
 public class PackageModelMojo extends AbstractMojo {
 
     /**

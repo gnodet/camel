@@ -37,6 +37,7 @@ import org.apache.camel.util.ObjectHelper;
 /**
  * The <a href="http://camel.apache.org/properties">Properties Component</a> allows you to use property placeholders when defining Endpoint URIs
  */
+@org.apache.camel.spi.annotations.Component("properties")
 public class PropertiesComponent extends DefaultComponent {
 
     /**

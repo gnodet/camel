@@ -551,10 +551,10 @@ public class PrepareUserGuideMojo extends AbstractMojo {
         component.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         component.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         component.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        component.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        component.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         component.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
-        component.setConsumerOnly(JSonSchemaHelper.getSafeValue("consumerOnly", rows));
-        component.setProducerOnly(JSonSchemaHelper.getSafeValue("producerOnly", rows));
+        component.setConsumerOnly(JSonSchemaHelper.getSafeBool("consumerOnly", rows));
+        component.setProducerOnly(JSonSchemaHelper.getSafeBool("producerOnly", rows));
         component.setJavaType(JSonSchemaHelper.getSafeValue("javaType", rows));
         component.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         component.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));

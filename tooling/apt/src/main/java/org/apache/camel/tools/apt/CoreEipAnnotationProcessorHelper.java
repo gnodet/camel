@@ -394,7 +394,7 @@ public class CoreEipAnnotationProcessorHelper {
         boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
         String deprecationNote = null;
         if (metadata != null) {
-            deprecationNote = metadata.deprecationNode();
+            deprecationNote = metadata.deprecationNote();
         }
 
         EipOption ep = new EipOption(name, displayName, "attribute", fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, isEnum, enums, false, null, false);
@@ -436,7 +436,7 @@ public class CoreEipAnnotationProcessorHelper {
         boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
         String deprecationNote = null;
         if (metadata != null) {
-            deprecationNote = metadata.deprecationNode();
+            deprecationNote = metadata.deprecationNote();
         }
 
         EipOption ep = new EipOption(name, displayName, "value", fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, false, null, false, null, false);
@@ -538,7 +538,7 @@ public class CoreEipAnnotationProcessorHelper {
             boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
             String deprecationNote = null;
             if (metadata != null) {
-                deprecationNote = metadata.deprecationNode();
+                deprecationNote = metadata.deprecationNote();
             }
 
             EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, isEnum, enums, isOneOf, oneOfTypes, asPredicate);
@@ -581,7 +581,7 @@ public class CoreEipAnnotationProcessorHelper {
             boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
             String deprecationNote = null;
             if (metadata != null) {
-                deprecationNote = metadata.deprecationNode();
+                deprecationNote = metadata.deprecationNote();
             }
 
             EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, false);
@@ -819,7 +819,7 @@ public class CoreEipAnnotationProcessorHelper {
             boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
             String deprecationNote = null;
             if (metadata != null) {
-                deprecationNote = metadata.deprecationNode();
+                deprecationNote = metadata.deprecationNote();
             }
 
             EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, true, "", "", deprecated, deprecationNote, false, null, true, oneOfTypes, false);
@@ -871,7 +871,7 @@ public class CoreEipAnnotationProcessorHelper {
             boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
             String deprecationNote = null;
             if (metadata != null) {
-                deprecationNote = metadata.deprecationNode();
+                deprecationNote = metadata.deprecationNote();
             }
 
             EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, true, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, false);
@@ -934,7 +934,7 @@ public class CoreEipAnnotationProcessorHelper {
             boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
             String deprecationNote = null;
             if (metadata != null) {
-                deprecationNote = metadata.deprecationNode();
+                deprecationNote = metadata.deprecationNote();
             }
 
             EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, true, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, asPredicate);
@@ -977,7 +977,7 @@ public class CoreEipAnnotationProcessorHelper {
             boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
             String deprecationNote = null;
             if (metadata != null) {
-                deprecationNote = metadata.deprecationNode();
+                deprecationNote = metadata.deprecationNote();
             }
 
             EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, false, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, asPredicate);

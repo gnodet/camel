@@ -26,6 +26,7 @@ import org.apache.camel.util.StringHelper;
 /**
  *  * The <a href="http://camel.apache.org/file.html">File Component</a> provides access to file systems.
  */
+@org.apache.camel.spi.annotations.Component("file")
 public class FileComponent extends GenericFileComponent<File> {
     /**
      * GenericFile property on Camel Exchanges.

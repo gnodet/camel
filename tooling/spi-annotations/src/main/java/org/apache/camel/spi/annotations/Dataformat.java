@@ -14,26 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.dataset;
+package org.apache.camel.spi.annotations;
 
-import java.util.Map;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.apache.camel.Endpoint;
-import org.apache.camel.support.CamelContextHelper;
-import org.apache.camel.support.DefaultComponent;
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Target({ElementType.TYPE })
+public @interface Dataformat {
 
-/**
- * Component for <a href="http://camel.apache.org/dataset.html">DataSet</a>.
- */
-@org.apache.camel.spi.annotations.Component("dataset")
-public class DataSetComponent extends DefaultComponent {
+    String value();
 
-    public DataSetComponent() {
-    }
-
-    @Override
-    protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        DataSet dataSet = CamelContextHelper.mandatoryLookup(getCamelContext(), remaining, DataSet.class);
-        return new DataSetEndpoint(uri, this, dataSet);
-    }
 }

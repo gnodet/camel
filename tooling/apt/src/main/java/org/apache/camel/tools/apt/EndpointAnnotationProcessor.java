@@ -405,7 +405,7 @@ public class EndpointAnnotationProcessor extends AbstractProcessor {
 
             String deprecationNote = null;
             if (endpointClassElement.getAnnotation(Metadata.class) != null) {
-                deprecationNote = endpointClassElement.getAnnotation(Metadata.class).deprecationNode();
+                deprecationNote = endpointClassElement.getAnnotation(Metadata.class).deprecationNote();
             }
             model.setDeprecationNode(deprecationNote);
 
@@ -460,7 +460,7 @@ public class EndpointAnnotationProcessor extends AbstractProcessor {
                 Metadata metadata = method.getAnnotation(Metadata.class);
                 String deprecationNote = null;
                 if (metadata != null) {
-                    deprecationNote = metadata.deprecationNode();
+                    deprecationNote = metadata.deprecationNote();
                 }
 
                 // must be the setter
@@ -584,7 +584,7 @@ public class EndpointAnnotationProcessor extends AbstractProcessor {
                 boolean deprecated = fieldElement.getAnnotation(Deprecated.class) != null;
                 String deprecationNote = null;
                 if (metadata != null) {
-                    deprecationNote = metadata.deprecationNode();
+                    deprecationNote = metadata.deprecationNote();
                 }
                 Boolean secret = metadata != null ? metadata.secret() : null;
 

@@ -29,6 +29,7 @@ public class ComponentModel {
 
     private String kind;
     private String scheme;
+    private String extendsScheme;
     private String syntax;
     private String alternativeSyntax;
     private String alternativeSchemes;
@@ -36,14 +37,17 @@ public class ComponentModel {
     private String description;
     private String firstVersion;
     private String label;
-    private String deprecated;
+    private String verifiers;
+    private Boolean deprecated;
     private String deprecationNote;
-    private String consumerOnly;
-    private String producerOnly;
+    private Boolean consumerOnly;
+    private Boolean producerOnly;
     private String javaType;
     private String groupId;
     private String artifactId;
     private String version;
+    private boolean lenientProperties;
+    private boolean async;
     private final List<ComponentOptionModel> componentOptions = new ArrayList<>();
     private final List<EndpointOptionModel> endpointPathOptions = new ArrayList<>();
     private final List<EndpointOptionModel> endpointOptions = new ArrayList<>();
@@ -66,6 +70,14 @@ public class ComponentModel {
 
     public void setScheme(String scheme) {
         this.scheme = scheme;
+    }
+
+    public String getExtendsScheme() {
+        return extendsScheme;
+    }
+
+    public void setExtendsScheme(String extendsScheme) {
+        this.extendsScheme = extendsScheme;
     }
 
     public String getSyntax() {
@@ -124,11 +136,23 @@ public class ComponentModel {
         this.label = label;
     }
 
-    public String getDeprecated() {
+    public String getVerifiers() {
+        return verifiers;
+    }
+
+    public void setVerifiers(String verifiers) {
+        this.verifiers = verifiers;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated != null && deprecated;
+    }
+
+    public Boolean getDeprecated() {
         return deprecated;
     }
 
-    public void setDeprecated(String deprecated) {
+    public void setDeprecated(Boolean deprecated) {
         this.deprecated = deprecated;
     }
 
@@ -140,19 +164,27 @@ public class ComponentModel {
         this.deprecationNote = deprecationNote;
     }
 
-    public String getConsumerOnly() {
+    public boolean isConsumerOnly() {
+        return consumerOnly != null && consumerOnly;
+    }
+
+    public Boolean getConsumerOnly() {
         return consumerOnly;
     }
 
-    public void setConsumerOnly(String consumerOnly) {
+    public void setConsumerOnly(Boolean consumerOnly) {
         this.consumerOnly = consumerOnly;
     }
 
-    public String getProducerOnly() {
+    public boolean isProducerOnly() {
+        return producerOnly != null && producerOnly;
+    }
+
+    public Boolean getProducerOnly() {
         return producerOnly;
     }
 
-    public void setProducerOnly(String producerOnly) {
+    public void setProducerOnly(Boolean producerOnly) {
         this.producerOnly = producerOnly;
     }
 
@@ -186,6 +218,22 @@ public class ComponentModel {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public boolean isLenientProperties() {
+        return lenientProperties;
+    }
+
+    public void setLenientProperties(boolean lenientProperties) {
+        this.lenientProperties = lenientProperties;
+    }
+
+    public boolean isAsync() {
+        return async;
+    }
+
+    public void setAsync(boolean async) {
+        this.async = async;
     }
 
     public List<ComponentOptionModel> getComponentOptions() {

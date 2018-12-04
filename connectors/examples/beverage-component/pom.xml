@@ -86,7 +86,7 @@
             <goals>
               <goal>generate-components-list</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>process-classes</phase>
           </execution>
         </executions>
       </plugin>

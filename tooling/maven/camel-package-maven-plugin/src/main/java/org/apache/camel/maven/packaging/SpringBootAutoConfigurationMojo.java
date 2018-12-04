@@ -39,6 +39,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -94,6 +95,7 @@ import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyDefau
 import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyDescriptionValue;
 import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyJavaType;
 import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyType;
+import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeBool;
 import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeValue;
 import static org.apache.camel.maven.packaging.JSonSchemaHelper.parseJsonSchema;
 import static org.apache.camel.maven.packaging.PackageHelper.loadText;
@@ -331,7 +333,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                     prop.getField().setLiteralInitializer(value);
                 } else if ("integer".equals(option.getType()) || "boolean".equals(option.getType())) {
                     prop.getField().setLiteralInitializer(option.getDefaultValue());
-                } else if (!Strings.isBlank(option.getEnums())) {
+                } else if (!option.getEnums().isEmpty()) {
                     String enumShortName = type.substring(type.lastIndexOf(".") + 1);
                     prop.getField().setLiteralInitializer(enumShortName + "." + option.getDefaultValue());
                     commonClass.addImport(model.getJavaType());
@@ -441,7 +443,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                     prop.getField().setLiteralInitializer(value);
                 } else if ("integer".equals(option.getType()) || "boolean".equals(option.getType())) {
                     prop.getField().setLiteralInitializer(option.getDefaultValue());
-                } else if (!Strings.isBlank(option.getEnums())) {
+                } else if (!option.getEnums().isEmpty()) {
                     String enumShortName = type.substring(type.lastIndexOf(".") + 1);
                     prop.getField().setLiteralInitializer(enumShortName + "." + option.getDefaultValue());
                     javaClass.addImport(model.getJavaType());
@@ -746,7 +748,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
             // as Camel will be able to convert the string value into a lookup of the bean in the registry anyway
             // and therefore there is no problem, eg camel.component.jdbc.data-source = myDataSource
             // where the type would have been javax.sql.DataSource
-            boolean complex = isComplexType(option) && !isNestedProperty && Strings.isBlank(option.getEnums());
+            boolean complex = isComplexType(option) && !isNestedProperty && option.getEnums().isEmpty();
             if (complex) {
                 // force to use a string type
                 type = "java.lang.String";
@@ -757,13 +759,13 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                 if (!type.endsWith(INNER_TYPE_SUFFIX)
                     && type.indexOf('[') == -1
                     && INCLUDE_INNER_PATTERN.matcher(type).matches()
-                    && Strings.isBlank(option.getEnums())
+                    && option.getEnums().isEmpty()
                     && (javaClassSource == null || (javaClassSource.isClass() && !javaClassSource.isAbstract()))) {
                     // add nested configuration annotation for complex properties
                     prop.getField().addAnnotation(NestedConfigurationProperty.class);
                 }
             }
-            if ("true".equals(option.getDeprecated())) {
+            if (option.isDeprecated()) {
                 prop.getField().addAnnotation(Deprecated.class);
                 prop.getAccessor().addAnnotation(Deprecated.class);
                 prop.getMutator().addAnnotation(Deprecated.class);
@@ -789,7 +791,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                     prop.getField().setLiteralInitializer(value);
                 } else if ("integer".equals(option.getType()) || "boolean".equals(option.getType())) {
                     prop.getField().setLiteralInitializer(option.getDefaultValue());
-                } else if (!Strings.isBlank(option.getEnums())) {
+                } else if (!option.getEnums().isEmpty()) {
                     String enumShortName = type.substring(type.lastIndexOf(".") + 1);
                     prop.getField().setLiteralInitializer(enumShortName + "." + option.getDefaultValue());
                     javaClass.addImport(model.getJavaType());
@@ -1948,10 +1950,10 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
         component.setDescription(getSafeValue("description", rows));
         component.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         component.setLabel(getSafeValue("label", rows));
-        component.setDeprecated(getSafeValue("deprecated", rows));
+        component.setDeprecated(getSafeBool("deprecated", rows));
         component.setDeprecationNote(getSafeValue("deprecationNote", rows));
-        component.setConsumerOnly(getSafeValue("consumerOnly", rows));
-        component.setProducerOnly(getSafeValue("producerOnly", rows));
+        component.setConsumerOnly(getSafeBool("consumerOnly", rows));
+        component.setProducerOnly(getSafeBool("producerOnly", rows));
         component.setJavaType(getSafeValue("javaType", rows));
         component.setGroupId(getSafeValue("groupId", rows));
         component.setArtifactId(getSafeValue("artifactId", rows));
@@ -1965,11 +1967,11 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
             option.setKind(getSafeValue("kind", row));
             option.setType(getSafeValue("type", row));
             option.setJavaType(getSafeValue("javaType", row));
-            option.setDeprecated(getSafeValue("deprecated", row));
+            option.setDeprecated(getSafeBool("deprecated", row));
             option.setDeprecationNote(getSafeValue("deprecationNote", row));
             option.setDescription(getSafeValue("description", row));
             option.setDefaultValue(getSafeValue("defaultValue", row));
-            option.setEnums(getSafeValue("enum", row));
+            option.setEnumsAsString(getSafeValue("enum", row));
             component.addComponentOption(option);
         }
 
@@ -1980,17 +1982,16 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
             option.setDisplayName(getSafeValue("displayName", row));
             option.setKind(getSafeValue("kind", row));
             option.setGroup(getSafeValue("group", row));
-            option.setRequired(getSafeValue("required", row));
+            option.setRequired(getSafeBool("required", row));
             option.setType(getSafeValue("type", row));
             option.setJavaType(getSafeValue("javaType", row));
-            option.setEnums(getSafeValue("enum", row));
+            option.setEnumsAsString(getSafeValue("enum", row));
             option.setPrefix(getSafeValue("prefix", row));
-            option.setMultiValue(getSafeValue("multiValue", row));
-            option.setDeprecated(getSafeValue("deprecated", row));
+            option.setMultiValue(getSafeBool("multiValue", row));
+            option.setDeprecated(getSafeBool("deprecated", row));
             option.setDeprecationNote(getSafeValue("deprecationNote", row));
             option.setDefaultValue(getSafeValue("defaultValue", row));
             option.setDescription(getSafeValue("description", row));
-            option.setEnumValues(getSafeValue("enum", row));
             component.addEndpointOption(option);
         }
 
@@ -2088,15 +2089,14 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
             option.setDisplayName(getSafeValue("displayName", row));
             option.setKind(getSafeValue("kind", row));
             option.setGroup(getSafeValue("group", row));
-            option.setRequired(getSafeValue("required", row));
+            option.setRequired(getSafeBool("required", row));
             option.setType(getSafeValue("type", row));
             option.setJavaType(getSafeValue("javaType", row));
-            option.setEnums(getSafeValue("enum", row));
-            option.setDeprecated(getSafeValue("deprecated", row));
+            option.setEnumsAsString(getSafeValue("enum", row));
+            option.setDeprecated(getSafeBool("deprecated", row));
             option.setDeprecationNote(getSafeValue("deprecationNote", row));
             option.setDefaultValue(getSafeValue("defaultValue", row));
             option.setDescription(getSafeValue("description", row));
-            option.setEnums(getSafeValue("enums", row));
 
             model.addOptionModel(option);
         }

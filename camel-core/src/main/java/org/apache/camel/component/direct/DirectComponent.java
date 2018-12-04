@@ -27,6 +27,7 @@ import org.apache.camel.support.ServiceHelper;
 /**
  * The <a href="http://camel.apache.org/direct.html">Direct Component</a> manages {@link DirectEndpoint} and holds the list of named direct endpoints.
  */
+@org.apache.camel.spi.annotations.Component("direct")
 public class DirectComponent extends DefaultComponent {
 
     // must keep a map of consumers on the component to ensure endpoints can lookup old consumers

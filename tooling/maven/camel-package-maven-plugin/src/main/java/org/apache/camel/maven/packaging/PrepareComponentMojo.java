@@ -22,6 +22,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -43,7 +44,7 @@ import static org.apache.camel.maven.packaging.PackageOtherMojo.prepareOthers;
  * </ul>
  * And for each of those generates extra descriptors and schema files for easier auto-discovery in Camel and tooling.
  */
-@Mojo(name = "prepare-components", threadSafe = true)
+@Mojo(name = "prepare-components", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
 public class PrepareComponentMojo extends AbstractMojo {
 
     /**

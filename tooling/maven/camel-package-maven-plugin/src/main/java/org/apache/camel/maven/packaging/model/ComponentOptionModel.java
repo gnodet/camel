@@ -16,9 +16,14 @@
  */
 package org.apache.camel.maven.packaging.model;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.camel.maven.packaging.StringHelper;
 
 import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
+import static org.apache.camel.maven.packaging.Strings.isNullOrEmpty;
 
 public class ComponentOptionModel {
 
@@ -26,15 +31,18 @@ public class ComponentOptionModel {
     private String displayName;
     private String kind;
     private String group;
-    private String required;
+    private String label;
+    private boolean required;
     private String type;
     private String javaType;
-    private String deprecated;
+    private boolean deprecated;
     private String deprecationNote;
-    private String secret;
+    private boolean secret;
     private String description;
     private String defaultValue;
-    private String enums;
+    private String defaultValueNote;
+    private boolean enumType;
+    private Set<String> enums;
 
     // special for documentation rendering
     private boolean newGroup;
@@ -71,11 +79,19 @@ public class ComponentOptionModel {
         this.group = group;
     }
 
-    public String getRequired() {
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean isRequired() {
         return required;
     }
 
-    public void setRequired(String required) {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 
@@ -95,11 +111,11 @@ public class ComponentOptionModel {
         this.javaType = javaType;
     }
 
-    public String getDeprecated() {
+    public boolean isDeprecated() {
         return deprecated;
     }
 
-    public void setDeprecated(String deprecated) {
+    public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
@@ -111,11 +127,11 @@ public class ComponentOptionModel {
         this.deprecationNote = deprecationNote;
     }
 
-    public String getSecret() {
+    public boolean isSecret() {
         return secret;
     }
 
-    public void setSecret(String secret) {
+    public void setSecret(boolean secret) {
         this.secret = secret;
     }
 
@@ -135,12 +151,32 @@ public class ComponentOptionModel {
         this.defaultValue = defaultValue;
     }
 
-    public String getEnums() {
+    public String getDefaultValueNote() {
+        return defaultValueNote;
+    }
+
+    public void setDefaultValueNote(String defaultValueNote) {
+        this.defaultValueNote = defaultValueNote;
+    }
+
+    public boolean isEnumType() {
+        return enumType;
+    }
+
+    public void setEnumType(boolean enumType) {
+        this.enumType = enumType;
+    }
+
+    public Set<String> getEnums() {
         return enums;
     }
 
-    public void setEnums(String enums) {
+    public void setEnums(Set<String> enums) {
         this.enums = enums;
+    }
+
+    public void setEnumsAsString(String str) {
+        this.enums = Stream.of(str.split(",")).map(String::trim).collect(Collectors.toSet());
     }
 
     public boolean isNewGroup() {
@@ -199,4 +235,15 @@ public class ComponentOptionModel {
         return Character.toLowerCase(text.charAt(0)) + text.substring(1);
     }
 
+    public String getDocumentationWithNotes() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(description);
+        if (!isNullOrEmpty(defaultValueNote)) {
+            sb.append(". Default value notice: ").append(defaultValueNote);
+        }
+        if (!isNullOrEmpty(deprecationNote)) {
+            sb.append(". Deprecation note: ").append(deprecationNote);
+        }
+        return sb.toString();
+    }
 }

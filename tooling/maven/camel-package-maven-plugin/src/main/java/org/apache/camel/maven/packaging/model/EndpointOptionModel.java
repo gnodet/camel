@@ -16,9 +16,14 @@
  */
 package org.apache.camel.maven.packaging.model;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.camel.maven.packaging.StringHelper;
 
 import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
+import static org.apache.camel.maven.packaging.Strings.isNullOrEmpty;
 
 public class EndpointOptionModel {
 
@@ -26,18 +31,21 @@ public class EndpointOptionModel {
     private String displayName;
     private String kind;
     private String group;
-    private String required;
+    private String label;
+    private boolean required;
     private String type;
     private String javaType;
-    private String enums;
+    private boolean enumType;
+    private Set<String> enums;
     private String prefix;
-    private String multiValue;
-    private String deprecated;
+    private String optionalPrefix;
+    private boolean multiValue;
+    private boolean deprecated;
     private String deprecationNote;
-    private String secret;
+    private boolean secret;
     private String defaultValue;
+    private String defaultValueNote;
     private String description;
-    private String enumValues;
 
     // special for documentation rendering
     private boolean newGroup;
@@ -74,11 +82,19 @@ public class EndpointOptionModel {
         this.group = group;
     }
 
-    public String getRequired() {
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean getRequired() {
         return required;
     }
 
-    public void setRequired(String required) {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 
@@ -98,12 +114,24 @@ public class EndpointOptionModel {
         this.javaType = javaType;
     }
 
-    public String getEnums() {
+    public boolean isEnumType() {
+        return enumType;
+    }
+
+    public void setEnumType(boolean enumType) {
+        this.enumType = enumType;
+    }
+
+    public Set<String> getEnums() {
         return enums;
     }
 
-    public void setEnums(String enums) {
+    public void setEnums(Set<String> enums) {
         this.enums = enums;
+    }
+
+    public void setEnumsAsString(String str) {
+        this.enums = Stream.of(str.split(",")).map(String::trim).collect(Collectors.toSet());
     }
 
     public String getPrefix() {
@@ -114,19 +142,27 @@ public class EndpointOptionModel {
         this.prefix = prefix;
     }
 
-    public String getMultiValue() {
+    public String getOptionalPrefix() {
+        return optionalPrefix;
+    }
+
+    public void setOptionalPrefix(String optionalPrefix) {
+        this.optionalPrefix = optionalPrefix;
+    }
+
+    public boolean isMultiValue() {
         return multiValue;
     }
 
-    public void setMultiValue(String multiValue) {
+    public void setMultiValue(boolean multiValue) {
         this.multiValue = multiValue;
     }
 
-    public String getDeprecated() {
+    public boolean isDeprecated() {
         return deprecated;
     }
 
-    public void setDeprecated(String deprecated) {
+    public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
@@ -138,11 +174,11 @@ public class EndpointOptionModel {
         this.deprecationNote = deprecationNote;
     }
 
-    public String getSecret() {
+    public boolean isSecret() {
         return secret;
     }
 
-    public void setSecret(String secret) {
+    public void setSecret(boolean secret) {
         this.secret = secret;
     }
 
@@ -154,20 +190,20 @@ public class EndpointOptionModel {
         this.defaultValue = defaultValue;
     }
 
+    public String getDefaultValueNote() {
+        return defaultValueNote;
+    }
+
+    public void setDefaultValueNote(String defaultValueNote) {
+        this.defaultValueNote = defaultValueNote;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getEnumValues() {
-        return enumValues;
-    }
-
-    public void setEnumValues(String enumValues) {
-        this.enumValues = enumValues;
     }
 
     public boolean isNewGroup() {
@@ -226,4 +262,15 @@ public class EndpointOptionModel {
         return Character.toLowerCase(text.charAt(0)) + text.substring(1);
     }
 
+    public String getDocumentationWithNotes() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(description);
+        if (!isNullOrEmpty(defaultValueNote)) {
+            sb.append(". Default value notice: ").append(defaultValueNote);
+        }
+        if (!isNullOrEmpty(deprecationNote)) {
+            sb.append(". Deprecation note: ").append(deprecationNote);
+        }
+        return sb.toString();
+    }
 }

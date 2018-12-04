@@ -16,8 +16,13 @@
  */
 package org.apache.camel.maven.packaging.model;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.camel.maven.packaging.StringHelper;
 
+import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeValue;
 import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
 
 public class OtherOptionModel {
@@ -26,15 +31,15 @@ public class OtherOptionModel {
     private String displayName;
     private String kind;
     private String group;
-    private String required;
+    private boolean required;
     private String type;
     private String javaType;
-    private String deprecated;
+    private boolean deprecated;
     private String deprecationNote;
-    private String secret;
+    private boolean secret;
     private String description;
     private String defaultValue;
-    private String enums;
+    private Set<String> enums;
 
     // special for documentation rendering
     private boolean newGroup;
@@ -71,11 +76,11 @@ public class OtherOptionModel {
         this.group = group;
     }
 
-    public String getRequired() {
+    public boolean getRequired() {
         return required;
     }
 
-    public void setRequired(String required) {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 
@@ -95,11 +100,11 @@ public class OtherOptionModel {
         this.javaType = javaType;
     }
 
-    public String getDeprecated() {
+    public boolean getDeprecated() {
         return deprecated;
     }
 
-    public void setDeprecated(String deprecated) {
+    public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
@@ -111,11 +116,11 @@ public class OtherOptionModel {
         this.deprecationNote = deprecationNote;
     }
 
-    public String getSecret() {
+    public boolean getSecret() {
         return secret;
     }
 
-    public void setSecret(String secret) {
+    public void setSecret(boolean secret) {
         this.secret = secret;
     }
 
@@ -135,12 +140,16 @@ public class OtherOptionModel {
         this.defaultValue = defaultValue;
     }
 
-    public String getEnums() {
+    public Set<String> getEnums() {
         return enums;
     }
 
-    public void setEnums(String enums) {
+    public void setEnums(Set<String> enums) {
         this.enums = enums;
+    }
+
+    public void setEnumsAsString(String str) {
+        this.enums = Stream.of(str.split(",")).map(String::trim).collect(Collectors.toSet());
     }
 
     public boolean isNewGroup() {

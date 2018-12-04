@@ -445,11 +445,25 @@
         <version>${project.version}</version>
         <executions>
           <execution>
+            <id>services</id>
+            <goals>
+              <goal>generate-services-list</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+          <execution>
+            <id>endpoints</id>
+            <goals>
+              <goal>generate-endpoints-list</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+          <execution>
             <id>components</id>
             <goals>
               <goal>generate-components-list</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>process-classes</phase>
           </execution>
           <execution>
             <id>eips</id>
@@ -490,6 +504,19 @@
               <goal>update-readme</goal>
             </goals>
             <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-generated-resources</id>
+            <goals>
+              <goal>resources</goal>
+            </goals>
+            <phase>process-classes</phase>
           </execution>
         </executions>
       </plugin>
