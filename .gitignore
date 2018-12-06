@@ -20,4 +20,6 @@ components/camel-solr/data
 .sts4-cache
 log-camel-lsp.out
 .vscode
+build
+.gradle
 
