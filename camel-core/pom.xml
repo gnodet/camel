@@ -504,6 +504,14 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
+          <!-- camel-core needs to generate jaxb.index files -->
+          <execution>
+            <id>jaxb-list</id>
+            <goals>
+              <goal>generate-jaxb-list</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
           <!-- camel-core needs to validate before packaging -->
           <execution>
             <id>validate</id>
