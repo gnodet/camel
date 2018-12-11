@@ -138,6 +138,7 @@ public class PackageModelDocMojo extends AbstractMojo {
         project.getDependencyArtifacts()
                 .stream()
                 .map(Artifact::getFile)
+                .filter(Objects::nonNull)
                 .forEach(f -> locations.add(f.toString()));
 
         processClasses(createIndex(locations));

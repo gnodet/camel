@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -105,6 +106,7 @@ public class PackageConverterMojo extends AbstractMojo {
         project.getDependencyArtifacts()
                 .stream()
                 .map(Artifact::getFile)
+                .filter(Objects::nonNull)
                 .forEach(f -> locations.add(f.toString()));
 
         createConverter(createIndex(locations));

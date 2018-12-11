@@ -322,22 +322,6 @@
 
     <plugins>
 
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>test-compile</id>
-            <phase>process-test-sources</phase>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <configuration>
-              <proc>none</proc>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- shade caffeine cache for faster Camel and spi-annotations as needed by everybody -->
       <!-- shade json-simple for parsing Camel component JSon schema files -->
       <plugin>
@@ -544,6 +528,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <executions>
@@ -555,6 +540,22 @@
             <phase>process-classes</phase>
             <configuration>
               <compileSourceRoots>${project.build.directory}/generated/camel/converter</compileSourceRoots>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>test-compile</id>
+            <phase>process-test-sources</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <proc>none</proc>
             </configuration>
           </execution>
         </executions>

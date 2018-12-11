@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -105,6 +106,7 @@ public class PackageJaxbMojo extends AbstractMojo {
         project.getDependencyArtifacts()
                 .stream()
                 .map(Artifact::getFile)
+                .filter(Objects::nonNull)
                 .forEach(f -> locations.add(f.toString()));
 
         processClasses(createIndex(locations));
