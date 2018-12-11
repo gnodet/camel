@@ -488,6 +488,22 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
+          <!-- camel-core needs to generate the static core converter after compilation -->
+          <execution>
+            <id>converter</id>
+            <goals>
+              <goal>generate-static-core-converter</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
+          <!-- camel-core needs to generate model doc -->
+          <execution>
+            <id>model-doc</id>
+            <goals>
+              <goal>generate-model-doc</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
           <!-- camel-core needs to validate before packaging -->
           <execution>
             <id>validate</id>
@@ -520,6 +536,22 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>compile-generated-sources</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <compileSourceRoots>${project.build.directory}/generated/camel/converter</compileSourceRoots>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
