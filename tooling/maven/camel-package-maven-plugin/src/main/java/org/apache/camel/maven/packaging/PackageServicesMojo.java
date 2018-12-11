@@ -90,8 +90,6 @@ public class PackageServicesMojo extends AbstractMojo {
 
     public static void prepareServices(Log log, MavenProject project, MavenProjectHelper projectHelper, File serviceOutDir, BuildContext buildContext) throws MojoExecutionException {
 
-        System.err.println("Indexing...");
-        System.err.println("Path: " + project.getBuild().getOutputDirectory());
         Index index;
         try {
             Indexer indexer = new Indexer();
@@ -109,7 +107,6 @@ public class PackageServicesMojo extends AbstractMojo {
             throw new MojoExecutionException("Error", e);
         }
 
-        System.err.println("Generating...");
         Path camelMetaDir = serviceOutDir.toPath().resolve("META-INF/services/org/apache/camel/");
         Stream.of("Component", "Language", "Dataformat")
                 .map(s -> DotName.createSimple("org.apache.camel.spi.annotations." + s))
