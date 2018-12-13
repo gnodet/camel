@@ -18,6 +18,7 @@ package org.apache.camel.maven.packaging.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EipModel {
 
@@ -30,6 +31,7 @@ public class EipModel {
     private String deprecationNote;
     private boolean input;
     private boolean output;
+    private String firstVersion;
     private final List<EipOptionModel> eipOptions = new ArrayList<>();
 
     public String getName() {
@@ -112,12 +114,22 @@ public class EipModel {
         return output ? "true" : "false";
     }
 
+    public String getFirstVersion() {
+        return firstVersion;
+    }
+
+    public void setFirstVersion(String firstVersion) {
+        this.firstVersion = firstVersion;
+    }
+
     public List<EipOptionModel> getEipOptions() {
         return eipOptions;
     }
 
     public void addEipOptionModel(EipOptionModel option) {
-        eipOptions.add(option);
+        if (eipOptions.stream().noneMatch(o -> Objects.equals(o.getName(), option.getName()))) {
+            eipOptions.add(option);
+        }
     }
 
     public String getDocLink() {

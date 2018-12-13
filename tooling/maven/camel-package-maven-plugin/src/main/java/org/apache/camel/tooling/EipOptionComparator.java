@@ -18,10 +18,10 @@ package org.apache.camel.tooling;
 
 import java.util.Comparator;
 
-import org.apache.camel.tooling.model.EipModel;
-import org.apache.camel.tooling.model.EipOption;
+import org.apache.camel.maven.packaging.model.EipModel;
+import org.apache.camel.maven.packaging.model.EipOptionModel;
 
-public final class EipOptionComparator implements Comparator<EipOption> {
+public final class EipOptionComparator implements Comparator<EipOptionModel> {
 
     private final EipModel model;
 
@@ -30,7 +30,7 @@ public final class EipOptionComparator implements Comparator<EipOption> {
     }
 
     @Override
-    public int compare(EipOption o1, EipOption o2) {
+    public int compare(EipOptionModel o1, EipOptionModel o2) {
         int weigth = weigth(o1);
         int weigth2 = weigth(o2);
 
@@ -43,7 +43,7 @@ public final class EipOptionComparator implements Comparator<EipOption> {
         }
     }
 
-    private int weigth(EipOption o) {
+    private int weigth(EipOptionModel o) {
         String name = o.getName();
 
         // these should be first

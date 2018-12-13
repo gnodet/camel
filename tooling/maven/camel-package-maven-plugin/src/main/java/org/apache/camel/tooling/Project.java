@@ -80,14 +80,16 @@ import org.apache.camel.maven.packaging.Strings;
 import org.apache.camel.maven.packaging.model.ComponentModel;
 import org.apache.camel.maven.packaging.model.ComponentOptionModel;
 import org.apache.camel.maven.packaging.model.DataFormatModel;
+import org.apache.camel.maven.packaging.model.EipModel;
+import org.apache.camel.maven.packaging.model.EipOptionModel;
 import org.apache.camel.maven.packaging.model.EndpointOptionModel;
 import org.apache.camel.maven.packaging.model.LanguageModel;
 import org.apache.camel.maven.packaging.model.OtherModel;
 import org.apache.camel.tooling.helpers.DocumentationHelper;
 import org.apache.camel.tooling.helpers.EndpointHelper;
 import org.apache.camel.tooling.helpers.Helper;
-import org.apache.camel.tooling.model.EipModel;
-import org.apache.camel.tooling.model.EipOption;
+import org.apache.camel.maven.packaging.model.EipModel;
+import org.apache.camel.maven.packaging.model.EipOptionModel;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
@@ -2291,7 +2293,7 @@ public class Project {
         EipModel eipModel = findEipModelProperties(classElement, javaTypeName, modelName);
 
         // get endpoint information which is divided into paths and options (though there should really only be one path)
-        Set<EipOption> eipOptions = new TreeSet<>(new EipOptionComparator(eipModel));
+        Set<EipOptionModel> eipOptions = new TreeSet<>(new EipOptionComparator(eipModel));
         findClassProperties(eipOptions, classElement, classElement, "", modelName, core);
 
         // after we have found all the options then figure out if the model accepts input/output
@@ -2304,7 +2306,7 @@ public class Project {
     }
 
     public String createParameterJsonSchema(EipModel eipModel,
-                                            Set<EipOption> options) {
+                                            Set<EipOptionModel> options) {
         StringBuilder buffer = new StringBuilder("{");
         // eip model
         buffer.append("\n  \"model\": {");
@@ -2338,7 +2340,7 @@ public class Project {
             options = options.stream().filter(o -> !"outputs".equals(o.getName())).collect(Collectors.toCollection(LinkedHashSet::new));
         }
 
-        for (EipOption entry : options) {
+        for (EipOptionModel entry : options) {
             if (first) {
                 first = false;
             } else {
@@ -2347,11 +2349,11 @@ public class Project {
             buffer.append("\n    ");
 
             // as its json we need to sanitize the docs
-            String doc = entry.getDocumentation();
+            String doc = entry.getDescription();
             doc = sanitizeDescription(doc, false);
             String type = JSonSchemaHelper.getType(entry.getType(), entry.isEnumType());
             JSonSchemaHelper.toJson(buffer, entry.getName(), entry.getDisplayName(), entry.getKind(), entry.isRequired(), type, entry.getType(), entry.getDefaultValue(), doc,
-                    entry.isDeprecated(), entry.getDeprecationNode(), false, null, null, entry.isEnumType(), entry.getEnums(), entry.isOneOf(), entry.getOneOfTypes(),
+                    entry.isDeprecated(), entry.getDeprecationNote(), false, null, null, entry.isEnumType(), entry.getEnums(), entry.isOneOf(), entry.getOneOfTypes(),
                     entry.isAsPredicate(), null, null, false);
         }
         buffer.append("\n  }");
@@ -2393,7 +2395,7 @@ public class Project {
         return model;
     }
 
-    protected void findClassProperties(Set<EipOption> eipOptions,
+    protected void findClassProperties(Set<EipOptionModel> eipOptions,
                                        ClassInfo originalClassType,
                                        ClassInfo classElement,
                                        String prefix,
@@ -2578,7 +2580,7 @@ public class Project {
                                      FieldInfo fieldElement,
                                      String fieldName,
                                      AnnotationInstance attribute,
-                                     Set<EipOption> eipOptions,
+                                     Set<EipOptionModel> eipOptions,
                                      String prefix,
                                      String modelName) {
         String name = string(attribute, "name", null);
@@ -2632,7 +2634,7 @@ public class Project {
             deprecationNote = string(metadata, "deprecationNote", (String) null);
         }
 
-        EipOption ep = new EipOption(name, displayName, "attribute", fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, isEnum, enums, false, null, false);
+        EipOptionModel ep = new EipOptionModel(name, displayName, "attribute", fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, isEnum, enums, false, null, false);
         eipOptions.add(ep);
 
         return false;
@@ -2643,7 +2645,7 @@ public class Project {
                               FieldInfo fieldElement,
                               String fieldName,
                               AnnotationInstance value,
-                              Set<EipOption> eipOptions,
+                              Set<EipOptionModel> eipOptions,
                               String prefix,
                               String modelName) {
 
@@ -2672,14 +2674,14 @@ public class Project {
         boolean deprecated = annotation(fieldElement, DEPRECATED).isPresent();
         String deprecationNote = string(metadata, "deprecationNote", null);
 
-        EipOption ep = new EipOption(name, displayName, "value", fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, false, null, false, null, false);
+        EipOptionModel ep = new EipOptionModel(name, displayName, "value", fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, false, null, false, null, false);
         eipOptions.add(ep);
     }
 
     private void processElement(ClassInfo classElement,
                                 AnnotationInstance element,
                                 FieldInfo fieldElement,
-                                Set<EipOption> eipOptions,
+                                Set<EipOptionModel> eipOptions,
                                 String prefix,
                                 boolean core) {
         String fieldName = fieldElement.name();
@@ -2790,7 +2792,7 @@ public class Project {
                 deprecationNote = string(metadata, "deprecationNote", null);
             }
 
-            EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, isEnum, enums, oneOf, oneOfTypes, asPredicate);
+            EipOptionModel ep = new EipOptionModel(name, displayName, kind, fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, isEnum, enums, oneOf, oneOfTypes, asPredicate);
             eipOptions.add(ep);
         }
     }
@@ -2798,7 +2800,7 @@ public class Project {
     private void processElements(ClassInfo classElement,
                                  AnnotationInstance elements,
                                  FieldInfo fieldElement,
-                                 Set<EipOption> eipOptions,
+                                 Set<EipOptionModel> eipOptions,
                                  String prefix) {
 
 
@@ -2828,81 +2830,81 @@ public class Project {
             boolean deprecated = annotation(fieldElement, DEPRECATED).isPresent();
             String deprecationNote = string(metadata, "deprecationNote", null);
 
-            EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, false);
+            EipOptionModel ep = new EipOptionModel(name, displayName, kind, fieldTypeName, required, defaultValue, docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, false);
             eipOptions.add(ep);
         }
     }
 
     private void processRoute(ClassInfo originalClassType,
                               ClassInfo classElement,
-                              Set<EipOption> eipOptions,
+                              Set<EipOptionModel> eipOptions,
                               String prefix) {
 
 
 
         // group
         String docComment = findJavaDoc("group", null, classElement, true);
-        EipOption ep = new EipOption("group", "Group", "attribute", "java.lang.String", false, "", docComment,
+        EipOptionModel ep = new EipOptionModel("group", "Group", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // group
         docComment = findJavaDoc("streamCache", null, classElement, true);
-        ep = new EipOption("streamCache", "Stream Cache", "attribute", "java.lang.String", false, "", docComment,
+        ep = new EipOptionModel("streamCache", "Stream Cache", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // trace
         docComment = findJavaDoc("trace", null, classElement, true);
-        ep = new EipOption("trace", "Trace", "attribute", "java.lang.String", false, "", docComment,
+        ep = new EipOptionModel("trace", "Trace", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // message history
         docComment = findJavaDoc("messageHistory", null, classElement, true);
-        ep = new EipOption("messageHistory", "Message History", "attribute", "java.lang.String", false, "true", docComment,
+        ep = new EipOptionModel("messageHistory", "Message History", "attribute", "java.lang.String", false, "true", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // log mask
         docComment = findJavaDoc("logMask", null, classElement, true);
-        ep = new EipOption("logMask", "Log Mask", "attribute", "java.lang.String", false, "false", docComment,
+        ep = new EipOptionModel("logMask", "Log Mask", "attribute", "java.lang.String", false, "false", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // trace
         docComment = findJavaDoc("handleFault", null, classElement, true);
-        ep = new EipOption("handleFault", "Handle Fault", "attribute", "java.lang.String", false, "", docComment,
+        ep = new EipOptionModel("handleFault", "Handle Fault", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // delayer
         docComment = findJavaDoc("delayer", null, classElement, true);
-        ep = new EipOption("delayer", "Delayer", "attribute", "java.lang.String", false, "", docComment, false,
+        ep = new EipOptionModel("delayer", "Delayer", "attribute", "java.lang.String", false, "", docComment, false,
                 null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // autoStartup
         docComment = findJavaDoc("autoStartup", null, classElement, true);
-        ep = new EipOption("autoStartup", "Auto Startup", "attribute", "java.lang.String", false, "true", docComment,
+        ep = new EipOptionModel("autoStartup", "Auto Startup", "attribute", "java.lang.String", false, "true", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // startupOrder
         docComment = findJavaDoc("startupOrder", null, classElement, true);
-        ep = new EipOption("startupOrder", "Startup Order", "attribute", "java.lang.Integer", false, "", docComment,
+        ep = new EipOptionModel("startupOrder", "Startup Order", "attribute", "java.lang.Integer", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // errorHandlerRef
         docComment = findJavaDoc("errorHandlerRef", null, classElement, true);
-        ep = new EipOption("errorHandlerRef", "Error Handler", "attribute", "java.lang.String", false, "", docComment,
+        ep = new EipOptionModel("errorHandlerRef", "Error Handler", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // routePolicyRef
         docComment = findJavaDoc("routePolicyRef", null, classElement, true);
-        ep = new EipOption("routePolicyRef", "Route Policy", "attribute", "java.lang.String", false, "", docComment,
+        ep = new EipOptionModel("routePolicyRef", "Route Policy", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
@@ -2911,7 +2913,7 @@ public class Project {
         enums.add("Default");
         enums.add("Defer");
         docComment = findJavaDoc("shutdownRoute", "Default", classElement, true);
-        ep = new EipOption("shutdownRoute", "Shutdown Route", "attribute", "org.apache.camel.ShutdownRoute", false, "", docComment,
+        ep = new EipOptionModel("shutdownRoute", "Shutdown Route", "attribute", "org.apache.camel.ShutdownRoute", false, "", docComment,
                 false, null, true, enums, false, null, false);
         eipOptions.add(ep);
 
@@ -2920,7 +2922,7 @@ public class Project {
         enums.add("CompleteCurrentTaskOnly");
         enums.add("CompleteAllTasks");
         docComment = findJavaDoc("shutdownRunningTask", "CompleteCurrentTaskOnly", classElement, true);
-        ep = new EipOption("shutdownRunningTask", "Shutdown Running Task", "attribute", "org.apache.camel.ShutdownRunningTask", false, "", docComment,
+        ep = new EipOptionModel("shutdownRunningTask", "Shutdown Running Task", "attribute", "org.apache.camel.ShutdownRunningTask", false, "", docComment,
                 false, null, true, enums, false, null, false);
         eipOptions.add(ep);
 
@@ -2928,7 +2930,7 @@ public class Project {
         Set<String> oneOfTypes = new TreeSet<>();
         oneOfTypes.add("from");
         docComment = findJavaDoc("inputs", null, classElement, true);
-        ep = new EipOption("inputs", "Inputs", "element", "java.util.List<org.apache.camel.model.FromDefinition>", true, "", docComment,
+        ep = new EipOptionModel("inputs", "Inputs", "element", "java.util.List<org.apache.camel.model.FromDefinition>", true, "", docComment,
                 false, null, false, null, true, oneOfTypes, false);
         eipOptions.add(ep);
 
@@ -2952,7 +2954,7 @@ public class Project {
         oneOfTypes.remove("route");
 
         docComment = findJavaDoc("outputs", null, classElement, true);
-        ep = new EipOption("outputs", "Outputs", "element", "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", true, "", docComment,
+        ep = new EipOptionModel("outputs", "Outputs", "element", "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", true, "", docComment,
                 false, null, false, null, true, oneOfTypes, false);
         eipOptions.add(ep);
     }
@@ -2961,19 +2963,19 @@ public class Project {
      * Special for process the OptionalIdentifiedDefinition
      */
     private void processIdentified(ClassInfo originalClassType, ClassInfo classElement,
-                                   Set<EipOption> eipOptions, String prefix) {
+                                   Set<EipOptionModel> eipOptions, String prefix) {
 
 
 
         // id
         String docComment = findJavaDoc("id", null, classElement, true);
-        EipOption ep = new EipOption("id", "Id", "attribute", "java.lang.String", false, "", docComment,
+        EipOptionModel ep = new EipOptionModel("id", "Id", "attribute", "java.lang.String", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
         // description
         docComment = findJavaDoc("description", null, classElement, true);
-        ep = new EipOption("description", "Description", "element", "org.apache.camel.model.DescriptionDefinition", false, "", docComment,
+        ep = new EipOptionModel("description", "Description", "element", "org.apache.camel.model.DescriptionDefinition", false, "", docComment,
                 false, null, false, null, false, null, false);
         eipOptions.add(ep);
 
@@ -2981,7 +2983,7 @@ public class Project {
         if (!skipUnwanted) {
             // custom id
             docComment = findJavaDoc("customId", null, classElement, true);
-            ep = new EipOption("customId", "Custom Id", "attribute", "java.lang.String", false, "", docComment,
+            ep = new EipOptionModel("customId", "Custom Id", "attribute", "java.lang.String", false, "", docComment,
                     false, null, false, null, false, null, false);
             eipOptions.add(ep);
         }
@@ -2991,7 +2993,7 @@ public class Project {
      * Special for processing an @XmlElementRef routes field
      */
     private void processRoutes(ClassInfo originalClassType, AnnotationInstance elementRef,
-                               FieldInfo fieldElement, String fieldName, Set<EipOption> eipOptions, String prefix) {
+                               FieldInfo fieldElement, String fieldName, Set<EipOptionModel> eipOptions, String prefix) {
         if ("routes".equals(fieldName)) {
 
             String fieldTypeName = toString(fieldElement.type());
@@ -2999,7 +3001,7 @@ public class Project {
             Set<String> oneOfTypes = new TreeSet<>();
             oneOfTypes.add("route");
 
-            EipOption ep = new EipOption("routes", "Routes", "element", fieldTypeName, false, "", "Contains the Camel routes",
+            EipOptionModel ep = new EipOptionModel("routes", "Routes", "element", fieldTypeName, false, "", "Contains the Camel routes",
                     false, null, false, null, true, oneOfTypes, false);
             eipOptions.add(ep);
         }
@@ -3009,7 +3011,7 @@ public class Project {
      * Special for processing an @XmlElementRef rests field
      */
     private void processRests(ClassInfo originalClassType, AnnotationInstance elementRef,
-                              FieldInfo fieldElement, String fieldName, Set<EipOption> eipOptions, String prefix) {
+                              FieldInfo fieldElement, String fieldName, Set<EipOptionModel> eipOptions, String prefix) {
         if ("rests".equals(fieldName)) {
 
             String fieldTypeName = toString(fieldElement.type());
@@ -3017,7 +3019,7 @@ public class Project {
             Set<String> oneOfTypes = new TreeSet<>();
             oneOfTypes.add("rest");
 
-            EipOption ep = new EipOption("rests", "Rests", "element", fieldTypeName, false, "", "Contains the rest services defined using the rest-dsl",
+            EipOptionModel ep = new EipOptionModel("rests", "Rests", "element", fieldTypeName, false, "", "Contains the rest services defined using the rest-dsl",
                     false, null, false, null, true, oneOfTypes, false);
             eipOptions.add(ep);
         }
@@ -3027,7 +3029,7 @@ public class Project {
      * Special for processing an @XmlElementRef outputs field
      */
     private void processOutputs(ClassInfo originalClassType, AnnotationInstance elementRef,
-                                FieldInfo fieldElement, String fieldName, Set<EipOption> eipOptions, String prefix) {
+                                FieldInfo fieldElement, String fieldName, Set<EipOptionModel> eipOptions, String prefix) {
         if ("outputs".equals(fieldName) && supportOutputs(originalClassType)) {
             String kind = "element";
             String name = string(elementRef, "name", null);
@@ -3060,7 +3062,7 @@ public class Project {
             boolean deprecated = annotation(fieldElement, DEPRECATED).isPresent();
             String deprecationNote = string(metadata, "deprecationNote", null);
 
-            EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, true, "", "", deprecated, deprecationNote, false, null, true, oneOfTypes, false);
+            EipOptionModel ep = new EipOptionModel(name, displayName, kind, fieldTypeName, true, "", "", deprecated, deprecationNote, false, null, true, oneOfTypes, false);
             eipOptions.add(ep);
         }
     }
@@ -3069,7 +3071,7 @@ public class Project {
      * Special for processing an @XmlElementRef verbs field (rest-dsl)
      */
     private void processVerbs(ClassInfo originalClassType, AnnotationInstance elementRef,
-                              FieldInfo fieldElement, String fieldName, Set<EipOption> eipOptions, String prefix) {
+                              FieldInfo fieldElement, String fieldName, Set<EipOptionModel> eipOptions, String prefix) {
 
 
 
@@ -3104,7 +3106,7 @@ public class Project {
             boolean deprecated = annotation(fieldElement, DEPRECATED).isPresent();
             String deprecationNote = string(metadata, "deprecationNote", null);
 
-            EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, true, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, false);
+            EipOptionModel ep = new EipOptionModel(name, displayName, kind, fieldTypeName, true, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, false);
             eipOptions.add(ep);
         }
     }
@@ -3114,7 +3116,7 @@ public class Project {
      */
     private void processRefExpression(ClassInfo originalClassType, ClassInfo classElement,
                                       AnnotationInstance elementRef, FieldInfo fieldElement,
-                                      String fieldName, Set<EipOption> eipOptions, String prefix) {
+                                      String fieldName, Set<EipOptionModel> eipOptions, String prefix) {
 
 
         if ("expression".equals(fieldName)) {
@@ -3154,7 +3156,7 @@ public class Project {
             boolean deprecated = annotation(fieldElement, DEPRECATED).isPresent();
             String deprecationNote = string(metadata, "deprecationNote", null);
 
-            EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, true, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, asPredicate);
+            EipOptionModel ep = new EipOptionModel(name, displayName, kind, fieldTypeName, true, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, asPredicate);
             eipOptions.add(ep);
         }
     }
@@ -3163,7 +3165,7 @@ public class Project {
      * Special for processing an @XmlElementRef when field
      */
     private void processRefWhenClauses(ClassInfo originalClassType, AnnotationInstance elementRef,
-                                       FieldInfo fieldElement, String fieldName, Set<EipOption> eipOptions, String prefix) {
+                                       FieldInfo fieldElement, String fieldName, Set<EipOptionModel> eipOptions, String prefix) {
         if ("whenClauses".equals(fieldName)) {
             String kind = "element";
             String name = string(elementRef, "name", "");
@@ -3188,7 +3190,7 @@ public class Project {
             boolean deprecated = annotation(fieldElement, DEPRECATED).isPresent();
             String deprecationNote = string(metadata, "deprecationNote", null);
 
-            EipOption ep = new EipOption(name, displayName, kind, fieldTypeName, false, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, asPredicate);
+            EipOptionModel ep = new EipOptionModel(name, displayName, kind, fieldTypeName, false, "", docComment, deprecated, deprecationNote, false, null, true, oneOfTypes, asPredicate);
             eipOptions.add(ep);
         }
     }
@@ -3252,7 +3254,7 @@ public class Project {
         return false;
     }
 
-    private boolean hasOutput(EipModel model, Set<EipOption> options) {
+    private boolean hasOutput(EipModel model, Set<EipOptionModel> options) {
         // if we are route/rest then we accept output
         if ("route".equals(model.getName()) || "rest".equals(model.getName())) {
             return true;
@@ -3263,7 +3265,7 @@ public class Project {
             return false;
         }
 
-        for (EipOption option : options) {
+        for (EipOptionModel option : options) {
             if ("outputs".equals(option.getName())) {
                 return true;
             }

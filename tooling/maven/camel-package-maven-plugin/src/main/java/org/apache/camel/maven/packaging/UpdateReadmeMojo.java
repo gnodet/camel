@@ -1060,7 +1060,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
             option.setDisplayName(getSafeValue("displayName", row));
             option.setType(getSafeValue("type", row));
             option.setJavaType(getSafeValue("javaType", row));
-            option.setRequired(getSafeValue("required", row));
+            option.setRequired(getSafeBool("required", row));
             option.setDeprecated("true".equals(getSafeValue("deprecated", row)));
             option.setDeprecationNote(getSafeValue("deprecationNote", row));
             option.setDefaultValue(getSafeValue("defaultValue", row));
@@ -1069,7 +1069,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
             option.setOutput("true".equals(getSafeValue("output", row)));
 
             // lets put required in the description
-            if ("true".equals(option.getRequired())) {
+            if (option.isRequired()) {
                 String desc = "*Required* " + option.getDescription();
                 option.setDescription(desc);
             }

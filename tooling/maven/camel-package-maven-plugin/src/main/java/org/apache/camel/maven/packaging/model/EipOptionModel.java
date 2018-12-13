@@ -16,6 +16,8 @@
  */
 package org.apache.camel.maven.packaging.model;
 
+import java.util.Set;
+
 import org.apache.camel.maven.packaging.StringHelper;
 
 import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
@@ -24,8 +26,8 @@ public class EipOptionModel {
 
     private String name;
     private String displayName;
-    private String title;
-    private String required;
+    private String kind;
+    private boolean required;
     private String javaType;
     private String type;
     private String label;
@@ -35,6 +37,32 @@ public class EipOptionModel {
     private String deprecationNote;
     private boolean input;
     private boolean output;
+    private boolean enumType;
+    private Set<String> enums;
+    private boolean oneOf;
+    private Set<String> oneOfTypes;
+    private boolean asPredicate;
+
+    public EipOptionModel() {
+    }
+
+    public EipOptionModel(String name, String displayName, String kind, String type, boolean required, String defaultValue, String description,
+                     boolean deprecated, String deprecationNote, boolean enumType, Set<String> enums, boolean oneOf, Set<String> oneOfTypes, boolean asPredicate) {
+        this.name = name;
+        this.displayName = displayName;
+        this.kind = kind;
+        this.type = type;
+        this.required = required;
+        this.defaultValue = defaultValue;
+        this.description = description;
+        this.deprecated = deprecated;
+        this.deprecationNote = deprecationNote;
+        this.enumType = enumType;
+        this.enums = enums;
+        this.oneOf = oneOf;
+        this.oneOfTypes = oneOfTypes;
+        this.asPredicate = asPredicate;
+    }
 
     public String getName() {
         return name;
@@ -52,12 +80,12 @@ public class EipOptionModel {
         this.displayName = displayName;
     }
 
-    public String getTitle() {
-        return title;
+    public String getKind() {
+        return kind;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
     public String getJavaType() {
@@ -76,11 +104,11 @@ public class EipOptionModel {
         this.type = type;
     }
 
-    public String getRequired() {
+    public boolean isRequired() {
         return required;
     }
 
-    public void setRequired(String required) {
+    public void setRequired(boolean required) {
         this.required = required;
     }
 
@@ -146,6 +174,46 @@ public class EipOptionModel {
 
     public String getOutput() {
         return output ? "true" : "false";
+    }
+
+    public boolean isEnumType() {
+        return enumType;
+    }
+
+    public void setEnumType(boolean enumType) {
+        this.enumType = enumType;
+    }
+
+    public Set<String> getEnums() {
+        return enums;
+    }
+
+    public void setEnums(Set<String> enums) {
+        this.enums = enums;
+    }
+
+    public boolean isOneOf() {
+        return oneOf;
+    }
+
+    public void setOneOf(boolean oneOf) {
+        this.oneOf = oneOf;
+    }
+
+    public Set<String> getOneOfTypes() {
+        return oneOfTypes;
+    }
+
+    public void setOneOfTypes(Set<String> oneOfTypes) {
+        this.oneOfTypes = oneOfTypes;
+    }
+
+    public boolean isAsPredicate() {
+        return asPredicate;
+    }
+
+    public void setAsPredicate(boolean asPredicate) {
+        this.asPredicate = asPredicate;
     }
 
     public String getShortJavaType() {
