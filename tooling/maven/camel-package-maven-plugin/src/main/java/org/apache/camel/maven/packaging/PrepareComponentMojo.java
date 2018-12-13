@@ -50,6 +50,13 @@ public class PrepareComponentMojo extends AbstractMojo {
     protected MavenProject project;
 
     /**
+     * The output directory for generated service file
+     *
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel/services")
+    protected File serviceOutDir;
+
+    /**
      * The output directory for generated components file
      *
      */
@@ -106,10 +113,11 @@ public class PrepareComponentMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         Project build = Project.project(getLog(), project, buildContext);
+        build.prepareServices(serviceOutDir.toPath());
         build.prepareComponent(componentOutDir.toPath());
         build.prepareDataFormat(dataFormatOutDir.toPath(), schemaOutDir.toPath());
         build.prepareLanguage(languageOutDir.toPath(), schemaOutDir.toPath());
-        build.prepareOthers(otherOutDir, schemaOutDir);
+        build.prepareOthers(otherOutDir.toPath(), schemaOutDir.toPath());
     }
 
 }

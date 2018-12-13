@@ -16,6 +16,11 @@
  */
 package org.apache.camel.tooling.helpers;
 
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -27,6 +32,9 @@ import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
+import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
+import org.jboss.jandex.MethodInfo;
 
 import static org.apache.camel.tooling.helpers.Strings.isNullOrEmpty;
 
@@ -73,6 +81,10 @@ public class JandexHelper {
                 .findAny();
     }
 
+    public static Optional<AnnotationInstance> annotation(MethodInfo method, DotName name) {
+        return Optional.ofNullable(method.annotation(name));
+    }
+
     public static Optional<AnnotationInstance> annotation(ClassInfo classElement, DotName name) {
         if (classElement != null) {
             Map<DotName, List<AnnotationInstance>> annotations = classElement.annotations();
@@ -84,5 +96,25 @@ public class JandexHelper {
             }
         }
         return Optional.empty();
+    }
+
+    public static Index createIndex(List<String> locations) {
+        Indexer indexer = new Indexer();
+        locations.stream()
+                .map(IOHelper::asFolder)
+                .filter(Files::exists)
+                .flatMap(IOHelper::walk)
+                .filter(Files::isRegularFile)
+                .filter(p -> p.getFileName().toString().endsWith(".class"))
+                .forEach(p -> index(indexer, p));
+        return indexer.complete();
+    }
+
+    private static void index(Indexer indexer, Path p) {
+        try (InputStream is = Files.newInputStream(p)) {
+            indexer.index(is);
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
     }
 }

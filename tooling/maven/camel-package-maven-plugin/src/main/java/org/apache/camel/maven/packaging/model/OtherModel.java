@@ -32,7 +32,7 @@ public class OtherModel {
     private String description;
     private String firstVersion;
     private String label;
-    private String deprecated;
+    private boolean deprecated;
     private String deprecationNote;
     private String groupId;
     private String artifactId;
@@ -96,11 +96,11 @@ public class OtherModel {
         this.label = label;
     }
 
-    public String getDeprecated() {
+    public boolean isDeprecated() {
         return deprecated;
     }
 
-    public void setDeprecated(String deprecated) {
+    public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
