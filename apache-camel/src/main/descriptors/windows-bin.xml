@@ -49,6 +49,8 @@
         <exclude>**/target/*</exclude>
         <exclude>**/*.ser</exclude>
         <exclude>**/*.log</exclude>
+        <exclude>**/build/</exclude>
+        <exclude>**/build/*</exclude>
       </excludes>
       <lineEnding>dos</lineEnding>
     </fileSet>
