@@ -18,6 +18,7 @@ package org.apache.camel.maven.packaging.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.camel.maven.packaging.StringHelper;
 
@@ -37,6 +38,7 @@ public class DataFormatModel {
     private String deprecated;
     private String deprecationNote;
     private String javaType;
+    private String modelJavaType;
     private String groupId;
     private String artifactId;
     private String version;
@@ -130,6 +132,14 @@ public class DataFormatModel {
         this.javaType = javaType;
     }
 
+    public String getModelJavaType() {
+        return modelJavaType;
+    }
+
+    public void setModelJavaType(String modelJavaType) {
+        this.modelJavaType = modelJavaType;
+    }
+
     public String getGroupId() {
         return groupId;
     }
@@ -159,7 +169,9 @@ public class DataFormatModel {
     }
 
     public void addDataFormatOption(DataFormatOptionModel option) {
-        dataFormatOptions.add(option);
+        if (dataFormatOptions.stream().noneMatch(o -> Objects.equals(o.getName(), option.getName()))) {
+            dataFormatOptions.add(option);
+        }
     }
 
     public String getShortJavaType() {

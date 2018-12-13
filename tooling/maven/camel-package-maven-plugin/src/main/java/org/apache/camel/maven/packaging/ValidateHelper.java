@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import static org.apache.camel.maven.packaging.PackageHelper.loadJson;
 import static org.apache.camel.maven.packaging.PackageHelper.loadText;
 
 /**
@@ -40,7 +41,7 @@ public final class ValidateHelper {
      */
     public static void validate(File file, ErrorDetail errorDetail) {
         try {
-            String json = loadText(new FileInputStream(file));
+            String json = loadJson(new FileInputStream(file));
 
             boolean isComponent = json.contains("\"kind\": \"component\"");
             boolean isDataFormat = json.contains("\"kind\": \"dataformat\"");

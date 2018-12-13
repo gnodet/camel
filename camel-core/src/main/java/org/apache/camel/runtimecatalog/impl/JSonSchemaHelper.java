@@ -46,6 +46,9 @@ public final class JSonSchemaHelper {
         if (json == null) {
             return answer;
         }
+        while (json.startsWith("//")) {
+            json = json.substring(json.indexOf('\n') + 1);
+        }
 
         // convert into a List<Map<String, String>> structure which is expected as output from this parser
         try {

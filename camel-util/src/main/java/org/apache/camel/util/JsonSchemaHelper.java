@@ -113,6 +113,9 @@ public final class JsonSchemaHelper {
         if (json == null) {
             return answer;
         }
+        while (json.startsWith("//")) {
+            json = json.substring(json.indexOf('\n') + 1);
+        }
 
         boolean found = false;
 

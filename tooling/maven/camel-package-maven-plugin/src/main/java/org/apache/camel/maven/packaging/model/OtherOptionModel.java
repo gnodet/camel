@@ -24,6 +24,7 @@ import org.apache.camel.maven.packaging.StringHelper;
 
 import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeValue;
 import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
+import static org.apache.camel.maven.packaging.Strings.isNullOrEmpty;
 
 public class OtherOptionModel {
 
@@ -149,7 +150,10 @@ public class OtherOptionModel {
     }
 
     public void setEnumsAsString(String str) {
-        this.enums = Stream.of(str.split(",")).map(String::trim).collect(Collectors.toSet());
+        this.enums = Stream.of(str.split(","))
+                .map(String::trim)
+                .filter(s -> !isNullOrEmpty(s))
+                .collect(Collectors.toSet());
     }
 
     public boolean isNewGroup() {

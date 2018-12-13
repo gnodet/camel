@@ -18,6 +18,7 @@ package org.apache.camel.maven.packaging.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.camel.maven.packaging.StringHelper;
 
@@ -38,10 +39,10 @@ public class ComponentModel {
     private String firstVersion;
     private String label;
     private String verifiers;
-    private Boolean deprecated;
+    private boolean deprecated;
     private String deprecationNote;
-    private Boolean consumerOnly;
-    private Boolean producerOnly;
+    private boolean consumerOnly;
+    private boolean producerOnly;
     private String javaType;
     private String groupId;
     private String artifactId;
@@ -145,14 +146,10 @@ public class ComponentModel {
     }
 
     public boolean isDeprecated() {
-        return deprecated != null && deprecated;
-    }
-
-    public Boolean getDeprecated() {
         return deprecated;
     }
 
-    public void setDeprecated(Boolean deprecated) {
+    public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
     }
 
@@ -165,10 +162,6 @@ public class ComponentModel {
     }
 
     public boolean isConsumerOnly() {
-        return consumerOnly != null && consumerOnly;
-    }
-
-    public Boolean getConsumerOnly() {
         return consumerOnly;
     }
 
@@ -177,14 +170,10 @@ public class ComponentModel {
     }
 
     public boolean isProducerOnly() {
-        return producerOnly != null && producerOnly;
-    }
-
-    public Boolean getProducerOnly() {
         return producerOnly;
     }
 
-    public void setProducerOnly(Boolean producerOnly) {
+    public void setProducerOnly(boolean producerOnly) {
         this.producerOnly = producerOnly;
     }
 
@@ -241,7 +230,9 @@ public class ComponentModel {
     }
 
     public void addComponentOption(ComponentOptionModel option) {
-        componentOptions.add(option);
+        if (componentOptions.stream().noneMatch(o -> Objects.equals(o.getName(), option.getName()))) {
+            componentOptions.add(option);
+        }
     }
 
     public List<EndpointOptionModel> getEndpointOptions() {
@@ -253,11 +244,15 @@ public class ComponentModel {
     }
 
     public void addEndpointOption(EndpointOptionModel option) {
-        endpointOptions.add(option);
+        if (endpointOptions.stream().noneMatch(o -> Objects.equals(o.getName(), option.getName()))) {
+            endpointOptions.add(option);
+        }
     }
 
     public void addEndpointPathOption(EndpointOptionModel option) {
-        endpointPathOptions.add(option);
+        if (endpointPathOptions.stream().noneMatch(o -> Objects.equals(o.getName(), option.getName()))) {
+            endpointPathOptions.add(option);
+        }
     }
 
     public String getShortJavaType() {

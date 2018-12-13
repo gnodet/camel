@@ -18,6 +18,7 @@ package org.apache.camel.maven.packaging.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.camel.maven.packaging.StringHelper;
 
@@ -148,7 +149,9 @@ public class OtherModel {
     }
 
     public void addOptionModel(OtherOptionModel option) {
-        options.add(option);
+        if (options.stream().noneMatch(o -> Objects.equals(o.getName(), option.getName()))) {
+            options.add(option);
+        }
     }
 
     public String getShortJavaType() {

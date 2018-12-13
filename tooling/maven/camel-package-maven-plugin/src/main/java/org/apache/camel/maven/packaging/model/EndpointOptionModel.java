@@ -90,7 +90,7 @@ public class EndpointOptionModel {
         this.label = label;
     }
 
-    public boolean getRequired() {
+    public boolean isRequired() {
         return required;
     }
 
@@ -131,7 +131,10 @@ public class EndpointOptionModel {
     }
 
     public void setEnumsAsString(String str) {
-        this.enums = Stream.of(str.split(",")).map(String::trim).collect(Collectors.toSet());
+        this.enums = Stream.of(str.split(","))
+                .map(String::trim)
+                .filter(s -> !isNullOrEmpty(s))
+                .collect(Collectors.toSet());
     }
 
     public String getPrefix() {

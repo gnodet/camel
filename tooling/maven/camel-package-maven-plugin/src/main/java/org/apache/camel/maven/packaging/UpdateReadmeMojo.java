@@ -140,8 +140,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
                     }
 
                     String docTitle = model.getTitle() + " Component";
-                    boolean deprecated = "true".equals(model.getDeprecated());
-                    if (deprecated) {
+                    if (model.isDeprecated()) {
                         docTitle += " (deprecated)";
                     }
 
@@ -884,7 +883,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
             option.setDefaultValue(getSafeValue("defaultValue", row));
             option.setDescription(getSafeValue("description", row));
             // lets put required in the description
-            if ("true".equals(option.getRequired())) {
+            if (option.isRequired()) {
                 String desc = "*Required* " + option.getDescription();
                 option.setDescription(desc);
             }

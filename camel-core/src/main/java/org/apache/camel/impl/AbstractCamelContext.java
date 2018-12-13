@@ -1542,7 +1542,7 @@ public abstract class AbstractCamelContext extends ServiceSupport implements Mod
             log.debug("Loading component JSON Schema for: {} using class resolver: {} -> {}", componentName, resolver, inputStream);
             if (inputStream != null) {
                 try {
-                    return IOHelper.loadText(inputStream);
+                    return IOHelper.loadJson(inputStream);
                 } finally {
                     IOHelper.close(inputStream);
                 }
@@ -1584,7 +1584,7 @@ public abstract class AbstractCamelContext extends ServiceSupport implements Mod
             log.debug("Loading dataformat JSON Schema for: {} using class resolver: {} -> {}", dataFormatName, resolver, inputStream);
             if (inputStream != null) {
                 try {
-                    return IOHelper.loadText(inputStream);
+                    return IOHelper.loadJson(inputStream);
                 } finally {
                     IOHelper.close(inputStream);
                 }
@@ -1622,7 +1622,7 @@ public abstract class AbstractCamelContext extends ServiceSupport implements Mod
             log.debug("Loading language JSON Schema for: {} using class resolver: {} -> {}", languageName, resolver, inputStream);
             if (inputStream != null) {
                 try {
-                    return IOHelper.loadText(inputStream);
+                    return IOHelper.loadJson(inputStream);
                 } finally {
                     IOHelper.close(inputStream);
                 }
@@ -1644,7 +1644,7 @@ public abstract class AbstractCamelContext extends ServiceSupport implements Mod
             if (inputStream != null) {
                 log.debug("Loading eip JSON Schema for: {} using class resolver: {} -> {}", eipName, resolver, inputStream);
                 try {
-                    return IOHelper.loadText(inputStream);
+                    return IOHelper.loadJson(inputStream);
                 } finally {
                     IOHelper.close(inputStream);
                 }

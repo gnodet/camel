@@ -436,9 +436,9 @@
             <phase>process-classes</phase>
           </execution>
           <execution>
-            <id>endpoints</id>
+            <id>model-doc</id>
             <goals>
-              <goal>generate-endpoints-list</goal>
+              <goal>generate-model-doc</goal>
             </goals>
             <phase>process-classes</phase>
           </execution>
@@ -456,7 +456,6 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
-          <!-- camel-core needs to generate dataformats after compilation -->
           <execution>
             <id>dataformats</id>
             <goals>
@@ -464,7 +463,6 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
-          <!-- camel-core needs to generate languages after compilation -->
           <execution>
             <id>languages</id>
             <goals>
@@ -472,7 +470,13 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
-          <!-- camel-core needs to generate the static core converter after compilation -->
+          <execution>
+            <id>endpoints</id>
+            <goals>
+              <goal>generate-endpoints-list</goal>
+            </goals>
+            <phase>process-classes</phase>
+          </execution>
           <execution>
             <id>converter</id>
             <goals>
@@ -480,15 +484,6 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
-          <!-- camel-core needs to generate model doc -->
-          <execution>
-            <id>model-doc</id>
-            <goals>
-              <goal>generate-model-doc</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <!-- camel-core needs to generate jaxb.index files -->
           <execution>
             <id>jaxb-list</id>
             <goals>
@@ -496,7 +491,6 @@
             </goals>
             <phase>process-classes</phase>
           </execution>
-          <!-- camel-core needs to validate before packaging -->
           <execution>
             <id>validate</id>
             <goals>
@@ -746,12 +740,6 @@
 
       <dependencies>
 
-        <!-- enable the APT processor -->
-        <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>apt</artifactId>
-          <scope>provided</scope>
-        </dependency>
 
       </dependencies>
     </profile>
@@ -812,12 +800,6 @@
       </activation>
       <dependencies>
 
-        <!-- enable the APT processor -->
-        <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>apt</artifactId>
-          <scope>provided</scope>
-        </dependency>
         <!-- xmltokenizer using woodstox -->
         <dependency>
           <groupId>org.codehaus.woodstox</groupId>

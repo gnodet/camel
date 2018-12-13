@@ -87,6 +87,29 @@ public final class PackageHelper {
         }
     }
 
+    public static String loadJson(InputStream in) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        InputStreamReader isr = new InputStreamReader(in);
+        try {
+            BufferedReader reader = new LineNumberReader(isr);
+            while (true) {
+                String line = reader.readLine();
+                if (line != null) {
+                    if (!line.startsWith("//")) {
+                        builder.append(line);
+                        builder.append("\n");
+                    }
+                } else {
+                    break;
+                }
+            }
+            return builder.toString();
+        } finally {
+            isr.close();
+            in.close();
+        }
+    }
+
     public static void writeText(File file, String text) throws IOException {
         FileOutputStream fos = new FileOutputStream(file, false);
         try {

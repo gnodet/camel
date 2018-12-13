@@ -33,6 +33,7 @@ import java.io.Writer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
+import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -434,7 +435,29 @@ public final class IOHelper {
             close(isr, in);
         }
     }
-    
+
+    public static String loadJson(InputStream in) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        InputStreamReader isr = new InputStreamReader(in);
+        try {
+            BufferedReader reader = buffered(isr);
+            while (true) {
+                String line = reader.readLine();
+                if (line != null) {
+                    if (!line.startsWith("//")) {
+                        builder.append(line);
+                        builder.append("\n");
+                    }
+                } else {
+                    break;
+                }
+            }
+            return builder.toString();
+        } finally {
+            close(isr, in);
+        }
+    }
+
     /**
      * Get the charset name from the content type string
      * @param contentType

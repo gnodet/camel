@@ -176,7 +176,10 @@ public class ComponentOptionModel {
     }
 
     public void setEnumsAsString(String str) {
-        this.enums = Stream.of(str.split(",")).map(String::trim).collect(Collectors.toSet());
+        this.enums = Stream.of(str.split(","))
+                .map(String::trim)
+                .filter(s -> !isNullOrEmpty(s))
+                .collect(Collectors.toSet());
     }
 
     public boolean isNewGroup() {

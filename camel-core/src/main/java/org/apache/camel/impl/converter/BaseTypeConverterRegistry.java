@@ -19,6 +19,7 @@ package org.apache.camel.impl.converter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -62,6 +63,17 @@ public abstract class BaseTypeConverterRegistry extends ServiceSupport implement
             return (T) MISS_VALUE;
         }
     };
+
+    static TypeConverterLoader LOADER;
+    static {
+        try {
+            Class clazz = BaseTypeConverterRegistry.class.getClassLoader()
+                    .loadClass("org.apache.camel.impl.converter.CoreStaticTypeConverterLoader");
+            LOADER = (TypeConverterLoader) clazz.getField("INSTANCE").get(null);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to load CoreStaticTypeConverterLoader", e);
+        }
+    }
 
     protected final DoubleMap<Class<?>, Class<?>, TypeConverter> typeMappings = new DoubleMap<>(200);
     protected final List<TypeConverterLoader> typeConverterLoaders = new ArrayList<>();
@@ -526,7 +538,7 @@ public abstract class BaseTypeConverterRegistry extends ServiceSupport implement
      */
     public void loadCoreTypeConverters() throws Exception {
         // load all the type converters from camel-core
-        CoreStaticTypeConverterLoader.INSTANCE.load(this);
+        LOADER.load(this);
     }
 
     /**

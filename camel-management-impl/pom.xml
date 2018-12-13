@@ -352,12 +352,6 @@
       </activation>
       <dependencies>
 
-        <!-- enable the APT processor -->
-        <dependency>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>apt</artifactId>
-          <scope>provided</scope>
-        </dependency>
         <!-- xmltokenizer using woodstox -->
         <dependency>
           <groupId>org.codehaus.woodstox</groupId>

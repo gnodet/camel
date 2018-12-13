@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.maven.packaging;
+package org.apache.camel.maven.packaging.ok;
 
 import java.io.File;
 
@@ -31,17 +31,10 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
- * Prepares a Camel component analyzing if the maven module contains Camel
- * <ul>
- *     <li>components</li>
- *     <li>dataformats</li>
- *     <li>languages</li>
- *     <li>others</li>
- * </ul>
- * And for each of those generates extra descriptors and schema files for easier auto-discovery in Camel and tooling.
+ * Analyses the Camel EIPs in a project and generates extra descriptor information for easier auto-discovery in Camel.
  */
-@Mojo(name = "prepare-components", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
-public class PrepareComponentMojo extends AbstractMojo {
+@Mojo(name = "generate-eips-list", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
+public class PackageModelMojo extends AbstractMojo {
 
     /**
      * The maven project.
@@ -50,39 +43,16 @@ public class PrepareComponentMojo extends AbstractMojo {
     protected MavenProject project;
 
     /**
-     * The output directory for generated components file
-     *
+     * The camel-core directory
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/components")
-    protected File componentOutDir;
+    @Parameter(defaultValue = "${project.build.directory}")
+    protected File buildDir;
 
     /**
-     * The output directory for generated dataformats file
-     *
+     * The output directory for generated models file
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/dataformats")
-    protected File dataFormatOutDir;
-
-    /**
-     * The output directory for generated languages file
-     *
-     */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/languages")
-    protected File languageOutDir;
-
-    /**
-     * The output directory for generated others file
-     *
-     */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/others")
-    protected File otherOutDir;
-
-    /**
-     * The output directory for generated schema file
-     *
-     */
-    @Parameter(defaultValue = "${project.build.directory}/classes")
-    protected File schemaOutDir;
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel/models")
+    protected File outDir;
 
     /**
      * Maven ProjectHelper.
@@ -101,15 +71,11 @@ public class PrepareComponentMojo extends AbstractMojo {
      * Execute goal.
      *
      * @throws org.apache.maven.plugin.MojoExecutionException execution of the main class or one of the
-     *                                                        threads it generated failed.
-     * @throws org.apache.maven.plugin.MojoFailureException   something bad happened...
+     *                 threads it generated failed.
+     * @throws org.apache.maven.plugin.MojoFailureException something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Project build = Project.project(getLog(), project, buildContext);
-        build.prepareComponent(componentOutDir.toPath());
-        build.prepareDataFormat(dataFormatOutDir.toPath(), schemaOutDir.toPath());
-        build.prepareLanguage(languageOutDir.toPath(), schemaOutDir.toPath());
-        build.prepareOthers(otherOutDir, schemaOutDir);
+        Project.project(getLog(), project, buildContext).prepareModel(outDir, buildDir);
     }
 
 }

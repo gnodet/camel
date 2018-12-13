@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.json.simple.JsonObject;
 import org.json.simple.Jsoner;
@@ -36,12 +37,10 @@ public final class JSonSchemaHelper {
     private JSonSchemaHelper() {
     }
 
-    public static String toJson(String name, String displayName, String kind, Boolean required, String type, String defaultValue, String description,
+    public static void toJson(StringBuilder sb, String name, String displayName, String kind, Boolean required, String type, String javaType, String defaultValue, String description,
                                 Boolean deprecated, String deprecationNote, Boolean secret, String group, String label, boolean enumType, Set<String> enums,
                                 boolean oneOfType, Set<String> oneOffTypes, boolean asPredicate, String optionalPrefix, String prefix, boolean multiValue) {
-        String typeName = getType(type, enumType);
 
-        StringBuilder sb = new StringBuilder();
         sb.append(Strings.doubleQuote(name));
         sb.append(": { \"kind\": ");
         sb.append(Strings.doubleQuote(kind));
@@ -73,33 +72,27 @@ public final class JSonSchemaHelper {
         }
 
         sb.append(", \"type\": ");
-        if ("enum".equals(typeName)) {
-            String actualType = getType(type, false);
+        if ("enum".equals(type)) {
+            String actualType = getType(javaType, false);
             sb.append(Strings.doubleQuote(actualType));
-            sb.append(", \"javaType\": \"").append(type).append("\"");
-            CollectionStringBuffer enumValues = new CollectionStringBuffer();
-            for (Object value : enums) {
-                enumValues.append(Strings.doubleQuote(value.toString()));
-            }
+            sb.append(", \"javaType\": \"").append(javaType).append("\"");
             sb.append(", \"enum\": [ ");
-            sb.append(enumValues.toString());
+            sb.append(enums.stream().map(Object::toString).map(Strings::doubleQuote)
+                    .collect(Collectors.joining(", ")));
             sb.append(" ]");
         } else if (oneOfType) {
-            sb.append(Strings.doubleQuote(typeName));
-            sb.append(", \"javaType\": \"").append(type).append("\"");
-            CollectionStringBuffer oneOfValues = new CollectionStringBuffer();
-            for (Object value : oneOffTypes) {
-                oneOfValues.append(Strings.doubleQuote(value.toString()));
-            }
+            sb.append(Strings.doubleQuote(type));
+            sb.append(", \"javaType\": \"").append(javaType).append("\"");
             sb.append(", \"oneOf\": [ ");
-            sb.append(oneOfValues.toString());
+            sb.append(oneOffTypes.stream().map(Object::toString).map(Strings::doubleQuote)
+                    .collect(Collectors.joining(", ")));
             sb.append(" ]");
-        } else if ("array".equals(typeName)) {
+        } else if ("array".equals(type)) {
             sb.append(Strings.doubleQuote("array"));
-            sb.append(", \"javaType\": \"").append(type).append("\"");
+            sb.append(", \"javaType\": \"").append(javaType).append("\"");
         } else {
-            sb.append(Strings.doubleQuote(typeName));
-            sb.append(", \"javaType\": \"").append(type).append("\"");
+            sb.append(Strings.doubleQuote(type));
+            sb.append(", \"javaType\": \"").append(javaType).append("\"");
         }
 
         if (!Strings.isNullOrEmpty(optionalPrefix)) {
@@ -138,7 +131,7 @@ public final class JSonSchemaHelper {
             sb.append(", \"defaultValue\": ");
             String text = safeDefaultValue(defaultValue);
             // the type can either be boolean, integer, number or text based
-            if ("boolean".equals(typeName) || "integer".equals(typeName) || "number".equals(typeName)) {
+            if ("boolean".equals(type) || "integer".equals(type) || "number".equals(type)) {
                 sb.append(text);
             } else {
                 // text should be quoted
@@ -164,7 +157,6 @@ public final class JSonSchemaHelper {
         }
 
         sb.append(" }");
-        return sb.toString();
     }
 
     /**
@@ -336,6 +328,9 @@ public final class JSonSchemaHelper {
         if (json == null) {
             return answer;
         }
+        while (json.startsWith("//")) {
+            json = json.substring(json.indexOf('\n') + 1);
+        }
 
         // convert into a List<Map<String, String>> structure which is expected as output from this parser
         try {
@@ -384,11 +379,7 @@ public final class JSonSchemaHelper {
             Object newValue = rowEntry.getValue();
             if (newValue instanceof List) {
                 List<?> list = (List<?>) newValue;
-                CollectionStringBuffer csb = new CollectionStringBuffer(",");
-                for (Object line : list) {
-                    csb.append(line);
-                }
-                newValue = csb.toString();
+                newValue = list.stream().map(String::valueOf).collect(Collectors.joining(","));
             }
             // ensure value is escaped
             String value = escapeJson(newValue.toString());
