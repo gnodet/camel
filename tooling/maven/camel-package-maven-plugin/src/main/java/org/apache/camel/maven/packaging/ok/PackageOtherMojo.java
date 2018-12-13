@@ -74,7 +74,7 @@ public class PackageOtherMojo extends AbstractMojo {
      * @throws MojoFailureException something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Project.project(getLog(), project, buildContext).prepareOthers(otherOutDir, schemaOutDir);
+        Project.project(getLog(), project, buildContext).prepareOthers(otherOutDir.toPath(), schemaOutDir.toPath());
     }
 
 }

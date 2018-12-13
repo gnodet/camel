@@ -65,6 +65,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
 import static org.apache.camel.maven.connector.util.FileHelper.loadText;
+import static org.apache.camel.maven.connector.util.StringHelper.getSafeBool;
 import static org.apache.camel.maven.connector.util.StringHelper.getSafeValue;
 import static org.apache.camel.maven.connector.util.StringHelper.getShortJavaType;
 
@@ -544,7 +545,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
         component.setDescription(getSafeValue("description", rows));
         component.setFirstVersion(getSafeValue("firstVersion", rows));
         component.setLabel(getSafeValue("label", rows));
-        component.setDeprecated(getSafeValue("deprecated", rows));
+        component.setDeprecated(getSafeBool("deprecated", rows));
         component.setConsumerOnly(getSafeValue("consumerOnly", rows));
         component.setProducerOnly(getSafeValue("producerOnly", rows));
         component.setJavaType(getSafeValue("javaType", rows));

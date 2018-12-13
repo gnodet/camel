@@ -2011,7 +2011,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
         dataFormat.setDescription(getSafeValue("description", rows));
         dataFormat.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         dataFormat.setLabel(getSafeValue("label", rows));
-        dataFormat.setDeprecated(getSafeValue("deprecated", rows));
+        dataFormat.setDeprecated(getSafeBool("deprecated", rows));
         dataFormat.setDeprecationNote(getSafeValue("deprecationNote", rows));
         dataFormat.setJavaType(getSafeValue("javaType", rows));
         dataFormat.setGroupId(getSafeValue("groupId", rows));
@@ -2047,7 +2047,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
         language.setDescription(getSafeValue("description", rows));
         language.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         language.setLabel(getSafeValue("label", rows));
-        language.setDeprecated(getSafeValue("deprecated", rows));
+        language.setDeprecated(getSafeBool("deprecated", rows));
         language.setDeprecationNote(getSafeValue("deprecationNote", rows));
         language.setJavaType(getSafeValue("javaType", rows));
         language.setGroupId(getSafeValue("groupId", rows));
@@ -2082,7 +2082,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
         model.setDescription(getSafeValue("description", rows));
         model.setJavaType(getSafeValue("javaType", rows));
         model.setLabel(getSafeValue("label", rows));
-        model.setDeprecated(getSafeValue("deprecated", rows));
+        model.setDeprecated(getSafeBool("deprecated", rows));
         model.setDeprecationNote(getSafeValue("deprecationNote", rows));
 
         rows = parseJsonSchema("properties", json, true);

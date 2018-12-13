@@ -202,7 +202,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
                     model.setTitle(title);
 
                     String docTitle = model.getTitle() + " DataFormat";
-                    boolean deprecated = "true".equals(model.getDeprecated());
+                    boolean deprecated = model.isDeprecated();
                     if (deprecated) {
                         docTitle += " (deprecated)";
                     }
@@ -258,7 +258,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
                     LanguageModel model = generateLanguageModel(languageName, json);
 
                     String docTitle = model.getTitle() + " Language";
-                    boolean deprecated = "true".equals(model.getDeprecated());
+                    boolean deprecated = model.isDeprecated();
                     if (deprecated) {
                         docTitle += " (deprecated)";
                     }
@@ -930,7 +930,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
         dataFormat.setDescription(getSafeValue("description", rows));
         dataFormat.setFirstVersion(getSafeValue("firstVersion", rows));
         dataFormat.setLabel(getSafeValue("label", rows));
-        dataFormat.setDeprecated(getSafeValue("deprecated", rows));
+        dataFormat.setDeprecated(getSafeBool("deprecated", rows));
         dataFormat.setDeprecationNote(getSafeValue("deprecationNote", rows));
         dataFormat.setJavaType(getSafeValue("javaType", rows));
         dataFormat.setGroupId(getSafeValue("groupId", rows));
@@ -994,7 +994,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
         language.setDescription(getSafeValue("description", rows));
         language.setFirstVersion(getSafeValue("firstVersion", rows));
         language.setLabel(getSafeValue("label", rows));
-        language.setDeprecated(getSafeValue("deprecated", rows));
+        language.setDeprecated(getSafeBool("deprecated", rows));
         language.setDeprecationNote(getSafeValue("deprecationNote", rows));
         language.setJavaType(getSafeValue("javaType", rows));
         language.setGroupId(getSafeValue("groupId", rows));
@@ -1050,7 +1050,7 @@ public class UpdateReadmeMojo extends AbstractMojo {
         eip.setDescription(getSafeValue("description", rows));
         eip.setJavaType(getSafeValue("javaType", rows));
         eip.setLabel(getSafeValue("label", rows));
-        eip.setDeprecated("true".equals(getSafeValue("deprecated", rows)));
+        eip.setDeprecated("true".equals(getSafeBool("deprecated", rows)));
         eip.setDeprecationNote(getSafeValue("deprecationNote", rows));
         eip.setInput("true".equals(getSafeValue("input", rows)));
         eip.setOutput("true".equals(getSafeValue("output", rows)));

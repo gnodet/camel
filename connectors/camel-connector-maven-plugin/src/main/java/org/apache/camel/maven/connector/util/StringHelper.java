@@ -175,6 +175,10 @@ public final class StringHelper {
         return sb.toString().trim();
     }
 
+    public static boolean getSafeBool(String key, List<Map<String, String>> rows) {
+        return Boolean.parseBoolean(getSafeValue(key, rows));
+    }
+
     /**
      * Gets the value with the key in a safe way, eg returning an empty string if there was no value for the key.
      */

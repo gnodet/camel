@@ -28,7 +28,7 @@ import org.apache.camel.spi.UriPath;
 public class YqlConfiguration {
 
     @UriPath
-    @Metadata(required = "true")
+    @Metadata(required = true)
     private String query;
 
     @UriParam(enums = "json,xml", defaultValue = "json")

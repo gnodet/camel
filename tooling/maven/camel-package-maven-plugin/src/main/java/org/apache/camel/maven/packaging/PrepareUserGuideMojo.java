@@ -574,7 +574,7 @@ public class PrepareUserGuideMojo extends AbstractMojo {
         other.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         other.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         other.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        other.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        other.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         other.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         other.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         other.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
@@ -593,7 +593,7 @@ public class PrepareUserGuideMojo extends AbstractMojo {
         dataFormat.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         dataFormat.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         dataFormat.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        dataFormat.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        dataFormat.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         dataFormat.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         dataFormat.setJavaType(JSonSchemaHelper.getSafeValue("javaType", rows));
         dataFormat.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
@@ -613,7 +613,7 @@ public class PrepareUserGuideMojo extends AbstractMojo {
         language.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         language.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         language.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        language.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        language.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         language.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         language.setJavaType(JSonSchemaHelper.getSafeValue("javaType", rows));
         language.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));

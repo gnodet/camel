@@ -290,7 +290,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
             }
 
             // sort the models
-            Collections.sort(others, new OtherComparator());
+            others.sort(new OtherComparator());
 
             // how many different artifacts
             int count = others.stream()
@@ -299,7 +299,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
 
             // how many deprecated
             long deprecated = others.stream()
-                    .filter(o -> "true".equals(o.getDeprecated()))
+                    .filter(OtherModel::isDeprecated)
                     .count();
 
             // update the big readme file in the components dir
@@ -357,7 +357,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
 
             // how many deprecated
             long deprecated = models.stream()
-                    .filter(m -> "true".equals(m.getDeprecated()))
+                    .filter(DataFormatModel::isDeprecated)
                     .count();
 
             // filter out camel-core
@@ -442,7 +442,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
 
             // how many deprecated
             long deprecated = languages.stream()
-                    .filter(l -> "true".equals(l.getDeprecated()))
+                    .filter(LanguageModel::isDeprecated)
                     .count();
 
             // update the big readme file in the core/components dir
@@ -764,7 +764,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
         eip.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         eip.setJavaType(JSonSchemaHelper.getSafeValue("javaType", rows));
         eip.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        eip.setDeprecated("true".equals(JSonSchemaHelper.getSafeValue("deprecated", rows)));
+        eip.setDeprecated("true".equals(JSonSchemaHelper.getSafeBool("deprecated", rows)));
         eip.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         eip.setInput("true".equals(JSonSchemaHelper.getSafeValue("input", rows)));
         eip.setOutput("true".equals(JSonSchemaHelper.getSafeValue("output", rows)));
@@ -805,7 +805,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
         other.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         other.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         other.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        other.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        other.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         other.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         other.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         other.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
@@ -824,7 +824,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
         dataFormat.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         dataFormat.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         dataFormat.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        dataFormat.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        dataFormat.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         dataFormat.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         dataFormat.setJavaType(JSonSchemaHelper.getSafeValue("javaType", rows));
         dataFormat.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
@@ -844,7 +844,7 @@ public class PrepareReadmeMojo extends AbstractMojo {
         language.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
         language.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
         language.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        language.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        language.setDeprecated(JSonSchemaHelper.getSafeBool("deprecated", rows));
         language.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
         language.setJavaType(JSonSchemaHelper.getSafeValue("javaType", rows));
         language.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));

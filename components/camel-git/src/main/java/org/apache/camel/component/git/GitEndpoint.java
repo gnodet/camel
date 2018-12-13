@@ -37,7 +37,7 @@ import org.apache.camel.spi.UriPath;
 public class GitEndpoint extends DefaultEndpoint {
 
     @UriPath
-    @Metadata(required = "true")
+    @Metadata(required = true)
     private String localPath;
 
     @UriParam
