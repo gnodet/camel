@@ -55,6 +55,9 @@ import org.apache.camel.maven.packaging.model.OtherOptionModel;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
+import org.apache.camel.tooling.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.helpers.PackageHelper;
+import org.apache.camel.tooling.helpers.SpringBootHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
@@ -91,14 +94,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyDefaultValue;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyDescriptionValue;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyJavaType;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getPropertyType;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeBool;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeValue;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.parseJsonSchema;
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyDefaultValue;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyDescriptionValue;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyJavaType;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyType;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeBool;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeValue;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
+import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
 
 /**
  * Generate Spring Boot auto configuration files for Camel components and data formats.

@@ -18,9 +18,9 @@ package org.apache.camel.maven.packaging.model;
 
 import java.util.Set;
 
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
 
-import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
+import static org.apache.camel.tooling.helpers.StringHelper.wrapCamelCaseWords;
 
 public class EipOptionModel {
 

@@ -20,11 +20,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
 
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeValue;
-import static org.apache.camel.maven.packaging.StringHelper.wrapCamelCaseWords;
-import static org.apache.camel.maven.packaging.Strings.isNullOrEmpty;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeValue;
+import static org.apache.camel.tooling.helpers.StringHelper.wrapCamelCaseWords;
+import static org.apache.camel.tooling.helpers.Strings.isNullOrEmpty;
 
 public class OtherOptionModel {
 

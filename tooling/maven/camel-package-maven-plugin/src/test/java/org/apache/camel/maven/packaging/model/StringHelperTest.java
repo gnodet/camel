@@ -18,7 +18,7 @@ package org.apache.camel.maven.packaging.model;
 
 import java.util.stream.Stream;
 
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

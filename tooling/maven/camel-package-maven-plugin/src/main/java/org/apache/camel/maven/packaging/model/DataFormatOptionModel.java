@@ -16,7 +16,7 @@
  */
 package org.apache.camel.maven.packaging.model;
 
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
 
 public class DataFormatOptionModel {
 

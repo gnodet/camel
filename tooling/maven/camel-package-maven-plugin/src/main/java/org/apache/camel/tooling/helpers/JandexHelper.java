@@ -28,9 +28,9 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 
-import static org.apache.camel.maven.packaging.Strings.isNullOrEmpty;
+import static org.apache.camel.tooling.helpers.Strings.isNullOrEmpty;
 
-public class Helper {
+public class JandexHelper {
 
     static final int ENUM      = 0x00004000;
 

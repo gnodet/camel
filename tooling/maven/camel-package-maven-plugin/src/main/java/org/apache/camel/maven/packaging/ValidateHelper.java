@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.camel.maven.packaging.PackageHelper.loadJson;
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
+import org.apache.camel.tooling.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
+
+import static org.apache.camel.tooling.helpers.PackageHelper.loadJson;
 
 /**
  * Validation helper for validating components, data formats and languages

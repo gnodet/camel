@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.maven.packaging;
+package org.apache.camel.tooling.helpers;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -124,29 +124,6 @@ public final class PackageHelper {
             return null;
         }
         return text.substring(text.indexOf(after) + after.length());
-    }
-
-    /**
-     * Parses the text as a map (eg key=value)
-     * @param data the data
-     * @return the map
-     */
-    public static Map<String, String> parseAsMap(String data) {
-        Map<String, String> answer = new HashMap<>();
-        if (data != null) {
-            String[] lines = data.split("\n");
-            for (String line : lines) {
-                int idx = line.indexOf('=');
-                if (idx != -1) {
-                    String key = line.substring(0, idx);
-                    String value = line.substring(idx + 1);
-                    // remove ending line break for the values
-                    value = value.trim().replaceAll("\n", "");
-                    answer.put(key.trim(), value);
-                }
-            }
-        }
-        return answer;
     }
 
     public static Set<File> findJsonFiles(File dir, FileFilter filter) {

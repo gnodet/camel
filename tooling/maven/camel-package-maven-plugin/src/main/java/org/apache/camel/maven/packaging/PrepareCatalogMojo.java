@@ -34,6 +34,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.camel.tooling.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.helpers.PackageHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -46,7 +48,7 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
+import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
 
 /**
  * Prepares the camel catalog to include component, data format, and eip descriptors,

@@ -47,7 +47,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
+import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
 
 /**
  * Prepares the Karaf provider camel catalog to include component it supports

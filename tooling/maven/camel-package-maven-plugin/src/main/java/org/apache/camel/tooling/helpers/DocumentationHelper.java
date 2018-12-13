@@ -26,7 +26,7 @@ import java.io.LineNumberReader;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.parseJsonSchema;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
 
 /**
  * Helper to find documentation for inherited options when a component extends another.

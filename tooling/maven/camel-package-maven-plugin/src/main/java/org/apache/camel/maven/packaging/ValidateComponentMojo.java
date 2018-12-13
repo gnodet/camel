@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.camel.tooling.helpers.PackageHelper;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -33,8 +34,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
-import static org.apache.camel.maven.packaging.StringHelper.indentCollection;
+import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.helpers.StringHelper.indentCollection;
 import static org.apache.camel.maven.packaging.ValidateHelper.asName;
 import static org.apache.camel.maven.packaging.ValidateHelper.validate;
 

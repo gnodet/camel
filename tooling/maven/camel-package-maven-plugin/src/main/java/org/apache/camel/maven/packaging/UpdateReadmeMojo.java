@@ -37,6 +37,8 @@ import org.apache.camel.maven.packaging.model.EipOptionModel;
 import org.apache.camel.maven.packaging.model.EndpointOptionModel;
 import org.apache.camel.maven.packaging.model.LanguageModel;
 import org.apache.camel.maven.packaging.model.LanguageOptionModel;
+import org.apache.camel.tooling.helpers.PackageHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -48,12 +50,12 @@ import org.apache.maven.project.MavenProject;
 import org.mvel2.templates.TemplateRuntime;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeBool;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.getSafeValue;
-import static org.apache.camel.maven.packaging.JSonSchemaHelper.parseJsonSchema;
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
-import static org.apache.camel.maven.packaging.PackageHelper.writeText;
-import static org.apache.camel.maven.packaging.StringHelper.isEmpty;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeBool;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeValue;
+import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
+import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.helpers.PackageHelper.writeText;
+import static org.apache.camel.tooling.helpers.StringHelper.isEmpty;
 
 /**
  * Generate or updates the component/dataformat/language/eip readme.md and .adoc files in the project root directory.

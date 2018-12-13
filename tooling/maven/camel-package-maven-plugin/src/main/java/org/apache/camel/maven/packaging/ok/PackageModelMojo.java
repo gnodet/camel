@@ -75,7 +75,7 @@ public class PackageModelMojo extends AbstractMojo {
      * @throws org.apache.maven.plugin.MojoFailureException something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Project.project(getLog(), project, buildContext).prepareModel(outDir, buildDir);
+        Project.project(getLog(), project, buildContext).prepareModel(outDir.toPath());
     }
 
 }

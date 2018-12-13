@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.helpers.StringHelper;
 
-import static org.apache.camel.maven.packaging.StringHelper.cutLastZeroDigit;
+import static org.apache.camel.tooling.helpers.StringHelper.cutLastZeroDigit;
 
 public class OtherModel {
 
