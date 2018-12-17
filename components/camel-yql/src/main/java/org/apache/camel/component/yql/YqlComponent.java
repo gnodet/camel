@@ -21,11 +21,13 @@ import java.util.Map;
 import org.apache.camel.Endpoint;
 import org.apache.camel.component.yql.configuration.YqlConfiguration;
 import org.apache.camel.component.yql.configuration.YqlConfigurationValidator;
+import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
 import org.apache.camel.spi.Metadata;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
+@Component("yql")
 public class YqlComponent extends DefaultComponent {
 
     @Metadata(label = "advanced")
