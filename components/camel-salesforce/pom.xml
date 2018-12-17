@@ -54,7 +54,7 @@
             <goals>
               <goal>prepare-components</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>process-classes</phase>
           </execution>
           <execution>
             <id>validate</id>

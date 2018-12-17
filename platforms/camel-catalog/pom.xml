@@ -240,7 +240,7 @@
               <goal>prepare-user-guide</goal>
               <goal>prepare-readme</goal>
             </goals>
-            <phase>process-resources</phase>
+            <phase>process-classes</phase>
           </execution>
         </executions>
       </plugin>
