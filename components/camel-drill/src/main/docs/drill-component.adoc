@@ -70,7 +70,7 @@ with the following path and query parameters:
 | *clusterId* (producer) | Cluster ID https://drill.apache.org/docs/using-the-jdbc-driver/#determining-the-cluster-id |  | String
 | *directory* (producer) | Drill directory in ZooKeeper |  | String
 | *mode* (producer) | Connection mode: zk: Zookeeper drillbit: Drillbit direct connection https://drill.apache.org/docs/using-the-jdbc-driver/ | ZK | DrillConnectionMode
-| *port* (producer) | ZooKeeper port number |  | Integer
+| *port* (producer) | ZooKeeper port number | 2181 | Integer
 | *synchronous* (advanced) | Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported). | false | boolean
 |===
 // endpoint options: END
