@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.maven.packaging;
+package org.apache.camel.maven.packaging.ok;
 
 import java.io.File;
 
@@ -26,6 +26,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.sonatype.plexus.build.incremental.BuildContext;
@@ -40,7 +41,7 @@ import org.sonatype.plexus.build.incremental.BuildContext;
  * </ul>
  * And for each of those generates extra descriptors and schema files for easier auto-discovery in Camel and tooling.
  */
-@Mojo(name = "prepare-components", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
+@Mojo(name = "prepare-components", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class PrepareComponentMojo extends AbstractMojo {
 
     /**
@@ -48,6 +49,12 @@ public class PrepareComponentMojo extends AbstractMojo {
      */
     @Parameter(property = "project", required = true, readonly = true)
     protected MavenProject project;
+
+    /**
+     * The output directory for generated components file
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel/endpoints")
+    protected File endpointsOutDir;
 
     /**
      * The output directory for generated service file
@@ -88,8 +95,15 @@ public class PrepareComponentMojo extends AbstractMojo {
      * The output directory for generated schema file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/classes")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel/schemas")
     protected File schemaOutDir;
+
+    /**
+     * The output directory for generated schema file
+     *
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel/legal")
+    protected File legalOutDir;
 
     /**
      * Maven ProjectHelper.
@@ -113,11 +127,13 @@ public class PrepareComponentMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         Project build = Project.project(getLog(), project, buildContext);
+        build.prepareLegal(legalOutDir.toPath());
         build.prepareServices(serviceOutDir.toPath());
         build.prepareComponent(componentOutDir.toPath());
         build.prepareDataFormat(dataFormatOutDir.toPath(), schemaOutDir.toPath());
         build.prepareLanguage(languageOutDir.toPath(), schemaOutDir.toPath());
         build.prepareOthers(otherOutDir.toPath(), schemaOutDir.toPath());
+        build.processEndpoints(endpointsOutDir.toPath());
     }
 
 }

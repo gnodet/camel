@@ -50,6 +50,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.jboss.jandex.AnnotationInstance;
@@ -63,7 +64,7 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 /**
  * Analyses the Camel plugins in a project and generates extra descriptor information for easier auto-discovery in Camel.
  */
-@Mojo(name = "generate-jaxb-list", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES)
+@Mojo(name = "generate-jaxb-list", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class PackageJaxbMojo extends AbstractMojo {
 
     /**

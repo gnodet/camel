@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -497,10 +498,10 @@ public class SpringBootStarterMojo extends AbstractMojo {
     private void writeStaticFiles() throws IOException, TemplateException {
         String notice;
         String license;
-        try (InputStream isNotice = getClass().getResourceAsStream("/spring-boot-starter-NOTICE.txt");
-             InputStream isLicense = getClass().getResourceAsStream("/spring-boot-starter-LICENSE.txt")) {
-            notice = IOUtils.toString(isNotice);
-            license = IOUtils.toString(isLicense);
+        try (InputStream isNotice = getClass().getResourceAsStream("/camel-NOTICE.txt");
+             InputStream isLicense = getClass().getResourceAsStream("/camel-LICENSE.txt")) {
+            notice = IOUtils.toString(isNotice, StandardCharsets.UTF_8);
+            license = IOUtils.toString(isLicense, StandardCharsets.UTF_8);
         }
 
         writeIfChanged(notice, new File(starterDir(), "src/main/resources/META-INF/NOTICE.txt"));

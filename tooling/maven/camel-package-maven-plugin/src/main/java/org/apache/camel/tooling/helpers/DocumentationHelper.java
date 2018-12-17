@@ -19,12 +19,20 @@ package org.apache.camel.tooling.helpers;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.project.MavenProject;
 
 import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
 
@@ -37,31 +45,23 @@ public final class DocumentationHelper {
         //utility class, never constructed
     }
 
-    public static String findComponentJavaDoc(String scheme, String extendsScheme, String fieldName) {
-        File file = jsonFile(scheme, extendsScheme);
-        if (file != null) {
-            try (FileInputStream fis = new FileInputStream(file)) {
-                String json = loadText(fis);
-                List<Map<String, String>> rows = parseJsonSchema("componentProperties", json, true);
-                return getPropertyDescription(rows, fieldName);
-            } catch (Exception e) {
-                // ignore
-            }
-        }
-
-        // not found
-        return null;
+    public static String findComponentJavaDoc(MavenProject project, String scheme, String extendsScheme, String fieldName) {
+        return findJavaDoc(project, scheme, extendsScheme, fieldName, "componentProperties");
     }
 
-    public static String findEndpointJavaDoc(String scheme, String extendsScheme, String fieldName) {
-        File file = jsonFile(scheme, extendsScheme);
-        if (file != null) {
-            try (FileInputStream fis = new FileInputStream(file)) {
-                String json = loadText(fis);
-                List<Map<String, String>> rows = parseJsonSchema("properties", json, true);
+    public static String findEndpointJavaDoc(MavenProject project, String scheme, String extendsScheme, String fieldName) {
+        return findJavaDoc(project, scheme, extendsScheme, fieldName, "properties");
+    }
+
+    public static String findJavaDoc(MavenProject project, String scheme, String extendsScheme, String fieldName, String group) {
+        Path path = jsonFile(project, scheme, extendsScheme);
+        if (path != null) {
+            try {
+                String json = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+                List<Map<String, String>> rows = parseJsonSchema(group, json, true);
                 return getPropertyDescription(rows, fieldName);
-            } catch (Exception e) {
-                // ignore
+            } catch (IOException e) {
+                throw new IOError(e);
             }
         }
 
@@ -86,10 +86,22 @@ public final class DocumentationHelper {
         return null;
     }
 
-    private static File jsonFile(String scheme, String extendsScheme) {
+    private static Path jsonFile(MavenProject project, String scheme, String extendsScheme) {
         // we cannot use classloader to load external resources from other JARs during apt plugin,
         // so load these resources using the file system
+        return project.getDependencyArtifacts()
+                .stream()
+                .map(Artifact::getFile)
+                .filter(Objects::nonNull)
+                .map(File::toString)
+                .map(IOHelper::asFolder)
+                .map(p -> p.resolve("org/apache/camel/component")
+                        .resolve(extendsScheme).resolve(extendsScheme + ".json"))
+                .filter(Files::isRegularFile)
+                .findAny()
+                .orElse(null);
 
+        /*
         if ("file".equals(extendsScheme)) {
             return new File("../../camel-core/target/classes/org/apache/camel/component/file/file.json");
         } else if ("ahc".equals(extendsScheme)) {
@@ -115,6 +127,7 @@ public final class DocumentationHelper {
         }
         // not found
         return null;
+        */
     }
 
     /**

@@ -62,9 +62,7 @@ import com.thoughtworks.qdox.library.SourceLibrary;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.JavaParameterizedType;
 import com.thoughtworks.qdox.model.JavaSource;
-import com.thoughtworks.qdox.model.JavaType;
 import org.apache.camel.maven.packaging.model.ComponentModel;
 import org.apache.camel.maven.packaging.model.ComponentOptionModel;
 import org.apache.camel.maven.packaging.model.DataFormatModel;
@@ -80,20 +78,20 @@ import org.apache.camel.tooling.helpers.JSonSchemaHelper;
 import org.apache.camel.tooling.helpers.JandexHelper;
 import org.apache.camel.tooling.helpers.PackageHelper;
 import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
-import org.jboss.jandex.ArrayType;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.MethodInfo;
-import org.jboss.jandex.ParameterizedType;
 import org.jboss.jandex.Type;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
@@ -186,16 +184,47 @@ public class Project {
 
     public Index getIndex() {
         if (index == null) {
-            List<String> locations = new ArrayList<>();
-            locations.add(project.getBuild().getOutputDirectory());
-            project.getDependencyArtifacts()
-                    .stream()
-                    .map(Artifact::getFile)
-                    .filter(Objects::nonNull)
-                    .forEach(f -> locations.add(f.toString()));
-            index = JandexHelper.createIndex(locations);
+            try {
+                index = JandexHelper.createIndex(project.getRuntimeClasspathElements());
+            } catch (DependencyResolutionRequiredException e) {
+                throw new IOError(e);
+            }
         }
         return index;
+    }
+
+    public void prepareLegal(Path legalOutDir) {
+        // Only take care about camel legal stuff
+        if (!"org.apache.camel".equals(project.getGroupId())) {
+            return;
+        }
+        boolean hasLicense = project.getResources().stream()
+                .map(Resource::getDirectory)
+                .map(Paths::get)
+                .map(p -> p.resolve("META-INF").resolve("LICENSE.txt"))
+                .anyMatch(Files::isRegularFile);
+        if (!hasLicense) {
+            try (InputStream isLicense = getClass().getResourceAsStream("/camel-LICENSE.txt")) {
+                String license = IOUtils.toString(isLicense, StandardCharsets.UTF_8);
+                updateResource(legalOutDir.resolve("META-INF").resolve("LICENSE.txt"), license);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        boolean hasNotice = project.getResources().stream()
+                .map(Resource::getDirectory)
+                .map(Paths::get)
+                .map(p -> p.resolve("META-INF").resolve("NOTICE.txt"))
+                .anyMatch(Files::isRegularFile);
+        if (!hasNotice) {
+            try (InputStream isNotice = getClass().getResourceAsStream("/camel-NOTICE.txt")) {
+                String notice = IOUtils.toString(isNotice, StandardCharsets.UTF_8);
+                updateResource(legalOutDir.resolve("META-INF").resolve("NOTICE.txt"), notice);
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
+        }
+        addMavenResource(legalOutDir, META_INF_SERVICES_ORG_APACHE_CAMEL + "**/*");
     }
 
     public void prepareServices(Path serviceOutDir) {
@@ -206,11 +235,12 @@ public class Project {
         Stream.of(COMPONENT, LANGUAGE, DATAFORMAT)
                 .map(index::getAnnotations)
                 .flatMap(List::stream)
+                .filter(this::isLocalClass)
                 .forEach(ai -> {
-                    String name = ai.value().asString();
-                    Path out = camelMetaDir.resolve(ai.name().local().toLowerCase()).resolve(name);
-                    String clazz = ai.target().asClass().name().toString();
-                    if (isLocalClass(clazz)) {
+                    String names = ai.value().asString();
+                    for (String name : names.split(",")) {
+                        Path out = camelMetaDir.resolve(ai.name().local().toLowerCase()).resolve(name);
+                        String clazz = ai.target().asClass().name().toString();
                         StringBuilder sb = new StringBuilder();
                         sb.append("# " + GENERATED_MSG + NL);
                         sb.append("class=").append(clazz).append(NL);
@@ -229,6 +259,11 @@ public class Project {
                 });
 
         addMavenResource(serviceOutDir, META_INF_SERVICES_ORG_APACHE_CAMEL + "**/*");
+    }
+
+    private boolean isLocalClass(AnnotationInstance ai) {
+        String clazz = ai.target().asClass().name().toString();
+        return isLocalClass(clazz);
     }
 
     private boolean isLocalClass(String clazz) {
@@ -574,43 +609,43 @@ public class Project {
 
     public void processEndpoints(Path endpointsOutDir) {
         getIndex().getAnnotations(URI_ENDPOINT)
+                .stream()
+                .filter(this::isLocalClass)
                 .forEach(ai -> processEndpointClass(endpointsOutDir, ai));
 
         addMavenResource(endpointsOutDir, "org/apache/camel/**/*");
     }
 
     private void processEndpointClass(Path endpointsOutDir, AnnotationInstance uriEndpoint) {
-        if (uriEndpoint != null) {
-            String scheme = string(uriEndpoint, AP_SCHEME, "");
-            String extendsScheme = string(uriEndpoint, AP_EXTENDS_SCHEME).orElse("");
-            String title = string(uriEndpoint, AP_TITLE, "");
-            String label = string(uriEndpoint, AP_LABEL, "");
-            if (!isNullOrEmpty(scheme)) {
-                // support multiple schemes separated by comma, which maps to the exact same component
-                // for example camel-mail has a bunch of component schema names that does that
-                String[] schemes = scheme.split(",");
-                String[] titles = title.split(",");
-                String[] extendsSchemes = extendsScheme.split(",");
-                for (int i = 0; i < schemes.length; i++) {
-                    final String alias = schemes[i];
-                    final String extendsAlias = i < extendsSchemes.length ? extendsSchemes[i] : extendsSchemes[0];
-                    String aTitle = i < titles.length ? titles[i] : titles[0];
+        String scheme = string(uriEndpoint, AP_SCHEME, "");
+        String extendsScheme = string(uriEndpoint, AP_EXTENDS_SCHEME).orElse("");
+        String title = string(uriEndpoint, AP_TITLE, "");
+        String label = string(uriEndpoint, AP_LABEL, "");
+        if (!isNullOrEmpty(scheme)) {
+            // support multiple schemes separated by comma, which maps to the exact same component
+            // for example camel-mail has a bunch of component schema names that does that
+            String[] schemes = scheme.split(",");
+            String[] titles = title.split(",");
+            String[] extendsSchemes = extendsScheme.split(",");
+            for (int i = 0; i < schemes.length; i++) {
+                final String alias = schemes[i];
+                final String extendsAlias = i < extendsSchemes.length ? extendsSchemes[i] : extendsSchemes[0];
+                String aTitle = i < titles.length ? titles[i] : titles[0];
 
-                    // some components offer a secure alternative which we need to amend the title accordingly
-                    if (secureAlias(schemes[0], alias)) {
-                        aTitle += " (Secure)";
-                    }
-                    final String aliasTitle = aTitle;
-
-                    // write json schema
-                    String name = canonicalClassName(uriEndpoint.target().asClass().name().toString());
-                    String packageName = name.substring(0, name.lastIndexOf("."));
-                    Path dir = endpointsOutDir.resolve(packageName.replace('.', '/'));
-                    Path out = dir.resolve(alias + ".json");
-                    String json = writeJSonSchemeDocumentation(uriEndpoint, uriEndpoint.target().asClass(), aliasTitle, alias, extendsAlias, label, schemes);
-                    String data = "// " + GENERATED_MSG + NL + json + NL;
-                    updateResource(out, data);
+                // some components offer a secure alternative which we need to amend the title accordingly
+                if (secureAlias(schemes[0], alias)) {
+                    aTitle += " (Secure)";
                 }
+                final String aliasTitle = aTitle;
+
+                // write json schema
+                String name = canonicalClassName(uriEndpoint.target().asClass().name().toString());
+                String packageName = name.substring(0, name.lastIndexOf("."));
+                Path dir = endpointsOutDir.resolve(packageName.replace('.', '/'));
+                Path out = dir.resolve(alias + ".json");
+                String json = writeJSonSchemeDocumentation(uriEndpoint, uriEndpoint.target().asClass(), aliasTitle, alias, extendsAlias, label, schemes);
+                String data = "// " + GENERATED_MSG + NL + json + NL;
+                updateResource(out, data);
             }
         }
     }
@@ -725,7 +760,8 @@ public class Project {
         return allClasses(clazz)
                 .map(ClassInfo::interfaceNames)
                 .flatMap(List::stream)
-                .map(this::findTypeElement);
+                .map(this::findTypeElement)
+                .filter(Objects::nonNull);
     }
 
     private Stream<ClassInfo> allClasses(ClassInfo clazz) {
@@ -820,13 +856,16 @@ public class Project {
 
                 String name = fieldName;
                 name = prefix + name;
-                Type fieldType = method.parameters().get(0);
+                Type fieldType = field != null ? field.type() : method.parameters().get(0);
                 String fieldTypeName = fieldType.toString();
                 ClassInfo fieldTypeElement = findTypeElement(fieldTypeName);
 
                 String docComment = findJavaDoc(fieldName, name, classElement, false);
                 if (isNullOrEmpty(docComment)) {
                     docComment = string(metadata, AP_DESCRIPTION, "");
+                }
+                if (isNullOrEmpty(docComment)) {
+                    docComment = DocumentationHelper.findComponentJavaDoc(project, componentModel.getScheme(), componentModel.getExtendsScheme(), name);
                 }
                 if (isNullOrEmpty(docComment)) {
                     // apt cannot grab javadoc from camel-core, only from annotations
@@ -913,6 +952,9 @@ public class Project {
                     if (isNullOrEmpty(docComment)) {
                         docComment = string(path, AP_DESCRIPTION, "");
                     }
+                    if (isNullOrEmpty(docComment)) {
+                        docComment = DocumentationHelper.findEndpointJavaDoc(project, componentModel.getScheme(), componentModel.getExtendsScheme(), name);
+                    }
 
                     // gather enums
                     Set<String> enums = getEnums(path, fieldTypeElement);
@@ -979,6 +1021,9 @@ public class Project {
                         String docComment = findJavaDoc(fieldName, name, classElement, false);
                         if (isNullOrEmpty(docComment)) {
                             docComment = string(param, AP_DESCRIPTION, "");
+                        }
+                        if (isNullOrEmpty(docComment)) {
+                            docComment = DocumentationHelper.findEndpointJavaDoc(project, componentModel.getScheme(), componentModel.getExtendsScheme(), name);
                         }
                         if (isNullOrEmpty(docComment)) {
                             docComment = "";
@@ -1050,7 +1095,8 @@ public class Project {
     }
 
     private ClassInfo findTypeElement(DotName javaType) {
-        return getIndex().getClassByName(javaType);
+        ClassInfo info = getIndex().getClassByName(javaType);
+        return info;
     }
 
     private static boolean excludeProperty(String excludeProperties, String name) {
@@ -1133,6 +1179,25 @@ public class Project {
         return javaClass;
     }
 
+//    private JavaClassSource getJavaClassSource(String className) {
+//        Path source = getCompileSourceRoots()
+//                .stream()
+//                .map(Paths::get)
+//                .map(p -> p.resolve(className.replace('.', '/') + ".java"))
+//                .filter(Files::isRegularFile)
+//                .findAny()
+//                .orElse(null);
+//        if (source != null) {
+//            try {
+//                JavaClassSource clazz = Roaster.parse(JavaClassSource.class, source.toFile());
+//                return clazz;
+//            } catch (IOException e) {
+//                throw new IOError(e);
+//            }
+//        }
+//        return null;
+//    }
+
     private String getDocComment(ClassInfo typeElement) {
         JavaClass javaClass = getJavaClass(typeElement.name().toString());
         return javaClass != null ? javaClass.getComment() : null;
@@ -1149,8 +1214,8 @@ public class Project {
             }
             if (javadoc == null) {
                 javadoc = javaClass.getMethods().stream()
-                        .filter(jm -> Objects.equals(jm.getPropertyName(), fieldName))
-                        .filter(JavaMethod::isPropertyMutator)
+                        .filter(jm -> ("set" + fieldName).equalsIgnoreCase(jm.getName()))
+                        .filter(jm -> jm.getParameters().size() == 1)
                         .filter(jm -> !isNullOrEmpty(jm.getComment()))
                         .findFirst()
                         .map(JavaMethod::getComment)
@@ -1158,25 +1223,7 @@ public class Project {
             }
             if (javadoc == null) {
                 javadoc = javaClass.getMethods().stream()
-                        .filter(jm -> Objects.equals(jm.getPropertyName(), name))
-                        .filter(JavaMethod::isPropertyAccessor)
-                        .filter(jm -> !isNullOrEmpty(jm.getComment()))
-                        .findFirst()
-                        .map(JavaMethod::getComment)
-                        .orElse(null);
-            }
-            if (javadoc == null && builderPattern) {
-                javadoc = javaClass.getMethods().stream()
-                        .filter(jm -> Objects.equals(jm.getName(), name))
-                        .filter(jm -> jm.getParameters().size() == 1)
-                        .filter(jm -> !isNullOrEmpty(jm.getComment()))
-                        .findFirst()
-                        .map(JavaMethod::getComment)
-                        .orElse(null);
-            }
-            if (javadoc == null && builderPattern) {
-                javadoc = javaClass.getMethods().stream()
-                        .filter(jm -> Objects.equals(jm.getName(), name))
+                        .filter(jm -> ("get" + fieldName).equalsIgnoreCase(jm.getName()))
                         .filter(jm -> jm.getParameters().size() == 0)
                         .filter(jm -> !isNullOrEmpty(jm.getComment()))
                         .findFirst()
@@ -1185,7 +1232,34 @@ public class Project {
             }
             if (javadoc == null) {
                 javadoc = javaClass.getMethods().stream()
-                        .filter(jm -> Objects.equals(jm.getName(), fieldName))
+                        .filter(jm -> ("is" + fieldName).equalsIgnoreCase(jm.getName()))
+                        .filter(jm -> jm.getParameters().size() == 0)
+                        .filter(jm -> !isNullOrEmpty(jm.getComment()))
+                        .findFirst()
+                        .map(JavaMethod::getComment)
+                        .orElse(null);
+            }
+            if (javadoc == null && builderPattern) {
+                javadoc = javaClass.getMethods().stream()
+                        .filter(jm -> fieldName.equalsIgnoreCase(jm.getName()))
+                        .filter(jm -> jm.getParameters().size() == 1)
+                        .filter(jm -> !isNullOrEmpty(jm.getComment()))
+                        .findFirst()
+                        .map(JavaMethod::getComment)
+                        .orElse(null);
+            }
+            if (javadoc == null && builderPattern) {
+                javadoc = javaClass.getMethods().stream()
+                        .filter(jm -> fieldName.equalsIgnoreCase(jm.getName()))
+                        .filter(jm -> jm.getParameters().size() == 0)
+                        .filter(jm -> !isNullOrEmpty(jm.getComment()))
+                        .findFirst()
+                        .map(JavaMethod::getComment)
+                        .orElse(null);
+            }
+            if (javadoc == null) {
+                javadoc = javaClass.getMethods().stream()
+                        .filter(jm -> fieldName.equalsIgnoreCase(jm.getName()))
                         .filter(jm -> jm.getParameters().size() == 1)
                         .filter(jm -> !isNullOrEmpty(jm.getComment()))
                         .findFirst()
@@ -1194,7 +1268,7 @@ public class Project {
             }
             if (javadoc == null) {
                 javadoc = javaClass.getMethods().stream()
-                        .filter(jm -> Objects.equals(jm.getName(), fieldName))
+                        .filter(jm -> fieldName.equalsIgnoreCase(jm.getName()))
                         .filter(jm -> jm.getParameters().size() == 0)
                         .filter(jm -> !isNullOrEmpty(jm.getComment()))
                         .findFirst()
@@ -2030,87 +2104,29 @@ public class Project {
     }
 
     private Iterable<MethodInfo> getOrderedSetters(ClassInfo classElement) {
-        JavaClass javaClass = getJavaClass(classElement.name().toString());
         List<MethodInfo> methods = classElement.methods().stream()
+            .filter(mi -> mi.name().startsWith("set"))
             .filter(mi -> mi.parameters().size() == 1)
             .filter(mi -> mi.returnType().kind() == Type.Kind.VOID)
             .collect(Collectors.toList());
+        JavaClass javaClass = getJavaClass(classElement.name().toString());
+        Stream<MethodInfo> stream;
         if (javaClass != null) {
-            return javaClass.getMethods().stream()
-                .filter(jm -> jm.getName().startsWith("set"))
-                .filter(jm -> jm.getParameters().size() == 1)
-                .filter(jm -> "void".equals(jm.getReturnType().getValue()))
-                .map(jm -> methods.stream()
-                    .filter(mi -> Objects.equals(jm.getName(), mi.name()))
-                    .filter(mi -> same(mi.parameters().get(0), jm.getParameterTypes(true).get(0), classElement.name().prefix().toString()))
-                    .findAny()
-                    .orElseThrow(() -> new IllegalStateException("Unable to find method for " + jm.getName())))
-                ::iterator;
+            stream = javaClass.getMethods().stream()
+                .filter(ms -> ms.getName().startsWith("set"))
+                .filter(ms -> ms.getParameters().size() == 1)
+                .filter(ms -> "void".equals(ms.getReturnType().toString()))
+                .flatMap(ms -> methods.stream()
+                        .filter(mi -> Objects.equals(ms.getName(), mi.name())));
         } else {
-            return classElement.methods();
+            stream = classElement.methods().stream()
+                .filter(mi -> mi.parameters().size() == 1)
+                .filter(mi -> mi.returnType().kind() == Type.Kind.VOID);
         }
-    }
-
-    private boolean same(Type ti, JavaType jt, String pkg) {
-        if (ti instanceof ParameterizedType) {
-            if (!(jt instanceof JavaParameterizedType)) {
-                return false;
-            }
-            String o1 = ti.asParameterizedType().name().toString();
-            String o2 = name(jt);
-            if (!same(o1, o2, pkg)) {
-                return false;
-            }
-            List<Type> p1 = ti.asParameterizedType().arguments();
-            List<JavaType> p2 = ((JavaParameterizedType) jt).getActualTypeArguments();
-            if (p1.size() != p2.size()) {
-                return false;
-            }
-            for (int i = 0; i < p1.size(); i++) {
-                if (!same(p1.get(i), p2.get(i), pkg)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        if (ti instanceof ArrayType) {
-            if (!(jt instanceof JavaParameterizedType)) {
-                return false;
-            }
-            String o1 = ti.asArrayType().component().name().toString();
-            String o2 = name(jt) ;
-            if (!same(o1, o2, pkg)) {
-                return false;
-            }
-            if (ti.asArrayType().dimensions() != ((JavaClass) jt).getDimensions()) {
-                return false;
-            }
-            return true;
-        }
-        String s1 = ti.toString();
-        String s2 = name(jt);
-        return same(s1, s2, pkg);
-    }
-
-    private boolean same(String s1, String s2, String pkg) {
-        return s1.equals(s2) || s1.equals(pkg + "." + s2) || s1.equals("java.lang." + s2);
-    }
-
-    private String name(JavaType jt) {
-        try {
-            String s = jt.getGenericFullyQualifiedName();
-            int i = s.indexOf('<');
-            if (i > 0) {
-                return s.substring(0, i);
-            }
-            i = s.indexOf('[');
-            if (i > 0) {
-                return s.substring(0, i);
-            }
-            return s;
-        } catch (Throwable t) {
-            return jt.getValue();
-        }
+        List<MethodInfo> s = stream
+                .sorted(Comparator.comparingInt(mi -> (mi.flags() & 0x1000) == 0 ? -1 : 1))
+                .collect(Collectors.toList());
+        return s;
     }
 
     private boolean processAttribute(ClassInfo originalClassType,
@@ -2987,9 +3003,6 @@ public class Project {
             buffer.append("\n    ");
             // either we have the documentation from this apt plugin or we need help to find it from extended component
             String doc = entry.getDocumentationWithNotes();
-            if (isNullOrEmpty(doc)) {
-                doc = DocumentationHelper.findComponentJavaDoc(componentModel.getScheme(), componentModel.getExtendsScheme(), entry.getName());
-            }
             // as its json we need to sanitize the docs
             doc = JSonSchemaHelper.sanitizeDescription(doc, false);
             boolean required = entry.isRequired();
@@ -3038,9 +3051,6 @@ public class Project {
             buffer.append("\n    ");
             // either we have the documentation from this apt plugin or we need help to find it from extended component
             String doc = entry.getDescription();
-            if (isNullOrEmpty(doc)) {
-                doc = DocumentationHelper.findEndpointJavaDoc(componentModel.getScheme(), componentModel.getExtendsScheme(), entry.getName());
-            }
             // as its json we need to sanitize the docs
             doc = JSonSchemaHelper.sanitizeDescription(doc, false);
             boolean required = entry.isRequired();
@@ -3085,9 +3095,6 @@ public class Project {
             buffer.append("\n    ");
             // either we have the documentation from this apt plugin or we need help to find it from extended component
             String doc = entry.getDocumentationWithNotes();
-            if (isNullOrEmpty(doc)) {
-                doc = DocumentationHelper.findEndpointJavaDoc(componentModel.getScheme(), componentModel.getExtendsScheme(), entry.getName());
-            }
             // as its json we need to sanitize the docs
             doc = JSonSchemaHelper.sanitizeDescription(doc, false);
             boolean required = entry.isRequired();
