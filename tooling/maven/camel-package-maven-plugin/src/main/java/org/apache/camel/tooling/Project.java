@@ -224,7 +224,7 @@ public class Project {
                 throw new IOError(e);
             }
         }
-        addMavenResource(legalOutDir, META_INF_SERVICES_ORG_APACHE_CAMEL + "**/*");
+        addMavenResource(legalOutDir);
     }
 
     public void prepareServices(Path serviceOutDir) {
@@ -258,7 +258,25 @@ public class Project {
                     }
                 });
 
-        addMavenResource(serviceOutDir, META_INF_SERVICES_ORG_APACHE_CAMEL + "**/*");
+        String typeConverter = Stream.of(CONVERTER)
+                .map(index::getAnnotations)
+                .flatMap(List::stream)
+                .map(ai -> ai.target().kind() == Kind.METHOD
+                        ? ai.target().asMethod().declaringClass().name().toString()
+                        : ai.target().asClass().name().toString())
+                .filter(this::isLocalClass)
+                .sorted()
+                .distinct()
+                .collect(Collectors.joining(NL));
+        if (isNullOrEmpty(typeConverter)) {
+            updateResource(camelMetaDir.resolve("TypeConverter"), null);
+        } else {
+            String data = "# " + GENERATED_MSG + NL + typeConverter;
+            updateResource(camelMetaDir.resolve("TypeConverter"), data);
+        }
+
+
+        addMavenResource(serviceOutDir);
     }
 
     private boolean isLocalClass(AnnotationInstance ai) {
@@ -279,7 +297,7 @@ public class Project {
 
             // first we need to setup the output directory because the next check
             // can stop the build before the end and eclipse always needs to know about that directory
-            addMavenResource(languageOutDir, "**/language.properties");
+            addMavenResource(languageOutDir);
 
             if (!PackageHelper.haveResourcesChanged(log, project, buildContext, META_INF_SERVICES_ORG_APACHE_CAMEL + "language")) {
                 return;
@@ -476,7 +494,7 @@ public class Project {
             updateResource(file, sb.toString());
         }
 
-        addMavenResource(jaxbIndexOutDir, "**/*");
+        addMavenResource(jaxbIndexOutDir);
     }
 
     private String readClassFromCamelResource(File file) {
@@ -569,7 +587,7 @@ public class Project {
 
         // first we need to setup the output directory because the next check
         // can stop the build before the end and eclipse always needs to know about that directory
-        addMavenResource(componentOutDir, "**/component.properties");
+        addMavenResource(componentOutDir);
 
         if (!PackageHelper.haveResourcesChanged(log, project, buildContext, META_INF_SERVICES_ORG_APACHE_CAMEL + "component")) {
             return;
@@ -613,7 +631,7 @@ public class Project {
                 .filter(this::isLocalClass)
                 .forEach(ai -> processEndpointClass(endpointsOutDir, ai));
 
-        addMavenResource(endpointsOutDir, "org/apache/camel/**/*");
+        addMavenResource(endpointsOutDir);
     }
 
     private void processEndpointClass(Path endpointsOutDir, AnnotationInstance uriEndpoint) {
@@ -955,6 +973,9 @@ public class Project {
                     if (isNullOrEmpty(docComment)) {
                         docComment = DocumentationHelper.findEndpointJavaDoc(project, componentModel.getScheme(), componentModel.getExtendsScheme(), name);
                     }
+                    if (docComment != null) {
+                        docComment = docComment.trim();
+                    }
 
                     // gather enums
                     Set<String> enums = getEnums(path, fieldTypeElement);
@@ -973,7 +994,7 @@ public class Project {
                     option.setRequired(required);
                     option.setDefaultValue(defaultValue);
                     option.setDefaultValueNote(defaultValueNote);
-                    option.setDescription(docComment.trim());
+                    option.setDescription(docComment);
                     option.setDeprecated(deprecated);
                     option.setDeprecationNote(deprecationNote);
                     option.setSecret(secret);
@@ -1283,9 +1304,9 @@ public class Project {
         return project.getCompileSourceRoots();
     }
 
-    protected void addMavenResource(Path resourceDirectory, String includes)
+    protected void addMavenResource(Path resourceDirectory)
     {
-        addMavenResource(resourceDirectory.toString(), Collections.singletonList(includes), Collections.emptyList());
+        addMavenResource(resourceDirectory.toString(), Collections.singletonList("**/*"), Collections.emptyList());
     }
 
     protected void addMavenResource(String resourceDirectory, List<String> includes, List<String> excludes)
@@ -1590,7 +1611,7 @@ public class Project {
 
         // first we need to setup the output directory because the next check
         // can stop the build before the end and eclipse always needs to know about that directory
-        addMavenResource(dataFormatOutDir, "**/dataformat.properties");
+        addMavenResource(dataFormatOutDir);
 
         if (!PackageHelper.haveResourcesChanged(log, project, buildContext, META_INF_SERVICES_ORG_APACHE_CAMEL + "dataformat")) {
             return;
@@ -1835,7 +1856,7 @@ public class Project {
 
         // first we need to setup the output directory because the next check
         // can stop the build before the end and eclipse always needs to know about that directory
-        addMavenResource(otherOutDir, "**/other.properties");
+        addMavenResource(otherOutDir);
 
         String name = project.getArtifactId();
         // strip leading camel-
@@ -1883,7 +1904,7 @@ public class Project {
                 .filter(ai -> isCoreClass(ai) || isXmlClass(ai))
                 .forEach(ai -> processClass(modeldocOutDir, ai));
 
-        addMavenResource(modeldocOutDir, "org/apache/camel/**/*");
+        addMavenResource(modeldocOutDir);
     }
 
     private boolean isCoreClass(AnnotationInstance ai) {

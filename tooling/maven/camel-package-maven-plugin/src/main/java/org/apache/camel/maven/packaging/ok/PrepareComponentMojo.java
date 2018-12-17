@@ -53,56 +53,56 @@ public class PrepareComponentMojo extends AbstractMojo {
     /**
      * The output directory for generated components file
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/endpoints")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File endpointsOutDir;
 
     /**
      * The output directory for generated service file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/services")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File serviceOutDir;
 
     /**
      * The output directory for generated components file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/components")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File componentOutDir;
 
     /**
      * The output directory for generated dataformats file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/dataformats")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File dataFormatOutDir;
 
     /**
      * The output directory for generated languages file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/languages")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File languageOutDir;
 
     /**
      * The output directory for generated others file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/others")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File otherOutDir;
 
     /**
      * The output directory for generated schema file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/schemas")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File schemaOutDir;
 
     /**
      * The output directory for generated schema file
      *
      */
-    @Parameter(defaultValue = "${project.build.directory}/generated/camel/legal")
+    @Parameter(defaultValue = "${project.build.directory}/generated/camel")
     protected File legalOutDir;
 
     /**
