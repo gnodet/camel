@@ -54,4 +54,12 @@ public class IOHelper {
             throw new IOError(e);
         }
     }
+
+    public static Stream<String> lines(Path p) {
+        try {
+            return Files.lines(p);
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
 }

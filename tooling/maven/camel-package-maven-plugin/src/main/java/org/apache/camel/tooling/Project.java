@@ -810,15 +810,10 @@ public class Project {
                 .map(p -> p.resolve(path).resolve(name))
                 .filter(Files::isRegularFile)
                 .findFirst()
-                .map(p -> {
-                    try {
-                        return Files.lines(p)
-                                .filter(filter)
-                                .collect(Collectors.joining(NL));
-                    } catch (IOException e) {
-                        throw new IOError(e);
-                    }
-                }).orElse(null);
+                .map(p -> IOHelper.lines(p)
+                        .filter(filter)
+                        .collect(Collectors.joining(NL)))
+                .orElse(null);
     }
 
     protected void findComponentClassProperties(ComponentModel componentModel, ClassInfo classElement, String prefix) {

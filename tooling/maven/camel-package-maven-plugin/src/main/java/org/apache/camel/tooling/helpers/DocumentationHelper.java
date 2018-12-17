@@ -17,8 +17,6 @@
 package org.apache.camel.tooling.helpers;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,9 +27,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
 
 import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
@@ -87,47 +84,34 @@ public final class DocumentationHelper {
     }
 
     private static Path jsonFile(MavenProject project, String scheme, String extendsScheme) {
-        // we cannot use classloader to load external resources from other JARs during apt plugin,
-        // so load these resources using the file system
-        return project.getDependencyArtifacts()
-                .stream()
-                .map(Artifact::getFile)
-                .filter(Objects::nonNull)
-                .map(File::toString)
+        List<String> classpath;
+        try {
+            classpath = project.getRuntimeClasspathElements();
+        } catch (DependencyResolutionRequiredException e) {
+            throw new IOError(e);
+        }
+        Path cp = classpath.stream()
                 .map(IOHelper::asFolder)
-                .map(p -> p.resolve("org/apache/camel/component")
-                        .resolve(extendsScheme).resolve(extendsScheme + ".json"))
+                .map(p -> p.resolve("META-INF/services/org/apache/camel/component").resolve(extendsScheme))
                 .filter(Files::isRegularFile)
                 .findAny()
                 .orElse(null);
-
-        /*
-        if ("file".equals(extendsScheme)) {
-            return new File("../../camel-core/target/classes/org/apache/camel/component/file/file.json");
-        } else if ("ahc".equals(extendsScheme)) {
-            return new File("../camel-ahc/target/classes/org/apache/camel/component/ahc/ahc.json");
-        } else if ("atom".equals(extendsScheme)) {
-            return new File("../camel-atom/target/classes/org/apache/camel/component/atom/atom.json");
-        } else if ("ftp".equals(extendsScheme)) {
-            return new File("../camel-ftp/target/classes/org/apache/camel/component/file/remote/ftp.json");
-        } else if ("jms".equals(extendsScheme)) {
-            return new File("../camel-jms/target/classes/org/apache/camel/component/jms/jms.json");
-        } else if ("sjms".equals(extendsScheme)) {
-            return new File("../camel-sjms/target/classes/org/apache/camel/component/sjms/sjms.json");
-        } else if ("http".equals(extendsScheme)) {
-            return new File("../camel-http/target/classes/org/apache/camel/component/http/http.json");
-        } else if ("https".equals(extendsScheme)) {
-            return new File("../camel-http/target/classes/org/apache/camel/component/http/https.json");
-        } else if ("netty".equals(extendsScheme)) {
-            return new File("../camel-netty/target/classes/org/apache/camel/component/netty/netty.json");
-        } else if ("netty4".equals(extendsScheme)) {
-            return new File("../camel-netty4/target/classes/org/apache/camel/component/netty4/netty4.json");
-        } else if ("servlet".equals(extendsScheme)) {
-            return new File("../camel-servlet/target/classes/org/apache/camel/component/servlet/servlet.json");
+        if (cp != null) {
+            String cc = IOHelper.lines(cp)
+                .filter(s -> s.startsWith("class="))
+                .map(s -> s.substring("class=".length()))
+                .findFirst()
+                .orElse(null);
+            if (cc != null) {
+                int idx = cc.lastIndexOf('.');
+                cc = cc.substring(0, idx);
+                Path jp = cp.resolve("/").resolve(cc.replace('.', '/')).resolve(extendsScheme + ".json");
+                if (Files.isRegularFile(jp)) {
+                    return jp;
+                }
+            }
         }
-        // not found
         return null;
-        */
     }
 
     /**
