@@ -242,10 +242,16 @@ public class ComponentOptionModel {
         StringBuilder sb = new StringBuilder();
         sb.append(description);
         if (!isNullOrEmpty(defaultValueNote)) {
-            sb.append(". Default value notice: ").append(defaultValueNote);
+            if (sb.charAt(sb.length() - 1) != '.') {
+                sb.append(".");
+            }
+            sb.append(" Default value notice: ").append(defaultValueNote);
         }
         if (!isNullOrEmpty(deprecationNote)) {
-            sb.append(". Deprecation note: ").append(deprecationNote);
+            if (sb.charAt(sb.length() - 1) != '.') {
+                sb.append(".");
+            }
+            sb.append(" Deprecation note: ").append(deprecationNote);
         }
         return sb.toString();
     }
