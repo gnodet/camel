@@ -1290,11 +1290,19 @@ public class Project {
 
     protected void addMavenResource(String resourceDirectory, List<String> includes, List<String> excludes)
     {
-        Resource resource = new Resource();
-        resource.setDirectory( resourceDirectory );
-        resource.setIncludes( includes );
-        resource.setExcludes( excludes );
-        project.addResource( resource );
+        if (Files.isDirectory(Paths.get(resourceDirectory))) {
+            boolean exists = project.getResources().stream()
+                    .map(Resource::getDirectory)
+                    .anyMatch(resourceDirectory::equals);
+            if (!exists) {
+                Resource resource = new Resource();
+                resource.setDirectory(resourceDirectory);
+                resource.setIncludes(includes);
+                resource.setExcludes(excludes);
+                resource.setFiltering(false);
+                project.addResource(resource);
+            }
+        }
     }
 
     public void createConverter(Path converterOutDir) {
