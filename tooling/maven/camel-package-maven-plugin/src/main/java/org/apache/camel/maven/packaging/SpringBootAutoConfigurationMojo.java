@@ -25,6 +25,7 @@ import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -907,7 +908,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                     File jsonFile = new File(classesDir, fileName + "/" + model.getScheme() + ".json");
                     if (jsonFile.isFile() && jsonFile.exists()) {
                         try {
-                            String json = FileUtils.readFileToString(jsonFile);
+                            String json = FileUtils.readFileToString(jsonFile, StandardCharsets.UTF_8);
                             List<Map<String, String>> rows = JSonSchemaHelper.parseJsonSchema("properties", json, true);
 
                             // grab name from annotation
@@ -2212,15 +2213,15 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
             getLog().debug("Source code generated:\n" + code);
 
             if (target.exists()) {
-                String existing = FileUtils.readFileToString(target);
+                String existing = FileUtils.readFileToString(target, StandardCharsets.UTF_8);
                 if (!code.equals(existing)) {
-                    FileUtils.write(target, code, false);
+                    FileUtils.write(target, code, StandardCharsets.UTF_8, false);
                     getLog().info("Updated existing file: " + target);
                 } else {
                     getLog().debug("No changes to existing file: " + target);
                 }
             } else {
-                FileUtils.write(target, code);
+                FileUtils.write(target, code, StandardCharsets.UTF_8);
                 getLog().info("Created file: " + target);
             }
         } catch (Exception e) {
@@ -2244,7 +2245,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
             try {
                 // is the auto configuration already in the file
                 boolean found = false;
-                List<String> lines = FileUtils.readLines(target);
+                List<String> lines = FileUtils.readLines(target, StandardCharsets.UTF_8);
                 for (String line : lines) {
                     if (line.contains(name)) {
                         found = true;
@@ -2275,7 +2276,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                     }
 
                     // update
-                    FileUtils.write(target, code.toString(), false);
+                    FileUtils.write(target, code.toString(), StandardCharsets.UTF_8, false);
                     getLog().info("Updated existing file: " + target);
                 }
             } catch (Exception e) {
@@ -2291,7 +2292,7 @@ public class SpringBootAutoConfigurationMojo extends AbstractMojo {
                 code = header + "\n" + code;
                 getLog().debug("Source code generated:\n" + code);
 
-                FileUtils.write(target, code);
+                FileUtils.write(target, code, StandardCharsets.UTF_8);
                 getLog().info("Created file: " + target);
             } catch (Exception e) {
                 throw new MojoFailureException("IOError with file " + target, e);

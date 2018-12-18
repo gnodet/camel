@@ -436,14 +436,14 @@ public class SpringBootStarterMojo extends AbstractMojo {
             File pomFile = new File(starterDir(), "pom.xml");
             if (pomFile.exists()) {
                 try (InputStream in = new FileInputStream(pomFile)) {
-                    String content = IOUtils.toString(in, "UTF-8");
+                    String content = IOUtils.toString(in, StandardCharsets.UTF_8);
                     boolean editablePom = content.contains(GENERATED_SECTION_START_COMMENT);
                     if (editablePom) {
                         content = removeGeneratedSections(content, 10);
                         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
                         Document pom;
-                        try (InputStream contentIn = new ByteArrayInputStream(content.getBytes("UTF-8"))) {
+                        try (InputStream contentIn = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8))) {
                             pom = builder.parse(contentIn);
                         }
 
@@ -488,7 +488,7 @@ public class SpringBootStarterMojo extends AbstractMojo {
         pomTemplate.process(props, sw);
 
         String xml = sw.toString();
-        ByteArrayInputStream bin = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+        ByteArrayInputStream bin = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
 
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document pom = builder.parse(bin);

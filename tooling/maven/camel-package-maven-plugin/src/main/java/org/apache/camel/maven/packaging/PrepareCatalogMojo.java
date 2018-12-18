@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -1027,7 +1028,7 @@ public class PrepareCatalogMojo extends AbstractMojo {
 
                 try {
                     // now fix the html file because we don't want to include certain lines
-                    List<String> lines = FileUtils.readLines(toHtml);
+                    List<String> lines = FileUtils.readLines(toHtml, StandardCharsets.UTF_8);
                     List<String> output = new ArrayList<>();
                     for (String line : lines) {
                         // skip these lines

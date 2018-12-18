@@ -18,6 +18,7 @@ package org.apache.camel.component.file.remote.sftp;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -61,7 +62,7 @@ public class SftpFromSedaDeleteFileTest extends SftpServerTestSupport {
     private void createSampleFile() throws IOException {
         File file = new File(FTP_ROOT_DIR + "/" + "foo.txt");
 
-        FileUtils.write(file, "Hello World this file will be deleted");
+        FileUtils.write(file, "Hello World this file will be deleted", StandardCharsets.UTF_8);
     }
 
     protected RouteBuilder createRouteBuilder() throws Exception {

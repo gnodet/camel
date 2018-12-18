@@ -19,6 +19,7 @@ package org.apache.camel.maven.packaging;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,7 +98,7 @@ public class PrepareExampleMojo extends AbstractMojo {
 
                 if (file.isDirectory() && file.getName().startsWith("camel-example")) {
                     File pom = new File(file, "pom.xml");
-                    String existing = FileUtils.readFileToString(pom);
+                    String existing = FileUtils.readFileToString(pom, StandardCharsets.UTF_8);
 
                     ExampleModel model = new ExampleModel();
                     model.setFileName(file.getName());

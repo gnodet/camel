@@ -18,6 +18,7 @@ package org.apache.camel.component.grape
 
 import org.apache.commons.lang3.SystemUtils
 
+import java.nio.charset.StandardCharsets
 import java.nio.file.Paths
 
 import static org.apache.commons.io.FileUtils.writeStringToFile
@@ -43,7 +44,7 @@ class FilePatchesRepository implements PatchesRepository {
 
     @Override
     void install(String coordinates) {
-        writeStringToFile(repository, coordinates + "\n", true);
+        writeStringToFile(repository, coordinates + "\n", StandardCharsets.UTF_8, true);
     }
 
     @Override
