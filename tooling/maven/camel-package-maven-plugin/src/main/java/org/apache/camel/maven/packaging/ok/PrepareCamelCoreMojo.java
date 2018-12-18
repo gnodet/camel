@@ -41,8 +41,8 @@ import org.sonatype.plexus.build.incremental.BuildContext;
  * </ul>
  * And for each of those generates extra descriptors and schema files for easier auto-discovery in Camel and tooling.
  */
-@Mojo(name = "prepare-components", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
-public class PrepareComponentMojo extends AbstractMojo {
+@Mojo(name = "prepare-camelcore", threadSafe = true, defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
+public class PrepareCamelCoreMojo extends AbstractMojo {
 
     /**
      * The maven project.
@@ -51,17 +51,25 @@ public class PrepareComponentMojo extends AbstractMojo {
     protected MavenProject project;
 
     /**
-     * The output directory for generated components file
-     */
-    @Parameter(defaultValue = "${project.build.directory}/generated/resources")
-    protected File endpointsOutDir;
-
-    /**
      * The output directory for generated service file
      *
      */
     @Parameter(defaultValue = "${project.build.directory}/generated/resources")
     protected File serviceOutDir;
+
+    /**
+     * The output directory for generated model file
+     *
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/resources")
+    protected File modelOutDir;
+
+    /**
+     * The output directory for generated model file
+     *
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/resources")
+    protected File modelDocOutDir;
 
     /**
      * The output directory for generated components file
@@ -89,7 +97,7 @@ public class PrepareComponentMojo extends AbstractMojo {
      *
      */
     @Parameter(defaultValue = "${project.build.directory}/generated/resources")
-    protected File otherOutDir;
+    protected File endpointOutDir;
 
     /**
      * The output directory for generated schema file
@@ -104,6 +112,20 @@ public class PrepareComponentMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${project.build.directory}/generated/resources")
     protected File legalOutDir;
+
+    /**
+     * The output directory for generated schema file
+     *
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/resources")
+    protected File jaxbOutDir;
+
+    /**
+     * The output directory for generated schema file
+     *
+     */
+    @Parameter(defaultValue = "${project.build.directory}/generated/java")
+    protected File converterOutDir;
 
     /**
      * Maven ProjectHelper.
@@ -121,19 +143,22 @@ public class PrepareComponentMojo extends AbstractMojo {
     /**
      * Execute goal.
      *
-     * @throws org.apache.maven.plugin.MojoExecutionException execution of the main class or one of the
+     * @throws MojoExecutionException execution of the main class or one of the
      *                                                        threads it generated failed.
-     * @throws org.apache.maven.plugin.MojoFailureException   something bad happened...
+     * @throws MojoFailureException   something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
         Project build = Project.project(getLog(), project, buildContext);
         build.prepareLegal(legalOutDir.toPath());
         build.prepareServices(serviceOutDir.toPath());
+        build.prepareModel(modelOutDir.toPath());
         build.prepareComponent(componentOutDir.toPath());
+        build.processModelDoc(modelDocOutDir.toPath());
         build.prepareDataFormat(dataFormatOutDir.toPath(), schemaOutDir.toPath());
         build.prepareLanguage(languageOutDir.toPath(), schemaOutDir.toPath());
-        build.prepareOthers(otherOutDir.toPath(), schemaOutDir.toPath());
-        build.processEndpoints(endpointsOutDir.toPath());
+        build.processEndpoints(endpointOutDir.toPath());
+        build.processJaxb(jaxbOutDir.toPath());
+        build.createConverter(converterOutDir.toPath());
     }
 
 }

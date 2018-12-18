@@ -361,6 +361,7 @@
       </plugin>
 
       <!-- include additional metadata from target/generated into the camel-core JAR -->
+        <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -386,6 +387,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
 
       <!-- generate the attached tests jar -->
       <plugin>
@@ -429,65 +431,9 @@
         <version>${project.version}</version>
         <executions>
           <execution>
-            <id>services</id>
+            <id>camelcore</id>
             <goals>
-              <goal>generate-services-list</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>model-doc</id>
-            <goals>
-              <goal>generate-model-doc</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>components</id>
-            <goals>
-              <goal>generate-components-list</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>eips</id>
-            <goals>
-              <goal>generate-eips-list</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>dataformats</id>
-            <goals>
-              <goal>generate-dataformats-list</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>languages</id>
-            <goals>
-              <goal>generate-languages-list</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>endpoints</id>
-            <goals>
-              <goal>generate-endpoints-list</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>converter</id>
-            <goals>
-              <goal>generate-static-core-converter</goal>
-            </goals>
-            <phase>process-classes</phase>
-          </execution>
-          <execution>
-            <id>jaxb-list</id>
-            <goals>
-              <goal>generate-jaxb-list</goal>
+              <goal>prepare-camelcore</goal>
             </goals>
             <phase>process-classes</phase>
           </execution>
@@ -533,7 +479,7 @@
             </goals>
             <phase>process-classes</phase>
             <configuration>
-              <compileSourceRoots>${project.build.directory}/generated/camel/converter</compileSourceRoots>
+              <compileSourceRoots>${project.build.directory}/generated/java</compileSourceRoots>
             </configuration>
           </execution>
         </executions>

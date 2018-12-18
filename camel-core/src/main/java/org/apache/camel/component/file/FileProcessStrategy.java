@@ -22,12 +22,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.apache.camel.spi.annotations.Factory;
+import org.apache.camel.spi.annotations.ComponentServiceFactory;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Target({ElementType.TYPE })
-@Factory("strategy.factory")
+@ComponentServiceFactory("strategy.factory")
 public @interface FileProcessStrategy {
 
     Class value();

@@ -113,7 +113,9 @@ public class Project {
     public static final DotName COMPONENT = DotName.createSimple("org.apache.camel.spi.annotations.Component");
     public static final DotName LANGUAGE = DotName.createSimple("org.apache.camel.spi.annotations.Language");
     public static final DotName DATAFORMAT = DotName.createSimple("org.apache.camel.spi.annotations.Dataformat");
-    public static final DotName FACTORY = DotName.createSimple("org.apache.camel.spi.annotations.Factory");
+    public static final DotName COMPONENT_SERVICE_FACTORY = DotName.createSimple("org.apache.camel.spi.annotations.ComponentServiceFactory");
+    public static final DotName CLOUD_SERVICE_FACTORY = DotName.createSimple("org.apache.camel.spi.annotations.CloudServiceFactory");
+    public static final DotName SEND_DYNAMIC = DotName.createSimple("org.apache.camel.spi.annotations.SendDynamic");
     public static final DotName AS_PREDICATE = DotName.createSimple("org.apache.camel.spi.AsPredicate");
     public static final DotName METADATA = DotName.createSimple("org.apache.camel.spi.Metadata");
     public static final DotName URI_ENDPOINT = DotName.createSimple("org.apache.camel.spi.UriEndpoint");
@@ -246,7 +248,7 @@ public class Project {
                         sb.append("class=").append(clazz).append(NL);
                         ai.target().asClass().classAnnotations().forEach(ani -> {
                             ClassInfo annotationClass = findTypeElement(ani.name());
-                            AnnotationInstance factory = annotation(annotationClass, FACTORY).orElse(null);
+                            AnnotationInstance factory = annotation(annotationClass, COMPONENT_SERVICE_FACTORY).orElse(null);
                             if (factory != null) {
                                 String key = factory.value().asString();
                                 String val = ani.value().asClass().asClassType().name().toString();
@@ -258,23 +260,50 @@ public class Project {
                     }
                 });
 
-        String typeConverter = Stream.of(CONVERTER)
-                .map(index::getAnnotations)
-                .flatMap(List::stream)
-                .map(ai -> ai.target().kind() == Kind.METHOD
-                        ? ai.target().asMethod().declaringClass().name().toString()
-                        : ai.target().asClass().name().toString())
+        index.getAnnotations(CLOUD_SERVICE_FACTORY).stream()
                 .filter(this::isLocalClass)
-                .sorted()
-                .distinct()
-                .collect(Collectors.joining(NL));
-        if (isNullOrEmpty(typeConverter)) {
-            updateResource(camelMetaDir.resolve("TypeConverter"), null);
-        } else {
-            String data = "# " + GENERATED_MSG + NL + typeConverter;
-            updateResource(camelMetaDir.resolve("TypeConverter"), data);
-        }
+                .forEach(ai -> {
+                    String names = ai.value().asString();
+                    for (String name : names.split(",")) {
+                        Path out = camelMetaDir.resolve("cloud").resolve(name);
+                        String clazz = ai.target().asClass().name().toString();
+                        String data = "# " + GENERATED_MSG + NL
+                                + "class=" + clazz + NL;
+                        updateResource(out, data);
+                    }
+                });
 
+        index.getAnnotations(SEND_DYNAMIC).stream()
+                .filter(this::isLocalClass)
+                .forEach(ai -> {
+                    String names = ai.value().asString();
+                    for (String name : names.split(",")) {
+                        Path out = camelMetaDir.resolve("cloud").resolve(name);
+                        String clazz = ai.target().asClass().name().toString();
+                        String data = "# " + GENERATED_MSG + NL
+                                + "class=" + clazz + NL;
+                        updateResource(out, data);
+                    }
+                });
+
+        if (!"camel-core".equals(project.getArtifactId())) {
+            String typeConverter = Stream.of(CONVERTER)
+                    .map(index::getAnnotations)
+                    .flatMap(List::stream)
+                    .map(ai -> ai.target().kind() == Kind.METHOD
+                            ? ai.target().asMethod().declaringClass().name().toString()
+                            : ai.target().asClass().name().toString())
+                    .filter(this::isLocalClass)
+                    .sorted()
+                    .distinct()
+                    .collect(Collectors.joining(NL));
+            if (isNullOrEmpty(typeConverter)) {
+                updateResource(camelMetaDir.resolve("TypeConverter"), null);
+            } else {
+                String data = "# " + GENERATED_MSG + NL + typeConverter;
+                updateResource(camelMetaDir.resolve("TypeConverter"), data);
+            }
+        }
 
         addMavenResource(serviceOutDir);
     }
@@ -294,10 +323,6 @@ public class Project {
 
         try {
             Path camelMetaDir = languageOutDir.resolve(META_INF_SERVICES_ORG_APACHE_CAMEL);
-
-            // first we need to setup the output directory because the next check
-            // can stop the build before the end and eclipse always needs to know about that directory
-            addMavenResource(languageOutDir);
 
             if (!PackageHelper.haveResourcesChanged(log, project, buildContext, META_INF_SERVICES_ORG_APACHE_CAMEL + "language")) {
                 return;
@@ -419,6 +444,12 @@ public class Project {
                 log.info("Generating " + outFile + " containing " + javaTypes.size() + " Camel " + (javaTypes.size() > 1 ? "languages: " : "language: ") + names);
             }
             updateResource(outFile, data);
+
+            // first we need to setup the output directory because the next check
+            // can stop the build before the end and eclipse always needs to know about that directory
+            addMavenResource(languageOutDir);
+            addMavenResource(schemaOutDir);
+
         } catch (IOException e) {
             throw new IOError(e);
         }
@@ -585,14 +616,6 @@ public class Project {
 
         Path camelMetaDir = componentOutDir.resolve(META_INF_SERVICES_ORG_APACHE_CAMEL);
 
-        // first we need to setup the output directory because the next check
-        // can stop the build before the end and eclipse always needs to know about that directory
-        addMavenResource(componentOutDir);
-
-        if (!PackageHelper.haveResourcesChanged(log, project, buildContext, META_INF_SERVICES_ORG_APACHE_CAMEL + "component")) {
-            return;
-        }
-
         Set<String> components = new TreeSet<>();
         int count = 0;
         for (Resource r : project.getBuild().getResources()) {
@@ -623,6 +646,10 @@ public class Project {
             log.info("Generating " + outFile + " containing " + components.size() + " Camel " + (components.size() > 1 ? "components: " : "component: ") + names);
         }
         updateResource(outFile, data);
+
+        // first we need to setup the output directory because the next check
+        // can stop the build before the end and eclipse always needs to know about that directory
+        addMavenResource(componentOutDir);
     }
 
     public void processEndpoints(Path endpointsOutDir) {
@@ -1598,19 +1625,12 @@ public class Project {
         updateResource(outFile, sb.toString());
         log.info("Generated " + outFile + " containing " + models.size() + " Camel models");
 
+        addMavenResource(modelOutDir);
     }
 
     public void prepareDataFormat(Path dataFormatOutDir, Path schemaOutDir) {
 
         Path camelMetaDir = dataFormatOutDir.resolve(META_INF_SERVICES_ORG_APACHE_CAMEL);
-
-        // first we need to setup the output directory because the next check
-        // can stop the build before the end and eclipse always needs to know about that directory
-        addMavenResource(dataFormatOutDir);
-
-        if (!PackageHelper.haveResourcesChanged(log, project, buildContext, META_INF_SERVICES_ORG_APACHE_CAMEL + "dataformat")) {
-            return;
-        }
 
         Map<String, String> javaTypes = new TreeMap<>();
 
@@ -1702,6 +1722,11 @@ public class Project {
             log.info("Generating " + outFile + " containing " + javaTypes.size() + " Camel " + (javaTypes.size() > 1 ? "dataformats: " : "dataformat: ") + names);
         }
         updateResource(outFile, data);
+
+        // first we need to setup the output directory because the next check
+        // can stop the build before the end and eclipse always needs to know about that directory
+        addMavenResource(dataFormatOutDir);
+        addMavenResource(schemaOutDir);
     }
 
     private static DataFormatModel extractDataFormatModel(MavenProject project, String json, String modelName, String name, String javaType) {
@@ -1849,10 +1874,6 @@ public class Project {
 
         // okay none of those then this is a other kind of artifact
 
-        // first we need to setup the output directory because the next check
-        // can stop the build before the end and eclipse always needs to know about that directory
-        addMavenResource(otherOutDir);
-
         String name = project.getArtifactId();
         // strip leading camel-
         if (name.startsWith("camel-")) {
@@ -1890,6 +1911,11 @@ public class Project {
         data = createProperties(AP_NAME, name);
         log.info("Generating " + out);
         updateResource(out, data);
+
+        // first we need to setup the output directory because the next check
+        // can stop the build before the end and eclipse always needs to know about that directory
+        addMavenResource(otherOutDir);
+        addMavenResource(schemaOutDir);
     }
 
     public void processModelDoc(Path modeldocOutDir) {

@@ -14,19 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.spi.annotations;
+package org.apache.camel.component.undertow;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.apache.camel.spi.annotations.SendDynamic;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Target({ElementType.TYPE })
-public @interface Factory {
-
-    String value();
+@SendDynamic("undertow")
+public class HttpSendDynamicAware extends org.apache.camel.http.common.HttpSendDynamicAware {
 
 }
