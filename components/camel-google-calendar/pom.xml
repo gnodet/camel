@@ -128,56 +128,6 @@
               <goal>fromApis</goal>
             </goals>
             <configuration>
-              <apis>
-                <api>
-                  <apiName>acl</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Acl</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>list</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$CalendarList</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>calendars</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Calendars</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>channels</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Channels</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>colors</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Colors</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>freebusy</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Freebusy</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>events</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Events</proxyClass>
-                  <fromJavadoc />
-                </api>                  
-                <api>
-                  <apiName>settings</apiName>
-                  <proxyClass>com.google.api.services.calendar.Calendar$Settings</proxyClass>
-                  <fromJavadoc />
-                </api>                                                                          
-              </apis>
-              <substitutions>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.calendar.model.Channel</argType>
-                  <replacement>contentChannel</replacement>
-                </substitution>
-              </substitutions>
             </configuration>
           </execution>
         </executions>

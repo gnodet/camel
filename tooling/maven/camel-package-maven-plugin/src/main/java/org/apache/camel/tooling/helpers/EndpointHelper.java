@@ -19,7 +19,7 @@ package org.apache.camel.tooling.helpers;
 import java.util.Comparator;
 
 import com.google.common.base.Strings;
-import org.apache.camel.maven.packaging.model.EndpointOptionModel;
+import org.apache.camel.tooling.model.EndpointOptionModel;
 
 public final class EndpointHelper {
 

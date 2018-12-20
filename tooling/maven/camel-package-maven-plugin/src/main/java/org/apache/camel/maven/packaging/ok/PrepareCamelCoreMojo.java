@@ -18,7 +18,8 @@ package org.apache.camel.maven.packaging.ok;
 
 import java.io.File;
 
-import org.apache.camel.tooling.Project;
+import org.apache.camel.tooling.Generator;
+import org.apache.camel.tooling.maven.MavenGenerator;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -148,7 +149,7 @@ public class PrepareCamelCoreMojo extends AbstractMojo {
      * @throws MojoFailureException   something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Project build = Project.project(getLog(), project, buildContext);
+        Generator build = MavenGenerator.generator(project, getLog(), buildContext);
         build.prepareLegal(legalOutDir.toPath());
         build.prepareServices(serviceOutDir.toPath());
         build.prepareModel(modelOutDir.toPath());

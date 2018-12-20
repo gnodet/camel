@@ -1,0 +1,52 @@
+{
+  "apis": [
+    {
+      "apiName": "acl",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Acl",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "list",
+      "proxyClass": "com.google.api.services.calendar.Calendar$CalendarList",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "calendars",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Calendars",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "channels",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Channels",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "colors",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Colors",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "freebusy",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Freebusy",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "events",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Events",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "settings",
+      "proxyClass": "com.google.api.services.calendar.Calendar$Settings",
+      "fromJavadoc": {}
+    }
+  ],
+  "substitutions": [
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.calendar.model.Channel",
+      "replacement": "contentChannel"
+    }
+  ]
+}

@@ -18,8 +18,8 @@ package org.apache.camel.tooling;
 
 import java.util.Comparator;
 
-import org.apache.camel.maven.packaging.model.EipModel;
-import org.apache.camel.maven.packaging.model.EipOptionModel;
+import org.apache.camel.tooling.model.EipModel;
+import org.apache.camel.tooling.model.EipOptionModel;
 
 public final class EipOptionComparator implements Comparator<EipOptionModel> {
 

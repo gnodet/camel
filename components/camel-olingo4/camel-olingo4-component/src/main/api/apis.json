@@ -1,0 +1,14 @@
+{
+  "apis": {
+    "apiName": "",
+    "proxyClass": "org.apache.camel.component.olingo4.api.Olingo4App",
+    "fromSignatureFile": "src/signatures/olingo-api-signature.txt",
+    "excludeConfigNames": "edm|responseHandler",
+    "extraOptions": [
+      { "name": "keyPredicate", "type": "java.lang.String"}
+    ],
+    "nullableOptions": [
+      "queryParams", "endpointHttpHeaders"
+    ]
+  }
+}

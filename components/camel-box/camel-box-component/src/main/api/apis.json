@@ -1,0 +1,418 @@
+{
+  "apis": [
+    {
+      "apiName": "collaborations",
+      "proxyClass": "org.apache.camel.component.box.api.BoxCollaborationsManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "addFolderCollaboration",
+          "methodAlias": "add"
+        },
+        {
+          "methodPattern": "addFolderCollaborationByEmail",
+          "methodAlias": "addByEmail"
+        },
+        {
+          "methodPattern": "deleteCollaboration",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "getFolderCollaborations",
+          "methodAlias": "collaborations"
+        },
+        {
+          "methodPattern": "getPendingCollaborations",
+          "methodAlias": "pendingCollaborations"
+        },
+        {
+          "methodPattern": "getCollaborationInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "updateCollaborationInfo",
+          "methodAlias": "updateInfo"
+        }
+      ]
+    },
+    {
+      "apiName": "comments",
+      "proxyClass": "org.apache.camel.component.box.api.BoxCommentsManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "addFileComment",
+          "methodAlias": "add"
+        },
+        {
+          "methodPattern": "changeCommentMessage",
+          "methodAlias": "updateMessage"
+        },
+        {
+          "methodPattern": "deleteComment",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "getCommentInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "getFileComments",
+          "methodAlias": "comments"
+        },
+        {
+          "methodPattern": "replyToComment",
+          "methodAlias": "reply"
+        }
+      ]
+    },
+    {
+      "apiName": "event-logs",
+      "proxyClass": "org.apache.camel.component.box.api.BoxEventLogsManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "getEnterpriseEvents",
+          "methodAlias": "events"
+        }
+      ],
+      "nullableOptions": [
+        "position",
+        "types"
+      ]
+    },
+    {
+      "apiName": "events",
+      "proxyClass": "org.apache.camel.component.box.api.BoxEventsManager",
+      "fromJavadoc": {
+        "excludeMethods": "stopListening"
+      },
+      "excludeConfigNames": "listener",
+      "nullableOptions": [
+        "startingPosition"
+      ]
+    },
+    {
+      "apiName": "files",
+      "proxyClass": "org.apache.camel.component.box.api.BoxFilesManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "uploadFile",
+          "methodAlias": "upload"
+        },
+        {
+          "methodPattern": "downloadFile",
+          "methodAlias": "download"
+        },
+        {
+          "methodPattern": "copyFile",
+          "methodAlias": "copy"
+        },
+        {
+          "methodPattern": "moveFile",
+          "methodAlias": "move"
+        },
+        {
+          "methodPattern": "renameFile",
+          "methodAlias": "rename"
+        },
+        {
+          "methodPattern": "createFileSharedLink",
+          "methodAlias": "link"
+        },
+        {
+          "methodPattern": "deleteFile",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "uploadNewFileVersion",
+          "methodAlias": "uploadVersion"
+        },
+        {
+          "methodPattern": "promoteFileVersion",
+          "methodAlias": "promoteVersion"
+        },
+        {
+          "methodPattern": "getFileVersions",
+          "methodAlias": "versions"
+        },
+        {
+          "methodPattern": "downloadPreviousFileVersions",
+          "methodAlias": "downloadVersion"
+        },
+        {
+          "methodPattern": "deleteFileVersion",
+          "methodAlias": "deleteVersion"
+        },
+        {
+          "methodPattern": "getFileInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "updateFileInfo",
+          "methodAlias": "updateInfo"
+        },
+        {
+          "methodPattern": "createFileMetadata",
+          "methodAlias": "createMetadata"
+        },
+        {
+          "methodPattern": "getFileMetadata",
+          "methodAlias": "metadata"
+        },
+        {
+          "methodPattern": "updateFileMetadata",
+          "methodAlias": "updateMetadata"
+        },
+        {
+          "methodPattern": "deleteFileMetadata",
+          "methodAlias": "deleteMetadata"
+        },
+        {
+          "methodPattern": "getDownloadUrl",
+          "methodAlias": "url"
+        },
+        {
+          "methodPattern": "getPreviewLink",
+          "methodAlias": "preview"
+        },
+        {
+          "methodPattern": "getFileThumbnail",
+          "methodAlias": "thumbnail"
+        }
+      ],
+      "nullableOptions": [
+        "fields",
+        "created",
+        "modified",
+        "size",
+        "fileSize",
+        "rangeStart",
+        "rangeEnd",
+        "listener",
+        "fileSize",
+        "newName",
+        "unshareDate",
+        "permissions",
+        "typeName"
+      ]
+    },
+    {
+      "apiName": "folders",
+      "proxyClass": "org.apache.camel.component.box.api.BoxFoldersManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "getRootFolder",
+          "methodAlias": "root"
+        },
+        {
+          "methodPattern": "createFolder",
+          "methodAlias": "create"
+        },
+        {
+          "methodPattern": "copyFolder",
+          "methodAlias": "copy"
+        },
+        {
+          "methodPattern": "moveFolder",
+          "methodAlias": "move"
+        },
+        {
+          "methodPattern": "renameFolder",
+          "methodAlias": "rename"
+        },
+        {
+          "methodPattern": "createFolderSharedLink",
+          "methodAlias": "link"
+        },
+        {
+          "methodPattern": "deleteFolder",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "getFolder",
+          "methodAlias": "folder"
+        },
+        {
+          "methodPattern": "getFolderInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "getFolderItems",
+          "methodAlias": "items"
+        },
+        {
+          "methodPattern": "updateFolderInfo",
+          "methodAlias": "updateInfo"
+        }
+      ],
+      "nullableOptions": [
+        "offset",
+        "limit",
+        "fields"
+      ]
+    },
+    {
+      "apiName": "groups",
+      "proxyClass": "org.apache.camel.component.box.api.BoxGroupsManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "createGroup",
+          "methodAlias": "create"
+        },
+        {
+          "methodPattern": "deleteGroup",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "getAllGroups",
+          "methodAlias": "groups"
+        },
+        {
+          "methodPattern": "getGroupInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "addGroupMembership",
+          "methodAlias": "addMembership"
+        },
+        {
+          "methodPattern": "deleteGroupMembership",
+          "methodAlias": "deleteMembership"
+        },
+        {
+          "methodPattern": "getGroupMemberships",
+          "methodAlias": "memberships"
+        },
+        {
+          "methodPattern": "getGroupMembershipInfo",
+          "methodAlias": "membershipInfo"
+        },
+        {
+          "methodPattern": "updateGroupMembershipInfo",
+          "methodAlias": "updateMembershipInfo"
+        }
+      ],
+      "nullableOptions": [
+        "role",
+        "description",
+        "provenance",
+        "externalSyncIdentifier",
+        "invitabilityLevel",
+        "memberViewabilityLevel"
+      ]
+    },
+    {
+      "apiName": "search",
+      "proxyClass": "org.apache.camel.component.box.api.BoxSearchManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "searchFolder",
+          "methodAlias": "search"
+        }
+      ]
+    },
+    {
+      "apiName": "tasks",
+      "proxyClass": "org.apache.camel.component.box.api.BoxTasksManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "addFileTask",
+          "methodAlias": "add"
+        },
+        {
+          "methodPattern": "deleteTask",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "getFileTasks",
+          "methodAlias": "tasks"
+        },
+        {
+          "methodPattern": "getTaskInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "updateTaskInfo",
+          "methodAlias": "updateInfo"
+        },
+        {
+          "methodPattern": "addAssignmentToTask",
+          "methodAlias": "addAssignment"
+        },
+        {
+          "methodPattern": "deleteTaskAssignment",
+          "methodAlias": "deleteAssignment"
+        },
+        {
+          "methodPattern": "getTaskAssignments",
+          "methodAlias": "assignments"
+        },
+        {
+          "methodPattern": "getTaskAssignmentInfo",
+          "methodAlias": "assignmentInfo"
+        }
+      ],
+      "nullableOptions": [
+        "message"
+      ]
+    },
+    {
+      "apiName": "users",
+      "proxyClass": "org.apache.camel.component.box.api.BoxUsersManager",
+      "fromJavadoc": {},
+      "aliases": [
+        {
+          "methodPattern": "getCurrentUser",
+          "methodAlias": "currentUser"
+        },
+        {
+          "methodPattern": "getAllEnterpriseOrExternalUsers",
+          "methodAlias": "users"
+        },
+        {
+          "methodPattern": "createAppUser",
+          "methodAlias": "create"
+        },
+        {
+          "methodPattern": "createEnterpriseUser",
+          "methodAlias": "create"
+        },
+        {
+          "methodPattern": "deleteUser",
+          "methodAlias": "delete"
+        },
+        {
+          "methodPattern": "addUserEmailAlias",
+          "methodAlias": "addEmailAlias"
+        },
+        {
+          "methodPattern": "getUserEmailAlias",
+          "methodAlias": "emailAlias"
+        },
+        {
+          "methodPattern": "deleteUserEmailAlias",
+          "methodAlias": "deleteEmailAlias"
+        },
+        {
+          "methodPattern": "getUserInfo",
+          "methodAlias": "info"
+        },
+        {
+          "methodPattern": "updateUserInfo",
+          "methodAlias": "updateInfo"
+        }
+      ],
+      "nullableOptions": [
+        "filterTerm",
+        "fields",
+        "params"
+      ]
+    }
+  ]
+}

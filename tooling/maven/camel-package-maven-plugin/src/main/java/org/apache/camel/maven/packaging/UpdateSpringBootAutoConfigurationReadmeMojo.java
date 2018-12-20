@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import org.apache.camel.maven.packaging.model.SpringBootAutoConfigureOptionModel;
+import org.apache.camel.tooling.model.SpringBootAutoConfigureOptionModel;
 import org.apache.camel.tooling.helpers.StringHelper;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

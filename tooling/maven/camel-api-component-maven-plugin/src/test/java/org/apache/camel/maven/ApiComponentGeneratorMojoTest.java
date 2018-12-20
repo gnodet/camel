@@ -20,6 +20,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.camel.apigen.model.ApiMethodAlias;
+import org.apache.camel.apigen.model.ApiProxy;
+import org.apache.camel.apigen.model.ExtraOption;
+import org.apache.camel.apigen.model.FromJavadoc;
+import org.apache.camel.apigen.model.Substitution;
 import org.apache.camel.component.test.TestProxy;
 import org.apache.velocity.VelocityContext;
 import org.junit.Test;
@@ -53,7 +58,7 @@ public class ApiComponentGeneratorMojoTest extends AbstractGeneratorMojoTest {
         mojo.apis[0] = new ApiProxy();
         mojo.apis[0].setApiName("test");
         mojo.apis[0].setProxyClass(TestProxy.class.getName());
-        mojo.apis[0].setFromSignatureFile(new File("src/test/resources/test-proxy-signatures.txt"));
+        mojo.apis[0].setFromSignatureFile("src/test/resources/test-proxy-signatures.txt");
         Substitution[] substitutions = new Substitution[2];
         substitutions[0] = new Substitution(".+", "(.+)", "java.util.List", "$1List", false);
         substitutions[1] = new Substitution(".+", "(.+)", ".*?(\\w++)\\[\\]", "$1Array", true);

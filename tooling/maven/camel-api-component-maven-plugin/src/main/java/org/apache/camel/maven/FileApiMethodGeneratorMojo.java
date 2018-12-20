@@ -16,15 +16,13 @@
  */
 package org.apache.camel.maven;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.apache.camel.apigen.FileApiMethodGenerator;
+import org.apache.camel.apigen.model.ExtraOption;
+import org.apache.camel.apigen.model.Substitution;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -35,31 +33,44 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  */
 @Mojo(name = "fromFile", requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME, requiresProject = true,
         defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class FileApiMethodGeneratorMojo extends AbstractApiMethodGeneratorMojo {
+public class FileApiMethodGeneratorMojo extends AbstractSourceGeneratorMojo {
+
+    @Parameter(property = PREFIX + "substitutions")
+    protected Substitution[] substitutions = new Substitution[0];
+
+    @Parameter(property = PREFIX + "excludeConfigNames")
+    protected String excludeConfigNames;
+
+    @Parameter(property = PREFIX + "excludeConfigTypes")
+    protected String excludeConfigTypes;
+
+    @Parameter
+    protected ExtraOption[] extraOptions;
+
+    @Parameter(required = true, property = PREFIX + "proxyClass")
+    protected String proxyClass;
 
     @Parameter(required = true, property = PREFIX + "signatureFile")
     protected File signatureFile;
 
     @Override
-    public List<String> getSignatureList() throws MojoExecutionException {
-        // get signatureFile as a list of Strings
-        List<String> result = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(this.signatureFile));
-            String line = reader.readLine();
-            while (line != null) {
-                result.add(line);
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (IOException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
-        if (result.isEmpty()) {
-            throw new MojoExecutionException("Signature file " + signatureFile.getPath() + " is empty");
-        }
-        return result;
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        FileApiMethodGenerator generator = new FileApiMethodGenerator();
+        generator.project = createProject();
+        generator.outPackage = outPackage;
+        generator.scheme = scheme;
+        generator.componentName = componentName;
+        generator.componentPackage = componentPackage;
+        generator.generatedSrcDir = generatedSrcDir.toPath();
+        generator.generatedTestDir = generatedTestDir.toPath();
+        generator.substitutions = substitutions;
+        generator.excludeConfigNames = excludeConfigNames;
+        generator.excludeConfigTypes = excludeConfigTypes;
+        generator.extraOptions = extraOptions;
+        generator.proxyClass = proxyClass;
+        generator.signatureFile = signatureFile.toString();
+        generator.execute();
+        setCompileSourceRoots();
     }
+
 }

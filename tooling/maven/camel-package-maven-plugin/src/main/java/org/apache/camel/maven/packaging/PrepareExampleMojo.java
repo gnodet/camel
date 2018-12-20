@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.camel.maven.packaging.model.ExampleModel;
+import org.apache.camel.tooling.model.ExampleModel;
 import org.apache.camel.tooling.helpers.StringHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;

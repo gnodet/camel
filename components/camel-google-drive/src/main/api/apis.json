@@ -1,0 +1,77 @@
+{
+  "apis": [
+    {
+      "apiName": "drive-about",
+      "proxyClass": "com.google.api.services.drive.Drive$About",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-apps",
+      "proxyClass": "com.google.api.services.drive.Drive$Apps",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-changes",
+      "proxyClass": "com.google.api.services.drive.Drive$Changes",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-channels",
+      "proxyClass": "com.google.api.services.drive.Drive$Channels",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-children",
+      "proxyClass": "com.google.api.services.drive.Drive$Children",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-comments",
+      "proxyClass": "com.google.api.services.drive.Drive$Comments",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-files",
+      "proxyClass": "com.google.api.services.drive.Drive$Files",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-parents",
+      "proxyClass": "com.google.api.services.drive.Drive$Parents",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-permissions",
+      "proxyClass": "com.google.api.services.drive.Drive$Permissions",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-properties",
+      "proxyClass": "com.google.api.services.drive.Drive$Properties",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-realtime",
+      "proxyClass": "com.google.api.services.drive.Drive$Realtime",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-replies",
+      "proxyClass": "com.google.api.services.drive.Drive$Replies",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drive-revisions",
+      "proxyClass": "com.google.api.services.drive.Drive$Revisions",
+      "fromJavadoc": {}
+    }
+  ],
+  "substitutions": [
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.drive.model.Channel",
+      "replacement": "contentChannel"
+    }
+  ]
+}

@@ -28,8 +28,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
-import org.apache.maven.project.MavenProject;
+import org.apache.camel.tooling.Generator;
 
 import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
 
@@ -42,21 +41,21 @@ public final class DocumentationHelper {
         //utility class, never constructed
     }
 
-    public static String findComponentJavaDoc(MavenProject project, String scheme, String extendsScheme, String fieldName) {
-        return findJavaDoc(project, scheme, extendsScheme, fieldName, "componentProperties");
+    public static String findComponentPropertyJavaDoc(Generator project, String name, String property) {
+        return findJavaDoc(project, name, property, "componentProperties");
     }
 
-    public static String findEndpointJavaDoc(MavenProject project, String scheme, String extendsScheme, String fieldName) {
-        return findJavaDoc(project, scheme, extendsScheme, fieldName, "properties");
+    public static String findEndpointPropertyJavaDoc(Generator project, String name, String property) {
+        return findJavaDoc(project, name, property, "properties");
     }
 
-    public static String findJavaDoc(MavenProject project, String scheme, String extendsScheme, String fieldName, String group) {
-        Path path = jsonFile(project, scheme, extendsScheme);
+    public static String findJavaDoc(Generator project, String name, String property, String group) {
+        Path path = jsonFile(project, "component", name);
         if (path != null) {
             try {
                 String json = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
                 List<Map<String, String>> rows = parseJsonSchema(group, json, true);
-                return getPropertyDescription(rows, fieldName);
+                return getPropertyDescription(rows, property);
             } catch (IOException e) {
                 throw new IOError(e);
             }
@@ -83,35 +82,33 @@ public final class DocumentationHelper {
         return null;
     }
 
-    private static Path jsonFile(MavenProject project, String scheme, String extendsScheme) {
-        List<String> classpath;
-        try {
-            classpath = project.getRuntimeClasspathElements();
-        } catch (DependencyResolutionRequiredException e) {
-            throw new IOError(e);
-        }
-        Path cp = classpath.stream()
+    public static Path jsonFile(Generator project, String type, String name) {
+        Path cp = project.getRuntimeClasspathElements().stream()
                 .map(IOHelper::asFolder)
-                .map(p -> p.resolve("META-INF/services/org/apache/camel/component").resolve(extendsScheme))
+                .map(p -> p.resolve("META-INF/services/org/apache/camel").resolve(type).resolve(name))
                 .filter(Files::isRegularFile)
                 .findAny()
                 .orElse(null);
         if (cp != null) {
-            String cc = IOHelper.lines(cp)
-                .filter(s -> s.startsWith("class="))
-                .map(s -> s.substring("class=".length()))
-                .findFirst()
-                .orElse(null);
+            String cc = readClassFromCamelResource(cp);
             if (cc != null) {
                 int idx = cc.lastIndexOf('.');
                 cc = cc.substring(0, idx);
-                Path jp = cp.resolve("/").resolve(cc.replace('.', '/')).resolve(extendsScheme + ".json");
+                Path jp = cp.resolve("/").resolve(cc.replace('.', '/')).resolve(name + ".json");
                 if (Files.isRegularFile(jp)) {
                     return jp;
                 }
             }
         }
         return null;
+    }
+
+    public static String readClassFromCamelResource(Path cp) {
+        return IOHelper.lines(cp)
+            .filter(s -> s.startsWith("class="))
+            .map(s -> s.substring("class=".length()))
+            .findFirst()
+            .orElse(null);
     }
 
     /**

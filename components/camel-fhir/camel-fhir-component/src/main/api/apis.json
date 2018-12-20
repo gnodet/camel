@@ -1,0 +1,126 @@
+{
+  "apis": [
+    {
+      "apiName": "capabilities",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirCapabilities",
+      "fromSignatureFile": "signatures/capabilities-sig-api.txt",
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "create",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirCreate",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "url",
+        "preferReturn",
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "delete",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirDelete",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "history",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirHistory",
+      "fromSignatureFile": "signatures/history-sig-api.txt",
+      "nullableOptions": [
+        "count",
+        "cutoff",
+        "iCutoff",
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "load-page",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirLoadPage",
+      "fromSignatureFile": "signatures/load-page-sig-api.txt",
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "meta",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirMeta",
+      "fromSignatureFile": "signatures/meta-sig-api.txt",
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "operation",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirOperation",
+      "fromSignatureFile": "signatures/operation-sig-api.txt",
+      "nullableOptions": [
+        "extraParameters",
+        "parameters",
+        "outputParameterType",
+        "returnType",
+        "respondToUri"
+      ]
+    },
+    {
+      "apiName": "patch",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirPatch",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "preferReturn",
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "read",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirRead",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "ifVersionMatches",
+        "returnNull",
+        "returnResource",
+        "throwError",
+        "extraParameters",
+        "version"
+      ]
+    },
+    {
+      "apiName": "search",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirSearch",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "transaction",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirTransaction",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "update",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirUpdate",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "id",
+        "stringId",
+        "preferReturn",
+        "extraParameters"
+      ]
+    },
+    {
+      "apiName": "validate",
+      "proxyClass": "org.apache.camel.component.fhir.api.FhirValidate",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "extraParameters"
+      ]
+    }
+  ]
+}

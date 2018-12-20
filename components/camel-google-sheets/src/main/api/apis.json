@@ -1,0 +1,64 @@
+{
+  "apis": [
+    {
+      "apiName": "spreadsheets",
+      "proxyClass": "com.google.api.services.sheets.v4.Sheets$Spreadsheets",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "data",
+      "proxyClass": "com.google.api.services.sheets.v4.Sheets$Spreadsheets$Values",
+      "fromJavadoc": {}
+    }
+  ],
+  "substitutions": [
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.ValueRange",
+      "replacement": "values"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest",
+      "replacement": "batchUpdateSpreadsheetRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.GetSpreadsheetByDataFilterRequest",
+      "replacement": "getSpreadsheetByDataFilterRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.ClearValuesRequest",
+      "replacement": "clearValuesRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.BatchClearValuesRequest",
+      "replacement": "batchClearValuesRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.BatchUpdateValuesByDataFilterRequest",
+      "replacement": "batchUpdateValuesByDataFilterRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.BatchGetValuesByDataFilterRequest",
+      "replacement": "batchGetValuesByDataFilterRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.sheets.v4.model.BatchUpdateValuesRequest",
+      "replacement": "batchUpdateValuesRequest"
+    }
+  ]
+}

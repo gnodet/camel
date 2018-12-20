@@ -18,7 +18,8 @@ package org.apache.camel.maven.packaging.ok;
 
 import java.io.File;
 
-import org.apache.camel.tooling.Project;
+import org.apache.camel.tooling.Generator;
+import org.apache.camel.tooling.maven.MavenGenerator;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -76,7 +77,8 @@ public class PackageOtherMojo extends AbstractMojo {
      * @throws MojoFailureException something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Project.project(getLog(), project, buildContext).prepareOthers(otherOutDir.toPath(), schemaOutDir.toPath());
+        MavenGenerator.generator(project, getLog(), buildContext)
+                .prepareOthers(otherOutDir.toPath(), schemaOutDir.toPath());
     }
 
 }

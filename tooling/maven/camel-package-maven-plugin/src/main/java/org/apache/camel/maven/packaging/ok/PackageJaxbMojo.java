@@ -17,32 +17,9 @@
 package org.apache.camel.maven.packaging.ok;
 
 import java.io.File;
-import java.io.IOError;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
-import java.net.URI;
-import java.nio.file.FileSystemAlreadyExistsException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Stream;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.apache.camel.tooling.Project;
-import org.apache.maven.artifact.Artifact;
+import org.apache.camel.tooling.Generator;
+import org.apache.camel.tooling.maven.MavenGenerator;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -53,12 +30,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.Index;
-import org.jboss.jandex.Indexer;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
@@ -100,7 +71,8 @@ public class PackageJaxbMojo extends AbstractMojo {
      * @throws MojoFailureException something bad happened...
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Project.project(getLog(), project, buildContext).processJaxb(jaxbIndexOutDir.toPath());
+        MavenGenerator.generator(project, getLog(), buildContext)
+                .processJaxb(jaxbIndexOutDir.toPath());
     }
 
 

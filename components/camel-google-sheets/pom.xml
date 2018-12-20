@@ -126,68 +126,6 @@
               <goal>fromApis</goal>
             </goals>
             <configuration>
-              <apis>
-                <api>
-                  <apiName>spreadsheets</apiName>
-                  <proxyClass>com.google.api.services.sheets.v4.Sheets$Spreadsheets</proxyClass>
-                  <fromJavadoc />
-                </api>
-                <api>
-                  <apiName>data</apiName>
-                  <proxyClass>com.google.api.services.sheets.v4.Sheets$Spreadsheets$Values</proxyClass>
-                  <fromJavadoc />
-                </api>
-              </apis>
-              <substitutions>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.ValueRange</argType>
-                  <replacement>values</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest</argType>
-                  <replacement>batchUpdateSpreadsheetRequest</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.GetSpreadsheetByDataFilterRequest</argType>
-                  <replacement>getSpreadsheetByDataFilterRequest</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.ClearValuesRequest</argType>
-                  <replacement>clearValuesRequest</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.BatchClearValuesRequest</argType>
-                  <replacement>batchClearValuesRequest</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.BatchUpdateValuesByDataFilterRequest</argType>
-                  <replacement>batchUpdateValuesByDataFilterRequest</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.BatchGetValuesByDataFilterRequest</argType>
-                  <replacement>batchGetValuesByDataFilterRequest</replacement>
-                </substitution>
-                <substitution>
-                  <method>^.+$</method>
-                  <argName>content</argName>
-                  <argType>com.google.api.services.sheets.v4.model.BatchUpdateValuesRequest</argType>
-                  <replacement>batchUpdateValuesRequest</replacement>
-                </substitution>
-              </substitutions>
             </configuration>
           </execution>
         </executions>

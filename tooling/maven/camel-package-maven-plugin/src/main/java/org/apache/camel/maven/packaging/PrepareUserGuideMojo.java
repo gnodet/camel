@@ -28,10 +28,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import java.util.Collections;
-import org.apache.camel.maven.packaging.model.ComponentModel;
-import org.apache.camel.maven.packaging.model.DataFormatModel;
-import org.apache.camel.maven.packaging.model.LanguageModel;
-import org.apache.camel.maven.packaging.model.OtherModel;
+import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.LanguageModel;
+import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.helpers.JSonSchemaHelper;
 import org.apache.camel.tooling.helpers.StringHelper;
 import org.apache.maven.plugin.AbstractMojo;

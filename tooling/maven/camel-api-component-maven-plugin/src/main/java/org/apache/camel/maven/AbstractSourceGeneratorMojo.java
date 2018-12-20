@@ -25,15 +25,15 @@ import org.apache.maven.plugins.annotations.Parameter;
  */
 public abstract class AbstractSourceGeneratorMojo extends AbstractGeneratorMojo {
 
+    enum CompileRoots {
+        source, test, all, none
+    }
+
     @Parameter(defaultValue = "${project.build.directory}/generated-sources/camel-component")
     protected File generatedSrcDir;
 
     @Parameter(defaultValue = "${project.build.directory}/generated-test-sources/camel-component")
     protected File generatedTestDir;
-
-    enum CompileRoots {
-        source, test, all, none
-    }
 
     @Parameter(defaultValue = "all", property = PREFIX + "addCompileSourceRoots")
     protected CompileRoots addCompileSourceRoots = CompileRoots.all;
@@ -42,10 +42,8 @@ public abstract class AbstractSourceGeneratorMojo extends AbstractGeneratorMojo 
         switch (addCompileSourceRoots) {
         case source:
             project.addCompileSourceRoot(generatedSrcDir.getAbsolutePath());
-            project.addCompileSourceRoot(generatedTestDir.getAbsolutePath());
             break;
         case test:
-            project.addTestCompileSourceRoot(generatedSrcDir.getAbsolutePath());
             project.addTestCompileSourceRoot(generatedTestDir.getAbsolutePath());
             break;
         case all:

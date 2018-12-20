@@ -47,6 +47,14 @@ public class IOHelper {
         }
     }
 
+    public static Stream<Path> list(Path p) {
+        try {
+            return Files.list(p);
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
+
     public static Stream<Path> walk(Path p) {
         try {
             return Files.walk(p);

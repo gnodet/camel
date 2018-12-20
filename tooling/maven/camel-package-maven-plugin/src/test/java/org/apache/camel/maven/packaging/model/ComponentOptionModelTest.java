@@ -16,6 +16,7 @@
  */
 package org.apache.camel.maven.packaging.model;
 
+import org.apache.camel.tooling.model.ComponentOptionModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

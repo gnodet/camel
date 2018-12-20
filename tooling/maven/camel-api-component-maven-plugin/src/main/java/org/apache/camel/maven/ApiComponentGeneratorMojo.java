@@ -17,29 +17,56 @@
 package org.apache.camel.maven;
 
 import java.io.File;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
+import java.util.stream.Stream;
 
+import org.apache.camel.apigen.ApiComponentGenerator;
+import org.apache.camel.apigen.model.ApiMethodAlias;
+import org.apache.camel.apigen.model.ApiProxy;
+import org.apache.camel.apigen.model.ExtraOption;
+import org.apache.camel.apigen.model.FromJavadoc;
+import org.apache.camel.apigen.model.Substitution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.apache.velocity.VelocityContext;
+import org.json.simple.JsonObject;
+import org.json.simple.Jsoner;
 
 /**
  * Generates Camel Component based on a collection of APIs.
  */
 @Mojo(name = "fromApis", requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME, requiresProject = true,
         defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class ApiComponentGeneratorMojo extends AbstractApiMethodBaseMojo {
+public class ApiComponentGeneratorMojo extends AbstractSourceGeneratorMojo {
+
+    @Parameter(defaultValue = "src/main/api/")
+    protected File input;
+
+    @Parameter(property = PREFIX + "substitutions")
+    protected Substitution[] substitutions = new Substitution[0];
+
+    @Parameter(property = PREFIX + "excludeConfigNames")
+    protected String excludeConfigNames;
+
+    @Parameter(property = PREFIX + "excludeConfigTypes")
+    protected String excludeConfigTypes;
+
+    @Parameter
+    protected ExtraOption[] extraOptions;
 
     /**
      * List of API names, proxies and code generation settings.
      */
-    @Parameter(required = true)
+    @Parameter
     protected ApiProxy[] apis;
 
     /**
@@ -62,223 +89,60 @@ public class ApiComponentGeneratorMojo extends AbstractApiMethodBaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        if (apis == null || apis.length == 0) {
-            throw new MojoExecutionException("One or more API proxies are required");
-        }
-
-        // starting with a new project
-        clearSharedProjectState();
-        setSharedProjectState(true);
-
-        try {
-            // fix apiName for single API use-case since Maven configurator sets empty parameters as null!!!
-            if (apis.length == 1 && apis[0].getApiName() == null) {
-                apis[0].setApiName("");
-            }
-
-            // generate API methods for each API proxy
-            for (ApiProxy api : apis) {
-                // validate API configuration
-                api.validate();
-
-                // create the appropriate code generator if signatureFile or fromJavaDoc are specified
-                // this way users can skip generating API classes for duplicate proxy class references
-                final AbstractApiMethodGeneratorMojo apiMethodGenerator = getApiMethodGenerator(api);
-
-                if (apiMethodGenerator != null) {
-                    // configure API method properties and generate Proxy classes
-                    configureMethodGenerator(apiMethodGenerator, api);
-                    try {
-                        apiMethodGenerator.execute();
-                    } catch (Exception e) {
-                        final String msg = "Error generating source for " + api.getProxyClass() + ": " + e.getMessage();
-                        throw new MojoExecutionException(msg, e);
-                    }
-                } else {
-                    // make sure the proxy class is being generated elsewhere
-                    final String proxyClass = api.getProxyClass();
-                    boolean found = false;
-                    for (ApiProxy other : apis) {
-                        if (other != api && proxyClass.equals(other.getProxyClass())) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        throw new MojoExecutionException("Missing one of fromSignatureFile or fromJavadoc for "
-                                + proxyClass);
-                    }
-                }
-
-                // set common aliases if needed
-                if (!aliases.isEmpty() && api.getAliases().isEmpty()) {
-                    api.setAliases(aliases);
-                }
-
-                // set common nullable options if needed
-                if (api.getNullableOptions() == null) {
-                    api.setNullableOptions(nullableOptions);
-                }
-            }
-
-            // generate ApiCollection
-            mergeTemplate(getApiContext(), getApiCollectionFile(), "/api-collection.vm");
-
-            // generate ApiName
-            mergeTemplate(getApiContext(), getApiNameFile(), "/api-name-enum.vm");
-
-        } finally {
-            // clear state for next Mojo
-            setSharedProjectState(false);
-            clearSharedProjectState();
-        }
-    }
-    
-    private void configureMethodGenerator(AbstractApiMethodGeneratorMojo mojo, ApiProxy apiProxy) {
-
-        // set AbstractGeneratorMojo properties
-        mojo.componentName = componentName;
-        mojo.scheme = scheme;
-        mojo.outPackage = outPackage;
-        mojo.componentPackage = componentPackage;
-        mojo.project = project;
-
-        // set AbstractSourceGeneratorMojo properties
-        mojo.generatedSrcDir = generatedSrcDir;
-        mojo.generatedTestDir = generatedTestDir;
-        mojo.addCompileSourceRoots = addCompileSourceRoots;
-
-        // set AbstractAPIMethodBaseMojo properties
-        mojo.substitutions = apiProxy.getSubstitutions().length != 0
-                ? apiProxy.getSubstitutions() : substitutions;
-        mojo.excludeConfigNames = apiProxy.getExcludeConfigNames() != null
-                ? apiProxy.getExcludeConfigNames() : excludeConfigNames;
-        mojo.excludeConfigTypes = apiProxy.getExcludeConfigTypes() != null
-                ? apiProxy.getExcludeConfigTypes() : excludeConfigTypes;
-        mojo.extraOptions = apiProxy.getExtraOptions() != null
-                ? apiProxy.getExtraOptions() : extraOptions;
-
-        // set AbstractAPIMethodGeneratorMojo properties
-        mojo.proxyClass = apiProxy.getProxyClass();
-    }
-
-    private AbstractApiMethodGeneratorMojo getApiMethodGenerator(ApiProxy api) {
-        AbstractApiMethodGeneratorMojo apiMethodGenerator = null;
-
-        final File signatureFile = api.getFromSignatureFile();
-        if (signatureFile != null) {
-
-            final FileApiMethodGeneratorMojo fileMojo = new FileApiMethodGeneratorMojo();
-            fileMojo.signatureFile = signatureFile;
-            apiMethodGenerator = fileMojo;
-
-        } else {
-
-            final FromJavadoc apiFromJavadoc = api.getFromJavadoc();
-            if (apiFromJavadoc != null) {
-                final JavadocApiMethodGeneratorMojo javadocMojo = new JavadocApiMethodGeneratorMojo();
-                javadocMojo.excludePackages = apiFromJavadoc.getExcludePackages() != null
-                        ? apiFromJavadoc.getExcludePackages() : fromJavadoc.getExcludePackages();
-                javadocMojo.excludeClasses = apiFromJavadoc.getExcludeClasses() != null
-                        ? apiFromJavadoc.getExcludeClasses() : fromJavadoc.getExcludeClasses();
-                javadocMojo.includeMethods = apiFromJavadoc.getIncludeMethods() != null
-                        ? apiFromJavadoc.getIncludeMethods() : fromJavadoc.getIncludeMethods();
-                javadocMojo.excludeMethods = apiFromJavadoc.getExcludeMethods() != null
-                        ? apiFromJavadoc.getExcludeMethods() : fromJavadoc.getExcludeMethods();
-                javadocMojo.includeStaticMethods = apiFromJavadoc.getIncludeStaticMethods() != null
-                        ? apiFromJavadoc.getIncludeStaticMethods() : fromJavadoc.getIncludeStaticMethods();
-
-                apiMethodGenerator = javadocMojo;
-            }
-        }
-        return apiMethodGenerator;
-    }
-
-    private VelocityContext getApiContext() {
-        final VelocityContext context = new VelocityContext();
-        context.put("componentName", componentName);
-        context.put("componentPackage", componentPackage);
-        context.put("apis", apis);
-        context.put("helper", getClass());
-        context.put("collectionName", getApiCollectionName());
-        context.put("apiNameEnum", getApiNameEnum());
-        return context;
-    }
-
-    private String getApiCollectionName() {
-        return componentName + "ApiCollection";
-    }
-
-    private String getApiNameEnum() {
-        return componentName + "ApiName";
-    }
-
-    private File getApiCollectionFile() {
-        final StringBuilder fileName = getFileBuilder();
-        fileName.append(getApiCollectionName()).append(".java");
-        return new File(generatedSrcDir, fileName.toString());
-    }
-
-    private File getApiNameFile() {
-        final StringBuilder fileName = getFileBuilder();
-        fileName.append(getApiNameEnum()).append(".java");
-        return new File(generatedSrcDir, fileName.toString());
-    }
-
-    private StringBuilder getFileBuilder() {
-        final StringBuilder fileName = new StringBuilder();
-        fileName.append(outPackage.replaceAll("\\.", Matcher.quoteReplacement(File.separator))).append(File.separator);
-        return fileName;
-    }
-
-    public static String getApiMethod(String proxyClass) {
-        String proxyClassWithCanonicalName = getProxyClassWithCanonicalName(proxyClass);        
-        return proxyClassWithCanonicalName.substring(proxyClassWithCanonicalName.lastIndexOf('.') + 1) + "ApiMethod";
-    }
-
-    public static String getEndpointConfig(String proxyClass) {
-        String proxyClassWithCanonicalName = getProxyClassWithCanonicalName(proxyClass);
-        return proxyClassWithCanonicalName.substring(proxyClassWithCanonicalName.lastIndexOf('.') + 1) + "EndpointConfiguration";
-    }
-
-    private static String getProxyClassWithCanonicalName(String proxyClass) {
-        return proxyClass.replace("$", "");
-    }
-
-    public static String getEnumConstant(String enumValue) {
-        if (enumValue == null || enumValue.isEmpty()) {
-            return "DEFAULT";
-        }
-        StringBuilder builder = new StringBuilder();
-        if (!Character.isJavaIdentifierStart(enumValue.charAt(0))) {
-            builder.append('_');
-        }
-        for (char c : enumValue.toCharArray()) {
-            char upperCase = Character.toUpperCase(c);
-            if (!Character.isJavaIdentifierPart(upperCase)) {
-                builder.append('_');
+        Stream<ApiComponentGenerator> generators;
+        if (apis != null) {
+            ApiComponentGenerator generator = new ApiComponentGenerator();
+            generator.substitutions = substitutions;
+            generator.excludeConfigNames = excludeConfigNames;
+            generator.excludeConfigTypes = excludeConfigTypes;
+            generator.extraOptions = extraOptions;
+            generator.apis = apis;
+            generator.fromJavadoc = fromJavadoc;
+            generator.nullableOptions = nullableOptions;
+            generator.aliases = aliases;
+            generators = Stream.of(generator);
+        } else if (input != null) {
+            Path in = input.toPath();
+            Stream<Path> s;
+            if (Files.isDirectory(in)) {
+                s = list(in).filter(p -> p.getFileName().toString().endsWith(".json"));
+            } else if (Files.isRegularFile(in)) {
+                s = Stream.of(in);
             } else {
-                builder.append(upperCase);
+                s = Stream.empty();
             }
+            generators = s.map(this::toJson)
+                    .map(ApiComponentGenerator::toGenerator);
+        } else {
+            generators = Stream.empty();
         }
-        return builder.toString();
+        generators.forEach(generator -> {
+            generator.project = createProject();
+            generator.outPackage = outPackage;
+            generator.scheme = scheme;
+            generator.componentName = componentName;
+            generator.componentPackage = componentPackage;
+            generator.generatedSrcDir = generatedSrcDir.toPath();
+            generator.generatedTestDir = generatedTestDir.toPath();
+            generator.execute();
+        });
+        setCompileSourceRoots();
     }
 
-    public static String getNullableOptionValues(String[] nullableOptions) {
-
-        if (nullableOptions == null || nullableOptions.length == 0) {
-            return "";
+    private JsonObject toJson(Path p) {
+        try (Reader r = Files.newBufferedReader(p)) {
+            return (JsonObject) Jsoner.deserialize(r);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
-        final StringBuilder builder = new StringBuilder();
-        final int nOptions = nullableOptions.length;
-        int i = 0;
-        for (String option : nullableOptions) {
-            builder.append('"').append(option).append('"');
-            if (++i < nOptions) {
-                builder.append(", ");
-            }
-        }
-        return builder.toString();
     }
+
+    public static Stream<Path> list(Path p) {
+        try {
+            return Files.list(p);
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
+    }
+
 }

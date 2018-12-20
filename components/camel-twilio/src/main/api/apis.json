@@ -1,0 +1,474 @@
+{
+  "apis": [
+    {
+      "apiName": "account",
+      "proxyClass": "com.twilio.rest.api.v2010.Account",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "address",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Address",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "application",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Application",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "available-phone-number-country",
+      "proxyClass": "com.twilio.rest.api.v2010.account.AvailablePhoneNumberCountry",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "call",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Call",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "conference",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Conference",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "connect-app",
+      "proxyClass": "com.twilio.rest.api.v2010.account.ConnectApp",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "incoming-phone-number",
+      "proxyClass": "com.twilio.rest.api.v2010.account.IncomingPhoneNumber",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "key",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Key",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "message",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Message",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "new-key",
+      "proxyClass": "com.twilio.rest.api.v2010.account.NewKey",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "new-signing-key",
+      "proxyClass": "com.twilio.rest.api.v2010.account.NewSigningKey",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "notification",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Notification",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "outgoing-caller-id",
+      "proxyClass": "com.twilio.rest.api.v2010.account.OutgoingCallerId",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "queue",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Queue",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "recording",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Recording",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "short-code",
+      "proxyClass": "com.twilio.rest.api.v2010.account.ShortCode",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "signing-key",
+      "proxyClass": "com.twilio.rest.api.v2010.account.SigningKey",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "token",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Token",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "transcription",
+      "proxyClass": "com.twilio.rest.api.v2010.account.Transcription",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "validation-request",
+      "proxyClass": "com.twilio.rest.api.v2010.account.ValidationRequest",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "address-dependent-phone-number",
+      "proxyClass": "com.twilio.rest.api.v2010.account.address.DependentPhoneNumber",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "available-phone-number-country-local",
+      "proxyClass": "com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "available-phone-number-country-mobile",
+      "proxyClass": "com.twilio.rest.api.v2010.account.availablephonenumbercountry.Mobile",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "available-phone-number-country-toll-free",
+      "proxyClass": "com.twilio.rest.api.v2010.account.availablephonenumbercountry.TollFree",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "call-feedback",
+      "proxyClass": "com.twilio.rest.api.v2010.account.call.Feedback",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "call-feedback-summary",
+      "proxyClass": "com.twilio.rest.api.v2010.account.call.FeedbackSummary",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "call-notification",
+      "proxyClass": "com.twilio.rest.api.v2010.account.call.Notification",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "call-recording",
+      "proxyClass": "com.twilio.rest.api.v2010.account.call.Recording",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "conference-participant",
+      "proxyClass": "com.twilio.rest.api.v2010.account.conference.Participant",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "incoming-phone-number-local",
+      "proxyClass": "com.twilio.rest.api.v2010.account.incomingphonenumber.Local",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "incoming-phone-number-mobile",
+      "proxyClass": "com.twilio.rest.api.v2010.account.incomingphonenumber.Mobile",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "incoming-phone-number-toll-free",
+      "proxyClass": "com.twilio.rest.api.v2010.account.incomingphonenumber.TollFree",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "message-feedback",
+      "proxyClass": "com.twilio.rest.api.v2010.account.message.Feedback",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "message-media",
+      "proxyClass": "com.twilio.rest.api.v2010.account.message.Media",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "queue-member",
+      "proxyClass": "com.twilio.rest.api.v2010.account.queue.Member",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "recording-add-on-result",
+      "proxyClass": "com.twilio.rest.api.v2010.account.recording.AddOnResult",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "recording-transcription",
+      "proxyClass": "com.twilio.rest.api.v2010.account.recording.Transcription",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "recording-add-on-result-payload",
+      "proxyClass": "com.twilio.rest.api.v2010.account.recording.addonresult.Payload",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-credential-list",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.CredentialList",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-domain",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.Domain",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-ip-access-control-list",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.IpAccessControlList",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-credential-list-credential",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.credentiallist.Credential",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-domain-credential-list-mapping",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.domain.CredentialListMapping",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-domain-ip-access-control-list-mapping",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.domain.IpAccessControlListMapping",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "sip-ip-access-control-list-ip-address",
+      "proxyClass": "com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist.IpAddress",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.Record",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-trigger",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.Trigger",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-all-time",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.AllTime",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-daily",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.Daily",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-last-month",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.LastMonth",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-monthly",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.Monthly",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-this-month",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.ThisMonth",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-today",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.Today",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-yearly",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.Yearly",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    },
+    {
+      "apiName": "usage-record-yesterday",
+      "proxyClass": "com.twilio.rest.api.v2010.account.usage.record.Yesterday",
+      "fromJavadoc": {
+        "includeMethods": "creator|deleter|fetcher|reader|updater",
+        "includeStaticMethods": true
+      }
+    }
+  ],
+  "aliases": [
+    {
+      "methodPattern": "^creator$",
+      "methodAlias": "create"
+    },
+    {
+      "methodPattern": "^deleter$",
+      "methodAlias": "delete"
+    },
+    {
+      "methodPattern": "^fetcher$",
+      "methodAlias": "fetch"
+    },
+    {
+      "methodPattern": "^reader$",
+      "methodAlias": "read"
+    },
+    {
+      "methodPattern": "^updater$",
+      "methodAlias": "update"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "apis": [
+    {
+      "apiName": "threads",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users$Threads",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "messages",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users$Messages",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "attachments",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users$Messages$Attachments",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "labels",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users$Labels",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "history",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users$History",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "drafts",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users$Drafts",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "users",
+      "proxyClass": "com.google.api.services.gmail.Gmail$Users",
+      "fromJavadoc": {
+        "includeMethods": "getProfile"
+      }
+    }
+  ],
+  "substitutions": [
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.gmail.model.Channel",
+      "replacement": "contentChannel"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.gmail.model.ModifyMessageRequest",
+      "replacement": "modifyMessageRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.gmail.model.BatchModifyMessagesRequest",
+      "replacement": "batchModifyMessagesRequest"
+    },
+    {
+      "method": "^.+$",
+      "argName": "content",
+      "argType": "com.google.api.services.gmail.model.BatchDeleteMessagesRequest",
+      "replacement": "batchDeleteMessagesRequest"
+    }
+  ]
+}

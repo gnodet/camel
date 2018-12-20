@@ -1,0 +1,118 @@
+{
+  "apis": [
+    {
+      "apiName": "comments",
+      "proxyClass": "org.apache.camel.component.linkedin.api.CommentsResource",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "companies",
+      "proxyClass": "org.apache.camel.component.linkedin.api.CompaniesResource",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "companySizes",
+        "count",
+        "email_domain",
+        "end_timestamp",
+        "event_type",
+        "geos",
+        "industries",
+        "is_company_admin",
+        "jobFunc",
+        "secure_urls",
+        "seniorities",
+        "start",
+        "start_timestamp",
+        "statistics_update_key",
+        "time_granularity"
+      ],
+      "substitutions": [
+        {
+          "method": "^getHistoricalStatusUpdateStatistics$",
+          "argName": "update_key",
+          "argType": "java.lang.String",
+          "replacement": "statistics_update_key"
+        }
+      ]
+    },
+    {
+      "apiName": "groups",
+      "proxyClass": "org.apache.camel.component.linkedin.api.GroupsResource",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "category",
+        "count",
+        "modified_since",
+        "order",
+        "start"
+      ]
+    },
+    {
+      "apiName": "jobs",
+      "proxyClass": "org.apache.camel.component.linkedin.api.JobsResource",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "people",
+      "proxyClass": "org.apache.camel.component.linkedin.api.PeopleResource",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "after",
+        "before",
+        "category",
+        "count",
+        "membership_state",
+        "modified_since",
+        "order",
+        "public_profile_url",
+        "role",
+        "scope",
+        "secure_urls",
+        "show_hidden_members",
+        "start",
+        "type"
+      ]
+    },
+    {
+      "apiName": "posts",
+      "proxyClass": "org.apache.camel.component.linkedin.api.PostsResource",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "count",
+        "start"
+      ]
+    },
+    {
+      "apiName": "search",
+      "proxyClass": "org.apache.camel.component.linkedin.api.SearchResource",
+      "fromJavadoc": {},
+      "nullableOptions": [
+        "company_name",
+        "count",
+        "country_code",
+        "current_company",
+        "current_school",
+        "current_title",
+        "distance",
+        "facet",
+        "facets",
+        "first_name",
+        "hq_only",
+        "job_title",
+        "keywords",
+        "last_name",
+        "postal_code",
+        "school_name",
+        "sort",
+        "start",
+        "title"
+      ]
+    }
+  ],
+  "aliases": [
+    {
+      "methodPattern": "(add|get|remove|search)(.+)",
+      "methodAlias": "$2"
+    }
+  ]
+}

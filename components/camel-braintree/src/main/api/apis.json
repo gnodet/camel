@@ -1,0 +1,152 @@
+{
+  "apis": [
+    {
+      "apiName": "addOn",
+      "proxyClass": "com.braintreegateway.AddOnGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "address",
+      "proxyClass": "com.braintreegateway.AddressGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "clientToken",
+      "proxyClass": "com.braintreegateway.ClientTokenGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "creditCardVerification",
+      "proxyClass": "com.braintreegateway.CreditCardVerificationGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "customer",
+      "proxyClass": "com.braintreegateway.CustomerGateway",
+      "fromJavadoc": {
+        "excludeMethods": ".*ransparent.*"
+      }
+    },
+    {
+      "apiName": "discount",
+      "proxyClass": "com.braintreegateway.DiscountGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "dispute",
+      "proxyClass": "com.braintreegateway.DisputeGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "documentUpload",
+      "proxyClass": "com.braintreegateway.DocumentUploadGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "merchantAccount",
+      "proxyClass": "com.braintreegateway.MerchantAccountGateway",
+      "fromJavadoc": {},
+      "substitutions": [
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.MerchantAccountRequest",
+          "replacement": "request",
+          "replaceWithType": false
+        },
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.MerchantAccountCreateForCurrencyRequest",
+          "replacement": "currencyRequest",
+          "replaceWithType": false
+        }
+      ]
+    },
+    {
+      "apiName": "paymentMethod",
+      "proxyClass": "com.braintreegateway.PaymentMethodGateway",
+      "fromJavadoc": {
+        "excludeMethods": ".*parse.*"
+      },
+      "substitutions": [
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.PaymentMethodRequest",
+          "replacement": "request",
+          "replaceWithType": false
+        },
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.PaymentMethodDeleteRequest",
+          "replacement": "deleteRequest",
+          "replaceWithType": false
+        }
+      ]
+    },
+    {
+      "apiName": "paymentMethodNonce",
+      "proxyClass": "com.braintreegateway.PaymentMethodNonceGateway",
+      "fromJavadoc": {
+        "excludeMethods": ".*parse.*"
+      }
+    },
+    {
+      "apiName": "plan",
+      "proxyClass": "com.braintreegateway.PlanGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "report",
+      "proxyClass": "com.braintreegateway.ReportGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "settlementBatchSummary",
+      "proxyClass": "com.braintreegateway.SettlementBatchSummaryGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "subscription",
+      "proxyClass": "com.braintreegateway.SubscriptionGateway",
+      "fromJavadoc": {}
+    },
+    {
+      "apiName": "transaction",
+      "proxyClass": "com.braintreegateway.TransactionGateway",
+      "fromJavadoc": {
+        "excludeMethods": ".*TrData.*|.*ransparent.*"
+      },
+      "substitutions": [
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.TransactionRequest",
+          "replacement": "request",
+          "replaceWithType": false
+        },
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.TransactionRefundRequest",
+          "replacement": "refundRequest",
+          "replaceWithType": false
+        },
+        {
+          "method": "^.+$",
+          "argName": "^.+$",
+          "argType": "com.braintreegateway.TransactionCloneRequest",
+          "replacement": "cloneRequest",
+          "replaceWithType": false
+        }
+      ]
+    },
+    {
+      "apiName": "webhookNotification",
+      "proxyClass": "com.braintreegateway.WebhookNotificationGateway",
+      "fromJavadoc": {}
+    }
+  ]
+}
