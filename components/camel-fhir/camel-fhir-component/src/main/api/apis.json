@@ -3,7 +3,7 @@
     {
       "apiName": "capabilities",
       "proxyClass": "org.apache.camel.component.fhir.api.FhirCapabilities",
-      "fromSignatureFile": "signatures/capabilities-sig-api.txt",
+      "fromSignatureFile": "src/main/api/capabilities-sig-api.txt",
       "nullableOptions": [
         "extraParameters"
       ]
@@ -29,7 +29,7 @@
     {
       "apiName": "history",
       "proxyClass": "org.apache.camel.component.fhir.api.FhirHistory",
-      "fromSignatureFile": "signatures/history-sig-api.txt",
+      "fromSignatureFile": "src/main/api/history-sig-api.txt",
       "nullableOptions": [
         "count",
         "cutoff",
@@ -40,7 +40,7 @@
     {
       "apiName": "load-page",
       "proxyClass": "org.apache.camel.component.fhir.api.FhirLoadPage",
-      "fromSignatureFile": "signatures/load-page-sig-api.txt",
+      "fromSignatureFile": "src/main/api/load-page-sig-api.txt",
       "nullableOptions": [
         "extraParameters"
       ]
@@ -48,7 +48,7 @@
     {
       "apiName": "meta",
       "proxyClass": "org.apache.camel.component.fhir.api.FhirMeta",
-      "fromSignatureFile": "signatures/meta-sig-api.txt",
+      "fromSignatureFile": "src/main/api/meta-sig-api.txt",
       "nullableOptions": [
         "extraParameters"
       ]
@@ -56,7 +56,7 @@
     {
       "apiName": "operation",
       "proxyClass": "org.apache.camel.component.fhir.api.FhirOperation",
-      "fromSignatureFile": "signatures/operation-sig-api.txt",
+      "fromSignatureFile": "src/main/api/operation-sig-api.txt",
       "nullableOptions": [
         "extraParameters",
         "parameters",
