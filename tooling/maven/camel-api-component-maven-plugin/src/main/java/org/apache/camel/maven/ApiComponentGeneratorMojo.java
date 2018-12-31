@@ -26,12 +26,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.apache.camel.apigen.ApiComponentGenerator;
-import org.apache.camel.apigen.model.ApiMethodAlias;
-import org.apache.camel.apigen.model.ApiProxy;
-import org.apache.camel.apigen.model.ExtraOption;
-import org.apache.camel.apigen.model.FromJavadoc;
-import org.apache.camel.apigen.model.Substitution;
+import org.apache.camel.tooling.apigen.ApiComponentGenerator;
+import org.apache.camel.tooling.apigen.helpers.IOHelper;
+import org.apache.camel.tooling.apigen.model.ApiMethodAlias;
+import org.apache.camel.tooling.apigen.model.ApiProxy;
+import org.apache.camel.tooling.apigen.model.ExtraOption;
+import org.apache.camel.tooling.apigen.model.FromJavadoc;
+import org.apache.camel.tooling.apigen.model.Substitution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -105,13 +106,13 @@ public class ApiComponentGeneratorMojo extends AbstractSourceGeneratorMojo {
             Path in = input.toPath();
             Stream<Path> s;
             if (Files.isDirectory(in)) {
-                s = list(in).filter(p -> p.getFileName().toString().endsWith(".json"));
+                s = IOHelper.list(in).filter(p -> p.getFileName().toString().endsWith(".json"));
             } else if (Files.isRegularFile(in)) {
                 s = Stream.of(in);
             } else {
                 s = Stream.empty();
             }
-            generators = s.map(this::toJson)
+            generators = s.map(IOHelper::toJson)
                     .map(ApiComponentGenerator::toGenerator);
         } else {
             generators = Stream.empty();
@@ -127,22 +128,6 @@ public class ApiComponentGeneratorMojo extends AbstractSourceGeneratorMojo {
             generator.execute();
         });
         setCompileSourceRoots();
-    }
-
-    private JsonObject toJson(Path p) {
-        try (Reader r = Files.newBufferedReader(p)) {
-            return (JsonObject) Jsoner.deserialize(r);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Stream<Path> list(Path p) {
-        try {
-            return Files.list(p);
-        } catch (IOException e) {
-            throw new IOError(e);
-        }
     }
 
 }

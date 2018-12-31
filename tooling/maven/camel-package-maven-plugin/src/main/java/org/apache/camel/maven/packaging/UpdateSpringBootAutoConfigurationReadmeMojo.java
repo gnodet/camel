@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import org.apache.camel.tooling.model.SpringBootAutoConfigureOptionModel;
-import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.camel.tooling.packaging.model.SpringBootAutoConfigureOptionModel;
+import org.apache.camel.tooling.packaging.helpers.StringHelper;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -43,8 +43,8 @@ import org.json.simple.Jsoner;
 import org.mvel2.templates.TemplateRuntime;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
-import static org.apache.camel.tooling.helpers.PackageHelper.writeText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.writeText;
 
 /**
  * For all the Camel components that has Spring Boot starter JAR, their documentation

@@ -18,8 +18,7 @@ package org.apache.camel.maven.packaging.ok;
 
 import java.io.File;
 
-import org.apache.camel.tooling.Generator;
-import org.apache.camel.tooling.maven.MavenGenerator;
+import org.apache.camel.tooling.packaging.maven.MavenGenerator;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;

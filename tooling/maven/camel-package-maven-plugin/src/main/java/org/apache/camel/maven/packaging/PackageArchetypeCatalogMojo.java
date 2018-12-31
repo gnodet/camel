@@ -35,7 +35,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 
-import static org.apache.camel.tooling.helpers.StringHelper.between;
+import static org.apache.camel.tooling.packaging.helpers.StringHelper.between;
 
 /**
  * Creates the Maven catalog for the Camel archetypes

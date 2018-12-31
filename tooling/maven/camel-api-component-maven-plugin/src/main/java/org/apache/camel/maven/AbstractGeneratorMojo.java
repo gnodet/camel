@@ -20,8 +20,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.apache.camel.apigen.AbstractGenerator;
-import org.apache.camel.apigen.AbstractGenerator.Project;
+import org.apache.camel.tooling.apigen.AbstractGenerator;
+import org.apache.camel.tooling.apigen.AbstractGenerator.Project;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -58,7 +58,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     protected AbstractGenerator.Project createProject() {
         return new Project() {
             @Override
-            public List<String> getClasspathElements() {
+            public List<String> getClasspath() {
                 try {
                     return project.getTestClasspathElements();
                 } catch (DependencyResolutionRequiredException e) {

@@ -28,12 +28,12 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import java.util.Collections;
-import org.apache.camel.tooling.model.ComponentModel;
-import org.apache.camel.tooling.model.DataFormatModel;
-import org.apache.camel.tooling.model.LanguageModel;
-import org.apache.camel.tooling.model.OtherModel;
-import org.apache.camel.tooling.helpers.JSonSchemaHelper;
-import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.camel.tooling.packaging.model.ComponentModel;
+import org.apache.camel.tooling.packaging.model.DataFormatModel;
+import org.apache.camel.tooling.packaging.model.LanguageModel;
+import org.apache.camel.tooling.packaging.model.OtherModel;
+import org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.packaging.helpers.StringHelper;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -43,8 +43,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
-import static org.apache.camel.tooling.helpers.PackageHelper.writeText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.writeText;
 
 /**
  * Prepares the user guide to keep the table of content up to date with the components, data formats, and languages.

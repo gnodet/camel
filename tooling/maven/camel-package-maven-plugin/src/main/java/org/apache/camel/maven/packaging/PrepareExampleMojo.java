@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.camel.tooling.model.ExampleModel;
-import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.camel.tooling.packaging.model.ExampleModel;
+import org.apache.camel.tooling.packaging.helpers.StringHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -44,8 +44,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.mvel2.templates.TemplateRuntime;
 
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
-import static org.apache.camel.tooling.helpers.PackageHelper.writeText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.writeText;
 
 /**
  * Prepares the readme.md files content up to date with all the examples that Apache Camel ships.

@@ -39,7 +39,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
 
 /**
  * Prepares the Spring Boot provider camel catalog to include component it supports

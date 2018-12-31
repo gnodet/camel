@@ -59,7 +59,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import org.apache.camel.tooling.helpers.SpringBootHelper;
+import org.apache.camel.tooling.packaging.helpers.SpringBootHelper;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;

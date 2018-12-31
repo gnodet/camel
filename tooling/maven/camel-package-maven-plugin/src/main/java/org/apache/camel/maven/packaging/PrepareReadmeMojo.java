@@ -29,13 +29,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.camel.tooling.model.ComponentModel;
-import org.apache.camel.tooling.model.DataFormatModel;
-import org.apache.camel.tooling.model.EipModel;
-import org.apache.camel.tooling.model.LanguageModel;
-import org.apache.camel.tooling.model.OtherModel;
-import org.apache.camel.tooling.helpers.JSonSchemaHelper;
-import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.camel.tooling.packaging.model.ComponentModel;
+import org.apache.camel.tooling.packaging.model.DataFormatModel;
+import org.apache.camel.tooling.packaging.model.EipModel;
+import org.apache.camel.tooling.packaging.model.LanguageModel;
+import org.apache.camel.tooling.packaging.model.OtherModel;
+import org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.packaging.helpers.StringHelper;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -47,8 +47,8 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.mvel2.templates.TemplateRuntime;
 
 import static java.util.stream.Collectors.toSet;
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
-import static org.apache.camel.tooling.helpers.PackageHelper.writeText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.writeText;
 
 /**
  * Prepares the readme.md files content up to date with all the artifacts that Apache Camel ships.

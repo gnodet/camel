@@ -28,17 +28,17 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import org.apache.camel.tooling.model.ComponentModel;
-import org.apache.camel.tooling.model.ComponentOptionModel;
-import org.apache.camel.tooling.model.DataFormatModel;
-import org.apache.camel.tooling.model.DataFormatOptionModel;
-import org.apache.camel.tooling.model.EipModel;
-import org.apache.camel.tooling.model.EipOptionModel;
-import org.apache.camel.tooling.model.EndpointOptionModel;
-import org.apache.camel.tooling.model.LanguageModel;
-import org.apache.camel.tooling.model.LanguageOptionModel;
-import org.apache.camel.tooling.helpers.PackageHelper;
-import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.camel.tooling.packaging.model.ComponentModel;
+import org.apache.camel.tooling.packaging.model.ComponentOptionModel;
+import org.apache.camel.tooling.packaging.model.DataFormatModel;
+import org.apache.camel.tooling.packaging.model.DataFormatOptionModel;
+import org.apache.camel.tooling.packaging.model.EipModel;
+import org.apache.camel.tooling.packaging.model.EipOptionModel;
+import org.apache.camel.tooling.packaging.model.EndpointOptionModel;
+import org.apache.camel.tooling.packaging.model.LanguageModel;
+import org.apache.camel.tooling.packaging.model.LanguageOptionModel;
+import org.apache.camel.tooling.packaging.helpers.PackageHelper;
+import org.apache.camel.tooling.packaging.helpers.StringHelper;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -50,12 +50,12 @@ import org.apache.maven.project.MavenProject;
 import org.mvel2.templates.TemplateRuntime;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeBool;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeValue;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
-import static org.apache.camel.tooling.helpers.PackageHelper.writeText;
-import static org.apache.camel.tooling.helpers.StringHelper.isEmpty;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getSafeBool;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getSafeValue;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.parseJsonSchema;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.writeText;
+import static org.apache.camel.tooling.packaging.helpers.StringHelper.isEmpty;
 
 /**
  * Generate or updates the component/dataformat/language/eip readme.md and .adoc files in the project root directory.

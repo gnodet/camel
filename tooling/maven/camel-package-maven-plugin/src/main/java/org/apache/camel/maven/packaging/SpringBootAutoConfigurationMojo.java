@@ -44,21 +44,21 @@ import java.util.stream.Collectors;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.camel.tooling.model.ComponentModel;
-import org.apache.camel.tooling.model.ComponentOptionModel;
-import org.apache.camel.tooling.model.DataFormatModel;
-import org.apache.camel.tooling.model.DataFormatOptionModel;
-import org.apache.camel.tooling.model.EndpointOptionModel;
-import org.apache.camel.tooling.model.LanguageModel;
-import org.apache.camel.tooling.model.LanguageOptionModel;
-import org.apache.camel.tooling.model.OtherModel;
-import org.apache.camel.tooling.model.OtherOptionModel;
+import org.apache.camel.tooling.packaging.model.ComponentModel;
+import org.apache.camel.tooling.packaging.model.ComponentOptionModel;
+import org.apache.camel.tooling.packaging.model.DataFormatModel;
+import org.apache.camel.tooling.packaging.model.DataFormatOptionModel;
+import org.apache.camel.tooling.packaging.model.EndpointOptionModel;
+import org.apache.camel.tooling.packaging.model.LanguageModel;
+import org.apache.camel.tooling.packaging.model.LanguageOptionModel;
+import org.apache.camel.tooling.packaging.model.OtherModel;
+import org.apache.camel.tooling.packaging.model.OtherOptionModel;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
-import org.apache.camel.tooling.helpers.JSonSchemaHelper;
-import org.apache.camel.tooling.helpers.PackageHelper;
-import org.apache.camel.tooling.helpers.SpringBootHelper;
+import org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.packaging.helpers.PackageHelper;
+import org.apache.camel.tooling.packaging.helpers.SpringBootHelper;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
@@ -95,14 +95,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyDefaultValue;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyDescriptionValue;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyJavaType;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getPropertyType;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeBool;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.getSafeValue;
-import static org.apache.camel.tooling.helpers.JSonSchemaHelper.parseJsonSchema;
-import static org.apache.camel.tooling.helpers.PackageHelper.loadText;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getPropertyDefaultValue;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getPropertyDescriptionValue;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getPropertyJavaType;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getPropertyType;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getSafeBool;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.getSafeValue;
+import static org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper.parseJsonSchema;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadText;
 
 /**
  * Generate Spring Boot auto configuration files for Camel components and data formats.

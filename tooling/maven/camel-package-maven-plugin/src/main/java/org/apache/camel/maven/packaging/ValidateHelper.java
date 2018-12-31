@@ -22,10 +22,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.camel.tooling.helpers.JSonSchemaHelper;
-import org.apache.camel.tooling.helpers.StringHelper;
+import org.apache.camel.tooling.packaging.helpers.JSonSchemaHelper;
+import org.apache.camel.tooling.packaging.helpers.StringHelper;
 
-import static org.apache.camel.tooling.helpers.PackageHelper.loadJson;
+import static org.apache.camel.tooling.packaging.helpers.PackageHelper.loadJson;
 
 /**
  * Validation helper for validating components, data formats and languages

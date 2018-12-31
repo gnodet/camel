@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.camel.apigen.DocumentGenerator;
+import org.apache.camel.tooling.apigen.DocumentGenerator;
 import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.component.ApiCollection;
 import org.apache.camel.support.component.ApiMethod;

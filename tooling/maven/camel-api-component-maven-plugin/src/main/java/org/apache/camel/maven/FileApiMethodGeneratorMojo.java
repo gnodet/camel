@@ -18,9 +18,9 @@ package org.apache.camel.maven;
 
 import java.io.File;
 
-import org.apache.camel.apigen.FileApiMethodGenerator;
-import org.apache.camel.apigen.model.ExtraOption;
-import org.apache.camel.apigen.model.Substitution;
+import org.apache.camel.tooling.apigen.FileApiMethodGenerator;
+import org.apache.camel.tooling.apigen.model.ExtraOption;
+import org.apache.camel.tooling.apigen.model.Substitution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;

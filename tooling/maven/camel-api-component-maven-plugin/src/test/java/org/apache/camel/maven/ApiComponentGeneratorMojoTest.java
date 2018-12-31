@@ -20,11 +20,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.camel.apigen.model.ApiMethodAlias;
-import org.apache.camel.apigen.model.ApiProxy;
-import org.apache.camel.apigen.model.ExtraOption;
-import org.apache.camel.apigen.model.FromJavadoc;
-import org.apache.camel.apigen.model.Substitution;
+import org.apache.camel.tooling.apigen.model.ApiMethodAlias;
+import org.apache.camel.tooling.apigen.model.ApiProxy;
+import org.apache.camel.tooling.apigen.model.ExtraOption;
+import org.apache.camel.tooling.apigen.model.FromJavadoc;
+import org.apache.camel.tooling.apigen.model.Substitution;
 import org.apache.camel.component.test.TestProxy;
 import org.apache.velocity.VelocityContext;
 import org.junit.Test;
