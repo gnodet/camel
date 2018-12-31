@@ -22,11 +22,11 @@ import org.junit.Test;
 /**
  *
  */
-public class StingQuoteHelperTest extends Assert {
+public class StringQuoteHelperTest extends Assert {
 
     @Test
     public void testSplitSafeQuote() throws Exception {
-        assertEquals(null, StringQuoteHelper.splitSafeQuote(null, ','));
+        assertNull(StringQuoteHelper.splitSafeQuote(null, ','));
 
         String[] out = StringQuoteHelper.splitSafeQuote("", ',');
         assertEquals(1, out.length);

@@ -16,7 +16,6 @@
  */
 package org.apache.camel.management;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,7 +34,7 @@ import org.junit.Test;
 
 public class ManagedRefProducerTest extends ManagementTestSupport {
 
-    private Map registry = new SimpleRegistry();
+    private Map<String, Object> registry = new SimpleRegistry();
 
     @Override
     protected CamelContext createCamelContext() throws Exception {
@@ -64,7 +63,7 @@ public class ManagedRefProducerTest extends ManagementTestSupport {
 
         for (ObjectName on : set) {
             boolean registered = mbeanServer.isRegistered(on);
-            assertEquals("Should be registered", true, registered);
+            assertTrue("Should be registered", registered);
 
             String uri = (String) mbeanServer.getAttribute(on, "EndpointUri");
             assertTrue(uri, uri.equals("mock://foo") || uri.equals("mock://result"));
@@ -79,7 +78,7 @@ public class ManagedRefProducerTest extends ManagementTestSupport {
 
         for (ObjectName on : set) {
             boolean registered = mbeanServer.isRegistered(on);
-            assertEquals("Should be registered", true, registered);
+            assertTrue("Should be registered", registered);
 
             String uri = (String) mbeanServer.getAttribute(on, "EndpointUri");
             assertTrue(uri, uri.equals("direct://start") || uri.equals("ref://foo") || uri.equals("mock://foo") || uri.equals("mock://result"));
