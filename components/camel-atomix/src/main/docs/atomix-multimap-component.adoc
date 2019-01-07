@@ -34,7 +34,7 @@ The Atomix MultiMap component supports 5 options, which are listed below.
 | Name | Description | Default | Type
 | *configuration* (consumer) | The shared component configuration |  | AtomixMultiMap Configuration
 | *atomix* (consumer) | The shared AtomixClient instance |  | AtomixClient
-| *nodes* (consumer) | The nodes the AtomixClient should connect to |  | List
+| *nodes* (consumer) | The nodes the AtomixClient should connect to |  | String
 | *configurationUri* (consumer) | The path to the AtomixClient configuration |  | String
 | *resolveProperty Placeholders* (advanced) | Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders. | true | boolean
 |===
@@ -103,7 +103,7 @@ The component supports 9 options, which are listed below.
 | *camel.component.atomix-multimap.configuration.result-header* | The header that wil carry the result. |  | String
 | *camel.component.atomix-multimap.configuration.ttl* | The resource ttl. |  | Long
 | *camel.component.atomix-multimap.enabled* | Whether to enable auto configuration of the atomix-multimap component. This is enabled by default. |  | Boolean
-| *camel.component.atomix-multimap.nodes* | The nodes the AtomixClient should connect to |  | List
+| *camel.component.atomix-multimap.nodes* | The nodes the AtomixClient should connect to |  | String
 | *camel.component.atomix-multimap.resolve-property-placeholders* | Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders. | true | Boolean
 |===
 // spring-boot-auto-configure options: END

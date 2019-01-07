@@ -28,6 +28,8 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.camel.tooling.apigen.helpers.IOHelper;
 import org.apache.velocity.Template;
@@ -93,6 +95,22 @@ public abstract class AbstractGenerator {
             try {
                 engine = new VelocityEngine(velocityProperties);
                 engine.init();
+
+                String v = VelocityEngine.class.getPackage().getImplementationVersion();
+                if (v == null) {
+                    v = VelocityEngine.class.getPackage().getSpecificationVersion();
+                }
+                if (!v.startsWith("2.")) {
+                    ClassLoader cl = VelocityEngine.class.getClassLoader();
+                    String classpath;
+                    if (cl instanceof URLClassLoader) {
+                        URL[] urls = ((URLClassLoader) cl).getURLs();
+                        classpath = Stream.of(urls).map(URL::toString).collect(Collectors.joining(", "));
+                    } else {
+                        classpath = cl.getClass().getName() + "[" + cl.toString() + "]";
+                    }
+                    throw new IllegalStateException("Velocity 2 required, but found " + v + ", check the classpath: " + classpath);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage(), e);
             }

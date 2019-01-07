@@ -65,15 +65,15 @@ public class NettyHttpComponentConfiguration
      */
     private Boolean useGlobalSslContextParameters = false;
     /**
-     * The thread pool size for the EventExecutorGroup if its in use. The
-     * default value is 16.
-     */
-    private Integer maximumPoolSize = 16;
-    /**
      * To use the given EventExecutorGroup. The option is a
      * io.netty.util.concurrent.EventExecutorGroup type.
      */
     private String executorService;
+    /**
+     * The thread pool size for the EventExecutorGroup if its in use. The
+     * default value is 16.
+     */
+    private Integer maximumPoolSize = 16;
     /**
      * To configure security using SSLContextParameters. The option is a
      * org.apache.camel.support.jsse.SSLContextParameters type.
@@ -129,20 +129,20 @@ public class NettyHttpComponentConfiguration
         this.useGlobalSslContextParameters = useGlobalSslContextParameters;
     }
 
-    public Integer getMaximumPoolSize() {
-        return maximumPoolSize;
-    }
-
-    public void setMaximumPoolSize(Integer maximumPoolSize) {
-        this.maximumPoolSize = maximumPoolSize;
-    }
-
     public String getExecutorService() {
         return executorService;
     }
 
     public void setExecutorService(String executorService) {
         this.executorService = executorService;
+    }
+
+    public Integer getMaximumPoolSize() {
+        return maximumPoolSize;
+    }
+
+    public void setMaximumPoolSize(Integer maximumPoolSize) {
+        this.maximumPoolSize = maximumPoolSize;
     }
 
     public String getSslContextParameters() {

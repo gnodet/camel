@@ -85,6 +85,10 @@ public class XPathFeatureTest extends ContextTestSupport {
             xpath("/").stringResult().evaluate(createExchange(XML_DATA));
             fail("Expect an Exception here");
         } catch (TypeConversionException ex) {
+            if (!(ex.getCause() instanceof FileNotFoundException)) {
+                throw (AssertionError) new AssertionError("Get a wrong exception cause: " + ex.getCause().getClass() + " instead of " + FileNotFoundException.class)
+                        .initCause(ex);
+            }
             assertTrue("Get a wrong exception cause: " + ex.getCause().getClass() + " instead of " + FileNotFoundException.class, ex.getCause() instanceof FileNotFoundException);
         } finally {
             System.clearProperty(DOM_BUILDER_FACTORY_FEATURE + ":"

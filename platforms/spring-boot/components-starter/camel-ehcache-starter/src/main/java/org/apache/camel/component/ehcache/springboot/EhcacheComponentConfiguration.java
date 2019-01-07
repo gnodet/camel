@@ -61,13 +61,13 @@ public class EhcacheComponentConfiguration
     private String cacheManagerConfiguration;
     /**
      * The default cache configuration to be used to create caches. The option
-     * is a org.ehcache.config.CacheConfiguration<?,?> type.
+     * is a org.ehcache.config.CacheConfiguration<?, ?> type.
      */
     private String cacheConfiguration;
     /**
      * A map of caches configurations to be used to create caches. The option is
-     * a java.util.Map<java.lang.String,org.ehcache.config.CacheConfiguration<?,
-     * ?>> type.
+     * a java.util.Map<java.lang.String,
+     * org.ehcache.config.CacheConfiguration<?, ?>> type.
      */
     private String cachesConfigurations;
     /**

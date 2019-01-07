@@ -23,7 +23,8 @@ import org.json.simple.Jsoner;
 
 public class IOHelper {
 
-    private static Map<URI, FileSystem> fileSystems = new ConcurrentHashMap<>();
+    private static final ThreadLocal<Map<Path, FileSystem>> fileSystems
+            = ThreadLocal.withInitial(ConcurrentHashMap::new);
 
     public static JsonObject toJson(Path p) {
         try (Reader r = Files.newBufferedReader(p)) {
@@ -34,26 +35,24 @@ public class IOHelper {
     }
 
     public static void closeJarFileSystems() {
-        List<FileSystem> fs = new ArrayList<>(fileSystems.values());
-        fileSystems.clear();
+        List<FileSystem> fs = new ArrayList<>(fileSystems.get().values());
+        fileSystems.remove();
         fs.forEach(IOHelper::close);
     }
 
     public static Path asFolder(String p) {
+        Path path = Paths.get(p);
         if (p.endsWith(".jar")) {
-            URI uri = URI.create("jar:file:" + p + "!/");
-            FileSystem fs = fileSystems.computeIfAbsent(uri, IOHelper::newJarFileSystem);
+            FileSystem fs = fileSystems.get().computeIfAbsent(path, IOHelper::newJarFileSystem);
             return fs.getPath("/");
         } else {
             return Paths.get(p);
         }
     }
 
-    public static FileSystem newJarFileSystem(URI uri) {
+    public static FileSystem newJarFileSystem(Path path) {
         try {
-            return FileSystems.newFileSystem(uri, Collections.emptyMap());
-        } catch (FileSystemAlreadyExistsException e) {
-            return FileSystems.getFileSystem(uri);
+            return FileSystems.newFileSystem(path, null);
         } catch (IOException e) {
             throw new IOError(e);
         }

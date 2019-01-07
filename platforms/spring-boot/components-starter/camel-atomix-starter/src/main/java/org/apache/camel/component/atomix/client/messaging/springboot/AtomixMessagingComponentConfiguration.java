@@ -16,9 +16,7 @@
  */
 package org.apache.camel.component.atomix.client.messaging.springboot;
 
-import java.util.List;
 import javax.annotation.Generated;
-import io.atomix.catalyst.transport.Address;
 import org.apache.camel.component.atomix.client.messaging.AtomixMessaging.Action;
 import org.apache.camel.component.atomix.client.messaging.AtomixMessaging.BroadcastType;
 import org.apache.camel.component.atomix.client.messaging.AtomixMessagingComponent;
@@ -53,7 +51,7 @@ public class AtomixMessagingComponentConfiguration
     /**
      * The nodes the AtomixClient should connect to
      */
-    private List<Address> nodes;
+    private String nodes;
     /**
      * The path to the AtomixClient configuration
      */
@@ -82,11 +80,11 @@ public class AtomixMessagingComponentConfiguration
         this.atomix = atomix;
     }
 
-    public List<Address> getNodes() {
+    public String getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<Address> nodes) {
+    public void setNodes(String nodes) {
         this.nodes = nodes;
     }
 

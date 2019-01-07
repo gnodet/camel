@@ -40,6 +40,8 @@
 
     <camel.osgi.export.pkg>${componentPackage}</camel.osgi.export.pkg>
     <camel.osgi.private.pkg>${outPackage}</camel.osgi.private.pkg>
+
+    <buildDir>target</buildDir>
   </properties>
 
   <dependencies>

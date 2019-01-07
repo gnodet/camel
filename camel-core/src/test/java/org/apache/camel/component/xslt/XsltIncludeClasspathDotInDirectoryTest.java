@@ -16,6 +16,10 @@
  */
 package org.apache.camel.component.xslt;
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,26 +34,35 @@ import org.junit.Test;
  */
 public class XsltIncludeClasspathDotInDirectoryTest extends ContextTestSupport {
 
+    Path thePath;
+
     @Override
     @Before
     public void setUp() throws Exception {
-        deleteDirectory("target/classes/com.mycompany");
-        createDirectory("target/classes/com.mycompany");
+        URL url = getClass().getClassLoader().getResource(getClass().getName().replace('.', '/') + ".class");
+        Path p = Paths.get(url.toURI());
+        while (!Objects.equals("org", p.getFileName().toString())) {
+            p = p.getParent();
+        }
+        thePath = p.getParent().resolve("com.mycompany");
+
+        deleteDirectory(thePath);
+        createDirectory(thePath);
 
         // copy templates to this directory
-        FileUtil.copyFile(new File("src/test/resources/org/apache/camel/component/xslt/staff_include_classpath2.xsl"),
-                new File("target/classes/com.mycompany/staff_include_classpath2.xsl"));
+        FileUtil.copyFile(getBaseDir().resolve("src/test/resources/org/apache/camel/component/xslt/staff_include_classpath2.xsl").toFile(),
+                thePath.resolve("staff_include_classpath2.xsl").toFile());
 
-        FileUtil.copyFile(new File("src/test/resources/org/apache/camel/component/xslt/staff_template.xsl"),
-                new File("target/classes/com.mycompany/staff_template.xsl"));
+        FileUtil.copyFile(getBaseDir().resolve("src/test/resources/org/apache/camel/component/xslt/staff_template.xsl").toFile(),
+                thePath.resolve("staff_template.xsl").toFile());
 
-        super.setUp();
+         super.setUp();
     }
 
     @Override
     @After
     public void tearDown() throws Exception {
-        deleteDirectory("target/classes/com.mycompany");
+        deleteDirectory(thePath);
         super.tearDown();
     }
 

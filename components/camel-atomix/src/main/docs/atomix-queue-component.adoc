@@ -34,7 +34,7 @@ The Atomix Queue component supports 5 options, which are listed below.
 | Name | Description | Default | Type
 | *configuration* (common) | The shared component configuration |  | AtomixQueue Configuration
 | *atomix* (common) | The shared AtomixClient instance |  | AtomixClient
-| *nodes* (common) | The nodes the AtomixClient should connect to |  | List
+| *nodes* (common) | The nodes the AtomixClient should connect to |  | String
 | *configurationUri* (common) | The path to the AtomixClient configuration |  | String
 | *resolveProperty Placeholders* (advanced) | Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders. | true | boolean
 |===
@@ -99,7 +99,7 @@ The component supports 7 options, which are listed below.
 | *camel.component.atomix-queue.configuration.default-action* | The default action. |  | AtomixQueue$Action
 | *camel.component.atomix-queue.configuration.result-header* | The header that wil carry the result. |  | String
 | *camel.component.atomix-queue.enabled* | Whether to enable auto configuration of the atomix-queue component. This is enabled by default. |  | Boolean
-| *camel.component.atomix-queue.nodes* | The nodes the AtomixClient should connect to |  | List
+| *camel.component.atomix-queue.nodes* | The nodes the AtomixClient should connect to |  | String
 | *camel.component.atomix-queue.resolve-property-placeholders* | Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders. | true | Boolean
 |===
 // spring-boot-auto-configure options: END

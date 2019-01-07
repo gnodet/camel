@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.file;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
@@ -28,18 +30,23 @@ import org.junit.Test;
  */
 public class FilerConsumerPreMoveDoneFileNameTest extends ContextTestSupport {
 
+    Path dir;
+    String uri;
+
     @Override
     @Before
     public void setUp() throws Exception {
-        deleteDirectory("target/done");
+        dir = getTestDataDir();
+        uri = dir.toUri().toString();
         super.setUp();
     }
 
     @Test
+    @Retry
     public void testDoneFile() throws Exception {
         getMockEndpoint("mock:result").expectedMessageCount(0);
 
-        template.sendBodyAndHeader("file:target/done", "Hello World", Exchange.FILE_NAME, "hello.txt");
+        template.sendBodyAndHeader(uri, "Hello World", Exchange.FILE_NAME, "hello.txt");
 
         // wait a bit and it should not pickup the written file as there are no done file
         Thread.sleep(250);
@@ -51,14 +58,14 @@ public class FilerConsumerPreMoveDoneFileNameTest extends ContextTestSupport {
         getMockEndpoint("mock:result").expectedBodiesReceived("Hello World");
 
         // write the done file
-        template.sendBodyAndHeader("file:target/done", "", Exchange.FILE_NAME, "ready");
+        template.sendBodyAndHeader(uri, "", Exchange.FILE_NAME, "ready");
 
         assertMockEndpointsSatisfied();
         oneExchangeDone.matchesMockWaitTime();
 
         // done file should be deleted now
-        File file = new File("target/done/ready");
-        assertFalse("Done file should be deleted: " + file, file.exists());
+        Path file = dir.resolve("ready");
+        assertFalse("Done file should be deleted: " + file, Files.exists(file));
     }
 
     @Override
@@ -66,7 +73,7 @@ public class FilerConsumerPreMoveDoneFileNameTest extends ContextTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("file:target/done?preMove=work/work-${file:name}&doneFileName=ready&initialDelay=0&delay=10").to("mock:result");
+                from(uri + "?preMove=work/work-${file:name}&doneFileName=ready&initialDelay=0&delay=10").to("mock:result");
             }
         };
     }

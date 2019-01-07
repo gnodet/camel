@@ -17,10 +17,9 @@
 package org.apache.camel.component.milo.server.springboot;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.List;
 import javax.annotation.Generated;
 import org.apache.camel.spring.boot.ComponentConfigurationPropertiesCommon;
-import org.eclipse.milo.opcua.stack.core.security.SecurityPolicy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -80,7 +79,7 @@ public class MiloServerComponentConfiguration
     /**
      * Security policies by URI or name
      */
-    private Collection<String> securityPoliciesById;
+    private String[] securityPoliciesById;
     /**
      * Set user password combinations in the form of user1:pwd1,user2:pwd2
      * Usernames and passwords will be URL decoded
@@ -89,15 +88,15 @@ public class MiloServerComponentConfiguration
     /**
      * Enable anonymous authentication, disabled by default
      */
-    private Boolean enableAnonymousAuthentication = false;
+    private Boolean enableAnonymousAuthentication;
     /**
      * Set the UserTokenPolicy used when
      */
-    private SecurityPolicy usernameSecurityPolicyUri;
+    private String usernameSecurityPolicyUri;
     /**
      * Set the addresses of the local addresses the server should bind to
      */
-    private String bindAddresses;
+    private List<String> bindAddresses;
     /**
      * Server build info. The option is a
      * org.eclipse.milo.opcua.stack.core.types.structured.BuildInfo type.
@@ -203,11 +202,11 @@ public class MiloServerComponentConfiguration
         this.securityPolicies = securityPolicies;
     }
 
-    public Collection<String> getSecurityPoliciesById() {
+    public String[] getSecurityPoliciesById() {
         return securityPoliciesById;
     }
 
-    public void setSecurityPoliciesById(Collection<String> securityPoliciesById) {
+    public void setSecurityPoliciesById(String[] securityPoliciesById) {
         this.securityPoliciesById = securityPoliciesById;
     }
 
@@ -229,20 +228,19 @@ public class MiloServerComponentConfiguration
         this.enableAnonymousAuthentication = enableAnonymousAuthentication;
     }
 
-    public SecurityPolicy getUsernameSecurityPolicyUri() {
+    public String getUsernameSecurityPolicyUri() {
         return usernameSecurityPolicyUri;
     }
 
-    public void setUsernameSecurityPolicyUri(
-            SecurityPolicy usernameSecurityPolicyUri) {
+    public void setUsernameSecurityPolicyUri(String usernameSecurityPolicyUri) {
         this.usernameSecurityPolicyUri = usernameSecurityPolicyUri;
     }
 
-    public String getBindAddresses() {
+    public List<String> getBindAddresses() {
         return bindAddresses;
     }
 
-    public void setBindAddresses(String bindAddresses) {
+    public void setBindAddresses(List<String> bindAddresses) {
         this.bindAddresses = bindAddresses;
     }
 

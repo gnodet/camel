@@ -81,19 +81,19 @@ public class XStreamDataFormatConfiguration
     private List<String> converters;
     /**
      * Alias a Class to a shorter name to be used in XML elements. The option is
-     * a java.util.Map<java.lang.String,java.lang.String> type.
+     * a java.util.Map<java.lang.String, java.lang.String> type.
      */
     private String aliases;
     /**
      * Prevents a field from being serialized. To omit a field you must always
      * provide the declaring type and not necessarily the type that is
-     * converted. The option is a
-     * java.util.Map<java.lang.String,java.lang.String[]> type.
+     * converted. The option is a java.util.Map<java.lang.String,
+     * java.lang.String[]> type.
      */
     private String omitFields;
     /**
      * Adds a default implicit collection which is used for any unmapped XML
-     * tag. The option is a java.util.Map<java.lang.String,java.lang.String[]>
+     * tag. The option is a java.util.Map<java.lang.String, java.lang.String[]>
      * type.
      */
     private String implicitCollections;

@@ -60,7 +60,8 @@ public class RabbitMQComponentConfiguration
     /**
      * If this option is set, camel-rabbitmq will try to create connection based
      * on the setting of option addresses. The addresses value is a string which
-     * looks like server1:12345, server2:12345
+     * looks like server1:12345, server2:12345. The option is a
+     * com.rabbitmq.client.Address[] type.
      */
     private String addresses;
     /**
@@ -200,13 +201,13 @@ public class RabbitMQComponentConfiguration
      * arg.queue. Binding: arg.binding. For example to declare a queue with
      * message ttl argument:
      * http://localhost:5672/exchange/queueargs=arg.queue.x-message-ttl=60000.
-     * The option is a java.util.Map<java.lang.String,java.lang.Object> type.
+     * The option is a java.util.Map<java.lang.String, java.lang.Object> type.
      */
     private String args;
     /**
      * Connection client properties (client info used in negotiating with the
-     * server). The option is a java.util.Map<java.lang.String,java.lang.Object>
-     * type.
+     * server). The option is a java.util.Map<java.lang.String,
+     * java.lang.Object> type.
      */
     private String clientProperties;
     /**

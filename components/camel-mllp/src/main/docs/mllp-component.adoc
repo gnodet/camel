@@ -50,7 +50,7 @@ The MLLP component supports 5 options, which are listed below.
 | Name | Description | Default | Type
 | *logPhi* (advanced) | Set the component to log PHI data. | true | Boolean
 | *logPhiMaxBytes* (advanced) | Set the maximum number of bytes of PHI that will be logged in a log entry. | 5120 | Integer
-| *defaultCharset* (advanced) | Set the default character set to use for byte to/from String conversions. | ISO-8859-1 | String
+| *defaultCharset* (advanced) | Set the default character set to use for byte to/from String conversions. | ISO-8859-1 | Charset
 | *configuration* (common) | Sets the default configuration to use when creating MLLP endpoints. |  | MllpConfiguration
 | *resolveProperty Placeholders* (advanced) | Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders. | true | boolean
 |===
@@ -153,7 +153,7 @@ The component supports 31 options, which are listed below.
 | *camel.component.mllp.configuration.synchronous* | Sets whether synchronous processing should be strictly used (this component only supports synchronous operations). | true | Boolean
 | *camel.component.mllp.configuration.tcp-no-delay* | Enable/disable the TCP_NODELAY socket option. | true | Boolean
 | *camel.component.mllp.configuration.validate-payload* | Enable/Disable the validation of HL7 Payloads If enabled, HL7 Payloads received from external systems will be validated (see Hl7Util.generateInvalidPayloadExceptionMessage for details on the validation). If and invalid payload is detected, a MllpInvalidMessageException (for consumers) or a MllpInvalidAcknowledgementException will be thrown. | false | Boolean
-| *camel.component.mllp.default-charset* | Set the default character set to use for byte to/from String conversions. | ISO-8859-1 | String
+| *camel.component.mllp.default-charset* | Set the default character set to use for byte to/from String conversions. The option is a java.nio.charset.Charset type. |  | String
 | *camel.component.mllp.enabled* | Enable mllp component | true | Boolean
 | *camel.component.mllp.log-phi* | Set the component to log PHI data. | true | Boolean
 | *camel.component.mllp.log-phi-max-bytes* | Set the maximum number of bytes of PHI that will be logged in a log entry. | 5120 | Integer

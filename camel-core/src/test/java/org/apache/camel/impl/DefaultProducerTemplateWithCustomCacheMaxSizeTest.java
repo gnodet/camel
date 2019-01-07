@@ -33,6 +33,7 @@ public class DefaultProducerTemplateWithCustomCacheMaxSizeTest extends ContextTe
     }
 
     @Test
+    @Retry
     public void testCacheProducers() throws Exception {
         ProducerTemplate template = context.createProducerTemplate();
 

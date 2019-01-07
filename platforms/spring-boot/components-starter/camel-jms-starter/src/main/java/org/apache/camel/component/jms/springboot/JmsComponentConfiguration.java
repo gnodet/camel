@@ -524,8 +524,7 @@ public class JmsComponentConfiguration
      * key as is. Can be used for JMS brokers which do not care whether JMS
      * header keys contain illegal characters. You can provide your own
      * implementation of the org.apache.camel.component.jms.JmsKeyFormatStrategy
-     * and refer to it using the # notation. The option is a
-     * org.apache.camel.component.jms.JmsKeyFormatStrategy type.
+     * and refer to it using the # notation.
      */
     private String jmsKeyFormatStrategy;
     /**

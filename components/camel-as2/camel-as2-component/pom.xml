@@ -150,32 +150,6 @@
               <goal>fromApis</goal>
             </goals>
             <configuration>
-              <apis>
-                <api>
-                    <apiName>client</apiName>
-                    <proxyClass>org.apache.camel.component.as2.api.AS2ClientManager</proxyClass>
-                    <fromJavadoc>
-                      <excludeMethods>createSigningGenerator</excludeMethods>
-                    </fromJavadoc>
-                </api>
-                <api>
-                    <apiName>server</apiName>
-                    <proxyClass>org.apache.camel.component.as2.api.AS2ServerManager</proxyClass>
-	                <fromJavadoc>
-                      <excludeMethods>stopListening|handleMDNResponse</excludeMethods>
-	                </fromJavadoc>
-                    <excludeConfigNames>handler</excludeConfigNames>
-                </api>
-              </apis>
-              <!-- Specify global values for all APIs here, these are overridden at API level
-              <substitutions/>
-              <excludeConfigNames/>
-              <excludeConfigTypes/>
-              <extraOptions/>
-              <fromJavadoc/>
-              <aliases/>
-              <nullableOptions/>
-              -->
             </configuration>
           </execution>
         </executions>

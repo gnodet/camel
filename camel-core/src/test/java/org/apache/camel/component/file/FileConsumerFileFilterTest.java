@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 package org.apache.camel.component.file;
+import java.nio.file.Path;
+
 import org.apache.camel.ContextTestSupport;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -28,7 +30,8 @@ import org.junit.Test;
  */
 public class FileConsumerFileFilterTest extends ContextTestSupport {
 
-    private String fileUrl = "file://target/filefilter/?initialDelay=0&delay=10&filter=#myFilter";
+    Path dir;
+    String uri;
 
     @Override
     protected JndiRegistry createRegistry() throws Exception {
@@ -41,6 +44,8 @@ public class FileConsumerFileFilterTest extends ContextTestSupport {
     @Before
     public void setUp() throws Exception {
         deleteDirectory("target/filefilter");
+        dir = getTestDataDir();
+        uri = dir.toUri().toString();
         super.setUp();
     }
 
@@ -49,7 +54,7 @@ public class FileConsumerFileFilterTest extends ContextTestSupport {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(0);
 
-        template.sendBodyAndHeader("file:target/filefilter/", "This is a file to be filtered",
+        template.sendBodyAndHeader(uri, "This is a file to be filtered",
             Exchange.FILE_NAME, "skipme.txt");
 
         mock.setResultWaitTime(100);
@@ -61,10 +66,10 @@ public class FileConsumerFileFilterTest extends ContextTestSupport {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedBodiesReceived("Hello World");
 
-        template.sendBodyAndHeader("file:target/filefilter/", "This is a file to be filtered",
+        template.sendBodyAndHeader(uri, "This is a file to be filtered",
             Exchange.FILE_NAME, "skipme.txt");
 
-        template.sendBodyAndHeader("file:target/filefilter/", "Hello World",
+        template.sendBodyAndHeader(uri, "Hello World",
             Exchange.FILE_NAME, "hello.txt");
 
         mock.assertIsSatisfied();
@@ -73,7 +78,7 @@ public class FileConsumerFileFilterTest extends ContextTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                from(fileUrl).convertBodyTo(String.class).to("mock:result");
+                from(uri + "?initialDelay=0&delay=10&filter=#myFilter").convertBodyTo(String.class).to("mock:result");
             }
         };
     }

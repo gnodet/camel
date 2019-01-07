@@ -18,8 +18,8 @@ The To EIP supports 2 options which are listed below:
 [width="100%",cols="2,5,^1,2",options="header"]
 |===
 | Name | Description | Default | Type
-| *uri* | *Required* Sets the uri of the endpoint to send to. |  | String
 | *pattern* | Sets the optional ExchangePattern used to invoke this endpoint |  | ExchangePattern
+| *uri* | *Required* Sets the uri of the endpoint to send to. |  | String
 |===
 // eip options: END
 

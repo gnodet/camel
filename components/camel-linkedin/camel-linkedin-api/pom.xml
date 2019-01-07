@@ -34,6 +34,8 @@
 
   <properties>
     <camel.osgi.export.pkg>org.apache.camel.component.linkedin.api*</camel.osgi.export.pkg>
+
+    <generateDir>${project.build.directory}/generated-sources/cxf</generateDir>
   </properties>
 
   <dependencies>
@@ -145,7 +147,7 @@
             <configuration>
               <fork>${cxf.codegenplugin.forkmode}</fork>
               <additionalJvmArgs>${cxf.codegen.jvmArgs}</additionalJvmArgs>
-              <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+              <sourceRoot>${generateDir}</sourceRoot>
               <wadlOptions>
                 <wadlOption>
                   <wadl>${project.basedir}/src/main/resources/linkedin-api-wadl.xml</wadl>
@@ -177,7 +179,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-sources/cxf</source>
+                <source>${generateDir}</source>
               </sources>
             </configuration>
           </execution>

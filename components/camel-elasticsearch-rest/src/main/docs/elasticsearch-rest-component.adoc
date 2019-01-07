@@ -44,9 +44,9 @@ The Elastichsearch Rest component supports 12 options, which are listed below.
 | *connectionTimeout* (advanced) | The time in ms to wait before connection will timeout. | 30000 | int
 | *user* (security) | Basic authenticate user |  | String
 | *password* (security) | Password for authenticate |  | String
-| *enableSSL* (security) | Enable SSL | false | Boolean
+| *enableSSL* (security) | Enable SSL | false | boolean
 | *maxRetryTimeout* (advanced) | The time in ms before retry | 30000 | int
-| *enableSniffer* (advanced) | Enable automatically discover nodes from a running Elasticsearch cluster | false | Boolean
+| *enableSniffer* (advanced) | Enable automatically discover nodes from a running Elasticsearch cluster | false | boolean
 | *snifferInterval* (advanced) | The interval between consecutive ordinary sniff executions in milliseconds. Will be honoured when sniffOnFailure is disabled or when there are no failures between consecutive sniff executions | 300000 | int
 | *sniffAfterFailureDelay* (advanced) | The delay of a sniff execution scheduled after a failure (in milliseconds) | 60000 | int
 | *resolveProperty Placeholders* (advanced) | Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders. | true | boolean

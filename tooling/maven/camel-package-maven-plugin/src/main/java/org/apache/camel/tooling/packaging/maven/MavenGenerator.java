@@ -95,7 +95,7 @@ public class MavenGenerator extends Generator {
 
     @Override
     public List<String> getCamelCoreLocations() {
-        if ("camel-core".equals(project.getArtifactId())) {
+        if ("camel-core".equals(getArtifactId())) {
             return getResources();
         } else {
             return getClasspath();

@@ -133,14 +133,14 @@ public class SalesforceComponentConfiguration
      * Used to set any properties that can be configured on the underlying HTTP
      * client. Have a look at properties of SalesforceHttpClient and the Jetty
      * HttpClient for all available options. The option is a
-     * java.util.Map<java.lang.String,java.lang.Object> type.
+     * java.util.Map<java.lang.String, java.lang.Object> type.
      */
     private String httpClientProperties;
     /**
      * Used to set any properties that can be configured on the
      * LongPollingTransport used by the BayeuxClient (CometD) used by the
-     * streaming api. The option is a
-     * java.util.Map<java.lang.String,java.lang.Object> type.
+     * streaming api. The option is a java.util.Map<java.lang.String,
+     * java.lang.Object> type.
      */
     private String longPollingTransportProperties;
     /**

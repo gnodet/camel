@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package org.apache.camel.component.xslt;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -43,13 +44,19 @@ public class XsltContentCacheTest extends ContextTestSupport {
             + "<xsl:template match=\"/\"><goodnight><xsl:value-of select=\"/hello\"/></goodnight></xsl:template>"
             + "</xsl:stylesheet>";
 
+    private Path dir;
+    private String uri;
+
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
 
+        dir = getTestDataDir();
+        uri = dir.toUri().toString();
+
         // create file with original XSL transformation
-        template.sendBodyAndHeader("file://target/test-classes/org/apache/camel/component/xslt?fileExist=Override", ORIGINAL_XSL, Exchange.FILE_NAME, "hello.xsl");
+        template.sendBodyAndHeader(uri + "?fileExist=Override", ORIGINAL_XSL, Exchange.FILE_NAME, "hello.xsl");
 
         // start the context AFTER we've created the hello.xsl file, otherwise the xslt routes will fail
         super.startCamelContext();
@@ -74,7 +81,7 @@ public class XsltContentCacheTest extends ContextTestSupport {
         mock.assertIsSatisfied();
 
         // now replace the file with a new XSL transformation
-        template.sendBodyAndHeader("file://target/test-classes/org/apache/camel/component/xslt?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
+        template.sendBodyAndHeader(uri + "?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
 
         mock.reset();
         // we expect the new output as the cache is not enabled, so it's "goodnight" and not "goodbye"
@@ -93,7 +100,7 @@ public class XsltContentCacheTest extends ContextTestSupport {
         mock.assertIsSatisfied();
 
         // now replace the file with a new XSL transformation
-        template.sendBodyAndHeader("file://target/test-classes/org/apache/camel/component/xslt?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
+        template.sendBodyAndHeader(uri + "?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
 
         mock.reset();
         // we expect the original output as the cache is enabled, so it's "goodbye" and not "goodnight"
@@ -112,7 +119,7 @@ public class XsltContentCacheTest extends ContextTestSupport {
         mock.assertIsSatisfied();
 
         // now replace the file with a new XSL transformation
-        template.sendBodyAndHeader("file://target/test-classes/org/apache/camel/component/xslt?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
+        template.sendBodyAndHeader(uri + "?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
 
         mock.reset();
         // we expect the original output as the cache is enabled, so it's "goodbye" and not "goodnight"
@@ -131,7 +138,7 @@ public class XsltContentCacheTest extends ContextTestSupport {
         mock.assertIsSatisfied();
 
         // now replace the file with a new XSL transformation
-        template.sendBodyAndHeader("file://target/test-classes/org/apache/camel/component/xslt?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
+        template.sendBodyAndHeader(uri + "?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
 
         mock.reset();
         // we expect the original output as the cache is enabled, so it's "goodbye" and not "goodnight"
@@ -147,7 +154,7 @@ public class XsltContentCacheTest extends ContextTestSupport {
         mbeanServer.invoke(managedObjName, "clearCachedStylesheet", null, null);
         
         // now replace the file with a new XSL transformation
-        template.sendBodyAndHeader("file://target/test-classes/org/apache/camel/component/xslt?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
+        template.sendBodyAndHeader(uri + "?fileExist=Override", NEW_XSL, Exchange.FILE_NAME, "hello.xsl");
         
         mock.reset();
         // we've cleared the cache so we expect "goodnight" and not "goodbye"
@@ -160,11 +167,11 @@ public class XsltContentCacheTest extends ContextTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                from("direct:a").to("xslt://org/apache/camel/component/xslt/hello.xsl?output=string&contentCache=false").to("mock:result");
+                from("direct:a").to("xslt:" + uri + "/hello.xsl?output=string&contentCache=false").to("mock:result");
 
-                from("direct:b").to("xslt://org/apache/camel/component/xslt/hello.xsl?output=string&contentCache=true").to("mock:result");
+                from("direct:b").to("xslt:" + uri + "/hello.xsl?output=string&contentCache=true").to("mock:result");
 
-                from("direct:c").to("xslt://org/apache/camel/component/xslt/hello.xsl?output=string").to("mock:result");
+                from("direct:c").to("xslt:" + uri + "/hello.xsl?output=string").to("mock:result");
             }
         };
     }

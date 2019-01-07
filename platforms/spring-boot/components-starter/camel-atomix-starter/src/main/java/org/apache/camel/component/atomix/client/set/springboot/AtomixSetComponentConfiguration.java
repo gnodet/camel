@@ -16,9 +16,7 @@
  */
 package org.apache.camel.component.atomix.client.set.springboot;
 
-import java.util.List;
 import javax.annotation.Generated;
-import io.atomix.catalyst.transport.Address;
 import org.apache.camel.component.atomix.client.set.AtomixSet.Action;
 import org.apache.camel.component.atomix.client.set.AtomixSetComponent;
 import org.apache.camel.spring.boot.ComponentConfigurationPropertiesCommon;
@@ -52,7 +50,7 @@ public class AtomixSetComponentConfiguration
     /**
      * The nodes the AtomixClient should connect to
      */
-    private List<Address> nodes;
+    private String nodes;
     /**
      * The path to the AtomixClient configuration
      */
@@ -81,11 +79,11 @@ public class AtomixSetComponentConfiguration
         this.atomix = atomix;
     }
 
-    public List<Address> getNodes() {
+    public String getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<Address> nodes) {
+    public void setNodes(String nodes) {
         this.nodes = nodes;
     }
 

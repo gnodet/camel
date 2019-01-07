@@ -1,0 +1,85 @@
+{
+  "apis": [
+    {
+      "apiName": "",
+      "proxyClass": "org.zendesk.client.v2.Zendesk",
+      "fromJavadoc": {
+        "excludeMethods": "isClosed|close|getTicketsByStatus|createGroups|importTickets"
+      },
+      "substitutions": [
+        {
+          "method": "deleteSuspendedTicket|checkHasId",
+          "argType": "SuspendedTicket",
+          "argName": "ticket",
+          "replacement": "suspendedTicket"
+        },
+        {
+          "method": "deleteAutomation",
+          "argType": "long",
+          "argName": "automationId",
+          "replacement": "automationId0"
+        },
+        {
+          "method": "createUsers|createUsersAsync",
+          "argType": "java.util.List",
+          "argName": "users",
+          "replacement": "userList"
+        },
+        {
+          "method": "getTicketAudits",
+          "argType": "java.lang.Long",
+          "argName": "id",
+          "replacement": "ticketId0"
+        },
+        {
+          "method": "updateMacro",
+          "argType": "java.lang.Long",
+          "argName": "macroId",
+          "replacement": "macroId0"
+        },
+        {
+          "method": "deleteArticleAttachment",
+          "argType": "ArticleAttachments",
+          "argName": "attachment",
+          "replacement": "articleAttachments"
+        },
+        {
+          "method": "createTickets|createTicketsAsync",
+          "argType": "java.util.List",
+          "argName": "tickets",
+          "replacement": "ticketList"
+        },
+        {
+          "method": "updateInstallation",
+          "argType": "int",
+          "argName": "id",
+          "replacement": "installationId"
+        },
+        {
+          "method": "getUserSubscriptions",
+          "argType": "java.lang.Long",
+          "argName": "userId",
+          "replacement": "userId0"
+        },
+        {
+          "method": "createOrganizations|createOrganizationsAsync",
+          "argType": "java.util.List",
+          "argName": "organizations",
+          "replacement": "organizationList"
+        },
+        {
+          "method": "updateTrigger",
+          "argType": "java.lang.Long",
+          "argName": "triggerId",
+          "replacement": "triggerId0"
+        },
+        {
+          "method": "createUploadArticle",
+          "argType": "long",
+          "argName": "articleId",
+          "replacement": "articleId0"
+        }
+      ]
+    }
+  ]
+}

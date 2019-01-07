@@ -90,6 +90,7 @@ public class SedaDefaultBlockWhenFullTest extends ContextTestSupport {
     }
     
     @Test
+    @Retry
     public void testAsyncSedaBlockingWhenFull() throws Exception {
         getMockEndpoint(MOCK_URI).setExpectedMessageCount(QUEUE_SIZE + 1);
         getMockEndpoint(MOCK_URI).setResultWaitTime(DELAY_LONG * 3);

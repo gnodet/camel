@@ -17,9 +17,18 @@
 package org.apache.camel;
 
 import java.io.File;
+import java.io.IOError;
+import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.builder.Builder;
 import org.apache.camel.builder.RouteBuilder;
@@ -28,12 +37,17 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.processor.ErrorHandlerSupport;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.support.PredicateAssertHelper;
+import org.apache.camel.util.IOHelper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +62,12 @@ public abstract class TestSupport extends Assert {
     @Rule
     public TestName name = new TestName();
 
+    @Rule
+    public RetryRule rule = new RetryRule(3);
+
     protected Logger log = LoggerFactory.getLogger(getClass());
+
+    protected Path testDataDir;
 
     @Override
     public String toString() {
@@ -71,6 +90,48 @@ public abstract class TestSupport extends Assert {
     public void tearDown() throws Exception {
         // make sure we cleanup the platform mbean server
         TestSupportJmxCleanup.removeMBeans(null);
+        // forget data dir
+        testDataDir = null;
+    }
+
+    protected Path getCurrentDir() {
+        return Paths.get(".");
+    }
+
+    protected Path getBaseDir() {
+        String basedir = System.getProperty("baseDirectory", ".");
+        return Paths.get(basedir);
+    }
+
+    protected Path getBuildDir() {
+        String builddir = System.getProperty("buildDirectory", "target");
+        return getBaseDir().resolve(builddir);
+    }
+
+    protected Path getDataDir() {
+        String datadir = System.getProperty("dataDirectory", "data");
+        return getBuildDir().resolve(datadir);
+    }
+
+    protected Path getTestDataDir(String dir) {
+        return getDataDir().resolve(dir);
+    }
+
+    protected Path getTestDataDir() {
+        synchronized (this) {
+            if (testDataDir == null) {
+                String testdatadir = System.getProperty("testDataDirectory", "data");
+                Path parentPath = getBuildDir().resolve(testdatadir);
+                testDataDir = parentPath.resolve(getClass().getSimpleName().toLowerCase());
+                try {
+                    deleteDirectory(testDataDir);
+                    Files.createDirectories(testDataDir);
+                } catch (IOException e) {
+                    throw new IOError(e);
+                }
+            }
+            return testDataDir;
+        }
     }
 
     protected boolean canRunOnThisPlatform() {
@@ -414,6 +475,20 @@ public abstract class TestSupport extends Assert {
     }
 
     /**
+     * Recursively delete a directory, useful to zapping test data
+     *
+     * @param path the directory to be deleted
+     */
+    public static void deleteDirectory(Path path) throws IOException {
+        if (Files.isDirectory(path)) {
+            Files.walk(path)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+        }
+    }
+
+    /**
      * create the directory
      *
      * @param file the directory to be created
@@ -421,6 +496,15 @@ public abstract class TestSupport extends Assert {
     public static void createDirectory(String file) {
         File dir = new File(file);
         dir.mkdirs();
+    }
+
+    /**
+     * create the directory
+     *
+     * @param path the directory to be created
+     */
+    public static void createDirectory(Path path) throws IOException {
+        Files.createDirectories(path);
     }
 
     /**
@@ -544,4 +628,54 @@ public abstract class TestSupport extends Assert {
             }
         }
     }
+
+    public static class RetryRule implements TestRule {
+
+        private AtomicInteger retryCount;
+
+        public RetryRule(int retries){
+            super();
+            this.retryCount = new AtomicInteger(retries);
+        }
+        @Override
+        public Statement apply(final Statement base, final Description description) {
+            return new Statement() {
+                @Override
+                public void evaluate() throws Throwable {
+                    if (true || description.getAnnotation(Retry.class) != null) {
+                        Throwable caughtThrowable = null;
+                        while (retryCount.getAndDecrement() > 0) {
+                            try {
+                                base.evaluate();
+                                return;
+                            } catch (AssumptionViolatedException e) {
+                                throw e;
+                            } catch (Throwable t) {
+                                if (caughtThrowable == null) {
+                                    caughtThrowable = new RuntimeException(description.getDisplayName() + ": Failed");
+                                }
+                                caughtThrowable.addSuppressed(t);
+                                if (retryCount.get() > 0) {
+                                    System.err.println(
+                                            description.getDisplayName() +
+                                                    ": Failed, " +
+                                                    retryCount.toString() +
+                                                    "retries remain");
+                                } else {
+                                    throw caughtThrowable;
+                                }
+                            }
+                        }
+                    } else {
+                        base.evaluate();
+                    }
+                }
+            };
+        }
+    }
+
+    //Retry.java
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Retry {}
+
 }

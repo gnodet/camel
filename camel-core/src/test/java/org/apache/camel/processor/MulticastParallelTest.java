@@ -37,6 +37,7 @@ public class MulticastParallelTest extends ContextTestSupport {
     }
 
     @Test
+    @Retry
     public void testMulticastParallel() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(20);

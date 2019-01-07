@@ -16,23 +16,35 @@
  */
 package org.apache.camel.tooling.packaging.helpers;
 
+import java.io.EOFException;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UTFDataFormatException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.CompositeIndex;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 import org.jboss.jandex.Index;
+import org.jboss.jandex.IndexReader;
+import org.jboss.jandex.IndexView;
+import org.jboss.jandex.IndexWriter;
 import org.jboss.jandex.Indexer;
 import org.jboss.jandex.MethodInfo;
 
@@ -98,10 +110,70 @@ public class JandexHelper {
         return Optional.empty();
     }
 
-    public static Index createIndex(List<String> locations) {
+    public static IndexView createIndex(List<String> locations) {
+        return CompositeIndex.create(locations.stream()
+                .map(JandexHelper::getIndex)
+                .collect(Collectors.toList()));
+    }
+
+    static class TimeStampedIndex {
+        final Path jar;
+        final Path idx;
+
+        public TimeStampedIndex(Path jar) {
+            this.jar = jar;
+            this.idx = Paths.get(System.getProperty("rootBuildDir")).resolve("index-cache")
+                .resolve(jar.getFileName().toString() + ".idx");
+        }
+
+        public synchronized Index getIndex() {
+            try {
+                if (Files.exists(idx)) {
+                    FileTime ft1 = Files.getLastModifiedTime(jar);
+                    FileTime ft2 = Files.getLastModifiedTime(idx);
+                    if (ft1.compareTo(ft2) < 0) {
+                        try (InputStream is = Files.newInputStream(idx)) {
+                            return new IndexReader(is).read();
+                        } catch (Exception e) {
+                            // Ignore
+                            Files.deleteIfExists(idx);
+                        }
+                    }
+                }
+                // System.out.println("Creating index: " + idx.getFileName());
+                Index index = createIndex(jar.toString());
+                Files.createDirectories(idx.getParent());
+                try (OutputStream os = Files.newOutputStream(idx)) {
+                    new IndexWriter(os).write(index);
+                } catch (Exception e) {
+                    // ignore
+                    Files.deleteIfExists(idx);
+                }
+                return index;
+            } catch (IOException e) {
+                throw new RuntimeException("Error indexing: " + jar.toString(), e);
+            }
+        }
+    }
+
+    private static final Map<Path, TimeStampedIndex> INDICES = new ConcurrentHashMap<>();
+
+    private static Index getIndex(String location) {
+        if (location.endsWith(".jar")) {
+            Path loc = Paths.get(location);
+            if (Files.isRegularFile(loc)) {
+                return INDICES.computeIfAbsent(loc, TimeStampedIndex::new).getIndex();
+            } else {
+                return null;
+            }
+        } else {
+            return createIndex(location);
+        }
+    }
+
+    private static Index createIndex(String location) {
         Indexer indexer = new Indexer();
-        locations.stream()
-                .map(IOHelper::asFolder)
+        Stream.of(IOHelper.asFolder(location))
                 .filter(Files::exists)
                 .flatMap(IOHelper::walk)
                 .filter(Files::isRegularFile)

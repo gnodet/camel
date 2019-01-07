@@ -48,7 +48,7 @@ public class XQueryComponentConfiguration
     private String configuration;
     /**
      * To set custom Saxon configuration properties. The option is a
-     * java.util.Map<java.lang.String,java.lang.Object> type.
+     * java.util.Map<java.lang.String, java.lang.Object> type.
      */
     private String configurationProperties;
     /**

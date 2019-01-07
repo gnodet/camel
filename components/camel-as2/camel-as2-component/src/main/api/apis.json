@@ -1,0 +1,19 @@
+{
+  "apis": [
+    {
+      "apiName": "client",
+      "proxyClass": "org.apache.camel.component.as2.api.AS2ClientManager",
+      "fromJavadoc": {
+        "excludeMethods": "createSigningGenerator"
+      }
+    },
+    {
+      "apiName": "server",
+      "proxyClass": "org.apache.camel.component.as2.api.AS2ServerManager",
+      "fromJavadoc": {
+        "excludeMethods": "stopListening|handleMDNResponse"
+      },
+      "excludeConfigNames": "handler"
+    }
+  ]
+}

@@ -37,16 +37,24 @@ public class WsComponentConfiguration
      */
     private Boolean enabled;
     /**
-     * To use a custom AsyncHttpClient. The option is a
-     * org.asynchttpclient.AsyncHttpClient type.
+     * Whether to allow java serialization when a request uses
+     * context-type=application/x-java-serialized-object This is by default
+     * turned off. If you enable this then be aware that Java will deserialize
+     * the incoming data from the request to Java and that can be a potential
+     * security risk.
      */
-    private String client;
+    private Boolean allowJavaSerializedObject = false;
     /**
      * To use a custom AhcBinding which allows to control how to bind between
      * AHC and Camel. The option is a org.apache.camel.component.ahc.AhcBinding
      * type.
      */
     private String binding;
+    /**
+     * To use a custom AsyncHttpClient. The option is a
+     * org.asynchttpclient.AsyncHttpClient type.
+     */
+    private String client;
     /**
      * To configure the AsyncHttpClient to use a custom
      * com.ning.http.client.AsyncHttpClientConfig instance. The option is a
@@ -61,14 +69,6 @@ public class WsComponentConfiguration
      * org.apache.camel.support.jsse.SSLContextParameters type.
      */
     private String sslContextParameters;
-    /**
-     * Whether to allow java serialization when a request uses
-     * context-type=application/x-java-serialized-object This is by default
-     * turned off. If you enable this then be aware that Java will deserialize
-     * the incoming data from the request to Java and that can be a potential
-     * security risk.
-     */
-    private Boolean allowJavaSerializedObject = false;
     /**
      * Enable usage of global SSL context parameters.
      */
@@ -86,12 +86,12 @@ public class WsComponentConfiguration
      */
     private Boolean resolvePropertyPlaceholders = true;
 
-    public String getClient() {
-        return client;
+    public Boolean getAllowJavaSerializedObject() {
+        return allowJavaSerializedObject;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setAllowJavaSerializedObject(Boolean allowJavaSerializedObject) {
+        this.allowJavaSerializedObject = allowJavaSerializedObject;
     }
 
     public String getBinding() {
@@ -100,6 +100,14 @@ public class WsComponentConfiguration
 
     public void setBinding(String binding) {
         this.binding = binding;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
     }
 
     public String getClientConfig() {
@@ -116,14 +124,6 @@ public class WsComponentConfiguration
 
     public void setSslContextParameters(String sslContextParameters) {
         this.sslContextParameters = sslContextParameters;
-    }
-
-    public Boolean getAllowJavaSerializedObject() {
-        return allowJavaSerializedObject;
-    }
-
-    public void setAllowJavaSerializedObject(Boolean allowJavaSerializedObject) {
-        this.allowJavaSerializedObject = allowJavaSerializedObject;
     }
 
     public Boolean getUseGlobalSslContextParameters() {

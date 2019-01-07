@@ -38,11 +38,32 @@ public class Sjms2ComponentConfiguration
      */
     private Boolean enabled;
     /**
+     * The client ID to use when creating javax.jms.Connection when using the
+     * default org.apache.camel.component.sjms.jms.ConnectionFactoryResource.
+     */
+    private String connectionClientId;
+    /**
+     * The maximum number of connections available to endpoints started under
+     * this component
+     */
+    private Integer connectionCount = 1;
+    /**
      * A ConnectionFactory is required to enable the SjmsComponent. It can be
      * set directly or set set as part of a ConnectionResource. The option is a
      * javax.jms.ConnectionFactory type.
      */
     private String connectionFactory;
+    /**
+     * The max wait time in millis to block and wait on free connection when the
+     * pool is exhausted when using the default
+     * org.apache.camel.component.sjms.jms.ConnectionFactoryResource.
+     */
+    private Long connectionMaxWait = 5000L;
+    /**
+     * The password to use when creating javax.jms.Connection when using the
+     * default org.apache.camel.component.sjms.jms.ConnectionFactoryResource.
+     */
+    private String connectionPassword;
     /**
      * A ConnectionResource is an interface that allows for customization and
      * container control of the ConnectionFactory. See Plugable Connection
@@ -50,46 +71,6 @@ public class Sjms2ComponentConfiguration
      * org.apache.camel.component.sjms.jms.ConnectionResource type.
      */
     private String connectionResource;
-    /**
-     * The maximum number of connections available to endpoints started under
-     * this component
-     */
-    private Integer connectionCount = 1;
-    /**
-     * Pluggable strategy for encoding and decoding JMS keys so they can be
-     * compliant with the JMS specification. Camel provides one implementation
-     * out of the box: default. The default strategy will safely marshal dots
-     * and hyphens (. and -). Can be used for JMS brokers which do not care
-     * whether JMS header keys contain illegal characters. You can provide your
-     * own implementation of the
-     * org.apache.camel.component.jms.JmsKeyFormatStrategy and refer to it using
-     * the # notation. The option is a
-     * org.apache.camel.component.sjms.jms.JmsKeyFormatStrategy type.
-     */
-    private String jmsKeyFormatStrategy;
-    /**
-     * To configure which kind of commit strategy to use. Camel provides two
-     * implementations out of the box, default and batch. The option is a
-     * org.apache.camel.component.sjms.TransactionCommitStrategy type.
-     */
-    private String transactionCommitStrategy;
-    /**
-     * To use a custom DestinationCreationStrategy. The option is a
-     * org.apache.camel.component.sjms.jms.DestinationCreationStrategy type.
-     */
-    private String destinationCreationStrategy;
-    /**
-     * To use a custom TimedTaskManager. The option is a
-     * org.apache.camel.component.sjms.taskmanager.TimedTaskManager type.
-     */
-    private String timedTaskManager;
-    /**
-     * To use the given MessageCreatedStrategy which are invoked when Camel
-     * creates new instances of javax.jms.Message objects when Camel is sending
-     * a JMS message. The option is a
-     * org.apache.camel.component.sjms.jms.MessageCreatedStrategy type.
-     */
-    private String messageCreatedStrategy;
     /**
      * When using the default
      * org.apache.camel.component.sjms.jms.ConnectionFactoryResource then should
@@ -103,21 +84,40 @@ public class Sjms2ComponentConfiguration
      */
     private String connectionUsername;
     /**
-     * The password to use when creating javax.jms.Connection when using the
-     * default org.apache.camel.component.sjms.jms.ConnectionFactoryResource.
+     * To use a custom DestinationCreationStrategy. The option is a
+     * org.apache.camel.component.sjms.jms.DestinationCreationStrategy type.
      */
-    private String connectionPassword;
+    private String destinationCreationStrategy;
     /**
-     * The client ID to use when creating javax.jms.Connection when using the
-     * default org.apache.camel.component.sjms.jms.ConnectionFactoryResource.
+     * Pluggable strategy for encoding and decoding JMS keys so they can be
+     * compliant with the JMS specification. Camel provides one implementation
+     * out of the box: default. The default strategy will safely marshal dots
+     * and hyphens (. and -). Can be used for JMS brokers which do not care
+     * whether JMS header keys contain illegal characters. You can provide your
+     * own implementation of the
+     * org.apache.camel.component.jms.JmsKeyFormatStrategy and refer to it using
+     * the # notation. The option is a
+     * org.apache.camel.component.sjms.jms.JmsKeyFormatStrategy type.
      */
-    private String connectionClientId;
+    private String jmsKeyFormatStrategy;
     /**
-     * The max wait time in millis to block and wait on free connection when the
-     * pool is exhausted when using the default
-     * org.apache.camel.component.sjms.jms.ConnectionFactoryResource.
+     * To use the given MessageCreatedStrategy which are invoked when Camel
+     * creates new instances of javax.jms.Message objects when Camel is sending
+     * a JMS message. The option is a
+     * org.apache.camel.component.sjms.jms.MessageCreatedStrategy type.
      */
-    private Long connectionMaxWait = 5000L;
+    private String messageCreatedStrategy;
+    /**
+     * To use a custom TimedTaskManager. The option is a
+     * org.apache.camel.component.sjms.taskmanager.TimedTaskManager type.
+     */
+    private String timedTaskManager;
+    /**
+     * To configure which kind of commit strategy to use. Camel provides two
+     * implementations out of the box, default and batch. The option is a
+     * org.apache.camel.component.sjms.TransactionCommitStrategy type.
+     */
+    private String transactionCommitStrategy;
     /**
      * To use a custom org.apache.camel.spi.HeaderFilterStrategy to filter
      * header to and from Camel message. The option is a
@@ -131,20 +131,12 @@ public class Sjms2ComponentConfiguration
      */
     private Boolean resolvePropertyPlaceholders = true;
 
-    public String getConnectionFactory() {
-        return connectionFactory;
+    public String getConnectionClientId() {
+        return connectionClientId;
     }
 
-    public void setConnectionFactory(String connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
-
-    public String getConnectionResource() {
-        return connectionResource;
-    }
-
-    public void setConnectionResource(String connectionResource) {
-        this.connectionResource = connectionResource;
+    public void setConnectionClientId(String connectionClientId) {
+        this.connectionClientId = connectionClientId;
     }
 
     public Integer getConnectionCount() {
@@ -155,45 +147,36 @@ public class Sjms2ComponentConfiguration
         this.connectionCount = connectionCount;
     }
 
-    public String getJmsKeyFormatStrategy() {
-        return jmsKeyFormatStrategy;
+    public String getConnectionFactory() {
+        return connectionFactory;
     }
 
-    public void setJmsKeyFormatStrategy(String jmsKeyFormatStrategy) {
-        this.jmsKeyFormatStrategy = jmsKeyFormatStrategy;
+    public void setConnectionFactory(String connectionFactory) {
+        this.connectionFactory = connectionFactory;
     }
 
-    public String getTransactionCommitStrategy() {
-        return transactionCommitStrategy;
+    public Long getConnectionMaxWait() {
+        return connectionMaxWait;
     }
 
-    public void setTransactionCommitStrategy(String transactionCommitStrategy) {
-        this.transactionCommitStrategy = transactionCommitStrategy;
+    public void setConnectionMaxWait(Long connectionMaxWait) {
+        this.connectionMaxWait = connectionMaxWait;
     }
 
-    public String getDestinationCreationStrategy() {
-        return destinationCreationStrategy;
+    public String getConnectionPassword() {
+        return connectionPassword;
     }
 
-    public void setDestinationCreationStrategy(
-            String destinationCreationStrategy) {
-        this.destinationCreationStrategy = destinationCreationStrategy;
+    public void setConnectionPassword(String connectionPassword) {
+        this.connectionPassword = connectionPassword;
     }
 
-    public String getTimedTaskManager() {
-        return timedTaskManager;
+    public String getConnectionResource() {
+        return connectionResource;
     }
 
-    public void setTimedTaskManager(String timedTaskManager) {
-        this.timedTaskManager = timedTaskManager;
-    }
-
-    public String getMessageCreatedStrategy() {
-        return messageCreatedStrategy;
-    }
-
-    public void setMessageCreatedStrategy(String messageCreatedStrategy) {
-        this.messageCreatedStrategy = messageCreatedStrategy;
+    public void setConnectionResource(String connectionResource) {
+        this.connectionResource = connectionResource;
     }
 
     public Boolean getConnectionTestOnBorrow() {
@@ -212,28 +195,45 @@ public class Sjms2ComponentConfiguration
         this.connectionUsername = connectionUsername;
     }
 
-    public String getConnectionPassword() {
-        return connectionPassword;
+    public String getDestinationCreationStrategy() {
+        return destinationCreationStrategy;
     }
 
-    public void setConnectionPassword(String connectionPassword) {
-        this.connectionPassword = connectionPassword;
+    public void setDestinationCreationStrategy(
+            String destinationCreationStrategy) {
+        this.destinationCreationStrategy = destinationCreationStrategy;
     }
 
-    public String getConnectionClientId() {
-        return connectionClientId;
+    public String getJmsKeyFormatStrategy() {
+        return jmsKeyFormatStrategy;
     }
 
-    public void setConnectionClientId(String connectionClientId) {
-        this.connectionClientId = connectionClientId;
+    public void setJmsKeyFormatStrategy(String jmsKeyFormatStrategy) {
+        this.jmsKeyFormatStrategy = jmsKeyFormatStrategy;
     }
 
-    public Long getConnectionMaxWait() {
-        return connectionMaxWait;
+    public String getMessageCreatedStrategy() {
+        return messageCreatedStrategy;
     }
 
-    public void setConnectionMaxWait(Long connectionMaxWait) {
-        this.connectionMaxWait = connectionMaxWait;
+    public void setMessageCreatedStrategy(String messageCreatedStrategy) {
+        this.messageCreatedStrategy = messageCreatedStrategy;
+    }
+
+    public String getTimedTaskManager() {
+        return timedTaskManager;
+    }
+
+    public void setTimedTaskManager(String timedTaskManager) {
+        this.timedTaskManager = timedTaskManager;
+    }
+
+    public String getTransactionCommitStrategy() {
+        return transactionCommitStrategy;
+    }
+
+    public void setTransactionCommitStrategy(String transactionCommitStrategy) {
+        this.transactionCommitStrategy = transactionCommitStrategy;
     }
 
     public String getHeaderFilterStrategy() {

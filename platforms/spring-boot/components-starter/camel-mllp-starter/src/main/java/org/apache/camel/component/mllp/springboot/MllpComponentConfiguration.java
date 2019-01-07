@@ -51,8 +51,9 @@ public class MllpComponentConfiguration
     private Integer logPhiMaxBytes = 5120;
     /**
      * Set the default character set to use for byte to/from String conversions.
+     * The option is a java.nio.charset.Charset type.
      */
-    private String defaultCharset = "ISO-8859-1";
+    private String defaultCharset;
     /**
      * Sets the default configuration to use when creating MLLP endpoints.
      */

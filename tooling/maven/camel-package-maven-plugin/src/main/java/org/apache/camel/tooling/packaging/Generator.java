@@ -16,6 +16,8 @@
  */
 package org.apache.camel.tooling.packaging;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -47,6 +50,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.lang.model.type.DeclaredType;
+import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
@@ -55,6 +59,11 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.thoughtworks.qdox.library.SourceLibrary;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -77,6 +86,8 @@ import org.apache.camel.tooling.packaging.model.EndpointOptionModel;
 import org.apache.camel.tooling.packaging.model.LanguageModel;
 import org.apache.camel.tooling.packaging.model.OtherModel;
 import org.apache.commons.io.IOUtils;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
@@ -84,6 +95,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 import org.jboss.jandex.Index;
+import org.jboss.jandex.IndexView;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 
@@ -99,6 +111,7 @@ import static org.apache.camel.tooling.packaging.helpers.Strings.canonicalClassN
 import static org.apache.camel.tooling.packaging.helpers.Strings.getOrElse;
 import static org.apache.camel.tooling.packaging.helpers.Strings.isNullOrEmpty;
 import static org.apache.camel.tooling.packaging.helpers.Strings.safeNull;
+import static org.w3c.dom.Node.ELEMENT_NODE;
 
 public abstract class Generator {
 
@@ -159,7 +172,7 @@ public abstract class Generator {
     private static final String HEADER_FILTER_STRATEGY_JAVADOC = "To use a custom HeaderFilterStrategy to filter header to and from Camel message.";
 
     final SourceLibrary sourceLibrary = new SourceLibrary(null);
-    Index index;
+    IndexView index;
 
 
     public void prepareLegal(Path legalOutDir) {
@@ -211,10 +224,10 @@ public abstract class Generator {
     public void prepareServices(Path serviceOutDir) {
         Path camelMetaDir = serviceOutDir.resolve(META_INF_SERVICES_ORG_APACHE_CAMEL);
 
-        Index index = getIndex();
+        IndexView index = getIndex();
         Stream.of(COMPONENT, LANGUAGE, DATAFORMAT)
                 .map(index::getAnnotations)
-                .flatMap(List::stream)
+                .flatMap(Collection::stream)
                 .filter(this::isLocalClass)
                 .forEach(ai -> {
                     String names = ai.value().asString();
@@ -267,7 +280,7 @@ public abstract class Generator {
         if (!"camel-core".equals(getArtifactId())) {
             String typeConverter = Stream.of(CONVERTER)
                     .map(index::getAnnotations)
-                    .flatMap(List::stream)
+                    .flatMap(Collection::stream)
                     .map(ai -> ai.target().kind() == Kind.METHOD
                             ? ai.target().asMethod().declaringClass().name().toString()
                             : ai.target().asClass().name().toString())
@@ -451,10 +464,10 @@ public abstract class Generator {
     public void processJaxb(Path jaxbIndexOutDir) {
         Map<String, Set<String>> byPackage = new HashMap<>();
 
-        Index index = getIndex();
+        IndexView index = getIndex();
         Stream.of(XML_ROOT_ELEMENT, XML_ENUM)
                 .map(index::getAnnotations)
-                .flatMap(List::stream)
+                .flatMap(Collection::stream)
                 .map(AnnotationInstance::target)
                 .map(AnnotationTarget::asClass)
                 .map(ClassInfo::name)
@@ -507,11 +520,55 @@ public abstract class Generator {
         addResourceDirectory(modelOutDir);
     }
 
-    public Index getIndex() {
+    public void prepareKarafCatalog(Path featuresDir) {
+        Set<String> features = loadFeatureNames(featuresDir);
+//        executeComponents(features);
+//        executeDataFormats(features);
+//        executeLanguages(features);
+//        executeOthers(features);
+    }
+
+    public IndexView getIndex() {
         if (index == null) {
             index = JandexHelper.createIndex(getClasspath());
         }
         return index;
+    }
+
+    // load features.xml file and parse it
+    private Set<String> loadFeatureNames(Path featuresDir) {
+        Set<String> answer = new LinkedHashSet<>();
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setIgnoringComments(true);
+            dbf.setIgnoringElementContentWhitespace(true);
+            dbf.setNamespaceAware(false);
+            dbf.setValidating(false);
+            dbf.setXIncludeAware(false);
+            dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+            Document dom = dbf.newDocumentBuilder().parse(featuresDir.resolve("features.xml").toFile());
+
+            NodeList children = dom.getElementsByTagName("features");
+            for (int i = 0; i < children.getLength(); i++) {
+                Node child = children.item(i);
+                if (child.getNodeType() == ELEMENT_NODE) {
+                    NodeList children2 = child.getChildNodes();
+                    for (int j = 0; j < children2.getLength(); j++) {
+                        Node child2 = children2.item(j);
+                        if ("feature".equals(child2.getNodeName())) {
+                            String artifactId = child2.getAttributes().getNamedItem("name").getTextContent();
+                            if (artifactId != null && artifactId.startsWith("camel-")) {
+                                answer.add(artifactId);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error reading features.xml file", e);
+        }
+
+        return answer;
     }
 
     private boolean isLocalClass(AnnotationInstance ai) {
@@ -541,7 +598,7 @@ public abstract class Generator {
         return data;
     }
 
-    private void updateResource(Path out, String data) {
+    protected void updateResource(Path out, String data) {
         try {
             if (data == null) {
                 if (Files.isRegularFile(out)) {
@@ -3096,5 +3153,7 @@ public abstract class Generator {
     protected abstract void debug(String message);
 
     protected abstract void info(String message);
+
+    protected abstract void warn(String message);
 
 }

@@ -37,15 +37,6 @@ public class WebsocketComponentConfiguration
      */
     private Boolean enabled;
     /**
-     * Default name of servlet to use. The default name is CamelServlet.
-     */
-    private String servletName = "CamelServlet";
-    /**
-     * To use a custom org.apache.camel.component.servlet.HttpRegistry. The
-     * option is a org.apache.camel.component.servlet.HttpRegistry type.
-     */
-    private String httpRegistry;
-    /**
      * Whether to automatic bind multipart/form-data as attachments on the Camel
      * Exchange. The options attachmentMultipartBinding=true and
      * disableStreamCache=false cannot work together. Remove disableStreamCache
@@ -60,6 +51,23 @@ public class WebsocketComponentConfiguration
      */
     private String fileNameExtWhitelist;
     /**
+     * To use a custom org.apache.camel.component.servlet.HttpRegistry. The
+     * option is a org.apache.camel.component.servlet.HttpRegistry type.
+     */
+    private String httpRegistry;
+    /**
+     * Default name of servlet to use. The default name is CamelServlet.
+     */
+    private String servletName = "CamelServlet";
+    /**
+     * Whether to allow java serialization when a request uses
+     * context-type=application/x-java-serialized-object. This is by default
+     * turned off. If you enable this then be aware that Java will deserialize
+     * the incoming data from the request to Java and that can be a potential
+     * security risk.
+     */
+    private Boolean allowJavaSerializedObject = false;
+    /**
      * To use a custom HttpBinding to control the mapping between Camel message
      * and HttpClient. The option is a org.apache.camel.http.common.HttpBinding
      * type.
@@ -70,14 +78,6 @@ public class WebsocketComponentConfiguration
      * a org.apache.camel.http.common.HttpConfiguration type.
      */
     private String httpConfiguration;
-    /**
-     * Whether to allow java serialization when a request uses
-     * context-type=application/x-java-serialized-object. This is by default
-     * turned off. If you enable this then be aware that Java will deserialize
-     * the incoming data from the request to Java and that can be a potential
-     * security risk.
-     */
-    private Boolean allowJavaSerializedObject = false;
     /**
      * To use a custom org.apache.camel.spi.HeaderFilterStrategy to filter
      * header to and from Camel message. The option is a
@@ -90,22 +90,6 @@ public class WebsocketComponentConfiguration
      * placeholders.
      */
     private Boolean resolvePropertyPlaceholders = true;
-
-    public String getServletName() {
-        return servletName;
-    }
-
-    public void setServletName(String servletName) {
-        this.servletName = servletName;
-    }
-
-    public String getHttpRegistry() {
-        return httpRegistry;
-    }
-
-    public void setHttpRegistry(String httpRegistry) {
-        this.httpRegistry = httpRegistry;
-    }
 
     public Boolean getAttachmentMultipartBinding() {
         return attachmentMultipartBinding;
@@ -123,6 +107,30 @@ public class WebsocketComponentConfiguration
         this.fileNameExtWhitelist = fileNameExtWhitelist;
     }
 
+    public String getHttpRegistry() {
+        return httpRegistry;
+    }
+
+    public void setHttpRegistry(String httpRegistry) {
+        this.httpRegistry = httpRegistry;
+    }
+
+    public String getServletName() {
+        return servletName;
+    }
+
+    public void setServletName(String servletName) {
+        this.servletName = servletName;
+    }
+
+    public Boolean getAllowJavaSerializedObject() {
+        return allowJavaSerializedObject;
+    }
+
+    public void setAllowJavaSerializedObject(Boolean allowJavaSerializedObject) {
+        this.allowJavaSerializedObject = allowJavaSerializedObject;
+    }
+
     public String getHttpBinding() {
         return httpBinding;
     }
@@ -137,14 +145,6 @@ public class WebsocketComponentConfiguration
 
     public void setHttpConfiguration(String httpConfiguration) {
         this.httpConfiguration = httpConfiguration;
-    }
-
-    public Boolean getAllowJavaSerializedObject() {
-        return allowJavaSerializedObject;
-    }
-
-    public void setAllowJavaSerializedObject(Boolean allowJavaSerializedObject) {
-        this.allowJavaSerializedObject = allowJavaSerializedObject;
     }
 
     public String getHeaderFilterStrategy() {

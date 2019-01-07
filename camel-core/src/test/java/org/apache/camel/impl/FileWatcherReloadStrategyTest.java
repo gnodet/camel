@@ -133,6 +133,7 @@ public class FileWatcherReloadStrategyTest extends ContextTestSupport {
     }
 
     @Test
+    @Retry
     public void testUpdateXmlRoute() throws Exception {
         deleteDirectory("target/dummy");
         createDirectory("target/dummy");
