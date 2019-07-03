@@ -96,7 +96,7 @@ public class ThriftDataFormat extends ServiceSupport implements DataFormat, Data
     }
 
     public void setInstanceClass(String className) throws Exception {
-        ObjectHelper.notNull(className, "ThriftDataFormat instaceClass");
+        ObjectHelper.notNull(className, "ThriftDataFormat instanceClass");
         instanceClassName = className;
     }
 

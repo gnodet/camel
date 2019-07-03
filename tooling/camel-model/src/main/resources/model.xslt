@@ -152,6 +152,7 @@
 						<xsl:attribute name="label"><xsl:value-of select="language/label"/></xsl:attribute>
 						<xsl:attribute name="extends">model:language</xsl:attribute>
 						<xsl:attribute name="maven"><xsl:value-of select="concat(language/groupId, ':', language/artifactId, ':', language/version)"/></xsl:attribute>
+						<xsl:attribute name="javaType"><xsl:value-of select="language/javaType"/></xsl:attribute>
 						<xsl:if test="language/deprecated/text() = 'true'"><xsl:attribute name="deprecated">true</xsl:attribute></xsl:if>
 						<xsl:if test="string-length(language/firstVersion/text())&gt;0"><xsl:attribute name="since"><xsl:value-of select="language/firstVersion"/></xsl:attribute></xsl:if>
 						<xsl:attribute name="description"><xsl:value-of select="language/description"/></xsl:attribute>
@@ -188,7 +189,7 @@
 									  /model/models/json |
 									  /model/models/jsonApi |
 									  /model/models/lzf |
-									  /model/models/mimeMultipart |
+									  /model/models/mime-multipart |
 									  /model/models/pgp |
 									  /model/models/protobuf |
 									  /model/models/rss |
@@ -213,7 +214,10 @@
 						<xsl:attribute name="display"><xsl:value-of select="model/title"/></xsl:attribute>
 						<xsl:attribute name="label"><xsl:value-of select="model/label"/></xsl:attribute>
 						<xsl:attribute name="extends">model:dataFormat</xsl:attribute>
-						<xsl:if test="$df"><xsl:attribute name="maven"><xsl:value-of select="concat($df/dataformat/groupId, ':', $df/dataformat/artifactId, ':', $df/dataformat/version)"/></xsl:attribute></xsl:if>
+						<xsl:if test="$df">
+							<xsl:attribute name="maven"><xsl:value-of select="concat($df/dataformat/groupId, ':', $df/dataformat/artifactId, ':', $df/dataformat/version)"/></xsl:attribute>
+							<xsl:attribute name="javaType"><xsl:value-of select="$df/dataformat/modelJavaType"/></xsl:attribute>
+						</xsl:if>
 						<xsl:if test="model/deprecated/text() = 'true'"><xsl:attribute name="deprecated">true</xsl:attribute></xsl:if>
 						<xsl:if test="string-length(model/firstVersion/text())&gt;0"><xsl:attribute name="since"><xsl:value-of select="model/firstVersion"/></xsl:attribute></xsl:if>
 						<xsl:attribute name="description"><xsl:value-of select="model/description"/></xsl:attribute>
@@ -224,7 +228,6 @@
 						</xsl:for-each>
 					</xsl:element>
 				</xsl:for-each>
-				<!-- TODO: xmlrpc missing -->
 			</dataFormats>
 			<xsl:comment>&#13;    - LoadBalancers&#13;    </xsl:comment>
 			<loadBalancers>
@@ -702,6 +705,15 @@
 				<xsl:variable name="raw">
 					<xsl:choose>
 						<xsl:when test="starts-with($javaType, 'org.apache.camel.component.')">
+							<xsl:variable name="pkg">
+								<xsl:call-template name="substring-before-last">
+									<xsl:with-param name="string1" select="$javaType"/>
+									<xsl:with-param name="string2" select="'.'"/>
+								</xsl:call-template>
+							</xsl:variable>
+							<xsl:value-of select="substring($javaType, string-length($pkg) + 2)"/>
+						</xsl:when>
+						<xsl:when test="starts-with($javaType, 'org.apache.camel.model.dataformat.')">
 							<xsl:variable name="pkg">
 								<xsl:call-template name="substring-before-last">
 									<xsl:with-param name="string1" select="$javaType"/>

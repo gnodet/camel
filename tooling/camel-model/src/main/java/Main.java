@@ -13,6 +13,7 @@ import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -40,9 +41,12 @@ import de.odysseus.staxon.json.JsonXMLConfigBuilder;
 import de.odysseus.staxon.json.JsonXMLInputFactory;
 import de.odysseus.staxon.xml.util.PrettyXMLEventWriter;
 import de.odysseus.staxon.xml.util.PrettyXMLStreamWriter;
-import model.Model;
-import model.Model.Endpoint;
-import model.Model.Property;
+import org.apache.camel.metamodel.AbstractData;
+import org.apache.camel.metamodel.Model;
+import org.apache.camel.metamodel.DataFormat;
+import org.apache.camel.metamodel.Endpoint;
+import org.apache.camel.metamodel.Language;
+import org.apache.camel.metamodel.Property;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -132,7 +136,7 @@ public class Main {
         VelocityContext context = new VelocityContext();
         context.put("model", model);
         for (Endpoint endpoint : model.getEndpoints()) {
-            String name = substringBefore(endpoint.getJavaType().substring(endpoint.getJavaType().lastIndexOf('.') + 1), "Component");
+            String name = substringBeforeLast(endpoint.getJavaType().substring(endpoint.getJavaType().lastIndexOf('.') + 1), "Component");
             List<String> schemes = model.getEndpoints().stream().filter(e -> Objects.equals(e.getJavaType(), endpoint.getJavaType()))
                     .map(Endpoint::getName)
                     .collect(Collectors.toList());
@@ -142,7 +146,51 @@ public class Main {
             context.put("main", Main.class);
             Path file = Paths.get("target/generated/org/apache/camel/model/endpoints/" + name + "EndpointBuilderFactory.java");
             try (StringWriter w = new StringWriter()) {
-                t.merge(context, w);
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate endpoint " + name, e);
+                }
+                w.flush();
+                updateResource(file, w.toString());
+            }
+        }
+
+        t = velocityEngine.getTemplate("src/main/resources/dataformat.vm");
+        context = new VelocityContext();
+        context.put("model", model);
+        for (DataFormat dataFormat : model.getDataFormats()) {
+            String name = substringBeforeLast(dataFormat.getJavaType().substring(dataFormat.getJavaType().lastIndexOf('.') + 1), "DataFormat");
+            context.put("dataFormat", dataFormat);
+            context.put("name", name);
+            context.put("main", Main.class);
+            Path file = Paths.get("target/generated/org/apache/camel/model/dataformats/" + name + "DataFormat.java");
+            try (StringWriter w = new StringWriter()) {
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate dataformat " + name, e);
+                }
+                w.flush();
+                updateResource(file, w.toString());
+            }
+        }
+
+        t = velocityEngine.getTemplate("src/main/resources/language.vm");
+        context = new VelocityContext();
+        context.put("model", model);
+        for (Language language : model.getLanguages()) {
+            String name = substringBeforeLast(language.getJavaType().substring(language.getJavaType().lastIndexOf('.') + 1), "Language");
+            context.put("language", language);
+            context.put("name", name);
+            context.put("main", Main.class);
+            Path file = Paths.get("target/generated/org/apache/camel/model/languages/" + name + "Expression.java");
+            try (StringWriter w = new StringWriter()) {
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate language " + name, e);
+                }
                 w.flush();
                 updateResource(file, w.toString());
             }
@@ -201,7 +249,10 @@ public class Main {
         return s;
     }
 
-    public static Map<String, List<String>> getEnums(Model.AbstractData data) {
+    public static Map<String, List<String>> getEnums(AbstractData data) {
+        if (data.getProperties() == null) {
+            return Collections.emptyMap();
+        }
         List<String> enumsStr = data.getProperties().stream().map(Property::getType)
                 .flatMap(Main::getSubTypes)
                 .filter(s -> s.startsWith("enum:"))
@@ -226,12 +277,45 @@ public class Main {
         return enums;
     }
 
-    public static List<String> getImports(Model.AbstractData data) {
+    public static List<String> getImports(Endpoint data) {
+        if (data.getProperties() == null) {
+            return Collections.emptyList();
+        }
         return data.getProperties().stream().map(Property::getType)
                 .flatMap(Main::getSubTypes)
                 .map(Main::getImport)
                 .filter(s -> !s.startsWith("java.lang."))
                 .filter(s -> !s.startsWith("org.apache.camel.model.endpoints."))
+                .filter(s -> s.contains("."))
+                .sorted()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getImports(DataFormat data) {
+        if (data.getProperties() == null) {
+            return Collections.emptyList();
+        }
+        return data.getProperties().stream().map(Property::getType)
+                .flatMap(Main::getSubTypes)
+                .map(Main::getImport)
+                .filter(s -> !s.startsWith("java.lang."))
+                .filter(s -> !s.startsWith("org.apache.camel.model.dataformats."))
+                .filter(s -> s.contains("."))
+                .sorted()
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getImports(Language data) {
+        if (data.getProperties() == null) {
+            return Collections.emptyList();
+        }
+        return data.getProperties().stream().map(Property::getType)
+                .flatMap(Main::getSubTypes)
+                .map(Main::getImport)
+                .filter(s -> !s.startsWith("java.lang."))
+                .filter(s -> !s.startsWith("org.apache.camel.model.languages."))
                 .filter(s -> s.contains("."))
                 .sorted()
                 .distinct()
@@ -339,7 +423,8 @@ public class Main {
         if (t.startsWith("org.apache.camel.component.")
                 || t.startsWith("org.apache.camel.http")
                 || t.startsWith("org.apache.camel.support.processor.validation.")
-                || t.startsWith("org.apache.camel.converter.")) {
+                || t.startsWith("org.apache.camel.converter.")
+                || t.startsWith("org.apache.camel.dataformat.")) {
             return false;
         }
         if (t.startsWith("org.apache.camel.")) {
@@ -431,6 +516,10 @@ public class Main {
 
     private static String substringBefore(String s, String c) {
         return s.substring(0, s.indexOf(c));
+    }
+
+    private static String substringBeforeLast(String s, String c) {
+        return s.substring(0, s.lastIndexOf(c));
     }
 
     public static void updateResource(Path out, String data) {
