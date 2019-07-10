@@ -316,6 +316,7 @@
 							<xsl:variable name="name" select="local-name()"/>
 							<xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
 							<xsl:attribute name="extends">model:processor</xsl:attribute>
+							<xsl:attribute name="javaType"><xsl:value-of select="model/javaType"/></xsl:attribute>
 							<xsl:attribute name="display"><xsl:value-of select="model/title"/></xsl:attribute>
 							<xsl:attribute name="label"><xsl:value-of select="model/label"/></xsl:attribute>
 							<xsl:if test="model/deprecated/text() = 'true'"><xsl:attribute name="deprecated">true</xsl:attribute></xsl:if>
@@ -364,8 +365,8 @@
 					</xsl:for-each>
 				</xsl:for-each>
 			</verbs>
-			<xsl:comment>&#13;    - EIPs&#13;      </xsl:comment>
-			<eips>
+			<xsl:comment>&#13;    - Structs&#13;      </xsl:comment>
+			<structs>
 				<xsl:for-each select="/model/models">
 					<xsl:for-each select="*[local-name() != 'aggregate' and
 											local-name() != 'bean' and
@@ -513,7 +514,7 @@
 											local-name() != 'sticky' and
 											local-name() != 'topic' and
 											local-name() != 'weighted'  ]">
-						<xsl:element name="eip">
+						<xsl:element name="struct">
 							<xsl:variable name="parent">
 								<xsl:choose>
 									<xsl:when test="properties/id/description/text() = 'Sets the id of this node'
@@ -533,26 +534,13 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:variable>
-							<xsl:attribute name="name">
-								<xsl:value-of select="local-name(.)"/>
-							</xsl:attribute>
-							<xsl:if test="$parent != ''">
-								<xsl:attribute name="extends"><xsl:value-of select="concat('model:', $parent)"/></xsl:attribute>
-							</xsl:if>
-							<xsl:attribute name="display">
-								<xsl:value-of select="model/title"/>
-							</xsl:attribute>
-							<xsl:attribute name="label">
-								<xsl:value-of select="model/label"/>
-							</xsl:attribute>
-							<xsl:if test="model/deprecated/text() = 'true'">
-								<xsl:attribute name="deprecated">true</xsl:attribute>
-							</xsl:if>
-							<xsl:if test="string-length(model/firstVersion/text())&gt;0">
-								<xsl:attribute name="since">
-									<xsl:value-of select="model/firstVersion"/>
-								</xsl:attribute>
-							</xsl:if>
+							<xsl:attribute name="name"><xsl:value-of select="local-name(.)"/></xsl:attribute>
+							<xsl:if test="$parent != ''"><xsl:attribute name="extends"><xsl:value-of select="concat('model:', $parent)"/></xsl:attribute></xsl:if>
+							<xsl:attribute name="javaType"><xsl:value-of select="model/javaType"/></xsl:attribute>
+							<xsl:attribute name="display"><xsl:value-of select="model/title"/></xsl:attribute>
+							<xsl:attribute name="label"><xsl:value-of select="model/label"/></xsl:attribute>
+							<xsl:if test="model/deprecated/text() = 'true'"><xsl:attribute name="deprecated">true</xsl:attribute></xsl:if>
+							<xsl:if test="string-length(model/firstVersion/text())&gt;0"><xsl:attribute name="since"><xsl:value-of select="model/firstVersion"/></xsl:attribute></xsl:if>
 							<xsl:attribute name="description"><xsl:value-of select="model/description"/></xsl:attribute>
 							<xsl:for-each select="properties/*[
 								($parent = 'processor' and local-name() != 'id' and local-name() != 'description' and local-name() != 'inheritErrorHandler') or
@@ -567,7 +555,7 @@
 						</xsl:element>
 					</xsl:for-each>
 				</xsl:for-each>
-			</eips>
+			</structs>
 		</model>
 	</xsl:template>
 

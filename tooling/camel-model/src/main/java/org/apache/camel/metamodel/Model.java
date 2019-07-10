@@ -8,7 +8,7 @@ public class Model {
     List<Language> languages;
     List<DataFormat> dataFormats;
     List<LoadBalancer> loadBalancers;
-    List<Eip> eips;
+    List<Struct> structs;
     List<Verb> verbs;
     List<Endpoint> endpoints;
     List<Processor> processors;
@@ -45,12 +45,12 @@ public class Model {
         this.loadBalancers = loadBalancers;
     }
 
-    public List<Eip> getEips() {
-        return eips;
+    public List<Struct> getStructs() {
+        return structs;
     }
 
-    public void setEips(List<Eip> eips) {
-        this.eips = eips;
+    public void setStructs(List<Struct> structs) {
+        this.structs = structs;
     }
 
     public List<Verb> getVerbs() {

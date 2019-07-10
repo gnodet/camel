@@ -27,11 +27,11 @@ public class DataFormatDefinition {
         this.dataFormatName = dataFormatName;
     }
 
-    protected void setProperty(String name, Object value) {
+    protected void doSetProperty(String name, Object value) {
         properties.put(name, value);
     }
 
-    protected Object getProperty(String name) {
+    protected Object doGetProperty(String name) {
         return properties.get(name);
     }
 }

@@ -2,19 +2,10 @@ package org.apache.camel.metamodel;
 
 public class Endpoint extends AbstractData {
 
-    String javaType;
     boolean async;
     boolean consumerOnly;
     boolean producerOnly;
     boolean lenient;
-
-    public String getJavaType() {
-        return javaType;
-    }
-
-    public void setJavaType(String javaType) {
-        this.javaType = javaType;
-    }
 
     public boolean isAsync() {
         return async;

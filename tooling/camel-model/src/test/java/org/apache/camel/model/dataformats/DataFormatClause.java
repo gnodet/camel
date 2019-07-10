@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
-import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.processors.ProcessorDefinition;
 import org.apache.camel.model.dataformats.BindyDataFormat.BindyType;
 import org.apache.camel.model.dataformats.JsonDataFormat.JsonLibrary;
 import org.apache.camel.model.dataformats.YAMLDataFormat.YAMLLibrary;

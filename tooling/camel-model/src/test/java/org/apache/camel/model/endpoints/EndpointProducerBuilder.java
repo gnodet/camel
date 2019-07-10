@@ -16,9 +16,43 @@
  */
 package org.apache.camel.model.endpoints;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Expression;
+import org.apache.camel.NoSuchEndpointException;
 
+/**
+ * Type-safe endpoint DSL for building producer endpoints.
+ *
+ * @see EndpointConsumerBuilder
+ */
 public interface EndpointProducerBuilder {
 
-    void setProperty(String key, Object value);
+    /**
+     * Builds and resolves this endpoint DSL as an endpoint.
+     *
+     * @param context  the camel context
+     * @return a built {@link Endpoint}
+     * @throws NoSuchEndpointException is thrown if the endpoint
+     */
+    Endpoint resolve(CamelContext context) throws NoSuchEndpointException;
+
+    /**
+     * Builds the url of this endpoint.
+     * This API is only intended for Camel internally.
+     */
+    String getUri();
+
+    /**
+     * Adds an option to this endpoint.
+     * This API is only intended for Camel internally.
+     */
+    void doSetProperty(String name, Object value);
+
+    /**
+     * Builds an expression of this endpoint url.
+     * This API is only intended for Camel internally.
+     */
+    Expression expr();
 
 }

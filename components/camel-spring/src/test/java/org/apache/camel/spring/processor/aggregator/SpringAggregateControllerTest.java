@@ -17,7 +17,7 @@
 package org.apache.camel.spring.processor.aggregator;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.processor.aggregate.AggregateController;
+import org.apache.camel.spi.AggregateController;
 import org.apache.camel.processor.aggregator.AggregateControllerTest;
 import org.junit.Ignore;
 

@@ -14,36 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.processor.loadbalancer;
+package org.apache.camel.model.processors;
 
+import java.util.Collections;
 import java.util.List;
 
-import org.apache.camel.AsyncProcessor;
-import org.apache.camel.Processor;
-
 /**
- * A strategy for load balancing across a number of {@link Processor} instances
+ * Base class for definitions which does not support outputs.
  */
-public interface LoadBalancer extends AsyncProcessor {
+public abstract class NoOutputDefinition<Type extends ProcessorDefinition<Type>> extends ProcessorDefinition<Type> {
 
-    /**
-     * Adds a new processor to the load balancer
-     *
-     * @param processor the processor to be added to the load balancer
-     */
-    void addProcessor(AsyncProcessor processor);
+    public List<ProcessorDefinition<?>> getOutputs() {
+        return Collections.emptyList();
+    }
 
-    /**
-     * Removes the given processor from the load balancer
-     *
-     * @param processor the processor to be removed from the load balancer
-     */
-    void removeProcessor(AsyncProcessor processor);
-
-    /**
-     * Returns the current processors available to this load balancer
-     *
-     * @return the processors available
-     */
-    List<AsyncProcessor> getProcessors();
 }

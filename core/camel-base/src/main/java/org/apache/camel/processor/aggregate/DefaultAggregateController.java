@@ -16,18 +16,21 @@
  */
 package org.apache.camel.processor.aggregate;
 
+import org.apache.camel.AsyncProcessor;
+import org.apache.camel.spi.AggregateController;
+
 /**
- * A default {@link org.apache.camel.processor.aggregate.AggregateController} that offers Java and JMX API.
+ * A default {@link AggregateController} that offers Java and JMX API.
  */
 public class DefaultAggregateController implements AggregateController {
 
     private AggregateProcessor processor;
 
-    public void onStart(AggregateProcessor processor) {
-        this.processor = processor;
+    public void onStart(AsyncProcessor processor) {
+        this.processor = (AggregateProcessor) processor;
     }
 
-    public void onStop(AggregateProcessor processor) {
+    public void onStop(AsyncProcessor processor) {
         this.processor = null;
     }
 

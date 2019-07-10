@@ -37,7 +37,7 @@ import org.apache.camel.builder.AggregationStrategyClause;
 import org.apache.camel.builder.ExpressionClause;
 import org.apache.camel.builder.PredicateClause;
 import org.apache.camel.model.language.ExpressionDefinition;
-import org.apache.camel.processor.aggregate.AggregateController;
+import org.apache.camel.spi.AggregateController;
 import org.apache.camel.processor.aggregate.OptimisticLockRetryPolicy;
 import org.apache.camel.spi.AggregationRepository;
 import org.apache.camel.spi.AsPredicate;
@@ -492,7 +492,7 @@ public class AggregateDefinition extends ProcessorDefinition<AggregateDefinition
     }
 
     /**
-     * To use a {@link org.apache.camel.processor.aggregate.AggregateController} to allow external sources to control
+     * To use a {@link AggregateController} to allow external sources to control
      * this aggregator.
      */
     public void setAggregateControllerRef(String aggregateControllerRef) {
@@ -905,7 +905,7 @@ public class AggregateDefinition extends ProcessorDefinition<AggregateDefinition
     }
 
     /**
-     * To use a {@link org.apache.camel.processor.aggregate.AggregateController} to allow external sources to control
+     * To use a {@link AggregateController} to allow external sources to control
      * this aggregator.
      */
     public AggregateDefinition aggregateController(AggregateController aggregateController) {

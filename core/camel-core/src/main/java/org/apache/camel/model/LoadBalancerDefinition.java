@@ -25,9 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.support.IntrospectionSupport;
 
 /**
  * Balances message processing among a number of nodes

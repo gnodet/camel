@@ -14,7 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.processor.aggregate;
+package org.apache.camel.spi;
+
+import org.apache.camel.AsyncProcessor;
 
 /**
  * A controller which allows controlling a {@link org.apache.camel.processor.aggregate.AggregateProcessor} from an
@@ -27,14 +29,14 @@ public interface AggregateController {
      *
      * @param processor the aggregate processor
      */
-    void onStart(AggregateProcessor processor);
+    void onStart(AsyncProcessor processor);
 
     /**
      * Callback when the aggregate processor is stopped.
      *
      * @param processor the aggregate processor
      */
-    void onStop(AggregateProcessor processor);
+    void onStop(AsyncProcessor processor);
 
     /**
      * To force completing a specific group by its key.

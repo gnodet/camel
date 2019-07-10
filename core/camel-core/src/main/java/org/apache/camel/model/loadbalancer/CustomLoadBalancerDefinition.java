@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.camel.model.LoadBalancerDefinition;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.Metadata;
 
 /**

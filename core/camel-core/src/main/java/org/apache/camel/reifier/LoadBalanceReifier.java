@@ -21,7 +21,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.model.LoadBalanceDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.reifier.loadbalancer.LoadBalancerReifier;
 import org.apache.camel.spi.RouteContext;
 

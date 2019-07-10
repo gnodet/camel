@@ -47,6 +47,11 @@
             <artifactId>camel-support</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>spi-annotations</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -98,6 +103,13 @@
             <artifactId>velocity-tools</artifactId>
             <version>2.0</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        -->
 
     </dependencies>
 
@@ -110,6 +122,7 @@
                 <executions>
                     <execution>
                         <id>main</id>
+                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
@@ -118,6 +131,24 @@
                 <configuration>
                     <mainClass>Main</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

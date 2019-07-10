@@ -16,34 +16,27 @@
  */
 package org.apache.camel.model.languages;
 
-import java.util.Map;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
+import org.apache.camel.Predicate;
+import org.apache.camel.model.StructDefinition;
 
-public class ExpressionDefinition implements Expression, ExpressionFactory {
-
-    private Map<String, Object> properties;
+public class ExpressionDefinition extends StructDefinition implements Expression, Predicate, ExpressionFactory {
 
     public ExpressionDefinition() {
     }
 
+    public ExpressionDefinition(Expression expression) {
+    }
+
     public void setExpression(String expression) {
-        setProperty("expression", expression);
+        doSetProperty("expression", expression);
     }
 
     public String getExpression() {
-        return (String) getProperty("expression");
-    }
-
-    protected void setProperty(String name, Object value) {
-        properties.put(name, value);
-    }
-
-    protected Object getProperty(String name) {
-        return properties.get(name);
+        return (String) doGetProperty("expression");
     }
 
     @Override
@@ -53,6 +46,23 @@ public class ExpressionDefinition implements Expression, ExpressionFactory {
 
     @Override
     public <T> T evaluate(Exchange exchange, Class<T> type) {
+        return null;
+    }
+
+    @Override
+    public boolean matches(Exchange exchange) {
+        return false;
+    }
+
+    public Expression getExpressionValue() {
+        return null;
+    }
+
+    public Predicate getPredicate() {
+        return null;
+    }
+
+    public String getLabel() {
         return null;
     }
 }

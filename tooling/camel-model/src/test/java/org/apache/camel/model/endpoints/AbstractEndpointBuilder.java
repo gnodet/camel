@@ -16,22 +16,80 @@
  */
 package org.apache.camel.model.endpoints;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
+import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Expression;
+import org.apache.camel.NoSuchEndpointException;
+import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.builder.SimpleBuilder;
+import org.apache.camel.util.URISupport;
 
 public class AbstractEndpointBuilder {
 
     protected final String scheme;
     protected final String path;
-    protected final Map<String, Object> properties = new HashMap<>();
+    protected final Map<String, Object> properties = new LinkedHashMap<>();
 
     public AbstractEndpointBuilder(String scheme, String path) {
         this.scheme = scheme;
         this.path = path;
     }
 
-    public void setProperty(String key, Object value) {
+    public Endpoint resolve(CamelContext context) throws NoSuchEndpointException {
+        Map<String, Object> remaining = new HashMap<>();
+        String uri = computeUri(remaining);
+        Endpoint endpoint = context.getEndpoint(uri, properties);
+        if (endpoint == null) {
+            throw new NoSuchEndpointException(uri);
+        }
+        return endpoint;
+    }
+
+    public String getUri() {
+        return computeUri(new HashMap<>());
+    }
+
+    protected String computeUri(Map<String, Object> remaining) {
+        Map<String, Object> params = new TreeMap<>();
+        for (Map.Entry<String, Object> entry : properties.entrySet()) {
+            String key = entry.getKey();
+            Object val = entry.getValue();
+            if (val instanceof String || val instanceof Number || val instanceof Boolean || val instanceof Enum<?>) {
+                params.put(key, val.toString());
+            } else {
+                remaining.put(key, val);
+            }
+        }
+        if (!remaining.isEmpty()) {
+            params.put("hash", Integer.toHexString(remaining.hashCode()));
+        }
+        if (params.isEmpty()) {
+            return scheme + ":" + path;
+        } else {
+            try {
+                String query = URISupport.createQueryString(params);
+                return scheme + ":" + path + "?" + query;
+            } catch (URISyntaxException e) {
+                throw RuntimeCamelException.wrapRuntimeCamelException(e);
+            }
+        }
+    }
+
+    public String toString() {
+        return getUri();
+    }
+
+    public void doSetProperty(String key, Object value) {
         this.properties.put(key, value);
     }
 
+    public Expression expr() {
+        return SimpleBuilder.simple(getUri());
+    }
 }

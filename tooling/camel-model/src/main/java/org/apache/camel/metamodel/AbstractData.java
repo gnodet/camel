@@ -15,6 +15,7 @@ public abstract class AbstractData {
     String extend;
     List<Property> properties;
     boolean isAbstract;
+    String javaType;
 
     public String getName() {
         return name;
@@ -72,6 +73,22 @@ public abstract class AbstractData {
         this.extend = extend;
     }
 
+    public boolean isAbstract() {
+        return isAbstract;
+    }
+
+    public void setAbstract(boolean anAbstract) {
+        isAbstract = anAbstract;
+    }
+
+    public String getJavaType() {
+        return javaType;
+    }
+
+    public void setJavaType(String javaType) {
+        this.javaType = javaType;
+    }
+
     public List<Property> getProperties() {
         return properties;
     }
@@ -82,11 +99,4 @@ public abstract class AbstractData {
         this.properties = properties;
     }
 
-    public boolean isAbstract() {
-        return isAbstract;
-    }
-
-    public void setAbstract(boolean anAbstract) {
-        isAbstract = anAbstract;
-    }
 }

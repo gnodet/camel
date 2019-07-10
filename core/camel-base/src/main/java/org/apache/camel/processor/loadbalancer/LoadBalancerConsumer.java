@@ -18,6 +18,7 @@ package org.apache.camel.processor.loadbalancer;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.support.DefaultConsumer;
 
 /**

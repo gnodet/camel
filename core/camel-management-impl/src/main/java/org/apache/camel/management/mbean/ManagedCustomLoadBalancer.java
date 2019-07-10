@@ -21,7 +21,7 @@ import org.apache.camel.api.management.ManagedResource;
 import org.apache.camel.api.management.mbean.ManagedCustomLoadBalancerMBean;
 import org.apache.camel.model.LoadBalanceDefinition;
 import org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition;
-import org.apache.camel.processor.loadbalancer.LoadBalancer;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.util.ObjectHelper;
 
 @ManagedResource(description = "Managed Custom LoadBalancer")

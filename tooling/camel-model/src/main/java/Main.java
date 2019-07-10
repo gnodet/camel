@@ -42,11 +42,15 @@ import de.odysseus.staxon.json.JsonXMLInputFactory;
 import de.odysseus.staxon.xml.util.PrettyXMLEventWriter;
 import de.odysseus.staxon.xml.util.PrettyXMLStreamWriter;
 import org.apache.camel.metamodel.AbstractData;
+import org.apache.camel.metamodel.LoadBalancer;
 import org.apache.camel.metamodel.Model;
 import org.apache.camel.metamodel.DataFormat;
 import org.apache.camel.metamodel.Endpoint;
 import org.apache.camel.metamodel.Language;
+import org.apache.camel.metamodel.Processor;
 import org.apache.camel.metamodel.Property;
+import org.apache.camel.metamodel.Struct;
+import org.apache.camel.metamodel.Verb;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -56,6 +60,8 @@ public class Main {
     static final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
     static final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
     static final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+    static final Map<String, String> fqns = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
         Path camelRoot = findCamelRoot(Paths.get(".").toAbsolutePath());
@@ -129,6 +135,59 @@ public class Main {
         XmlMapper xmlMapper = new XmlMapper();
         Model model = xmlMapper.readValue(output.toFile(), Model.class);
 
+        fqns.put("processor", "org.apache.camel.model.processors.ProcessorDefinition");
+        fqns.put("expression", "org.apache.camel.Expression");
+        fqns.put("dataFormat", "org.apache.camel.model.dataformats.DataFormatDefinition");
+        fqns.put("loadBalancer", "org.apache.camel.model.loadbalancers.LoadBalancerDefinition");
+        fqns.put("endpoint", "org.apache.camel.model.endpoints.EndpointProducerBuilder");
+        fqns.put("resequencerConfig", "org.apache.camel.model.structs.ResequencerConfig");
+        fqns.put("identified", "org.apache.camel.model.IdentifiedType");
+        fqns.put("node", "org.apache.camel.model.OptionalIdentifiedDefinition");
+//        for (Endpoint endpoint : model.getEndpoints()) {
+//            String name = substringBeforeLast(endpoint.getJavaType().substring(endpoint.getJavaType().lastIndexOf('.') + 1), "Component");
+//            fqns.put(camelCaseLower(name), "org.apache.camel.model.endpoints." + name + "EndpointBuilderFactory");
+//        }
+        for (DataFormat dataFormat : model.getDataFormats()) {
+            String name = substringBeforeLast(dataFormat.getJavaType().substring(dataFormat.getJavaType().lastIndexOf('.') + 1), "DataFormat");
+            fqns.put(dataFormat.getName(), "org.apache.camel.model.dataformats." + name + "DataFormat");
+        }
+        for (Language language : model.getLanguages()) {
+            String name = substringBeforeLast(language.getJavaType().substring(language.getJavaType().lastIndexOf('.') + 1), "Language");
+            if (name.isEmpty())
+                continue;
+            fqns.put(language.getName(), "org.apache.camel.model.languages." + name + "Expression");
+        }
+        for (Processor processor : model.getProcessors()) {
+            String name = substringBeforeLast(processor.getJavaType().substring(processor.getJavaType().lastIndexOf('.') + 1), "Definition");
+            fqns.put(processor.getName(), "org.apache.camel.model.processors." + name + "Definition");
+        }
+        for (Verb verb : model.getVerbs()) {
+            String name = verb.getName().substring(0, 1).toUpperCase() + verb.getName().substring(1);
+            fqns.put(verb.getName(), "org.apache.camel.model.verbs." + name + "VerbDefinition");
+        }
+        for (LoadBalancer loadBalancer : model.getLoadBalancers()) {
+            String name = loadBalancer.getName().substring(0, 1).toUpperCase() + loadBalancer.getName().substring(1);
+            if (!name.endsWith("LoadBalancer")) {
+                name += "LoadBalancer";
+            }
+            fqns.put(loadBalancer.getName(), "org.apache.camel.model.loadbalancers." + name + "Definition");
+        }
+        for (Struct struct : model.getStructs()) {
+            String name = struct.getJavaType().substring(struct.getJavaType().lastIndexOf('.') + 1);
+            String packageName;
+            List<String> labels = Arrays.asList(struct.getLabel().split(","));
+            if (labels.contains("rest")) {
+                packageName = "rest";
+            } else if (labels.contains("cloud")) {
+                packageName = "cloud";
+            } else if (labels.contains("spring")) {
+                packageName = "spring";
+            } else {
+                packageName = "structs";
+            }
+            fqns.put(struct.getName(), "org.apache.camel.model." + packageName + "." + name);
+        }
+
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.init();
 
@@ -196,6 +255,108 @@ public class Main {
             }
         }
 
+
+        t = velocityEngine.getTemplate("src/main/resources/processor.vm");
+        context = new VelocityContext();
+        context.put("model", model);
+        for (Processor processor : model.getProcessors()) {
+            String name = substringBeforeLast(processor.getJavaType().substring(processor.getJavaType().lastIndexOf('.') + 1), "Definition");
+            context.put("processor", processor);
+            context.put("name", name);
+            context.put("main", Main.class);
+            Path file = Paths.get("target/generated/org/apache/camel/model/processors/" + name + "Definition.java");
+            try (StringWriter w = new StringWriter()) {
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate processor " + name, e);
+                }
+                w.flush();
+                updateResource(file, w.toString());
+            }
+        }
+
+        t = velocityEngine.getTemplate("src/main/resources/verb.vm");
+        context = new VelocityContext();
+        context.put("model", model);
+        for (Verb verb : model.getVerbs()) {
+            String name = verb.getName().substring(0, 1).toUpperCase() + verb.getName().substring(1) + "VerbDefinition";
+            String packageName = "org.apache.camel.model.rest";
+            context.put("verb", verb);
+            context.put("name", name);
+            context.put("packageName", packageName);
+            context.put("main", Main.class);
+            Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + ".java");
+            try (StringWriter w = new StringWriter()) {
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate processor " + name, e);
+                }
+                w.flush();
+                updateResource(file, w.toString());
+            }
+        }
+
+        t = velocityEngine.getTemplate("src/main/resources/loadbalancer.vm");
+        context = new VelocityContext();
+        context.put("model", model);
+        for (LoadBalancer loadBalancer : model.getLoadBalancers()) {
+            String name = loadBalancer.getName().substring(0, 1).toUpperCase() + loadBalancer.getName().substring(1);
+            if (!name.endsWith("LoadBalancer")) {
+                name += "LoadBalancer";
+            }
+            String packageName = "org.apache.camel.model.loadbalancers";
+            context.put("loadBalancer", loadBalancer);
+            context.put("packageName", packageName);
+            context.put("name", name);
+            context.put("main", Main.class);
+            Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + "Definition.java");
+            try (StringWriter w = new StringWriter()) {
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate processor " + name, e);
+                }
+                w.flush();
+                updateResource(file, w.toString());
+            }
+        }
+
+        t = velocityEngine.getTemplate("src/main/resources/struct.vm");
+        context = new VelocityContext();
+        for (Struct struct : model.getStructs()) {
+            List<String> labels = Arrays.asList(struct.getLabel().split(","));
+            String packageName;
+            if (labels.contains("rest")) {
+                packageName = "rest";
+            } else if (labels.contains("cloud")) {
+                packageName = "cloud";
+            } else if (labels.contains("spring")) {
+                packageName = "spring";
+                continue;
+            } else {
+                packageName = "structs";
+            }
+            packageName = "org.apache.camel.model." + packageName;
+            String name = struct.getJavaType().substring(struct.getJavaType().lastIndexOf('.') + 1);
+            context.put("model", model);
+            context.put("struct", struct);
+            context.put("packageName", packageName);
+            context.put("name", name);
+            context.put("main", Main.class);
+            Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + ".java");
+            try (StringWriter w = new StringWriter()) {
+                try {
+                    t.merge(context, w);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to generate processor " + name, e);
+                }
+                w.flush();
+                updateResource(file, w.toString());
+            }
+        }
+
     }
 
     public static String javadoc(String desc, String indent) {
@@ -242,9 +403,25 @@ public class Main {
         }
         if (s != null) {
             s = s.substring(0, 1).toLowerCase() + s.substring(1);
-            if ("class".equals(s)) {
-                s = "clazz";
+            switch (s) {
+                case "class":
+                    s = "clas";
+                    break;
+                case "package":
+                    s = "packag";
+                    break;
             }
+        }
+        return s;
+    }
+
+    public static String camelCaseUpper(String s) {
+        int i;
+        while (s != null && (i = s.indexOf('-')) > 0) {
+            s = s.substring(0, i) + s.substring(i + 1, i + 2).toUpperCase() + s.substring(i + 2);
+        }
+        if (s != null) {
+            s = s.substring(0, 1).toUpperCase() + s.substring(1);
         }
         return s;
     }
@@ -263,59 +440,64 @@ public class Main {
             if (!isVisible(t)) {
                 String n = t.indexOf('.') >= 0 ? t.substring(t.lastIndexOf('.') + 1) : t;
                 String l = s.substring(s.indexOf('(') + 1, s.indexOf(')'));
-                List<String> vl = new ArrayList<>();
-                for (String v : l.split(",")) {
-//                    if (v.indexOf(':') > 0) {
-//                        vl.add(v.substring(0, v.indexOf(':')));
-//                    } else {
-                        vl.add(v);
-//                    }
-                }
-                enums.put(n, vl);
+                enums.put(n, Arrays.asList(l.split(",")));
             }
         }
         return enums;
     }
 
-    public static List<String> getImports(Endpoint data) {
-        if (data.getProperties() == null) {
-            return Collections.emptyList();
-        }
-        return data.getProperties().stream().map(Property::getType)
-                .flatMap(Main::getSubTypes)
-                .map(Main::getImport)
-                .filter(s -> !s.startsWith("java.lang."))
-                .filter(s -> !s.startsWith("org.apache.camel.model.endpoints."))
-                .filter(s -> s.contains("."))
-                .sorted()
-                .distinct()
-                .collect(Collectors.toList());
+    public static List<String> getImports(DataFormat data) {
+        return doGetImports(data, "org.apache.camel.model.dataformats");
     }
 
-    public static List<String> getImports(DataFormat data) {
-        if (data.getProperties() == null) {
-            return Collections.emptyList();
-        }
-        return data.getProperties().stream().map(Property::getType)
-                .flatMap(Main::getSubTypes)
-                .map(Main::getImport)
-                .filter(s -> !s.startsWith("java.lang."))
-                .filter(s -> !s.startsWith("org.apache.camel.model.dataformats."))
-                .filter(s -> s.contains("."))
-                .sorted()
-                .distinct()
-                .collect(Collectors.toList());
+    public static List<String> getImports(Endpoint data) {
+        return doGetImports(data, "org.apache.camel.model.endpoints");
     }
 
     public static List<String> getImports(Language data) {
-        if (data.getProperties() == null) {
-            return Collections.emptyList();
+        return doGetImports(data, "org.apache.camel.model.languages");
+    }
+
+    public static List<String> getImports(LoadBalancer data) {
+        return doGetImports(data, "org.apache.camel.model.loadbalancers");
+    }
+
+    public static List<String> getImports(Processor data) {
+        return doGetImports(data, "org.apache.camel.model.processors");
+    }
+
+    public static List<String> getImports(AbstractData data, String packageName) {
+        String extend = getExtends(data);
+        return doGetImports(data, packageName, Collections.singletonList(extend));
+    }
+
+    public static String getExtends(AbstractData data) {
+        String extend = data.getExtends();
+        if (extend == null) {
+            extend = "org.apache.camel.model.StructDefinition";
+        } else if (extend.startsWith("model:")) {
+            extend = fqns.get(extend.substring("model:".length()));
+        } else if (extend.startsWith("java:")) {
+            extend = extend.substring("java:".length());
         }
-        return data.getProperties().stream().map(Property::getType)
+        return extend;
+    }
+
+    public static List<String> doGetImports(AbstractData data, String packageName) {
+        return doGetImports(data, packageName, Collections.emptyList());
+    }
+
+    public static List<String> doGetImports(AbstractData data, String packageName, List<String> additional) {
+        if (data.getProperties() == null) {
+            return additional;
+        }
+        return Stream.concat(data.getProperties().stream()
+                .filter(p -> !(data instanceof Processor && p.getName().equals("outputs")))
+                .map(Property::getType)
                 .flatMap(Main::getSubTypes)
-                .map(Main::getImport)
+                .map(Main::getImport), additional.stream())
                 .filter(s -> !s.startsWith("java.lang."))
-                .filter(s -> !s.startsWith("org.apache.camel.model.languages."))
+                .filter(s -> !s.startsWith(packageName + "."))
                 .filter(s -> s.contains("."))
                 .sorted()
                 .distinct()
@@ -329,7 +511,7 @@ public class Main {
         } else if ("int".equals(s)) {
             return "java.lang.Integer";
         } else if (s.startsWith("java:")) {
-            String t = s.substring("java:".length() + 1);
+            String t = substringBefore(s.substring("java:".length()), "<");
             return isVisible(t) ? t : "java.lang.Object";
         } else if (s.startsWith("enum:")) {
             String t = s.substring("enum:".length(), s.indexOf('('));
@@ -349,6 +531,8 @@ public class Main {
             return Stream.concat(Stream.of("java.util.Map"), Stream.concat(getSubTypes(t[0]), getSubTypes(t[1])));
         } else if (s.endsWith("[]")) {
             return getSubTypes(s.substring(0, s.length() - 2));
+        } else if (s.startsWith("model:")) {
+            return Stream.of(fqns.get(s.substring("model:".length())));
         } else {
             return Stream.of(s);
         }
@@ -388,18 +572,20 @@ public class Main {
                         return "Object";
                     }
                 } else {
-                    return isVisible(t) ? t : "Object";
+                    return isVisible(t) ? substringAfterLast(t, ".") : "Object";
                 }
             } else if (s.startsWith("enum:")) {
                 String t = s.substring("enum:".length(), s.indexOf('('));
                 return t.lastIndexOf('.') >= 0 ? t.substring(t.lastIndexOf('.') + 1) : t;
             } else if (s.endsWith("[]")) {
                 return getType(s.substring(0, s.length() - 2)) + "[]";
+            } else if (s.startsWith("model:")) {
+                return substringAfterLast(fqns.get(s.substring("model:".length())), ".");
             } else {
                 return s;
             }
         } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Unable to compute getType for '" + s + "'");
+            throw new IllegalArgumentException("Unable to compute getType for '" + s + "'", e);
         }
     }
 
@@ -411,6 +597,8 @@ public class Main {
                 return "Integer";
             case "boolean":
                 return "Boolean";
+            case "char":
+                return "Char";
             default:
                 return s;
         }
@@ -515,13 +703,17 @@ public class Main {
     }
 
     private static String substringBefore(String s, String c) {
-        return s.substring(0, s.indexOf(c));
+        int idx = s.indexOf(c);
+        return idx > 0 ? s.substring(0, s.indexOf(c)) : s;
     }
 
     private static String substringBeforeLast(String s, String c) {
         return s.substring(0, s.lastIndexOf(c));
     }
 
+    public static String substringAfterLast(final String s, final String c) {
+        return s.substring(s.lastIndexOf(c) + c.length());
+    }
     public static void updateResource(Path out, String data) {
         try {
             if (data == null) {
