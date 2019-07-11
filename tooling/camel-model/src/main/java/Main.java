@@ -135,14 +135,6 @@ public class Main {
         XmlMapper xmlMapper = new XmlMapper();
         Model model = xmlMapper.readValue(output.toFile(), Model.class);
 
-        fqns.put("processor", "org.apache.camel.model.processors.ProcessorDefinition");
-        fqns.put("expression", "org.apache.camel.Expression");
-        fqns.put("dataFormat", "org.apache.camel.model.dataformats.DataFormatDefinition");
-        fqns.put("loadBalancer", "org.apache.camel.model.loadbalancers.LoadBalancerDefinition");
-        fqns.put("endpoint", "org.apache.camel.model.endpoints.EndpointProducerBuilder");
-        fqns.put("resequencerConfig", "org.apache.camel.model.structs.ResequencerConfig");
-        fqns.put("identified", "org.apache.camel.model.IdentifiedType");
-        fqns.put("node", "org.apache.camel.model.OptionalIdentifiedDefinition");
 //        for (Endpoint endpoint : model.getEndpoints()) {
 //            String name = substringBeforeLast(endpoint.getJavaType().substring(endpoint.getJavaType().lastIndexOf('.') + 1), "Component");
 //            fqns.put(camelCaseLower(name), "org.apache.camel.model.endpoints." + name + "EndpointBuilderFactory");
@@ -187,6 +179,14 @@ public class Main {
             }
             fqns.put(struct.getName(), "org.apache.camel.model." + packageName + "." + name);
         }
+        fqns.put("processor", "org.apache.camel.model.processors.ProcessorDefinition");
+        fqns.put("expression", "org.apache.camel.model.languages.ExpressionDefinition");
+        fqns.put("dataFormat", "org.apache.camel.model.dataformats.DataFormatDefinition");
+        fqns.put("loadBalancer", "org.apache.camel.model.loadbalancers.LoadBalancerDefinition");
+        fqns.put("endpoint", "org.apache.camel.model.endpoints.EndpointProducerBuilder");
+        fqns.put("resequencerConfig", "org.apache.camel.model.structs.ResequencerConfig");
+        fqns.put("identified", "org.apache.camel.model.IdentifiedType");
+        fqns.put("node", "org.apache.camel.model.OptionalIdentifiedDefinition");
 
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.init();
@@ -208,7 +208,7 @@ public class Main {
                 try {
                     t.merge(context, w);
                 } catch (Exception e) {
-                    throw new RuntimeException("Unable to generate endpoint " + name, e);
+                    throw new RuntimeException("Unable 0to generate endpoint " + name, e);
                 }
                 w.flush();
                 updateResource(file, w.toString());
@@ -326,6 +326,9 @@ public class Main {
         t = velocityEngine.getTemplate("src/main/resources/struct.vm");
         context = new VelocityContext();
         for (Struct struct : model.getStructs()) {
+            if (!struct.isGenerate()) {
+                continue;
+            }
             List<String> labels = Arrays.asList(struct.getLabel().split(","));
             String packageName;
             if (labels.contains("rest")) {
@@ -532,7 +535,12 @@ public class Main {
         } else if (s.endsWith("[]")) {
             return getSubTypes(s.substring(0, s.length() - 2));
         } else if (s.startsWith("model:")) {
-            return Stream.of(fqns.get(s.substring("model:".length())));
+            String t = s.substring("model:".length());
+            if ("expression".equals(t)) {
+                return Stream.of(fqns.get(t), "org.apache.camel.Expression");
+            } else {
+                return Stream.of(fqns.get(t));
+            }
         } else {
             return Stream.of(s);
         }
@@ -556,22 +564,27 @@ public class Main {
                 String[] t = s.substring(s.indexOf('(') + 1, s.lastIndexOf(')')).split(",");
                 return "Map<" + wrap(getType(t[0])) + ", " + wrap(getType(t[1])) + ">";
             } else if (s.startsWith("java:")) {
-                String t = s.substring("java:".length());
                 if (s.contains("<") && s.contains(">")) {
-                    String t0 = s.substring(0, s.indexOf('<'));
-                    String t1 = s.substring(s.indexOf('<') + 1, s.lastIndexOf('>'));
+                    String t0 = s.substring(0, s.indexOf('<')).substring("java:".length());
+                    String[] t1 = s.substring(s.indexOf('<') + 1, s.lastIndexOf('>')).split(",");
                     if (isVisible(t0)) {
-                        t0 = t0.substring(t0.lastIndexOf('.') + 1);
-                        if (isVisible(t1)) {
-                            t1 = t1.substring(t1.lastIndexOf('.') + 1);
-                            return t0 + "<" + t1 + ">";
-                        } else {
-                            return t0 + "<Object>";
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(t0, t0.lastIndexOf('.') + 1, t0.length())
+                                .append("<");
+                        for (int i =0; i < t1.length; i++) {
+                            if (i > 0) {
+                                sb.append(", ");
+                            }
+                            int idxDot = t1[i].lastIndexOf('.');
+                            sb.append(idxDot < 0 ? t1[i] : isVisible(t1[i]) ? t1[i].substring(idxDot + 1) : "Object");
                         }
+                        sb.append(">");
+                        return sb.toString();
                     } else {
                         return "Object";
                     }
                 } else {
+                    String t = s.substring("java:".length());
                     return isVisible(t) ? substringAfterLast(t, ".") : "Object";
                 }
             } else if (s.startsWith("enum:")) {
@@ -702,12 +715,12 @@ public class Main {
                 ? dir : findCamelRoot(dir.getParent());
     }
 
-    private static String substringBefore(String s, String c) {
+    public static String substringBefore(String s, String c) {
         int idx = s.indexOf(c);
         return idx > 0 ? s.substring(0, s.indexOf(c)) : s;
     }
 
-    private static String substringBeforeLast(String s, String c) {
+    public static String substringBeforeLast(String s, String c) {
         return s.substring(0, s.lastIndexOf(c));
     }
 

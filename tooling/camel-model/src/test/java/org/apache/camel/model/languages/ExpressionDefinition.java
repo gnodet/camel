@@ -16,53 +16,293 @@
  */
 package org.apache.camel.model.languages;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+
+import org.apache.camel.AfterPropertiesConfigured;
 import org.apache.camel.CamelContext;
+import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
+import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Predicate;
-import org.apache.camel.model.StructDefinition;
+import org.apache.camel.model.IdentifiedType;
+import org.apache.camel.model.OtherAttributesAware;
+import org.apache.camel.spi.Language;
+import org.apache.camel.spi.Metadata;
+import org.apache.camel.spi.RouteContext;
+import org.apache.camel.support.ExpressionToPredicateAdapter;
+import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.support.ScriptHelper;
+import org.apache.camel.util.CollectionStringBuffer;
+import org.apache.camel.util.ObjectHelper;
 
-public class ExpressionDefinition extends StructDefinition implements Expression, Predicate, ExpressionFactory {
+/**
+ * A useful base class for an expression
+ */
+@Metadata(label = "language", title = "Expression")
+public class ExpressionDefinition extends IdentifiedType
+        implements Expression, Predicate, OtherAttributesAware, ExpressionFactory {
+
+    private String expression;
+    private Boolean trim;
+    private Predicate predicate;
+    private Expression expressionValue;
+    private ExpressionDefinition expressionType;
+    private Map<QName, Object> otherAttributes;
 
     public ExpressionDefinition() {
     }
 
-    public ExpressionDefinition(Expression expression) {
+    public ExpressionDefinition(String expression) {
+        this.expression = expression;
     }
 
-    public void setExpression(String expression) {
-        doSetProperty("expression", expression);
+    public ExpressionDefinition(Predicate predicate) {
+        this.predicate = predicate;
+    }
+
+    public ExpressionDefinition(Expression expression) {
+        this.expressionValue = expression;
+    }
+
+    public static String getLabel(List<ExpressionDefinition> expressions) {
+        CollectionStringBuffer buffer = new CollectionStringBuffer();
+        for (ExpressionDefinition expression : expressions) {
+            buffer.append(expression.getLabel());
+        }
+        return buffer.toString();
+    }
+
+    @Override
+    public String toString() {
+        // favour using the output from expression value
+        if (getExpressionValue() != null) {
+            return getExpressionValue().toString();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        if (getLanguage() != null) {
+            sb.append(getLanguage()).append("{");
+        }
+        if (getPredicate() != null) {
+            sb.append(getPredicate().toString());
+        } else if (getExpression() != null) {
+            sb.append(getExpression());
+        }
+        if (getLanguage() != null) {
+            sb.append("}");
+        }
+        return sb.toString();
+    }
+
+    public Object evaluate(Exchange exchange) {
+        return evaluate(exchange, Object.class);
+    }
+
+    public <T> T evaluate(Exchange exchange, Class<T> type) {
+        if (expressionValue == null) {
+            expressionValue = createExpression(exchange.getContext());
+        }
+        ObjectHelper.notNull(expressionValue, "expressionValue");
+        return expressionValue.evaluate(exchange, type);
+    }
+
+    public void assertMatches(String text, Exchange exchange) throws AssertionError {
+        if (!matches(exchange)) {
+            throw new AssertionError(text + getExpression() + " for exchange: " + exchange);
+        }
+    }
+
+    public boolean matches(Exchange exchange) {
+        if (predicate == null) {
+            predicate = createPredicate(exchange.getContext());
+        }
+        ObjectHelper.notNull(predicate, "predicate");
+        return predicate.matches(exchange);
+    }
+
+    public String getLanguage() {
+        return "";
+    }
+
+    public final Predicate createPredicate(RouteContext routeContext) {
+        return createPredicate(routeContext.getCamelContext());
+    }
+
+    public Predicate createPredicate(CamelContext camelContext) {
+        if (predicate == null) {
+            if (getExpressionType() != null) {
+                predicate = getExpressionType().createPredicate(camelContext);
+            } else if (getExpressionValue() != null) {
+                predicate = new ExpressionToPredicateAdapter(getExpressionValue());
+            } else if (getExpression() != null) {
+                ObjectHelper.notNull("language", getLanguage());
+                Language language = camelContext.resolveLanguage(getLanguage());
+                if (language == null) {
+                    throw new NoSuchLanguageException(getLanguage());
+                }
+                String exp = getExpression();
+                // should be true by default
+                boolean isTrim = getTrim() == null || getTrim();
+                // trim if configured to trim
+                if (exp != null && isTrim) {
+                    exp = exp.trim();
+                }
+                // resolve the expression as it may be an external script from the classpath/file etc
+                exp = ScriptHelper.resolveOptionalExternalScript(camelContext, exp);
+
+                predicate = language.createPredicate(exp);
+                configurePredicate(camelContext, predicate);
+            }
+        }
+        // inject CamelContext if its aware
+        if (predicate instanceof CamelContextAware) {
+            ((CamelContextAware) predicate).setCamelContext(camelContext);
+        }
+        return predicate;
+    }
+
+    public final Expression createExpression(RouteContext routeContext) {
+        return createExpression(routeContext.getCamelContext());
+    }
+
+    public Expression createExpression(CamelContext camelContext) {
+        if (getExpressionValue() == null) {
+            if (getExpressionType() != null) {
+                setExpressionValue(getExpressionType().createExpression(camelContext));
+            } else if (getExpression() != null) {
+                ObjectHelper.notNull("language", getLanguage());
+                Language language = camelContext.resolveLanguage(getLanguage());
+                if (language == null) {
+                    throw new NoSuchLanguageException(getLanguage());
+                }
+                String exp = getExpression();
+                // should be true by default
+                boolean isTrim = getTrim() == null || getTrim();
+                // trim if configured to trim
+                if (exp != null && isTrim) {
+                    exp = exp.trim();
+                }
+                // resolve the expression as it may be an external script from the classpath/file etc
+                exp = ScriptHelper.resolveOptionalExternalScript(camelContext, exp);
+
+                setExpressionValue(language.createExpression(exp));
+                configureExpression(camelContext, getExpressionValue());
+            }
+        }
+        // inject CamelContext if its aware
+        if (getExpressionValue() instanceof CamelContextAware) {
+            ((CamelContextAware) getExpressionValue()).setCamelContext(camelContext);
+        }
+        return getExpressionValue();
     }
 
     public String getExpression() {
-        return (String) doGetProperty("expression");
+        return expression;
     }
 
-    @Override
-    public Expression createExpression(CamelContext camelContext) {
-        return null;
-    }
-
-    @Override
-    public <T> T evaluate(Exchange exchange, Class<T> type) {
-        return null;
-    }
-
-    @Override
-    public boolean matches(Exchange exchange) {
-        return false;
-    }
-
-    public Expression getExpressionValue() {
-        return null;
+    /**
+     * The expression value in your chosen language syntax
+     */
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
     public Predicate getPredicate() {
-        return null;
+        return predicate;
     }
 
+    public void setPredicate(Predicate predicate) {
+        this.predicate = predicate;
+    }
+
+    public Expression getExpressionValue() {
+        return expressionValue;
+    }
+
+    public void setExpressionValue(Expression expressionValue) {
+        this.expressionValue = expressionValue;
+    }
+
+    public ExpressionDefinition getExpressionType() {
+        return expressionType;
+    }
+
+    public Boolean getTrim() {
+        return trim;
+    }
+
+    /**
+     * Whether to trim the value to remove leading and trailing whitespaces and line breaks
+     */
+    public void setTrim(Boolean trim) {
+        this.trim = trim;
+    }
+
+    @Override
+    public Map<QName, Object> getOtherAttributes() {
+        return otherAttributes;
+    }
+
+    @Override
+    public void setOtherAttributes(Map<QName, Object> otherAttributes) {
+        this.otherAttributes = otherAttributes;
+    }
+
+    /**
+     * Returns some descriptive text to describe this node
+     */
     public String getLabel() {
-        return null;
+        Predicate predicate = getPredicate();
+        if (predicate != null) {
+            return predicate.toString();
+        }
+        Expression expressionValue = getExpressionValue();
+        if (expressionValue != null) {
+            return expressionValue.toString();
+        }
+
+        String exp = getExpression();
+        return exp != null ? exp : "";
+    }
+
+    /**
+     * Allows derived classes to set a lazily created expressionType instance
+     * such as if using the {@link org.apache.camel.builder.ExpressionClause}
+     */
+    protected void setExpressionType(ExpressionDefinition expressionType) {
+        this.expressionType = expressionType;
+    }
+
+    protected void configurePredicate(CamelContext camelContext, Predicate predicate) {
+        // allows to perform additional logic after the properties has been configured which may be needed
+        // in the various camel components outside camel-core
+        if (predicate instanceof AfterPropertiesConfigured) {
+            ((AfterPropertiesConfigured) predicate).afterPropertiesConfigured(camelContext);
+        }
+    }
+
+    protected void configureExpression(CamelContext camelContext, Expression expression) {
+        // allows to perform additional logic after the properties has been configured which may be needed
+        // in the various camel components outside camel-core
+        if (expression instanceof AfterPropertiesConfigured) {
+            ((AfterPropertiesConfigured) expression).afterPropertiesConfigured(camelContext);
+        }
+    }
+
+    /**
+     * Sets a named property on the object instance using introspection
+     */
+    protected void setProperty(CamelContext camelContext, Object bean, String name, Object value) {
+        try {
+            IntrospectionSupport.setProperty(camelContext, bean, name, value);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to set property " + name + " on " + bean
+                    + ". Reason: " + e, e);
+        }
     }
 }

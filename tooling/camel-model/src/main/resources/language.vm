@@ -68,7 +68,8 @@ public class ${name}Expression extends ExpressionDefinition {
 
 #end
 #foreach( $prop in ${language.properties} )
-#set( $propname = ${prop.name.substring(0,1).toUpperCase()} + ${prop.name.substring(1)} )
+#set( $propname = ${main.camelCaseUpper(${prop.name})} )
+#set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name}Expression ${prop.name}(${main.getType($prop.type)} ${prop.name}) {
         set${propname}(${prop.name});
@@ -88,10 +89,15 @@ public class ${name}Expression extends ExpressionDefinition {
         doSetProperty("${prop.name}", ${prop.name});
     }
 
-    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public Object get${propname}() {
-        return doGetProperty("${prop.name}");
+#if( ${main.getType($prop.type)} == "String" )
+    public String get${propname}() {
+        return (String) doGetProperty("${propnamelow}");
     }
+#else
+    public Object get${propname}() {
+        return doGetProperty("${propnamelow}");
+    }
+#end
 
 #end
     public ${name}Expression expression(String expression) {

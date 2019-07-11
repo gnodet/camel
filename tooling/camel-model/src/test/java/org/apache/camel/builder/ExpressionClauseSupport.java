@@ -14,13 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.languages;
+package org.apache.camel.builder;
 
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
+import org.apache.camel.model.languages.ConstantExpression;
+import org.apache.camel.model.languages.ExchangePropertyExpression;
+import org.apache.camel.model.languages.GroovyExpression;
+import org.apache.camel.model.languages.HeaderExpression;
+import org.apache.camel.model.languages.Hl7TerserExpression;
+import org.apache.camel.model.languages.JsonPathExpression;
+import org.apache.camel.model.languages.LanguageExpression;
+import org.apache.camel.model.languages.MethodCallExpression;
+import org.apache.camel.model.languages.MvelExpression;
+import org.apache.camel.model.languages.OgnlExpression;
+import org.apache.camel.model.languages.RefExpression;
+import org.apache.camel.model.languages.SimpleExpression;
+import org.apache.camel.model.languages.SpELExpression;
+import org.apache.camel.model.languages.TokenizerExpression;
+import org.apache.camel.model.languages.XMLTokenizerExpression;
+import org.apache.camel.model.languages.XPathExpression;
+import org.apache.camel.model.languages.XQueryExpression;
 import org.apache.camel.support.builder.ExpressionBuilder;
 import org.apache.camel.support.builder.Namespaces;
 

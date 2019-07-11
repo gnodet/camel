@@ -27,6 +27,9 @@
         <xsl:attribute name="name"><xsl:value-of select="'custom'"/></xsl:attribute>
         <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.CustomDataFormat'"/></xsl:attribute>
     </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='customDataFormat']/property[@name='ref']">
+        <property name="dataFormat" type="java:org.apache.camel.spi.DataFormat"  display="Data Format" required="true" description="Instance or reference to the custom org.apache.camel.spi.DataFormat to lookup from the Camel registry."/>
+    </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='json']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'json'"/></xsl:attribute>
         <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.JsonDataFormat'"/></xsl:attribute>
@@ -129,24 +132,22 @@
         </xsl:element>
     </xsl:template>
 
-    <!--
-    <xsl:template match="/model/processors/processor[@name='wireTap']">
-        <processor name="wireTap" extends="model:processor" display="Wire Tap" label="eip,endpoint,routing" description="Routes a copy of a message (or creates a new message) to a secondary destination while continue routing the original message.">
-            <property name="allowOptimisedComponents" type="boolean" display="Allow Optimised Components" description="Whether to allow components to optimise toD if they are org.apache.camel.spi.SendDynamicAware."/>
-            <property name="body" type="model:expression" display="Body" kind="expression" description="Uses the expression for creating a new body as the message to use for wire tapping"/>
-            <property name="cacheSize" type="int" display="Cache Size" description="Sets the maximum size used by the org.apache.camel.spi.ConsumerCache which is used to cache and reuse producers."/>
-            <property name="copy" type="boolean" display="Copy" description="Uses a copy of the original exchange"/>
-            <property name="dynamicUri" type="boolean" display="Dynamic Uri" description="Whether the uri is dynamic or static. If the uri is dynamic then the simple language is used to evaluate a dynamic uri to use as the wire-tap destination, for each incoming message. This works similar to how the toD EIP pattern works. If static then the uri is used as-is as the wire-tap destination."/>
-            <property name="executorService" type="java:java.util.concurrent.ExecutorService" display="Executor Service" description="Uses a custom thread pool"/>
-            <property name="ignoreInvalidEndpoint" type="boolean" display="Ignore Invalid Endpoint" description="Ignore the invalidate endpoint exception when try to create a producer with that endpoint"/>
-            <property name="onPrepare" type="model:processor" display="On Prepare" description="Uses the Processor when preparing the org.apache.camel.Exchange to be send. This can be used to deep-clone messages that should be send, or any custom logic needed before the exchange is send."/>
-            <property name="pattern" type="enum:org.apache.camel.ExchangePattern(InOnly,InOptionalOut,InOut)" display="Pattern" description="Sets the optional ExchangePattern used to invoke this endpoint"/>
-            <property name="newExchange" type="model:processor" display="New Exchange" description="Processor to use for creating a new body as the message to use for wire tapping"/>
-            <property name="uri" type="model:endpoint" display="Uri" required="true" description="The uri of the endpoint to send to. The uri can be dynamic computed using the org.apache.camel.language.simple.SimpleLanguage expression."/>
-            <property name="headers" type="list(model:setHeader)" />
-        </processor>
+    <xsl:template match="/model/processors">
+        <processors>
+            <xsl:apply-templates select="* | /model/structs/struct[@name='serviceCall' or @name='route']"/>
+        </processors>
     </xsl:template>
-    -->
+    <xsl:template match="/model/structs/struct[@name='serviceCall']">
+        <xsl:element name="processor">
+            <xsl:apply-templates select="@*|*"/>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='route']">
+        <xsl:element name="processor">
+            <xsl:apply-templates select="@*|*"/>
+            <property name="rest" type="model:rest" />
+        </xsl:element>
+    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='aggregateControllerRef']">
         <property name="aggregationController" type="java:org.apache.camel.spi.AggregateController" />
     </xsl:template>
@@ -196,19 +197,32 @@
     <xsl:template match="/model/processors/processor[@name='onCompletion']/property[@name='mode']/@type">
         <xsl:attribute name="type">enum:OnCompletionMode(AfterConsumer,BeforeConsumer)</xsl:attribute>
     </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='onException']/property[@name='onExceptionOccurredRef']">
+        <property name="onExceptionOccurred" type="model:processor" display="On Exception Occurred" description="Sets a processor that should be processed just after an exception occurred. Can be used to perform custom logging about the occurred exception at the exact time it happened. Important: Any exception thrown from this processor will be ignored."/>
+    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='onException']/property[@name='onRedeliveryRef']">
         <property name="onRedelivery" type="model:processor" display="On Redelivery" description="Sets a processor that should be processed before a redelivery attempt. Can be used to change the org.apache.camel.Exchange before its being redelivered."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='onException']/property[@name='redeliveryPolicyRef']">
     </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='onException']">
+        <xsl:element name="processor">
+            <xsl:apply-templates select="@* | node()"/>
+            <property name="routeScoped" type="boolean"/>
+        </xsl:element>
+    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='policy']/property[@name='ref']">
-        <property name="policy" type="java:org.apache.camel.spi.Policy" display="Policy" description="Sets a policy that this definition should scope within."/>
+        <property name="type" type="class" display="Type" description="Sets a policy type that this definition should scope within."/>
+        <property name="instance" type="java:org.apache.camel.spi.Policy" display="Policy" description="Sets a policy that this definition should scope within."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='process']/property[@name='ref']">
-        <property name="processor" type="model:processor" display="Processor" description="The Processor to use."/>
+        <property name="processor" type="java:org.apache.camel.Processor" display="Processor" description="The Processor to use."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='resequence']/property[@name='resequencerConfig']/@type">
         <xsl:attribute name="type">model:resequencerConfig</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='removeHeaders' or @name='removeProperties']/property[@name='excludePattern']">
+        <property name="excludePatterns" type="string[]" display="Exclude Patterns" description="Names or patterns of headers to not remove. The pattern is matched in the following order: 1 = exact match 2 = wildcard (pattern ends with a and the name starts with the pattern) 3 = regular expression (all of above is case in-sensitive)."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='saga']/property[@name='compensation' or @name='completion']/@type">
         <xsl:attribute name="type">model:sagaActionUri</xsl:attribute>
@@ -222,8 +236,24 @@
     <xsl:template match="/model/processors/processor[@name='saga']/property[@name='propagation']/@type">
         <xsl:attribute name="type">enum:SagaPropagation(MANDATORY,NEVER,NOT_SUPPORTED,REQUIRED,REQUIRES_NEW,SUPPORTS)</xsl:attribute>
     </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='sort']">
+        <xsl:element name="processor">
+            <xsl:apply-templates select="@*" />
+            <xsl:attribute name="param">T</xsl:attribute>
+            <xsl:apply-templates select="node()"/>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='sort']/property[@name='comparatorRef']">
+        <property name="comparator" type="java:java.util.Comparator&lt;? super T>" display="Comparator" description="Uses the Processor when preparing the org.apache.camel.Exchange to be send. This can be used to deep-clone messages that should be send, or any custom logic needed before the exchange is send."/>
+    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='split']/property[@name='onPrepareRef']">
         <property name="onPrepare" type="model:processor" display="On Prepare" description="Uses the Processor when preparing the org.apache.camel.Exchange to be send. This can be used to deep-clone messages that should be send, or any custom logic needed before the exchange is send."/>
+    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='throwException']/property[@name='ref']">
+        <property name="exception" type="java:java.lang.Exception" />
+    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='throwException']/property[@name='exceptionType']/@type">
+        <xsl:attribute name="type">class</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='to']/property[@name='uri']">
         <property name="uri" type="model:endpoint" display="Uri" required="true" description="The uri of the endpoint to send to. The uri can be dynamic computed using the org.apache.camel.language.simple.SimpleLanguage expression."/>
@@ -234,7 +264,7 @@
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='transacted']/property[@name='ref']">
         <property name="type" type="class" display="Type" description="Sets a policy type that this definition should scope within."/>
-        <property name="policy" type="java:org.apache.camel.spi.Policy" display="Policy" description="The policy to use."/>
+        <property name="instance" type="java:org.apache.camel.spi.Policy" display="Policy" description="The policy to use."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='wireTap']/property[@name='uri']">
         <property name="uri" type="model:endpoint" display="Uri" required="true" description="The uri of the endpoint to send to. The uri can be dynamic computed using the org.apache.camel.language.simple.SimpleLanguage expression."/>
@@ -251,7 +281,7 @@
         <property name="executorService" type="java:java.util.concurrent.ExecutorService"/>
     </xsl:template>
     <xsl:template match="/model/processors/processor/property[@name='strategyRef']">
-        <property name="strategy" type="java:org.apache.camel.AggregationStrategy" display="Strategy" description="Aggregation strategy to use."/>
+        <property name="aggregationStrategy" type="java:org.apache.camel.AggregationStrategy" display="Aggregation Strategy" description="Aggregation strategy to use."/>
     </xsl:template>
 
     <xsl:template match="/model/endpoints/endpoint[@name='atmosphere-websocket']/@javaType">
@@ -278,7 +308,7 @@
 
     <xsl:template match="/model/structs">
         <structs>
-            <xsl:apply-templates select="struct[not(starts-with(@javaType,'org.apache.camel.spring.'))]"/>
+            <xsl:apply-templates select="struct[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
             <struct name="sagaActionUri" javaType="org.apache.camel.model.structs.SagaActionUriDefinition" label="eip,routing">
                 <property name="uri" type="string"/>
             </struct>
@@ -301,12 +331,6 @@
                 <property name="type" type="class" description="Set the data type using Java class."/>
                 <property name="type" type="java:org.apache.camel.spi.DataType" description="Set the data type name. If you specify 'xml:XYZ', the validator will be picked up if message type is 'xml:XYZ'. If you specify just 'xml', the validator matches with all of 'xml' message type like 'xml:ABC' or 'xml:DEF'."/>
             </struct>
-            <!--
-            <struct name="resequencerConfig" abstract="true" javaType="org.apache.camel.model.structs.ResequencerConfig">
-                <property name="key" type="string" required="true"/>
-                <property name="description" type="string"/>
-            </struct>
-            -->
         </structs>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='securityDefinitions']/property[@name='securityDefinitions']/@type">
@@ -319,6 +343,13 @@
     <xsl:template match="/model/structs/struct[@name='batch-config' or @name='stream-config']/@name">
         <xsl:attribute name="name"><xsl:value-of select="."/></xsl:attribute>
         <xsl:attribute name="extends">model:resequencerConfig</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='expression']">
+        <xsl:element name="struct">
+            <xsl:apply-templates select="@*" />
+            <xsl:attribute name="generate">false</xsl:attribute>
+            <xsl:apply-templates select="node()" />
+        </xsl:element>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='language']">
     </xsl:template>

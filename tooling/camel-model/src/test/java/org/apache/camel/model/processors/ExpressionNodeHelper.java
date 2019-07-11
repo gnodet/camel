@@ -18,6 +18,7 @@ package org.apache.camel.model.processors;
 
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
+import org.apache.camel.builder.SimpleBuilder;
 import org.apache.camel.model.languages.ExpressionDefinition;
 import org.apache.camel.model.languages.SimpleExpression;
 import org.apache.camel.model.languages.XPathExpression;
@@ -45,16 +46,18 @@ public final class ExpressionNodeHelper {
         if (expression instanceof SimpleBuilder) {
             SimpleBuilder builder = (SimpleBuilder) expression;
             // we keep the original expression by using the constructor that accepts an expression
-            SimpleExpression answer = new SimpleExpression(builder);
+            SimpleExpression answer = new SimpleExpression();
+            answer.setExpressionValue(builder);
             answer.setExpression(builder.getText());
             answer.setResultType(builder.getResultType());
             return answer;
         } else if (expression instanceof ExpressionResultTypeAware && expression.getClass().getName().equals("org.apache.camel.language.xpath.XPathBuilder")) {
             ExpressionResultTypeAware aware = (ExpressionResultTypeAware) expression;
             // we keep the original expression by using the constructor that accepts an expression
-            XPathExpression answer = new XPathExpression(expression);
+            XPathExpression answer = new XPathExpression();
+            answer.setExpressionValue(expression);
             answer.setExpression(aware.getExpressionText());
-            answer.setResultType(answer.getResultType());
+            answer.setResultType(aware.getResultType());
             return answer;
         } else if (expression instanceof ValueBuilder) {
             // ValueBuilder wraps the actual expression so unwrap
@@ -81,16 +84,18 @@ public final class ExpressionNodeHelper {
         if (predicate instanceof SimpleBuilder) {
             SimpleBuilder builder = (SimpleBuilder) predicate;
             // we keep the original expression by using the constructor that accepts an expression
-            SimpleExpression answer = new SimpleExpression(builder);
+            SimpleExpression answer = new SimpleExpression();
+            answer.setExpressionValue(builder);
             answer.setExpression(builder.getText());
             return answer;
         } else if (predicate instanceof ExpressionResultTypeAware && predicate.getClass().getName().equals("org.apache.camel.language.xpath.XPathBuilder")) {
             ExpressionResultTypeAware aware = (ExpressionResultTypeAware) predicate;
             Expression expression = (Expression) predicate;
             // we keep the original expression by using the constructor that accepts an expression
-            XPathExpression answer = new XPathExpression(expression);
+            XPathExpression answer = new XPathExpression();
+            answer.setExpressionValue(expression);
             answer.setExpression(aware.getExpressionText());
-            answer.setResultType(answer.getResultType());
+            answer.setResultType(aware.getResultType());
             return answer;
         } else if (predicate instanceof ValueBuilder) {
             // ValueBuilder wraps the actual predicate so unwrap

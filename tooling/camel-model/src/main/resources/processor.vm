@@ -29,15 +29,31 @@ import ${imp};
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
 @javax.annotation.Generated("org.apache.camel.metamodel")
-#set( $parent = "NoOutputDefinition" )
+#set( $hasOutput = false )
+#set( $hasExpression = false )
 #foreach( $prop in ${processor.properties} )
 #if( ${prop.name} == "outputs" )
+#set( $hasOutput = true )
+#elseif( ${prop.name} == "expression" )
+#set( $hasExpression = true )
+#end
+#end
+#if( $hasOutput && $hasExpression )
+#set( $parent = "OutputExpressionNode" )
+#elseif( $hasOutput )
 #set( $parent = "OutputDefinition" )
-#elseif( ${prop.name} == "expression" && $parent == "NoOutputDefinition" )
+#elseif( $hasExpression )
 #set( $parent = "ExpressionNode" )
+#else
+#set( $parent = "NoOutputDefinition" )
 #end
+#set( $param = "" )
+#set( $paramst = "" )
+#if( ${processor.param} )
+#set( $param = "${processor.param}, " )
+#set( $paramst = ${main.substringBefore(${processor.param}," ")} + ", " )
 #end
-public class ${name}Definition<Type extends ProcessorDefinition<Type>> extends ${parent}<${name}Definition<Type>> {
+public class ${name}Definition<${param}Type extends ProcessorDefinition<Type>> extends ${parent}<${name}Definition<${paramst}Type>> {
 
 #foreach( $en in ${main.getEnums($processor).entrySet()} )
     enum ${en.key} {
@@ -77,7 +93,8 @@ public class ${name}Definition<Type extends ProcessorDefinition<Type>> extends $
 
 #foreach( $prop in ${processor.properties} )
 #if ( ${prop.name} != "outputs" && ${prop.name} != "expression" )
-#set( $propname = ${prop.name.substring(0,1).toUpperCase()} + ${prop.name.substring(1)} )
+#set( $propname = ${main.camelCaseUpper(${prop.name})} )
+#set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
 #set( $last = $prop )
 #set( $nbprops = 0 )
 #foreach( $p in ${processor.properties} )
@@ -87,14 +104,22 @@ public class ${name}Definition<Type extends ProcessorDefinition<Type>> extends $
 #end
 #end
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${name}Definition ${prop.name}(${main.getType($prop.type)} ${prop.name}) {
+    public ${name}Definition<${paramst}Type> ${propnamelow}(${main.getType($prop.type)} ${propnamelow}) {
         set${propname}(${prop.name});
         return this;
     }
 
+#if( ${prop.type} == 'model:expression' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name}Definition<${paramst}Type> ${propnamelow}(Expression ${propnamelow}) {
+        doSetProperty("${prop.name}", ${prop.name});
+        return this;
+    }
+
+#end
 #if( ${main.getType($prop.type)} != "String" && ($last == $prop) && (${prop.type.equals('model:endpoint')} || !${prop.type.startsWith('model:')} && !${prop.type.startsWith('list(model:')})  )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${name}Definition ${prop.name}(String ${prop.name}) {
+    public ${name}Definition<${paramst}Type> ${prop.name}(String ${prop.name}) {
         doSetProperty("${prop.name}", ${prop.name});
         return this;
     }

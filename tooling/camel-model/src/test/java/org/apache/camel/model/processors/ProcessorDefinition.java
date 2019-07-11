@@ -19,6 +19,7 @@ package org.apache.camel.model.processors;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -44,6 +46,8 @@ import org.apache.camel.Expression;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.ExpressionClause;
+import org.apache.camel.builder.ProcessClause;
 import org.apache.camel.model.OptionalIdentifiedDefinition;
 import org.apache.camel.model.OtherAttributesAware;
 import org.apache.camel.model.dataformats.CustomDataFormat;
@@ -51,17 +55,21 @@ import org.apache.camel.model.dataformats.DataFormatClause;
 import org.apache.camel.model.dataformats.DataFormatDefinition;
 import org.apache.camel.model.endpoints.EndpointProducerBuilder;
 import org.apache.camel.model.languages.ConstantExpression;
-import org.apache.camel.model.languages.ExpressionClause;
 import org.apache.camel.model.languages.ExpressionDefinition;
 import org.apache.camel.model.languages.LanguageExpression;
+import org.apache.camel.model.loadbalancers.LoadBalancerDefinition;
 import org.apache.camel.model.processors.ClaimCheckDefinition.ClaimCheckOperation;
+import org.apache.camel.model.rest.RestDefinition;
+import org.apache.camel.model.structs.DescriptionDefinition;
 import org.apache.camel.spi.AsEndpointUri;
 import org.apache.camel.spi.AsPredicate;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.spi.InterceptStrategy;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.Policy;
 import org.apache.camel.support.ExpressionAdapter;
+import org.apache.camel.support.PredicateToExpressionAdapter;
 import org.apache.camel.support.builder.ExpressionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1106,7 +1114,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
         RouteDefinition route = ProcessorDefinitionHelper.getRoute(def);
         if (route != null) {
-            return route.getRestDefinition();
+            return route.getRest();
         }
 
         throw new IllegalArgumentException("Cannot find RouteDefinition to allow endRest");
@@ -1182,8 +1190,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param idempotentRepository  the repository to use for duplicate check
      * @return the builder
      */
-    public IdempotentConsumerDefinition idempotentConsumer(Expression messageIdExpression, IdempotentRepository idempotentRepository) {
-        IdempotentConsumerDefinition answer = new IdempotentConsumerDefinition().expression(messageIdExpression).messageIdRepository(idempotentRepository);
+    public IdempotentConsumerDefinition<Type> idempotentConsumer(Expression messageIdExpression, IdempotentRepository idempotentRepository) {
+        IdempotentConsumerDefinition<Type> answer = new IdempotentConsumerDefinition<Type>()
+                .expression(messageIdExpression).messageIdRepository(idempotentRepository);
         addOutput(answer);
         return answer;
     }
@@ -1210,8 +1219,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param predicate  predicate to use
      * @return the builder
      */
-    public FilterDefinition filter(@AsPredicate Predicate predicate) {
-        FilterDefinition filter = new FilterDefinition().expression(predicate);
+    public FilterDefinition<Type> filter(@AsPredicate Predicate predicate) {
+        FilterDefinition<Type> filter = new FilterDefinition<Type>()
+                .expression(PredicateToExpressionAdapter.toExpression(predicate));
         addOutput(filter);
         return filter;
     }
@@ -1224,8 +1234,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression  the predicate expression to use
      * @return the builder
      */
-    public FilterDefinition filter(@AsPredicate ExpressionDefinition expression) {
-        FilterDefinition filter = new FilterDefinition().expression(expression);
+    public FilterDefinition<Type> filter(@AsPredicate ExpressionDefinition expression) {
+        FilterDefinition<Type> filter = new FilterDefinition<Type>().expression(expression);
         addOutput(filter);
         return filter;
     }
@@ -1239,7 +1249,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression   the expression
      * @return the builder
      */
-    public FilterDefinition filter(String language, @AsPredicate String expression) {
+    public FilterDefinition<Type> filter(String language, @AsPredicate String expression) {
         return filter(new LanguageExpression().language(language).expression(expression));
     }
 
@@ -1251,8 +1261,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression  the expression
      * @return the builder
      */
-    public ValidateDefinition validate(@AsPredicate Expression expression) {
-        ValidateDefinition answer = new ValidateDefinition().expression(expression);
+    public ValidateDefinition<Type> validate(@AsPredicate Expression expression) {
+        ValidateDefinition<Type> answer = new ValidateDefinition<Type>().expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1265,8 +1275,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param predicate  the predicate
      * @return the builder
      */
-    public ValidateDefinition validate(@AsPredicate Predicate predicate) {
-        ValidateDefinition answer = new ValidateDefinition().expression(predicate);
+    public ValidateDefinition<Type> validate(@AsPredicate Predicate predicate) {
+        ValidateDefinition<Type> answer = new ValidateDefinition<Type>()
+                .expression(PredicateToExpressionAdapter.toExpression(predicate));
         addOutput(answer);
         return answer;
     }
@@ -1279,8 +1290,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     @AsPredicate
-    public ExpressionClause<ValidateDefinition> validate() {
-        ValidateDefinition answer = new ValidateDefinition();
+    public ExpressionClause<ValidateDefinition<Type>> validate() {
+        ValidateDefinition<Type> answer = new ValidateDefinition<Type>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -1292,8 +1303,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return  the builder
      */
-    public HystrixDefinition hystrix() {
-        HystrixDefinition answer = new HystrixDefinition();
+    public HystrixDefinition<Type> hystrix() {
+        HystrixDefinition<Type> answer = new HystrixDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -1304,8 +1315,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return  the builder
      */
-    public LoadBalanceDefinition loadBalance() {
-        LoadBalanceDefinition answer = new LoadBalanceDefinition();
+    public LoadBalanceDefinition<Type> loadBalance() {
+        LoadBalanceDefinition<Type> answer = new LoadBalanceDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -1317,10 +1328,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param loadBalancer a custom load balancer to use
      * @return  the builder
      */
-    public LoadBalanceDefinition loadBalance(LoadBalancer loadBalancer) {
-        LoadBalanceDefinition answer = new LoadBalanceDefinition();
+    public LoadBalanceDefinition<Type> loadBalance(LoadBalancer loadBalancer) {
+        LoadBalanceDefinition<Type> answer = new LoadBalanceDefinition<>();
         addOutput(answer);
-        return answer.loadBalance(loadBalancer);
+        return answer.loadBalancerType(new LoadBalancerDefinition(loadBalancer));
     }
 
     /**
@@ -1452,7 +1463,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RecipientListDefinition<Type> recipientList(@AsEndpointUri Expression recipients) {
-        RecipientListDefinition<Type> answer = new RecipientListDefinition<>(recipients);
+        RecipientListDefinition<Type> answer = new RecipientListDefinition<>();
+        answer.setExpression(recipients);
         addOutput(answer);
         return answer;
     }
@@ -1466,7 +1478,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RecipientListDefinition<Type> recipientList(@AsEndpointUri Expression recipients, String delimiter) {
-        RecipientListDefinition<Type> answer = new RecipientListDefinition<>(recipients);
+        RecipientListDefinition<Type> answer = new RecipientListDefinition<>();
+        answer.setExpression(recipients);
         answer.setDelimiter(delimiter);
         addOutput(answer);
         return answer;
@@ -1513,7 +1526,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RoutingSlipDefinition<Type> routingSlip(@AsEndpointUri Expression expression, String uriDelimiter) {
-        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>(expression, uriDelimiter);
+        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>();
+        answer.expression(expression);
+        answer.uriDelimiter(uriDelimiter);
         addOutput(answer);
         return answer;
     }
@@ -1531,7 +1546,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RoutingSlipDefinition<Type> routingSlip(@AsEndpointUri Expression expression) {
-        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>(expression);
+        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>();
+        answer.expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1566,7 +1582,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public DynamicRouterDefinition<Type> dynamicRouter(@AsEndpointUri Expression expression) {
-        DynamicRouterDefinition<Type> answer = new DynamicRouterDefinition<>(expression);
+        DynamicRouterDefinition<Type> answer = new DynamicRouterDefinition<>();
+        answer.expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1664,8 +1681,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression  the expression on which to split the message
      * @return the builder
      */
-    public SplitDefinition split(Expression expression) {
-        SplitDefinition answer = new SplitDefinition().expression(expression);
+    public SplitDefinition<Type> split(Expression expression) {
+        SplitDefinition<Type> answer = new SplitDefinition<Type>().expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1680,8 +1697,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy  the strategy used to aggregate responses for every part
      * @return the builder
      */
-    public SplitDefinition split(Expression expression, AggregationStrategy aggregationStrategy) {
-        SplitDefinition answer = new SplitDefinition().expression(expression);
+    public SplitDefinition<Type> split(Expression expression, AggregationStrategy aggregationStrategy) {
+        SplitDefinition<Type> answer = new SplitDefinition<Type>().expression(expression);
         addOutput(answer);
         answer.setAggregationStrategy(aggregationStrategy);
         return answer;
@@ -1693,9 +1710,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the expression clause for the expressions on which to compare messages in order
      */
-    public ExpressionClause<ResequenceDefinition> resequence() {
-        ResequenceDefinition answer = new ResequenceDefinition();
-        ExpressionClause<ResequenceDefinition> clause = new ExpressionClause<>(answer);
+    public ExpressionClause<ResequenceDefinition<Type>> resequence() {
+        ResequenceDefinition<Type> answer = new ResequenceDefinition<>();
+        ExpressionClause<ResequenceDefinition<Type>> clause = new ExpressionClause<>(answer);
         answer.setExpression(clause);
         addOutput(answer);
         return clause;
@@ -1709,7 +1726,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public ResequenceDefinition resequence(Expression expression) {
-        ResequenceDefinition answer = new ResequenceDefinition().expression(expression);
+        ResequenceDefinition<Type> answer = new ResequenceDefinition<Type>().expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1720,9 +1737,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the expression clause to be used as builder to configure the correlation expression
      */
-    public ExpressionClause<AggregateDefinition> aggregate() {
-        AggregateDefinition answer = new AggregateDefinition();
-        ExpressionClause<AggregateDefinition> clause = new ExpressionClause<>(answer);
+    public ExpressionClause<AggregateDefinition<Type>> aggregate() {
+        AggregateDefinition<Type> answer = new AggregateDefinition<>();
+        ExpressionClause<AggregateDefinition<Type>> clause = new ExpressionClause<>(answer);
         answer.setExpression(clause);
         addOutput(answer);
         return clause;
@@ -1735,9 +1752,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy the strategy used for the aggregation
      * @return the expression clause to be used as builder to configure the correlation expression
      */
-    public ExpressionClause<AggregateDefinition> aggregate(AggregationStrategy aggregationStrategy) {
-        AggregateDefinition answer = new AggregateDefinition();
-        ExpressionClause<AggregateDefinition> clause = new ExpressionClause<>(answer);
+    public ExpressionClause<AggregateDefinition<Type>> aggregate(AggregationStrategy aggregationStrategy) {
+        AggregateDefinition<Type> answer = new AggregateDefinition<>();
+        ExpressionClause<AggregateDefinition<Type>> clause = new ExpressionClause<>(answer);
         answer.setExpression(clause);
         answer.setAggregationStrategy(aggregationStrategy);
         addOutput(answer);
@@ -1754,8 +1771,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *                              <code>header("JMSCorrelationID")</code>
      * @return the builder
      */
-    public AggregateDefinition aggregate(Expression correlationExpression) {
-        AggregateDefinition answer = new AggregateDefinition().expression(correlationExpression);
+    public AggregateDefinition<Type> aggregate(Expression correlationExpression) {
+        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().expression(correlationExpression);
         addOutput(answer);
         return answer;
     }
@@ -1771,8 +1788,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy the strategy used for the aggregation
      * @return the builder
      */
-    public AggregateDefinition aggregate(Expression correlationExpression, AggregationStrategy aggregationStrategy) {
-        AggregateDefinition answer = new AggregateDefinition().expression(correlationExpression)
+    public AggregateDefinition<Type> aggregate(Expression correlationExpression, AggregationStrategy aggregationStrategy) {
+        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().expression(correlationExpression)
                 .aggregationStrategy(aggregationStrategy);
         addOutput(answer);
         return answer;
@@ -1785,8 +1802,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param delay  an expression to calculate the delay time in millis
      * @return the builder
      */
-    public DelayDefinition delay(Expression delay) {
-        DelayDefinition answer = new DelayDefinition().expression(delay);
+    public DelayDefinition<Type> delay(Expression delay) {
+        DelayDefinition<Type> answer = new DelayDefinition<Type>().expression(delay);
         addOutput(answer);
         return answer;
     }
@@ -1797,8 +1814,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the expression clause to create the expression
      */
-    public ExpressionClause<DelayDefinition> delay() {
-        DelayDefinition answer = new DelayDefinition();
+    public ExpressionClause<DelayDefinition<Type>> delay() {
+        DelayDefinition<Type> answer = new DelayDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -1810,7 +1827,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param delay  the delay in millis
      * @return the builder
      */
-    public DelayDefinition delay(long delay) {
+    public DelayDefinition<Type> delay(long delay) {
         return delay(ExpressionBuilder.constantExpression(delay));
     }
 
@@ -1820,8 +1837,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public ExpressionClause<ThrottleDefinition> throttle() {
-        ThrottleDefinition answer = new ThrottleDefinition();
+    public ExpressionClause<ThrottleDefinition<Type>> throttle() {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -1837,7 +1854,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param maximumRequestCount  the maximum messages
      * @return the builder
      */
-    public ThrottleDefinition throttle(long maximumRequestCount) {
+    public ThrottleDefinition<Type> throttle(long maximumRequestCount) {
         return throttle(ExpressionBuilder.constantExpression(maximumRequestCount));
     }
 
@@ -1852,8 +1869,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param maximumRequestCount  an expression to calculate the maximum request count
      * @return the builder
      */
-    public ThrottleDefinition throttle(Expression maximumRequestCount) {
-        ThrottleDefinition answer = new ThrottleDefinition().expression(maximumRequestCount);
+    public ThrottleDefinition<Type> throttle(Expression maximumRequestCount) {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<Type>().expression(maximumRequestCount);
         addOutput(answer);
         return answer;
     }
@@ -1873,8 +1890,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param correlationExpressionKey  is a correlation key that can throttle by the given key instead of overall throttling
      * @return the builder
      */
-    public ThrottleDefinition throttle(Expression maximumRequestCount, long correlationExpressionKey) {
-        ThrottleDefinition answer = new ThrottleDefinition().expression(maximumRequestCount)
+    public ThrottleDefinition<Type> throttle(Expression maximumRequestCount, long correlationExpressionKey) {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<Type>().expression(maximumRequestCount)
                 .correlationExpression(ExpressionBuilder.constantExpression(correlationExpressionKey));
         addOutput(answer);
         return answer;
@@ -1895,8 +1912,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param correlationExpressionKey  is a correlation key as an expression that can throttle by the given key instead of overall throttling
      * @return the builder
      */
-    public ThrottleDefinition throttle(Expression maximumRequestCount, Expression correlationExpressionKey) {
-        ThrottleDefinition answer = new ThrottleDefinition().expression(maximumRequestCount)
+    public ThrottleDefinition<Type> throttle(Expression maximumRequestCount, Expression correlationExpressionKey) {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<Type>().expression(maximumRequestCount)
                 .correlationExpression(correlationExpressionKey);
         addOutput(answer);
         return answer;
@@ -1909,8 +1926,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the clause used to create the loop expression
      */
-    public ExpressionClause<LoopDefinition> loop() {
-        LoopDefinition loop = new LoopDefinition();
+    public ExpressionClause<LoopDefinition<Type>> loop() {
+        LoopDefinition<Type> loop = new LoopDefinition<>();
         addOutput(loop);
         return createAndSetExpression(loop);
     }
@@ -1923,8 +1940,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression the loop expression
      * @return the builder
      */
-    public LoopDefinition loop(Expression expression) {
-        LoopDefinition loop = new LoopDefinition().expression(expression);
+    public LoopDefinition<Type> loop(Expression expression) {
+        LoopDefinition<Type> loop = new LoopDefinition<Type>().expression(expression);
         addOutput(loop);
         return loop;
     }
@@ -1937,8 +1954,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param predicate the while loop predicate
      * @return the builder
      */
-    public LoopDefinition loopDoWhile(@AsPredicate Predicate predicate) {
-        LoopDefinition loop = new LoopDefinition().expression(predicate);
+    public LoopDefinition<Type> loopDoWhile(@AsPredicate Predicate predicate) {
+        LoopDefinition<Type> loop = new LoopDefinition<Type>()
+                .expression(PredicateToExpressionAdapter.toExpression(predicate));
         addOutput(loop);
         return loop;
     }
@@ -1950,8 +1968,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public ExpressionClause<LoopDefinition> loopDoWhile() {
-        LoopDefinition loop = new LoopDefinition();
+    public ExpressionClause<LoopDefinition<Type>> loopDoWhile() {
+        LoopDefinition<Type> loop = new LoopDefinition<>();
         loop.setDoWhile(true);
         addOutput(loop);
         return createAndSetExpression(loop);
@@ -1966,7 +1984,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public LoopDefinition loop(int count) {
-        LoopDefinition loop = new LoopDefinition().expression(new ConstantExpression().expression(Integer.toString(count)));
+        LoopDefinition<Type> loop = new LoopDefinition<Type>().expression(
+                new ConstantExpression().expression(Integer.toString(count)));
         addOutput(loop);
         return loop;
     }
@@ -1978,7 +1997,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type throwException(Exception exception) {
-        ThrowExceptionDefinition answer = new ThrowExceptionDefinition();
+        ThrowExceptionDefinition<Type> answer = new ThrowExceptionDefinition<>();
         answer.setException(exception);
         addOutput(answer);
         return asType();
@@ -1992,8 +2011,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type throwException(Class<? extends Exception> type, String message) {
-        ThrowExceptionDefinition answer = new ThrowExceptionDefinition();
-        answer.setExceptionClass(type);
+        ThrowExceptionDefinition<Type> answer = new ThrowExceptionDefinition<>();
+        answer.setExceptionType(type);
         answer.setMessage(message);
         addOutput(answer);
         return asType();
@@ -2010,7 +2029,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see #markRollbackOnlyLast()
      */
     public Type markRollbackOnly() {
-        RollbackDefinition answer = new RollbackDefinition();
+        RollbackDefinition<Type> answer = new RollbackDefinition<>();
         answer.setMarkRollbackOnly(true);
         addOutput(answer);
         return asType();
@@ -2030,7 +2049,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see #markRollbackOnly()
      */
     public Type markRollbackOnlyLast() {
-        RollbackDefinition answer = new RollbackDefinition();
+        RollbackDefinition<Type> answer = new RollbackDefinition<>();
         answer.setMarkRollbackOnlyLast(true);
         addOutput(answer);
         return asType();
@@ -2060,7 +2079,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see #markRollbackOnly()
      */
     public Type rollback(String message) {
-        RollbackDefinition answer = new RollbackDefinition().message(message);
+        RollbackDefinition<Type> answer = new RollbackDefinition<Type>().message(message);
         addOutput(answer);
         return asType();
     }
@@ -2075,7 +2094,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public WireTapDefinition<Type> wireTap(Endpoint endpoint) {
-        WireTapDefinition answer = new WireTapDefinition();
+        WireTapDefinition<Type> answer = new WireTapDefinition<>();
         answer.endpoint(endpoint);
         addOutput(answer);
         return answer;
@@ -2091,7 +2110,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public WireTapDefinition<Type> wireTap(@AsEndpointUri EndpointProducerBuilder endpoint) {
-        WireTapDefinition answer = new WireTapDefinition();
+        WireTapDefinition<Type> answer = new WireTapDefinition<>();
         answer.setUri(endpoint);
         addOutput(answer);
         return answer;
@@ -2107,7 +2126,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public WireTapDefinition<Type> wireTap(@AsEndpointUri String uri) {
-        WireTapDefinition answer = new WireTapDefinition();
+        WireTapDefinition<Type> answer = new WireTapDefinition<>();
         answer.uri(uri);
         addOutput(answer);
         return answer;
@@ -2160,8 +2179,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param exceptionType  the exception to catch
      * @return the exception builder to configure
      */
-    public OnExceptionDefinition onException(Class<? extends Throwable> exceptionType) {
-        OnExceptionDefinition answer = new OnExceptionDefinition(exceptionType);
+    public OnExceptionDefinition<Type> onException(Class<? extends Throwable> exception) {
+        OnExceptionDefinition<Type> answer = new OnExceptionDefinition<>();
+        answer.setException(Collections.singletonList(exception.getName()));
         answer.setRouteScoped(true);
         addOutput(answer);
         return answer;
@@ -2174,8 +2194,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param exceptions list of exceptions to catch
      * @return the exception builder to configure
      */
-    public OnExceptionDefinition onException(Class<? extends Throwable>... exceptions) {
-        OnExceptionDefinition answer = new OnExceptionDefinition(Arrays.asList(exceptions));
+    public OnExceptionDefinition<Type> onException(Class<? extends Throwable>... exceptions) {
+        OnExceptionDefinition<Type> answer = new OnExceptionDefinition<>();
+        answer.setException(Arrays.stream(exceptions).map(Class::getName).collect(Collectors.toList()));
         answer.setRouteScoped(true);
         addOutput(answer);
         return answer;
@@ -2189,8 +2210,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param policy  the policy to apply
      * @return the policy builder to configure
      */
-    public PolicyDefinition policy(Policy policy) {
-        PolicyDefinition answer = new PolicyDefinition(policy);
+    public PolicyDefinition<Type> policy(Policy policy) {
+        PolicyDefinition<Type> answer = new PolicyDefinition<Type>().instance(policy);
         addOutput(answer);
         return answer;
     }
@@ -2203,9 +2224,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param ref  reference to lookup a policy in the registry
      * @return the policy builder to configure
      */
-    public PolicyDefinition policy(String ref) {
-        PolicyDefinition answer = new PolicyDefinition();
-        answer.setRef(ref);
+    public PolicyDefinition<Type> policy(String ref) {
+        PolicyDefinition<Type> answer = new PolicyDefinition<>();
+        answer.policy("#bean:" + ref);
         addOutput(answer);
         return answer;
     }
@@ -2215,8 +2236,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the policy builder to configure
      */
-    public TransactedDefinition transacted() {
-        TransactedDefinition answer = new TransactedDefinition();
+    public TransactedDefinition<Type> transacted() {
+        TransactedDefinition<Type> answer = new TransactedDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -2227,9 +2248,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param ref  reference to lookup a transacted policy in the registry
      * @return the policy builder to configure
      */
-    public TransactedDefinition transacted(String ref) {
-        TransactedDefinition answer = new TransactedDefinition();
-        answer.setRef(ref);
+    public TransactedDefinition<Type> transacted(String ref) {
+        TransactedDefinition<Type> answer = new TransactedDefinition<>();
+        answer.policy("#bean:" + ref);
         addOutput(answer);
         return answer;
     }
@@ -2239,8 +2260,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the saga definition
      */
-    public SagaDefinition saga() {
-        SagaDefinition answer = new SagaDefinition();
+    public SagaDefinition<Type> saga() {
+        SagaDefinition<Type> answer = new SagaDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -2257,7 +2278,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type process(Processor processor) {
-        ProcessDefinition answer = new ProcessDefinition(processor);
+        ProcessDefinition answer = new ProcessDefinition().processor(processor);
         addOutput(answer);
         return asType();
     }
@@ -2272,7 +2293,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type process(String ref) {
         ProcessDefinition answer = new ProcessDefinition();
-        answer.setRef(ref);
+        answer.processor("#bean:" + ref);
         addOutput(answer);
         return asType();
     }
@@ -2286,7 +2307,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ProcessClause<ProcessorDefinition<Type>> process() {
         ProcessClause<ProcessorDefinition<Type>> clause = new ProcessClause<>(this);
-        ProcessDefinition answer = new ProcessDefinition(clause);
+        ProcessDefinition<Type> answer = new ProcessDefinition<>();
 
         addOutput(answer);
         return clause;
@@ -2300,9 +2321,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
-            answer.setRef((String) bean);
+            answer.setBean("#bean:" + bean);
         } else {
             answer.setBean(bean);
         }
@@ -2319,9 +2340,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean, String method) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
-            answer.setRef((String) bean);
+            answer.setBean("#bean:" + bean);
         } else {
             answer.setBean(bean);
         }
@@ -2341,7 +2362,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean, boolean cache) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
             answer.setBean("#bean:" + bean);
         } else {
@@ -2364,7 +2385,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean, String method, boolean cache) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
             answer.setBean("#bean:" + bean);
         } else {
@@ -2384,7 +2405,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Class<?> beanType) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         answer.setBeanType(beanType);
         addOutput(answer);
         return asType();
@@ -2399,7 +2420,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Class<?> beanType, String method) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         answer.setBeanType(beanType);
         answer.setMethod(method);
         addOutput(answer);
@@ -2418,7 +2439,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Class<?> beanType, String method, boolean cache) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         answer.setBeanType(beanType);
         answer.setMethod(method);
         answer.setCache(cache);
@@ -2434,7 +2455,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> setBody() {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetBodyDefinition answer = new SetBodyDefinition().expression(clause);
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2447,7 +2468,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setBody(Expression expression) {
-        SetBodyDefinition answer = new SetBodyDefinition().expression(expression);
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2460,7 +2481,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public <Result> Type setBody(Supplier<Result> supplier) {
-        SetBodyDefinition answer = new SetBodyDefinition().expression(new ExpressionAdapter() {
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(new ExpressionAdapter() {
             @Override
             public Result evaluate(Exchange exchange) {
                 return supplier.get();
@@ -2478,7 +2499,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public <Result> Type setBody(Function<Exchange, Result> function) {
-        SetBodyDefinition answer = new SetBodyDefinition().expression(new ExpressionAdapter() {
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(new ExpressionAdapter() {
             @Override
             public Result evaluate(Exchange exchange) {
                 return function.apply(exchange);
@@ -2496,7 +2517,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type transform(Expression expression) {
-        TransformDefinition answer = new TransformDefinition().expression(expression);
+        TransformDefinition<Type> answer = new TransformDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2509,7 +2530,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> transform() {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        TransformDefinition answer = new TransformDefinition().expression(clause);
+        TransformDefinition<Type> answer = new TransformDefinition<Type>().expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2521,7 +2542,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type script(Expression expression) {
-        ScriptDefinition answer = new ScriptDefinition().expression(expression);
+        ScriptDefinition<Type> answer = new ScriptDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2533,7 +2554,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> script() {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        ScriptDefinition answer = new ScriptDefinition().expression(clause);
+        ScriptDefinition<Type> answer = new ScriptDefinition<Type>().expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2545,7 +2566,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setFaultBody(Expression expression) {
-        SetFaultBodyDefinition answer = new SetFaultBodyDefinition().expression(expression);
+        SetFaultBodyDefinition<Type> answer = new SetFaultBodyDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2558,7 +2579,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> setHeader(String name) {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetHeaderDefinition answer = new SetHeaderDefinition().name(name).expression(clause);
+        SetHeaderDefinition<Type> answer = new SetHeaderDefinition<Type>().name(name).expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2571,7 +2592,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setHeader(String name, Expression expression) {
-        SetHeaderDefinition answer = new SetHeaderDefinition().name(name).expression(expression);
+        SetHeaderDefinition<Type> answer = new SetHeaderDefinition<Type>().name(name).expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2584,7 +2605,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setHeader(String name, final Supplier<Object> supplier) {
-        SetHeaderDefinition answer = new SetHeaderDefinition().name(name).expression(new ExpressionAdapter() {
+        SetHeaderDefinition<Type> answer = new SetHeaderDefinition<Type>().name(name).expression(new ExpressionAdapter() {
             @Override
             public Object evaluate(Exchange exchange) {
                 return supplier.get();
@@ -2603,7 +2624,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setProperty(String name, Expression expression) {
-        SetPropertyDefinition answer = new SetPropertyDefinition().name(name).expression(expression);
+        SetPropertyDefinition<Type> answer = new SetPropertyDefinition<Type>().name(name).expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2616,7 +2637,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> setProperty(String name) {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetPropertyDefinition answer = new SetPropertyDefinition().name(name).expression(clause);
+        SetPropertyDefinition<Type> answer = new SetPropertyDefinition<Type>().name(name).expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2628,7 +2649,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeHeader(String name) {
-        RemoveHeaderDefinition answer = new RemoveHeaderDefinition().headerName(name);
+        RemoveHeaderDefinition<Type> answer = new RemoveHeaderDefinition<Type>().headerName(name);
         addOutput(answer);
         return asType();
     }
@@ -2640,7 +2661,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeHeaders(String pattern) {
-        RemoveHeadersDefinition answer = new RemoveHeadersDefinition().pattern(pattern);
+        RemoveHeadersDefinition<Type> answer = new RemoveHeadersDefinition<Type>().pattern(pattern);
         addOutput(answer);
         return asType();
     }
@@ -2653,7 +2674,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeHeaders(String pattern, String... excludePatterns) {
-        RemoveHeadersDefinition answer = new RemoveHeadersDefinition().pattern(pattern).excludePattern(excludePatterns);
+        RemoveHeadersDefinition answer = new RemoveHeadersDefinition().pattern(pattern).excludePatterns(excludePatterns);
         addOutput(answer);
         return asType();
     }
@@ -2665,7 +2686,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeProperty(String name) {
-        RemovePropertyDefinition answer = new RemovePropertyDefinition().propertyName(name);
+        RemovePropertyDefinition<Type> answer = new RemovePropertyDefinition<Type>().propertyName(name);
         addOutput(answer);
         return asType();
     }
@@ -2677,7 +2698,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeProperties(String pattern) {
-        RemovePropertiesDefinition answer = new RemovePropertiesDefinition().pattern(pattern);
+        RemovePropertiesDefinition<Type> answer = new RemovePropertiesDefinition<Type>().pattern(pattern);
         addOutput(answer);
         return asType();
     }
@@ -2690,7 +2711,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeProperties(String pattern, String... excludePatterns) {
-        RemovePropertiesDefinition answer = new RemovePropertiesDefinition().pattern(pattern).excludePattern(excludePatterns);
+        RemovePropertiesDefinition answer = new RemovePropertiesDefinition().pattern(pattern).excludePatterns(excludePatterns);
         addOutput(answer);
         return asType();
     }
@@ -2702,7 +2723,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type convertBodyTo(Class<?> type) {
-        addOutput(new ConvertBodyDefinition().type(type));
+        addOutput(new ConvertBodyDefinition<Type>().type(type));
         return asType();
     }
 
@@ -2714,7 +2735,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type convertBodyTo(Class<?> type, String charset) {
-        addOutput(new ConvertBodyDefinition().type(type).charset(charset));
+        addOutput(new ConvertBodyDefinition<Type>().type(type).charset(charset));
         return asType();
     }
 
@@ -2736,7 +2757,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public <T> Type sort(Expression expression, Comparator<T> comparator) {
-        addOutput(new SortDefinition<>(expression, comparator));
+        addOutput(new SortDefinition<T, Type>().expression(expression).comparator(comparator));
         return asType();
     }
 
@@ -2745,8 +2766,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public <T> ExpressionClause<SortDefinition<T>> sort() {
-        SortDefinition<T> answer = new SortDefinition<>();
+    public <T> ExpressionClause<SortDefinition<T, Type>> sort() {
+        SortDefinition<T, Type> answer = new SortDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -2976,7 +2997,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     public Type enrich(@AsEndpointUri String resourceUri, AggregationStrategy aggregationStrategy, boolean aggregateOnException, boolean shareUnitOfWork) {
         EnrichDefinition answer = new EnrichDefinition();
         answer.setExpression(new ConstantExpression().expression(resourceUri));
-        answer.setStrategy(aggregationStrategy);
+        answer.setAggregationStrategy(aggregationStrategy);
         answer.setAggregateOnException(aggregateOnException);
         answer.setShareUnitOfWork(shareUnitOfWork);
         addOutput(answer);
@@ -3013,7 +3034,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     public Type enrich(@AsEndpointUri EndpointProducerBuilder resourceUri, AggregationStrategy aggregationStrategy, boolean aggregateOnException, boolean shareUnitOfWork) {
         EnrichDefinition answer = new EnrichDefinition();
         answer.setExpression(resourceUri.expr());
-        answer.setStrategy(aggregationStrategy);
+        answer.setAggregationStrategy(aggregationStrategy);
         answer.setAggregateOnException(aggregateOnException);
         answer.setShareUnitOfWork(shareUnitOfWork);
         addOutput(answer);
@@ -3288,7 +3309,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see org.apache.camel.processor.PollEnricher
      */
     public Type pollEnrich(@AsEndpointUri String resourceUri, long timeout, AggregationStrategy aggregationStrategy, boolean aggregateOnException) {
-        return pollEnrich(new ConstantExpression(resourceUri), timeout, aggregationStrategy, aggregateOnException);
+        return pollEnrich(new ConstantExpression().expression(resourceUri), timeout, aggregationStrategy, aggregateOnException);
     }
 
     /**
@@ -3312,7 +3333,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see org.apache.camel.processor.PollEnricher
      */
     public Type pollEnrich(@AsEndpointUri String resourceUri, long timeout, String aggregationStrategyRef, boolean aggregateOnException) {
-        return pollEnrich(new ConstantExpression(resourceUri), timeout, aggregationStrategyRef, aggregateOnException);
+        return pollEnrich(new ConstantExpression().expression(resourceUri), timeout, aggregationStrategyRef, aggregateOnException);
     }
 
     /**
@@ -3429,7 +3450,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         PollEnrichDefinition pollEnrich = new PollEnrichDefinition();
         pollEnrich.setExpression(expression);
         pollEnrich.setTimeout(timeout);
-        pollEnrich.strategy("#bean:" + aggregationStrategyRef);
+        pollEnrich.aggregationStrategy("#bean:" + aggregationStrategyRef);
         pollEnrich.setAggregateOnException(aggregateOnException);
         addOutput(pollEnrich);
         return asType();
@@ -3459,7 +3480,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         PollEnrichDefinition pollEnrich = new PollEnrichDefinition();
         pollEnrich.setExpression(expression);
         pollEnrich.setTimeout(timeout);
-        pollEnrich.setStrategy(aggregationStrategy);
+        pollEnrich.setAggregationStrategy(aggregationStrategy);
         pollEnrich.setAggregateOnException(aggregateOnException);
         addOutput(pollEnrich);
         return asType();
@@ -3481,8 +3502,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see org.apache.camel.processor.PollEnricher
      */
     @AsEndpointUri
-    public ExpressionClause<PollEnrichDefinition> pollEnrich() {
-        PollEnrichDefinition answer = new PollEnrichDefinition();
+    public ExpressionClause<PollEnrichDefinition<Type>> pollEnrich() {
+        PollEnrichDefinition<Type> answer = new PollEnrichDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -3503,11 +3524,11 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public OnCompletionDefinition onCompletion() {
-        OnCompletionDefinition answer = new OnCompletionDefinition();
+    public OnCompletionDefinition<Type> onCompletion() {
+        OnCompletionDefinition<Type> answer = new OnCompletionDefinition<>();
         // we must remove all existing on completion definition (as they are global)
         // and thus we are the only one as route scoped should override any global scoped
-        answer.removeAllOnCompletionDefinition(this);
+        getOutputs().removeIf(out -> out instanceof OnCompletionDefinition);
         popBlock();
         addOutput(answer);
         pushBlock(answer);
@@ -3537,7 +3558,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type unmarshal(DataFormatDefinition dataFormatType) {
-        addOutput(new UnmarshalDefinition().dataFormatType(dataFormatType));
+        addOutput(new UnmarshalDefinition<Type>().dataFormatType(dataFormatType));
         return asType();
     }
 
@@ -3550,7 +3571,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type unmarshal(DataFormat dataFormat) {
-        return unmarshal(new DataFormatDefinition(dataFormat));
+        return unmarshal(new CustomDataFormat().dataFormat(dataFormat));
     }
 
     /**
@@ -3563,7 +3584,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type unmarshal(String dataTypeRef) {
-        return unmarshal(new CustomDataFormat().ref(dataTypeRef));
+        return unmarshal(new CustomDataFormat().dataFormat(dataTypeRef));
     }
 
     /**
@@ -3599,7 +3620,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type marshal(DataFormat dataFormat) {
-        return marshal(new DataFormatDefinition(dataFormat));
+        return marshal(new CustomDataFormat().dataFormat(dataFormat));
     }
 
     /**
@@ -3612,7 +3633,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type marshal(String dataTypeRef) {
-        addOutput(new MarshalDefinition().dataFormatType(new CustomDataFormat().ref(dataTypeRef)));
+        addOutput(new MarshalDefinition().dataFormatType(new CustomDataFormat().dataFormat(dataTypeRef)));
         return asType();
     }
 

@@ -22,7 +22,7 @@ import java.util.List;
 import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
 import org.apache.camel.Predicate;
-import org.apache.camel.model.languages.ExpressionClause;
+import org.apache.camel.builder.ExpressionClause;
 import org.apache.camel.model.languages.ExpressionDefinition;
 
 /**
@@ -126,6 +126,15 @@ public abstract class ExpressionNode<Type extends ExpressionNode<Type>> extends 
         } else {
             return super.id(id);
         }
+    }
+
+    public Type expression(Expression expression) {
+        return expression(new ExpressionDefinition(expression));
+    }
+
+    public Type expression(ExpressionDefinition expression) {
+        setExpression(expression);
+        return asType();
     }
 
 }

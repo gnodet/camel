@@ -195,7 +195,7 @@ public final class ProcessorDefinitionHelper {
      * @param node            the target node
      * @param set             set to store ids, if <tt>null</tt> a new set will be created
      * @param onlyCustomId    whether to only store custom assigned ids (ie. {@link org.apache.camel.model.OptionalIdentifiedDefinition#hasCustomIdAssigned()}
-     * @param includeAbstract whether to include abstract nodes (ie. {@link org.apache.camel.model.ProcessorDefinition#isAbstract()}
+     * @param includeAbstract whether to include abstract nodes (ie. {@link org.apache.camel.model.processors.ProcessorDefinition#isAbstract()}
      * @return the set with the found ids.
      */
     public static Set<String> gatherAllNodeIds(ProcessorDefinition<?> node, Set<String> set,
@@ -262,13 +262,6 @@ public final class ProcessorDefinitionHelper {
 
         for (ProcessorDefinition out : outputs) {
 
-            // send is much common
-            if (out instanceof SendDefinition) {
-                SendDefinition send = (SendDefinition) out;
-                List<ProcessorDefinition<?>> children = send.getOutputs();
-                doFindType(children, type, found, ++current, maxDeep);
-            }
-
             // special for choice
             if (out instanceof ChoiceDefinition) {
                 ChoiceDefinition choice = (ChoiceDefinition) out;
@@ -280,7 +273,8 @@ public final class ProcessorDefinitionHelper {
 
                 // only look at when/otherwise if current < maxDeep (or max deep is disabled)
                 if (maxDeep < 0 || current < maxDeep) {
-                    for (WhenDefinition when : choice.getWhenClauses()) {
+                    List<WhenDefinition> whens = choice.getWhenClauses();
+                    for (WhenDefinition<?> when : whens) {
                         if (type.isInstance(when)) {
                             found.add((T) when);
                         }
@@ -294,13 +288,10 @@ public final class ProcessorDefinitionHelper {
                         doFindType(children, type, found, ++current, maxDeep);
                     }
                 }
-
-                // do not check children as we already did that
-                continue;
             }
 
             // special for try ... catch ... finally
-            if (out instanceof TryDefinition) {
+            else if (out instanceof TryDefinition) {
                 TryDefinition doTry = (TryDefinition) out;
 
                 // ensure to add ourself if we match also
@@ -310,7 +301,7 @@ public final class ProcessorDefinitionHelper {
 
                 // only look at children if current < maxDeep (or max deep is disabled)
                 if (maxDeep < 0 || current < maxDeep) {
-                    List<ProcessorDefinition<?>> doTryOut = doTry.getOutputsWithoutCatches();
+                    List<ProcessorDefinition<?>> doTryOut = doTry.getOutputs();
                     doFindType(doTryOut, type, found, ++current, maxDeep);
 
                     List<CatchDefinition> doTryCatch = doTry.getCatchClauses();
@@ -322,34 +313,18 @@ public final class ProcessorDefinitionHelper {
                         doFindType(doTry.getFinallyClause().getOutputs(), type, found, ++current, maxDeep);
                     }
                 }
-
-                // do not check children as we already did that
-                continue;
             }
 
-            // special for some types which has special outputs
-            if (out instanceof OutputDefinition) {
-                OutputDefinition outDef = (OutputDefinition) out;
-
+            else {
                 // ensure to add ourself if we match also
-                if (type.isInstance(outDef)) {
-                    found.add((T) outDef);
+                if (type.isInstance(out)) {
+                    found.add((T) out);
                 }
 
-                List<ProcessorDefinition<?>> outDefOut = outDef.getOutputs();
-                doFindType(outDefOut, type, found, ++current, maxDeep);
-
-                // do not check children as we already did that
-                continue;
+                // try children as well
+                List<ProcessorDefinition<?>> children = out.getOutputs();
+                doFindType(children, type, found, ++current, maxDeep);
             }
-
-            if (type.isInstance(out)) {
-                found.add((T) out);
-            }
-
-            // try children as well
-            List<ProcessorDefinition<?>> children = out.getOutputs();
-            doFindType(children, type, found, ++current, maxDeep);
         }
     }
 

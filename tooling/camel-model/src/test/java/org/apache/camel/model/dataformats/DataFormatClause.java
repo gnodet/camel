@@ -21,10 +21,10 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
-import org.apache.camel.model.processors.ProcessorDefinition;
 import org.apache.camel.model.dataformats.BindyDataFormat.BindyType;
 import org.apache.camel.model.dataformats.JsonDataFormat.JsonLibrary;
 import org.apache.camel.model.dataformats.YAMLDataFormat.YAMLLibrary;
+import org.apache.camel.model.processors.ProcessorDefinition;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.util.CollectionStringBuffer;
 
@@ -210,7 +210,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * Uses the custom data format
      */
     public T custom(String ref) {
-        return dataFormat(new CustomDataFormat().ref(ref));
+        return dataFormat(new CustomDataFormat().dataFormat("#bean:" + ref));
     }
 
     /**

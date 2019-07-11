@@ -16,6 +16,8 @@ public abstract class AbstractData {
     List<Property> properties;
     boolean isAbstract;
     String javaType;
+    boolean generate = true;
+    String param;
 
     public String getName() {
         return name;
@@ -99,4 +101,19 @@ public abstract class AbstractData {
         this.properties = properties;
     }
 
+    public boolean isGenerate() {
+        return generate;
+    }
+
+    public void setGenerate(boolean generate) {
+        this.generate = generate;
+    }
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
 }

@@ -18,20 +18,27 @@ package org.apache.camel.model.dataformats;
 
 import java.util.Map;
 
-public class DataFormatDefinition {
+import javax.xml.namespace.QName;
+
+import org.apache.camel.model.IdentifiedType;
+import org.apache.camel.model.OtherAttributesAware;
+
+public class DataFormatDefinition extends IdentifiedType implements OtherAttributesAware {
 
     private String dataFormatName;
-    private Map<String, Object> properties;
+    private Map<QName, Object> otherAttributes;
 
     public DataFormatDefinition(String dataFormatName) {
         this.dataFormatName = dataFormatName;
     }
 
-    protected void doSetProperty(String name, Object value) {
-        properties.put(name, value);
+    @Override
+    public Map<QName, Object> getOtherAttributes() {
+        return otherAttributes;
     }
 
-    protected Object doGetProperty(String name) {
-        return properties.get(name);
+    @Override
+    public void setOtherAttributes(Map<QName, Object> otherAttributes) {
+        this.otherAttributes = otherAttributes;
     }
 }
