@@ -327,9 +327,29 @@
                 <property name="toType" type="class" description="Set the 'to' data type using Java class."/>
                 <property name="toType" type="java:org.apache.camel.spi.DataType" description="Set the 'to' data type name. If you specify 'json:XYZ', the transformer will be picked up if source type is 'json:XYZ'. If you specify just 'json', the transformer matches with all of 'json' source type like 'json:ABC' or 'json:DEF'."/>
             </struct>
+            <struct name="customTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.CustomTransformerDefinition" label="validation">
+                <property name="transformer" type="java:org.apache.camel.spi.Transformer"/>
+                <property name="type" type="class"/>
+            </struct>
+            <struct name="dataFormatTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.DataFormatTransformerDefinition" label="validation">
+                <property name="dataFormat" type="model:dataFormat"/>
+            </struct>
+            <struct name="endpointTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.EndpointTransformerDefinition" label="validation">
+                <property name="uri" type="model:endpoint"/>
+            </struct>
             <struct name="validator" javaType="org.apache.camel.model.validator.ValidatorDefinition" label="validation">
                 <property name="type" type="class" description="Set the data type using Java class."/>
                 <property name="type" type="java:org.apache.camel.spi.DataType" description="Set the data type name. If you specify 'xml:XYZ', the validator will be picked up if message type is 'xml:XYZ'. If you specify just 'xml', the validator matches with all of 'xml' message type like 'xml:ABC' or 'xml:DEF'."/>
+            </struct>
+            <struct name="customValidator" extends="model:validator" javaType="org.apache.camel.model.validator.CustomValidatorDefinition" label="validation">
+                <property name="validator" type="java:org.apache.camel.spi.Validator"/>
+                <property name="type" type="class"/>
+            </struct>
+            <struct name="endpointValidator" extends="model:validator" javaType="org.apache.camel.model.validator.EndpointValidatorDefinition" label="validation">
+                <property name="uri" type="model:endpoint"/>
+            </struct>
+            <struct name="predicateValidator" extends="model:validator" javaType="org.apache.camel.model.validator.PredicateValidatorDefinition" label="validation">
+                <property name="expression" type="model:expression"/>
             </struct>
         </structs>
     </xsl:template>
