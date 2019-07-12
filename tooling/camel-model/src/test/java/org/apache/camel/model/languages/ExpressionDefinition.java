@@ -69,6 +69,11 @@ public class ExpressionDefinition extends IdentifiedType
         this.expressionValue = expression;
     }
 
+    @Override
+    public String getShortName() {
+        return "expression";
+    }
+
     public static String getLabel(List<ExpressionDefinition> expressions) {
         CollectionStringBuffer buffer = new CollectionStringBuffer();
         for (ExpressionDefinition expression : expressions) {

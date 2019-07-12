@@ -88,10 +88,13 @@
     <xsl:template match="/model/languages">
         <languages>
             <xsl:apply-templates select="*"/>
-            <language name="language" display="Language" label="language,core" extends="model:language" maven="org.apache.camel:camel-base:3.0.0-SNAPSHOT" javaType="xxx.LanguageLanguage" description="To use the specified language in Camel expressions or predicates.">
+            <language name="language" display="Language" label="language,core" extends="model:expression" maven="org.apache.camel:camel-base:3.0.0-SNAPSHOT" javaType="xxx.LanguageLanguage" description="To use the specified language in Camel expressions or predicates.">
                 <property name="language" type="string" display="Language" description="The name of the language to use"/>
             </language>
         </languages>
+    </xsl:template>
+    <xsl:template match="/model/languages/language/@extends">
+        <xsl:attribute name="extends">model:expression</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='bean']/@javaType">
         <xsl:attribute name="javaType"><xs:value-of select="'xxx.MethodCallLanguage'"/></xsl:attribute>
@@ -343,7 +346,6 @@
             </struct>
             <struct name="customValidator" extends="model:validator" javaType="org.apache.camel.model.validator.CustomValidatorDefinition" label="validation">
                 <property name="validator" type="java:org.apache.camel.spi.Validator"/>
-                <property name="type" type="class"/>
             </struct>
             <struct name="endpointValidator" extends="model:validator" javaType="org.apache.camel.model.validator.EndpointValidatorDefinition" label="validation">
                 <property name="uri" type="model:endpoint"/>
@@ -363,6 +365,8 @@
     <xsl:template match="/model/structs/struct[@name='batch-config' or @name='stream-config']/@name">
         <xsl:attribute name="name"><xsl:value-of select="."/></xsl:attribute>
         <xsl:attribute name="extends">model:resequencerConfig</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='apiKey' or @name='basicAuth' or @name='oauth2']/property[@name='key' or @name='description']">
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='expression']">
         <xsl:element name="struct">

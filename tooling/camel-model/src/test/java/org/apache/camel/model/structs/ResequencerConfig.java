@@ -21,9 +21,9 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.model.OtherAttributesAware;
-import org.apache.camel.model.StructDefinition;
+import org.apache.camel.model.BaseDefinition;
 
-public abstract class ResequencerConfig extends StructDefinition implements OtherAttributesAware {
+public abstract class ResequencerConfig extends BaseDefinition implements OtherAttributesAware {
 
     // use xs:any to support optional property placeholders
     private Map<QName, Object> otherAttributes;

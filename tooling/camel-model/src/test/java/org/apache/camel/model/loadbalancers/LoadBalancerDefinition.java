@@ -30,12 +30,10 @@ import org.apache.camel.spi.Metadata;
  */
 @Metadata(label = "eip,routing")
 public class LoadBalancerDefinition extends IdentifiedType implements OtherAttributesAware {
+
     private LoadBalancer loadBalancer;
-    private String loadBalancerTypeName;
     // use xs:any to support optional property placeholders
     private Map<QName, Object> otherAttributes;
-
-    private Map<String, Object> properties;
 
     public LoadBalancerDefinition() {
     }
@@ -44,16 +42,9 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
         this.loadBalancer = loadBalancer;
     }
 
-    protected LoadBalancerDefinition(String loadBalancerTypeName) {
-        this.loadBalancerTypeName = loadBalancerTypeName;
-    }
-
-    protected void doSetProperty(String name, Object value) {
-        properties.put(name, value);
-    }
-
-    protected Object doGetProperty(String name) {
-        return properties.get(name);
+    @Override
+    public String getShortName() {
+        return "loadBalancer";
     }
 
     /**
@@ -78,7 +69,7 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
     }
 
     public String getLoadBalancerTypeName() {
-        return loadBalancerTypeName;
+        return getShortName();
     }
 
     @Override
@@ -96,7 +87,7 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
         if (loadBalancer != null) {
             return loadBalancer.toString();
         } else {
-            return loadBalancerTypeName;
+            return getShortName();
         }
     }
 }

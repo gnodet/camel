@@ -73,7 +73,7 @@ public abstract class OptionalIdentifiedDefinition<T extends OptionalIdentifiedD
     public T description(String text) {
         if (text != null) {
             if (description == null) {
-                description = new org.apache.camel.model.structs.DescriptionDefinition();
+                description = new DescriptionDefinition();
             }
             description.setText(text);
         }
@@ -95,7 +95,7 @@ public abstract class OptionalIdentifiedDefinition<T extends OptionalIdentifiedD
         }
         if (text != null) {
             if (description == null) {
-                description = new org.apache.camel.model.structs.DescriptionDefinition();
+                description = new DescriptionDefinition();
             }
             description.setText(text);
         }

@@ -25,11 +25,11 @@ import org.apache.camel.model.OtherAttributesAware;
 
 public class DataFormatDefinition extends IdentifiedType implements OtherAttributesAware {
 
-    private String dataFormatName;
     private Map<QName, Object> otherAttributes;
 
-    public DataFormatDefinition(String dataFormatName) {
-        this.dataFormatName = dataFormatName;
+    @Override
+    public String getShortName() {
+        return "dataFormat";
     }
 
     @Override

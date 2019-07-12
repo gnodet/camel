@@ -196,14 +196,16 @@ public class Main {
         context.put("model", model);
         for (Endpoint endpoint : model.getEndpoints()) {
             String name = substringBeforeLast(endpoint.getJavaType().substring(endpoint.getJavaType().lastIndexOf('.') + 1), "Component");
+            String packageName = "org.apache.camel.model.endpoints";
             List<String> schemes = model.getEndpoints().stream().filter(e -> Objects.equals(e.getJavaType(), endpoint.getJavaType()))
                     .map(Endpoint::getName)
                     .collect(Collectors.toList());
             context.put("endpoint", endpoint);
             context.put("name", name);
+            context.put("packageName", packageName);
             context.put("schemes", schemes);
             context.put("main", Main.class);
-            Path file = Paths.get("target/generated/org/apache/camel/model/endpoints/" + name + "EndpointBuilderFactory.java");
+            Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + "EndpointBuilderFactory.java");
             try (StringWriter w = new StringWriter()) {
                 try {
                     t.merge(context, w);
@@ -215,74 +217,13 @@ public class Main {
             }
         }
 
-        t = velocityEngine.getTemplate("src/main/resources/dataformat.vm");
-        context = new VelocityContext();
-        context.put("model", model);
-        for (DataFormat dataFormat : model.getDataFormats()) {
-            String name = substringBeforeLast(dataFormat.getJavaType().substring(dataFormat.getJavaType().lastIndexOf('.') + 1), "DataFormat");
-            context.put("dataFormat", dataFormat);
-            context.put("name", name);
-            context.put("main", Main.class);
-            Path file = Paths.get("target/generated/org/apache/camel/model/dataformats/" + name + "DataFormat.java");
-            try (StringWriter w = new StringWriter()) {
-                try {
-                    t.merge(context, w);
-                } catch (Exception e) {
-                    throw new RuntimeException("Unable to generate dataformat " + name, e);
-                }
-                w.flush();
-                updateResource(file, w.toString());
-            }
-        }
-
-        t = velocityEngine.getTemplate("src/main/resources/language.vm");
-        context = new VelocityContext();
-        context.put("model", model);
-        for (Language language : model.getLanguages()) {
-            String name = substringBeforeLast(language.getJavaType().substring(language.getJavaType().lastIndexOf('.') + 1), "Language");
-            context.put("language", language);
-            context.put("name", name);
-            context.put("main", Main.class);
-            Path file = Paths.get("target/generated/org/apache/camel/model/languages/" + name + "Expression.java");
-            try (StringWriter w = new StringWriter()) {
-                try {
-                    t.merge(context, w);
-                } catch (Exception e) {
-                    throw new RuntimeException("Unable to generate language " + name, e);
-                }
-                w.flush();
-                updateResource(file, w.toString());
-            }
-        }
-
-
         t = velocityEngine.getTemplate("src/main/resources/processor.vm");
         context = new VelocityContext();
         context.put("model", model);
-        for (Processor processor : model.getProcessors()) {
-            String name = substringBeforeLast(processor.getJavaType().substring(processor.getJavaType().lastIndexOf('.') + 1), "Definition");
-            context.put("processor", processor);
-            context.put("name", name);
-            context.put("main", Main.class);
-            Path file = Paths.get("target/generated/org/apache/camel/model/processors/" + name + "Definition.java");
-            try (StringWriter w = new StringWriter()) {
-                try {
-                    t.merge(context, w);
-                } catch (Exception e) {
-                    throw new RuntimeException("Unable to generate processor " + name, e);
-                }
-                w.flush();
-                updateResource(file, w.toString());
-            }
-        }
-
-        t = velocityEngine.getTemplate("src/main/resources/verb.vm");
-        context = new VelocityContext();
-        context.put("model", model);
-        for (Verb verb : model.getVerbs()) {
-            String name = verb.getName().substring(0, 1).toUpperCase() + verb.getName().substring(1) + "VerbDefinition";
-            String packageName = "org.apache.camel.model.rest";
-            context.put("verb", verb);
+        for (Processor data : model.getProcessors()) {
+            String name = substringBeforeLast(data.getJavaType().substring(data.getJavaType().lastIndexOf('.') + 1), "Definition") + "Definition";
+            String packageName = "org.apache.camel.model.processors";
+            context.put("data", data);
             context.put("name", name);
             context.put("packageName", packageName);
             context.put("main", Main.class);
@@ -298,38 +239,44 @@ public class Main {
             }
         }
 
-        t = velocityEngine.getTemplate("src/main/resources/loadbalancer.vm");
-        context = new VelocityContext();
-        context.put("model", model);
-        for (LoadBalancer loadBalancer : model.getLoadBalancers()) {
-            String name = loadBalancer.getName().substring(0, 1).toUpperCase() + loadBalancer.getName().substring(1);
-            if (!name.endsWith("LoadBalancer")) {
-                name += "LoadBalancer";
-            }
-            String packageName = "org.apache.camel.model.loadbalancers";
-            context.put("loadBalancer", loadBalancer);
-            context.put("packageName", packageName);
-            context.put("name", name);
-            context.put("main", Main.class);
-            Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + "Definition.java");
-            try (StringWriter w = new StringWriter()) {
-                try {
-                    t.merge(context, w);
-                } catch (Exception e) {
-                    throw new RuntimeException("Unable to generate processor " + name, e);
-                }
-                w.flush();
-                updateResource(file, w.toString());
-            }
+        for (DataFormat data : model.getDataFormats()) {
+            String name = substringBeforeLast(data.getJavaType()
+                    .substring(data.getJavaType().lastIndexOf('.') + 1), "DataFormat") + "DataFormat";
+            String packageName = "org.apache.camel.model.dataformats";
+            doGenerate(model, velocityEngine, data, packageName, name);
         }
 
-        t = velocityEngine.getTemplate("src/main/resources/struct.vm");
-        context = new VelocityContext();
-        for (Struct struct : model.getStructs()) {
-            if (!struct.isGenerate()) {
+        for (Language data : model.getLanguages()) {
+            String name = substringBeforeLast(data.getJavaType()
+                    .substring(data.getJavaType().lastIndexOf('.') + 1), "Language") + "Expression";
+            String packageName = "org.apache.camel.model.languages";
+            doGenerate(model, velocityEngine, data, packageName, name);
+        }
+
+        for (Verb data : model.getVerbs()) {
+            String name = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1) + "VerbDefinition";
+            String packageName = "org.apache.camel.model.rest";
+            doGenerate(model, velocityEngine, data, packageName, name);
+        }
+
+        for (LoadBalancer data : model.getLoadBalancers()) {
+            String name = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1);
+            if (!name.endsWith("LoadBalancerDefinition")) {
+                if (name.endsWith("LoadBalancer")) {
+                    name += "Definition";
+                } else {
+                    name += "LoadBalancerDefinition";
+                }
+            }
+            String packageName = "org.apache.camel.model.loadbalancers";
+            doGenerate(model, velocityEngine, data, packageName, name);
+        }
+
+        for (Struct data : model.getStructs()) {
+            if (!data.isGenerate()) {
                 continue;
             }
-            List<String> labels = Arrays.asList(struct.getLabel().split(","));
+            List<String> labels = Arrays.asList(data.getLabel().split(","));
             String packageName;
             if (labels.contains("rest")) {
                 packageName = "rest";
@@ -342,24 +289,31 @@ public class Main {
                 packageName = "structs";
             }
             packageName = "org.apache.camel.model." + packageName;
-            String name = struct.getJavaType().substring(struct.getJavaType().lastIndexOf('.') + 1);
-            context.put("model", model);
-            context.put("struct", struct);
-            context.put("packageName", packageName);
-            context.put("name", name);
-            context.put("main", Main.class);
-            Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + ".java");
-            try (StringWriter w = new StringWriter()) {
-                try {
-                    t.merge(context, w);
-                } catch (Exception e) {
-                    throw new RuntimeException("Unable to generate processor " + name, e);
-                }
-                w.flush();
-                updateResource(file, w.toString());
-            }
+            String name = data.getJavaType().substring(data.getJavaType().lastIndexOf('.') + 1);
+            doGenerate(model, velocityEngine, data, packageName, name);
         }
+    private static void doGenerate(Model model, VelocityEngine engine, AbstractData data, String packageName, String name) throws IOException {
+        Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + ".java");
+        try (StringWriter w = new StringWriter()) {
+            try {
+                Template t = engine.getTemplate("src/main/resources/struct.vm");
+                VelocityContext context = new VelocityContext();
+                context.put("model", model);
+                context.put("data", data);
+                context.put("packageName", packageName);
+                context.put("name", name);
+                context.put("main", Main.class);
+                t.merge(context, w);
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to generate class " + name, e);
+            }
+            w.flush();
+            updateResource(file, w.toString());
+        }
+    }
 
+    public static String getRealType(String name) {
+        return fqns.get(name);
     }
 
     public static String javadoc(String desc, String indent) {
@@ -429,6 +383,32 @@ public class Main {
         return s;
     }
 
+    public static List<AbstractData> getHierarchy(Model model, AbstractData data) {
+        List<AbstractData> parents = new ArrayList<>();
+        for (;;) {
+            String extend = data.getExtends();
+            if (extend != null && extend.startsWith("model:")) {
+                extend = extend.substring("model:".length());
+                Struct parent = null;
+                for (Struct p : model.getStructs()) {
+                    if (p.getName().equals(extend)) {
+                        parent = p;
+                        break;
+                    }
+                }
+                if (parent != null) {
+                    parents.add(parent);
+                    data = parent;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        return parents;
+    }
+
     public static Map<String, List<String>> getEnums(AbstractData data) {
         if (data.getProperties() == null) {
             return Collections.emptyMap();
@@ -449,56 +429,38 @@ public class Main {
         return enums;
     }
 
-    public static List<String> getImports(DataFormat data) {
-        return doGetImports(data, "org.apache.camel.model.dataformats");
-    }
-
-    public static List<String> getImports(Endpoint data) {
-        return doGetImports(data, "org.apache.camel.model.endpoints");
-    }
-
-    public static List<String> getImports(Language data) {
-        return doGetImports(data, "org.apache.camel.model.languages");
-    }
-
-    public static List<String> getImports(LoadBalancer data) {
-        return doGetImports(data, "org.apache.camel.model.loadbalancers");
-    }
-
-    public static List<String> getImports(Processor data) {
-        return doGetImports(data, "org.apache.camel.model.processors");
-    }
-
-    public static List<String> getImports(AbstractData data, String packageName) {
-        String extend = getExtends(data);
-        return doGetImports(data, packageName, Collections.singletonList(extend));
+    public static List<String> getImports(Model model, AbstractData data, String packageName) {
+        return doGetImports(model, data, packageName);
     }
 
     public static String getExtends(AbstractData data) {
         String extend = data.getExtends();
         if (extend == null) {
-            extend = "org.apache.camel.model.StructDefinition";
+            extend = "org.apache.camel.model.BaseDefinition";
         } else if (extend.startsWith("model:")) {
             extend = fqns.get(extend.substring("model:".length()));
+            if (extend == null) {
+                extend = "java.lang.Object";
+            }
         } else if (extend.startsWith("java:")) {
             extend = extend.substring("java:".length());
         }
         return extend;
     }
 
-    public static List<String> doGetImports(AbstractData data, String packageName) {
-        return doGetImports(data, packageName, Collections.emptyList());
-    }
+    public static List<String> doGetImports(Model model, AbstractData data, String packageName) {
+        List<String> additional = new ArrayList<>();
+        additional.add(getExtends(data));
 
-    public static List<String> doGetImports(AbstractData data, String packageName, List<String> additional) {
-        if (data.getProperties() == null) {
-            return additional;
-        }
-        return Stream.concat(data.getProperties().stream()
+        return Stream.concat(Stream.concat(getHierarchy(model, data).stream(), Stream.of(data))
+                .map(AbstractData::getProperties)
+                .filter(Objects::nonNull)
+                .flatMap(List::stream)
                 .filter(p -> !(data instanceof Processor && p.getName().equals("outputs")))
                 .map(Property::getType)
                 .flatMap(Main::getSubTypes)
                 .map(Main::getImport), additional.stream())
+                .filter(Objects::nonNull)
                 .filter(s -> !s.startsWith("java.lang."))
                 .filter(s -> !s.startsWith(packageName + "."))
                 .filter(s -> s.contains("."))

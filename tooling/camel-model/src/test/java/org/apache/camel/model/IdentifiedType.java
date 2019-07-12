@@ -16,7 +16,7 @@
  */
 package org.apache.camel.model;
 
-public abstract class IdentifiedType extends StructDefinition {
+public abstract class IdentifiedType extends BaseDefinition {
 
     protected String id;
 

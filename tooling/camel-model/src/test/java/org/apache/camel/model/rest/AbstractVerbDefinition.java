@@ -6,6 +6,10 @@ public abstract class AbstractVerbDefinition extends OptionalIdentifiedDefinitio
 
     protected RestDefinition rest;
 
+    public AbstractVerbDefinition() {
+        doSetProperty("method", getShortName());
+    }
+
     public RestDefinition getRest() {
         return rest;
     }

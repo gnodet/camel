@@ -2,7 +2,7 @@ package org.apache.camel.model;
 
 import java.util.Map;
 
-public class StructDefinition {
+public abstract class BaseDefinition {
 
     protected Map<String, Object> properties;
 
@@ -17,4 +17,7 @@ public class StructDefinition {
     protected Map<String, Object> doGetProperties() {
         return properties;
     }
+
+    public abstract String getShortName();
+
 }
