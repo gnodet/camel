@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -145,33 +146,48 @@ public class Main {
 //            fqns.put(camelCaseLower(name), "org.apache.camel.model.endpoints." + name + "EndpointBuilderFactory");
 //        }
         for (DataFormat dataFormat : model.getDataFormats()) {
-            String name = substringBeforeLast(dataFormat.getJavaType().substring(dataFormat.getJavaType().lastIndexOf('.') + 1), "DataFormat");
-            dataFormat.setJavaType("org.apache.camel.model.dataformats." + name + "DataFormat");
+//            String name = substringBeforeLast(dataFormat.getJavaType().substring(dataFormat.getJavaType().lastIndexOf('.') + 1), "DataFormat");
+//            if (!dataFormat.getJavaType().equals("org.apache.camel.model.dataformats." + name + "DataFormat")) {
+//                        Logger.getLogger(Main.class.getName()).warning("Mismatch: " + "org.apache.camel.model.dataformats." + name + "DataFormat" + " / " + dataFormat.getJavaType());
+//            }
+//            dataFormat.setJavaType("org.apache.camel.model.dataformats." + name + "DataFormat");
             fqns.put(dataFormat.getName(), dataFormat.getJavaType());
         }
         for (Language language : model.getLanguages()) {
-            String name = substringBeforeLast(language.getJavaType().substring(language.getJavaType().lastIndexOf('.') + 1), "Language");
-            if (name.isEmpty())
-                continue;
-            language.setJavaType("org.apache.camel.model.languages." + name + "Expression");
+//            String name = language.getJavaType().substring(language.getJavaType().lastIndexOf('.') + 1);
+//            if (name.isEmpty())
+//                continue;
+//            if (!language.getJavaType().equals("org.apache.camel.model.languages." + name)) {
+//                Logger.getLogger(Main.class.getName()).warning("Mismatch: " + "org.apache.camel.model.languages." + name + " / " + language.getJavaType());
+//            }
+//            language.setJavaType("org.apache.camel.model.languages." + name);
             fqns.put(language.getName(), language.getJavaType());
         }
         for (Processor processor : model.getProcessors()) {
-            String name = substringBeforeLast(processor.getJavaType().substring(processor.getJavaType().lastIndexOf('.') + 1), "Definition");
-            processor.setJavaType("org.apache.camel.model.processors." + name + "Definition");
+//            String name = substringBeforeLast(processor.getJavaType().substring(processor.getJavaType().lastIndexOf('.') + 1), "Definition");
+//            if (!processor.getJavaType().equals("org.apache.camel.model.processors." + name + "Definition")) {
+//                Logger.getLogger(Main.class.getName()).warning("Mismatch: " + "org.apache.camel.model.processors." + name + "Definition" + " / " + processor.getJavaType());
+//            }
+//            processor.setJavaType("org.apache.camel.model.processors." + name + "Definition");
             fqns.put(processor.getName(), processor.getJavaType());
         }
         for (Verb verb : model.getVerbs()) {
-            String name = verb.getName().substring(0, 1).toUpperCase() + verb.getName().substring(1);
-            verb.setJavaType("org.apache.camel.model.rest." + name + "VerbDefinition");
+//            String name = verb.getName().substring(0, 1).toUpperCase() + verb.getName().substring(1);
+//            if (verb.getJavaType() == null || !verb.getJavaType().equals("org.apache.camel.model.rest." + name + "VerbDefinition")) {
+//                Logger.getLogger(Main.class.getName()).warning("Mismatch: " + "org.apache.camel.model.rest." + name + "VerbDefinition" + " / " + verb.getJavaType());
+//            }
+//            verb.setJavaType("org.apache.camel.model.rest." + name + "VerbDefinition");
             fqns.put(verb.getName(), verb.getJavaType());
         }
         for (LoadBalancer loadBalancer : model.getLoadBalancers()) {
-            String name = loadBalancer.getName().substring(0, 1).toUpperCase() + loadBalancer.getName().substring(1);
-            if (!name.endsWith("LoadBalancer")) {
-                name += "LoadBalancer";
-            }
-            loadBalancer.setJavaType("org.apache.camel.model.loadbalancers." + name + "Definition");
+//            String name = loadBalancer.getName().substring(0, 1).toUpperCase() + loadBalancer.getName().substring(1);
+//            if (!name.endsWith("LoadBalancer")) {
+//                name += "LoadBalancer";
+//            }
+//            if (loadBalancer.getJavaType() == null || !loadBalancer.getJavaType().equals("org.apache.camel.model.loadbalancers." + name + "Definition")) {
+//                Logger.getLogger(Main.class.getName()).warning("Mismatch: " + "org.apache.camel.model.loadbalancers." + name + "Definition" + " / " + loadBalancer.getJavaType());
+//            }
+//            loadBalancer.setJavaType("org.apache.camel.model.loadbalancers." + name + "Definition");
             fqns.put(loadBalancer.getName(), loadBalancer.getJavaType());
         }
         for (Struct struct : model.getStructs()) {
@@ -201,6 +217,9 @@ public class Main {
                     } else {
                         packageName = "structs";
                     }
+//                    if (!struct.getJavaType().equals("org.apache.camel.model." + packageName + "." + name)) {
+//                        Logger.getLogger(Main.class.getName()).warning("Mismatch: " + "org.apache.camel.model." + packageName + "." + name + " / " + struct.getJavaType());
+//                    }
                     struct.setJavaType("org.apache.camel.model." + packageName + "." + name);
                     break;
             }
