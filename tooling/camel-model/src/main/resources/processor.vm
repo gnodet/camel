@@ -117,7 +117,7 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
     }
 
 #end
-#if( ${main.getType($prop.type)} != "String" && ($last == $prop) && (${prop.type.equals('model:endpoint')} || !${prop.type.startsWith('model:')} && !${prop.type.startsWith('list(model:')})  )
+#if( ${main.getType($prop.type)} != "String" && ($last == $prop) && (${prop.type.equals('model:endpoint')} || !${prop.type.startsWith('list(model:')})  )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name}<${paramst}Type> ${prop.name}(String ${prop.name}) {
         doSetProperty("${prop.name}", ${prop.name});

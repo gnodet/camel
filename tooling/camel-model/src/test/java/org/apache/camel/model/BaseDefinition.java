@@ -1,10 +1,11 @@
 package org.apache.camel.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class BaseDefinition {
 
-    protected Map<String, Object> properties;
+    protected final Map<String, Object> properties = new HashMap<>();
 
     protected void doSetProperty(String name, Object value) {
         properties.put(name, value);

@@ -8,7 +8,7 @@ public class Property {
     String description;
     String label;
     String kind;
-    boolean required;
+    boolean required = true;
     boolean secret;
     boolean deprecated;
 

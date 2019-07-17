@@ -31,11 +31,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.AggregationStrategy;
@@ -77,25 +72,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for processor types that most XML types extend.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings({"unused", "JavadocReference"})
 public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>> extends OptionalIdentifiedDefinition<Type> implements Block, OtherAttributesAware {
-    @XmlTransient
+
     private static final AtomicInteger COUNTER = new AtomicInteger();
-    @XmlTransient
     protected final Logger log = LoggerFactory.getLogger(getClass());
-    @XmlAttribute
     protected Boolean inheritErrorHandler;
-    @XmlTransient
     private final LinkedList<Block> blocks = new LinkedList<>();
-    @XmlTransient
     private ProcessorDefinition<?> parent;
-    @XmlTransient
     private final List<InterceptStrategy> interceptStrategies = new ArrayList<>();
-    // use xs:any to support optional property placeholders
-    @XmlAnyAttribute
     private Map<QName, Object> otherAttributes;
-    @XmlTransient
     private final int index;
 
     protected final Map<String, Object> properties = new HashMap<>();
@@ -1113,9 +1099,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         ProcessorDefinition<?> def = this;
 
         RouteDefinition route = ProcessorDefinitionHelper.getRoute(def);
-        if (route != null) {
-            return route.getRest();
-        }
+        // TODO: MODEL
+//        if (route != null) {
+//            return route.getRest();
+//        }
 
         throw new IllegalArgumentException("Cannot find RouteDefinition to allow endRest");
     }
@@ -1740,7 +1727,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     public ExpressionClause<AggregateDefinition<Type>> aggregate() {
         AggregateDefinition<Type> answer = new AggregateDefinition<>();
         ExpressionClause<AggregateDefinition<Type>> clause = new ExpressionClause<>(answer);
-        answer.setExpression(clause);
+        answer.correlationExpression(clause);
         addOutput(answer);
         return clause;
     }
@@ -1755,7 +1742,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     public ExpressionClause<AggregateDefinition<Type>> aggregate(AggregationStrategy aggregationStrategy) {
         AggregateDefinition<Type> answer = new AggregateDefinition<>();
         ExpressionClause<AggregateDefinition<Type>> clause = new ExpressionClause<>(answer);
-        answer.setExpression(clause);
+        answer.correlationExpression(clause);
         answer.setAggregationStrategy(aggregationStrategy);
         addOutput(answer);
         return clause;
@@ -1772,7 +1759,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public AggregateDefinition<Type> aggregate(Expression correlationExpression) {
-        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().expression(correlationExpression);
+        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().correlationExpression(correlationExpression);
         addOutput(answer);
         return answer;
     }
@@ -1789,7 +1776,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public AggregateDefinition<Type> aggregate(Expression correlationExpression, AggregationStrategy aggregationStrategy) {
-        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().expression(correlationExpression)
+        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().correlationExpression(correlationExpression)
                 .aggregationStrategy(aggregationStrategy);
         addOutput(answer);
         return answer;

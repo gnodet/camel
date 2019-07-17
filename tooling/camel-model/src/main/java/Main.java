@@ -16,11 +16,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,6 +45,7 @@ import de.odysseus.staxon.json.JsonXMLInputFactory;
 import de.odysseus.staxon.xml.util.PrettyXMLEventWriter;
 import de.odysseus.staxon.xml.util.PrettyXMLStreamWriter;
 import org.apache.camel.metamodel.AbstractData;
+import org.apache.camel.metamodel.Definition;
 import org.apache.camel.metamodel.LoadBalancer;
 import org.apache.camel.metamodel.Model;
 import org.apache.camel.metamodel.DataFormat;
@@ -51,6 +55,7 @@ import org.apache.camel.metamodel.Processor;
 import org.apache.camel.metamodel.Property;
 import org.apache.camel.metamodel.Struct;
 import org.apache.camel.metamodel.Verb;
+import org.apache.commons.lang.ObjectUtils.Null;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -141,52 +146,74 @@ public class Main {
 //        }
         for (DataFormat dataFormat : model.getDataFormats()) {
             String name = substringBeforeLast(dataFormat.getJavaType().substring(dataFormat.getJavaType().lastIndexOf('.') + 1), "DataFormat");
-            fqns.put(dataFormat.getName(), "org.apache.camel.model.dataformats." + name + "DataFormat");
+            dataFormat.setJavaType("org.apache.camel.model.dataformats." + name + "DataFormat");
+            fqns.put(dataFormat.getName(), dataFormat.getJavaType());
         }
         for (Language language : model.getLanguages()) {
             String name = substringBeforeLast(language.getJavaType().substring(language.getJavaType().lastIndexOf('.') + 1), "Language");
             if (name.isEmpty())
                 continue;
-            fqns.put(language.getName(), "org.apache.camel.model.languages." + name + "Expression");
+            language.setJavaType("org.apache.camel.model.languages." + name + "Expression");
+            fqns.put(language.getName(), language.getJavaType());
         }
         for (Processor processor : model.getProcessors()) {
             String name = substringBeforeLast(processor.getJavaType().substring(processor.getJavaType().lastIndexOf('.') + 1), "Definition");
-            fqns.put(processor.getName(), "org.apache.camel.model.processors." + name + "Definition");
+            processor.setJavaType("org.apache.camel.model.processors." + name + "Definition");
+            fqns.put(processor.getName(), processor.getJavaType());
         }
         for (Verb verb : model.getVerbs()) {
             String name = verb.getName().substring(0, 1).toUpperCase() + verb.getName().substring(1);
-            fqns.put(verb.getName(), "org.apache.camel.model.verbs." + name + "VerbDefinition");
+            verb.setJavaType("org.apache.camel.model.rest." + name + "VerbDefinition");
+            fqns.put(verb.getName(), verb.getJavaType());
         }
         for (LoadBalancer loadBalancer : model.getLoadBalancers()) {
             String name = loadBalancer.getName().substring(0, 1).toUpperCase() + loadBalancer.getName().substring(1);
             if (!name.endsWith("LoadBalancer")) {
                 name += "LoadBalancer";
             }
-            fqns.put(loadBalancer.getName(), "org.apache.camel.model.loadbalancers." + name + "Definition");
+            loadBalancer.setJavaType("org.apache.camel.model.loadbalancers." + name + "Definition");
+            fqns.put(loadBalancer.getName(), loadBalancer.getJavaType());
         }
         for (Struct struct : model.getStructs()) {
-            String name = struct.getJavaType().substring(struct.getJavaType().lastIndexOf('.') + 1);
-            String packageName;
-            List<String> labels = Arrays.asList(struct.getLabel().split(","));
-            if (labels.contains("rest")) {
-                packageName = "rest";
-            } else if (labels.contains("cloud")) {
-                packageName = "cloud";
-            } else if (labels.contains("spring")) {
-                packageName = "spring";
-            } else {
-                packageName = "structs";
+            String name, packageName;
+            switch (struct.getName()) {
+                case "processor":
+                case "expression":
+                case "dataFormat":
+                case "loadBalancer":
+                case "endpoint":
+                case "resequencerConfig":
+                case "identified":
+                case "node":
+                    if (struct.getJavaType() == null) {
+                        throw new NullPointerException("Missing javaType on struct " + struct.getName());
+                    }
+                    break;
+                default:
+                    name = struct.getJavaType().substring(struct.getJavaType().lastIndexOf('.') + 1);
+                    List<String> labels = Arrays.asList(struct.getLabel().split(","));
+                    if (labels.contains("rest")) {
+                        packageName = "rest";
+                    } else if (labels.contains("cloud")) {
+                        packageName = "cloud";
+                    } else if (labels.contains("spring")) {
+                        packageName = "spring";
+                    } else {
+                        packageName = "structs";
+                    }
+                    struct.setJavaType("org.apache.camel.model." + packageName + "." + name);
+                    break;
             }
-            fqns.put(struct.getName(), "org.apache.camel.model." + packageName + "." + name);
+            fqns.put(struct.getName(), struct.getJavaType());
         }
-        fqns.put("processor", "org.apache.camel.model.processors.ProcessorDefinition");
-        fqns.put("expression", "org.apache.camel.model.languages.ExpressionDefinition");
-        fqns.put("dataFormat", "org.apache.camel.model.dataformats.DataFormatDefinition");
-        fqns.put("loadBalancer", "org.apache.camel.model.loadbalancers.LoadBalancerDefinition");
-        fqns.put("endpoint", "org.apache.camel.model.endpoints.EndpointProducerBuilder");
-        fqns.put("resequencerConfig", "org.apache.camel.model.structs.ResequencerConfig");
-        fqns.put("identified", "org.apache.camel.model.IdentifiedType");
-        fqns.put("node", "org.apache.camel.model.OptionalIdentifiedDefinition");
+//        fqns.put("processor", "org.apache.camel.model.processors.ProcessorDefinition");
+//        fqns.put("expression", "org.apache.camel.model.languages.ExpressionDefinition");
+//        fqns.put("dataFormat", "org.apache.camel.model.dataformats.DataFormatDefinition");
+//        fqns.put("loadBalancer", "org.apache.camel.model.loadbalancers.LoadBalancerDefinition");
+//        fqns.put("endpoint", "org.apache.camel.model.endpoints.EndpointProducerBuilder");
+//        fqns.put("resequencerConfig", "org.apache.camel.model.structs.ResequencerConfig");
+//        fqns.put("identified", "org.apache.camel.model.IdentifiedType");
+//        fqns.put("node", "org.apache.camel.model.OptionalIdentifiedDefinition");
 
         VelocityEngine velocityEngine = new VelocityEngine();
         velocityEngine.init();
@@ -240,59 +267,55 @@ public class Main {
         }
 
         for (DataFormat data : model.getDataFormats()) {
-            String name = substringBeforeLast(data.getJavaType()
-                    .substring(data.getJavaType().lastIndexOf('.') + 1), "DataFormat") + "DataFormat";
-            String packageName = "org.apache.camel.model.dataformats";
-            doGenerate(model, velocityEngine, data, packageName, name);
+            if (data.isGenerate()) {
+                doGenerate(model, velocityEngine, data);
+            }
         }
 
         for (Language data : model.getLanguages()) {
-            String name = substringBeforeLast(data.getJavaType()
-                    .substring(data.getJavaType().lastIndexOf('.') + 1), "Language") + "Expression";
-            String packageName = "org.apache.camel.model.languages";
-            doGenerate(model, velocityEngine, data, packageName, name);
+            if (data.isGenerate()) {
+                doGenerate(model, velocityEngine, data);
+            }
         }
 
         for (Verb data : model.getVerbs()) {
-            String name = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1) + "VerbDefinition";
-            String packageName = "org.apache.camel.model.rest";
-            doGenerate(model, velocityEngine, data, packageName, name);
+            if (data.isGenerate()) {
+                doGenerate(model, velocityEngine, data);
+            }
         }
 
         for (LoadBalancer data : model.getLoadBalancers()) {
-            String name = data.getName().substring(0, 1).toUpperCase() + data.getName().substring(1);
-            if (!name.endsWith("LoadBalancerDefinition")) {
-                if (name.endsWith("LoadBalancer")) {
-                    name += "Definition";
-                } else {
-                    name += "LoadBalancerDefinition";
-                }
+            if (data.isGenerate()) {
+                doGenerate(model, velocityEngine, data);
             }
-            String packageName = "org.apache.camel.model.loadbalancers";
-            doGenerate(model, velocityEngine, data, packageName, name);
         }
 
         for (Struct data : model.getStructs()) {
-            if (!data.isGenerate()) {
-                continue;
+            if (data.isGenerate()) {
+                doGenerate(model, velocityEngine, data);
             }
-            List<String> labels = Arrays.asList(data.getLabel().split(","));
-            String packageName;
-            if (labels.contains("rest")) {
-                packageName = "rest";
-            } else if (labels.contains("cloud")) {
-                packageName = "cloud";
-            } else if (labels.contains("spring")) {
-                packageName = "spring";
-                continue;
-            } else {
-                packageName = "structs";
-            }
-            packageName = "org.apache.camel.model." + packageName;
-            String name = data.getJavaType().substring(data.getJavaType().lastIndexOf('.') + 1);
-            doGenerate(model, velocityEngine, data, packageName, name);
         }
-    private static void doGenerate(Model model, VelocityEngine engine, AbstractData data, String packageName, String name) throws IOException {
+
+        t = velocityEngine.getTemplate("src/main/resources/stax.vm");
+        context = new VelocityContext();
+        context.put("model", model);
+        context.put("packageName", "org.apache.camel.model.io");
+        context.put("main", Main.class);
+        Path file = Paths.get("target/generated/org/apache/camel/model/io/ModelParser.java");
+        try (StringWriter w = new StringWriter()) {
+            try {
+                t.merge(context, w);
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to generate XML parser", e);
+            }
+            w.flush();
+            updateResource(file, w.toString());
+        }
+    }
+
+    private static void doGenerate(Model model, VelocityEngine engine, AbstractData data) throws IOException {
+        String packageName = substringBeforeLast(data.getJavaType(), ".");
+        String name = substringAfterLast(data.getJavaType(), ".");
         Path file = Paths.get("target/generated/" + packageName.replace('.', '/') + "/" + name + ".java");
         try (StringWriter w = new StringWriter()) {
             try {
@@ -313,7 +336,11 @@ public class Main {
     }
 
     public static String getRealType(String name) {
-        return fqns.get(name);
+        String type = fqns.get(name);
+        if (type == null) {
+//            throw new NullPointerException("Unable to find type for " + name);
+        }
+        return type;
     }
 
     public static String javadoc(String desc, String indent) {
@@ -383,19 +410,45 @@ public class Main {
         return s;
     }
 
+    public static List<?> newArrayList() {
+        return new ArrayList<>();
+    }
+
+    public static TreeSet<?> newTreeSet() {
+        return new TreeSet<>();
+    }
+
+    public static Map<?, ?> newTreeMap() {
+        return new TreeMap<>();
+    }
+
+    public static AbstractData getData(Model model, String name) {
+        String mname;
+        if (name.startsWith("model:")) {
+            mname = name.substring("model:".length());
+        } else {
+            mname = name;
+        }
+        return Stream.of(model.getStructs(), model.getDataFormats(), model.getEndpoints(), model.getLanguages(),
+                model.getLoadBalancers(), model.getProcessors(), model.getVerbs())
+                .flatMap(List::stream)
+                .filter(p -> ((AbstractData) p).getName().equals(mname))
+                .findFirst()
+                .orElse(null);
+//        for (Struct p : model.getStructs()) {
+//            if (p.getName().equals(name)) {
+//                return p;
+//            }
+//        }
+//        return null;
+    }
+
     public static List<AbstractData> getHierarchy(Model model, AbstractData data) {
         List<AbstractData> parents = new ArrayList<>();
         for (;;) {
             String extend = data.getExtends();
-            if (extend != null && extend.startsWith("model:")) {
-                extend = extend.substring("model:".length());
-                Struct parent = null;
-                for (Struct p : model.getStructs()) {
-                    if (p.getName().equals(extend)) {
-                        parent = p;
-                        break;
-                    }
-                }
+            if (extend != null) {
+                AbstractData parent = getData(model, extend);
                 if (parent != null) {
                     parents.add(parent);
                     data = parent;
@@ -438,7 +491,7 @@ public class Main {
         if (extend == null) {
             extend = "org.apache.camel.model.BaseDefinition";
         } else if (extend.startsWith("model:")) {
-            extend = fqns.get(extend.substring("model:".length()));
+            extend = getRealType(extend.substring("model:".length()));
             if (extend == null) {
                 extend = "java.lang.Object";
             }
@@ -498,10 +551,11 @@ public class Main {
             return getSubTypes(s.substring(0, s.length() - 2));
         } else if (s.startsWith("model:")) {
             String t = s.substring("model:".length());
+            String rt = getRealType(t);
             if ("expression".equals(t)) {
-                return Stream.of(fqns.get(t), "org.apache.camel.Expression");
+                return rt != null ? Stream.of(rt, "org.apache.camel.Expression") : Stream.of("org.apache.camel.Expression");
             } else {
-                return Stream.of(fqns.get(t));
+                return rt != null ? Stream.of(rt) : Stream.empty();
             }
         } else {
             return Stream.of(s);
@@ -510,6 +564,9 @@ public class Main {
 
     public static String getType(String s) {
         try {
+            if (s == null) {
+                throw new NullPointerException("Null argument for getType");
+            }
             if ("string".equals(s)) {
                 return "String";
             } else if ("class".equals(s)) {
@@ -555,7 +612,7 @@ public class Main {
             } else if (s.endsWith("[]")) {
                 return getType(s.substring(0, s.length() - 2)) + "[]";
             } else if (s.startsWith("model:")) {
-                return substringAfterLast(fqns.get(s.substring("model:".length())), ".");
+                return substringAfterLast(getRealType(s.substring("model:".length())), ".");
             } else {
                 return s;
             }

@@ -1,0 +1,342 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package ${packageName};
+
+#set( $imports = ${main.newTreeSet()} )
+#set( $allstructs = ${main.newArrayList()} )
+#set( $b = $allstructs.addAll($model.structs) )
+#set( $b = $allstructs.addAll($model.languages) )
+#set( $b = $allstructs.addAll($model.dataFormats) )
+#set( $b = $allstructs.addAll($model.loadBalancers) )
+#set( $b = $allstructs.addAll($model.processors) )
+#foreach( $struct in $allstructs )
+    #set( $b = $imports.add(${struct.javaType}) )
+#end
+#set( $b = $imports.add("org.apache.camel.model.OptionalIdentifiedDefinition") )
+#set( $b = $imports.add("org.apache.camel.model.processors.ProcessorDefinition") )
+#set( $b = $imports.add("org.apache.camel.model.dataformats.DataFormatDefinition") )
+#set( $b = $imports.add("org.apache.camel.model.endpoints.EndpointProducerBuilder") )
+#set( $b = $imports.add("org.apache.camel.model.languages.ExpressionDefinition") )
+#set( $b = $imports.add("org.apache.camel.model.loadbalancers.LoadBalancerDefinition") )
+#set( $b = $imports.add("java.util.ArrayList") )
+#set( $b = $imports.add("java.util.List") )
+#set( $b = $imports.add("javax.xml.stream.XMLStreamConstants") )
+#set( $b = $imports.add("javax.xml.stream.XMLStreamException") )
+#set( $b = $imports.add("javax.xml.stream.XMLStreamReader") )
+#foreach( $imp in $imports )
+import ${imp};
+#end
+
+@SuppressWarnings("all")
+public class ModelParser {
+
+#foreach( $struct in $allstructs )
+  #if( !${struct.abstract} )
+  #set( $fqn = ${struct.javaType} )
+    #set( $name = ${main.substringAfterLast(${fqn}, ".")} )
+    public static ${name} parse${name}(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        $name definition = new $name();
+        for (int i = parser.getAttributeCount() - 1; i >= 0; i--) {
+            String name = parser.getAttributeLocalName(i);
+            String value = parser.getAttributeValue(i);
+            switch (name) {
+    #if( ${struct.extends} == "model:identified" )
+                case "id":
+                    definition.setId(value);
+                    break;
+    #elseif( ${struct.extends} == "model:node" )
+                case "id":
+                    definition.id(value);
+                    break;
+                case "description":
+                    definition.description(value);
+                    break;
+    #elseif( ${struct.extends} == "model:processor" )
+                case "id":
+                    definition.id(value);
+                    break;
+                case "description":
+                    definition.description(value);
+                    break;
+                case "inheritErrorHandler":
+                    definition.inheritErrorHandler(Boolean.parseBoolean(value));
+                    break;
+    #elseif( ${struct.extends} )
+                case "${struct.extends}": break;
+    #end
+    #foreach( $prop in ${struct.properties} )
+      #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+      #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+      #set( $nbprops = 0 )
+      #foreach( $p in ${struct.properties} )
+        #if( ${p.name} == ${prop.name} )
+          #set( $last = $p )
+          #set( $nbprops = $nbprops + 1 )
+        #end
+      #end
+      #if( $prop == $last && !${prop.type.startsWith('list(model:')} )
+                case "${prop.name}":
+                    definition.${propnamelow}(value);
+                    break;
+      #end
+    #end
+                default:
+                    checkUnknownAttribute(parser, name, strict);
+                    break;
+            }
+        }
+    #set( $hasExpression = false )
+    #set( $hasOutputs = false )
+    #foreach( $prop in ${struct.properties} )
+      #if( ${prop.name} == 'expression' )
+        #set( $hasExpression = true )
+      #elseif( ${prop.name} == 'outputs' )
+        #set( $hasOutputs = true )
+      #end
+    #end
+    #foreach( $prop in ${struct.properties} )
+      #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+      #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+      #set( $proptype = ${main.getType($prop.type)} )
+      #foreach( $p in ${struct.properties} )
+        #if( ${p.name} == ${prop.name} )
+          #set( $last = $p )
+        #end
+      #end
+      #if( $prop == $last && ${prop.name} != 'outputs' && ${prop.name} != 'expression' )
+      #end
+    #end
+
+        String name = null;
+        int state = 0;
+        boolean consumed = true;
+        while (true) {
+#set( $allprops = ${main.newArrayList()} )
+#foreach( $parent in ${main.getHierarchy($model, $struct)} )
+  #foreach( $prop in ${parent.properties} )
+    #if( ${prop.type.contains('model:')} )
+      #set( $b = $allprops.add($prop) )
+    #end
+  #end
+#end
+#foreach( $prop in ${struct.properties} )
+  #if( ${prop.type.contains('model:')} )
+    #set( $b = ${allprops.add($prop)} )
+  #end
+#end
+#set( $index = 0 )
+#foreach( $prop in $allprops )
+  #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+  #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+  #set( $proptype = ${main.getType($prop.type)} )
+  #set( $index = $index + 1 )
+            // ${prop.name}: ${prop.type}
+            if (!consumed && state == ${index}) {
+  #if( ${prop.type.startsWith('list(model:')} )
+    #set( $subtypem = ${main.substringBefore(${prop.type.substring(5)}, ")")} )
+    #set( $subtype = ${main.getType($subtypem)} )
+    #set( $propdata = ${main.getData($model, $subtypem)} )
+    #set( $propdatanamelow = ${main.camelCaseLower(${propdata.name})} )
+                // subtype: ${subtypem}
+    #if( ${propdata.abstract} )
+                ${subtype} ${propdatanamelow} = parse${subtype}(parser, strict);
+    #else
+                ${subtype} ${propdatanamelow} = null;
+                if ("${propdata.name}".equals(name)) {
+                    ${propdatanamelow} = parse${subtype}(parser, strict);
+                }
+    #end
+                List<${subtype}> l = definition.get${propname}();
+                if (${propdatanamelow} != null) {
+                    if (l == null) {
+                        l = new ArrayList<>();
+                        definition.set${propname}(l);
+                    }
+                    l.add(${propdatanamelow});
+                    consumed = true;
+    #if( ${prop.required} )
+                } else if (l == null) {
+                    throw new XMLStreamException("Expected element ${prop.name} but got " + name);
+    #end
+                } else {
+                    state++;
+                }
+  #elseif( ${prop.type.startsWith('model:')} )
+    #set( $propdata = ${main.getData($model, ${prop.type})} )
+    #if( ${propdata.abstract} )
+                ${proptype} ${propnamelow} = parse${proptype}(parser, strict);
+    #else
+                ${proptype} ${propnamelow} = null;
+                if ("${propdata.name}".equals(name)) {
+                    ${propnamelow} = parse${proptype}(parser, strict);
+                }
+    #end
+                if (${propnamelow} != null) {
+                    definition.set${propname}(${propnamelow});
+                    consumed = true;
+                    state++;
+                }
+    #if( ${prop.required} )
+                if (!consumed) {
+                    throw new XMLStreamException("Expected element ${prop.name} but got " + name);
+                }
+    #end
+  #else
+     TODO
+  #end
+            }
+#end
+  #set( $index = $index + 1 )
+            if (!consumed && state == ${index}) {
+                break;
+            }
+            if (consumed) {
+                if (nextTag(parser, strict)) {
+                    name = parser.getLocalName();
+                    consumed = false;
+                } else {
+                    name = null;
+                    break;
+                }
+            } else {
+                state++;
+            }
+        }
+        if (name != null) {
+            checkUnknownElement(parser, strict);
+        }
+    #foreach( $prop in $listprops )
+      #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+      #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+      #set( $proptype = ${main.getType($prop.type)} )
+      #set( $subtype = ${main.getType(${main.substringBefore(${prop.type.substring(5)}, ")")})} )
+                case "${propnamelow}":
+                    if (${propnamelow} == null) {
+                        ${propnamelow} = new ArrayList<>();
+                        definition.set${propname}(${propnamelow});
+                    }
+                    ${propnamelow}.add(parse${subtype}(parser, strict));
+                    break;
+    #end
+    #foreach( $prop in $nonlistprops )
+      #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+      #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+      #set( $proptype = ${main.getType($prop.type)} )
+                case "${propnamelow}":
+                    definition.set${propname}(parse${proptype}(parser, strict));
+                    break;
+    #end
+        return definition;
+     }
+
+  #end
+#end
+
+    private static ProcessorDefinition<?> parseProcessorDefinition(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        String name = parser.getLocalName();
+        switch (name) {
+#foreach( $processor in $model.processors )
+  #set( $name = ${main.substringAfterLast(${processor.javaType}, ".")} )
+            case "${processor.name}":
+                return parse${name}(parser, strict);
+#end
+            default:
+                return null;
+        }
+    }
+
+    private static DataFormatDefinition parseDataFormatDefinition(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        String name = parser.getLocalName();
+        switch (name) {
+#foreach( $dataformat in $model.dataFormats )
+  #set( $name = ${main.substringAfterLast(${dataformat.javaType}, ".")} )
+            case "${dataformat.name}":
+                return parse${name}(parser, strict);
+#end
+            default:
+                return null;
+        }
+    }
+
+    private static LoadBalancerDefinition parseLoadBalancerDefinition(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        String name = parser.getLocalName();
+        switch (name) {
+#foreach( $loadBalancer in $model.loadBalancers )
+  #set( $name = ${main.substringAfterLast(${loadBalancer.javaType}, ".")} )
+            case "${loadBalancer.name}":
+                return parse${name}(parser, strict);
+#end
+            default:
+                return null;
+        }
+    }
+
+    private static ResequencerConfig parseResequencerConfig(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        return null;
+    }
+
+    private static ExpressionDefinition parseExpressionDefinition(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        return null;
+    }
+
+    private static RestSecurityDefinition parseRestSecurityDefinition(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        return null;
+    }
+
+    private static EndpointProducerBuilder parseEndpointProducerBuilder(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        return null;
+    }
+
+    private static void checkUnknownAttribute(XMLStreamReader parser, String attribute, boolean strict) throws XMLStreamException {
+        if (strict) {
+            throw new XMLStreamException("Unknown attribute '" + attribute + "' for element '" + parser.getLocalName() + "'", parser.getLocation(), null);
+        }
+    }
+
+    private static void checkUnknownElement(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        if (strict) {
+            throw new XMLStreamException("Unknown element '" + parser.getLocalName() + "'", parser.getLocation(), null);
+        }
+    }
+
+    private static String getTrimmedValue(String s) {
+        return s != null ? s.trim() : s;
+    }
+
+    private static boolean nextTag(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        return (strict ? parser.nextTag() : nextTag(parser)) == XMLStreamConstants.START_ELEMENT;
+    }
+
+    private static int nextTag(XMLStreamReader parser) throws XMLStreamException {
+        while (true) {
+            int eventType = parser.next();
+            switch (eventType) {
+                case XMLStreamConstants.CHARACTERS:
+                case XMLStreamConstants.CDATA:
+                case XMLStreamConstants.SPACE:
+                case XMLStreamConstants.PROCESSING_INSTRUCTION:
+                case XMLStreamConstants.COMMENT:
+                    break;
+                case XMLStreamConstants.START_ELEMENT:
+                case XMLStreamConstants.END_ELEMENT:
+                    return eventType;
+                default:
+                    throw new XMLStreamException("expected start or end tag", parser.getLocation());
+            }
+        }
+    }
+}

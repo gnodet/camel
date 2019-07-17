@@ -147,8 +147,12 @@
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='route']">
         <xsl:element name="processor">
-            <xsl:apply-templates select="@*|*"/>
-            <property name="rest" type="model:rest" />
+            <xsl:apply-templates select="@*|*[not(@name='input' or @name='outputs')]"/>
+<!--            <property name="rest" type="model:rest" />-->
+            <xsl:apply-templates select="property[@name='input']"/>
+            <property name="inputType" type="model:inputType" required="false"/>
+            <property name="outputType" type="model:outputType" required="false"/>
+            <xsl:apply-templates select="property[@name='outputs']"/>
         </xsl:element>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='aggregateControllerRef']">
@@ -159,7 +163,6 @@
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='executorServiceRef']" priority="2">
         <property name="executorService" type="java:java.util.concurrent.ExecutorService"/>
-        <property name="expression" type="model:expression" kind="expression" />
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='timeoutCheckerExecutorServiceRef']">
         <property name="timeoutCheckerExecutorService" type="java:java.util.concurrent.ScheduledExecutorService"/>
@@ -239,6 +242,9 @@
     <xsl:template match="/model/processors/processor[@name='saga']/property[@name='propagation']/@type">
         <xsl:attribute name="type">enum:SagaPropagation(MANDATORY,NEVER,NOT_SUPPORTED,REQUIRED,REQUIRES_NEW,SUPPORTS)</xsl:attribute>
     </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='serviceCall']/property[@name='configurationRef']">
+        <property name="configuration" type="model:serviceCallConfiguration" display="Configuration" description="ServiceCall configuration to use"/>
+    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='sort']">
         <xsl:element name="processor">
             <xsl:apply-templates select="@*" />
@@ -311,6 +317,20 @@
 
     <xsl:template match="/model/structs">
         <structs>
+            <struct name="dataFormat" display="Data Format" abstract="true" generate="false" extends="model:identified" javaType="org.apache.camel.model.dataformats.DataFormatDefinition" label="abstract">
+                <property name="contentTypeHeader" type="boolean" display="Content Type Header" description="Whether the data format should set the Content-Type header with the type from the data format if the data format is capable of doing so. For example application/xml for data formats marshalling to XML, or application/json for data formats marshalling to JSon etc."/>
+            </struct>
+            <struct name="identified" display="Identified" abstract="true" generate="false" javaType="org.apache.camel.model.IdentifiedType" label="abstract">
+                <property name="id" type="string" display="Id" description="Sets the value of the id property."/>
+            </struct>
+            <struct name="node" display="Node" abstract="true" generate="false" javaType="org.apache.camel.model.OptionalIdentifiedDefinition" label="abstract">
+                <property name="id" type="string" display="Id" description="Sets the id of this node" required="false"/>
+                <property name="description" type="model:description" display="Description" description="Sets the description of this node" required="false"/>
+            </struct>
+            <struct name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.processors.ProcessorDefinition" label="abstract"/>
+            <struct name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.loadbalancers.LoadBalancerDefinition" label="abstract" />
+            <struct name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.model.endpoints.EndpointProducerBuilder"/>
+            <struct name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.structs.ResequencerConfig" label="abstract" />
             <xsl:apply-templates select="struct[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
             <struct name="sagaActionUri" javaType="org.apache.camel.model.structs.SagaActionUriDefinition" label="eip,routing">
                 <property name="uri" type="string"/>
@@ -355,9 +375,6 @@
             </struct>
         </structs>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='securityDefinitions']/property[@name='securityDefinitions']/@type">
-        <xsl:attribute name="type">model:securityDefinition</xsl:attribute>
-    </xsl:template>
     <xsl:template match="/model/structs/struct[@name='apiKey' or @name='basicAuth' or @name='oauth2']/@name">
         <xsl:attribute name="name"><xsl:value-of select="."/></xsl:attribute>
         <xsl:attribute name="extends">model:securityDefinition</xsl:attribute>
@@ -368,17 +385,31 @@
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='apiKey' or @name='basicAuth' or @name='oauth2']/property[@name='key' or @name='description']">
     </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='customDataFormat']">
+    </xsl:template>
     <xsl:template match="/model/structs/struct[@name='expression']">
         <xsl:element name="struct">
             <xsl:apply-templates select="@*" />
             <xsl:attribute name="generate">false</xsl:attribute>
+            <xsl:attribute name="abstract">true</xsl:attribute>
             <xsl:apply-templates select="node()" />
         </xsl:element>
     </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='expression']/@javaType">
+        <xsl:attribute name="javaType">org.apache.camel.model.languages.ExpressionDefinition</xsl:attribute>
+    </xsl:template>
     <xsl:template match="/model/structs/struct[@name='language']">
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='loadBalancer']/@javaType">
+        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancers.LoadBalancerDefinition</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='method']">
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='packageScan']/property[@name='package']/@name">
         <xsl:attribute name="name">packages</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='processor']/@javaType">
+        <xsl:attribute name="javaType">org.apache.camel.model.processors.ProcessorDefinition</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='rest']">
         <xsl:element name="struct">
@@ -387,6 +418,9 @@
             <xsl:apply-templates select="node()" />
             <property name="verbs" type="list(model:verb)" />
         </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/structs/struct[@name='securityDefinitions']/property[@name='securityDefinitions']/@type">
+        <xsl:attribute name="type">model:securityDefinition</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='verb']">
         <xsl:element name="struct">

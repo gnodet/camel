@@ -128,6 +128,10 @@ public abstract class ExpressionNode<Type extends ExpressionNode<Type>> extends 
         }
     }
 
+    public Type expression(String expression) {
+        return expression(new ExpressionDefinition(expression));
+    }
+
     public Type expression(Expression expression) {
         return expression(new ExpressionDefinition(expression));
     }
