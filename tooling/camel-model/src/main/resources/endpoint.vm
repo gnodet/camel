@@ -35,7 +35,7 @@
  */
 package ${packageName};
 
-#foreach( $imp in ${main.getImports(${model}, ${endpoint}, ${packageName})} )
+#foreach( $imp in ${main.getImports(${endpoint}, ${packageName})} )
 import ${imp};
 #end
 

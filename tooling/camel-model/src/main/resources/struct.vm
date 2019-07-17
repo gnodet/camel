@@ -18,7 +18,7 @@
  */
 package ${packageName};
 
-#foreach( $imp in ${main.getImports(${model}, ${data}, ${packageName})} )
+#foreach( $imp in ${main.getImports(${data}, ${packageName})} )
 import ${imp};
 #end
 
@@ -75,7 +75,7 @@ public ${abstract}class ${name} extends ${extends} {
         return "${data.name}";
     }
 
-#foreach( $parent in ${main.getHierarchy($model, $data)} )
+#foreach( $parent in ${main.getHierarchy($data)} )
 #foreach( $prop in ${parent.properties} )
 #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}

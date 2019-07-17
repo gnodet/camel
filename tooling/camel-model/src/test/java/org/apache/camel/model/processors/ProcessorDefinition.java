@@ -55,7 +55,7 @@ import org.apache.camel.model.languages.LanguageExpression;
 import org.apache.camel.model.loadbalancers.LoadBalancerDefinition;
 import org.apache.camel.model.processors.ClaimCheckDefinition.ClaimCheckOperation;
 import org.apache.camel.model.rest.RestDefinition;
-import org.apache.camel.model.structs.DescriptionDefinition;
+import org.apache.camel.model.DescriptionDefinition;
 import org.apache.camel.spi.AsEndpointUri;
 import org.apache.camel.spi.AsPredicate;
 import org.apache.camel.spi.DataFormat;

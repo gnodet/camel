@@ -126,7 +126,7 @@ public class ModelParser {
         boolean consumed = true;
         while (true) {
 #set( $allprops = ${main.newArrayList()} )
-#foreach( $parent in ${main.getHierarchy($model, $struct)} )
+#foreach( $parent in ${main.getHierarchy($struct)} )
   #foreach( $prop in ${parent.properties} )
     #if( ${prop.type.contains('model:')} )
       #set( $b = $allprops.add($prop) )
@@ -149,7 +149,7 @@ public class ModelParser {
   #if( ${prop.type.startsWith('list(model:')} )
     #set( $subtypem = ${main.substringBefore(${prop.type.substring(5)}, ")")} )
     #set( $subtype = ${main.getType($subtypem)} )
-    #set( $propdata = ${main.getData($model, $subtypem)} )
+    #set( $propdata = ${main.getData($subtypem)} )
     #set( $propdatanamelow = ${main.camelCaseLower(${propdata.name})} )
                 // subtype: ${subtypem}
     #if( ${propdata.abstract} )
@@ -176,7 +176,7 @@ public class ModelParser {
                     state++;
                 }
   #elseif( ${prop.type.startsWith('model:')} )
-    #set( $propdata = ${main.getData($model, ${prop.type})} )
+    #set( $propdata = ${main.getData(${prop.type})} )
     #if( ${propdata.abstract} )
                 ${proptype} ${propnamelow} = parse${proptype}(parser, strict);
     #else

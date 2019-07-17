@@ -18,7 +18,7 @@ package org.apache.camel.model;
 
 import org.apache.camel.NamedNode;
 import org.apache.camel.spi.NodeIdFactory;
-import org.apache.camel.model.structs.DescriptionDefinition;
+import org.apache.camel.model.DescriptionDefinition;
 
 /**
  * Allows an element to have an optional ID specified

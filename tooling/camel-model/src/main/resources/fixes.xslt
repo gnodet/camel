@@ -372,7 +372,7 @@
             <struct name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.processors.ProcessorDefinition" label="abstract"/>
             <struct name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.loadbalancers.LoadBalancerDefinition" label="abstract" />
             <struct name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.model.endpoints.EndpointProducerBuilder"/>
-            <struct name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.structs.ResequencerConfig" label="abstract" />
+            <struct name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.config.ResequencerConfig" label="abstract" />
             <xsl:apply-templates select="struct[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
             <struct name="sagaActionUri" javaType="org.apache.camel.model.structs.SagaActionUriDefinition" label="eip,routing">
                 <property name="uri" type="string"/>
@@ -482,10 +482,23 @@
         <xsl:element name="loadBalancer">
             <xsl:apply-templates select="@*"/>
             <xsl:attribute name="javaType">
-                <xsl:value-of select="concat('org.apache.camel.model.loadbalancers.', upper-case(substring(@name,1,1)), substring(@name,2), 'LoadBalancerDefinition')"/>
+                <xsl:variable name="suffix">
+                    <xsl:choose>
+                        <xsl:when test="ends-with(@name, 'LoadBalancer')">
+                            <xsl:value-of select="'Definition'"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="'LoadBalancerDefinition'"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:value-of select="concat('org.apache.camel.model.loadbalancers.', upper-case(substring(@name,1,1)), substring(@name,2), $suffix)"/>
             </xsl:attribute>
             <xsl:apply-templates select="node()"/>
         </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/loadBalancers/loadBalancer[@name='customloadBalancer']/@javaType">
+        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancers.CustomBalancerDefinition</xsl:attribute>
     </xsl:template>
 
     <xsl:template match="/ | @* | node()">

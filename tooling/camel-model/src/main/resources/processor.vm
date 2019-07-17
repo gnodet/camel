@@ -18,7 +18,7 @@
  */
 package ${packageName};
 
-#foreach( $imp in ${main.getImports(${model}, ${data}, ${packageName})} )
+#foreach( $imp in ${main.getImports(${data}, ${packageName})} )
 import ${imp};
 #end
 

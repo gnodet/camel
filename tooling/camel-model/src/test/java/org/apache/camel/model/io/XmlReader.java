@@ -8,7 +8,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.apache.camel.model.structs.RoutesDefinition;
+import org.apache.camel.model.RoutesDefinition;
 
 public class XmlReader {
 
