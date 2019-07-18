@@ -138,8 +138,6 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     private Map<QName, Object> otherAttributes;
     private final int index;
 
-    protected final Map<String, Object> properties = new HashMap<>();
-
     protected ProcessorDefinition() {
         // every time we create a definition we should inc the COUNTER counter
         index = COUNTER.getAndIncrement();
@@ -149,14 +147,6 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         ExpressionClause<T> clause = new ExpressionClause<>(result);
         result.setExpression(clause);
         return clause;
-    }
-
-    protected void doSetProperty(String name, Object value) {
-        properties.put(name, value);
-    }
-
-    protected Object doGetProperty(String name) {
-        return properties.get(name);
     }
 
     /**
@@ -172,6 +162,11 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     // else to use an optional attribute in JAXB2
     public abstract List<ProcessorDefinition<?>> getOutputs();
+
+    public List<ProcessorDefinition<?>> getOrCreateOutputs() {
+        // Provided for coherence, but not really needed as getOutputs should never return null
+        return getOutputs();
+    }
 
     /**
      * Whether this definition can only be added as top-level directly on the route itself (such as onException,onCompletion,intercept, etc.)

@@ -16,6 +16,7 @@
  */
 package ${packageName};
 
+#set( $doCheckRequired = false )
 #set( $imports = ${main.newTreeSet()} )
 #set( $allstructs = ${main.newArrayList()} )
 #set( $b = $allstructs.addAll($model.definitions) )
@@ -160,16 +161,11 @@ public class ModelParser {
                     ${propdatanamelow} = parse${subtype}(parser, strict);
                 }
     #end
-                List<${subtype}> l = definition.get${propname}();
                 if (${propdatanamelow} != null) {
-                    if (l == null) {
-                        l = new ArrayList<>();
-                        definition.set${propname}(l);
-                    }
-                    l.add(${propdatanamelow});
+                    definition.getOrCreate${propname}().add(${propdatanamelow});
                     consumed = true;
-    #if( ${prop.required} )
-                } else if (l == null) {
+    #if( $doCheckRequired && ${prop.required} )
+                } else if (definition.get${propname}() == null) {
                     throw new XMLStreamException("Expected element ${prop.name} but got " + name);
     #end
                 } else {
@@ -190,7 +186,7 @@ public class ModelParser {
                     consumed = true;
                     state++;
                 }
-    #if( ${prop.required} )
+    #if( $doCheckRequired && ${prop.required} )
                 if (!consumed) {
                     throw new XMLStreamException("Expected element ${prop.name} but got " + name);
                 }

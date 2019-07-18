@@ -231,8 +231,7 @@
             <property name="finallyClause" type="model:doFinally"/>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="/model/processors/processor[@name='hystrix']/property[@name='hystrixConfigurationRef']">
-    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='hystrix']/property[@name='hystrixConfigurationRef']"/>
     <xsl:template match="/model/processors/processor[@name='idempotentConsumer']/property[@name='messageIdRepositoryRef']">
         <property name="messageIdRepository" type="java:org.apache.camel.spi.IdempotentRepository"/>
     </xsl:template>
@@ -251,8 +250,7 @@
     <xsl:template match="/model/processors/processor[@name='onException']/property[@name='onRedeliveryRef']">
         <property name="onRedelivery" type="model:processor" display="On Redelivery" description="Sets a processor that should be processed before a redelivery attempt. Can be used to change the org.apache.camel.Exchange before its being redelivered."/>
     </xsl:template>
-    <xsl:template match="/model/processors/processor[@name='onException']/property[@name='redeliveryPolicyRef']">
-    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='onException']/property[@name='redeliveryPolicyRef']"/>
     <xsl:template match="/model/processors/processor[@name='onException']">
         <xsl:element name="processor">
             <xsl:apply-templates select="@* | node()"/>
@@ -425,10 +423,8 @@
         <xsl:attribute name="name"><xsl:value-of select="."/></xsl:attribute>
         <xsl:attribute name="extends">model:resequencerConfig</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/definitions/definition[@name='apiKey' or @name='basicAuth' or @name='oauth2']/property[@name='key' or @name='description']">
-    </xsl:template>
-    <xsl:template match="/model/definitions/definition[@name='customDataFormat']">
-    </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='apiKey' or @name='basicAuth' or @name='oauth2']/property[@name='key' or @name='description']"/>
+    <xsl:template match="/model/definitions/definition[@name='customDataFormat']"/>
     <xsl:template match="/model/definitions/definition[@name='expression']">
         <xsl:element name="definition">
             <xsl:apply-templates select="@*" />
@@ -440,13 +436,11 @@
     <xsl:template match="/model/definitions/definition[@name='expression']/@javaType">
         <xsl:attribute name="javaType">org.apache.camel.model.language.ExpressionDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/definitions/definition[@name='language']">
-    </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='language']"/>
     <xsl:template match="/model/definitions/definition[@name='loadBalancer']/@javaType">
         <xsl:attribute name="javaType">org.apache.camel.model.loadbalancer.LoadBalancerDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/definitions/definition[@name='method']">
-    </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='method']"/>
     <xsl:template match="/model/definitions/definition[@name='packageScan']/property[@name='package']/@name">
         <xsl:attribute name="name">packages</xsl:attribute>
     </xsl:template>

@@ -126,6 +126,11 @@ public ${abstract}class ${name} extends ${extends} {
     public ${main.getType($prop.type)} get${propname}() {
         return (${main.getType($prop.type)}) doGetProperty("${propnamelow}");
     }
+
+    ${main.javadoc(${prop.description} + ${newline} + "Creates a list of none has been set previously, never returns <code>null</code>." + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${main.getType($prop.type)} getOrCreate${propname}() {
+        return (${main.getType($prop.type)}) doGetProperty("${propnamelow}", this::newList);
+    }
 #elseif( ${main.getType($prop.type)} == "String" )
     public String get${propname}() {
         return (String) doGetProperty("${propnamelow}");

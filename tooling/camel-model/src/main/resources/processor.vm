@@ -131,7 +131,7 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
     }
 
 #if( $last == $prop )
-#if( ${nbProps} > 1 || (!${prop.type.startsWith('model:')} && !${prop.type.startsWith('list(model:')}) )
+#if( ${nbprops} > 1 || (!${prop.type.startsWith('model:')} && !${prop.type.startsWith('list(model:')}) )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public Object get${propname}() {
         return doGetProperty("${prop.name}");
@@ -144,6 +144,13 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
     public ${main.getType($prop.type)} get${propname}() {
         return (${main.getType($prop.type)}) doGetProperty("${prop.name}");
     }
+#if( ${prop.type.startsWith('list(model:')} )
+
+    ${main.javadoc(${prop.description} + ${newline} + "Creates a list of none has been set previously, never returns <code>null</code>." + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${main.getType($prop.type)} getOrCreate${propname}() {
+        return (${main.getType($prop.type)}) doGetProperty("${propnamelow}", this::newList);
+    }
+#end
 #end
 
 #end
