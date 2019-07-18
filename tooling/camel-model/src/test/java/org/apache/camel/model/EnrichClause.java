@@ -14,31 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.dataformats;
+package org.apache.camel.model;
 
-import java.util.Map;
+public class EnrichClause<T extends ProcessorDefinition<?>> extends AggregationStrategyClause<T> {
 
-import javax.xml.namespace.QName;
-
-import org.apache.camel.model.IdentifiedType;
-import org.apache.camel.model.OtherAttributesAware;
-
-public class DataFormatDefinition extends IdentifiedType implements OtherAttributesAware {
-
-    private Map<QName, Object> otherAttributes;
-
-    @Override
-    public String getShortName() {
-        return "dataFormat";
-    }
-
-    @Override
-    public Map<QName, Object> getOtherAttributes() {
-        return otherAttributes;
-    }
-
-    @Override
-    public void setOtherAttributes(Map<QName, Object> otherAttributes) {
-        this.otherAttributes = otherAttributes;
+    public EnrichClause(T parent) {
+        super(parent);
     }
 }

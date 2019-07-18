@@ -14,32 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
-
-import java.util.concurrent.ExecutorService;
-
-import org.apache.camel.ExecutorServiceAware;
+package org.apache.camel.model;
 
 /**
- * Enables definitions to support concurrency using {@link ExecutorService}
+ * Interface to add block featuring to the XML element type.
  */
-public interface ExecutorServiceAwareDefinition<Type extends ProcessorDefinition<?>> extends ExecutorServiceAware {
+public interface Block {
 
     /**
-     * Setting the executor service for executing
+     * Adds the given definition as output to this block
      *
-     * @param executorService the executor service
-     * @return the builder
+     * @param processorDefinition the processor definition
      */
-    Type executorService(ExecutorService executorService);
-
-    /**
-     * Setting the executor service for executing
-     *
-     * @param executorServiceRef reference for a {@link ExecutorService}
-     *                           to lookup in the {@link org.apache.camel.spi.Registry}
-     * @return the builder
-     */
-    Type executorServiceRef(String executorServiceRef);
-
+    void addOutput(ProcessorDefinition<?> processorDefinition);
 }

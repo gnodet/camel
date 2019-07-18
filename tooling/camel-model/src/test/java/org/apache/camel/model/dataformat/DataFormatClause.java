@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.dataformats;
+package org.apache.camel.model.dataformat;
 
 import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.w3c.dom.Node;
 
-import org.apache.camel.model.dataformats.BindyDataFormat.BindyType;
-import org.apache.camel.model.dataformats.JsonDataFormat.JsonLibrary;
-import org.apache.camel.model.dataformats.YAMLDataFormat.YAMLLibrary;
-import org.apache.camel.model.processors.ProcessorDefinition;
+import org.apache.camel.model.dataformat.BindyDataFormat.BindyType;
+import org.apache.camel.model.dataformat.JsonDataFormat.JsonLibrary;
+import org.apache.camel.model.dataformat.YAMLDataFormat.YAMLLibrary;
+import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.util.CollectionStringBuffer;
 

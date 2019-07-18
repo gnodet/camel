@@ -131,7 +131,11 @@ public class Main {
         List<String> stylesheets = Arrays.asList("model.xslt", "fixes.xslt" /*, "generator.xslt"*/);
         for (int step = 0; step < stylesheets.size(); step++) {
             input = output;
-            output = input.resolveSibling("step" + step + ".xml");
+            if (step == stylesheets.size() - 1) {
+                output = input.resolveSibling("model.xml");
+            } else {
+                output = input.resolveSibling("step" + step + ".xml");
+            }
             Path xslt = Paths.get("src/main/resources", stylesheets.get(step));
             if (needsRegen(output, Stream.of(input, xslt))) {
                 System.out.println("Transforming using " + stylesheets.get(step));

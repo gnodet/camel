@@ -4,6 +4,8 @@
                 extension-element-prefixes="dyn">
     <xsl:output indent="yes" method="xml"/>
 
+    <xsl:template match="/model/definitions"/>
+
     <xsl:template match="/model/verbs/verb">
         <xsl:element name="verb">
             <xsl:apply-templates select="@*" />
@@ -21,18 +23,18 @@
                     <xsl:with-param name="string2" select="'.'"/>
                 </xsl:call-template>
             </xsl:variable>
-            <xsl:value-of select="concat('org.apache.camel.model.dataformats.', $baseName)"/>
+            <xsl:value-of select="concat('org.apache.camel.model.dataformat.', $baseName)"/>
         </xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='avro']">
-        <dataFormat name="avro" display="Avro" label="dataformat,transformation" extends="model:dataFormat" maven="org.apache.camel:camel-avro:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformats.AvroDataFormat" since="2.14.0" description="The Avro data format is used for serialization and deserialization of messages using Apache Avro binary dataformat.">
+        <dataFormat name="avro" display="Avro" label="dataformat,transformation" extends="model:dataFormat" maven="org.apache.camel:camel-avro:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.AvroDataFormat" since="2.14.0" description="The Avro data format is used for serialization and deserialization of messages using Apache Avro binary dataformat.">
             <property name="instanceClassName" type="string" display="Instance Class Name" required="true" description="Class name to use for marshal and unmarshalling"/>
             <property name="schema" type="object" display="Schema" description="Avro Schema or GenericContainer object"/>
         </dataFormat>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='bindy']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'bindy'"/></xsl:attribute>
-        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformats.BindyDataFormat'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.BindyDataFormat'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='bindy']/property[@name='classType']/@type">
         <xsl:attribute name="type"><xsl:value-of select="'class'"/></xsl:attribute>
@@ -45,17 +47,17 @@
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='customDataFormat']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'custom'"/></xsl:attribute>
-        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformats.CustomDataFormat'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.CustomDataFormat'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='customDataFormat']/property[@name='ref']">
         <property name="dataFormat" type="java:org.apache.camel.spi.DataFormat"  display="Data Format" required="true" description="Instance or reference to the custom org.apache.camel.spi.DataFormat to lookup from the Camel registry."/>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='json']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'json'"/></xsl:attribute>
-        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformats.JsonDataFormat'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.JsonDataFormat'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='hl7']">
-        <dataFormat name="hl7" display="HL7" label="dataformat,transformation,hl7" extends="model:dataFormat" maven="org.apache.camel:camel-hl7:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformats.HL7DataFormat" since="2.0.0" description="The HL7 data format can be used to marshal or unmarshal HL7 (Health Care) model objects.">
+        <dataFormat name="hl7" display="HL7" label="dataformat,transformation,hl7" extends="model:dataFormat" maven="org.apache.camel:camel-hl7:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.HL7DataFormat" since="2.0.0" description="The HL7 data format can be used to marshal or unmarshal HL7 (Health Care) model objects.">
             <property name="validate" type="boolean" display="Validate" description="Whether to validate the HL7 message Is by default true."/>
             <property name="parser" type="object" display="Parser" description="To use a custom HL7 parser."/>
         </dataFormat>
@@ -70,7 +72,7 @@
         <xsl:attribute name="name">mimeMultipart</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='protobuf']">
-        <dataFormat name="protobuf" display="Protobuf" label="dataformat,transformation" extends="model:dataFormat" maven="org.apache.camel:camel-protobuf:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformats.ProtobufDataFormat" since="2.2.0" description="The Protobuf data format is used for serializing between Java objects and the Google Protobuf protocol.">
+        <dataFormat name="protobuf" display="Protobuf" label="dataformat,transformation" extends="model:dataFormat" maven="org.apache.camel:camel-protobuf:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.ProtobufDataFormat" since="2.2.0" description="The Protobuf data format is used for serializing between Java objects and the Google Protobuf protocol.">
             <property name="contentTypeFormat" type="string" display="Content Type Format" description="Defines a content type format in which protobuf message will be serialized/deserialized from(to) the Java been. The format can either be native or json for either native protobuf or json fields representation. The default value is native."/>
             <property name="instanceClass" type="string" display="Instance Class" description="Name of class to use when unmarshalling"/>
             <property name="defaultInstance" type="java:com.google.protobuf.Message" display="Default Instance" description="The message instance to use when unmarshalling"/>
@@ -80,7 +82,7 @@
         <property name="elementNameStrategy" type="java:org.apache.camel.dataformat.soap.name.ElementNameStrategy" display="Element Name Strategy" description="The element name strategy is used for two purposes. The first is to find a xml element name for a given object and soap action when marshaling the object into a SOAP message. The second is to find an Exception class for a given soap fault name. The following three element strategy class name is provided out of the box. QNameStrategy - Uses a fixed qName that is configured on instantiation. Exception lookup is not supported TypeNameStrategy - Uses the name and namespace from the XMLType annotation of the given type. If no namespace is set then package-info is used. Exception lookup is not supported ServiceInterfaceStrategy - Uses information from a webservice interface to determine the type name and to find the exception class for a SOAP fault All three classes is located in the package name org.apache.camel.dataformat.soap.name If you have generated the web service stub code with cxf-codegen or a similar tool then you probably will want to use the ServiceInterfaceStrategy. In the case you have no annotated service interface you should use QNameStrategy or TypeNameStrategy."/>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='thrift']">
-        <dataFormat name="thrift" display="Thrift" label="dataformat,transformation" extends="model:dataFormat" maven="org.apache.camel:camel-thrift:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformats.ThriftDataFormat" since="2.20.0" description="The Thrift data format is used for serialization and deserialization of messages using Apache Thrift binary dataformat.">
+        <dataFormat name="thrift" display="Thrift" label="dataformat,transformation" extends="model:dataFormat" maven="org.apache.camel:camel-thrift:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.ThriftDataFormat" since="2.20.0" description="The Thrift data format is used for serialization and deserialization of messages using Apache Thrift binary dataformat.">
             <property name="contentTypeFormat" type="string" display="Content Type Format" description="Defines a content type format in which thrift message will be serialized/deserialized from(to) the Java been. The format can either be native or json for either native binary thrift, json or simple json fields representation. The default value is binary."/>
             <property name="instanceClass" type="string" display="Instance Class" description="Name of class to use when unmarshalling"/>
             <property name="defaultInstance" type="java:org.apache.thrift.TBase" display="Default Instance" description="The TBase instance to use when unmarshalling"/>
@@ -91,11 +93,11 @@
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='xmlrpc']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'xmlrpc'"/></xsl:attribute>
-        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformats.XmlRpcDataFormat'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.XmlRpcDataFormat'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='yaml']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'yaml'"/></xsl:attribute>
-        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformats.YAMLDataFormat'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.YAMLDataFormat'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='yaml']/property[@name='unmarshalTypeName']">
         <property name="unmarshalType" type="class" display="Unmarshal Type" description="Java type to use when unmarshalling"/>
@@ -108,7 +110,7 @@
     <xsl:template match="/model/languages">
         <languages>
             <xsl:apply-templates select="*"/>
-            <language name="language" display="Language" label="language,core" extends="model:expression" maven="org.apache.camel:camel-base:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.languages.LanguageExpression" description="To use the specified language in Camel expressions or predicates.">
+            <language name="language" display="Language" label="language,core" extends="model:expression" maven="org.apache.camel:camel-base:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.language.LanguageExpression" description="To use the specified language in Camel expressions or predicates.">
                 <property name="language" type="string" display="Language" description="The name of the language to use"/>
             </language>
         </languages>
@@ -121,14 +123,14 @@
                     <xsl:with-param name="string2" select="'.'"/>
                 </xsl:call-template>
             </xsl:variable>
-            <xsl:value-of select="concat('org.apache.camel.model.languages.', substring-before($baseName, 'Language'), 'Expression')"/>
+            <xsl:value-of select="concat('org.apache.camel.model.language.', substring-before($baseName, 'Language'), 'Expression')"/>
         </xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language/@extends">
         <xsl:attribute name="extends">model:expression</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='bean']/@javaType" priority="2">
-        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.languages.MethodCallExpression'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.language.MethodCallExpression'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='bean']/property[@name='beanType']">
         <property name="beanType" type="class" display="Bean Type" description="Class of the bean to use"/>
@@ -143,13 +145,13 @@
         <property name="resultType" type="class" display="Result Type" description="Sets the class of the result type (type from output)"/>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='spel']/@javaType" priority="2">
-        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.languages.SpELExpression'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.language.SpELExpression'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='tokenize']/@javaType" priority="2">
-        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.languages.TokenizerExpression'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.language.TokenizerExpression'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='xtokenize']/@javaType" priority="2">
-        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.languages.XMLTokenizerExpression'"/></xsl:attribute>
+        <xsl:attribute name="javaType"><xs:value-of select="'org.apache.camel.model.language.XMLTokenizerExpression'"/></xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/languages/language[@name='xpath']/property[@name='resultType']">
         <property name="resultType" type="class" display="Result Type" description="Sets the class of the result type (type from output)"/>
@@ -179,7 +181,7 @@
                     <xsl:with-param name="string2" select="'.'"/>
                 </xsl:call-template>
             </xsl:variable>
-            <xsl:value-of select="concat('org.apache.camel.model.processors.', $baseName)"/>
+            <xsl:value-of select="concat('org.apache.camel.model.', $baseName)"/>
         </xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='serviceCall']">
@@ -359,7 +361,7 @@
 
     <xsl:template match="/model/structs">
         <structs>
-            <struct name="dataFormat" display="Data Format" abstract="true" generate="false" extends="model:identified" javaType="org.apache.camel.model.dataformats.DataFormatDefinition" label="abstract">
+            <struct name="dataFormat" display="Data Format" abstract="true" generate="false" extends="model:identified" javaType="org.apache.camel.model.dataformat.DataFormatDefinition" label="abstract">
                 <property name="contentTypeHeader" type="boolean" display="Content Type Header" description="Whether the data format should set the Content-Type header with the type from the data format if the data format is capable of doing so. For example application/xml for data formats marshalling to XML, or application/json for data formats marshalling to JSon etc."/>
             </struct>
             <struct name="identified" display="Identified" abstract="true" generate="false" javaType="org.apache.camel.model.IdentifiedType" label="abstract">
@@ -369,15 +371,15 @@
                 <property name="id" type="string" display="Id" description="Sets the id of this node" required="false"/>
                 <property name="description" type="model:description" display="Description" description="Sets the description of this node" required="false"/>
             </struct>
-            <struct name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.processors.ProcessorDefinition" label="abstract"/>
-            <struct name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.loadbalancers.LoadBalancerDefinition" label="abstract" />
+            <struct name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.ProcessorDefinition" label="abstract"/>
+            <struct name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.loadbalancer.LoadBalancerDefinition" label="abstract" />
             <struct name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.model.endpoints.EndpointProducerBuilder"/>
             <struct name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.config.ResequencerConfig" label="abstract" />
             <xsl:apply-templates select="struct[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
-            <struct name="sagaActionUri" javaType="org.apache.camel.model.structs.SagaActionUriDefinition" label="eip,routing">
+            <struct name="sagaActionUri" javaType="org.apache.camel.model.SagaActionUriDefinition" label="eip,routing">
                 <property name="uri" type="string"/>
             </struct>
-            <struct name="sagaOption" javaType="org.apache.camel.model.structs.SagaOptionDefinition" label="eip,routing">
+            <struct name="sagaOption" javaType="org.apache.camel.model.SagaOptionDefinition" label="eip,routing">
                 <property name="optionName" type="string"/>
                 <property name="expression" type="model:expression"/>
             </struct>
@@ -438,12 +440,12 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='expression']/@javaType">
-        <xsl:attribute name="javaType">org.apache.camel.model.languages.ExpressionDefinition</xsl:attribute>
+        <xsl:attribute name="javaType">org.apache.camel.model.language.ExpressionDefinition</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='language']">
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='loadBalancer']/@javaType">
-        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancers.LoadBalancerDefinition</xsl:attribute>
+        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancer.LoadBalancerDefinition</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='method']">
     </xsl:template>
@@ -451,7 +453,7 @@
         <xsl:attribute name="name">packages</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='processor']/@javaType">
-        <xsl:attribute name="javaType">org.apache.camel.model.processors.ProcessorDefinition</xsl:attribute>
+        <xsl:attribute name="javaType">org.apache.camel.model.ProcessorDefinition</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/structs/struct[@name='rest']">
         <xsl:element name="struct">
@@ -492,13 +494,13 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:value-of select="concat('org.apache.camel.model.loadbalancers.', upper-case(substring(@name,1,1)), substring(@name,2), $suffix)"/>
+                <xsl:value-of select="concat('org.apache.camel.model.loadbalancer.', upper-case(substring(@name,1,1)), substring(@name,2), $suffix)"/>
             </xsl:attribute>
             <xsl:apply-templates select="node()"/>
         </xsl:element>
     </xsl:template>
     <xsl:template match="/model/loadBalancers/loadBalancer[@name='customloadBalancer']/@javaType">
-        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancers.CustomBalancerDefinition</xsl:attribute>
+        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancer.CustomBalancerDefinition</xsl:attribute>
     </xsl:template>
 
     <xsl:template match="/ | @* | node()">

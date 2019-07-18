@@ -14,38 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
+package org.apache.camel.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.camel.Expression;
-import org.apache.camel.Predicate;
-import org.apache.camel.model.languages.ExpressionDefinition;
-
 /**
- * A base class for nodes which contain an expression and a number of outputs.
+ * A useful base class for output types
  */
-public abstract class OutputExpressionNode<Type extends ExpressionNode<Type>> extends ExpressionNode<Type> implements OutputNode {
+public abstract class OutputDefinition<Type extends ProcessorDefinition<Type>> extends ProcessorDefinition<Type> implements OutputNode {
 
-    private List<ProcessorDefinition<?>> outputs = new ArrayList<>();
+    protected List<ProcessorDefinition<?>> outputs = new ArrayList<>();
 
-    public OutputExpressionNode() {
-    }
-
-    public OutputExpressionNode(ExpressionDefinition expression) {
-        super(expression);
-    }
-
-    public OutputExpressionNode(Expression expression) {
-        super(expression);
-    }
-
-    public OutputExpressionNode(Predicate predicate) {
-        super(predicate);
-    }
-
-    @Override
     public List<ProcessorDefinition<?>> getOutputs() {
         return outputs;
     }

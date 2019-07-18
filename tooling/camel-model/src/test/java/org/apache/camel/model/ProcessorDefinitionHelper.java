@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
+package org.apache.camel.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +31,11 @@ import javax.xml.namespace.QName;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
-import org.apache.camel.model.OtherAttributesAware;
+import org.apache.camel.model.CatchDefinition;
+import org.apache.camel.model.ChoiceDefinition;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.TryDefinition;
+import org.apache.camel.model.WhenDefinition;
 import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.IntrospectionSupport;
@@ -195,7 +199,7 @@ public final class ProcessorDefinitionHelper {
      * @param node            the target node
      * @param set             set to store ids, if <tt>null</tt> a new set will be created
      * @param onlyCustomId    whether to only store custom assigned ids (ie. {@link org.apache.camel.model.OptionalIdentifiedDefinition#hasCustomIdAssigned()}
-     * @param includeAbstract whether to include abstract nodes (ie. {@link org.apache.camel.model.processors.ProcessorDefinition#isAbstract()}
+     * @param includeAbstract whether to include abstract nodes (ie. {@link ProcessorDefinition#isAbstract()}
      * @return the set with the found ids.
      */
     public static Set<String> gatherAllNodeIds(ProcessorDefinition<?> node, Set<String> set,

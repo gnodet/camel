@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
+package org.apache.camel.model;
 
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
 import org.apache.camel.builder.SimpleBuilder;
-import org.apache.camel.model.languages.ExpressionDefinition;
-import org.apache.camel.model.languages.SimpleExpression;
-import org.apache.camel.model.languages.XPathExpression;
+import org.apache.camel.model.language.ExpressionDefinition;
+import org.apache.camel.model.language.SimpleExpression;
+import org.apache.camel.model.language.XPathExpression;
 import org.apache.camel.spi.ExpressionResultTypeAware;
 import org.apache.camel.support.builder.ValueBuilder;
 

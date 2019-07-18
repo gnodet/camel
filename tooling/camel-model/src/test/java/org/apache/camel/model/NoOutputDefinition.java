@@ -14,12 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
+package org.apache.camel.model;
 
-import javax.xml.bind.annotation.XmlTransient;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * Marker interface to mark a {@link ProcessorDefinition} that supports outputs
+ * Base class for definitions which does not support outputs.
  */
-public interface OutputNode {
+public abstract class NoOutputDefinition<Type extends ProcessorDefinition<Type>> extends ProcessorDefinition<Type> {
+
+    public List<ProcessorDefinition<?>> getOutputs() {
+        return Collections.emptyList();
+    }
+
 }

@@ -14,28 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
+package org.apache.camel.model.dataformat;
 
-/**
- * Various constants.
- */
-public final class Constants {
+import java.util.Map;
 
-    public static final String JAXB_CONTEXT_PACKAGES = ""
-        + "org.apache.camel:"
-        + "org.apache.camel.model:"
-        + "org.apache.camel.model.cloud:"
-        + "org.apache.camel.model.config:"
-        + "org.apache.camel.model.dataformat:"
-        + "org.apache.camel.model.language:"
-        + "org.apache.camel.model.loadbalancer:"
-        + "org.apache.camel.model.rest:"
-        + "org.apache.camel.model.transformer:"
-        + "org.apache.camel.model.validator";
+import javax.xml.namespace.QName;
 
-    public static final String PLACEHOLDER_QNAME = "http://camel.apache.org/schema/placeholder";
+import org.apache.camel.model.IdentifiedType;
+import org.apache.camel.model.OtherAttributesAware;
 
-    private Constants() {
+public class DataFormatDefinition extends IdentifiedType implements OtherAttributesAware {
+
+    private Map<QName, Object> otherAttributes;
+
+    @Override
+    public String getShortName() {
+        return "dataFormat";
     }
 
+    @Override
+    public Map<QName, Object> getOtherAttributes() {
+        return otherAttributes;
+    }
+
+    @Override
+    public void setOtherAttributes(Map<QName, Object> otherAttributes) {
+        this.otherAttributes = otherAttributes;
+    }
 }

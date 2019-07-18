@@ -71,6 +71,11 @@ public ${abstract}class ${name} extends ${extends} {
     public ${name}() {
     }
 
+#if( $data.extends == 'model:expression' )
+    public ${name}(String expression) {
+        expression(expression);
+    }
+#end
     public String getShortName() {
         return "${data.name}";
     }

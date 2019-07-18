@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.model.processors;
+package org.apache.camel.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +23,7 @@ import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
 import org.apache.camel.Predicate;
 import org.apache.camel.builder.ExpressionClause;
-import org.apache.camel.model.languages.ExpressionDefinition;
+import org.apache.camel.model.language.ExpressionDefinition;
 
 /**
  * A base {@link ExpressionNode} which does <b>not</b> support any outputs.
