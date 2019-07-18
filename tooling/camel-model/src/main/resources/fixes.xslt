@@ -4,8 +4,6 @@
                 extension-element-prefixes="dyn">
     <xsl:output indent="yes" method="xml"/>
 
-    <xsl:template match="/model/definitions"/>
-
     <xsl:template match="/model/verbs/verb">
         <xsl:element name="verb">
             <xsl:apply-templates select="@*" />
@@ -170,10 +168,10 @@
 
     <xsl:template match="/model/processors">
         <processors>
-            <xsl:apply-templates select="* | /model/structs/struct[@name='serviceCall' or @name='route']"/>
+            <xsl:apply-templates select="* | /model/definitions/definition[@name='serviceCall' or @name='route']"/>
         </processors>
     </xsl:template>
-    <xsl:template match="/model/processors/processor/@javaType | /model/structs/struct[@name='serviceCall' or @name='route']/@javaType">
+    <xsl:template match="/model/processors/processor/@javaType | /model/definitions/definition[@name='serviceCall' or @name='route']/@javaType">
         <xsl:attribute name="javaType">
             <xsl:variable name="baseName">
                 <xsl:call-template name="substring-after-last">
@@ -184,12 +182,12 @@
             <xsl:value-of select="concat('org.apache.camel.model.', $baseName)"/>
         </xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='serviceCall']">
+    <xsl:template match="/model/definitions/definition[@name='serviceCall']">
         <xsl:element name="processor">
             <xsl:apply-templates select="@*|*"/>
         </xsl:element>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='route']">
+    <xsl:template match="/model/definitions/definition[@name='route']">
         <xsl:element name="processor">
             <xsl:apply-templates select="@*|*[not(@name='input' or @name='outputs')]"/>
 <!--            <property name="rest" type="model:rest" />-->
@@ -286,7 +284,7 @@
     <xsl:template match="/model/processors/processor[@name='saga']/property[@name='propagation']/@type">
         <xsl:attribute name="type">enum:SagaPropagation(MANDATORY,NEVER,NOT_SUPPORTED,REQUIRED,REQUIRES_NEW,SUPPORTS)</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='serviceCall']/property[@name='configurationRef']">
+    <xsl:template match="/model/definitions/definition[@name='serviceCall']/property[@name='configurationRef']">
         <property name="configuration" type="model:serviceCallConfiguration" display="Configuration" description="ServiceCall configuration to use"/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='sort']">
@@ -359,124 +357,124 @@
         <xsl:attribute name="type">enum:com.splunk.SSLSecurityProtocol(TLSv1_2:TLSv1.2,TLSv1_1:TLSv1.1,TLSv1:TLSv1,SSLv3:SSLv3)</xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="/model/structs">
-        <structs>
-            <struct name="dataFormat" display="Data Format" abstract="true" generate="false" extends="model:identified" javaType="org.apache.camel.model.dataformat.DataFormatDefinition" label="abstract">
+    <xsl:template match="/model/definitions">
+        <definitions>
+            <definition name="dataFormat" display="Data Format" abstract="true" generate="false" extends="model:identified" javaType="org.apache.camel.model.dataformat.DataFormatDefinition" label="abstract">
                 <property name="contentTypeHeader" type="boolean" display="Content Type Header" description="Whether the data format should set the Content-Type header with the type from the data format if the data format is capable of doing so. For example application/xml for data formats marshalling to XML, or application/json for data formats marshalling to JSon etc."/>
-            </struct>
-            <struct name="identified" display="Identified" abstract="true" generate="false" javaType="org.apache.camel.model.IdentifiedType" label="abstract">
+            </definition>
+            <definition name="identified" display="Identified" abstract="true" generate="false" javaType="org.apache.camel.model.IdentifiedType" label="abstract">
                 <property name="id" type="string" display="Id" description="Sets the value of the id property."/>
-            </struct>
-            <struct name="node" display="Node" abstract="true" generate="false" javaType="org.apache.camel.model.OptionalIdentifiedDefinition" label="abstract">
+            </definition>
+            <definition name="node" display="Node" abstract="true" generate="false" javaType="org.apache.camel.model.OptionalIdentifiedDefinition" label="abstract">
                 <property name="id" type="string" display="Id" description="Sets the id of this node" required="false"/>
                 <property name="description" type="model:description" display="Description" description="Sets the description of this node" required="false"/>
-            </struct>
-            <struct name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.ProcessorDefinition" label="abstract"/>
-            <struct name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.loadbalancer.LoadBalancerDefinition" label="abstract" />
-            <struct name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.model.endpoints.EndpointProducerBuilder"/>
-            <struct name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.config.ResequencerConfig" label="abstract" />
-            <xsl:apply-templates select="struct[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
-            <struct name="sagaActionUri" javaType="org.apache.camel.model.SagaActionUriDefinition" label="eip,routing">
+            </definition>
+            <definition name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.ProcessorDefinition" label="abstract"/>
+            <definition name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.loadbalancer.LoadBalancerDefinition" label="abstract" />
+            <definition name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.model.endpoints.EndpointProducerBuilder"/>
+            <definition name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.config.ResequencerConfig" label="abstract" />
+            <xsl:apply-templates select="definition[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
+            <definition name="sagaActionUri" javaType="org.apache.camel.model.SagaActionUriDefinition" label="eip,routing">
                 <property name="uri" type="string"/>
-            </struct>
-            <struct name="sagaOption" javaType="org.apache.camel.model.SagaOptionDefinition" label="eip,routing">
+            </definition>
+            <definition name="sagaOption" javaType="org.apache.camel.model.SagaOptionDefinition" label="eip,routing">
                 <property name="optionName" type="string"/>
                 <property name="expression" type="model:expression"/>
-            </struct>
-            <struct name="securityDefinition" abstract="true" javaType="org.apache.camel.model.rest.RestSecurityDefinition" display="Security Definition" label="rest,security" description="Security definition">
+            </definition>
+            <definition name="securityDefinition" abstract="true" javaType="org.apache.camel.model.rest.RestSecurityDefinition" display="Security Definition" label="rest,security" description="Security definition">
                 <property name="key" type="string" required="true"/>
                 <property name="description" type="string"/>
-            </struct>
-            <struct name="transformer" javaType="org.apache.camel.model.transformer.TransformerDefinition" label="transformation">
+            </definition>
+            <definition name="transformer" javaType="org.apache.camel.model.transformer.TransformerDefinition" label="transformation">
                 <property name="scheme" type="string" description="Set a scheme name supported by the transformer. If you specify 'csv', the transformer will be picked up for all of 'csv' from/to Java transformation. Note that the scheme matching is performed only when no exactly matched transformer exists."/>
                 <property name="fromType" type="class" description="Set the 'from' data type using Java class."/>
                 <property name="fromType" type="java:org.apache.camel.spi.DataType" description="Set the 'from' data type name. If you specify 'xml:XYZ', the transformer will be picked up if source type is 'xml:XYZ'. If you specify just 'xml', the transformer matches with all of 'xml' source type like 'xml:ABC' or 'xml:DEF'."/>
                 <property name="toType" type="class" description="Set the 'to' data type using Java class."/>
                 <property name="toType" type="java:org.apache.camel.spi.DataType" description="Set the 'to' data type name. If you specify 'json:XYZ', the transformer will be picked up if source type is 'json:XYZ'. If you specify just 'json', the transformer matches with all of 'json' source type like 'json:ABC' or 'json:DEF'."/>
-            </struct>
-            <struct name="customTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.CustomTransformerDefinition" label="validation">
+            </definition>
+            <definition name="customTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.CustomTransformerDefinition" label="validation">
                 <property name="transformer" type="java:org.apache.camel.spi.Transformer"/>
                 <property name="type" type="class"/>
-            </struct>
-            <struct name="dataFormatTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.DataFormatTransformerDefinition" label="validation">
+            </definition>
+            <definition name="dataFormatTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.DataFormatTransformerDefinition" label="validation">
                 <property name="dataFormat" type="model:dataFormat"/>
-            </struct>
-            <struct name="endpointTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.EndpointTransformerDefinition" label="validation">
+            </definition>
+            <definition name="endpointTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.EndpointTransformerDefinition" label="validation">
                 <property name="uri" type="model:endpoint"/>
-            </struct>
-            <struct name="validator" javaType="org.apache.camel.model.validator.ValidatorDefinition" label="validation">
+            </definition>
+            <definition name="validator" javaType="org.apache.camel.model.validator.ValidatorDefinition" label="validation">
                 <property name="type" type="class" description="Set the data type using Java class."/>
                 <property name="type" type="java:org.apache.camel.spi.DataType" description="Set the data type name. If you specify 'xml:XYZ', the validator will be picked up if message type is 'xml:XYZ'. If you specify just 'xml', the validator matches with all of 'xml' message type like 'xml:ABC' or 'xml:DEF'."/>
-            </struct>
-            <struct name="customValidator" extends="model:validator" javaType="org.apache.camel.model.validator.CustomValidatorDefinition" label="validation">
+            </definition>
+            <definition name="customValidator" extends="model:validator" javaType="org.apache.camel.model.validator.CustomValidatorDefinition" label="validation">
                 <property name="validator" type="java:org.apache.camel.spi.Validator"/>
-            </struct>
-            <struct name="endpointValidator" extends="model:validator" javaType="org.apache.camel.model.validator.EndpointValidatorDefinition" label="validation">
+            </definition>
+            <definition name="endpointValidator" extends="model:validator" javaType="org.apache.camel.model.validator.EndpointValidatorDefinition" label="validation">
                 <property name="uri" type="model:endpoint"/>
-            </struct>
-            <struct name="predicateValidator" extends="model:validator" javaType="org.apache.camel.model.validator.PredicateValidatorDefinition" label="validation">
+            </definition>
+            <definition name="predicateValidator" extends="model:validator" javaType="org.apache.camel.model.validator.PredicateValidatorDefinition" label="validation">
                 <property name="expression" type="model:expression"/>
-            </struct>
-        </structs>
+            </definition>
+        </definitions>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='apiKey' or @name='basicAuth' or @name='oauth2']/@name">
+    <xsl:template match="/model/definitions/definition[@name='apiKey' or @name='basicAuth' or @name='oauth2']/@name">
         <xsl:attribute name="name"><xsl:value-of select="."/></xsl:attribute>
         <xsl:attribute name="extends">model:securityDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='batch-config' or @name='stream-config']/@name">
+    <xsl:template match="/model/definitions/definition[@name='batch-config' or @name='stream-config']/@name">
         <xsl:attribute name="name"><xsl:value-of select="."/></xsl:attribute>
         <xsl:attribute name="extends">model:resequencerConfig</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='apiKey' or @name='basicAuth' or @name='oauth2']/property[@name='key' or @name='description']">
+    <xsl:template match="/model/definitions/definition[@name='apiKey' or @name='basicAuth' or @name='oauth2']/property[@name='key' or @name='description']">
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='customDataFormat']">
+    <xsl:template match="/model/definitions/definition[@name='customDataFormat']">
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='expression']">
-        <xsl:element name="struct">
+    <xsl:template match="/model/definitions/definition[@name='expression']">
+        <xsl:element name="definition">
             <xsl:apply-templates select="@*" />
             <xsl:attribute name="generate">false</xsl:attribute>
             <xsl:attribute name="abstract">true</xsl:attribute>
             <xsl:apply-templates select="node()" />
         </xsl:element>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='expression']/@javaType">
+    <xsl:template match="/model/definitions/definition[@name='expression']/@javaType">
         <xsl:attribute name="javaType">org.apache.camel.model.language.ExpressionDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='language']">
+    <xsl:template match="/model/definitions/definition[@name='language']">
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='loadBalancer']/@javaType">
+    <xsl:template match="/model/definitions/definition[@name='loadBalancer']/@javaType">
         <xsl:attribute name="javaType">org.apache.camel.model.loadbalancer.LoadBalancerDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='method']">
+    <xsl:template match="/model/definitions/definition[@name='method']">
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='packageScan']/property[@name='package']/@name">
+    <xsl:template match="/model/definitions/definition[@name='packageScan']/property[@name='package']/@name">
         <xsl:attribute name="name">packages</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='processor']/@javaType">
+    <xsl:template match="/model/definitions/definition[@name='processor']/@javaType">
         <xsl:attribute name="javaType">org.apache.camel.model.ProcessorDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='rest']">
-        <xsl:element name="struct">
+    <xsl:template match="/model/definitions/definition[@name='rest']">
+        <xsl:element name="definition">
             <xsl:apply-templates select="@*" />
             <xsl:attribute name="extends">java:org.apache.camel.model.rest.AbstractRestDefinition</xsl:attribute>
             <xsl:apply-templates select="node()" />
             <property name="verbs" type="list(model:verb)" />
         </xsl:element>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='securityDefinitions']/property[@name='securityDefinitions']/@type">
+    <xsl:template match="/model/definitions/definition[@name='securityDefinitions']/property[@name='securityDefinitions']/@type">
         <xsl:attribute name="type">model:securityDefinition</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='verb']">
-        <xsl:element name="struct">
+    <xsl:template match="/model/definitions/definition[@name='verb']">
+        <xsl:element name="definition">
             <xsl:apply-templates select="@*" />
             <xsl:attribute name="extends">java:org.apache.camel.model.rest.AbstractVerbDefinition</xsl:attribute>
             <xsl:apply-templates select="node()" />
         </xsl:element>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='transformers']/property[@name='transformers']/@type">
+    <xsl:template match="/model/definitions/definition[@name='transformers']/property[@name='transformers']/@type">
         <xsl:attribute name="type">list(model:transformer)</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/structs/struct[@name='validators']/property[@name='validators']/@type">
+    <xsl:template match="/model/definitions/definition[@name='validators']/property[@name='validators']/@type">
         <xsl:attribute name="type">list(model:validator)</xsl:attribute>
     </xsl:template>
 

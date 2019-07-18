@@ -128,7 +128,7 @@ public class Main {
             }
         }
 
-        List<String> stylesheets = Arrays.asList("model.xslt", "fixes.xslt" /*, "generator.xslt"*/);
+        List<String> stylesheets = Arrays.asList("model.xslt", "fixes.xslt");
         for (int step = 0; step < stylesheets.size(); step++) {
             input = output;
             if (step == stylesheets.size() - 1) {
@@ -159,7 +159,7 @@ public class Main {
                    model.getLanguages(),
                    model.getVerbs(),
                    model.getLoadBalancers(),
-                   model.getStructs(),
+                   model.getDefinitions(),
                    model.getProcessors())
                 .flatMap(List::stream)
                 .forEach(data -> fqns.put(data.getName(), data));
@@ -205,7 +205,7 @@ public class Main {
                   model.getLanguages(),
                   model.getVerbs(),
                   model.getLoadBalancers(),
-                  model.getStructs())
+                  model.getDefinitions())
                 .flatMap(List::stream)
                 .filter(AbstractData::isGenerate)
                 .forEach(data -> doGenerate(model, data, structTemplate));

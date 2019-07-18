@@ -4,22 +4,13 @@ import java.util.List;
 
 public class Model {
 
-    List<Definition> definitions;
     List<Language> languages;
     List<DataFormat> dataFormats;
     List<LoadBalancer> loadBalancers;
-    List<Struct> structs;
+    List<Definition> definitions;
     List<Verb> verbs;
     List<Endpoint> endpoints;
     List<Processor> processors;
-
-    public List<Definition> getDefinitions() {
-        return definitions;
-    }
-
-    public void setDefinitions(List<Definition> definitions) {
-        this.definitions = definitions;
-    }
 
     public List<Language> getLanguages() {
         return languages;
@@ -45,12 +36,12 @@ public class Model {
         this.loadBalancers = loadBalancers;
     }
 
-    public List<Struct> getStructs() {
-        return structs;
+    public List<Definition> getDefinitions() {
+        return definitions;
     }
 
-    public void setStructs(List<Struct> structs) {
-        this.structs = structs;
+    public void setDefinitions(List<Definition> definitions) {
+        this.definitions = definitions;
     }
 
     public List<Verb> getVerbs() {

@@ -3,146 +3,6 @@
 	<xsl:output indent="yes" method="xml"/>
 	<xsl:template match="/">
 		<model>
-			<definitions>
-				<definition name="model">
-					<!--
-					<property name="tracing" type="boolean"/>
-					<property name="debugging" type="boolean"/>
-					<property name="streamCaching" type="boolean"/>
-					<property name="messageHistory" type="boolean"/>
-					<property name="logMask" type="boolean"/>
-					<property name="logExhaustedMessageBody" type="boolean"/>
-					<property name="handleFault" type="boolean"/>
-					<property name="delayer" type="long"/>
-					<property name="autoStartup" type="boolean"/>
-					<property name="shutdownRoute" type="enum">
-						<java>org.apache.camel.ShutdownRoute</java>
-						<enum>Default,Defer</enum>
-					</property>
-					<property name="shutdownRunningTask" display="Shutdown Running Task" type="enum">
-						<java>org.apache.camel.ShutdownRunningTask</java>
-						<enum>CompleteCurrentTaskOnly,CompleteAllTasks</enum>
-						<description>To control how to shutdown the route.</description>
-					</property>
-					<property name="useMDCLogging" type="boolean"/>
-					-->
-					<property name="routes" type="list(model:route)"/>
-				</definition>
-				<definition name="identified" abstract="true">
-					<property name="id" type="string" display="Id" description="Sets the value of the id property."/>
-				</definition>
-				<definition name="node" display="Node" abstract="true">
-					<property name="id" type="string" display="Id" description="Sets the id of this node"/>
-					<property name="description" type="string" display="Description" description="Sets the description of this node"/>
-				</definition>
-				<definition name="route" display="Route" label="configuration" extends="model:node">
-					<property name="autoStartup" type="boolean" display="Auto Startup" description="Whether to auto start this route"/>
-					<property name="delayer" type="long" display="Delayer" description="Whether to slow down processing messages by a given delay in msec."/>
-					<property name="errorHandlerFactory" display="Error Handler Factory" type="java:org.apache.camel.ErrorHandlerFactory" description="Sets the error handler factory to use on this route"/>
-					<property name="group" type="string" display="Group" description="The group that this route belongs to; could be the name of the RouteBuilder class or be explicitly configured in the XML. May be null."/>
-					<property name="handleFault" type="boolean" display="Handle Fault" description="Whether handle fault is enabled on this route."/>
-					<property name="input" type="model:from" display="Input" required="true" kind="element" description="Input to the route."/>
-					<property name="inputType" type="model:dataType" display="Input Type"/>
-					<property name="logMask" type="boolean" display="Log Mask" description="Whether security mask for Logging is enabled on this route."/>
-					<property name="messageHistory" type="boolean" display="Message History" description="Whether message history is enabled on this route."/>
-					<property name="outputs" type="list(model:processor)" display="Outputs" required="true" description="Outputs are processors that determines how messages are processed by this route."/>
-					<property name="outputType" type="model:dataType" display="Output Type"/>
-					<property name="routePolicies" type="list(java:org.apache.camel.spi.RoutePolicy)"  display="Route Policy" description="Reference to custom org.apache.camel.spi.RoutePolicy to use by the route. Multiple policies can be configured by separating values using comma."/>
-					<property name="startupOrder" type="int" display="Startup Order" description="To configure the ordering of the routes being started"/>
-					<property name="streamCache" type="boolean" display="Stream Cache" description="Whether stream caching is enabled on this route."/>
-					<property name="shutdownRoute" type="enum:org.apache.camel.ShutdownRoute(Default,Defer)" display="Shutdown Route" description="To control how to shutdown the route."/>
-					<property name="shutdownRunningTask" type="enum:org.apache.camel.ShutdownRunningTask(CompleteCurrentTaskOnly,CompleteAllTasks)" display="Shutdown Running Task" description="To control how to shutdown the route."/>
-					<property name="trace" type="boolean" display="Trace" description="Whether tracing is enabled on this route."/>
-				</definition>
-				<definition name="from" display="From" label="eip,endpoint,routing" extends="model:node">
-					<property name="endpoint" type="model:endpoint" display="Endpoint" required="true" description="Sets the endpoint to use"/>
-				</definition>
-				<definition name="dataType">
-					<property name="urn" type="string"/>
-					<property name="validate" type="boolean"/>
-				</definition>
-
-
-				<!--
-				   - Processors
-				   -->
-				<xsl:comment>&#13;      - Processors&#13;      </xsl:comment>
-				<definition name="processor" display="Processor" abstract="true" extends="model:node"/>
-
-				<!--
-				  - DataFormats
-				  -->
-				<xsl:comment>&#13;      - Endpoints&#13;      </xsl:comment>
-				<definition name="dataFormat" abstract="true" extends="model:identified">
-					<property name="contentTypeHeader" type="boolean" display="Content Type Header" description="Whether the data format should set the Content-Type header with the type from the data format if the data format is capable of doing so. For example application/xml for data formats marshalling to XML, or application/json for data formats marshalling to JSon etc."/>
-				</definition>
-
-				<!--
-				   - Endpoints
-				   -->
-				<xsl:comment>&#13;      - Endpoints&#13;      </xsl:comment>
-				<definition name="endpoint" abstract="true">
-					<property name="basicPropertyBinding" type="boolean" display="Basic Property Binding" label="advanced" description="Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities"/>
-					<property name="bridgeErrorHandler" type="boolean" display="Bridge Error Handler" label="consumer" description="Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored."/>
-					<property name="exceptionHandler" type="java:org.apache.camel.spi.ExceptionHandler" display="Exception Handler" label="consumer,advanced" description="To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this option is not in use. By default the consumer will deal with exceptions, that will be logged at WARN or ERROR level and ignored."/>
-					<property name="exchangePattern" type="enum:org.apache.camel.ExchangePattern(InOnly,InOut,InOptionalOut)" display="Exchange Pattern" label="consumer,advanced" description="Sets the exchange pattern when the consumer creates an exchange."/>
-					<property name="lazyStartProducer" type="boolean" display="Lazy Start Producer" label="producer" description="Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing."/>
-					<property name="synchronous" type="boolean" display="Synchronous" label="advanced" description="Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported)."/>
-				</definition>
-				<definition name="scheduled" abstract="true" extends="model:endpoint">
-					<property name="backoffMultiplier" type="int" display="Backoff Multiplier" label="consumer,scheduler" description="To let the scheduled polling consumer backoff if there has been a number of subsequent idles/errors in a row. The multiplier is then the number of polls that will be skipped before the next actual attempt is happening again. When this option is in use then backoffIdleThreshold and/or backoffErrorThreshold must also be configured."/>
-					<property name="backoffIdleThreshold" type="int" display="Backoff Idle Threshold" label="consumer,scheduler" description="The number of subsequent idle polls that should happen before the backoffMultipler should kick-in."/>
-					<property name="backoffErrorThreshold" type="int" display="Backoff Error Threshold" label="consumer,scheduler" description="The number of subsequent error polls (failed due some error) that should happen before the backoffMultipler should kick-in."/>
-					<property name="delay" type="long" display="Delay" label="consumer,scheduler" description="Milliseconds before the next poll. You can also specify time values using units, such as 60s (60 seconds), 5m30s (5 minutes and 30 seconds), and 1h (1 hour)."/>
-					<property name="greedy" type="boolean" display="Greedy" label="consumer,scheduler" description="If greedy is enabled, then the ScheduledPollConsumer will run immediately again, if the previous run polled 1 or more messages."/>
-					<property name="initialDelay" type="long" display="Initial Delay" label="consumer,scheduler" description="Milliseconds before the first poll starts. You can also specify time values using units, such as 60s (60 seconds), 5m30s (5 minutes and 30 seconds), and 1h (1 hour)."/>
-					<property name="pollStrategy" type="java:org.apache.camel.spi.PollingConsumerPollStrategy" display="Poll Strategy" label="consumer,advanced" description="A pluggable org.apache.camel.PollingConsumerPollingStrategy allowing you to provide your custom implementation to control error handling usually occurred during the poll operation before an Exchange have been created and being routed in Camel."/>
-					<property name="runLoggingLevel" type="enum:org.apache.camel.LoggingLevel(TRACE,DEBUG,INFO,WARN,ERROR,OFF)" display="Run Logging Level" label="consumer,scheduler" description="The consumer logs a start/complete log line when it polls. This option allows you to configure the logging level for that."/>
-					<property name="scheduler" type="enum:org.apache.camel.spi.ScheduledPollConsumerScheduler(none,spring,quartz2)" display="Scheduler" label="consumer,scheduler" description="To use a cron scheduler from either camel-spring or camel-quartz2 component"/>
-					<property name="schedulerProperties" type="map(string,object)" display="Scheduler Properties" label="consumer,scheduler" description="To configure additional properties when using a custom scheduler or any of the Quartz2, Spring based scheduler."/>
-					<property name="scheduledExecutorService" type="java:java.util.concurrent.ScheduledExecutorService" display="Scheduled Executor Service" label="consumer,scheduler" description="Allows for configuring a custom/shared thread pool to use for the consumer. By default each consumer has its own single threaded thread pool."/>
-					<property name="sendEmptyMessageWhenIdle" type="boolean" display="Send Empty Message When Idle" label="consumer" description="If the polling consumer did not poll any files, you can enable this option to send an empty message (no body) instead."/>
-					<property name="startScheduler" type="boolean" display="Start Scheduler" label="consumer,scheduler" description="Whether the scheduler should be auto started."/>
-					<property name="timeUnit" type="enum:java.util.concurrent.TimeUnit(NANOSECONDS,MICROSECONDS,MILLISECONDS,SECONDS,MINUTES,HOURS,DAYS)" display="Time Unit" label="consumer,scheduler" description="Time unit for initialDelay and delay options."/>
-					<property name="useFixedDelay" type="boolean" display="Use Fixed Delay" label="consumer,scheduler" description="Controls if fixed delay or fixed rate is used. See ScheduledExecutorService in JDK for details."/>
-				</definition>
-
-				<!--
-				   - Expressions
-				   -->
-				<xsl:comment>&#13;      - Expressions&#13;      </xsl:comment>
-				<definition name="expression" abstract="true">
-					<property name="id" display="Id" type="string" />
-					<property name="expression" display="Expression" type="string" required="true" />
-					<property name="trim" display="Trim" type="boolean" />
-				</definition>
-
-				<!--
-				   - Rest verbs
-				   -->
-				<xsl:comment>&#13;      - Rest verbs&#13;      </xsl:comment>
-				<definition name="verb" label="rest" abstract="true" extends="model:node">
-					<property name="apiDocs" type="boolean" display="Api Docs" description="Whether to include or exclude the VerbDefinition in API documentation. The default value is true."/>
-					<property name="bindingMode" type="enum:org.apache.camel.model.rest.RestBindingMode(auto,json,json_xml,off,xml)" display="Binding Mode" description="Sets the binding mode to use. This option will override what may be configured on a parent level The default value is auto"/>
-					<property name="clientRequestValidation" type="boolean" display="Client Request Validation" description="Whether to enable validation of the client request to check whether the Content-Type and Accept headers from the client is supported by the Rest-DSL configuration of its consumes/produces settings. This can be turned on, to enable this check. In case of validation error, then HTTP Status codes 415 or 406 is returned. The default value is false."/>
-					<property name="consumes" type="string" display="Consumes" description="To define the content type what the REST service consumes (accept as input), such as application/xml or application/json. This option will override what may be configured on a parent level"/>
-					<property name="enableCORS" type="boolean" display="Enable CORS" description="Whether to enable CORS headers in the HTTP response. This option will override what may be configured on a parent level The default value is false."/>
-					<property name="method" type="string" display="Method" description="The HTTP verb such as GET, POST, DELETE, etc."/>
-					<property name="outType" type="string" display="Out Type" description="Sets the class name to use for binding from POJO to output for the outgoing data This option will override what may be configured on a parent level The canonical name of the class of the input data. Append a to the end of the canonical name if you want the input to be an array type."/>
-					<property name="produces" type="string" display="Produces" description="To define the content type what the REST service produces (uses for output), such as application/xml or application/json This option will override what may be configured on a parent level"/>
-					<property name="routeId" type="string" display="Route Id" description="The route id this rest-dsl is using (read-only)"/>
-					<property name="skipBindingOnErrorCode" type="boolean" display="Skip Binding On Error Code" description="Whether to skip binding on output if there is a custom HTTP error code header. This allows to build custom error messages that do not bind to json / xml etc, as success messages otherwise will do. This option will override what may be configured on a parent level"/>
-					<property name="toOrRoute" type="model:node" display="To Or Route" required="true" kind="element" description="To route from this REST service to a Camel endpoint, or an inlined route"/>
-					<property name="type" type="string" display="Type" description="Sets the class name to use for binding from input to POJO for the incoming data This option will override what may be configured on a parent level. The canonical name of the class of the input data. Append a to the end of the canonical name if you want the input to be an array type."/>
-					<property name="uri" type="string" display="Uri" description="Uri template of this REST service such as /{id}."/>
-				</definition>
-
-				<!--
-				  - LoadBalancer
-				  -->
-				<xsl:comment>&#13;      - Load balancers&#13;      </xsl:comment>
-				<definition name="loadBalancer" label="rest" abstract="true" extends="model:identified" description="Balances message processing among a number of nodes."/>
-			</definitions>
 			<xsl:comment>&#13;    - Languages&#13;    </xsl:comment>
 			<languages>
 				<xsl:for-each select="/model/languages/*">
@@ -365,8 +225,8 @@
 					</xsl:for-each>
 				</xsl:for-each>
 			</verbs>
-			<xsl:comment>&#13;    - Structs&#13;      </xsl:comment>
-			<structs>
+			<xsl:comment>&#13;    - Definitions&#13;      </xsl:comment>
+			<definitions>
 				<xsl:for-each select="/model/models">
 					<xsl:for-each select="*[local-name() != 'aggregate' and
 											local-name() != 'bean' and
@@ -514,7 +374,7 @@
 											local-name() != 'sticky' and
 											local-name() != 'topic' and
 											local-name() != 'weighted'  ]">
-						<xsl:element name="struct">
+						<xsl:element name="definition">
 							<xsl:variable name="parent">
 								<xsl:choose>
 									<xsl:when test="properties/id/description/text() = 'Sets the id of this node'
@@ -555,7 +415,7 @@
 						</xsl:element>
 					</xsl:for-each>
 				</xsl:for-each>
-			</structs>
+			</definitions>
 		</model>
 	</xsl:template>
 
