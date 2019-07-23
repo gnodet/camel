@@ -20,6 +20,7 @@ import org.apache.camel.AggregationStrategy;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Processor;
 import org.apache.camel.model.ClaimCheckDefinition;
+import org.apache.camel.model.ClaimCheckDefinition.ClaimCheckOperation;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.ClaimCheckProcessor;
 import org.apache.camel.processor.aggregate.AggregationStrategyBeanAdapter;
@@ -28,10 +29,11 @@ import org.apache.camel.support.ObjectHelper;
 
 import static org.apache.camel.util.ObjectHelper.notNull;
 
-public class ClaimCheckReifier extends ProcessorReifier<ClaimCheckDefinition> {
+public class ClaimCheckReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ClaimCheckDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ClaimCheckReifier(ProcessorDefinition<?> definition) {
-        super(ClaimCheckDefinition.class.cast(definition));
+        super((ClaimCheckDefinition) definition);
     }
 
     @Override
@@ -39,9 +41,9 @@ public class ClaimCheckReifier extends ProcessorReifier<ClaimCheckDefinition> {
         notNull(definition.getOperation(), "operation", this);
 
         ClaimCheckProcessor claim = new ClaimCheckProcessor();
-        claim.setOperation(definition.getOperation().name());
-        claim.setKey(definition.getKey());
-        claim.setFilter(definition.getFilter());
+        claim.setOperation(resolve(routeContext, ClaimCheckOperation.class, definition.getOperation()).name());
+        claim.setKey(asString(routeContext, definition.getKey()));
+        claim.setFilter(asString(routeContext, definition.getFilter()));
 
         AggregationStrategy strategy = createAggregationStrategy(routeContext);
         if (strategy != null) {
@@ -101,6 +103,7 @@ public class ClaimCheckReifier extends ProcessorReifier<ClaimCheckDefinition> {
     }
 
     private AggregationStrategy createAggregationStrategy(RouteContext routeContext) {
+        /*
         AggregationStrategy strategy = definition.getAggregationStrategy();
         if (strategy == null && definition.getAggregationStrategyRef() != null) {
             Object aggStrategy = routeContext.lookup(definition.getAggregationStrategyRef(), Object.class);
@@ -111,6 +114,43 @@ public class ClaimCheckReifier extends ProcessorReifier<ClaimCheckDefinition> {
             } else {
                 throw new IllegalArgumentException("Cannot find AggregationStrategy in Registry with name: " + definition.getAggregationStrategyRef());
             }
+        }
+
+        if (strategy instanceof CamelContextAware) {
+            ((CamelContextAware) strategy).setCamelContext(routeContext.getCamelContext());
+        }
+
+        return strategy;
+        */
+        AggregationStrategy strategy;
+        Object value = definition.getAggregationStrategy();
+        if (value instanceof AggregationStrategy) {
+            strategy = (AggregationStrategy) value;
+        } else if (value instanceof String) {
+            value = routeContext.getCamelContext().resolvePropertyPlaceholders((String) value);
+            String str = (String) value;
+            if (str.startsWith("#bean:")) {
+                String ref = str.substring("#bean:".length());
+                Object aggStrategy = routeContext.lookup(ref, Object.class);
+                if (aggStrategy instanceof AggregationStrategy) {
+                    strategy = (AggregationStrategy) aggStrategy;
+                } else if (aggStrategy != null) {
+                    AggregationStrategyBeanAdapter adapter = new AggregationStrategyBeanAdapter(aggStrategy, asString(routeContext, definition.getStrategyMethodName()));
+//                    if (definition.getStrategyMethodAllowNull() != null) {
+//                        adapter.setAllowNullNewExchange(asBoolean(routeContext, definition.getStrategyMethodAllowNull()));
+//                        adapter.setAllowNullOldExchange(asBoolean(routeContext, definition.getStrategyMethodAllowNull()));
+//                    }
+                    strategy = adapter;
+                } else {
+                    throw new IllegalArgumentException("Cannot find AggregationStrategy in Registry with name: " + ref);
+                }
+            } else {
+                throw new IllegalArgumentException("Cannot convert string '" + value + "' to AggregationStrategy");
+            }
+        } else if (value == null) {
+            throw new IllegalArgumentException("AggregationStrategy must be set on " + definition);
+        } else {
+            throw new IllegalArgumentException("Cannot convert object '" + value + "' to AggregationStrategy");
         }
 
         if (strategy instanceof CamelContextAware) {

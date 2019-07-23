@@ -16,24 +16,36 @@
  */
 package org.apache.camel.reifier;
 
+import java.lang.reflect.Method;
+import java.util.Map;
+
+import org.apache.camel.NoSuchBeanException;
 import org.apache.camel.Processor;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.Service;
 import org.apache.camel.model.PolicyDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.WrapProcessor;
 import org.apache.camel.spi.Policy;
 import org.apache.camel.spi.RouteContext;
+import org.apache.camel.spi.TransactedPolicy;
+import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
-public class PolicyReifier extends ProcessorReifier<PolicyDefinition> {
+public class PolicyReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<PolicyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     PolicyReifier(ProcessorDefinition<?> definition) {
         super((PolicyDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        Policy policy = resolvePolicy(routeContext);
+        Class<?> type = asClass(routeContext, definition.getType());
+        if (!Policy.class.isAssignableFrom(type)) {
+            throw new IllegalArgumentException("Policy type does not inherit from " + Policy.class.getName());
+        }
+        Policy policy = resolvePolicy(routeContext, (Class<? extends Policy>) type, definition.getInstance());
         ObjectHelper.notNull(policy, "policy", definition);
 
         // before wrap
@@ -50,14 +62,6 @@ public class PolicyReifier extends ProcessorReifier<PolicyDefinition> {
             target = new WrapProcessor(target, childProcessor);
         }
         return target;
-    }
-
-    protected Policy resolvePolicy(RouteContext routeContext) {
-        if (definition.getPolicy() != null) {
-            return definition.getPolicy();
-        }
-        // reuse code on transacted definition to do the resolution
-        return TransactedReifier.resolvePolicy(routeContext, definition.getRef(), definition.getType());
     }
 
 }

@@ -22,8 +22,9 @@ import org.apache.camel.model.StopDefinition;
 import org.apache.camel.processor.StopProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class StopReifier extends ProcessorReifier<StopDefinition> {
+public class StopReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<StopDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     StopReifier(ProcessorDefinition<?> definition) {
         super((StopDefinition) definition);
     }

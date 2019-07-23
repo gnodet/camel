@@ -26,10 +26,11 @@ import org.apache.camel.processor.RoutingSlip;
 import org.apache.camel.reifier.errorhandler.ErrorHandlerReifier;
 import org.apache.camel.spi.RouteContext;
 
-import static org.apache.camel.model.RoutingSlipDefinition.DEFAULT_DELIMITER;
+public class RoutingSlipReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<RoutingSlipDefinition<Type>> {
 
-public class RoutingSlipReifier extends ExpressionReifier<RoutingSlipDefinition<?>> {
+    public static final String DEFAULT_DELIMITER = ",";
 
+    @SuppressWarnings("unchecked")
     RoutingSlipReifier(ProcessorDefinition<?> definition) {
         super((RoutingSlipDefinition) definition);
     }
@@ -37,14 +38,14 @@ public class RoutingSlipReifier extends ExpressionReifier<RoutingSlipDefinition<
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         Expression expression = definition.getExpression().createExpression(routeContext);
-        String delimiter = definition.getUriDelimiter() != null ? definition.getUriDelimiter() : DEFAULT_DELIMITER;
+        String delimiter = definition.getUriDelimiter() != null ? asString(routeContext, definition.getUriDelimiter()) : DEFAULT_DELIMITER;
 
         RoutingSlip routingSlip = new RoutingSlip(routeContext.getCamelContext(), expression, delimiter);
         if (definition.getIgnoreInvalidEndpoints() != null) {
-            routingSlip.setIgnoreInvalidEndpoints(definition.getIgnoreInvalidEndpoints());
+            routingSlip.setIgnoreInvalidEndpoints(asBoolean(routeContext, definition.getIgnoreInvalidEndpoints()));
         }
         if (definition.getCacheSize() != null) {
-            routingSlip.setCacheSize(definition.getCacheSize());
+            routingSlip.setCacheSize(asInt(routeContext, definition.getCacheSize()));
         }
 
         // and wrap this in an error handler

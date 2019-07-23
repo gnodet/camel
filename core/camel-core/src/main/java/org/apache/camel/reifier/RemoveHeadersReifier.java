@@ -23,8 +23,9 @@ import org.apache.camel.processor.RemoveHeadersProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class RemoveHeadersReifier extends ProcessorReifier<RemoveHeadersDefinition> {
+public class RemoveHeadersReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<RemoveHeadersDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     RemoveHeadersReifier(ProcessorDefinition<?> definition) {
         super((RemoveHeadersDefinition) definition);
     }
@@ -32,12 +33,8 @@ public class RemoveHeadersReifier extends ProcessorReifier<RemoveHeadersDefiniti
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         ObjectHelper.notNull(definition.getPattern(), "patterns", definition);
-        if (definition.getExcludePatterns() != null) {
-            return new RemoveHeadersProcessor(definition.getPattern(), definition.getExcludePatterns());
-        } else if (definition.getExcludePattern() != null) {
-            return new RemoveHeadersProcessor(definition.getPattern(), new String[]{definition.getExcludePattern()});
-        } else {
-            return new RemoveHeadersProcessor(definition.getPattern(), null);
-        }
+        return new RemoveHeadersProcessor(asString(routeContext, definition.getPattern()),
+                resolve(routeContext, String[].class, definition.getExcludePatterns()));
     }
+
 }

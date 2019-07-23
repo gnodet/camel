@@ -22,8 +22,9 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetFaultBodyDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class SetFaultBodyReifier extends ExpressionReifier<SetFaultBodyDefinition> {
+public class SetFaultBodyReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SetFaultBodyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     SetFaultBodyReifier(ProcessorDefinition<?> definition) {
         super((SetFaultBodyDefinition) definition);
     }

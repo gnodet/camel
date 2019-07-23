@@ -26,8 +26,9 @@ import org.apache.camel.processor.PollEnricher;
 import org.apache.camel.processor.aggregate.AggregationStrategyBeanAdapter;
 import org.apache.camel.spi.RouteContext;
 
-public class PollEnrichReifier extends ProcessorReifier<PollEnrichDefinition> {
+public class PollEnrichReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<PollEnrichDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     PollEnrichReifier(ProcessorDefinition<?> definition) {
         super((PollEnrichDefinition) definition);
     }
@@ -36,8 +37,8 @@ public class PollEnrichReifier extends ProcessorReifier<PollEnrichDefinition> {
     public Processor createProcessor(RouteContext routeContext) throws Exception {
 
         // if no timeout then we should block, and there use a negative timeout
-        long time = definition.getTimeout() != null ? definition.getTimeout() : -1;
-        boolean isIgnoreInvalidEndpoint = definition.getIgnoreInvalidEndpoint() != null && definition.getIgnoreInvalidEndpoint();
+        long time = definition.getTimeout() != null ? asLong(routeContext, definition.getTimeout()) : -1;
+        boolean isIgnoreInvalidEndpoint = definition.getIgnoreInvalidEndpoint() != null && asBoolean(routeContext, definition.getIgnoreInvalidEndpoint());
         Expression exp = definition.getExpression().createExpression(routeContext);
 
         PollEnricher enricher = new PollEnricher(exp, time);
@@ -49,10 +50,10 @@ public class PollEnrichReifier extends ProcessorReifier<PollEnrichDefinition> {
             enricher.setAggregationStrategy(strategy);
         }
         if (definition.getAggregateOnException() != null) {
-            enricher.setAggregateOnException(definition.getAggregateOnException());
+            enricher.setAggregateOnException(asBoolean(routeContext, definition.getAggregateOnException()));
         }
         if (definition.getCacheSize() != null) {
-            enricher.setCacheSize(definition.getCacheSize());
+            enricher.setCacheSize(asInt(routeContext, definition.getCacheSize()));
         }
         enricher.setIgnoreInvalidEndpoint(isIgnoreInvalidEndpoint);
 
@@ -60,28 +61,8 @@ public class PollEnrichReifier extends ProcessorReifier<PollEnrichDefinition> {
     }
 
     private AggregationStrategy createAggregationStrategy(RouteContext routeContext) {
-        AggregationStrategy strategy = definition.getAggregationStrategy();
-        if (strategy == null && definition.getAggregationStrategyRef() != null) {
-            Object aggStrategy = routeContext.lookup(definition.getAggregationStrategyRef(), Object.class);
-            if (aggStrategy instanceof AggregationStrategy) {
-                strategy = (AggregationStrategy) aggStrategy;
-            } else if (aggStrategy != null) {
-                AggregationStrategyBeanAdapter adapter = new AggregationStrategyBeanAdapter(aggStrategy, definition.getAggregationStrategyMethodName());
-                if (definition.getAggregationStrategyMethodAllowNull() != null) {
-                    adapter.setAllowNullNewExchange(definition.getAggregationStrategyMethodAllowNull());
-                    adapter.setAllowNullOldExchange(definition.getAggregationStrategyMethodAllowNull());
-                }
-                strategy = adapter;
-            } else {
-                throw new IllegalArgumentException("Cannot find AggregationStrategy in Registry with name: " + definition.getAggregationStrategyRef());
-            }
-        }
-
-        if (strategy instanceof CamelContextAware) {
-            ((CamelContextAware) strategy).setCamelContext(routeContext.getCamelContext());
-        }
-
-        return strategy;
+        return resolveAggregationStrategy(routeContext, definition.getAggregationStrategy(),
+                definition.getStrategyMethodName(), definition.getStrategyMethodAllowNull(), () -> null);
     }
 
 }

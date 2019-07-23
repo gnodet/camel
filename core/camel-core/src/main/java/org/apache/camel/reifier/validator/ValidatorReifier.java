@@ -25,9 +25,10 @@ import org.apache.camel.model.validator.CustomValidatorDefinition;
 import org.apache.camel.model.validator.EndpointValidatorDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.Validator;
 
-public abstract class ValidatorReifier<T> {
+public abstract class ValidatorReifier<T> extends AbstractReifier<T> {
 
     private static final Map<Class<?>, Function<ValidatorDefinition, ValidatorReifier<? extends ValidatorDefinition>>> VALIDATORS;
     static {
@@ -38,10 +39,8 @@ public abstract class ValidatorReifier<T> {
         VALIDATORS = map;
     }
     
-    protected final T definition;
-
     ValidatorReifier(T definition) {
-        this.definition = definition;
+        super(definition);
     }
 
     public static ValidatorReifier<? extends ValidatorDefinition> reifier(ValidatorDefinition definition) {

@@ -19,7 +19,6 @@ package org.apache.camel.reifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.model.CatchDefinition;
@@ -28,21 +27,20 @@ import org.apache.camel.model.TryDefinition;
 import org.apache.camel.processor.CatchProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class CatchReifier extends ProcessorReifier<CatchDefinition> {
+public class CatchReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<CatchDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     CatchReifier(ProcessorDefinition<?> definition) {
-        super(CatchDefinition.class.cast(definition));
+        super((CatchDefinition) definition);
     }
 
     @Override
     public CatchProcessor createProcessor(RouteContext routeContext) throws Exception {
         // create and load exceptions if not done
-        if (definition.getExceptionClasses() == null) {
-            definition.setExceptionClasses(createExceptionClasses(routeContext.getCamelContext()));
-        }
+        List<Class<? extends Throwable>> exceptions = resolveExceptions(routeContext, definition.getExceptions());
 
         // must have at least one exception
-        if (definition.getExceptionClasses().isEmpty()) {
+        if (exceptions.isEmpty()) {
             throw new IllegalArgumentException("At least one Exception must be configured to catch");
         }
 
@@ -59,18 +57,7 @@ public class CatchReifier extends ProcessorReifier<CatchDefinition> {
             when = definition.getOnWhen().getExpression().createPredicate(routeContext);
         }
 
-        return new CatchProcessor(definition.getExceptionClasses(), childProcessor, when, null);
+        return new CatchProcessor(exceptions, childProcessor, when, null);
     }
 
-    protected List<Class<? extends Throwable>> createExceptionClasses(CamelContext context) throws ClassNotFoundException {
-        // must use the class resolver from CamelContext to load classes to ensure it can
-        // be loaded in all kind of environments such as JEE servers and OSGi etc.
-        List<String> list = definition.getExceptions();
-        List<Class<? extends Throwable>> answer = new ArrayList<>(list.size());
-        for (String name : list) {
-            Class<Throwable> type = context.getClassResolver().resolveMandatoryClass(name, Throwable.class);
-            answer.add(type);
-        }
-        return answer;
-    }
 }

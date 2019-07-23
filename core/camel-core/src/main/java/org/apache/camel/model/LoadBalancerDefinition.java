@@ -18,13 +18,10 @@ package org.apache.camel.model;
 
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
+import org.apache.camel.model.IdentifiedType;
+import org.apache.camel.model.OtherAttributesAware;
 import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.Metadata;
 
@@ -32,15 +29,10 @@ import org.apache.camel.spi.Metadata;
  * Balances message processing among a number of nodes
  */
 @Metadata(label = "eip,routing")
-@XmlType(name = "loadBalancer")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class LoadBalancerDefinition extends IdentifiedType implements OtherAttributesAware {
-    @XmlTransient
+
     private LoadBalancer loadBalancer;
-    @XmlTransient
-    private String loadBalancerTypeName;
     // use xs:any to support optional property placeholders
-    @XmlAnyAttribute
     private Map<QName, Object> otherAttributes;
 
     public LoadBalancerDefinition() {
@@ -50,8 +42,9 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
         this.loadBalancer = loadBalancer;
     }
 
-    protected LoadBalancerDefinition(String loadBalancerTypeName) {
-        this.loadBalancerTypeName = loadBalancerTypeName;
+    @Override
+    public String getShortName() {
+        return "loadBalancer";
     }
 
     /**
@@ -76,7 +69,7 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
     }
 
     public String getLoadBalancerTypeName() {
-        return loadBalancerTypeName;
+        return getShortName();
     }
 
     @Override
@@ -94,7 +87,7 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
         if (loadBalancer != null) {
             return loadBalancer.toString();
         } else {
-            return loadBalancerTypeName;
+            return getShortName();
         }
     }
 }

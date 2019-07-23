@@ -24,8 +24,9 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.LoopProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class LoopReifier extends ExpressionReifier<LoopDefinition> {
+public class LoopReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<LoopDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     LoopReifier(ProcessorDefinition<?> definition) {
         super((LoopDefinition) definition);
     }
@@ -33,8 +34,8 @@ public class LoopReifier extends ExpressionReifier<LoopDefinition> {
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         Processor output = this.createChildProcessor(routeContext, true);
-        boolean isCopy = definition.getCopy() != null && definition.getCopy();
-        boolean isWhile = definition.getDoWhile() != null && definition.getDoWhile();
+        boolean isCopy = definition.getCopy() != null && asBoolean(routeContext, definition.getCopy());
+        boolean isWhile = definition.getDoWhile() != null && asBoolean(routeContext, definition.getDoWhile());
 
         Predicate predicate = null;
         Expression expression = null;

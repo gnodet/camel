@@ -18,10 +18,6 @@ package org.apache.camel.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
@@ -30,11 +26,8 @@ import org.apache.camel.model.language.ExpressionDefinition;
 /**
  * A base class for nodes which contain an expression and a number of outputs.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlTransient
-public abstract class OutputExpressionNode extends ExpressionNode implements OutputNode {
+public abstract class OutputExpressionNode<Type extends ExpressionNode<Type>> extends ExpressionNode<Type> implements OutputNode {
 
-    @XmlElementRef
     private List<ProcessorDefinition<?>> outputs = new ArrayList<>();
 
     public OutputExpressionNode() {
@@ -59,6 +52,11 @@ public abstract class OutputExpressionNode extends ExpressionNode implements Out
 
     public void setOutputs(List<ProcessorDefinition<?>> outputs) {
         this.outputs = outputs;
+        if (outputs != null) {
+            for (ProcessorDefinition<?> output : outputs) {
+                configureChild(output);
+            }
+        }
     }
 
 }

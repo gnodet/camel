@@ -19,10 +19,11 @@ package org.apache.camel.reifier;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.model.ExpressionNode;
+import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.FilterProcessor;
 import org.apache.camel.spi.RouteContext;
 
-abstract class ExpressionReifier<T extends ExpressionNode> extends ProcessorReifier<T> {
+abstract class ExpressionReifier<T extends ExpressionNode<T>> extends ProcessorReifier<T> {
 
     protected ExpressionReifier(T definition) {
         super(definition);

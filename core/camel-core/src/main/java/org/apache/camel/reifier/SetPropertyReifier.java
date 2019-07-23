@@ -25,8 +25,9 @@ import org.apache.camel.processor.SetPropertyProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class SetPropertyReifier extends ExpressionReifier<SetPropertyDefinition> {
+public class SetPropertyReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SetPropertyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     SetPropertyReifier(ProcessorDefinition<?> definition) {
         super((SetPropertyDefinition) definition);
     }
@@ -35,7 +36,7 @@ public class SetPropertyReifier extends ExpressionReifier<SetPropertyDefinition>
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         ObjectHelper.notNull(definition.getName(), "propertyName", this);
         Expression expr = definition.getExpression().createExpression(routeContext);
-        Expression nameExpr = ExpressionBuilder.parseSimpleOrFallbackToConstantExpression(definition.getName(), routeContext.getCamelContext());
+        Expression nameExpr = ExpressionBuilder.parseSimpleOrFallbackToConstantExpression(asString(routeContext, definition.getName()), routeContext.getCamelContext());
         return new SetPropertyProcessor(nameExpr, expr);
     }
 }

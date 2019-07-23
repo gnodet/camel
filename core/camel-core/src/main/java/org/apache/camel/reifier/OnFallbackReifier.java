@@ -21,8 +21,9 @@ import org.apache.camel.model.OnFallbackDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class OnFallbackReifier extends ProcessorReifier<OnFallbackDefinition> {
+public class OnFallbackReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<OnFallbackDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     OnFallbackReifier(ProcessorDefinition<?> definition) {
         super((OnFallbackDefinition) definition);
     }

@@ -1,0 +1,21 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "boon",
+    "title": "Boon",
+    "description": "Boon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.",
+    "firstVersion": "2.16.0",
+    "javaType": "org.apache.camel.model.dataformat.BoonDataFormat",
+    "label": "dataformat,transformation,json",
+    "deprecated": false,
+    "input": false,
+    "output": false
+  },
+  "properties": {
+    "unmarshalTypeName": { "kind": "attribute", "displayName": "Unmarshal Type Name", "required": true, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Class name of the java type to use when unarmshalling" },
+    "useList": { "kind": "attribute", "displayName": "Use List", "required": false, "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "To unarmshal to a List of Map or a List of Pojo." },
+    "contentTypeHeader": { "kind": "attribute", "displayName": "Content Type Header", "required": false, "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the data format should set the Content-Type header with the type from the data format if the data format is capable of doing so. For example application/xml for data formats marshalling to XML, or application/json for data formats marshalling to JSon etc." },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the value of the id property." }
+  }
+}
+

@@ -93,7 +93,7 @@ public abstract class ErrorHandlerBuilderSupport implements ErrorHandlerBuilder 
                     }
                     Predicate when = exceptionType.getOnWhen() != null ? exceptionType.getOnWhen().getExpression() : null;
                     ExceptionPolicyKey key = new ExceptionPolicyKey(routeId, clazz, when);
-                    ExceptionPolicy policy = toExceptionPolicy(exceptionType, routeContext);
+                    ExceptionPolicy policy = ErrorHandlerReifier.createExceptionPolicy(exceptionType, routeContext);
                     handlerSupport.addExceptionPolicy(key, policy);
                 }
             }

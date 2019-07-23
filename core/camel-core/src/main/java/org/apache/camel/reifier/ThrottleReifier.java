@@ -27,20 +27,21 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.Throttler;
 import org.apache.camel.spi.RouteContext;
 
-public class ThrottleReifier extends ExpressionReifier<ThrottleDefinition> {
+public class ThrottleReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<ThrottleDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ThrottleReifier(ProcessorDefinition<?> definition) {
         super((ThrottleDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        boolean async = definition.getAsyncDelayed() != null && definition.getAsyncDelayed();
-        boolean shutdownThreadPool = ProcessorDefinitionHelper.willCreateNewThreadPool(routeContext, definition, true);
-        ScheduledExecutorService threadPool = ProcessorDefinitionHelper.getConfiguredScheduledExecutorService(routeContext, "Throttle", definition, true);
+        boolean async = asBoolean(routeContext, definition.getAsyncDelayed(), false);
+        boolean shutdownThreadPool = willCreateNewThreadPool(routeContext, definition.getExecutorService(), true);
+        ScheduledExecutorService threadPool = getConfiguredScheduledExecutorService(routeContext, "Throttle", definition.getExecutorService(), true);
 
         // should be default 1000 millis
-        long period = definition.getTimePeriodMillis() != null ? definition.getTimePeriodMillis() : 1000L;
+        long period = asLong(routeContext, definition.getTimePeriodMillis(), 1000L);
 
         // max requests per period is mandatory
         Expression maxRequestsExpression = createMaxRequestsPerPeriodExpression(routeContext);
@@ -53,16 +54,12 @@ public class ThrottleReifier extends ExpressionReifier<ThrottleDefinition> {
             correlation = definition.getCorrelationExpression().createExpression(routeContext);
         }
 
-        boolean reject = definition.getRejectExecution() != null && definition.getRejectExecution();
+        boolean reject = asBoolean(routeContext, definition.getRejectExecution(), false);
         Throttler answer = new Throttler(routeContext.getCamelContext(), maxRequestsExpression, period, threadPool, shutdownThreadPool, reject, correlation);
 
         answer.setAsyncDelayed(async);
-        if (definition.getCallerRunsWhenRejected() == null) {
-            // should be true by default
-            answer.setCallerRunsWhenRejected(true);
-        } else {
-            answer.setCallerRunsWhenRejected(definition.getCallerRunsWhenRejected());
-        }
+        // should be true by default
+        answer.setCallerRunsWhenRejected(asBoolean(routeContext, definition.getCallerRunsWhenRejected(), true));
 
         return answer;
     }

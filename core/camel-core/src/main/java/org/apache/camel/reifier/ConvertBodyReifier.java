@@ -25,24 +25,25 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.ConvertBodyProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class ConvertBodyReifier extends ProcessorReifier<ConvertBodyDefinition> {
+public class ConvertBodyReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ConvertBodyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ConvertBodyReifier(ProcessorDefinition<?> definition) {
-        super(ConvertBodyDefinition.class.cast(definition));
+        super((ConvertBodyDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        if (definition.getTypeClass() == null && definition.getType() != null) {
-            definition.setTypeClass(routeContext.getCamelContext().getClassResolver().resolveMandatoryClass(definition.getType()));
-        }
+        Class<?> type = resolve(routeContext, Class.class, definition.getType());
 
         // validate charset
+        String charset = null;
         if (definition.getCharset() != null) {
-            validateCharset(definition.getCharset());
+            charset = resolve(routeContext, Charset.class, definition.getCharset()).toString();
+            validateCharset(charset);
         }
 
-        return new ConvertBodyProcessor(definition.getTypeClass(), definition.getCharset());
+        return new ConvertBodyProcessor(type, charset);
     }
 
     public static void validateCharset(String charset) throws UnsupportedCharsetException {

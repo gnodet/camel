@@ -27,10 +27,11 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.Delayer;
 import org.apache.camel.spi.RouteContext;
 
-public class DelayReifier extends ExpressionReifier<DelayDefinition> {
+public class DelayReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<DelayDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     DelayReifier(ProcessorDefinition<?> definition) {
-        super(DelayDefinition.class.cast(definition));
+        super((DelayDefinition) definition);
     }
 
     @Override
@@ -38,19 +39,19 @@ public class DelayReifier extends ExpressionReifier<DelayDefinition> {
         Processor childProcessor = this.createChildProcessor(routeContext, false);
         Expression delay = createAbsoluteTimeDelayExpression(routeContext);
 
-        boolean async = definition.getAsyncDelayed() == null || definition.getAsyncDelayed();
-        boolean shutdownThreadPool = ProcessorDefinitionHelper.willCreateNewThreadPool(routeContext, definition, async);
-        ScheduledExecutorService threadPool = ProcessorDefinitionHelper.getConfiguredScheduledExecutorService(routeContext, "Delay", definition, async);
+        boolean async = definition.getAsyncDelayed() == null || asBoolean(routeContext, definition.getAsyncDelayed());
+        boolean shutdownThreadPool = willCreateNewThreadPool(routeContext, definition.getExecutorService(), async);
+        ScheduledExecutorService threadPool = getConfiguredScheduledExecutorService(routeContext, "Delay", definition.getExecutorService(), async);
 
         Delayer answer = new Delayer(routeContext.getCamelContext(), childProcessor, delay, threadPool, shutdownThreadPool);
         if (definition.getAsyncDelayed() != null) {
-            answer.setAsyncDelayed(definition.getAsyncDelayed());
+            answer.setAsyncDelayed(asBoolean(routeContext, definition.getAsyncDelayed()));
         }
         if (definition.getCallerRunsWhenRejected() == null) {
             // should be default true
             answer.setCallerRunsWhenRejected(true);
         } else {
-            answer.setCallerRunsWhenRejected(definition.getCallerRunsWhenRejected());
+            answer.setCallerRunsWhenRejected(asBoolean(routeContext, definition.getCallerRunsWhenRejected()));
         }
         return answer;
     }

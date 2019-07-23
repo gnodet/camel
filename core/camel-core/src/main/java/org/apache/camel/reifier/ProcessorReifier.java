@@ -108,14 +108,12 @@ import org.apache.camel.spi.IdAware;
 import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.spi.LifecycleStrategy;
 import org.apache.camel.spi.RouteContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
+public abstract class ProcessorReifier<T extends ProcessorDefinition<T>> extends AbstractReifier<T> {
 
-    private static final Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>>> PROCESSORS;
+    private static final Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<?>>> PROCESSORS;
     static {
-        Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>>> map = new HashMap<>();
+        Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<?>>> map = new HashMap<>();
         map.put(AggregateDefinition.class, AggregateReifier::new);
         map.put(BeanDefinition.class, BeanReifier::new);
         map.put(CatchDefinition.class, CatchReifier::new);
@@ -129,8 +127,8 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         map.put(FinallyDefinition.class, FinallyReifier::new);
         map.put(HystrixDefinition.class, HystrixReifier::new);
         map.put(IdempotentConsumerDefinition.class, IdempotentConsumerReifier::new);
-        map.put(InOnlyDefinition.class, SendReifier::new);
-        map.put(InOutDefinition.class, SendReifier::new);
+        map.put(InOnlyDefinition.class, ToReifier::new);
+        map.put(InOutDefinition.class, ToReifier::new);
         map.put(InterceptDefinition.class, InterceptReifier::new);
         map.put(InterceptFromDefinition.class, InterceptFromReifier::new);
         map.put(InterceptSendToEndpointDefinition.class, InterceptSendToEndpointReifier::new);
@@ -172,7 +170,7 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         map.put(ThreadsDefinition.class, ThreadsReifier::new);
         map.put(ThrottleDefinition.class, ThrottleReifier::new);
         map.put(ThrowExceptionDefinition.class, ThrowExceptionReifier::new);
-        map.put(ToDefinition.class, SendReifier::new);
+        map.put(ToDefinition.class, ToReifier::new);
         map.put(ToDynamicDefinition.class, ToDynamicReifier::new);
         map.put(TransactedDefinition.class, TransactedReifier::new);
         map.put(TransformDefinition.class, TransformReifier::new);
@@ -184,15 +182,12 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         map.put(WhenDefinition.class, WhenReifier::new);
         PROCESSORS = map;
     }
-    protected final Logger log = LoggerFactory.getLogger(getClass());
-
-    protected final T definition;
 
     public ProcessorReifier(T definition) {
-        this.definition = definition;
+        super(definition);
     }
 
-    public static void registerReifier(Class<?> processorClass, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>> creator) {
+    public static void registerReifier(Class<?> processorClass, Function<ProcessorDefinition<?>, ProcessorReifier<?>> creator) {
         PROCESSORS.put(processorClass, creator);
     }
 
@@ -312,10 +307,8 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         }
         // set scoping
         boolean routeScoped = true;
-        if (definition instanceof OnExceptionDefinition) {
-            routeScoped = ((OnExceptionDefinition) definition).isRouteScoped();
-        } else if (this.definition instanceof OnCompletionDefinition) {
-            routeScoped = ((OnCompletionDefinition) definition).isRouteScoped();
+        if (definition instanceof OnExceptionDefinition || definition instanceof OnCompletionDefinition) {
+            routeScoped = definition.getParent() != null;
         }
         // initialize the channel
         channel.initChannel(routeContext, definition, child, interceptors, processor, route, first, routeScoped);
@@ -347,7 +340,7 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
             // do not use error handler for multicast as it offers fine grained error handlers for its outputs
             // however if share unit of work is enabled, we need to wrap an error handler on the multicast parent
             MulticastDefinition def = (MulticastDefinition) definition;
-            boolean isShareUnitOfWork = def.getShareUnitOfWork() != null && def.getShareUnitOfWork();
+            boolean isShareUnitOfWork = def.getShareUnitOfWork() != null && asBoolean(routeContext, def.getShareUnitOfWork());
             if (isShareUnitOfWork && child == null) {
                 // only wrap the parent (not the children of the multicast)
                 wrap = true;
@@ -600,4 +593,5 @@ public abstract class ProcessorReifier<T extends ProcessorDefinition<?>> {
         return def.idOrCreate(routeContext.getCamelContext()
                 .adapt(ExtendedCamelContext.class).getNodeIdFactory());
     }
+
 }

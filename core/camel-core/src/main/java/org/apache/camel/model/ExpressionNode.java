@@ -19,11 +19,6 @@ package org.apache.camel.model;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
 import org.apache.camel.Predicate;
@@ -34,13 +29,10 @@ import org.apache.camel.model.language.ExpressionDefinition;
  * A base {@link ExpressionNode} which does <b>not</b> support any outputs.
  * <p/>
  * This node is to be extended by definitions which need to support an expression but the definition should not
- * contain any outputs, such as {@link org.apache.camel.model.TransformDefinition}.
+ * contain any outputs, such as {@link org.apache.camel.model.processors.TransformDefinition}.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlTransient
-public abstract class ExpressionNode extends ProcessorDefinition<ExpressionNode> {
+public abstract class ExpressionNode<Type extends ExpressionNode<Type>> extends ProcessorDefinition<Type> {
 
-    @XmlElementRef
     private ExpressionDefinition expression;
 
     public ExpressionNode() {
@@ -126,14 +118,27 @@ public abstract class ExpressionNode extends ProcessorDefinition<ExpressionNode>
     }
 
     @Override
-    public ExpressionNode id(String id) {
+    public Type id(String id) {
         if (!(this instanceof OutputNode)) {
             // let parent handle assigning the id, as we do not support outputs
             getParent().id(id);
-            return this;
+            return asType();
         } else {
             return super.id(id);
         }
+    }
+
+    public Type expression(String expression) {
+        return expression(new ExpressionDefinition(expression));
+    }
+
+    public Type expression(Expression expression) {
+        return expression(new ExpressionDefinition(expression));
+    }
+
+    public Type expression(ExpressionDefinition expression) {
+        setExpression(expression);
+        return asType();
     }
 
 }

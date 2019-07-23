@@ -19,6 +19,7 @@ package org.apache.camel.reifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.camel.ExchangePattern;
 import org.apache.camel.Expression;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Processor;
@@ -32,19 +33,20 @@ import org.apache.camel.util.Pair;
 import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
 
-public class ToDynamicReifier<T extends ToDynamicDefinition> extends ProcessorReifier<T> {
+public class ToDynamicReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ToDynamicDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ToDynamicReifier(ProcessorDefinition<?> definition) {
-        super((T) definition);
+        super((ToDynamicDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         String uri;
         Expression exp;
-        if (definition.getEndpointProducerBuilder() != null) {
-            uri = definition.getEndpointProducerBuilder().getUri();
-            exp = definition.getEndpointProducerBuilder().expr();
+        if (definition.getUri() != null) {
+            uri = definition.getUri().getUri();
+            exp = definition.getUri().expr();
         } else {
             uri = StringHelper.notEmpty(definition.getUri(), "uri", this);
             exp = createExpression(routeContext, uri);
@@ -52,13 +54,11 @@ public class ToDynamicReifier<T extends ToDynamicDefinition> extends ProcessorRe
 
         SendDynamicProcessor processor = new SendDynamicProcessor(uri, exp);
         processor.setCamelContext(routeContext.getCamelContext());
-        processor.setPattern(definition.getPattern());
+        processor.setPattern(resolve(routeContext, ExchangePattern.class, definition.getPattern()));
         if (definition.getCacheSize() != null) {
-            processor.setCacheSize(definition.getCacheSize());
+            processor.setCacheSize(asInt(routeContext, definition.getCacheSize()));
         }
-        if (definition.getIgnoreInvalidEndpoint() != null) {
-            processor.setIgnoreInvalidEndpoint(definition.getIgnoreInvalidEndpoint());
-        }
+        processor.setIgnoreInvalidEndpoint(asBoolean(routeContext, definition.getIgnoreInvalidEndpoint(), false));
         return processor;
     }
 
@@ -135,7 +135,7 @@ public class ToDynamicReifier<T extends ToDynamicDefinition> extends ProcessorRe
             }
         }
 
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
 }

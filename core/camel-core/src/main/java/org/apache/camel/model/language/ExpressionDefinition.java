@@ -19,15 +19,6 @@ package org.apache.camel.model.language;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.AfterPropertiesConfigured;
@@ -38,6 +29,7 @@ import org.apache.camel.Expression;
 import org.apache.camel.ExpressionFactory;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Predicate;
+import org.apache.camel.model.IdentifiedType;
 import org.apache.camel.model.OtherAttributesAware;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.Metadata;
@@ -52,25 +44,14 @@ import org.apache.camel.util.ObjectHelper;
  * A useful base class for an expression
  */
 @Metadata(label = "language", title = "Expression")
-@XmlRootElement
-@XmlType(name = "expression") // must be named expression
-@XmlAccessorType(XmlAccessType.FIELD)
-public class ExpressionDefinition implements Expression, Predicate, OtherAttributesAware, ExpressionFactory {
-    @XmlAttribute
-    @XmlID
-    private String id;
-    @XmlValue @Metadata(required = true)
+public class ExpressionDefinition extends IdentifiedType
+        implements Expression, Predicate, OtherAttributesAware, ExpressionFactory {
+
     private String expression;
-    @XmlAttribute @Metadata(defaultValue = "true")
     private Boolean trim;
-    @XmlTransient
     private Predicate predicate;
-    @XmlTransient
     private Expression expressionValue;
-    @XmlTransient
     private ExpressionDefinition expressionType;
-    // use xs:any to support optional property placeholders
-    @XmlAnyAttribute
     private Map<QName, Object> otherAttributes;
 
     public ExpressionDefinition() {
@@ -86,6 +67,11 @@ public class ExpressionDefinition implements Expression, Predicate, OtherAttribu
 
     public ExpressionDefinition(Expression expression) {
         this.expressionValue = expression;
+    }
+
+    @Override
+    public String getShortName() {
+        return "expression";
     }
 
     public static String getLabel(List<ExpressionDefinition> expressions) {
@@ -231,26 +217,19 @@ public class ExpressionDefinition implements Expression, Predicate, OtherAttribu
         this.expression = expression;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of this node
-     */
-    public void setId(String value) {
-        this.id = value;
-    }
-
     public Predicate getPredicate() {
         return predicate;
+    }
+
+    public void setPredicate(Predicate predicate) {
+        this.predicate = predicate;
     }
 
     public Expression getExpressionValue() {
         return expressionValue;
     }
 
-    protected void setExpressionValue(Expression expressionValue) {
+    public void setExpressionValue(Expression expressionValue) {
         this.expressionValue = expressionValue;
     }
 
@@ -328,7 +307,7 @@ public class ExpressionDefinition implements Expression, Predicate, OtherAttribu
             IntrospectionSupport.setProperty(camelContext, bean, name, value);
         } catch (Exception e) {
             throw new IllegalArgumentException("Failed to set property " + name + " on " + bean
-                                               + ". Reason: " + e, e);
+                    + ". Reason: " + e, e);
         }
     }
 }

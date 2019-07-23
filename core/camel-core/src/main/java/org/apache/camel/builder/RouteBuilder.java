@@ -207,7 +207,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
      * @param uri  the from uri
      * @return the builder
      */
-    public RouteDefinition from(String uri) {
+    public RouteDefinition<?> from(String uri) {
         getRouteCollection().setCamelContext(getContext());
         RouteDefinition answer = getRouteCollection().from(uri);
         configureRoute(answer);

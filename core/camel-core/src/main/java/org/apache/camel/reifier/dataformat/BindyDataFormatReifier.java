@@ -20,7 +20,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.dataformat.BindyDataFormat;
-import org.apache.camel.model.dataformat.BindyType;
+import org.apache.camel.model.dataformat.BindyDataFormat.BindyType;
 import org.apache.camel.spi.DataFormat;
 
 public class BindyDataFormatReifier extends DataFormatReifier<BindyDataFormat> {
@@ -29,6 +29,8 @@ public class BindyDataFormatReifier extends DataFormatReifier<BindyDataFormat> {
         super((BindyDataFormat) definition);
     }
 
+    /*
+     * TODO: verify if this is needed or not
     protected DataFormat doCreateDataFormat(CamelContext camelContext) {
         if (definition.getClassTypeAsString() == null && definition.getClassType() == null) {
             throw new IllegalArgumentException("Either packages or classType must be specified");
@@ -51,6 +53,7 @@ public class BindyDataFormatReifier extends DataFormatReifier<BindyDataFormat> {
         }
         return super.doCreateDataFormat(camelContext);
     }
+    */
 
     @Override
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {

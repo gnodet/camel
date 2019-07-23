@@ -24,8 +24,9 @@ import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.processor.UnmarshalProcessor;
 
-public class UnmarshalReifier extends ProcessorReifier<UnmarshalDefinition> {
+public class UnmarshalReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<UnmarshalDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     UnmarshalReifier(ProcessorDefinition<?> definition) {
         super((UnmarshalDefinition) definition);
     }

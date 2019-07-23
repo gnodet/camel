@@ -27,8 +27,9 @@ import org.apache.camel.model.TryDefinition;
 import org.apache.camel.processor.TryProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class TryReifier extends ProcessorReifier<TryDefinition> {
+public class TryReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<TryDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     TryReifier(ProcessorDefinition<?> definition) {
         super((TryDefinition) definition);
     }

@@ -23,8 +23,9 @@ import org.apache.camel.model.WhenSkipSendToEndpointDefinition;
 import org.apache.camel.processor.FilterProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class WhenSkipSendToEndpointReifier extends ExpressionReifier<WhenSkipSendToEndpointDefinition> {
+public class WhenSkipSendToEndpointReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<WhenSkipSendToEndpointDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     WhenSkipSendToEndpointReifier(ProcessorDefinition<?> definition) {
         super((WhenSkipSendToEndpointDefinition) definition);
     }

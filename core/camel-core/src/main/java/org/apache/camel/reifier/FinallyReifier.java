@@ -23,10 +23,11 @@ import org.apache.camel.model.TryDefinition;
 import org.apache.camel.processor.FinallyProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class FinallyReifier extends ProcessorReifier<FinallyDefinition> {
+public class FinallyReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<FinallyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     FinallyReifier(ProcessorDefinition<?> definition) {
-        super(FinallyDefinition.class.cast(definition));
+        super((FinallyDefinition) definition);
     }
 
     @Override

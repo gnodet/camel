@@ -23,30 +23,26 @@ import org.apache.camel.model.ThrowExceptionDefinition;
 import org.apache.camel.processor.ThrowExceptionProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class ThrowExceptionReifier extends ProcessorReifier<ThrowExceptionDefinition> {
+public class ThrowExceptionReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ThrowExceptionDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ThrowExceptionReifier(ProcessorDefinition<?> definition) {
         super((ThrowExceptionDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) {
-        if (definition.getRef() != null && definition.getException() == null) {
-            definition.setException(routeContext.lookup(definition.getRef(), Exception.class));
-        }
+        Exception exception = resolve(routeContext, Exception.class, definition.getException());
+        Class<?> type = asClass(routeContext, definition.getExceptionType());
+        String message = asString(routeContext, definition.getMessage());
 
-        if (definition.getExceptionType() != null && definition.getExceptionClass() == null) {
-            try {
-                definition.setExceptionClass(routeContext.getCamelContext().getClassResolver().resolveMandatoryClass(definition.getExceptionType(), Exception.class));
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
+        if (exception == null && type == null) {
+            throw new IllegalArgumentException("exception or exceptionType must be configured on: " + this);
         }
-
-        if (definition.getException() == null && definition.getExceptionClass() == null) {
-            throw new IllegalArgumentException("exception or exceptionClass/exceptionType must be configured on: " + this);
+        if (type != null && !Exception.class.isAssignableFrom(type)) {
+            throw new IllegalArgumentException("exceptionType does not inherit " + Exception.class.getName() + " on: " + this);
         }
-        return new ThrowExceptionProcessor(definition.getException(), definition.getExceptionClass(), definition.getMessage());
+        return new ThrowExceptionProcessor(exception, (Class<? extends Exception>) type, message);
     }
 
 }

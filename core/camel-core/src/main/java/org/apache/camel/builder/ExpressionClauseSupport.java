@@ -38,11 +38,13 @@ import org.apache.camel.model.language.TokenizerExpression;
 import org.apache.camel.model.language.XMLTokenizerExpression;
 import org.apache.camel.model.language.XPathExpression;
 import org.apache.camel.model.language.XQueryExpression;
+import org.apache.camel.support.builder.ExpressionBuilder;
 import org.apache.camel.support.builder.Namespaces;
 
 /**
  * A support class for building expression clauses.
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ExpressionClauseSupport<T> {
 
     // Implementation detail: We must use the specific model.language.xxx classes to make the DSL use these specific types
@@ -60,7 +62,7 @@ public class ExpressionClauseSupport<T> {
     // -------------------------------------------------------------------------
 
     /**
-     * Specify an {@link org.apache.camel.Expression} instance
+     * Specify an {@link Expression} instance
      */
     public T expression(Expression expression) {
         setExpressionValue(expression);
@@ -86,7 +88,7 @@ public class ExpressionClauseSupport<T> {
      */
     public T constant(Object value) {
         if (value instanceof String) {
-            return expression(new ConstantExpression((String) value));
+            return expression(new ConstantExpression().expression((String) value));
         } else {
             return expression(ExpressionBuilder.constantExpression(value));
         }
@@ -118,7 +120,7 @@ public class ExpressionClauseSupport<T> {
      */
     public T body() {
         // reuse simple as this allows the model to represent this as a known JAXB type
-        return expression(new SimpleExpression("${body}"));
+        return expression(new SimpleExpression().expression("${body}"));
     }
 
     /**
@@ -146,7 +148,7 @@ public class ExpressionClauseSupport<T> {
      * An expression of an inbound message header of the given name
      */
     public T header(String name) {
-        return expression(new HeaderExpression(name));
+        return expression(new HeaderExpression().expression(name));
     }
 
     /**
@@ -181,7 +183,7 @@ public class ExpressionClauseSupport<T> {
      * An expression of an exchange property of the given name
      */
     public T exchangeProperty(String name) {
-        return expression(new ExchangePropertyExpression(name));
+        return expression(new ExchangePropertyExpression().expression(name));
     }
 
     /**
@@ -204,7 +206,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T method(String bean) {
-        return expression(new MethodCallExpression(bean));
+        return expression(new MethodCallExpression().bean("#bean:" + bean));
     }
 
     /**
@@ -217,7 +219,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T method(Object instance) {
-        return expression(new MethodCallExpression(instance));
+        return expression(new MethodCallExpression().bean(instance));
     }
 
     /**
@@ -230,7 +232,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T method(Class<?> beanType) {
-        return expression(new MethodCallExpression(beanType));
+        return expression(new MethodCallExpression().beanType(beanType));
     }
 
     /**
@@ -244,7 +246,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T method(String bean, String method) {
-        return expression(new MethodCallExpression(bean, method));
+        return expression(new MethodCallExpression().bean("#bean:" + bean).method(method));
     }
 
     /**
@@ -258,7 +260,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T method(Object instance, String method) {
-        return expression(new MethodCallExpression(instance, method));
+        return expression(new MethodCallExpression().bean(instance).method(method));
     }
 
     /**
@@ -272,7 +274,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T method(Class<?> beanType, String method) {
-        return expression(new MethodCallExpression(beanType, method));
+        return expression(new MethodCallExpression().beanType(beanType).method(method));
     }
 
     /**
@@ -283,7 +285,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T groovy(String text) {
-        return expression(new GroovyExpression(text));
+        return expression(new GroovyExpression().expression(text));
     }
 
     /**
@@ -306,7 +308,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpath(String text, boolean suppressExceptions) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setSuppressExceptions(suppressExceptions);
         return expression(expression);
     }
@@ -321,7 +323,8 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpath(String text, boolean suppressExceptions, boolean allowSimple) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression();
+        expression.setExpression(text);
         expression.setSuppressExceptions(suppressExceptions);
         expression.setAllowSimple(allowSimple);
         return expression(expression);
@@ -336,7 +339,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpath(String text, Class<?> resultType) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setResultType(resultType);
         setExpressionType(expression);
         return result;
@@ -352,7 +355,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpath(String text, boolean suppressExceptions, Class<?> resultType) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setSuppressExceptions(suppressExceptions);
         expression.setResultType(resultType);
         setExpressionType(expression);
@@ -370,7 +373,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpath(String text, boolean suppressExceptions, boolean allowSimple, Class<?> resultType) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setSuppressExceptions(suppressExceptions);
         expression.setAllowSimple(allowSimple);
         expression.setResultType(resultType);
@@ -390,7 +393,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpath(String text, boolean suppressExceptions, boolean allowSimple, Class<?> resultType, String headerName) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setSuppressExceptions(suppressExceptions);
         expression.setAllowSimple(allowSimple);
         expression.setResultType(resultType);
@@ -419,7 +422,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpathWriteAsString(String text, boolean suppressExceptions) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setWriteAsString(true);
         expression.setSuppressExceptions(suppressExceptions);
         return expression(expression);
@@ -435,7 +438,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpathWriteAsString(String text, boolean suppressExceptions, boolean allowSimple) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setWriteAsString(true);
         expression.setSuppressExceptions(suppressExceptions);
         expression.setAllowSimple(allowSimple);
@@ -453,7 +456,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T jsonpathWriteAsString(String text, boolean suppressExceptions, boolean allowSimple, String headerName) {
-        JsonPathExpression expression = new JsonPathExpression(text);
+        JsonPathExpression expression = new JsonPathExpression().expression(text);
         expression.setWriteAsString(true);
         expression.setSuppressExceptions(suppressExceptions);
         expression.setAllowSimple(allowSimple);
@@ -469,7 +472,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T ognl(String text) {
-        return expression(new OgnlExpression(text));
+        return expression(new OgnlExpression().expression(text));
     }
 
     /**
@@ -480,7 +483,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T mvel(String text) {
-        return expression(new MvelExpression(text));
+        return expression(new MvelExpression().expression(text));
     }
 
     /**
@@ -491,7 +494,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T ref(String ref) {
-        return expression(new RefExpression(ref));
+        return expression(new RefExpression().expression(ref));
     }
 
     /**
@@ -502,7 +505,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T spel(String text) {
-        return expression(new SpELExpression(text));
+        return expression(new SpELExpression().expression(text));
     }
 
     /**
@@ -513,7 +516,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T simple(String text) {
-        return expression(new SimpleExpression(text));
+        return expression(new SimpleExpression().expression(text));
     }
 
     /**
@@ -525,7 +528,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T simple(String text, Class<?> resultType) {
-        SimpleExpression expression = new SimpleExpression(text);
+        SimpleExpression expression = new SimpleExpression().expression(text);
         expression.setResultType(resultType);
         setExpressionType(expression);
         return result;
@@ -539,7 +542,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T hl7terser(String text) {
-        return expression(new Hl7TerserExpression(text));
+        return expression(new Hl7TerserExpression().expression(text));
     }
 
     /**
@@ -767,7 +770,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xtokenize(String path, char mode, Namespaces namespaces, int group) {
-        XMLTokenizerExpression expression = new XMLTokenizerExpression(path);
+        XMLTokenizerExpression expression = new XMLTokenizerExpression().expression(path);
         expression.setMode(Character.toString(mode));
         expression.setNamespaces(namespaces.getNamespaces());
 
@@ -786,7 +789,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text) {
-        return expression(new XPathExpression(text));
+        return expression(new XPathExpression().expression(text));
     }
     
     /**
@@ -798,7 +801,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text, String headerName) {
-        XPathExpression expression = new XPathExpression(text);
+        XPathExpression expression = new XPathExpression().expression(text);
         expression.setHeaderName(headerName);
         return expression(expression);
     }
@@ -812,7 +815,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text, Class<?> resultType) {
-        XPathExpression expression = new XPathExpression(text);
+        XPathExpression expression = new XPathExpression().expression(text);
         expression.setResultType(resultType);
         setExpressionType(expression);
         return result;
@@ -830,7 +833,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text, Class<?> resultType, String headerName) {
-        XPathExpression expression = new XPathExpression(text);
+        XPathExpression expression = new XPathExpression().expression(text);
         expression.setHeaderName(headerName);
         setExpressionType(expression);
         return result;
@@ -863,7 +866,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text, Class<?> resultType, Namespaces namespaces, String headerName) {
-        XPathExpression expression = new XPathExpression(text);
+        XPathExpression expression = new XPathExpression().expression(text);
         expression.setResultType(resultType);
         expression.setNamespaces(namespaces.getNamespaces());
         expression.setHeaderName(headerName);
@@ -883,7 +886,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text, Class<?> resultType, Map<String, String> namespaces) {
-        XPathExpression expression = new XPathExpression(text);
+        XPathExpression expression = new XPathExpression().expression(text);
         expression.setResultType(resultType);
         expression.setNamespaces(namespaces);
         setExpressionType(expression);
@@ -911,7 +914,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xpath(String text, Map<String, String> namespaces) {
-        XPathExpression expression = new XPathExpression(text);
+        XPathExpression expression = new XPathExpression().expression(text);
         expression.setNamespaces(namespaces);
         setExpressionType(expression);
         return result;
@@ -925,7 +928,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text) {
-        return expression(new XQueryExpression(text));
+        return expression(new XQueryExpression().expression(text));
     }
 
     /**
@@ -937,7 +940,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text, String headerName) {
-        XQueryExpression expression = new XQueryExpression(text);
+        XQueryExpression expression = new XQueryExpression().expression(text);
         expression.setHeaderName(headerName);
         return expression(expression);
     }
@@ -952,7 +955,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text, Class<?> resultType) {
-        XQueryExpression expression = new XQueryExpression(text);
+        XQueryExpression expression = new XQueryExpression().expression(text);
         expression.setResultType(resultType);
         setExpressionType(expression);
         return result;
@@ -970,7 +973,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text, Class<?> resultType, String headerName) {
-        XQueryExpression expression = new XQueryExpression(text);
+        XQueryExpression expression = new XQueryExpression().expression(text);
         expression.setHeaderName(headerName);
         setExpressionType(expression);
         return result;
@@ -1002,7 +1005,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text, Class<?> resultType, Namespaces namespaces, String headerName) {
-        XQueryExpression expression = new XQueryExpression(text);
+        XQueryExpression expression = new XQueryExpression().expression(text);
         expression.setResultType(resultType);
         expression.setNamespaces(namespaces.getNamespaces());
         expression.setHeaderName(headerName);
@@ -1021,7 +1024,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text, Class<?> resultType, Map<String, String> namespaces) {
-        XQueryExpression expression = new XQueryExpression(text);
+        XQueryExpression expression = new XQueryExpression().expression(text);
         expression.setResultType(resultType);
         expression.setNamespaces(namespaces);
         setExpressionType(expression);
@@ -1051,7 +1054,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T xquery(String text, Map<String, String> namespaces) {
-        XQueryExpression expression = new XQueryExpression(text);
+        XQueryExpression expression = new XQueryExpression().expression(text);
         expression.setNamespaces(namespaces);
         setExpressionType(expression);
         return result;
@@ -1065,7 +1068,7 @@ public class ExpressionClauseSupport<T> {
      * @return the builder to continue processing the DSL
      */
     public T language(String language, String expression) {
-        LanguageExpression exp = new LanguageExpression(language, expression);
+        LanguageExpression exp = new LanguageExpression().language(language).expression(expression);
         setExpressionType(exp);
         return result;
     }

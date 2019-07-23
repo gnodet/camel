@@ -24,10 +24,11 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.BeanProcessorFactory;
 import org.apache.camel.spi.RouteContext;
 
-public class BeanReifier extends ProcessorReifier<BeanDefinition> {
+public class BeanReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<BeanDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     BeanReifier(ProcessorDefinition<?> definition) {
-        super(BeanDefinition.class.cast(definition));
+        super((BeanDefinition) definition);
     }
 
     @Override
@@ -35,20 +36,20 @@ public class BeanReifier extends ProcessorReifier<BeanDefinition> {
         CamelContext camelContext = routeContext.getCamelContext();
 
         Object bean = definition.getBean();
-        String ref = definition.getRef();
-        String method = definition.getMethod();
-        String beanType = definition.getBeanType();
-        Class<?> beanClass = definition.getBeanClass();
+        String ref = null;
+        String method = asString(routeContext, definition.getMethod());
+        Class<?> beanClass = asClass(routeContext, definition.getBeanType());
+        if (bean instanceof String && ((String) bean).startsWith("#bean:")) {
+            ref = ((String) bean).substring("#bean:".length());
+            bean = null;
+        }
 
         BeanProcessorFactory fac = camelContext.adapt(ExtendedCamelContext.class).getBeanProcessorFactory();
         if (fac == null) {
             throw new IllegalStateException("Cannot find BeanProcessorFactory. Make sure camel-bean is on the classpath.");
         }
-        return fac.createBeanProcessor(camelContext, bean, beanType, beanClass, ref, method, isCacheBean());
-    }
-
-    private boolean isCacheBean() {
-        return definition.getCache() == null || definition.getCache();
+        return fac.createBeanProcessor(camelContext, bean, null, beanClass, ref, method,
+                asBoolean(routeContext, definition.getCache()));
     }
 
 }

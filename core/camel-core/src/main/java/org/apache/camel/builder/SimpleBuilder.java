@@ -20,11 +20,11 @@ import org.apache.camel.CamelExecutionException;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
-import org.apache.camel.language.simple.Simple;
 import org.apache.camel.spi.ExpressionResultTypeAware;
 import org.apache.camel.spi.Language;
 import org.apache.camel.support.PredicateToExpressionAdapter;
 import org.apache.camel.support.ScriptHelper;
+import org.apache.camel.support.builder.ExpressionBuilder;
 
 /**
  * Creates an {@link Simple} language builder.

@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.dataformat.ASN1DataFormat;
@@ -35,6 +34,7 @@ import org.apache.camel.model.dataformat.CBORDataFormat;
 import org.apache.camel.model.dataformat.CryptoDataFormat;
 import org.apache.camel.model.dataformat.CsvDataFormat;
 import org.apache.camel.model.dataformat.CustomDataFormat;
+import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.dataformat.FhirDataformat;
 import org.apache.camel.model.dataformat.FhirJsonDataFormat;
 import org.apache.camel.model.dataformat.FhirXmlDataFormat;
@@ -66,13 +66,14 @@ import org.apache.camel.model.dataformat.XmlRpcDataFormat;
 import org.apache.camel.model.dataformat.YAMLDataFormat;
 import org.apache.camel.model.dataformat.ZipDeflaterDataFormat;
 import org.apache.camel.model.dataformat.ZipFileDataFormat;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.util.ObjectHelper;
 
 import static org.apache.camel.support.EndpointHelper.isReferenceParameter;
 
-public abstract class DataFormatReifier<T extends DataFormatDefinition> {
+public abstract class DataFormatReifier<T extends DataFormatDefinition> extends AbstractReifier<T> {
 
     private static final Map<Class<? extends DataFormatDefinition>, Function<DataFormatDefinition, DataFormatReifier<? extends DataFormatDefinition>>> DATAFORMATS;
     static {
@@ -122,10 +123,8 @@ public abstract class DataFormatReifier<T extends DataFormatDefinition> {
         DATAFORMATS = map;
     }
 
-    protected final T definition;
-
     public DataFormatReifier(T definition) {
-        this.definition = definition;
+        super(definition);
     }
 
     public static void registerReifier(Class<? extends DataFormatDefinition> dataFormatClass, Function<DataFormatDefinition, DataFormatReifier<? extends DataFormatDefinition>> creator) {

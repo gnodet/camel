@@ -23,9 +23,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.dataformat.YAMLDataFormat;
-import org.apache.camel.model.dataformat.YAMLLibrary;
+import org.apache.camel.model.dataformat.YAMLDataFormat.YAMLLibrary;
 import org.apache.camel.model.dataformat.YAMLTypeFilterDefinition;
-import org.apache.camel.model.dataformat.YAMLTypeFilterType;
+import org.apache.camel.model.dataformat.YAMLTypeFilterDefinition.YAMLTypeFilterType;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.util.ObjectHelper;
 

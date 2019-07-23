@@ -1,0 +1,49 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "paho",
+    "syntax": "paho:topic",
+    "title": "Paho",
+    "description": "Component for communicating with MQTT M2M message brokers using Eclipse Paho MQTT Client.",
+    "label": "messaging,iot",
+    "deprecated": false,
+    "deprecationNote": "",
+    "async": false,
+    "consumerOnly": false,
+    "producerOnly": false,
+    "lenientProperties": false,
+    "javaType": "org.apache.camel.component.paho.PahoComponent",
+    "firstVersion": "2.16.0",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-paho",
+    "version": "3.0.0-SNAPSHOT"
+  },
+  "componentProperties": {
+    "brokerUrl": { "kind": "property", "displayName": "Broker Url", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "The URL of the MQTT broker." },
+    "clientId": { "kind": "property", "displayName": "Client Id", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "MQTT client identifier." },
+    "connectOptions": { "kind": "property", "displayName": "Connect Options", "group": "advanced", "label": "advanced", "required": false, "type": "object", "javaType": "org.eclipse.paho.client.mqttv3.MqttConnectOptions", "deprecated": false, "secret": false, "description": "Client connection options" },
+    "resolvePropertyPlaceholders": { "kind": "property", "displayName": "Resolve Property Placeholders", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": true, "description": "Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders." },
+    "basicPropertyBinding": { "kind": "property", "displayName": "Basic Property Binding", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the component should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities" }
+  },
+  "properties": {
+    "topic": { "kind": "path", "displayName": "Topic", "group": "common", "required": true, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Name of the topic" },
+    "autoReconnect": { "kind": "parameter", "displayName": "Auto Reconnect", "group": "common", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": true, "description": "Client will automatically attempt to reconnect to the server if the connection is lost" },
+    "brokerUrl": { "kind": "parameter", "displayName": "Broker Url", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "defaultValue": "tcp://localhost:1883", "description": "The URL of the MQTT broker." },
+    "clientId": { "kind": "parameter", "displayName": "Client Id", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "MQTT client identifier." },
+    "connectOptions": { "kind": "parameter", "displayName": "Connect Options", "group": "common", "required": false, "type": "object", "javaType": "org.eclipse.paho.client.mqttv3.MqttConnectOptions", "deprecated": false, "secret": false, "description": "Client connection options" },
+    "filePersistenceDirectory": { "kind": "parameter", "displayName": "File Persistence Directory", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Base directory used by the file persistence provider." },
+    "password": { "kind": "parameter", "displayName": "Password", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": true, "description": "Password to be used for authentication against the MQTT broker" },
+    "persistence": { "kind": "parameter", "displayName": "Persistence", "group": "common", "required": false, "type": "object", "javaType": "org.apache.camel.component.paho.PahoPersistence", "enum": [ "FILE", "MEMORY" ], "deprecated": false, "secret": false, "defaultValue": "MEMORY", "description": "Client persistence to be used - memory or file." },
+    "qos": { "kind": "parameter", "displayName": "Qos", "group": "common", "required": false, "type": "integer", "javaType": "int", "deprecated": false, "secret": false, "defaultValue": 2, "description": "Client quality of service level (0-2)." },
+    "resolveMqttConnectOptions": { "kind": "parameter", "displayName": "Resolve Mqtt Connect Options", "group": "common", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": true, "description": "Define if you don't want to resolve the MQTT Connect Options from registry" },
+    "retained": { "kind": "parameter", "displayName": "Retained", "group": "common", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Retain option" },
+    "userName": { "kind": "parameter", "displayName": "User Name", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": true, "description": "Username to be used for authentication against the MQTT broker" },
+    "bridgeErrorHandler": { "kind": "parameter", "displayName": "Bridge Error Handler", "group": "consumer", "label": "consumer", "required": false, "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": false, "secret": false, "defaultValue": false, "description": "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored." },
+    "exceptionHandler": { "kind": "parameter", "displayName": "Exception Handler", "group": "consumer (advanced)", "label": "consumer,advanced", "required": false, "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": false, "secret": false, "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this option is not in use. By default the consumer will deal with exceptions, that will be logged at WARN or ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "displayName": "Exchange Pattern", "group": "consumer (advanced)", "label": "consumer,advanced", "required": false, "type": "object", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "InOut", "InOptionalOut" ], "deprecated": false, "secret": false, "description": "Sets the exchange pattern when the consumer creates an exchange." },
+    "lazyStartProducer": { "kind": "parameter", "displayName": "Lazy Start Producer", "group": "producer", "label": "producer", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing." },
+    "basicPropertyBinding": { "kind": "parameter", "displayName": "Basic Property Binding", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities" },
+    "synchronous": { "kind": "parameter", "displayName": "Synchronous", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

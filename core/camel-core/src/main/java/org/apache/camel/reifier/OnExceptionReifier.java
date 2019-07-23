@@ -16,7 +16,6 @@
  */
 package org.apache.camel.reifier;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.Predicate;
@@ -26,38 +25,22 @@ import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.CatchProcessor;
 import org.apache.camel.processor.FatalFallbackErrorHandler;
-import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.RouteContext;
-import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
-public class OnExceptionReifier extends ProcessorReifier<OnExceptionDefinition> {
+public class OnExceptionReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<OnExceptionDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     OnExceptionReifier(ProcessorDefinition<?> definition) {
         super((OnExceptionDefinition) definition);
     }
 
     @Override
     public void addRoutes(RouteContext routeContext) throws Exception {
-        // assign whether this was a route scoped onException or not
-        // we need to know this later when setting the parent, as only route scoped should have parent
-        // Note: this logic can possible be removed when the Camel routing engine decides at runtime
-        // to apply onException in a more dynamic fashion than current code base
-        // and therefore is in a better position to decide among context/route scoped OnException at runtime
-        if (definition.getRouteScoped() == null) {
-            definition.setRouteScoped(definition.getParent() != null);
-        }
-
-        setHandledFromExpressionType(routeContext);
-        setContinuedFromExpressionType(routeContext);
-        setRetryWhileFromExpressionType(routeContext);
-        setOnRedeliveryFromRedeliveryRef(routeContext);
-        setOnExceptionOccurredFromOnExceptionOccurredRef(routeContext);
-
         // must validate configuration before creating processor
-        definition.validateConfiguration();
+        validateConfiguration(routeContext);
 
-        if (definition.getUseOriginalMessagePolicy() != null && definition.getUseOriginalMessagePolicy()) {
+        if (asBoolean(routeContext, definition.getUseOriginalMessage(), false)) {
             // ensure allow original is turned on
             routeContext.setAllowUseOriginalMessage(true);
         }
@@ -79,79 +62,59 @@ public class OnExceptionReifier extends ProcessorReifier<OnExceptionDefinition> 
     @Override
     public CatchProcessor createProcessor(RouteContext routeContext) throws Exception {
         // load exception classes
-        List<Class<? extends Throwable>> classes = null;
-        if (definition.getExceptions() != null && !definition.getExceptions().isEmpty()) {
-            classes = createExceptionClasses(routeContext.getCamelContext().getClassResolver());
-        }
+        List<Class<? extends Throwable>> exceptions = resolveExceptions(routeContext, definition.getExceptions());
 
-        if (definition.getUseOriginalMessagePolicy() != null && definition.getUseOriginalMessagePolicy()) {
+        // must validate configuration before creating processor
+        validateConfiguration(routeContext);
+
+        if (asBoolean(routeContext, definition.getUseOriginalMessage(), false)) {
             // ensure allow original is turned on
             routeContext.setAllowUseOriginalMessage(true);
         }
-
-        // must validate configuration before creating processor
-        definition.validateConfiguration();
 
         Processor childProcessor = this.createChildProcessor(routeContext, false);
 
         Predicate when = null;
         if (definition.getOnWhen() != null) {
-            when = definition.getOnWhen().getExpression().createPredicate(routeContext);
+            when = asPredicate(routeContext, definition.getOnWhen());
         }
 
         Predicate handle = null;
         if (definition.getHandled() != null) {
-            handle = definition.getHandled().createPredicate(routeContext);
+            handle = asPredicate(routeContext, definition.getHandled());
         }
 
-        return new CatchProcessor(classes, childProcessor, when, handle);
+        return new CatchProcessor(exceptions, childProcessor, when, handle);
     }
 
-    protected List<Class<? extends Throwable>> createExceptionClasses(ClassResolver resolver) throws ClassNotFoundException {
-        List<String> list = definition.getExceptions();
-        List<Class<? extends Throwable>> answer = new ArrayList<>(list.size());
-        for (String name : list) {
-            Class<? extends Throwable> type = resolver.resolveMandatoryClass(name, Throwable.class);
-            answer.add(type);
+    protected void validateConfiguration(RouteContext routeContext) {
+        if (definition.isInheritErrorHandler() != null && definition.isInheritErrorHandler()) {
+            throw new IllegalArgumentException(this + " cannot have the inheritErrorHandler option set to true");
         }
-        return answer;
-    }
 
-    private void setHandledFromExpressionType(RouteContext routeContext) {
-        if (definition.getHandled() != null && definition.getHandledPolicy() == null && routeContext != null) {
-            definition.handled(definition.getHandled().createPredicate(routeContext));
+        List<Class<? extends Throwable>> exceptions = resolveExceptions(routeContext, definition.getExceptions());
+        if (exceptions == null || exceptions.isEmpty()) {
+            throw new IllegalArgumentException("At least one exception must be configured on " + this);
         }
-    }
 
-    private void setContinuedFromExpressionType(RouteContext routeContext) {
-        if (definition.getContinued() != null && definition.getContinuedPolicy() == null && routeContext != null) {
-            definition.continued(definition.getContinued().createPredicate(routeContext));
+        // only one of handled or continued is allowed
+        if (definition.getHandled() != null && definition.getContinued() != null) {
+            throw new IllegalArgumentException("Only one of handled or continued is allowed to be configured on: " + this);
         }
-    }
 
-    private void setRetryWhileFromExpressionType(RouteContext routeContext) {
-        if (definition.getRetryWhile() != null && definition.getRetryWhilePolicy() == null && routeContext != null) {
-            definition.retryWhile(definition.getRetryWhile().createPredicate(routeContext));
-        }
-    }
-
-    private void setOnRedeliveryFromRedeliveryRef(RouteContext routeContext) {
-        // lookup onRedelivery if ref is provided
-        if (ObjectHelper.isNotEmpty(definition.getOnRedeliveryRef())) {
-            // if ref is provided then use mandatory lookup to fail if not found
-            Processor onRedelivery = CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), definition.getOnRedeliveryRef(), Processor.class);
-            definition.setOnRedelivery(onRedelivery);
+        // validate that at least some option is set as you cannot just have onException(Exception.class);
+        if (definition.getOutputs() == null || definition.getOutputs().isEmpty()) {
+            // no outputs so there should be some sort of configuration
+            ObjectHelper.firstNotNull(
+                    definition.getHandled(),
+                    definition.getContinued(),
+                    definition.getRetryWhile(),
+                    definition.getRedeliveryPolicy(),
+                    definition.getUseOriginalMessage(),
+                    definition.getOnRedelivery(),
+                    definition.getOnExceptionOccurred())
+                    .orElseThrow(() -> new IllegalArgumentException(this + " is not configured."));
         }
     }
-
-    private void setOnExceptionOccurredFromOnExceptionOccurredRef(RouteContext routeContext) {
-        // lookup onRedelivery if ref is provided
-        if (ObjectHelper.isNotEmpty(definition.getOnExceptionOccurredRef())) {
-            // if ref is provided then use mandatory lookup to fail if not found
-            Processor onExceptionOccurred = CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), definition.getOnExceptionOccurredRef(), Processor.class);
-            definition.setOnExceptionOccurred(onExceptionOccurred);
-        }
-    }
-
 
 }

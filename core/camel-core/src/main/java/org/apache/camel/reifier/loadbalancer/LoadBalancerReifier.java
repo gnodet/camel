@@ -28,11 +28,12 @@ import org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.StringHelper;
 
-public class LoadBalancerReifier<T extends LoadBalancerDefinition> {
+public class LoadBalancerReifier<T extends LoadBalancerDefinition> extends AbstractReifier<T> {
 
     private static final Map<Class<?>, Function<LoadBalancerDefinition, LoadBalancerReifier<? extends LoadBalancerDefinition>>> LOAD_BALANCERS;
     static {
@@ -48,10 +49,8 @@ public class LoadBalancerReifier<T extends LoadBalancerDefinition> {
         LOAD_BALANCERS = map;
     }
     
-    protected final T definition;
-    
     LoadBalancerReifier(T definition) {
-        this.definition = definition;
+        super(definition);
     }
 
     public static LoadBalancerReifier<? extends LoadBalancerDefinition> reifier(LoadBalancerDefinition definition) {

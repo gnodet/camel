@@ -21,10 +21,11 @@ import org.apache.camel.model.PipelineDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class PipelineReifier extends ProcessorReifier<PipelineDefinition> {
+public class PipelineReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<PipelineDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     PipelineReifier(ProcessorDefinition<?> definition) {
-        super(PipelineDefinition.class.cast(definition));
+        super((PipelineDefinition) definition);
     }
 
     @Override

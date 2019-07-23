@@ -36,26 +36,23 @@ import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogReifier extends ProcessorReifier<LogDefinition> {
+public class LogReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<LogDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     LogReifier(ProcessorDefinition<?> definition) {
         super((LogDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        StringHelper.notEmpty(definition.getMessage(), "message", this);
+        String message = asString(routeContext, definition.getMessage());
+        StringHelper.notEmpty(message, "message", this);
 
         // use simple language for the message string to give it more power
-        Expression exp = routeContext.getCamelContext().resolveLanguage("simple").createExpression(definition.getMessage());
+        Expression exp = routeContext.getCamelContext().resolveLanguage("simple").createExpression(message);
 
-        // get logger explicitely set in the definition
-        Logger logger = definition.getLogger();
-
-        // get logger which may be set in XML definition
-        if (logger == null && ObjectHelper.isNotEmpty(definition.getLoggerRef())) {
-            logger = CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), definition.getLoggerRef(), Logger.class);
-        }
+        // get logger set in the definition
+        Logger logger = resolve(routeContext, Logger.class, definition.getLogger());
 
         if (logger == null) {
             // first - try to lookup single instance in the registry, just like LogComponent
@@ -70,7 +67,7 @@ public class LogReifier extends ProcessorReifier<LogDefinition> {
         }
 
         if (logger == null) {
-            String name = definition.getLogName();
+            String name = asString(routeContext, definition.getLogName());
             if (name == null) {
                 name = routeContext.getCamelContext().getGlobalOption(Exchange.LOG_EIP_NAME);
                 if (name != null) {
@@ -85,8 +82,8 @@ public class LogReifier extends ProcessorReifier<LogDefinition> {
         }
 
         // should be INFO by default
-        LoggingLevel level = definition.getLoggingLevel() != null ? definition.getLoggingLevel() : LoggingLevel.INFO;
-        CamelLogger camelLogger = new CamelLogger(logger, level, definition.getMarker());
+        LoggingLevel level = definition.getLoggingLevel() != null ? resolve(routeContext, LoggingLevel.class, definition.getLoggingLevel()) : LoggingLevel.INFO;
+        CamelLogger camelLogger = new CamelLogger(logger, level, asString(routeContext, definition.getMarker()));
 
         return new LogProcessor(exp, camelLogger, getMaskingFormatter(routeContext), routeContext.getCamelContext().adapt(ExtendedCamelContext.class).getLogListeners());
     }

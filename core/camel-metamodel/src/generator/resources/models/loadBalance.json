@@ -1,0 +1,21 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "loadBalance",
+    "title": "Load Balance",
+    "description": "Balances message processing among a number of nodes",
+    "javaType": "org.apache.camel.model.LoadBalanceDefinition",
+    "label": "eip,routing",
+    "deprecated": false,
+    "input": true,
+    "output": true
+  },
+  "properties": {
+    "loadBalancerType": { "kind": "element", "displayName": "Load Balancer Type", "required": true, "type": "object", "javaType": "org.apache.camel.model.LoadBalancerDefinition", "oneOf": [ "customLoadBalancer", "failover", "random", "roundRobin", "sticky", "topic", "weighted" ], "deprecated": false, "secret": false, "description": "The load balancer to be used" },
+    "outputs": { "kind": "element", "displayName": "Outputs", "required": true, "type": "array", "javaType": "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", "oneOf": [ "aggregate", "bean", "choice", "claimCheck", "convertBodyTo", "doCatch", "doFinally", "doTry", "filter", "hystrix", "idempotentConsumer", "inOnly", "inOut", "intercept", "interceptFrom", "interceptSendToEndpoint", "loadBalance", "log", "loop", "marshal", "multicast", "onCompletion", "onException", "onFallback", "otherwise", "pipeline", "policy", "process", "removeHeader", "removeHeaders", "removeProperties", "removeProperty", "resequence", "rollback", "saga", "sample", "setExchangePattern", "split", "step", "stop", "threads", "throwException", "to", "toD", "transacted", "unmarshal", "when", "whenSkipSendToEndpoint", "wireTap" ], "deprecated": false, "secret": false },
+    "inheritErrorHandler": { "kind": "attribute", "displayName": "Inherit Error Handler", "required": false, "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Sets whether or not to inherit the configured error handler. The default value is true. You can use this to disable using the inherited error handler for a given DSL such as a load balancer where you want to use a custom error handler strategy." },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the id of this node" },
+    "description": { "kind": "element", "displayName": "Description", "required": false, "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": false, "secret": false, "description": "Sets the description of this node" }
+  }
+}
+

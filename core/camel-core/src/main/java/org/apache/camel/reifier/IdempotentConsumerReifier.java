@@ -25,10 +25,11 @@ import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class IdempotentConsumerReifier extends ExpressionReifier<IdempotentConsumerDefinition> {
+public class IdempotentConsumerReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<IdempotentConsumerDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     IdempotentConsumerReifier(ProcessorDefinition<?> definition) {
-        super(IdempotentConsumerDefinition.class.cast(definition));
+        super((IdempotentConsumerDefinition) definition);
     }
 
     @Override
@@ -41,12 +42,12 @@ public class IdempotentConsumerReifier extends ExpressionReifier<IdempotentConsu
         Expression expression = definition.getExpression().createExpression(routeContext);
 
         // these boolean should be true by default
-        boolean eager = definition.getEager() == null || definition.getEager();
-        boolean duplicate = definition.getSkipDuplicate() == null || definition.getSkipDuplicate();
-        boolean remove = definition.getRemoveOnFailure() == null || definition.getRemoveOnFailure();
+        boolean eager = definition.getEager() == null || asBoolean(routeContext, definition.getEager());
+        boolean duplicate = definition.getSkipDuplicate() == null || asBoolean(routeContext, definition.getSkipDuplicate());
+        boolean remove = definition.getRemoveOnFailure() == null || asBoolean(routeContext, definition.getRemoveOnFailure());
 
         // these boolean should be false by default
-        boolean completionEager = definition.getCompletionEager() != null && definition.getCompletionEager();
+        boolean completionEager = definition.getCompletionEager() != null && asBoolean(routeContext, definition.getCompletionEager());
 
         return new IdempotentConsumer(expression, idempotentRepository, eager, completionEager, duplicate, remove, childProcessor);
     }
@@ -58,9 +59,6 @@ public class IdempotentConsumerReifier extends ExpressionReifier<IdempotentConsu
      * @return the repository
      */
     protected <T> IdempotentRepository resolveMessageIdRepository(RouteContext routeContext) {
-        if (definition.getMessageIdRepositoryRef() != null) {
-            definition.setMessageIdRepository(routeContext.mandatoryLookup(definition.getMessageIdRepositoryRef(), IdempotentRepository.class));
-        }
-        return definition.getMessageIdRepository();
+        return resolve(routeContext, IdempotentRepository.class, definition.getMessageIdRepository());
     }
 }

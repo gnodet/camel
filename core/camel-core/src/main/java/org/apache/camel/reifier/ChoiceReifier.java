@@ -32,10 +32,11 @@ import org.apache.camel.processor.ChoiceProcessor;
 import org.apache.camel.processor.FilterProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class ChoiceReifier extends ProcessorReifier<ChoiceDefinition> {
+public class ChoiceReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ChoiceDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ChoiceReifier(ProcessorDefinition<?> definition) {
-        super(ChoiceDefinition.class.cast(definition));
+        super((ChoiceDefinition) definition);
     }
 
     @Override

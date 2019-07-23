@@ -21,8 +21,9 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.cloud.ServiceCallDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class ServiceCallReifier extends ProcessorReifier<ServiceCallDefinition> {
+public class ServiceCallReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ServiceCallDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ServiceCallReifier(ProcessorDefinition<?> definition) {
         super(ServiceCallDefinition.class.cast(definition));
     }

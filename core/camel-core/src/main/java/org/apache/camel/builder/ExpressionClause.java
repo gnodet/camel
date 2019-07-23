@@ -34,6 +34,7 @@ import org.apache.camel.support.builder.Namespaces;
  * Represents an expression clause within the DSL which when the expression is
  * complete the clause continues to another part of the DSL
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ExpressionClause<T> implements Expression, Predicate {
     private ExpressionClauseSupport<T> delegate;
 

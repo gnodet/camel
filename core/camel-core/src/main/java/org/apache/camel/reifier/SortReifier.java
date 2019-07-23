@@ -29,37 +29,33 @@ import org.apache.camel.support.ObjectHelper;
 import static org.apache.camel.builder.ExpressionBuilder.bodyExpression;
 import static org.apache.camel.util.ObjectHelper.isNotEmpty;
 
-public class SortReifier<T, U extends SortDefinition<T>> extends ExpressionReifier<U> {
+public class SortReifier<T, Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SortDefinition<T, Type>> {
 
+    @SuppressWarnings("unchecked")
     SortReifier(ProcessorDefinition<?> definition) {
-        super((U) definition);
+        super((SortDefinition) definition);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        // lookup in registry
-        if (isNotEmpty(definition.getComparatorRef())) {
-            definition.setComparator(routeContext.lookup(definition.getComparatorRef(), Comparator.class));
-        }
-
-        // if no comparator then default on to string representation
-        if (definition.getComparator() == null) {
-            definition.setComparator(new Comparator<T>() {
-                public int compare(T o1, T o2) {
-                    return ObjectHelper.compare(o1, o2);
-                }
-            });
+        Comparator<T> comparator;
+        if (definition.getComparator() != null) {
+            // lookup in registry
+            comparator = resolve(routeContext, Comparator.class, definition.getComparator());
+        } else {
+            // if no comparator then default on to string representation
+            comparator = ObjectHelper::compare;
         }
 
         // if no expression provided then default to body expression
         Expression exp;
-        if (definition.getExpression() == null) {
-            exp = bodyExpression();
-        } else {
+        if (definition.getExpression() != null) {
             exp = definition.getExpression().createExpression(routeContext);
+        } else {
+            exp = bodyExpression();
         }
-        return new SortProcessor<T>(exp, definition.getComparator());
+        return new SortProcessor<>(exp, comparator);
     }
 
 }

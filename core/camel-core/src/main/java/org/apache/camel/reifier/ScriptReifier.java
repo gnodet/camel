@@ -23,8 +23,9 @@ import org.apache.camel.model.ScriptDefinition;
 import org.apache.camel.processor.ScriptProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class ScriptReifier extends ExpressionReifier<ScriptDefinition> {
+public class ScriptReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<ScriptDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ScriptReifier(ProcessorDefinition<?> definition) {
         super((ScriptDefinition) definition);
     }

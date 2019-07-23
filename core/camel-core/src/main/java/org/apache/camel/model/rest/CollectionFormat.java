@@ -16,14 +16,9 @@
  */
 package org.apache.camel.model.rest;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 import org.apache.camel.spi.Metadata;
 
 @Metadata(label = "rest")
-@XmlType
-@XmlEnum
 public enum CollectionFormat {
 
     csv, ssv, tsv, pipes, multi

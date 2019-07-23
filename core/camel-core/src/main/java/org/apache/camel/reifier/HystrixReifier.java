@@ -21,10 +21,11 @@ import org.apache.camel.model.HystrixDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class HystrixReifier extends ProcessorReifier<HystrixDefinition> {
+public class HystrixReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<HystrixDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     HystrixReifier(ProcessorDefinition<?> definition) {
-        super(HystrixDefinition.class.cast(definition));
+        super((HystrixDefinition) definition);
     }
 
     @Override

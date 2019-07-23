@@ -24,10 +24,12 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.ExpressionBuilder;
 import org.apache.camel.model.AggregateDefinition;
 import org.apache.camel.model.OptimisticLockRetryPolicyDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.CamelInternalProcessor;
 import org.apache.camel.spi.AggregateController;
 import org.apache.camel.processor.aggregate.AggregateProcessor;
@@ -37,10 +39,11 @@ import org.apache.camel.spi.AggregationRepository;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.concurrent.SynchronousExecutorService;
 
-public class AggregateReifier extends ProcessorReifier<AggregateDefinition> {
+public class AggregateReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<AggregateDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     AggregateReifier(ProcessorDefinition<?> definition) {
-        super(AggregateDefinition.class.cast(definition));
+        super((AggregateDefinition) definition);
     }
 
     @Override
@@ -55,12 +58,12 @@ public class AggregateReifier extends ProcessorReifier<AggregateDefinition> {
         CamelInternalProcessor internal = new CamelInternalProcessor(childProcessor);
         internal.addAdvice(new CamelInternalProcessor.UnitOfWorkProcessorAdvice(routeContext));
 
-        Expression correlation = definition.getExpression().createExpression(routeContext);
+        Expression correlation = asExpression(routeContext, definition.getCorrelationExpression());
         AggregationStrategy strategy = createAggregationStrategy(routeContext);
 
-        boolean parallel = definition.getParallelProcessing() != null && definition.getParallelProcessing();
-        boolean shutdownThreadPool = ProcessorDefinitionHelper.willCreateNewThreadPool(routeContext, definition, parallel);
-        ExecutorService threadPool = ProcessorDefinitionHelper.getConfiguredExecutorService(routeContext, "Aggregator", definition, parallel);
+        boolean parallel = asBoolean(routeContext, definition.getParallelProcessing(), false);
+        boolean shutdownThreadPool = willCreateNewThreadPool(routeContext, definition.getExecutorService(), parallel);
+        ExecutorService threadPool = getConfiguredExecutorService(routeContext, "Aggregator", definition.getExecutorService(), parallel);
         if (threadPool == null && !parallel) {
             // executor service is mandatory for the Aggregator
             // we do not run in parallel mode, but use a synchronous executor, so we run in current thread
@@ -71,160 +74,149 @@ public class AggregateReifier extends ProcessorReifier<AggregateDefinition> {
         AggregateProcessor answer = new AggregateProcessor(routeContext.getCamelContext(), internal,
                 correlation, strategy, threadPool, shutdownThreadPool);
 
-        AggregationRepository repository = createAggregationRepository(routeContext);
-        if (repository != null) {
+        if (definition.getAggregationRepository() != null) {
+            AggregationRepository repository = resolve(routeContext, AggregationRepository.class, definition.getAggregationRepository());
             answer.setAggregationRepository(repository);
         }
 
-        if (definition.getAggregateController() == null && definition.getAggregateControllerRef() != null) {
-            definition.setAggregateController(routeContext.mandatoryLookup(definition.getAggregateControllerRef(), AggregateController.class));
-        }
-
         // this EIP supports using a shared timeout checker thread pool or fallback to create a new thread pool
-        boolean shutdownTimeoutThreadPool = false;
-        ScheduledExecutorService timeoutThreadPool = definition.getTimeoutCheckerExecutorService();
-        if (timeoutThreadPool == null && definition.getTimeoutCheckerExecutorServiceRef() != null) {
+        if (definition.getTimeoutCheckerExecutorService() instanceof ScheduledExecutorService) {
+            answer.setTimeoutCheckerExecutorService((ScheduledExecutorService) definition.getTimeoutCheckerExecutorService());
+        } else if (definition.getTimeoutCheckerExecutorService() instanceof String) {
+            String ref = routeContext.getCamelContext().resolvePropertyPlaceholders((String) definition.getTimeoutCheckerExecutorService());
             // lookup existing thread pool
-            timeoutThreadPool = routeContext.lookup(definition.getTimeoutCheckerExecutorServiceRef(), ScheduledExecutorService.class);
+            ScheduledExecutorService timeoutThreadPool = routeContext.lookup(ref, ScheduledExecutorService.class);
             if (timeoutThreadPool == null) {
                 // then create a thread pool assuming the ref is a thread pool profile id
                 timeoutThreadPool = routeContext.getCamelContext().getExecutorServiceManager().newScheduledThreadPool(this,
-                        AggregateProcessor.AGGREGATE_TIMEOUT_CHECKER, definition.getTimeoutCheckerExecutorServiceRef());
+                        AggregateProcessor.AGGREGATE_TIMEOUT_CHECKER, ref);
                 if (timeoutThreadPool == null) {
-                    throw new IllegalArgumentException("ExecutorServiceRef " + definition.getTimeoutCheckerExecutorServiceRef()
+                    throw new IllegalArgumentException("ExecutorServiceRef " + ref
                             + " not found in registry (as an ScheduledExecutorService instance) or as a thread pool profile.");
                 }
-                shutdownTimeoutThreadPool = true;
+                answer.setShutdownTimeoutCheckerExecutorService(true);
             }
+            answer.setTimeoutCheckerExecutorService(timeoutThreadPool);
         }
-        answer.setTimeoutCheckerExecutorService(timeoutThreadPool);
-        answer.setShutdownTimeoutCheckerExecutorService(shutdownTimeoutThreadPool);
 
         // set other options
         answer.setParallelProcessing(parallel);
         if (definition.getOptimisticLocking() != null) {
-            answer.setOptimisticLocking(definition.getOptimisticLocking());
+            answer.setOptimisticLocking(asBoolean(routeContext, definition.getOptimisticLocking()));
         }
         if (definition.getCompletionPredicate() != null) {
-            Predicate predicate = definition.getCompletionPredicate().createPredicate(routeContext);
+            Predicate predicate = asPredicate(routeContext, definition.getCompletionPredicate());
             answer.setCompletionPredicate(predicate);
         } else if (strategy instanceof Predicate) {
             // if aggregation strategy implements predicate and was not configured then use as fallback
             log.debug("Using AggregationStrategy as completion predicate: {}", strategy);
             answer.setCompletionPredicate((Predicate) strategy);
         }
-        if (definition.getCompletionTimeoutExpression() != null) {
-            Expression expression = definition.getCompletionTimeoutExpression().createExpression(routeContext);
-            answer.setCompletionTimeoutExpression(expression);
-        }
-        if (definition.getCompletionTimeout() != null) {
-            answer.setCompletionTimeout(definition.getCompletionTimeout());
+        Object completionTimeout = definition.getCompletionTimeout();
+        if (completionTimeout != null) {
+            if (completionTimeout instanceof Long) {
+                answer.setCompletionTimeout((Long) completionTimeout);
+            } else if (completionTimeout instanceof ExpressionDefinition) {
+                answer.setCompletionTimeoutExpression(((ExpressionDefinition) completionTimeout).createExpression(routeContext));
+            } else if (completionTimeout instanceof Expression) {
+                answer.setCompletionTimeoutExpression((Expression) completionTimeout);
+            } else if (completionTimeout instanceof String) {
+                String val = routeContext.getCamelContext().resolvePropertyPlaceholders((String) completionTimeout);
+                try {
+                    answer.setCompletionTimeout(Long.parseLong(val));
+                } catch (NumberFormatException e) {
+                    answer.setCompletionTimeoutExpression(ExpressionBuilder.simpleExpression(val));
+                }
+            } else {
+                throw new IllegalArgumentException("Cannot convert completionTimeout '" + completionTimeout + "' to an Expression");
+            }
         }
         if (definition.getCompletionInterval() != null) {
-            answer.setCompletionInterval(definition.getCompletionInterval());
+            answer.setCompletionInterval(asLong(routeContext, definition.getCompletionInterval()));
         }
-        if (definition.getCompletionSizeExpression() != null) {
-            Expression expression = definition.getCompletionSizeExpression().createExpression(routeContext);
-            answer.setCompletionSizeExpression(expression);
-        }
-        if (definition.getCompletionSize() != null) {
-            answer.setCompletionSize(definition.getCompletionSize());
+        Object completionSize = definition.getCompletionSize();
+        if (completionSize != null) {
+            if (completionSize instanceof Integer) {
+                answer.setCompletionSize((Integer) completionSize);
+            } else if (completionSize instanceof ExpressionDefinition) {
+                answer.setCompletionSizeExpression(((ExpressionDefinition) completionSize).createExpression(routeContext));
+            } else if (completionSize instanceof Expression) {
+                answer.setCompletionSizeExpression((Expression) completionSize);
+            } else if (completionSize instanceof String) {
+                String val = routeContext.getCamelContext().resolvePropertyPlaceholders((String) completionSize);
+                try {
+                    answer.setCompletionSize(Integer.parseInt(val));
+                } catch (NumberFormatException e) {
+                    answer.setCompletionSizeExpression(ExpressionBuilder.simpleExpression(val));
+                }
+            } else {
+                throw new IllegalArgumentException("Cannot convert completionSize '" + completionSize + "' to an Expression");
+            }
         }
         if (definition.getCompletionFromBatchConsumer() != null) {
-            answer.setCompletionFromBatchConsumer(definition.getCompletionFromBatchConsumer());
+            answer.setCompletionFromBatchConsumer(asBoolean(routeContext, definition.getCompletionFromBatchConsumer()));
         }
         if (definition.getCompletionOnNewCorrelationGroup() != null) {
-            answer.setCompletionOnNewCorrelationGroup(definition.getCompletionOnNewCorrelationGroup());
+            answer.setCompletionOnNewCorrelationGroup(asBoolean(routeContext, definition.getCompletionOnNewCorrelationGroup()));
         }
         if (definition.getEagerCheckCompletion() != null) {
-            answer.setEagerCheckCompletion(definition.getEagerCheckCompletion());
+            answer.setEagerCheckCompletion(asBoolean(routeContext, definition.getEagerCheckCompletion()));
         }
         if (definition.getIgnoreInvalidCorrelationKeys() != null) {
-            answer.setIgnoreInvalidCorrelationKeys(definition.getIgnoreInvalidCorrelationKeys());
+            answer.setIgnoreInvalidCorrelationKeys(asBoolean(routeContext, definition.getIgnoreInvalidCorrelationKeys()));
         }
         if (definition.getCloseCorrelationKeyOnCompletion() != null) {
-            answer.setCloseCorrelationKeyOnCompletion(definition.getCloseCorrelationKeyOnCompletion());
+            answer.setCloseCorrelationKeyOnCompletion(asInt(routeContext, definition.getCloseCorrelationKeyOnCompletion()));
         }
         if (definition.getDiscardOnCompletionTimeout() != null) {
-            answer.setDiscardOnCompletionTimeout(definition.getDiscardOnCompletionTimeout());
+            answer.setDiscardOnCompletionTimeout(asBoolean(routeContext, definition.getDiscardOnCompletionTimeout()));
         }
         if (definition.getForceCompletionOnStop() != null) {
-            answer.setForceCompletionOnStop(definition.getForceCompletionOnStop());
+            answer.setForceCompletionOnStop(asBoolean(routeContext, definition.getForceCompletionOnStop()));
         }
         if (definition.getCompleteAllOnStop() != null) {
-            answer.setCompleteAllOnStop(definition.getCompleteAllOnStop());
+            answer.setCompleteAllOnStop(asBoolean(routeContext, definition.getCompleteAllOnStop()));
         }
-        if (definition.getOptimisticLockRetryPolicy() == null) {
-            if (definition.getOptimisticLockRetryPolicyDefinition() != null) {
-                answer.setOptimisticLockRetryPolicy(createOptimisticLockRetryPolicy(definition.getOptimisticLockRetryPolicyDefinition()));
-            }
-        } else {
-            answer.setOptimisticLockRetryPolicy(definition.getOptimisticLockRetryPolicy());
+        if (definition.getOptimisticLockRetryPolicy() != null) {
+            answer.setOptimisticLockRetryPolicy(createOptimisticLockRetryPolicy(routeContext, definition.getOptimisticLockRetryPolicy()));
         }
-        if (definition.getAggregateController() != null) {
-            answer.setAggregateController(definition.getAggregateController());
+        if (definition.getAggregationController() != null) {
+            AggregateController controller = resolve(routeContext, AggregateController.class, definition.getAggregationController());
+            answer.setAggregateController(controller);
         }
         if (definition.getCompletionTimeoutCheckerInterval() != null) {
-            answer.setCompletionTimeoutCheckerInterval(definition.getCompletionTimeoutCheckerInterval());
+            answer.setCompletionTimeoutCheckerInterval(asLong(routeContext, definition.getCompletionTimeoutCheckerInterval()));
         }
         return answer;
     }
 
-    public static OptimisticLockRetryPolicy createOptimisticLockRetryPolicy(OptimisticLockRetryPolicyDefinition definition) {
+    public OptimisticLockRetryPolicy createOptimisticLockRetryPolicy(RouteContext routeContext, OptimisticLockRetryPolicyDefinition definition) {
         OptimisticLockRetryPolicy policy = new OptimisticLockRetryPolicy();
         if (definition.getMaximumRetries() != null) {
-            policy.setMaximumRetries(definition.getMaximumRetries());
+            policy.setMaximumRetries(asInt(routeContext, definition.getMaximumRetries()));
         }
         if (definition.getRetryDelay() != null) {
-            policy.setRetryDelay(definition.getRetryDelay());
+            policy.setRetryDelay(asLong(routeContext, definition.getRetryDelay()));
         }
         if (definition.getMaximumRetryDelay() != null) {
-            policy.setMaximumRetryDelay(definition.getMaximumRetryDelay());
+            policy.setMaximumRetryDelay(asLong(routeContext, definition.getMaximumRetryDelay()));
         }
         if (definition.getExponentialBackOff() != null) {
-            policy.setExponentialBackOff(definition.getExponentialBackOff());
+            policy.setExponentialBackOff(asBoolean(routeContext, definition.getExponentialBackOff()));
         }
         if (definition.getRandomBackOff() != null) {
-            policy.setRandomBackOff(definition.getRandomBackOff());
+            policy.setRandomBackOff(asBoolean(routeContext, definition.getRandomBackOff()));
         }
         return policy;
     }
 
     private AggregationStrategy createAggregationStrategy(RouteContext routeContext) {
-        AggregationStrategy strategy = definition.getAggregationStrategy();
-        if (strategy == null && definition.getStrategyRef() != null) {
-            Object aggStrategy = routeContext.lookup(definition.getStrategyRef(), Object.class);
-            if (aggStrategy instanceof AggregationStrategy) {
-                strategy = (AggregationStrategy) aggStrategy;
-            } else if (aggStrategy != null) {
-                AggregationStrategyBeanAdapter adapter = new AggregationStrategyBeanAdapter(aggStrategy, definition.getAggregationStrategyMethodName());
-                if (definition.getStrategyMethodAllowNull() != null) {
-                    adapter.setAllowNullNewExchange(definition.getStrategyMethodAllowNull());
-                    adapter.setAllowNullOldExchange(definition.getStrategyMethodAllowNull());
-                }
-                strategy = adapter;
-            } else {
-                throw new IllegalArgumentException("Cannot find AggregationStrategy in Registry with name: " + definition.getStrategyRef());
-            }
-        }
-
-        if (strategy == null) {
-            throw new IllegalArgumentException("AggregationStrategy or AggregationStrategyRef must be set on " + this);
-        }
-
-        if (strategy instanceof CamelContextAware) {
-            ((CamelContextAware) strategy).setCamelContext(routeContext.getCamelContext());
-        }
-
-        return strategy;
-    }
-
-    private AggregationRepository createAggregationRepository(RouteContext routeContext) {
-        AggregationRepository repository = definition.getAggregationRepository();
-        if (repository == null && definition.getAggregationRepositoryRef() != null) {
-            repository = routeContext.mandatoryLookup(definition.getAggregationRepositoryRef(), AggregationRepository.class);
-        }
-        return repository;
+        Object value = definition.getAggregationStrategy();
+        Object method = definition.getStrategyMethodName();
+        Object allowNull = definition.getStrategyMethodAllowNull();
+        return resolveAggregationStrategy(routeContext, value, method, allowNull, () -> {
+            throw new IllegalArgumentException("AggregationStrategy must be set on " + definition);
+        });
     }
 
 }

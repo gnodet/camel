@@ -23,8 +23,9 @@ import org.apache.camel.processor.RemovePropertiesProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class RemovePropertiesReifier extends ProcessorReifier<RemovePropertiesDefinition> {
+public class RemovePropertiesReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<RemovePropertiesDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     RemovePropertiesReifier(ProcessorDefinition<?> definition) {
         super((RemovePropertiesDefinition) definition);
     }
@@ -32,12 +33,7 @@ public class RemovePropertiesReifier extends ProcessorReifier<RemovePropertiesDe
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         ObjectHelper.notNull(definition.getPattern(), "patterns", this);
-        if (definition.getExcludePatterns() != null) {
-            return new RemovePropertiesProcessor(definition.getPattern(), definition.getExcludePatterns());
-        } else if (definition.getExcludePattern() != null) {
-            return new RemovePropertiesProcessor(definition.getPattern(), new String[]{definition.getExcludePattern()});
-        } else {
-            return new RemovePropertiesProcessor(definition.getPattern(), null);
-        }
+        return new RemovePropertiesProcessor(asString(routeContext, definition.getPattern()),
+                resolve(routeContext, String[].class, definition.getExcludePatterns()));
     }
 }

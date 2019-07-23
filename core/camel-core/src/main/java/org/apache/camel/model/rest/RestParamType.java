@@ -16,17 +16,12 @@
  */
 package org.apache.camel.model.rest;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 import org.apache.camel.spi.Metadata;
 
 /**
  * Rest parameter types
  */
 @Metadata(label = "rest")
-@XmlType
-@XmlEnum(String.class)
 public enum RestParamType {
 
     body, formData, header, path, query

@@ -1,0 +1,44 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "pulsar",
+    "syntax": "pulsar:persistence://tenant/namespace/topic",
+    "title": "Apache Pulsar",
+    "description": "Camel Apache Pulsar Component",
+    "label": "messaging",
+    "deprecated": false,
+    "deprecationNote": "",
+    "async": false,
+    "consumerOnly": false,
+    "producerOnly": false,
+    "lenientProperties": false,
+    "javaType": "org.apache.camel.component.pulsar.PulsarComponent",
+    "firstVersion": "2.24.0",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-pulsar",
+    "version": "3.0.0-SNAPSHOT"
+  },
+  "componentProperties": {
+    "autoConfiguration": { "kind": "property", "displayName": "Auto Configuration", "group": "advanced", "label": "advanced", "required": false, "type": "object", "javaType": "org.apache.camel.component.pulsar.utils.AutoConfiguration", "deprecated": false, "secret": false, "description": "The pulsar auto configuration" },
+    "pulsarClient": { "kind": "property", "displayName": "Pulsar Client", "group": "advanced", "label": "advanced", "required": false, "type": "object", "javaType": "org.apache.pulsar.client.api.PulsarClient", "deprecated": false, "secret": false, "description": "The pulsar client" },
+    "resolvePropertyPlaceholders": { "kind": "property", "displayName": "Resolve Property Placeholders", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": true, "description": "Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders." },
+    "basicPropertyBinding": { "kind": "property", "displayName": "Basic Property Binding", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the component should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities" }
+  },
+  "properties": {
+    "topic": { "kind": "path", "displayName": "Topic", "group": "producer", "label": "consumer,producer", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "The Topic's full URI path including type, tenant and namespace" },
+    "bridgeErrorHandler": { "kind": "parameter", "displayName": "Bridge Error Handler", "group": "consumer", "label": "consumer", "required": false, "type": "boolean", "javaType": "boolean", "optionalPrefix": "consumer.", "deprecated": false, "secret": false, "defaultValue": false, "description": "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored." },
+    "consumerName": { "kind": "parameter", "displayName": "Consumer Name", "group": "consumer", "label": "consumer", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "defaultValue": "sole-consumer", "description": "Name of the consumer when subscription is EXCLUSIVE" },
+    "consumerNamePrefix": { "kind": "parameter", "displayName": "Consumer Name Prefix", "group": "consumer", "label": "consumer", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "defaultValue": "cons", "description": "Prefix to add to consumer names when a SHARED or FAILOVER subscription is used" },
+    "consumerQueueSize": { "kind": "parameter", "displayName": "Consumer Queue Size", "group": "consumer", "label": "consumer", "required": false, "type": "integer", "javaType": "int", "deprecated": false, "secret": false, "defaultValue": 10, "description": "Size of the consumer queue - defaults to 10" },
+    "numberOfConsumers": { "kind": "parameter", "displayName": "Number Of Consumers", "group": "consumer", "label": "consumer", "required": false, "type": "integer", "javaType": "int", "deprecated": false, "secret": false, "defaultValue": 1, "description": "Number of consumers - defaults to 1" },
+    "subscriptionName": { "kind": "parameter", "displayName": "Subscription Name", "group": "consumer", "label": "consumer", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "defaultValue": "subs", "description": "Name of the subscription to use" },
+    "subscriptionType": { "kind": "parameter", "displayName": "Subscription Type", "group": "consumer", "label": "consumer", "required": false, "type": "object", "javaType": "org.apache.camel.component.pulsar.utils.consumers.SubscriptionType", "enum": [ "EXCLUSIVE", "SHARED", "FAILOVER" ], "deprecated": false, "secret": false, "defaultValue": "EXCLUSIVE", "description": "Type of the subscription EXCLUSIVESHAREDFAILOVER, defaults to EXCLUSIVE" },
+    "exceptionHandler": { "kind": "parameter", "displayName": "Exception Handler", "group": "consumer (advanced)", "label": "consumer,advanced", "required": false, "type": "object", "javaType": "org.apache.camel.spi.ExceptionHandler", "optionalPrefix": "consumer.", "deprecated": false, "secret": false, "description": "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this option is not in use. By default the consumer will deal with exceptions, that will be logged at WARN or ERROR level and ignored." },
+    "exchangePattern": { "kind": "parameter", "displayName": "Exchange Pattern", "group": "consumer (advanced)", "label": "consumer,advanced", "required": false, "type": "object", "javaType": "org.apache.camel.ExchangePattern", "enum": [ "InOnly", "InOut", "InOptionalOut" ], "deprecated": false, "secret": false, "description": "Sets the exchange pattern when the consumer creates an exchange." },
+    "lazyStartProducer": { "kind": "parameter", "displayName": "Lazy Start Producer", "group": "producer", "label": "producer", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing." },
+    "producerName": { "kind": "parameter", "displayName": "Producer Name", "group": "producer", "label": "producer", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "defaultValue": "default-producer", "description": "Name of the producer" },
+    "basicPropertyBinding": { "kind": "parameter", "displayName": "Basic Property Binding", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities" },
+    "synchronous": { "kind": "parameter", "displayName": "Synchronous", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported)." }
+  }
+}
+

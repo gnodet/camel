@@ -25,9 +25,10 @@ import org.apache.camel.model.transformer.CustomTransformerDefinition;
 import org.apache.camel.model.transformer.DataFormatTransformerDefinition;
 import org.apache.camel.model.transformer.EndpointTransformerDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.Transformer;
 
-public abstract class TransformerReifier<T> {
+public abstract class TransformerReifier<T> extends AbstractReifier<T> {
 
     private static final Map<Class<?>, Function<TransformerDefinition, TransformerReifier<? extends TransformerDefinition>>> TRANSFORMERS;
     static {
@@ -38,10 +39,8 @@ public abstract class TransformerReifier<T> {
         TRANSFORMERS = map;
     }
     
-    protected final T definition;
-
     public TransformerReifier(T definition) {
-        this.definition = definition;
+        super(definition);
     }
 
     public static TransformerReifier<? extends TransformerDefinition> reifier(TransformerDefinition definition) {

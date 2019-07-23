@@ -287,7 +287,8 @@ public final class RouteDefinitionHelper {
     public static void prepareRouteForInit(RouteDefinition route, List<ProcessorDefinition<?>> abstracts,
                                            List<ProcessorDefinition<?>> lower) {
         // filter the route into abstracts and lower
-        for (ProcessorDefinition output : route.getOutputs()) {
+        List<ProcessorDefinition<?>> outputs = route.getOutputs();
+        for (ProcessorDefinition<?> output : outputs) {
             if (output.isAbstract()) {
                 abstracts.add(output);
             } else {
@@ -355,7 +356,7 @@ public final class RouteDefinitionHelper {
                                     List<InterceptDefinition> intercepts,
                                     List<InterceptFromDefinition> interceptFromDefinitions,
                                     List<InterceptSendToEndpointDefinition> interceptSendToEndpointDefinitions,
-                                    List<OnCompletionDefinition> onCompletions) {
+                                    List<OnCompletionDefinition<?>> onCompletions) {
 
         // init the route inputs
         initRouteInput(context, route.getInput());
@@ -616,8 +617,8 @@ public final class RouteDefinitionHelper {
     }
 
     private static void initOnCompletions(List<ProcessorDefinition<?>> abstracts, List<ProcessorDefinition<?>> upper,
-                                          List<OnCompletionDefinition> onCompletions) {
-        List<OnCompletionDefinition> completions = new ArrayList<>();
+                                          List<OnCompletionDefinition<?>> onCompletions) {
+        List<OnCompletionDefinition<?>> completions = new ArrayList<>();
 
         // find the route scoped onCompletions
         for (ProcessorDefinition out : abstracts) {

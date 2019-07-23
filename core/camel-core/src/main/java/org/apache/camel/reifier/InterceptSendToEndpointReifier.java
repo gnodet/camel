@@ -32,8 +32,9 @@ import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.EndpointHelper;
 import org.apache.camel.util.URISupport;
 
-public class InterceptSendToEndpointReifier extends ProcessorReifier<InterceptSendToEndpointDefinition> {
+public class InterceptSendToEndpointReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<InterceptSendToEndpointDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     InterceptSendToEndpointReifier(ProcessorDefinition<?> definition) {
         super((InterceptSendToEndpointDefinition) definition);
     }
@@ -42,7 +43,7 @@ public class InterceptSendToEndpointReifier extends ProcessorReifier<InterceptSe
     public Processor createProcessor(final RouteContext routeContext) throws Exception {
         // create the detour
         final Processor detour = this.createChildProcessor(routeContext, true);
-        final String matchURI = definition.getUri();
+        final String matchURI = asString(routeContext, definition.getUri());
 
         // register endpoint callback so we can proxy the endpoint
         routeContext.getCamelContext().adapt(ExtendedCamelContext.class).registerEndpointCallback(new EndpointStrategy() {
@@ -53,7 +54,7 @@ public class InterceptSendToEndpointReifier extends ProcessorReifier<InterceptSe
                 } else if (matchURI == null || matchPattern(routeContext.getCamelContext(), uri, matchURI)) {
                     // only proxy if the uri is matched decorate endpoint with our proxy
                     // should be false by default
-                    boolean skip = definition.getSkipSendToOriginalEndpoint() != null && definition.getSkipSendToOriginalEndpoint();
+                    boolean skip = asBoolean(routeContext, definition.getSkipSendToOriginalEndpoint(), false);
                     DefaultInterceptSendToEndpoint proxy = new DefaultInterceptSendToEndpoint(endpoint, skip);
                     proxy.setDetour(detour);
                     return proxy;

@@ -24,10 +24,11 @@ import org.apache.camel.model.StepDefinition;
 import org.apache.camel.processor.StepProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class StepReifier extends ProcessorReifier<StepDefinition> {
+public class StepReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<StepDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     StepReifier(ProcessorDefinition<?> definition) {
-        super(StepDefinition.class.cast(definition));
+        super((StepDefinition) definition);
     }
 
     @Override

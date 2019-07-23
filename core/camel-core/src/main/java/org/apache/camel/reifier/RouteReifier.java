@@ -17,6 +17,7 @@
 package org.apache.camel.reifier;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -28,6 +29,8 @@ import org.apache.camel.NoSuchEndpointException;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.ShutdownRoute;
+import org.apache.camel.ShutdownRunningTask;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.AdviceWithTask;
 import org.apache.camel.builder.EndpointConsumerBuilder;
@@ -50,8 +53,9 @@ import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
-public class RouteReifier extends ProcessorReifier<RouteDefinition> {
+public class RouteReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<RouteDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     public RouteReifier(ProcessorDefinition<?> definition) {
         super((RouteDefinition) definition);
     }
@@ -201,93 +205,72 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
         routeContext.setErrorHandlerFactory(definition.getErrorHandlerFactory());
 
         // configure tracing
-        if (definition.getTrace() != null) {
-            Boolean isTrace = CamelContextHelper.parseBoolean(camelContext, definition.getTrace());
-            if (isTrace != null) {
-                routeContext.setTracing(isTrace);
-                if (isTrace) {
-                    log.debug("Tracing is enabled on route: {}", definition.getId());
-                    // tracing is added in the DefaultChannel so we can enable it on the fly
-                }
+        Boolean isTrace = resolve(routeContext, Boolean.class, definition.getTrace());
+        if (isTrace != null) {
+            routeContext.setTracing(isTrace);
+            if (isTrace) {
+                log.debug("Tracing is enabled on route: {}", definition.getId());
+                // tracing is added in the DefaultChannel so we can enable it on the fly
             }
         }
 
         // configure message history
-        if (definition.getMessageHistory() != null) {
-            Boolean isMessageHistory = CamelContextHelper.parseBoolean(camelContext, definition.getMessageHistory());
-            if (isMessageHistory != null) {
-                routeContext.setMessageHistory(isMessageHistory);
-                if (isMessageHistory) {
-                    log.debug("Message history is enabled on route: {}", definition.getId());
-                }
+        Boolean isMessageHistory = resolve(routeContext, Boolean.class, definition.getMessageHistory());
+        if (isMessageHistory != null) {
+            routeContext.setMessageHistory(isMessageHistory);
+            if (isMessageHistory) {
+                log.debug("Message history is enabled on route: {}", definition.getId());
             }
         }
 
         // configure Log EIP mask
-        if (definition.getLogMask() != null) {
-            Boolean isLogMask = CamelContextHelper.parseBoolean(camelContext, definition.getLogMask());
-            if (isLogMask != null) {
-                routeContext.setLogMask(isLogMask);
-                if (isLogMask) {
-                    log.debug("Security mask for Logging is enabled on route: {}", definition.getId());
-                }
+        Boolean isLogMask = resolve(routeContext, Boolean.class, definition.getLogMask());
+        if (isLogMask != null) {
+            routeContext.setLogMask(isLogMask);
+            if (isLogMask) {
+                log.debug("Security mask for Logging is enabled on route: {}", definition.getId());
             }
         }
 
         // configure stream caching
-        if (definition.getStreamCache() != null) {
-            Boolean isStreamCache = CamelContextHelper.parseBoolean(camelContext, definition.getStreamCache());
-            if (isStreamCache != null) {
-                routeContext.setStreamCaching(isStreamCache);
-                if (isStreamCache) {
-                    log.debug("StreamCaching is enabled on route: {}", definition.getId());
-                }
+        Boolean isStreamCache = resolve(routeContext, Boolean.class, definition.getStreamCache());
+        if (isStreamCache != null) {
+            routeContext.setStreamCaching(isStreamCache);
+            if (isStreamCache) {
+                log.debug("StreamCaching is enabled on route: {}", definition.getId());
             }
         }
 
         // configure handle fault
-        if (definition.getHandleFault() != null) {
-            Boolean isHandleFault = CamelContextHelper.parseBoolean(camelContext, definition.getHandleFault());
-            if (isHandleFault != null) {
-                routeContext.setHandleFault(isHandleFault);
-                if (isHandleFault) {
-                    log.debug("HandleFault is enabled on route: {}", definition.getId());
-                    // only add a new handle fault if not already a global configured on camel context
-                    if (HandleFault.getHandleFault(camelContext) == null) {
-                        definition.addInterceptStrategy(new HandleFault());
-                    }
+        Boolean isHandleFault = resolve(routeContext, Boolean.class, definition.getHandleFault());
+        if (isHandleFault != null) {
+            routeContext.setHandleFault(isHandleFault);
+            if (isHandleFault) {
+                log.debug("HandleFault is enabled on route: {}", definition.getId());
+                // only add a new handle fault if not already a global configured on camel context
+                if (HandleFault.getHandleFault(camelContext) == null) {
+                    definition.addInterceptStrategy(new HandleFault());
                 }
             }
         }
 
         // configure delayer
-        if (definition.getDelayer() != null) {
-            Long delayer = CamelContextHelper.parseLong(camelContext, definition.getDelayer());
-            if (delayer != null) {
-                routeContext.setDelayer(delayer);
-                if (delayer > 0) {
-                    log.debug("Delayer is enabled with: {} ms. on route: {}", delayer, definition.getId());
-                } else {
-                    log.debug("Delayer is disabled on route: {}", definition.getId());
-                }
+        Long delayer = resolve(routeContext, Long.class, definition.getDelayer());
+        if (delayer != null) {
+            routeContext.setDelayer(delayer);
+            if (delayer > 0) {
+                log.debug("Delayer is enabled with: {} ms. on route: {}", delayer, definition.getId());
+            } else {
+                log.debug("Delayer is disabled on route: {}", definition.getId());
             }
         }
 
         // configure route policy
-        if (definition.getRoutePolicies() != null && !definition.getRoutePolicies().isEmpty()) {
-            for (RoutePolicy policy : definition.getRoutePolicies()) {
-                log.debug("RoutePolicy is enabled: {} on route: {}", policy, definition.getId());
-                routeContext.getRoutePolicyList().add(policy);
-            }
-        }
-        if (definition.getRoutePolicyRef() != null) {
-            StringTokenizer policyTokens = new StringTokenizer(definition.getRoutePolicyRef(), ",");
-            while (policyTokens.hasMoreTokens()) {
-                String ref = policyTokens.nextToken().trim();
-                RoutePolicy policy = CamelContextHelper.mandatoryLookup(camelContext, ref, RoutePolicy.class);
-                log.debug("RoutePolicy is enabled: {} on route: {}", policy, definition.getId());
-                routeContext.getRoutePolicyList().add(policy);
-            }
+        List<RoutePolicy> routePolicies = resolveList(routeContext, RoutePolicy.class,
+                definition.getRoutePolicies(), Collections::emptyList);
+        for (RoutePolicy policy : routePolicies) {
+            log.debug("RoutePolicy is enabled: {} on route: {}", policy, definition.getId());
+            routeContext.getRoutePolicyList().add(policy);
         }
         if (camelContext.getRoutePolicyFactories() != null) {
             for (RoutePolicyFactory factory : camelContext.getRoutePolicyFactories()) {
@@ -300,25 +283,28 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
         }
 
         // configure auto startup
-        Boolean isAutoStartup = CamelContextHelper.parseBoolean(camelContext, definition.getAutoStartup());
+        Boolean isAutoStartup = resolve(routeContext, Boolean.class, definition.getAutoStartup());
         if (isAutoStartup != null) {
             log.debug("Using AutoStartup {} on route: {}", isAutoStartup, definition.getId());
             routeContext.setAutoStartup(isAutoStartup);
         }
 
         // configure startup order
-        if (definition.getStartupOrder() != null) {
-            routeContext.setStartupOrder(definition.getStartupOrder());
+        Integer startupOrder = resolve(routeContext, Integer.class, definition.getStartupOrder());
+        if (startupOrder != null) {
+            routeContext.setStartupOrder(startupOrder);
         }
 
         // configure shutdown
-        if (definition.getShutdownRoute() != null) {
-            log.debug("Using ShutdownRoute {} on route: {}", definition.getShutdownRoute(), definition.getId());
-            routeContext.setShutdownRoute(definition.getShutdownRoute());
+        ShutdownRoute shutdownRoute = resolve(routeContext, ShutdownRoute.class, definition.getShutdownRoute());
+        if (shutdownRoute != null) {
+            log.debug("Using ShutdownRoute {} on route: {}", shutdownRoute, definition.getId());
+            routeContext.setShutdownRoute(shutdownRoute);
         }
+        ShutdownRunningTask shutdownRunningTask = resolve(routeContext, ShutdownRunningTask.class, definition.getShutdownRunningTask());
         if (definition.getShutdownRunningTask() != null) {
             log.debug("Using ShutdownRunningTask {} on route: {}", definition.getShutdownRunningTask(), definition.getId());
-            routeContext.setShutdownRunningTask(definition.getShutdownRunningTask());
+            routeContext.setShutdownRunningTask(shutdownRunningTask);
         }
 
         // should inherit the intercept strategies we have defined
@@ -371,11 +357,11 @@ public class RouteReifier extends ProcessorReifier<RouteDefinition> {
             Contract contract = new Contract();
             if (definition.getInputType() != null) {
                 contract.setInputType(definition.getInputType().getUrn());
-                contract.setValidateInput(definition.getInputType().isValidate());
+                contract.setValidateInput(asBoolean(routeContext, definition.getInputType().getValidate(), false));
             }
             if (definition.getOutputType() != null) {
                 contract.setOutputType(definition.getOutputType().getUrn());
-                contract.setValidateOutput(definition.getOutputType().isValidate());
+                contract.setValidateOutput(asBoolean(routeContext, definition.getOutputType().getValidate(), false));
             }
             routeContext.addAdvice(new ContractAdvice(contract));
             // make sure to enable data type as its in use when using input/output types on routes

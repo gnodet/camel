@@ -37,8 +37,9 @@ import org.apache.camel.saga.CamelSagaStep;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
 
-public class SagaReifier extends ProcessorReifier<SagaDefinition> {
+public class SagaReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<SagaDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     SagaReifier(ProcessorDefinition<?> definition) {
         super((SagaDefinition) definition);
     }
@@ -57,27 +58,27 @@ public class SagaReifier extends ProcessorReifier<SagaDefinition> {
         if (definition.getOptions() != null) {
             for (SagaOptionDefinition optionDef : definition.getOptions()) {
                 String optionName = optionDef.getOptionName();
-                Expression expr = optionDef.getExpression();
+                Expression expr = asExpression(routeContext, optionDef.getExpression());
                 optionsMap.put(optionName, expr);
             }
         }
 
-        CamelSagaStep step = new CamelSagaStep(compensationEndpoint, completionEndpoint, optionsMap, Optional.ofNullable(definition.getTimeoutInMilliseconds()));
+        CamelSagaStep step = new CamelSagaStep(compensationEndpoint, completionEndpoint, optionsMap, Optional.ofNullable(resolve(routeContext, Long.class, definition.getTimeoutInMilliseconds())));
 
-        SagaPropagation propagation = definition.getPropagation();
+        SagaPropagation propagation = resolve(routeContext, SagaPropagation.class, definition.getPropagation());
         if (propagation == null) {
             // default propagation mode
             propagation = SagaPropagation.REQUIRED;
         }
 
-        SagaCompletionMode completionMode = definition.getCompletionMode();
+        SagaCompletionMode completionMode = resolve(routeContext, SagaCompletionMode.class, definition.getCompletionMode());
         if (completionMode == null) {
             // default completion mode
             completionMode = SagaCompletionMode.defaultCompletionMode();
         }
 
         Processor childProcessor = this.createChildProcessor(routeContext, true);
-        CamelSagaService camelSagaService = findSagaService(routeContext.getCamelContext());
+        CamelSagaService camelSagaService = findSagaService(routeContext);
 
         camelSagaService.registerStep(step);
 
@@ -99,18 +100,18 @@ public class SagaReifier extends ProcessorReifier<SagaDefinition> {
         return org.apache.camel.processor.saga.SagaPropagation.valueOf(propagation.name());
     }
 
-    protected CamelSagaService findSagaService(CamelContext context) {
-        CamelSagaService sagaService = definition.getSagaService();
+    protected CamelSagaService findSagaService(RouteContext routeContext) {
+        CamelSagaService sagaService = resolve(routeContext, CamelSagaService.class, definition.getService());
         if (sagaService != null) {
             return sagaService;
         }
 
-        sagaService = context.hasService(CamelSagaService.class);
+        sagaService = routeContext.getCamelContext().hasService(CamelSagaService.class);
         if (sagaService != null) {
             return sagaService;
         }
 
-        sagaService = CamelContextHelper.findByType(context, CamelSagaService.class);
+        sagaService = CamelContextHelper.findByType(routeContext.getCamelContext(), CamelSagaService.class);
         if (sagaService != null) {
             return sagaService;
         }

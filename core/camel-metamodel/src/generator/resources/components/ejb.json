@@ -1,0 +1,38 @@
+{
+ "component": {
+    "kind": "component",
+    "scheme": "ejb",
+    "syntax": "ejb:beanName",
+    "title": "EJB",
+    "description": "The ejb component is for invoking EJB Java beans from Camel.",
+    "label": "endpoint,java",
+    "deprecated": false,
+    "deprecationNote": "",
+    "async": false,
+    "consumerOnly": false,
+    "producerOnly": true,
+    "lenientProperties": false,
+    "javaType": "org.apache.camel.component.ejb.EjbComponent",
+    "firstVersion": "2.4.0",
+    "groupId": "org.apache.camel",
+    "artifactId": "camel-ejb",
+    "version": "3.0.0-SNAPSHOT"
+  },
+  "componentProperties": {
+    "context": { "kind": "property", "displayName": "Context", "group": "producer", "required": false, "type": "object", "javaType": "javax.naming.Context", "deprecated": false, "secret": false, "description": "The Context to use for looking up the EJBs" },
+    "properties": { "kind": "property", "displayName": "Properties", "group": "producer", "required": false, "type": "object", "javaType": "java.util.Properties", "deprecated": false, "secret": false, "description": "Properties for creating javax.naming.Context if a context has not been configured." },
+    "cache": {"kind":"property","displayName":"Cache","group":"advanced","label":"advanced","required":false,"type":"boolean","javaType":"java.lang.Boolean","deprecated":false,"secret":false,"description":"If enabled, Camel will cache the result of the first Registry look-up. Cache can be enabled if the bean in the Registry is defined as a singleton scope."},
+    "resolvePropertyPlaceholders": {"kind":"property","displayName":"Resolve Property Placeholders","group":"advanced","label":"advanced","required":false,"type":"boolean","javaType":"boolean","deprecated":false,"secret":false,"defaultValue":true,"description":"Whether the component should resolve property placeholders on itself when starting. Only properties which are of String type can use property placeholders."},
+    "basicPropertyBinding": {"kind":"property","displayName":"Basic Property Binding","group":"advanced","label":"advanced","required":false,"type":"boolean","javaType":"boolean","deprecated":false,"secret":false,"defaultValue":false,"description":"Whether the component should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities"}
+  },
+  "properties": {
+    "beanName": {"kind":"path","displayName":"Bean Name","group":"common","label":"common","required":true,"type":"string","javaType":"java.lang.String","deprecated":false,"secret":false,"description":"Sets the name of the bean to invoke"},
+    "cache": {"kind":"parameter","displayName":"Cache","group":"common","label":"common","required":false,"type":"boolean","javaType":"java.lang.Boolean","deprecated":false,"secret":false,"description":"If enabled, Camel will cache the result of the first Registry look-up. Cache can be enabled if the bean in the Registry is defined as a singleton scope."},
+    "method": {"kind":"parameter","displayName":"Method","group":"common","label":"common","required":false,"type":"string","javaType":"java.lang.String","deprecated":false,"secret":false,"description":"Sets the name of the method to invoke on the bean"},
+    "parameters": {"kind":"parameter","displayName":"Parameters","group":"common","label":"common","required":false,"type":"object","javaType":"java.util.Map<java.lang.String,java.lang.Object>","prefix":"bean.","multiValue":true,"deprecated":false,"secret":false,"description":"Used for configuring additional properties on the bean"},
+    "lazyStartProducer": {"kind":"parameter","displayName":"Lazy Start Producer","group":"producer","label":"producer","required":false,"type":"boolean","javaType":"boolean","deprecated":false,"secret":false,"defaultValue":false,"description":"Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing."},
+    "basicPropertyBinding": {"kind":"parameter","displayName":"Basic Property Binding","group":"advanced","label":"advanced","required":false,"type":"boolean","javaType":"boolean","deprecated":false,"secret":false,"defaultValue":false,"description":"Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities"},
+    "synchronous": {"kind":"parameter","displayName":"Synchronous","group":"advanced","label":"advanced","required":false,"type":"boolean","javaType":"boolean","deprecated":false,"secret":false,"defaultValue":false,"description":"Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported)."}
+  }
+}
+

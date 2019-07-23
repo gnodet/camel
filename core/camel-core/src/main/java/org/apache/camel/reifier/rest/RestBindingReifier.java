@@ -23,13 +23,14 @@ import javax.xml.bind.JAXBContext;
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.rest.RestBindingDefinition;
 import org.apache.camel.processor.RestBindingAdvice;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.PropertyBindingSupport;
 
-public class RestBindingReifier {
+public class RestBindingReifier extends AbstractReifier {
 
     private final RestBindingDefinition definition;
 

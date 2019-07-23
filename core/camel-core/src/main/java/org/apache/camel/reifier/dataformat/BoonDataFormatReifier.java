@@ -28,6 +28,8 @@ public class BoonDataFormatReifier extends DataFormatReifier<BoonDataFormat> {
         super((BoonDataFormat) definition);
     }
 
+    /*
+     * TODO: verify if this is needed or not
     @Override
     protected DataFormat doCreateDataFormat(CamelContext camelContext) {
         if (definition.getUnmarshalType() == null && definition.getUnmarshalTypeName() != null) {
@@ -39,6 +41,7 @@ public class BoonDataFormatReifier extends DataFormatReifier<BoonDataFormat> {
         }
         return super.doCreateDataFormat(camelContext);
     }
+    */
 
     @Override
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {

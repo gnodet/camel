@@ -25,11 +25,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
+
 import javax.xml.namespace.QName;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
+import org.apache.camel.model.CatchDefinition;
+import org.apache.camel.model.ChoiceDefinition;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.TryDefinition;
+import org.apache.camel.model.WhenDefinition;
 import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.IntrospectionSupport;
@@ -193,7 +199,7 @@ public final class ProcessorDefinitionHelper {
      * @param node            the target node
      * @param set             set to store ids, if <tt>null</tt> a new set will be created
      * @param onlyCustomId    whether to only store custom assigned ids (ie. {@link org.apache.camel.model.OptionalIdentifiedDefinition#hasCustomIdAssigned()}
-     * @param includeAbstract whether to include abstract nodes (ie. {@link org.apache.camel.model.ProcessorDefinition#isAbstract()}
+     * @param includeAbstract whether to include abstract nodes (ie. {@link ProcessorDefinition#isAbstract()}
      * @return the set with the found ids.
      */
     public static Set<String> gatherAllNodeIds(ProcessorDefinition<?> node, Set<String> set,
@@ -260,13 +266,6 @@ public final class ProcessorDefinitionHelper {
 
         for (ProcessorDefinition out : outputs) {
 
-            // send is much common
-            if (out instanceof SendDefinition) {
-                SendDefinition send = (SendDefinition) out;
-                List<ProcessorDefinition<?>> children = send.getOutputs();
-                doFindType(children, type, found, ++current, maxDeep);
-            }
-
             // special for choice
             if (out instanceof ChoiceDefinition) {
                 ChoiceDefinition choice = (ChoiceDefinition) out;
@@ -278,7 +277,8 @@ public final class ProcessorDefinitionHelper {
 
                 // only look at when/otherwise if current < maxDeep (or max deep is disabled)
                 if (maxDeep < 0 || current < maxDeep) {
-                    for (WhenDefinition when : choice.getWhenClauses()) {
+                    List<WhenDefinition> whens = choice.getWhenClauses();
+                    for (WhenDefinition<?> when : whens) {
                         if (type.isInstance(when)) {
                             found.add((T) when);
                         }
@@ -292,13 +292,10 @@ public final class ProcessorDefinitionHelper {
                         doFindType(children, type, found, ++current, maxDeep);
                     }
                 }
-
-                // do not check children as we already did that
-                continue;
             }
 
             // special for try ... catch ... finally
-            if (out instanceof TryDefinition) {
+            else if (out instanceof TryDefinition) {
                 TryDefinition doTry = (TryDefinition) out;
 
                 // ensure to add ourself if we match also
@@ -308,7 +305,7 @@ public final class ProcessorDefinitionHelper {
 
                 // only look at children if current < maxDeep (or max deep is disabled)
                 if (maxDeep < 0 || current < maxDeep) {
-                    List<ProcessorDefinition<?>> doTryOut = doTry.getOutputsWithoutCatches();
+                    List<ProcessorDefinition<?>> doTryOut = doTry.getOutputs();
                     doFindType(doTryOut, type, found, ++current, maxDeep);
 
                     List<CatchDefinition> doTryCatch = doTry.getCatchClauses();
@@ -320,34 +317,18 @@ public final class ProcessorDefinitionHelper {
                         doFindType(doTry.getFinallyClause().getOutputs(), type, found, ++current, maxDeep);
                     }
                 }
-
-                // do not check children as we already did that
-                continue;
             }
 
-            // special for some types which has special outputs
-            if (out instanceof OutputDefinition) {
-                OutputDefinition outDef = (OutputDefinition) out;
-
+            else {
                 // ensure to add ourself if we match also
-                if (type.isInstance(outDef)) {
-                    found.add((T) outDef);
+                if (type.isInstance(out)) {
+                    found.add((T) out);
                 }
 
-                List<ProcessorDefinition<?>> outDefOut = outDef.getOutputs();
-                doFindType(outDefOut, type, found, ++current, maxDeep);
-
-                // do not check children as we already did that
-                continue;
+                // try children as well
+                List<ProcessorDefinition<?>> children = out.getOutputs();
+                doFindType(children, type, found, ++current, maxDeep);
             }
-
-            if (type.isInstance(out)) {
-                found.add((T) out);
-            }
-
-            // try children as well
-            List<ProcessorDefinition<?>> children = out.getOutputs();
-            doFindType(children, type, found, ++current, maxDeep);
         }
     }
 
@@ -390,7 +371,7 @@ public final class ProcessorDefinitionHelper {
      * @param definition   the node definition which may leverage executor service.
      * @param useDefault   whether to fallback and use a default thread pool, if no explicit configured
      * @return <tt>true</tt> if a new thread pool will be created, <tt>false</tt> if not
-     * @see #getConfiguredExecutorService(org.apache.camel.spi.RouteContext, String, ExecutorServiceAwareDefinition, boolean)
+     * @see #getConfiguredExecutorService(RouteContext, String, ExecutorServiceAwareDefinition, boolean)
      */
     public static boolean willCreateNewThreadPool(RouteContext routeContext, ExecutorServiceAwareDefinition<?> definition, boolean useDefault) {
         ExecutorServiceManager manager = routeContext.getCamelContext().getExecutorServiceManager();
@@ -422,7 +403,7 @@ public final class ProcessorDefinitionHelper {
      * </ul>
      *
      * @param routeContext       the route context
-     * @param name               name which is appended to the thread name, when the {@link java.util.concurrent.ExecutorService}
+     * @param name               name which is appended to the thread name, when the {@link ExecutorService}
      *                           is created based on a {@link org.apache.camel.spi.ThreadPoolProfile}.
      * @param source             the source to use the thread pool
      * @param executorServiceRef reference name of the thread pool
@@ -445,7 +426,7 @@ public final class ProcessorDefinitionHelper {
     }
 
     /**
-     * Will lookup and get the configured {@link java.util.concurrent.ExecutorService} from the given definition.
+     * Will lookup and get the configured {@link ExecutorService} from the given definition.
      * <p/>
      * This method will lookup for configured thread pool in the following order
      * <ul>
@@ -458,7 +439,7 @@ public final class ProcessorDefinitionHelper {
      * configured executor services in the same coherent way.
      *
      * @param routeContext the route context
-     * @param name         name which is appended to the thread name, when the {@link java.util.concurrent.ExecutorService}
+     * @param name         name which is appended to the thread name, when the {@link ExecutorService}
      *                     is created based on a {@link org.apache.camel.spi.ThreadPoolProfile}.
      * @param definition   the node definition which may leverage executor service.
      * @param useDefault   whether to fallback and use a default thread pool, if no explicit configured
@@ -500,7 +481,7 @@ public final class ProcessorDefinitionHelper {
      * </ul>
      *
      * @param routeContext       the route context
-     * @param name               name which is appended to the thread name, when the {@link java.util.concurrent.ExecutorService}
+     * @param name               name which is appended to the thread name, when the {@link ExecutorService}
      *                           is created based on a {@link org.apache.camel.spi.ThreadPoolProfile}.
      * @param source             the source to use the thread pool
      * @param executorServiceRef reference name of the thread pool
@@ -523,7 +504,7 @@ public final class ProcessorDefinitionHelper {
     }
 
     /**
-     * Will lookup and get the configured {@link java.util.concurrent.ScheduledExecutorService} from the given definition.
+     * Will lookup and get the configured {@link ScheduledExecutorService} from the given definition.
      * <p/>
      * This method will lookup for configured thread pool in the following order
      * <ul>
@@ -536,7 +517,7 @@ public final class ProcessorDefinitionHelper {
      * configured executor services in the same coherent way.
      *
      * @param routeContext the rout context
-     * @param name         name which is appended to the thread name, when the {@link java.util.concurrent.ExecutorService}
+     * @param name         name which is appended to the thread name, when the {@link ExecutorService}
      *                     is created based on a {@link org.apache.camel.spi.ThreadPoolProfile}.
      * @param definition   the node definition which may leverage executor service.
      * @param useDefault   whether to fallback and use a default thread pool, if no explicit configured
@@ -560,7 +541,7 @@ public final class ProcessorDefinitionHelper {
         } else if (definition.getExecutorServiceRef() != null) {
             ScheduledExecutorService answer = lookupScheduledExecutorServiceRef(routeContext, name, definition, definition.getExecutorServiceRef());
             if (answer == null) {
-                throw new IllegalArgumentException("ExecutorServiceRef " + definition.getExecutorServiceRef() 
+                throw new IllegalArgumentException("ExecutorServiceRef " + definition.getExecutorServiceRef()
                         + " not found in registry (as an ScheduledExecutorService instance) or as a thread pool profile.");
             }
             return answer;
@@ -630,7 +611,7 @@ public final class ProcessorDefinitionHelper {
     private static void addRestoreAction(final Object target, final Map<String, Object> properties) {
         addRestoreAction(null, target, properties);
     }
-    
+
     private static void addRestoreAction(final CamelContext context, final Object target, final Map<String, Object> properties) {
         if (properties.isEmpty()) {
             return;
@@ -674,7 +655,7 @@ public final class ProcessorDefinitionHelper {
      * @param camelContext the Camel context
      * @param definition   the definition which should implement {@link OtherAttributesAware}
      * @throws Exception is thrown if property placeholders was used and there was an error resolving them
-     * @see org.apache.camel.CamelContext#resolvePropertyPlaceholders(String)
+     * @see CamelContext#resolvePropertyPlaceholders(String)
      * @see org.apache.camel.component.properties.PropertiesComponent
      */
     public static void resolvePropertyPlaceholders(CamelContext camelContext, Object definition) throws Exception {

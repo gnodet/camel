@@ -32,8 +32,9 @@ import org.apache.camel.processor.WireTapProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
 
-public class WireTapReifier extends ToDynamicReifier<WireTapDefinition<?>> {
+public class WireTapReifier<Type extends ProcessorDefinition<Type>> extends ToDynamicReifier<Type, WireTapDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     WireTapReifier(ProcessorDefinition<?> definition) {
         super(definition);
     }

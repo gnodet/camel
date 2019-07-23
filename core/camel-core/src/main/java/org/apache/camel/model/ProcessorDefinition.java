@@ -19,6 +19,7 @@ package org.apache.camel.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,12 +29,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.AggregationStrategy;
@@ -44,50 +41,43 @@ import org.apache.camel.Expression;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
-import org.apache.camel.builder.DataFormatClause;
-import org.apache.camel.builder.EndpointProducerBuilder;
-import org.apache.camel.builder.EnrichClause;
-import org.apache.camel.builder.ExpressionBuilder;
 import org.apache.camel.builder.ExpressionClause;
 import org.apache.camel.builder.ProcessClause;
-import org.apache.camel.model.cloud.ServiceCallDefinition;
 import org.apache.camel.model.dataformat.CustomDataFormat;
+import org.apache.camel.model.dataformat.DataFormatClause;
+import org.apache.camel.model.endpoints.EndpointProducerBuilder;
 import org.apache.camel.model.language.ConstantExpression;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.model.language.LanguageExpression;
+import org.apache.camel.model.ClaimCheckDefinition.ClaimCheckOperation;
+import org.apache.camel.model.cloud.ServiceCallDefinition;
 import org.apache.camel.model.rest.RestDefinition;
-import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.AsEndpointUri;
 import org.apache.camel.spi.AsPredicate;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.IdempotentRepository;
 import org.apache.camel.spi.InterceptStrategy;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.Policy;
 import org.apache.camel.support.ExpressionAdapter;
+import org.apache.camel.support.PredicateToExpressionAdapter;
+import org.apache.camel.support.builder.ExpressionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Base class for processor types that most XML types extend.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
+@SuppressWarnings({"unused", "JavadocReference"})
 public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>> extends OptionalIdentifiedDefinition<Type> implements Block, OtherAttributesAware {
-    @XmlTransient
+
     private static final AtomicInteger COUNTER = new AtomicInteger();
-    @XmlTransient
     protected final Logger log = LoggerFactory.getLogger(getClass());
-    @XmlAttribute
     protected Boolean inheritErrorHandler;
-    @XmlTransient
     private final LinkedList<Block> blocks = new LinkedList<>();
-    @XmlTransient
     private ProcessorDefinition<?> parent;
-    @XmlTransient
     private final List<InterceptStrategy> interceptStrategies = new ArrayList<>();
-    // use xs:any to support optional property placeholders
-    @XmlAnyAttribute
     private Map<QName, Object> otherAttributes;
-    @XmlTransient
     private final int index;
 
     protected ProcessorDefinition() {
@@ -114,6 +104,11 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     // else to use an optional attribute in JAXB2
     public abstract List<ProcessorDefinition<?>> getOutputs();
+
+    public List<ProcessorDefinition<?>> getOrCreateOutputs() {
+        // Provided for coherence, but not really needed as getOutputs should never return null
+        return getOutputs();
+    }
 
     /**
      * Whether this definition can only be added as top-level directly on the route itself (such as onException,onCompletion,intercept, etc.)
@@ -243,7 +238,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type to(@AsEndpointUri String uri) {
-        addOutput(new ToDefinition(uri));
+        addOutput(new ToDefinition().uri(uri));
         return asType();
     }
 
@@ -255,7 +250,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type toD(@AsEndpointUri String uri) {
         ToDynamicDefinition answer = new ToDynamicDefinition();
-        answer.setUri(uri);
+        answer.uri(uri);
         addOutput(answer);
         return asType();
     }
@@ -268,7 +263,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type toD(@AsEndpointUri EndpointProducerBuilder endpointProducerBuilder) {
         ToDynamicDefinition answer = new ToDynamicDefinition();
-        answer.setEndpointProducerBuilder(endpointProducerBuilder);
+        answer.setUri(endpointProducerBuilder);
         addOutput(answer);
         return asType();
     }
@@ -283,7 +278,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type toD(@AsEndpointUri String uri, int cacheSize) {
         ToDynamicDefinition answer = new ToDynamicDefinition();
-        answer.setUri(uri);
+        answer.uri(uri);
         answer.setCacheSize(cacheSize);
         addOutput(answer);
         return asType();
@@ -299,7 +294,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type toD(@AsEndpointUri EndpointProducerBuilder endpointProducerBuilder, int cacheSize) {
         ToDynamicDefinition answer = new ToDynamicDefinition();
-        answer.setEndpointProducerBuilder(endpointProducerBuilder);
+        answer.setUri(endpointProducerBuilder);
         answer.setCacheSize(cacheSize);
         addOutput(answer);
         return asType();
@@ -314,7 +309,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type toD(@AsEndpointUri String uri, boolean ignoreInvalidEndpoint) {
         ToDynamicDefinition answer = new ToDynamicDefinition();
-        answer.setUri(uri);
+        answer.uri(uri);
         answer.setIgnoreInvalidEndpoint(ignoreInvalidEndpoint);
         addOutput(answer);
         return asType();
@@ -329,7 +324,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type toD(@AsEndpointUri EndpointProducerBuilder endpointProducerBuilder, boolean ignoreInvalidEndpoint) {
         ToDynamicDefinition answer = new ToDynamicDefinition();
-        answer.setEndpointProducerBuilder(endpointProducerBuilder);
+        answer.setUri(endpointProducerBuilder);
         answer.setIgnoreInvalidEndpoint(ignoreInvalidEndpoint);
         addOutput(answer);
         return asType();
@@ -343,7 +338,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type toF(@AsEndpointUri String uri, Object... args) {
-        addOutput(new ToDefinition(String.format(uri, args)));
+        addOutput(new ToDefinition().uri(String.format(uri, args)));
         return asType();
     }
 
@@ -393,7 +388,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type to(Endpoint endpoint) {
-        addOutput(new ToDefinition(endpoint));
+        addOutput(new ToDefinition().endpoint(endpoint));
         return asType();
     }
 
@@ -404,7 +399,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type to(@AsEndpointUri EndpointProducerBuilder endpoint) {
-        addOutput(new ToDefinition(endpoint));
+        addOutput(new ToDefinition().uri(endpoint));
         return asType();
     }
 
@@ -418,7 +413,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type to(ExchangePattern pattern, @AsEndpointUri String uri) {
-        addOutput(new ToDefinition(uri, pattern));
+        addOutput(new ToDefinition().uri(uri).pattern(pattern));
         return asType();
     }
 
@@ -432,7 +427,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type to(ExchangePattern pattern, Endpoint endpoint) {
-        addOutput(new ToDefinition(endpoint, pattern));
+        addOutput(new ToDefinition().endpoint(endpoint).pattern(pattern));
         return asType();
     }
 
@@ -446,7 +441,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type to(ExchangePattern pattern, EndpointProducerBuilder endpoint) {
-        addOutput(new ToDefinition(endpoint, pattern));
+        addOutput(new ToDefinition().uri(endpoint).pattern(pattern));
         return asType();
     }
 
@@ -458,7 +453,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(@AsEndpointUri String... uris) {
         for (String uri : uris) {
-            addOutput(new ToDefinition(uri));
+            addOutput(new ToDefinition().uri(uri));
         }
         return asType();
     }
@@ -471,7 +466,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(Endpoint... endpoints) {
         for (Endpoint endpoint : endpoints) {
-            addOutput(new ToDefinition(endpoint));
+            addOutput(new ToDefinition().endpoint(endpoint));
         }
         return asType();
     }
@@ -484,7 +479,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(Iterable<Endpoint> endpoints) {
         for (Endpoint endpoint : endpoints) {
-            addOutput(new ToDefinition(endpoint));
+            addOutput(new ToDefinition().endpoint(endpoint));
         }
         return asType();
     }
@@ -497,7 +492,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(@AsEndpointUri EndpointProducerBuilder... endpoints) {
         for (EndpointProducerBuilder endpoint : endpoints) {
-            addOutput(new ToDefinition(endpoint));
+            addOutput(new ToDefinition().uri(endpoint));
         }
         return asType();
     }
@@ -513,7 +508,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(ExchangePattern pattern, @AsEndpointUri String... uris) {
         for (String uri : uris) {
-            addOutput(new ToDefinition(uri, pattern));
+            addOutput(new ToDefinition().uri(uri).pattern(pattern));
         }
         return asType();
     }
@@ -529,7 +524,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(ExchangePattern pattern, Endpoint... endpoints) {
         for (Endpoint endpoint : endpoints) {
-            addOutput(new ToDefinition(endpoint, pattern));
+            addOutput(new ToDefinition().endpoint(endpoint).pattern(pattern));
         }
         return asType();
     }
@@ -543,7 +538,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(ExchangePattern pattern, Iterable<Endpoint> endpoints) {
         for (Endpoint endpoint : endpoints) {
-            addOutput(new ToDefinition(endpoint, pattern));
+            addOutput(new ToDefinition().endpoint(endpoint).pattern(pattern));
         }
         return asType();
     }
@@ -559,7 +554,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type to(ExchangePattern pattern, @AsEndpointUri EndpointProducerBuilder... endpoints) {
         for (EndpointProducerBuilder endpoint : endpoints) {
-            addOutput(new ToDefinition(endpoint, pattern));
+            addOutput(new ToDefinition().uri(endpoint).pattern(pattern));
         }
         return asType();
     }
@@ -574,7 +569,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setExchangePattern(ExchangePattern exchangePattern) {
-        addOutput(new SetExchangePatternDefinition(exchangePattern));
+        addOutput(new SetExchangePatternDefinition().pattern(exchangePattern));
         return asType();
     }
 
@@ -952,7 +947,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     }
 
     /**
-     * Continues processing the {@link org.apache.camel.Exchange} using asynchronous routing engine.
+     * Continues processing the {@link Exchange} using asynchronous routing engine.
      *
      * @return the builder
      */
@@ -963,7 +958,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     }
 
     /**
-     * Continues processing the {@link org.apache.camel.Exchange} using asynchronous routing engine.
+     * Continues processing the {@link Exchange} using asynchronous routing engine.
      *
      * @param poolSize the core pool size
      * @return the builder
@@ -976,7 +971,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     }
 
     /**
-     * Continues processing the {@link org.apache.camel.Exchange} using asynchronous routing engine.
+     * Continues processing the {@link Exchange} using asynchronous routing engine.
      *
      * @param poolSize    the core pool size
      * @param maxPoolSize the maximum pool size
@@ -989,9 +984,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         addOutput(answer);
         return answer;
     }
-    
+
     /**
-     * Continues processing the {@link org.apache.camel.Exchange} using asynchronous routing engine.
+     * Continues processing the {@link Exchange} using asynchronous routing engine.
      *
      * @param poolSize    the core pool size
      * @param maxPoolSize the maximum pool size
@@ -1015,7 +1010,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     public ProcessorDefinition<?> end() {
         // must do this ugly cast to avoid compiler error on AIX/HP-UX
         ProcessorDefinition<?> defn = (ProcessorDefinition<?>) this;
-        
+
         // when using choice .. when .. otherwise - doTry .. doCatch .. doFinally we should always
         // end the choice/try definition to avoid having to use 2 x end() in the route
         // this is counter intuitive for end users
@@ -1095,9 +1090,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         ProcessorDefinition<?> def = this;
 
         RouteDefinition route = ProcessorDefinitionHelper.getRoute(def);
-        if (route != null) {
-            return route.getRestDefinition();
-        }
+        // TODO: MODEL
+//        if (route != null) {
+//            return route.getRest();
+//        }
 
         throw new IllegalArgumentException("Cannot find RouteDefinition to allow endRest");
     }
@@ -1172,8 +1168,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param idempotentRepository  the repository to use for duplicate check
      * @return the builder
      */
-    public IdempotentConsumerDefinition idempotentConsumer(Expression messageIdExpression, IdempotentRepository idempotentRepository) {
-        IdempotentConsumerDefinition answer = new IdempotentConsumerDefinition(messageIdExpression, idempotentRepository);
+    public IdempotentConsumerDefinition<Type> idempotentConsumer(Expression messageIdExpression, IdempotentRepository idempotentRepository) {
+        IdempotentConsumerDefinition<Type> answer = new IdempotentConsumerDefinition<Type>()
+                .expression(messageIdExpression).messageIdRepository(idempotentRepository);
         addOutput(answer);
         return answer;
     }
@@ -1198,10 +1195,11 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * exchange is forwarded to the destination
      *
      * @param predicate  predicate to use
-     * @return the builder 
+     * @return the builder
      */
-    public FilterDefinition filter(@AsPredicate Predicate predicate) {
-        FilterDefinition filter = new FilterDefinition(predicate);
+    public FilterDefinition<Type> filter(@AsPredicate Predicate predicate) {
+        FilterDefinition<Type> filter = new FilterDefinition<Type>()
+                .expression(PredicateToExpressionAdapter.toExpression(predicate));
         addOutput(filter);
         return filter;
     }
@@ -1214,8 +1212,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression  the predicate expression to use
      * @return the builder
      */
-    public FilterDefinition filter(@AsPredicate ExpressionDefinition expression) {
-        FilterDefinition filter = new FilterDefinition(expression);
+    public FilterDefinition<Type> filter(@AsPredicate ExpressionDefinition expression) {
+        FilterDefinition<Type> filter = new FilterDefinition<Type>().expression(expression);
         addOutput(filter);
         return filter;
     }
@@ -1229,10 +1227,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression   the expression
      * @return the builder
      */
-    public FilterDefinition filter(String language, @AsPredicate String expression) {
-        return filter(new LanguageExpression(language, expression));
+    public FilterDefinition<Type> filter(String language, @AsPredicate String expression) {
+        return filter(new LanguageExpression().language(language).expression(expression));
     }
-    
+
     /**
      * Creates a validation expression which only if it is <tt>true</tt> then the
      * exchange is forwarded to the destination.
@@ -1241,8 +1239,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression  the expression
      * @return the builder
      */
-    public ValidateDefinition validate(@AsPredicate Expression expression) {
-        ValidateDefinition answer = new ValidateDefinition(expression);
+    public ValidateDefinition<Type> validate(@AsPredicate Expression expression) {
+        ValidateDefinition<Type> answer = new ValidateDefinition<Type>().expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1255,8 +1253,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param predicate  the predicate
      * @return the builder
      */
-    public ValidateDefinition validate(@AsPredicate Predicate predicate) {
-        ValidateDefinition answer = new ValidateDefinition(predicate);
+    public ValidateDefinition<Type> validate(@AsPredicate Predicate predicate) {
+        ValidateDefinition<Type> answer = new ValidateDefinition<Type>()
+                .expression(PredicateToExpressionAdapter.toExpression(predicate));
         addOutput(answer);
         return answer;
     }
@@ -1269,8 +1268,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     @AsPredicate
-    public ExpressionClause<ValidateDefinition> validate() {
-        ValidateDefinition answer = new ValidateDefinition();
+    public ExpressionClause<ValidateDefinition<Type>> validate() {
+        ValidateDefinition<Type> answer = new ValidateDefinition<Type>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -1282,8 +1281,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return  the builder
      */
-    public HystrixDefinition hystrix() {
-        HystrixDefinition answer = new HystrixDefinition();
+    public HystrixDefinition<Type> hystrix() {
+        HystrixDefinition<Type> answer = new HystrixDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -1294,8 +1293,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return  the builder
      */
-    public LoadBalanceDefinition loadBalance() {
-        LoadBalanceDefinition answer = new LoadBalanceDefinition();
+    public LoadBalanceDefinition<Type> loadBalance() {
+        LoadBalanceDefinition<Type> answer = new LoadBalanceDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -1307,10 +1306,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param loadBalancer a custom load balancer to use
      * @return  the builder
      */
-    public LoadBalanceDefinition loadBalance(LoadBalancer loadBalancer) {
-        LoadBalanceDefinition answer = new LoadBalanceDefinition();
+    public LoadBalanceDefinition<Type> loadBalance(LoadBalancer loadBalancer) {
+        LoadBalanceDefinition<Type> answer = new LoadBalanceDefinition<>();
         addOutput(answer);
-        return answer.loadBalance(loadBalancer);
+        return answer.loadBalancerType(new LoadBalancerDefinition(loadBalancer));
     }
 
     /**
@@ -1320,7 +1319,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type log(String message) {
-        LogDefinition answer = new LogDefinition(message);
+        LogDefinition answer = new LogDefinition().message(message);
         addOutput(answer);
         return asType();
     }
@@ -1333,7 +1332,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type log(LoggingLevel loggingLevel, String message) {
-        LogDefinition answer = new LogDefinition(message);
+        LogDefinition answer = new LogDefinition().message(message);
         answer.setLoggingLevel(loggingLevel);
         addOutput(answer);
         return asType();
@@ -1348,7 +1347,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type log(LoggingLevel loggingLevel, String logName, String message) {
-        LogDefinition answer = new LogDefinition(message);
+        LogDefinition answer = new LogDefinition().message(message);
         answer.setLoggingLevel(loggingLevel);
         answer.setLogName(logName);
         addOutput(answer);
@@ -1364,7 +1363,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type log(LoggingLevel loggingLevel, Logger logger, String message) {
-        LogDefinition answer = new LogDefinition(message);
+        LogDefinition answer = new LogDefinition().message(message);
         answer.setLoggingLevel(loggingLevel);
         answer.setLogger(logger);
         addOutput(answer);
@@ -1382,7 +1381,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type log(LoggingLevel loggingLevel, String logName, String marker, String message) {
-        LogDefinition answer = new LogDefinition(message);
+        LogDefinition answer = new LogDefinition().message(message);
         answer.setLoggingLevel(loggingLevel);
         answer.setLogName(logName);
         answer.setMarker(marker);
@@ -1401,7 +1400,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type log(LoggingLevel loggingLevel, Logger logger, String marker, String message) {
-        LogDefinition answer = new LogDefinition(message);
+        LogDefinition answer = new LogDefinition().message(message);
         answer.setLoggingLevel(loggingLevel);
         answer.setLogger(logger);
         answer.setMarker(marker);
@@ -1442,7 +1441,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RecipientListDefinition<Type> recipientList(@AsEndpointUri Expression recipients) {
-        RecipientListDefinition<Type> answer = new RecipientListDefinition<>(recipients);
+        RecipientListDefinition<Type> answer = new RecipientListDefinition<>();
+        answer.setExpression(recipients);
         addOutput(answer);
         return answer;
     }
@@ -1456,7 +1456,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RecipientListDefinition<Type> recipientList(@AsEndpointUri Expression recipients, String delimiter) {
-        RecipientListDefinition<Type> answer = new RecipientListDefinition<>(recipients);
+        RecipientListDefinition<Type> answer = new RecipientListDefinition<>();
+        answer.setExpression(recipients);
         answer.setDelimiter(delimiter);
         addOutput(answer);
         return answer;
@@ -1503,7 +1504,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RoutingSlipDefinition<Type> routingSlip(@AsEndpointUri Expression expression, String uriDelimiter) {
-        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>(expression, uriDelimiter);
+        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>();
+        answer.expression(expression);
+        answer.uriDelimiter(uriDelimiter);
         addOutput(answer);
         return answer;
     }
@@ -1521,11 +1524,12 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public RoutingSlipDefinition<Type> routingSlip(@AsEndpointUri Expression expression) {
-        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>(expression);
+        RoutingSlipDefinition<Type> answer = new RoutingSlipDefinition<>();
+        answer.expression(expression);
         addOutput(answer);
         return answer;
     }
-    
+
     /**
      * <a href="http://camel.apache.org/routing-slip.html">Routing Slip EIP:</a>
      * Creates a routing slip allowing you to route a message consecutively through a series of processing
@@ -1556,7 +1560,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public DynamicRouterDefinition<Type> dynamicRouter(@AsEndpointUri Expression expression) {
-        DynamicRouterDefinition<Type> answer = new DynamicRouterDefinition<>(expression);
+        DynamicRouterDefinition<Type> answer = new DynamicRouterDefinition<>();
+        answer.expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1607,7 +1612,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public SamplingDefinition sample(long samplePeriod, TimeUnit unit) {
-        SamplingDefinition answer = new SamplingDefinition(samplePeriod, unit);
+        SamplingDefinition answer = new SamplingDefinition().samplePeriod(samplePeriod).units(unit);
         addOutput(answer);
         return answer;
     }
@@ -1619,12 +1624,12 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * during which only a single exchange is allowed to pass through.
      * All other exchanges will be stopped.
      *
-     * @param messageFrequency this is the sample message frequency, only one exchange is 
+     * @param messageFrequency this is the sample message frequency, only one exchange is
      *              allowed through for this many messages received
      * @return the builder
      */
     public SamplingDefinition sample(long messageFrequency) {
-        SamplingDefinition answer = new SamplingDefinition(messageFrequency);
+        SamplingDefinition answer = new SamplingDefinition().messageFrequency(messageFrequency);
         addOutput(answer);
         return answer;
     }
@@ -1654,8 +1659,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression  the expression on which to split the message
      * @return the builder
      */
-    public SplitDefinition split(Expression expression) {
-        SplitDefinition answer = new SplitDefinition(expression);
+    public SplitDefinition<Type> split(Expression expression) {
+        SplitDefinition<Type> answer = new SplitDefinition<Type>().expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1670,8 +1675,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy  the strategy used to aggregate responses for every part
      * @return the builder
      */
-    public SplitDefinition split(Expression expression, AggregationStrategy aggregationStrategy) {
-        SplitDefinition answer = new SplitDefinition(expression);
+    public SplitDefinition<Type> split(Expression expression, AggregationStrategy aggregationStrategy) {
+        SplitDefinition<Type> answer = new SplitDefinition<Type>().expression(expression);
         addOutput(answer);
         answer.setAggregationStrategy(aggregationStrategy);
         return answer;
@@ -1683,9 +1688,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the expression clause for the expressions on which to compare messages in order
      */
-    public ExpressionClause<ResequenceDefinition> resequence() {
-        ResequenceDefinition answer = new ResequenceDefinition();
-        ExpressionClause<ResequenceDefinition> clause = new ExpressionClause<>(answer);
+    public ExpressionClause<ResequenceDefinition<Type>> resequence() {
+        ResequenceDefinition<Type> answer = new ResequenceDefinition<>();
+        ExpressionClause<ResequenceDefinition<Type>> clause = new ExpressionClause<>(answer);
         answer.setExpression(clause);
         addOutput(answer);
         return clause;
@@ -1699,7 +1704,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public ResequenceDefinition resequence(Expression expression) {
-        ResequenceDefinition answer = new ResequenceDefinition(expression);
+        ResequenceDefinition<Type> answer = new ResequenceDefinition<Type>().expression(expression);
         addOutput(answer);
         return answer;
     }
@@ -1710,10 +1715,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the expression clause to be used as builder to configure the correlation expression
      */
-    public ExpressionClause<AggregateDefinition> aggregate() {
-        AggregateDefinition answer = new AggregateDefinition();
-        ExpressionClause<AggregateDefinition> clause = new ExpressionClause<>(answer);
-        answer.setExpression(clause);
+    public ExpressionClause<AggregateDefinition<Type>> aggregate() {
+        AggregateDefinition<Type> answer = new AggregateDefinition<>();
+        ExpressionClause<AggregateDefinition<Type>> clause = new ExpressionClause<>(answer);
+        answer.correlationExpression(clause);
         addOutput(answer);
         return clause;
     }
@@ -1725,10 +1730,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy the strategy used for the aggregation
      * @return the expression clause to be used as builder to configure the correlation expression
      */
-    public ExpressionClause<AggregateDefinition> aggregate(AggregationStrategy aggregationStrategy) {
-        AggregateDefinition answer = new AggregateDefinition();
-        ExpressionClause<AggregateDefinition> clause = new ExpressionClause<>(answer);
-        answer.setExpression(clause);
+    public ExpressionClause<AggregateDefinition<Type>> aggregate(AggregationStrategy aggregationStrategy) {
+        AggregateDefinition<Type> answer = new AggregateDefinition<>();
+        ExpressionClause<AggregateDefinition<Type>> clause = new ExpressionClause<>(answer);
+        answer.correlationExpression(clause);
         answer.setAggregationStrategy(aggregationStrategy);
         addOutput(answer);
         return clause;
@@ -1744,8 +1749,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *                              <code>header("JMSCorrelationID")</code>
      * @return the builder
      */
-    public AggregateDefinition aggregate(Expression correlationExpression) {
-        AggregateDefinition answer = new AggregateDefinition(correlationExpression);
+    public AggregateDefinition<Type> aggregate(Expression correlationExpression) {
+        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().correlationExpression(correlationExpression);
         addOutput(answer);
         return answer;
     }
@@ -1761,8 +1766,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy the strategy used for the aggregation
      * @return the builder
      */
-    public AggregateDefinition aggregate(Expression correlationExpression, AggregationStrategy aggregationStrategy) {
-        AggregateDefinition answer = new AggregateDefinition(correlationExpression, aggregationStrategy);
+    public AggregateDefinition<Type> aggregate(Expression correlationExpression, AggregationStrategy aggregationStrategy) {
+        AggregateDefinition<Type> answer = new AggregateDefinition<Type>().correlationExpression(correlationExpression)
+                .aggregationStrategy(aggregationStrategy);
         addOutput(answer);
         return answer;
     }
@@ -1774,8 +1780,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param delay  an expression to calculate the delay time in millis
      * @return the builder
      */
-    public DelayDefinition delay(Expression delay) {
-        DelayDefinition answer = new DelayDefinition(delay);
+    public DelayDefinition<Type> delay(Expression delay) {
+        DelayDefinition<Type> answer = new DelayDefinition<Type>().expression(delay);
         addOutput(answer);
         return answer;
     }
@@ -1786,8 +1792,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the expression clause to create the expression
      */
-    public ExpressionClause<DelayDefinition> delay() {
-        DelayDefinition answer = new DelayDefinition();
+    public ExpressionClause<DelayDefinition<Type>> delay() {
+        DelayDefinition<Type> answer = new DelayDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -1799,18 +1805,18 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param delay  the delay in millis
      * @return the builder
      */
-    public DelayDefinition delay(long delay) {
+    public DelayDefinition<Type> delay(long delay) {
         return delay(ExpressionBuilder.constantExpression(delay));
     }
 
     /**
      * <a href="http://camel.apache.org/throttler.html">Throttler EIP:</a>
-     * Creates a throttler using a fluent builder. 
+     * Creates a throttler using a fluent builder.
      *
      * @return the builder
      */
-    public ExpressionClause<ThrottleDefinition> throttle() {
-        ThrottleDefinition answer = new ThrottleDefinition();
+    public ExpressionClause<ThrottleDefinition<Type>> throttle() {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -1821,12 +1827,12 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * or that we don't exceed an agreed SLA with some external service.
      * <p/>
      * Will default use a time period of 1 second, so setting the maximumRequestCount to eg 10
-     * will default ensure at most 10 messages per second. 
+     * will default ensure at most 10 messages per second.
      *
-     * @param maximumRequestCount  the maximum messages 
+     * @param maximumRequestCount  the maximum messages
      * @return the builder
      */
-    public ThrottleDefinition throttle(long maximumRequestCount) {
+    public ThrottleDefinition<Type> throttle(long maximumRequestCount) {
         return throttle(ExpressionBuilder.constantExpression(maximumRequestCount));
     }
 
@@ -1836,13 +1842,13 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * or that we don't exceed an agreed SLA with some external service.
      * <p/>
      * Will default use a time period of 1 second, so setting the maximumRequestCount to eg 10
-     * will default ensure at most 10 messages per second. 
+     * will default ensure at most 10 messages per second.
      *
-     * @param maximumRequestCount  an expression to calculate the maximum request count 
+     * @param maximumRequestCount  an expression to calculate the maximum request count
      * @return the builder
      */
-    public ThrottleDefinition throttle(Expression maximumRequestCount) {
-        ThrottleDefinition answer = new ThrottleDefinition(maximumRequestCount);
+    public ThrottleDefinition<Type> throttle(Expression maximumRequestCount) {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<Type>().expression(maximumRequestCount);
         addOutput(answer);
         return answer;
     }
@@ -1862,8 +1868,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param correlationExpressionKey  is a correlation key that can throttle by the given key instead of overall throttling
      * @return the builder
      */
-    public ThrottleDefinition throttle(Expression maximumRequestCount, long correlationExpressionKey) {
-        ThrottleDefinition answer = new ThrottleDefinition(maximumRequestCount, ExpressionBuilder.constantExpression(correlationExpressionKey));
+    public ThrottleDefinition<Type> throttle(Expression maximumRequestCount, long correlationExpressionKey) {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<Type>().expression(maximumRequestCount)
+                .correlationExpression(ExpressionBuilder.constantExpression(correlationExpressionKey));
         addOutput(answer);
         return answer;
     }
@@ -1883,12 +1890,13 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param correlationExpressionKey  is a correlation key as an expression that can throttle by the given key instead of overall throttling
      * @return the builder
      */
-    public ThrottleDefinition throttle(Expression maximumRequestCount, Expression correlationExpressionKey) {
-        ThrottleDefinition answer = new ThrottleDefinition(maximumRequestCount, correlationExpressionKey);
+    public ThrottleDefinition<Type> throttle(Expression maximumRequestCount, Expression correlationExpressionKey) {
+        ThrottleDefinition<Type> answer = new ThrottleDefinition<Type>().expression(maximumRequestCount)
+                .correlationExpression(correlationExpressionKey);
         addOutput(answer);
         return answer;
     }
-    
+
     /**
      * <a href="http://camel.apache.org/loop.html">Loop EIP:</a>
      * Creates a loop allowing to process the a message a number of times and possibly process them
@@ -1896,8 +1904,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the clause used to create the loop expression
      */
-    public ExpressionClause<LoopDefinition> loop() {
-        LoopDefinition loop = new LoopDefinition();
+    public ExpressionClause<LoopDefinition<Type>> loop() {
+        LoopDefinition<Type> loop = new LoopDefinition<>();
         addOutput(loop);
         return createAndSetExpression(loop);
     }
@@ -1910,8 +1918,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression the loop expression
      * @return the builder
      */
-    public LoopDefinition loop(Expression expression) {
-        LoopDefinition loop = new LoopDefinition(expression);
+    public LoopDefinition<Type> loop(Expression expression) {
+        LoopDefinition<Type> loop = new LoopDefinition<Type>().expression(expression);
         addOutput(loop);
         return loop;
     }
@@ -1924,8 +1932,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param predicate the while loop predicate
      * @return the builder
      */
-    public LoopDefinition loopDoWhile(@AsPredicate Predicate predicate) {
-        LoopDefinition loop = new LoopDefinition(predicate);
+    public LoopDefinition<Type> loopDoWhile(@AsPredicate Predicate predicate) {
+        LoopDefinition<Type> loop = new LoopDefinition<Type>()
+                .expression(PredicateToExpressionAdapter.toExpression(predicate));
         addOutput(loop);
         return loop;
     }
@@ -1937,8 +1946,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public ExpressionClause<LoopDefinition> loopDoWhile() {
-        LoopDefinition loop = new LoopDefinition();
+    public ExpressionClause<LoopDefinition<Type>> loopDoWhile() {
+        LoopDefinition<Type> loop = new LoopDefinition<>();
         loop.setDoWhile(true);
         addOutput(loop);
         return createAndSetExpression(loop);
@@ -1953,34 +1962,35 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public LoopDefinition loop(int count) {
-        LoopDefinition loop = new LoopDefinition(new ConstantExpression(Integer.toString(count)));
+        LoopDefinition<Type> loop = new LoopDefinition<Type>().expression(
+                new ConstantExpression().expression(Integer.toString(count)));
         addOutput(loop);
         return loop;
     }
 
     /**
-     * Sets the exception on the {@link org.apache.camel.Exchange}
+     * Sets the exception on the {@link Exchange}
      *
      * @param exception the exception to throw
      * @return the builder
      */
     public Type throwException(Exception exception) {
-        ThrowExceptionDefinition answer = new ThrowExceptionDefinition();
+        ThrowExceptionDefinition<Type> answer = new ThrowExceptionDefinition<>();
         answer.setException(exception);
         addOutput(answer);
         return asType();
     }
 
     /**
-     * Sets the exception on the {@link org.apache.camel.Exchange}
+     * Sets the exception on the {@link Exchange}
      *
      * @param type the exception class to use
      * @param message the given message as caused message (supports simple language)
      * @return the builder
      */
     public Type throwException(Class<? extends Exception> type, String message) {
-        ThrowExceptionDefinition answer = new ThrowExceptionDefinition();
-        answer.setExceptionClass(type);
+        ThrowExceptionDefinition<Type> answer = new ThrowExceptionDefinition<>();
+        answer.setExceptionType(type);
         answer.setMessage(message);
         addOutput(answer);
         return asType();
@@ -1997,7 +2007,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see #markRollbackOnlyLast()
      */
     public Type markRollbackOnly() {
-        RollbackDefinition answer = new RollbackDefinition();
+        RollbackDefinition<Type> answer = new RollbackDefinition<>();
         answer.setMarkRollbackOnly(true);
         addOutput(answer);
         return asType();
@@ -2017,7 +2027,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see #markRollbackOnly()
      */
     public Type markRollbackOnlyLast() {
-        RollbackDefinition answer = new RollbackDefinition();
+        RollbackDefinition<Type> answer = new RollbackDefinition<>();
         answer.setMarkRollbackOnlyLast(true);
         addOutput(answer);
         return asType();
@@ -2047,7 +2057,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see #markRollbackOnly()
      */
     public Type rollback(String message) {
-        RollbackDefinition answer = new RollbackDefinition(message);
+        RollbackDefinition<Type> answer = new RollbackDefinition<Type>().message(message);
         addOutput(answer);
         return asType();
     }
@@ -2062,8 +2072,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public WireTapDefinition<Type> wireTap(Endpoint endpoint) {
-        WireTapDefinition answer = new WireTapDefinition();
-        answer.setUri(endpoint.getEndpointUri());
+        WireTapDefinition<Type> answer = new WireTapDefinition<>();
+        answer.endpoint(endpoint);
         addOutput(answer);
         return answer;
     }
@@ -2078,8 +2088,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public WireTapDefinition<Type> wireTap(@AsEndpointUri EndpointProducerBuilder endpoint) {
-        WireTapDefinition answer = new WireTapDefinition();
-        answer.setEndpointProducerBuilder(endpoint);
+        WireTapDefinition<Type> answer = new WireTapDefinition<>();
+        answer.setUri(endpoint);
         addOutput(answer);
         return answer;
     }
@@ -2094,8 +2104,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public WireTapDefinition<Type> wireTap(@AsEndpointUri String uri) {
-        WireTapDefinition answer = new WireTapDefinition();
-        answer.setUri(uri);
+        WireTapDefinition<Type> answer = new WireTapDefinition<>();
+        answer.uri(uri);
         addOutput(answer);
         return answer;
     }
@@ -2130,7 +2140,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     }
 
     /**
-     * Stops continue routing the current {@link org.apache.camel.Exchange} and marks it as completed.
+     * Stops continue routing the current {@link Exchange} and marks it as completed.
      *
      * @return the builder
      */
@@ -2147,8 +2157,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param exceptionType  the exception to catch
      * @return the exception builder to configure
      */
-    public OnExceptionDefinition onException(Class<? extends Throwable> exceptionType) {
-        OnExceptionDefinition answer = new OnExceptionDefinition(exceptionType);
+    public OnExceptionDefinition<Type> onException(Class<? extends Throwable> exception) {
+        OnExceptionDefinition<Type> answer = new OnExceptionDefinition<>();
+        answer.setExceptions(Collections.singletonList(exception.getName()));
         answer.setRouteScoped(true);
         addOutput(answer);
         return answer;
@@ -2161,8 +2172,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param exceptions list of exceptions to catch
      * @return the exception builder to configure
      */
-    public OnExceptionDefinition onException(Class<? extends Throwable>... exceptions) {
-        OnExceptionDefinition answer = new OnExceptionDefinition(Arrays.asList(exceptions));
+    public OnExceptionDefinition<Type> onException(Class<? extends Throwable>... exceptions) {
+        OnExceptionDefinition<Type> answer = new OnExceptionDefinition<>();
+        answer.setExceptions(Arrays.stream(exceptions).map(Class::getName).collect(Collectors.toList()));
         answer.setRouteScoped(true);
         addOutput(answer);
         return answer;
@@ -2176,8 +2188,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param policy  the policy to apply
      * @return the policy builder to configure
      */
-    public PolicyDefinition policy(Policy policy) {
-        PolicyDefinition answer = new PolicyDefinition(policy);
+    public PolicyDefinition<Type> policy(Policy policy) {
+        PolicyDefinition<Type> answer = new PolicyDefinition<Type>().instance(policy);
         addOutput(answer);
         return answer;
     }
@@ -2190,9 +2202,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param ref  reference to lookup a policy in the registry
      * @return the policy builder to configure
      */
-    public PolicyDefinition policy(String ref) {
-        PolicyDefinition answer = new PolicyDefinition();
-        answer.setRef(ref);
+    public PolicyDefinition<Type> policy(String ref) {
+        PolicyDefinition<Type> answer = new PolicyDefinition<>();
+        answer.policy("#bean:" + ref);
         addOutput(answer);
         return answer;
     }
@@ -2202,8 +2214,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the policy builder to configure
      */
-    public TransactedDefinition transacted() {
-        TransactedDefinition answer = new TransactedDefinition();
+    public TransactedDefinition<Type> transacted() {
+        TransactedDefinition<Type> answer = new TransactedDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -2214,9 +2226,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param ref  reference to lookup a transacted policy in the registry
      * @return the policy builder to configure
      */
-    public TransactedDefinition transacted(String ref) {
-        TransactedDefinition answer = new TransactedDefinition();
-        answer.setRef(ref);
+    public TransactedDefinition<Type> transacted(String ref) {
+        TransactedDefinition<Type> answer = new TransactedDefinition<>();
+        answer.policy("#bean:" + ref);
         addOutput(answer);
         return answer;
     }
@@ -2226,8 +2238,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the saga definition
      */
-    public SagaDefinition saga() {
-        SagaDefinition answer = new SagaDefinition();
+    public SagaDefinition<Type> saga() {
+        SagaDefinition<Type> answer = new SagaDefinition<>();
         addOutput(answer);
         return answer;
     }
@@ -2244,7 +2256,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type process(Processor processor) {
-        ProcessDefinition answer = new ProcessDefinition(processor);
+        ProcessDefinition answer = new ProcessDefinition().processor(processor);
         addOutput(answer);
         return asType();
     }
@@ -2259,7 +2271,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type process(String ref) {
         ProcessDefinition answer = new ProcessDefinition();
-        answer.setRef(ref);
+        answer.processor("#bean:" + ref);
         addOutput(answer);
         return asType();
     }
@@ -2273,7 +2285,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ProcessClause<ProcessorDefinition<Type>> process() {
         ProcessClause<ProcessorDefinition<Type>> clause = new ProcessClause<>(this);
-        ProcessDefinition answer = new ProcessDefinition(clause);
+        ProcessDefinition<Type> answer = new ProcessDefinition<>();
 
         addOutput(answer);
         return clause;
@@ -2287,9 +2299,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
-            answer.setRef((String) bean);
+            answer.setBean("#bean:" + bean);
         } else {
             answer.setBean(bean);
         }
@@ -2306,9 +2318,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean, String method) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
-            answer.setRef((String) bean);
+            answer.setBean("#bean:" + bean);
         } else {
             answer.setBean(bean);
         }
@@ -2316,7 +2328,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         addOutput(answer);
         return asType();
     }
-    
+
     /**
      * <a href="http://camel.apache.org/message-translator.html">Message Translator EIP:</a>
      * Adds a bean which is invoked which could be a final destination, or could be a transformation in a pipeline
@@ -2328,9 +2340,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean, boolean cache) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
-            answer.setRef((String) bean);
+            answer.setBean("#bean:" + bean);
         } else {
             answer.setBean(bean);
         }
@@ -2351,9 +2363,9 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Object bean, String method, boolean cache) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         if (bean instanceof String) {
-            answer.setRef((String) bean);
+            answer.setBean("#bean:" + bean);
         } else {
             answer.setBean(bean);
         }
@@ -2371,7 +2383,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Class<?> beanType) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         answer.setBeanType(beanType);
         addOutput(answer);
         return asType();
@@ -2386,7 +2398,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Class<?> beanType, String method) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         answer.setBeanType(beanType);
         answer.setMethod(method);
         addOutput(answer);
@@ -2405,7 +2417,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type bean(Class<?> beanType, String method, boolean cache) {
-        BeanDefinition answer = new BeanDefinition();
+        BeanDefinition<Type> answer = new BeanDefinition<>();
         answer.setBeanType(beanType);
         answer.setMethod(method);
         answer.setCache(cache);
@@ -2421,7 +2433,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> setBody() {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetBodyDefinition answer = new SetBodyDefinition(clause);
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2434,7 +2446,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setBody(Expression expression) {
-        SetBodyDefinition answer = new SetBodyDefinition(expression);
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2447,7 +2459,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public <Result> Type setBody(Supplier<Result> supplier) {
-        SetBodyDefinition answer = new SetBodyDefinition(new ExpressionAdapter() {
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(new ExpressionAdapter() {
             @Override
             public Result evaluate(Exchange exchange) {
                 return supplier.get();
@@ -2465,7 +2477,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public <Result> Type setBody(Function<Exchange, Result> function) {
-        SetBodyDefinition answer = new SetBodyDefinition(new ExpressionAdapter() {
+        SetBodyDefinition<Type> answer = new SetBodyDefinition<Type>().expression(new ExpressionAdapter() {
             @Override
             public Result evaluate(Exchange exchange) {
                 return function.apply(exchange);
@@ -2483,7 +2495,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type transform(Expression expression) {
-        TransformDefinition answer = new TransformDefinition(expression);
+        TransformDefinition<Type> answer = new TransformDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2496,7 +2508,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> transform() {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        TransformDefinition answer = new TransformDefinition(clause);
+        TransformDefinition<Type> answer = new TransformDefinition<Type>().expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2508,7 +2520,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type script(Expression expression) {
-        ScriptDefinition answer = new ScriptDefinition(expression);
+        ScriptDefinition<Type> answer = new ScriptDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2520,7 +2532,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> script() {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        ScriptDefinition answer = new ScriptDefinition(clause);
+        ScriptDefinition<Type> answer = new ScriptDefinition<Type>().expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2532,7 +2544,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setFaultBody(Expression expression) {
-        SetFaultBodyDefinition answer = new SetFaultBodyDefinition(expression);
+        SetFaultBodyDefinition<Type> answer = new SetFaultBodyDefinition<Type>().expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2545,7 +2557,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> setHeader(String name) {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetHeaderDefinition answer = new SetHeaderDefinition(name, clause);
+        SetHeaderDefinition<Type> answer = new SetHeaderDefinition<Type>().name(name).expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2558,7 +2570,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setHeader(String name, Expression expression) {
-        SetHeaderDefinition answer = new SetHeaderDefinition(name, expression);
+        SetHeaderDefinition<Type> answer = new SetHeaderDefinition<Type>().name(name).expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2571,7 +2583,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setHeader(String name, final Supplier<Object> supplier) {
-        SetHeaderDefinition answer = new SetHeaderDefinition(name, new ExpressionAdapter() {
+        SetHeaderDefinition<Type> answer = new SetHeaderDefinition<Type>().name(name).expression(new ExpressionAdapter() {
             @Override
             public Object evaluate(Exchange exchange) {
                 return supplier.get();
@@ -2590,7 +2602,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type setProperty(String name, Expression expression) {
-        SetPropertyDefinition answer = new SetPropertyDefinition(name, expression);
+        SetPropertyDefinition<Type> answer = new SetPropertyDefinition<Type>().name(name).expression(expression);
         addOutput(answer);
         return asType();
     }
@@ -2603,7 +2615,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public ExpressionClause<ProcessorDefinition<Type>> setProperty(String name) {
         ExpressionClause<ProcessorDefinition<Type>> clause = new ExpressionClause<>(this);
-        SetPropertyDefinition answer = new SetPropertyDefinition(name, clause);
+        SetPropertyDefinition<Type> answer = new SetPropertyDefinition<Type>().name(name).expression(clause);
         addOutput(answer);
         return clause;
     }
@@ -2615,7 +2627,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeHeader(String name) {
-        RemoveHeaderDefinition answer = new RemoveHeaderDefinition(name);
+        RemoveHeaderDefinition<Type> answer = new RemoveHeaderDefinition<Type>().headerName(name);
         addOutput(answer);
         return asType();
     }
@@ -2627,7 +2639,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeHeaders(String pattern) {
-        RemoveHeadersDefinition answer = new RemoveHeadersDefinition(pattern);
+        RemoveHeadersDefinition<Type> answer = new RemoveHeadersDefinition<Type>().pattern(pattern);
         addOutput(answer);
         return asType();
     }
@@ -2640,7 +2652,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeHeaders(String pattern, String... excludePatterns) {
-        RemoveHeadersDefinition answer = new RemoveHeadersDefinition(pattern, excludePatterns);
+        RemoveHeadersDefinition answer = new RemoveHeadersDefinition().pattern(pattern).excludePatterns(excludePatterns);
         addOutput(answer);
         return asType();
     }
@@ -2652,11 +2664,11 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeProperty(String name) {
-        RemovePropertyDefinition answer = new RemovePropertyDefinition(name);
+        RemovePropertyDefinition<Type> answer = new RemovePropertyDefinition<Type>().propertyName(name);
         addOutput(answer);
         return asType();
     }
-    
+
     /**
      * Adds a processor which removes the properties in the exchange
      *
@@ -2664,7 +2676,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeProperties(String pattern) {
-        RemovePropertiesDefinition answer = new RemovePropertiesDefinition(pattern);
+        RemovePropertiesDefinition<Type> answer = new RemovePropertiesDefinition<Type>().pattern(pattern);
         addOutput(answer);
         return asType();
     }
@@ -2677,7 +2689,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type removeProperties(String pattern, String... excludePatterns) {
-        RemovePropertiesDefinition answer = new RemovePropertiesDefinition(pattern, excludePatterns);
+        RemovePropertiesDefinition answer = new RemovePropertiesDefinition().pattern(pattern).excludePatterns(excludePatterns);
         addOutput(answer);
         return asType();
     }
@@ -2689,10 +2701,10 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type convertBodyTo(Class<?> type) {
-        addOutput(new ConvertBodyDefinition(type));
+        addOutput(new ConvertBodyDefinition<Type>().type(type));
         return asType();
     }
-    
+
     /**
      * Converts the IN message body to the specified type
      *
@@ -2701,7 +2713,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type convertBodyTo(Class<?> type, String charset) {
-        addOutput(new ConvertBodyDefinition(type, charset));
+        addOutput(new ConvertBodyDefinition<Type>().type(type).charset(charset));
         return asType();
     }
 
@@ -2723,7 +2735,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public <T> Type sort(Expression expression, Comparator<T> comparator) {
-        addOutput(new SortDefinition<>(expression, comparator));
+        addOutput(new SortDefinition<T, Type>().expression(expression).comparator(comparator));
         return asType();
     }
 
@@ -2732,8 +2744,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public <T> ExpressionClause<SortDefinition<T>> sort() {
-        SortDefinition<T> answer = new SortDefinition<>();
+    public <T> ExpressionClause<SortDefinition<T, Type>> sort() {
+        SortDefinition<T, Type> answer = new SortDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
@@ -2851,7 +2863,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     /**
      * The <a href="http://camel.apache.org/content-enricher.html">Content Enricher EIP</a>
-     * enriches an exchange with additional data obtained from a <code>resourceUri</code> and 
+     * enriches an exchange with additional data obtained from a <code>resourceUri</code> and
      * with an aggregation strategy created using a fluent builder.
      *
      * <blockquote><pre>{@code
@@ -2872,7 +2884,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     /**
      * The <a href="http://camel.apache.org/content-enricher.html">Content Enricher EIP</a>
-     * enriches an exchange with additional data obtained from a <code>resourceUri</code> and 
+     * enriches an exchange with additional data obtained from a <code>resourceUri</code> and
      * with an aggregation strategy created using a fluent builder.
      */
     public EnrichClause<ProcessorDefinition<Type>> enrichWith(@AsEndpointUri String resourceUri, boolean aggregateOnException) {
@@ -2883,7 +2895,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     /**
      * The <a href="http://camel.apache.org/content-enricher.html">Content Enricher EIP</a>
-     * enriches an exchange with additional data obtained from a <code>resourceUri</code> and 
+     * enriches an exchange with additional data obtained from a <code>resourceUri</code> and
      * with an aggregation strategy created using a fluent builder.
      */
     public EnrichClause<ProcessorDefinition<Type>> enrichWith(@AsEndpointUri String resourceUri, boolean aggregateOnException, boolean shareUnitOfWork) {
@@ -2939,7 +2951,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @param resourceUri           URI of resource endpoint for obtaining additional data.
      * @param aggregationStrategy   aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                               an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.Enricher
@@ -2954,7 +2966,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @param resourceUri           URI of resource endpoint for obtaining additional data.
      * @param aggregationStrategy   aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                              an exception was thrown.
      * @param shareUnitOfWork       whether to share unit of work
      * @return the builder
@@ -2962,7 +2974,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      */
     public Type enrich(@AsEndpointUri String resourceUri, AggregationStrategy aggregationStrategy, boolean aggregateOnException, boolean shareUnitOfWork) {
         EnrichDefinition answer = new EnrichDefinition();
-        answer.setExpression(new ConstantExpression(resourceUri));
+        answer.setExpression(new ConstantExpression().expression(resourceUri));
         answer.setAggregationStrategy(aggregationStrategy);
         answer.setAggregateOnException(aggregateOnException);
         answer.setShareUnitOfWork(shareUnitOfWork);
@@ -2976,7 +2988,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @param resourceUri           URI of resource endpoint for obtaining additional data.
      * @param aggregationStrategy   aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                               an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.Enricher
@@ -2991,7 +3003,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @param resourceUri           URI of resource endpoint for obtaining additional data.
      * @param aggregationStrategy   aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                              an exception was thrown.
      * @param shareUnitOfWork       whether to share unit of work
      * @return the builder
@@ -3192,8 +3204,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     /**
      * The <a href="http://camel.apache.org/content-enricher.html">Content Enricher EIP</a>
-     * enriches an exchange with additional data obtained from a <code>resourceUri</code> 
-     * and with an aggregation strategy created using a fluent builder using 
+     * enriches an exchange with additional data obtained from a <code>resourceUri</code>
+     * and with an aggregation strategy created using a fluent builder using
      * a {@link org.apache.camel.PollingConsumer} to poll the endpoint.
      */
     public EnrichClause<ProcessorDefinition<Type>> pollEnrichWith(@AsEndpointUri String resourceUri) {
@@ -3202,8 +3214,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     /**
      * The <a href="http://camel.apache.org/content-enricher.html">Content Enricher EIP</a>
-     * enriches an exchange with additional data obtained from a <code>resourceUri</code> 
-     * and with an aggregation strategy created using a fluent builder using 
+     * enriches an exchange with additional data obtained from a <code>resourceUri</code>
+     * and with an aggregation strategy created using a fluent builder using
      * a {@link org.apache.camel.PollingConsumer} to poll the endpoint.
      */
     public EnrichClause<ProcessorDefinition<Type>> pollEnrichWith(@AsEndpointUri String resourceUri, long timeout) {
@@ -3212,8 +3224,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
 
     /**
      * The <a href="http://camel.apache.org/content-enricher.html">Content Enricher EIP</a>
-     * enriches an exchange with additional data obtained from a <code>resourceUri</code> 
-     * and with an aggregation strategy created using a fluent builder using 
+     * enriches an exchange with additional data obtained from a <code>resourceUri</code>
+     * and with an aggregation strategy created using a fluent builder using
      * a {@link org.apache.camel.PollingConsumer} to poll the endpoint.
      */
     public EnrichClause<ProcessorDefinition<Type>> pollEnrichWith(@AsEndpointUri String resourceUri, long timeout, boolean aggregateOnException) {
@@ -3269,13 +3281,13 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param resourceUri           URI of resource endpoint for obtaining additional data.
      * @param timeout               timeout in millis to wait at most for data to be available.
      * @param aggregationStrategy   aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                              an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.PollEnricher
      */
     public Type pollEnrich(@AsEndpointUri String resourceUri, long timeout, AggregationStrategy aggregationStrategy, boolean aggregateOnException) {
-        return pollEnrich(new ConstantExpression(resourceUri), timeout, aggregationStrategy, aggregateOnException);
+        return pollEnrich(new ConstantExpression().expression(resourceUri), timeout, aggregationStrategy, aggregateOnException);
     }
 
     /**
@@ -3293,13 +3305,13 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param resourceUri            URI of resource endpoint for obtaining additional data.
      * @param timeout                timeout in millis to wait at most for data to be available.
      * @param aggregationStrategyRef Reference of aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                               an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.PollEnricher
      */
     public Type pollEnrich(@AsEndpointUri String resourceUri, long timeout, String aggregationStrategyRef, boolean aggregateOnException) {
-        return pollEnrich(new ConstantExpression(resourceUri), timeout, aggregationStrategyRef, aggregateOnException);
+        return pollEnrich(new ConstantExpression().expression(resourceUri), timeout, aggregationStrategyRef, aggregateOnException);
     }
 
     /**
@@ -3338,7 +3350,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param resourceUri           URI of resource endpoint for obtaining additional data.
      * @param timeout               timeout in millis to wait at most for data to be available.
      * @param aggregationStrategy   aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException  whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                              an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.PollEnricher
@@ -3362,7 +3374,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param resourceUri            URI of resource endpoint for obtaining additional data.
      * @param timeout                timeout in millis to wait at most for data to be available.
      * @param aggregationStrategyRef Reference of aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                               an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.PollEnricher
@@ -3407,7 +3419,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression             to use an expression to dynamically compute the endpoint to poll from
      * @param timeout                timeout in millis to wait at most for data to be available.
      * @param aggregationStrategyRef Reference of aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                               an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.PollEnricher
@@ -3416,7 +3428,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
         PollEnrichDefinition pollEnrich = new PollEnrichDefinition();
         pollEnrich.setExpression(expression);
         pollEnrich.setTimeout(timeout);
-        pollEnrich.setAggregationStrategyRef(aggregationStrategyRef);
+        pollEnrich.aggregationStrategy("#bean:" + aggregationStrategyRef);
         pollEnrich.setAggregateOnException(aggregateOnException);
         addOutput(pollEnrich);
         return asType();
@@ -3437,7 +3449,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param expression             to use an expression to dynamically compute the endpoint to poll from
      * @param timeout                timeout in millis to wait at most for data to be available.
      * @param aggregationStrategy    aggregation strategy to aggregate input data and additional data.
-     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(org.apache.camel.Exchange, org.apache.camel.Exchange)} if
+     * @param aggregateOnException   whether to call {@link AggregationStrategy#aggregate(Exchange, Exchange)} if
      *                               an exception was thrown.
      * @return the builder
      * @see org.apache.camel.processor.PollEnricher
@@ -3468,33 +3480,33 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @see org.apache.camel.processor.PollEnricher
      */
     @AsEndpointUri
-    public ExpressionClause<PollEnrichDefinition> pollEnrich() {
-        PollEnrichDefinition answer = new PollEnrichDefinition();
+    public ExpressionClause<PollEnrichDefinition<Type>> pollEnrich() {
+        PollEnrichDefinition<Type> answer = new PollEnrichDefinition<>();
         addOutput(answer);
         return createAndSetExpression(answer);
     }
 
     /**
      * Adds a onCompletion {@link org.apache.camel.spi.Synchronization} hook that invoke this route as
-     * a callback when the {@link org.apache.camel.Exchange} has finished being processed.
+     * a callback when the {@link Exchange} has finished being processed.
      * The hook invoke callbacks for either onComplete or onFailure.
      * <p/>
-     * Will by default always trigger when the {@link org.apache.camel.Exchange} is complete
+     * Will by default always trigger when the {@link Exchange} is complete
      * (either with success or failed).
      * <br/>
      * You can limit the callback to either onComplete or onFailure but invoking the nested
      * builder method.
      * <p/>
-     * For onFailure the caused exception is stored as a property on the {@link org.apache.camel.Exchange}
-     * with the key {@link org.apache.camel.Exchange#EXCEPTION_CAUGHT}.
+     * For onFailure the caused exception is stored as a property on the {@link Exchange}
+     * with the key {@link Exchange#EXCEPTION_CAUGHT}.
      *
      * @return the builder
      */
-    public OnCompletionDefinition onCompletion() {
-        OnCompletionDefinition answer = new OnCompletionDefinition();
+    public OnCompletionDefinition<Type> onCompletion() {
+        OnCompletionDefinition<Type> answer = new OnCompletionDefinition<>();
         // we must remove all existing on completion definition (as they are global)
         // and thus we are the only one as route scoped should override any global scoped
-        answer.removeAllOnCompletionDefinition(this);
+        getOutputs().removeIf(out -> out instanceof OnCompletionDefinition);
         popBlock();
         addOutput(answer);
         pushBlock(answer);
@@ -3524,7 +3536,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type unmarshal(DataFormatDefinition dataFormatType) {
-        addOutput(new UnmarshalDefinition(dataFormatType));
+        addOutput(new UnmarshalDefinition<Type>().dataFormatType(dataFormatType));
         return asType();
     }
 
@@ -3537,7 +3549,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type unmarshal(DataFormat dataFormat) {
-        return unmarshal(new DataFormatDefinition(dataFormat));
+        return unmarshal(new CustomDataFormat().dataFormat(dataFormat));
     }
 
     /**
@@ -3550,7 +3562,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type unmarshal(String dataTypeRef) {
-        return unmarshal(new CustomDataFormat(dataTypeRef));
+        return unmarshal(new CustomDataFormat().dataFormat(dataTypeRef));
     }
 
     /**
@@ -3573,7 +3585,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type marshal(DataFormatDefinition dataFormatType) {
-        addOutput(new MarshalDefinition(dataFormatType));
+        addOutput(new MarshalDefinition().dataFormatType(dataFormatType));
         return asType();
     }
 
@@ -3586,7 +3598,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type marshal(DataFormat dataFormat) {
-        return marshal(new DataFormatDefinition(dataFormat));
+        return marshal(new CustomDataFormat().dataFormat(dataFormat));
     }
 
     /**
@@ -3599,7 +3611,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @return the builder
      */
     public Type marshal(String dataTypeRef) {
-        addOutput(new MarshalDefinition(new CustomDataFormat(dataTypeRef)));
+        addOutput(new MarshalDefinition().dataFormatType(new CustomDataFormat().dataFormat(dataTypeRef)));
         return asType();
     }
 

@@ -1,0 +1,21 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "resequence",
+    "title": "Resequence",
+    "description": "Resequences (re-order) messages based on an expression",
+    "javaType": "org.apache.camel.model.ResequenceDefinition",
+    "label": "eip,routing",
+    "deprecated": false,
+    "input": true,
+    "output": true
+  },
+  "properties": {
+    "expression": { "kind": "expression", "displayName": "Expression", "required": true, "type": "object", "javaType": "org.apache.camel.model.language.ExpressionDefinition", "oneOf": [ "constant", "exchangeProperty", "groovy", "header", "hl7terser", "jsonpath", "language", "method", "mvel", "ognl", "ref", "simple", "spel", "tokenize", "xpath", "xquery", "xtokenize" ], "deprecated": false, "secret": false, "asPredicate": false, "description": "Expression to use for re-ordering the messages, such as a header with a sequence number" },
+    "resequencerConfig": { "kind": "element", "displayName": "Resequencer Config", "required": false, "type": "object", "javaType": "org.apache.camel.model.config.ResequencerConfig", "oneOf": [ "batch-config", "stream-config" ], "deprecated": false, "secret": false, "description": "To configure the resequencer in using either batch or stream configuration. Will by default use batch configuration." },
+    "outputs": { "kind": "element", "displayName": "Outputs", "required": true, "type": "array", "javaType": "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", "oneOf": [ "aggregate", "bean", "choice", "claimCheck", "convertBodyTo", "doCatch", "doFinally", "doTry", "filter", "hystrix", "idempotentConsumer", "inOnly", "inOut", "intercept", "interceptFrom", "interceptSendToEndpoint", "loadBalance", "log", "loop", "marshal", "multicast", "onCompletion", "onException", "onFallback", "otherwise", "pipeline", "policy", "process", "removeHeader", "removeHeaders", "removeProperties", "removeProperty", "resequence", "rollback", "saga", "sample", "setExchangePattern", "split", "step", "stop", "threads", "throwException", "to", "toD", "transacted", "unmarshal", "when", "whenSkipSendToEndpoint", "wireTap" ], "deprecated": false, "secret": false },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the id of this node" },
+    "description": { "kind": "element", "displayName": "Description", "required": false, "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": false, "secret": false, "description": "Sets the description of this node" }
+  }
+}
+

@@ -23,8 +23,9 @@ import org.apache.camel.model.SetBodyDefinition;
 import org.apache.camel.processor.SetBodyProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class SetBodyReifier extends ExpressionReifier<SetBodyDefinition> {
+public class SetBodyReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SetBodyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     SetBodyReifier(ProcessorDefinition<?> definition) {
         super((SetBodyDefinition) definition);
     }

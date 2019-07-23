@@ -30,11 +30,13 @@ import org.apache.camel.processor.MulticastProcessor;
 import org.apache.camel.processor.aggregate.AggregationStrategyBeanAdapter;
 import org.apache.camel.processor.aggregate.ShareUnitOfWorkAggregationStrategy;
 import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy;
+import org.apache.camel.spi.AggregationRepository;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
 
-public class MulticastReifier extends ProcessorReifier<MulticastDefinition> {
+public class MulticastReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<MulticastDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     MulticastReifier(ProcessorDefinition<?> definition) {
         super((MulticastDefinition) definition);
     }
@@ -55,57 +57,33 @@ public class MulticastReifier extends ProcessorReifier<MulticastDefinition> {
     protected Processor createCompositeProcessor(RouteContext routeContext, List<Processor> list) throws Exception {
         final AggregationStrategy strategy = createAggregationStrategy(routeContext);
 
-        boolean isParallelProcessing = definition.getParallelProcessing() != null && definition.getParallelProcessing();
-        boolean isShareUnitOfWork = definition.getShareUnitOfWork() != null && definition.getShareUnitOfWork();
-        boolean isStreaming = definition.getStreaming() != null && definition.getStreaming();
-        boolean isStopOnException = definition.getStopOnException() != null && definition.getStopOnException();
-        boolean isParallelAggregate = definition.getParallelAggregate() != null && definition.getParallelAggregate();
-        boolean isStopOnAggregateException = definition.getStopOnAggregateException() != null && definition.getStopOnAggregateException();
+        boolean isParallelProcessing = definition.getParallelProcessing() != null && asBoolean(routeContext, definition.getParallelProcessing());
+        boolean isShareUnitOfWork = definition.getShareUnitOfWork() != null && asBoolean(routeContext, definition.getShareUnitOfWork());
+        boolean isStreaming = definition.getStreaming() != null && asBoolean(routeContext, definition.getStreaming());
+        boolean isStopOnException = definition.getStopOnException() != null && asBoolean(routeContext, definition.getStopOnException());
+        boolean isParallelAggregate = definition.getParallelAggregate() != null && asBoolean(routeContext, definition.getParallelAggregate());
+        boolean isStopOnAggregateException = definition.getStopOnAggregateException() != null && asBoolean(routeContext, definition.getStopOnAggregateException());
 
-        boolean shutdownThreadPool = ProcessorDefinitionHelper.willCreateNewThreadPool(routeContext, definition, isParallelProcessing);
-        ExecutorService threadPool = ProcessorDefinitionHelper.getConfiguredExecutorService(routeContext, "Multicast", definition, isParallelProcessing);
+        boolean shutdownThreadPool = willCreateNewThreadPool(routeContext, definition.getExecutorService(), isParallelProcessing);
+        ExecutorService threadPool = getConfiguredExecutorService(routeContext, "Multicast", definition.getExecutorService(), isParallelProcessing);
 
-        long timeout = definition.getTimeout() != null ? definition.getTimeout() : 0;
+        long timeout = definition.getTimeout() != null ? asLong(routeContext, definition.getTimeout()) : 0;
         if (timeout > 0 && !isParallelProcessing) {
             throw new IllegalArgumentException("Timeout is used but ParallelProcessing has not been enabled.");
         }
-        if (definition.getOnPrepareRef() != null) {
-            definition.setOnPrepare(CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), definition.getOnPrepareRef(), Processor.class));
-        }
+        Processor onPrepare = resolveProcessor(routeContext, definition.getOnPrepare());
 
         MulticastProcessor answer = new MulticastProcessor(routeContext.getCamelContext(), list, strategy, isParallelProcessing,
-                threadPool, shutdownThreadPool, isStreaming, isStopOnException, timeout, definition.getOnPrepare(), isShareUnitOfWork, isParallelAggregate, isStopOnAggregateException);
+                threadPool, shutdownThreadPool, isStreaming, isStopOnException, timeout, onPrepare, isShareUnitOfWork, isParallelAggregate, isStopOnAggregateException);
         return answer;
     }
 
     private AggregationStrategy createAggregationStrategy(RouteContext routeContext) {
-        AggregationStrategy strategy = definition.getAggregationStrategy();
-        if (strategy == null && definition.getStrategyRef() != null) {
-            Object aggStrategy = routeContext.lookup(definition.getStrategyRef(), Object.class);
-            if (aggStrategy instanceof AggregationStrategy) {
-                strategy = (AggregationStrategy) aggStrategy;
-            } else if (aggStrategy != null) {
-                AggregationStrategyBeanAdapter adapter = new AggregationStrategyBeanAdapter(aggStrategy, definition.getStrategyMethodName());
-                if (definition.getStrategyMethodAllowNull() != null) {
-                    adapter.setAllowNullNewExchange(definition.getStrategyMethodAllowNull());
-                    adapter.setAllowNullOldExchange(definition.getStrategyMethodAllowNull());
-                }
-                strategy = adapter;
-            } else {
-                throw new IllegalArgumentException("Cannot find AggregationStrategy in Registry with name: " + definition.getStrategyRef());
-            }
-        }
+        AggregationStrategy strategy = resolveAggregationStrategy(routeContext,
+                definition.getAggregationStrategy(), definition.getStrategyMethodName(), definition.getStrategyMethodAllowNull(),
+                UseLatestAggregationStrategy::new);
 
-        if (strategy == null) {
-            // default to use latest aggregation strategy
-            strategy = new UseLatestAggregationStrategy();
-        }
-
-        if (strategy instanceof CamelContextAware) {
-            ((CamelContextAware) strategy).setCamelContext(routeContext.getCamelContext());
-        }
-
-        if (definition.getShareUnitOfWork() != null && definition.getShareUnitOfWork()) {
+        if (definition.getShareUnitOfWork() != null && asBoolean(routeContext, definition.getShareUnitOfWork())) {
             // wrap strategy in share unit of work
             strategy = new ShareUnitOfWorkAggregationStrategy(strategy);
         }

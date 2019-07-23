@@ -22,10 +22,11 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.FilterProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class FilterReifier extends ExpressionReifier<FilterDefinition> {
+public class FilterReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<FilterDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     FilterReifier(ProcessorDefinition<?> definition) {
-        super(FilterDefinition.class.cast(definition));
+        super((FilterDefinition) definition);
     }
 
     @Override

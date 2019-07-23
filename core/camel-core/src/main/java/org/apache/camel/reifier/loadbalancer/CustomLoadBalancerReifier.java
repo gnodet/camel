@@ -31,11 +31,7 @@ public class CustomLoadBalancerReifier extends LoadBalancerReifier<CustomLoadBal
 
     @Override
     public LoadBalancer createLoadBalancer(RouteContext routeContext) {
-        if (definition.getCustomLoadBalancer() != null) {
-            return definition.getCustomLoadBalancer();
-        }
-        StringHelper.notEmpty(definition.getRef(), "ref", this);
-        return CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), definition.getRef(), LoadBalancer.class);
+        return resolve(routeContext, LoadBalancer.class, definition.getLoadBalancer());
     }
 
 }

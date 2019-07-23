@@ -22,23 +22,24 @@ import org.apache.camel.model.RollbackDefinition;
 import org.apache.camel.processor.RollbackProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class RollbackReifier extends ProcessorReifier<RollbackDefinition> {
+public class RollbackReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<RollbackDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     RollbackReifier(ProcessorDefinition<?> definition) {
         super((RollbackDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) {
-        boolean isMarkRollbackOnly = definition.getMarkRollbackOnly() != null && definition.getMarkRollbackOnly();
-        boolean isMarkRollbackOnlyLast = definition.getMarkRollbackOnlyLast() != null && definition.getMarkRollbackOnlyLast();
+        boolean isMarkRollbackOnly = definition.getMarkRollbackOnly() != null && asBoolean(routeContext, definition.getMarkRollbackOnly());
+        boolean isMarkRollbackOnlyLast = definition.getMarkRollbackOnlyLast() != null && asBoolean(routeContext, definition.getMarkRollbackOnlyLast());
 
         // validate that only either mark rollbacks is chosen and not both
         if (isMarkRollbackOnly && isMarkRollbackOnlyLast) {
             throw new IllegalArgumentException("Only either one of markRollbackOnly and markRollbackOnlyLast is possible to select as true");
         }
 
-        RollbackProcessor answer = new RollbackProcessor(definition.getMessage());
+        RollbackProcessor answer = new RollbackProcessor(asString(routeContext, definition.getMessage()));
         answer.setMarkRollbackOnly(isMarkRollbackOnly);
         answer.setMarkRollbackOnlyLast(isMarkRollbackOnlyLast);
         return answer;

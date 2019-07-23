@@ -21,6 +21,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ResequenceDefinition;
 import org.apache.camel.model.config.BatchResequencerConfig;
+import org.apache.camel.model.config.ResequencerConfig;
 import org.apache.camel.model.config.StreamResequencerConfig;
 import org.apache.camel.processor.CamelInternalProcessor;
 import org.apache.camel.processor.Resequencer;
@@ -31,31 +32,22 @@ import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
-public class ResequenceReifier extends ProcessorReifier<ResequenceDefinition> {
+public class ResequenceReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ResequenceDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ResequenceReifier(ProcessorDefinition<?> definition) {
         super((ResequenceDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        // if configured from XML then streamConfig has been set with the configuration
-        if (definition.getResequencerConfig() != null) {
-            if (definition.getResequencerConfig() instanceof StreamResequencerConfig) {
-                definition.setStreamConfig((StreamResequencerConfig) definition.getResequencerConfig());
-            } else {
-                definition.setBatchConfig((BatchResequencerConfig) definition.getResequencerConfig());
-            }
-        }
-
-        if (definition.getStreamConfig() != null) {
-            return createStreamResequencer(routeContext, definition.getStreamConfig());
+        ResequencerConfig config = definition.getResequencerConfig();
+        if (config instanceof StreamResequencerConfig) {
+            return createStreamResequencer(routeContext, (StreamResequencerConfig) config);
+        } else if (config instanceof BatchResequencerConfig) {
+            return createBatchResequencer(routeContext, (BatchResequencerConfig) config);
         } else {
-            if (definition.getBatchConfig() == null) {
-                // default as batch mode
-                definition.batch();
-            }
-            return createBatchResequencer(routeContext, definition.getBatchConfig());
+            throw new IllegalArgumentException("Unsupported config type " + config.getClass().getName());
         }
     }
 
@@ -80,16 +72,16 @@ public class ResequenceReifier extends ProcessorReifier<ResequenceDefinition> {
         ObjectHelper.notNull(config, "config", this);
         ObjectHelper.notNull(expression, "expression", this);
 
-        boolean isReverse = config.getReverse() != null && config.getReverse();
-        boolean isAllowDuplicates = config.getAllowDuplicates() != null && config.getAllowDuplicates();
+        boolean isReverse = config.getReverse() != null && asBoolean(routeContext, config.getReverse());
+        boolean isAllowDuplicates = config.getAllowDuplicates() != null && asBoolean(routeContext, config.getAllowDuplicates());
 
         Resequencer resequencer = new Resequencer(routeContext.getCamelContext(), internal, expression, isAllowDuplicates, isReverse);
-        resequencer.setBatchSize(config.getBatchSize());
-        resequencer.setBatchTimeout(config.getBatchTimeout());
+        resequencer.setBatchSize(asInt(routeContext, config.getBatchSize()));
+        resequencer.setBatchTimeout(asLong(routeContext, config.getBatchTimeout()));
         resequencer.setReverse(isReverse);
         resequencer.setAllowDuplicates(isAllowDuplicates);
         if (config.getIgnoreInvalidExchanges() != null) {
-            resequencer.setIgnoreInvalidExchanges(config.getIgnoreInvalidExchanges());
+            resequencer.setIgnoreInvalidExchanges(asBoolean(routeContext, config.getIgnoreInvalidExchanges()));
         }
         return resequencer;
     }
@@ -113,26 +105,21 @@ public class ResequenceReifier extends ProcessorReifier<ResequenceDefinition> {
         ObjectHelper.notNull(config, "config", this);
         ObjectHelper.notNull(expression, "expression", this);
 
-        ExpressionResultComparator comparator;
-        if (config.getComparatorRef() != null) {
-            comparator = CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), config.getComparatorRef(), ExpressionResultComparator.class);
-        } else {
-            comparator = config.getComparator();
-            if (comparator == null) {
-                comparator = new DefaultExchangeComparator();
-            }
+        ExpressionResultComparator comparator = resolve(routeContext, ExpressionResultComparator.class, config.getComparator());
+        if (comparator == null) {
+            comparator = new DefaultExchangeComparator();
         }
         comparator.setExpression(expression);
 
         StreamResequencer resequencer = new StreamResequencer(routeContext.getCamelContext(), internal, comparator, expression);
-        resequencer.setTimeout(config.getTimeout());
+        resequencer.setTimeout(asLong(routeContext, config.getTimeout()));
         if (config.getDeliveryAttemptInterval() != null) {
-            resequencer.setDeliveryAttemptInterval(config.getDeliveryAttemptInterval());
+            resequencer.setDeliveryAttemptInterval(asLong(routeContext, config.getDeliveryAttemptInterval()));
         }
-        resequencer.setCapacity(config.getCapacity());
-        resequencer.setRejectOld(config.getRejectOld());
+        resequencer.setCapacity(asInt(routeContext, config.getCapacity()));
+        resequencer.setRejectOld(asBoolean(routeContext, config.getRejectOld()));
         if (config.getIgnoreInvalidExchanges() != null) {
-            resequencer.setIgnoreInvalidExchanges(config.getIgnoreInvalidExchanges());
+            resequencer.setIgnoreInvalidExchanges(asBoolean(routeContext, config.getIgnoreInvalidExchanges()));
         }
         return resequencer;
     }

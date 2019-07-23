@@ -26,19 +26,16 @@ import org.apache.camel.support.processor.DelegateAsyncProcessor;
 import org.apache.camel.support.processor.DelegateSyncProcessor;
 import org.apache.camel.util.ObjectHelper;
 
-public class ProcessReifier extends ProcessorReifier<ProcessDefinition> {
+public class ProcessReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ProcessDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ProcessReifier(ProcessorDefinition<?> definition) {
         super((ProcessDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) {
-        Processor answer = definition.getProcessor();
-        if (answer == null) {
-            ObjectHelper.notNull(definition.getRef(), "ref", definition);
-            answer = routeContext.mandatoryLookup(definition.getRef(), Processor.class);
-        }
+        Processor answer = resolve(routeContext, Processor.class, definition.getProcessor());
 
         // ensure its wrapped in a Service so we can manage it from eg. JMX
         // (a Processor must be a Service to be enlisted in JMX)

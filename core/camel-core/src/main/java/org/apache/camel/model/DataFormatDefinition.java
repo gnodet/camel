@@ -18,59 +18,19 @@ package org.apache.camel.model;
 
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
-import org.apache.camel.spi.DataFormat;
-import org.apache.camel.spi.Metadata;
+import org.apache.camel.model.IdentifiedType;
+import org.apache.camel.model.OtherAttributesAware;
+import org.apache.camel.model.dataformat.XStreamDataFormat;
 
-/**
- * Represents a Camel data format
- */
-@Metadata(label = "dataformat,transformation")
-@XmlType(name = "dataFormat")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class DataFormatDefinition extends IdentifiedType implements OtherAttributesAware {
-    @XmlTransient
-    private DataFormat dataFormat;
-    @XmlTransient
-    private String dataFormatName;
-    // use xs:any to support optional property placeholders
-    @XmlAnyAttribute
+
     private Map<QName, Object> otherAttributes;
-    @XmlAttribute
-    private Boolean contentTypeHeader;
 
-    public DataFormatDefinition() {
-    }
-
-    public DataFormatDefinition(DataFormat dataFormat) {
-        this.dataFormat = dataFormat;
-    }
-
-    protected DataFormatDefinition(String dataFormatName) {
-        this.dataFormatName = dataFormatName;
-    }
-
-    public String getDataFormatName() {
-        return dataFormatName;
-    }
-
-    public void setDataFormatName(String dataFormatName) {
-        this.dataFormatName = dataFormatName;
-    }
-
-    public DataFormat getDataFormat() {
-        return dataFormat;
-    }
-
-    public void setDataFormat(DataFormat dataFormat) {
-        this.dataFormat = dataFormat;
+    @Override
+    public String getShortName() {
+        return "dataFormat";
     }
 
     @Override
@@ -78,36 +38,8 @@ public class DataFormatDefinition extends IdentifiedType implements OtherAttribu
         return otherAttributes;
     }
 
-    /**
-     * Adds an optional attribute
-     */
     @Override
     public void setOtherAttributes(Map<QName, Object> otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
-
-    public Boolean getContentTypeHeader() {
-        return contentTypeHeader;
-    }
-
-    /**
-     * Whether the data format should set the <tt>Content-Type</tt> header with the type from the data format if the
-     * data format is capable of doing so.
-     * <p/>
-     * For example <tt>application/xml</tt> for data formats marshalling to XML, or <tt>application/json</tt>
-     * for data formats marshalling to JSon etc.
-     */
-    public void setContentTypeHeader(Boolean contentTypeHeader) {
-        this.contentTypeHeader = contentTypeHeader;
-    }
-
-    public String getShortName() {
-        String name = getClass().getSimpleName();
-        if (name.endsWith("DataFormat")) {
-            name = name.substring(0, name.indexOf("DataFormat"));
-        }
-        return name;
-    }
-
 }
-

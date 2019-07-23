@@ -22,8 +22,9 @@ import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.processor.validation.PredicateValidatingProcessor;
 
-public class ValidateReifier extends ExpressionReifier<ValidateDefinition> {
+public class ValidateReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<ValidateDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     ValidateReifier(ProcessorDefinition<?> definition) {
         super((ValidateDefinition) definition);
     }

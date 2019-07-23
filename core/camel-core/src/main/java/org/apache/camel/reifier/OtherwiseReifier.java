@@ -21,10 +21,11 @@ import org.apache.camel.model.OtherwiseDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 
-public class OtherwiseReifier extends ProcessorReifier<OtherwiseDefinition> {
+public class OtherwiseReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<OtherwiseDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     OtherwiseReifier(ProcessorDefinition<?> definition) {
-        super(OtherwiseDefinition.class.cast(definition));
+        super((OtherwiseDefinition) definition);
     }
 
     @Override

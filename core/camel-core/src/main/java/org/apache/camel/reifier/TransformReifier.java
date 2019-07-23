@@ -23,8 +23,9 @@ import org.apache.camel.model.TransformDefinition;
 import org.apache.camel.processor.TransformProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class TransformReifier extends ExpressionReifier<TransformDefinition> {
+public class TransformReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<TransformDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     TransformReifier(ProcessorDefinition<?> definition) {
         super((TransformDefinition) definition);
     }

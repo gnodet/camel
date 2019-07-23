@@ -25,8 +25,9 @@ import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.reifier.loadbalancer.LoadBalancerReifier;
 import org.apache.camel.spi.RouteContext;
 
-public class LoadBalanceReifier extends ProcessorReifier<LoadBalanceDefinition> {
+public class LoadBalanceReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<LoadBalanceDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     LoadBalanceReifier(ProcessorDefinition<?> definition) {
         super((LoadBalanceDefinition) definition);
     }

@@ -1,0 +1,18 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "restContext",
+    "title": "Rest Context",
+    "description": "Configuration of REST services using rest-dsl using XML",
+    "javaType": "org.apache.camel.spring.CamelRestContextFactoryBean",
+    "label": "spring,configuration,rest",
+    "deprecated": false,
+    "input": false,
+    "output": false
+  },
+  "properties": {
+    "rest": { "kind": "element", "displayName": "Rest", "required": false, "type": "array", "javaType": "java.util.List<org.apache.camel.model.rest.RestDefinition>", "oneOf": [ "rest" ], "deprecated": false, "secret": false, "description": "Contains the rest services defined using the rest-dsl" },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the id of this node" }
+  }
+}
+

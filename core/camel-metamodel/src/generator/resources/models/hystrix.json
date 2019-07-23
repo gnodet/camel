@@ -1,0 +1,21 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "hystrix",
+    "title": "Hystrix",
+    "description": "Hystrix Circuit Breaker EIP",
+    "javaType": "org.apache.camel.model.HystrixDefinition",
+    "label": "eip,routing,circuitbreaker",
+    "deprecated": false,
+    "input": true,
+    "output": true
+  },
+  "properties": {
+    "hystrixConfiguration": { "kind": "element", "displayName": "Hystrix Configuration", "required": false, "type": "object", "javaType": "org.apache.camel.model.HystrixConfigurationDefinition", "deprecated": false, "secret": false, "description": "Configures the Hystrix EIP Use end when configuration is complete, to return back to the Hystrix EIP." },
+    "outputs": { "kind": "element", "displayName": "Outputs", "required": true, "type": "array", "javaType": "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", "oneOf": [ "aggregate", "bean", "choice", "claimCheck", "convertBodyTo", "doCatch", "doFinally", "doTry", "filter", "hystrix", "idempotentConsumer", "inOnly", "inOut", "intercept", "interceptFrom", "interceptSendToEndpoint", "loadBalance", "log", "loop", "marshal", "multicast", "onCompletion", "onException", "onFallback", "otherwise", "pipeline", "policy", "process", "removeHeader", "removeHeaders", "removeProperties", "removeProperty", "resequence", "rollback", "saga", "sample", "setExchangePattern", "split", "step", "stop", "threads", "throwException", "to", "toD", "transacted", "unmarshal", "when", "whenSkipSendToEndpoint", "wireTap" ], "deprecated": false, "secret": false },
+    "hystrixConfigurationRef": { "kind": "attribute", "displayName": "Hystrix Configuration Ref", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Refers to a Hystrix configuration to use for configuring the Hystrix EIP." },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the id of this node" },
+    "description": { "kind": "element", "displayName": "Description", "required": false, "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": false, "secret": false, "description": "Sets the description of this node" }
+  }
+}
+

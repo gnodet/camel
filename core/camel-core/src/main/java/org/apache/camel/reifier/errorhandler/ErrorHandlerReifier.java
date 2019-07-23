@@ -23,6 +23,7 @@ import java.util.function.Function;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Processor;
 import org.apache.camel.RuntimeCamelException;
@@ -41,11 +42,12 @@ import org.apache.camel.processor.errorhandler.ExceptionPolicy;
 import org.apache.camel.processor.errorhandler.ExceptionPolicy.RedeliveryOption;
 import org.apache.camel.processor.errorhandler.RedeliveryErrorHandler;
 import org.apache.camel.processor.errorhandler.RedeliveryPolicy;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
-public abstract class ErrorHandlerReifier<T extends ErrorHandlerBuilderSupport> {
+public abstract class ErrorHandlerReifier<T extends ErrorHandlerBuilderSupport> extends AbstractReifier<T> {
 
     public static final String DEFAULT_ERROR_HANDLER_BUILDER = "CamelDefaultErrorHandlerBuilder";
     private static final Map<Class<?>, Function<ErrorHandlerFactory, ErrorHandlerReifier<? extends ErrorHandlerFactory>>> ERROR_HANDLERS;
@@ -58,13 +60,11 @@ public abstract class ErrorHandlerReifier<T extends ErrorHandlerBuilderSupport> 
         ERROR_HANDLERS = map;
     }
 
-    protected T definition;
-
     /**
      * Utility classes should not have a public constructor.
      */
     ErrorHandlerReifier(T definition) {
-        this.definition = definition;
+        super(definition);
     }
 
     public static void registerReifier(Class<?> errorHandlerClass, Function<ErrorHandlerFactory, ErrorHandlerReifier<? extends ErrorHandlerFactory>> creator) {
@@ -87,20 +87,21 @@ public abstract class ErrorHandlerReifier<T extends ErrorHandlerBuilderSupport> 
         }
     }
 
-    public static ExceptionPolicy createExceptionPolicy(OnExceptionDefinition def, RouteContext routeContext) {
+    public static ExceptionPolicy createExceptionPolicy(OnExceptionDefinition definition, RouteContext routeContext) {
         return new ExceptionPolicy(
-                def.getId(),
-                CamelContextHelper.getRouteId(def),
-                def.getUseOriginalMessagePolicy() != null && def.getUseOriginalMessagePolicy(),
-                ObjectHelper.isNotEmpty(def.getOutputs()),
-                def.getHandledPolicy(),
-                def.getContinuedPolicy(),
-                def.getRetryWhilePolicy(),
-                def.getOnRedelivery(),
-                def.getOnExceptionOccurred(),
-                def.getRedeliveryPolicyRef(),
-                getRedeliveryPolicy(def.getRedeliveryPolicyType()),
-                def.getExceptions());
+                definition.getId(),
+                CamelContextHelper.getRouteId(definition),
+                asBoolean(routeContext, definition.getUseOriginalMessage() != null, false),
+                ObjectHelper.isNotEmpty(definition.getOutputs()),
+                asPredicate(routeContext, definition.getHandled()),
+                asPredicate(routeContext, definition.getContinued()),
+                asPredicate(routeContext, definition.getRetryWhile()),
+                resolveProcessor(routeContext, definition.getOnRedelivery()),
+                resolveProcessor(routeContext, definition.getOnExceptionOccurred()),
+                definition.getRedeliveryPolicy() instanceof String
+                        ? asString(routeContext, definition.getRedeliveryPolicy()) : null,
+                getRedeliveryPolicy(definition.getRedeliveryPolicy()),
+                definition.getExceptions());
     }
 
     private static Map<RedeliveryOption, String> getRedeliveryPolicy(RedeliveryPolicyDefinition definition) {
@@ -287,10 +288,10 @@ public abstract class ErrorHandlerReifier<T extends ErrorHandlerBuilderSupport> 
                 answer.setAsyncDelayedRedelivery(CamelContextHelper.parseBoolean(context, definition.getAsyncDelayedRedelivery()));
             }
             if (definition.getRetriesExhaustedLogLevel() != null) {
-                answer.setRetriesExhaustedLogLevel(definition.getRetriesExhaustedLogLevel());
+                answer.setRetriesExhaustedLogLevel(resolve(context, LoggingLevel.class, definition.getRetriesExhaustedLogLevel()));
             }
             if (definition.getRetryAttemptedLogLevel() != null) {
-                answer.setRetryAttemptedLogLevel(definition.getRetryAttemptedLogLevel());
+                answer.setRetryAttemptedLogLevel(resolve(context, LoggingLevel.class, definition.getRetryAttemptedLogLevel()));
             }
             if (definition.getRetryAttemptedLogInterval() != null) {
                 answer.setRetryAttemptedLogInterval(CamelContextHelper.parseInteger(context, definition.getRetryAttemptedLogInterval()));

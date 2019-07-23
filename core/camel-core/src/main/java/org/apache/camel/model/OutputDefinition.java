@@ -19,22 +19,11 @@ package org.apache.camel.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlType;
-
-import org.apache.camel.spi.Metadata;
-
 /**
  * A useful base class for output types
  */
-@Metadata(label = "configuration")
-@XmlType(name = "output")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class OutputDefinition<Type extends ProcessorDefinition<Type>> extends ProcessorDefinition<Type> implements OutputNode {
+public abstract class OutputDefinition<Type extends ProcessorDefinition<Type>> extends ProcessorDefinition<Type> implements OutputNode {
 
-    @XmlElementRef
     protected List<ProcessorDefinition<?>> outputs = new ArrayList<>();
 
     public List<ProcessorDefinition<?>> getOutputs() {
@@ -50,13 +39,4 @@ public class OutputDefinition<Type extends ProcessorDefinition<Type>> extends Pr
         }
     }
 
-    @Override
-    public String getShortName() {
-        return "output";
-    }
-
-    @Override
-    public String toString() {
-        return getShortName() + " -> [" + outputs + "]";
-    }
 }

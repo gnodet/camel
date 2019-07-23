@@ -28,6 +28,8 @@ public class CBORDataFormatReifier extends DataFormatReifier<CBORDataFormat> {
         super((CBORDataFormat) definition);
     }
 
+    /*
+     * TODO: verify if this is needed or not
     @Override
     protected DataFormat doCreateDataFormat(CamelContext camelContext) {
         if (definition.getUnmarshalType() == null && definition.getUnmarshalTypeName() != null) {
@@ -47,6 +49,7 @@ public class CBORDataFormatReifier extends DataFormatReifier<CBORDataFormat> {
 
         return super.doCreateDataFormat(camelContext);
     }
+    */
 
     @Override
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {

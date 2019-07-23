@@ -1,0 +1,19 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "step",
+    "title": "Step",
+    "description": "Routes the message to a sequence of processors which is grouped together as one logical name",
+    "javaType": "org.apache.camel.model.StepDefinition",
+    "label": "eip,routing",
+    "deprecated": false,
+    "input": true,
+    "output": true
+  },
+  "properties": {
+    "outputs": { "kind": "element", "displayName": "Outputs", "required": true, "type": "array", "javaType": "java.util.List<org.apache.camel.model.ProcessorDefinition<?>>", "oneOf": [ "aggregate", "bean", "choice", "claimCheck", "convertBodyTo", "doCatch", "doFinally", "doTry", "filter", "hystrix", "idempotentConsumer", "inOnly", "inOut", "intercept", "interceptFrom", "interceptSendToEndpoint", "loadBalance", "log", "loop", "marshal", "multicast", "onCompletion", "onException", "onFallback", "otherwise", "pipeline", "policy", "process", "removeHeader", "removeHeaders", "removeProperties", "removeProperty", "resequence", "rollback", "saga", "sample", "setExchangePattern", "split", "step", "stop", "threads", "throwException", "to", "toD", "transacted", "unmarshal", "when", "whenSkipSendToEndpoint", "wireTap" ], "deprecated": false, "secret": false },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the id of this node" },
+    "description": { "kind": "element", "displayName": "Description", "required": false, "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": false, "secret": false, "description": "Sets the description of this node" }
+  }
+}
+

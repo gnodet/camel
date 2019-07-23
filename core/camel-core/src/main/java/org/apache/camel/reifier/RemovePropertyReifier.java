@@ -23,8 +23,9 @@ import org.apache.camel.processor.RemovePropertyProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class RemovePropertyReifier extends ProcessorReifier<RemovePropertyDefinition> {
+public class RemovePropertyReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<RemovePropertyDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     RemovePropertyReifier(ProcessorDefinition<?> definition) {
         super((RemovePropertyDefinition) definition);
     }
@@ -32,6 +33,6 @@ public class RemovePropertyReifier extends ProcessorReifier<RemovePropertyDefini
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         ObjectHelper.notNull(definition.getPropertyName(), "propertyName", this);
-        return new RemovePropertyProcessor(definition.getPropertyName());
+        return new RemovePropertyProcessor(asString(routeContext, definition.getPropertyName()));
     }
 }

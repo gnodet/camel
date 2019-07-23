@@ -24,8 +24,9 @@ import org.apache.camel.model.SetHeaderDefinition;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.ExpressionAdapter;
 
-public class InterceptFromReifier extends InterceptReifier<InterceptFromDefinition> {
+public class InterceptFromReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<InterceptFromDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     InterceptFromReifier(ProcessorDefinition<?> definition) {
         super((InterceptFromDefinition) definition);
     }
@@ -35,7 +36,7 @@ public class InterceptFromReifier extends InterceptReifier<InterceptFromDefiniti
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         // insert a set header definition so we can set the intercepted endpoint uri as a header
         // this allows us to use the same header for both the interceptFrom and interceptSendToEndpoint
-        SetHeaderDefinition headerDefinition = new SetHeaderDefinition(Exchange.INTERCEPTED_ENDPOINT, new ExpressionAdapter() {
+        SetHeaderDefinition headerDefinition = new SetHeaderDefinition<>().name(Exchange.INTERCEPTED_ENDPOINT).expression(new ExpressionAdapter() {
             public Object evaluate(Exchange exchange, Class type) {
                 if (exchange.getFromEndpoint() != null) {
                     return exchange.getFromEndpoint().getEndpointUri();

@@ -28,7 +28,7 @@ import org.apache.camel.model.dataformat.AvroDataFormat;
 import org.apache.camel.model.dataformat.Base64DataFormat;
 import org.apache.camel.model.dataformat.BeanioDataFormat;
 import org.apache.camel.model.dataformat.BindyDataFormat;
-import org.apache.camel.model.dataformat.BindyType;
+import org.apache.camel.model.dataformat.BindyDataFormat.BindyType;
 import org.apache.camel.model.dataformat.BoonDataFormat;
 import org.apache.camel.model.dataformat.CBORDataFormat;
 import org.apache.camel.model.dataformat.CsvDataFormat;
@@ -43,7 +43,7 @@ import org.apache.camel.model.dataformat.JacksonXMLDataFormat;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
 import org.apache.camel.model.dataformat.JsonApiDataFormat;
 import org.apache.camel.model.dataformat.JsonDataFormat;
-import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.model.dataformat.JsonDataFormat.JsonLibrary;
 import org.apache.camel.model.dataformat.LZFDataFormat;
 import org.apache.camel.model.dataformat.MimeMultipartDataFormat;
 import org.apache.camel.model.dataformat.PGPDataFormat;
@@ -57,7 +57,8 @@ import org.apache.camel.model.dataformat.TidyMarkupDataFormat;
 import org.apache.camel.model.dataformat.XMLSecurityDataFormat;
 import org.apache.camel.model.dataformat.XStreamDataFormat;
 import org.apache.camel.model.dataformat.YAMLDataFormat;
-import org.apache.camel.model.dataformat.YAMLLibrary;
+//import org.apache.camel.model.dataformat.YAMLLibrary;
+import org.apache.camel.model.dataformat.YAMLDataFormat.YAMLLibrary;
 import org.apache.camel.model.dataformat.ZipDeflaterDataFormat;
 import org.apache.camel.model.dataformat.ZipFileDataFormat;
 import org.apache.camel.support.jsse.KeyStoreParameters;
@@ -97,7 +98,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
     }
 
     public T avro(String instanceClassName) {
-        return dataFormat(new AvroDataFormat(instanceClassName));
+        return dataFormat(new AvroDataFormat().instanceClassName(instanceClassName));
     }
 
     /**
@@ -237,14 +238,14 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * Sequential access through an iterator.
      */
     public T csvLazyLoad() {
-        return dataFormat(new CsvDataFormat(true));
+        return dataFormat(new CsvDataFormat().lazyLoad(true));
     }
 
     /**
      * Uses the custom data format
      */
     public T custom(String ref) {
-        return dataFormat(new CustomDataFormat(ref));
+        return dataFormat(new CustomDataFormat().dataFormat("#bean:" + ref));
     }
 
     /**
@@ -562,7 +563,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * Uses the JAXB data format turning pretty printing on or off
      */
     public T jaxb(boolean prettyPrint) {
-        return dataFormat(new JaxbDataFormat(prettyPrint));
+        return dataFormat(new JaxbDataFormat().prettyPrint(prettyPrint));
     }
 
     /**
@@ -589,7 +590,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param library the json library to use
      */
     public T json(JsonLibrary library) {
-        return dataFormat(new JsonDataFormat(library));
+        return dataFormat(new JsonDataFormat().library(library));
     }
 
     /**
@@ -599,7 +600,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param prettyPrint turn pretty printing on or off
      */
     public T json(JsonLibrary library, boolean prettyPrint) {
-        JsonDataFormat json = new JsonDataFormat(library);
+        JsonDataFormat json = new JsonDataFormat().library(library);
         json.setPrettyPrint(prettyPrint);
         return dataFormat(json);
     }
@@ -611,7 +612,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param unmarshalType unmarshal type for json jackson type
      */
     public T json(JsonLibrary type, Class<?> unmarshalType) {
-        JsonDataFormat json = new JsonDataFormat(type);
+        JsonDataFormat json = new JsonDataFormat().library(type).unmarshalType(unmarshalType);
         json.setUnmarshalType(unmarshalType);
         return dataFormat(json);
     }
@@ -624,7 +625,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param prettyPrint   turn pretty printing on or off
      */
     public T json(JsonLibrary type, Class<?> unmarshalType, boolean prettyPrint) {
-        JsonDataFormat json = new JsonDataFormat(type);
+        JsonDataFormat json = new JsonDataFormat().library(type);
         json.setUnmarshalType(unmarshalType);
         json.setPrettyPrint(prettyPrint);
         return dataFormat(json);
@@ -637,7 +638,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param jsonView      the view type for json jackson type
      */
     public T json(Class<?> unmarshalType, Class<?> jsonView) {
-        JsonDataFormat json = new JsonDataFormat(JsonLibrary.Jackson);
+        JsonDataFormat json = new JsonDataFormat().library(JsonLibrary.Jackson);
         json.setUnmarshalType(unmarshalType);
         json.setJsonView(jsonView);
         return dataFormat(json);
@@ -651,7 +652,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param prettyPrint   turn pretty printing on or off
      */
     public T json(Class<?> unmarshalType, Class<?> jsonView, boolean prettyPrint) {
-        JsonDataFormat json = new JsonDataFormat(JsonLibrary.Jackson);
+        JsonDataFormat json = new JsonDataFormat().library(JsonLibrary.Jackson);
         json.setUnmarshalType(unmarshalType);
         json.setJsonView(jsonView);
         json.setPrettyPrint(prettyPrint);
@@ -666,7 +667,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param include       include such as <tt>ALWAYS</tt>, <tt>NON_NULL</tt>, etc.
      */
     public T json(Class<?> unmarshalType, Class<?> jsonView, String include) {
-        JsonDataFormat json = new JsonDataFormat(JsonLibrary.Jackson);
+        JsonDataFormat json = new JsonDataFormat().library(JsonLibrary.Jackson);
         json.setUnmarshalType(unmarshalType);
         json.setJsonView(jsonView);
         json.setInclude(include);
@@ -682,7 +683,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
       * @param prettyPrint  turn pretty printing on or off
      */
     public T json(Class<?> unmarshalType, Class<?> jsonView, String include, boolean prettyPrint) {
-        JsonDataFormat json = new JsonDataFormat(JsonLibrary.Jackson);
+        JsonDataFormat json = new JsonDataFormat().library(JsonLibrary.Jackson);
         json.setUnmarshalType(unmarshalType);
         json.setJsonView(jsonView);
         json.setInclude(include);
@@ -718,11 +719,11 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
     }
 
     public T protobuf(String instanceClassName) {
-        return dataFormat(new ProtobufDataFormat(instanceClassName));
+        return dataFormat(new ProtobufDataFormat().instanceClass(instanceClassName));
     }
 
     public T protobuf(String instanceClassName, String contentTypeFormat) {
-        return dataFormat(new ProtobufDataFormat(instanceClassName, contentTypeFormat));
+        return dataFormat(new ProtobufDataFormat().instanceClass(instanceClassName).contentTypeFormat(contentTypeFormat));
     }
 
     /**
@@ -743,57 +744,51 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * Uses the Soap 1.1 JAXB data format
      */
     public T soapjaxb(String contextPath) {
-        return dataFormat(new SoapJaxbDataFormat(contextPath));
+        return dataFormat(new SoapJaxbDataFormat().contextPath(contextPath));
     }
 
     /**
      * Uses the Soap 1.1 JAXB data format
      */
     public T soapjaxb(String contextPath, String elementNameStrategyRef) {
-        return dataFormat(new SoapJaxbDataFormat(contextPath, elementNameStrategyRef));
+        return dataFormat(new SoapJaxbDataFormat().contextPath(contextPath).elementNameStrategy("#bean:" + elementNameStrategyRef));
     }
 
     /**
      * Uses the Soap 1.1 JAXB data format
      */
     public T soapjaxb(String contextPath, Object elementNameStrategy) {
-        return dataFormat(new SoapJaxbDataFormat(contextPath, elementNameStrategy));
+        return dataFormat(new SoapJaxbDataFormat().contextPath(contextPath).elementNameStrategy(elementNameStrategy));
     }
 
     /**
      * Uses the Soap 1.2 JAXB data format
      */
     public T soapjaxb12() {
-        SoapJaxbDataFormat soap = new SoapJaxbDataFormat();
-        soap.setVersion("1.2");
-        return dataFormat(soap);
+        return dataFormat(new SoapJaxbDataFormat().version("1.2"));
     }
 
     /**
      * Uses the Soap 1.2 JAXB data format
      */
     public T soapjaxb12(String contextPath) {
-        SoapJaxbDataFormat soap = new SoapJaxbDataFormat(contextPath);
-        soap.setVersion("1.2");
-        return dataFormat(soap);
+        return dataFormat(new SoapJaxbDataFormat().contextPath(contextPath).version("1.2"));
     }
 
     /**
      * Uses the Soap 1.2 JAXB data format
      */
     public T soapjaxb12(String contextPath, String elementNameStrategyRef) {
-        SoapJaxbDataFormat soap = new SoapJaxbDataFormat(contextPath, elementNameStrategyRef);
-        soap.setVersion("1.2");
-        return dataFormat(soap);
+        return dataFormat(new SoapJaxbDataFormat().contextPath(contextPath)
+                .elementNameStrategy("#bean:" + elementNameStrategyRef).version("1.2"));
     }
 
     /**
      * Uses the Soap JAXB data format
      */
     public T soapjaxb12(String contextPath, Object elementNameStrategy) {
-        SoapJaxbDataFormat soap = new SoapJaxbDataFormat(contextPath, elementNameStrategy);
-        soap.setVersion("1.2");
-        return dataFormat(soap);
+        return dataFormat(new SoapJaxbDataFormat().contextPath(contextPath)
+                .elementNameStrategy(elementNameStrategy).version("1.2"));
     }
 
     /**
@@ -811,24 +806,19 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
     }
 
     public T thrift(Object defaultInstance) {
-        ThriftDataFormat dataFormat = new ThriftDataFormat();
-        dataFormat.setDefaultInstance(defaultInstance);
-        return dataFormat(dataFormat);
+        return dataFormat(new ThriftDataFormat().defaultInstance(defaultInstance));
     }
 
     public T thrift(Object defaultInstance, String contentTypeFormat) {
-        ThriftDataFormat dataFormat = new ThriftDataFormat();
-        dataFormat.setDefaultInstance(defaultInstance);
-        dataFormat.setContentTypeFormat(contentTypeFormat);
-        return dataFormat(dataFormat);
+        return dataFormat(new ThriftDataFormat().defaultInstance(defaultInstance).contentTypeFormat(contentTypeFormat));
     }
 
     public T thrift(String instanceClassName) {
-        return dataFormat(new ThriftDataFormat(instanceClassName));
+        return dataFormat(new ThriftDataFormat().instanceClass(instanceClassName));
     }
 
     public T thrift(String instanceClassName, String contentTypeFormat) {
-        return dataFormat(new ThriftDataFormat(instanceClassName, contentTypeFormat));
+        return dataFormat(new ThriftDataFormat().instanceClass(instanceClassName).contentTypeFormat(contentTypeFormat));
     }
 
     /**
@@ -836,7 +826,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * {@link java.lang.String} or {@link org.w3c.dom.Node}
      */
     public T tidyMarkup(Class<?> dataObjectType) {
-        return dataFormat(new TidyMarkupDataFormat(dataObjectType));
+        return dataFormat(new TidyMarkupDataFormat().dataObjectType(dataObjectType));
     }
 
     /**
@@ -844,7 +834,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * as {@link org.w3c.dom.Node}
      */
     public T tidyMarkup() {
-        return dataFormat(new TidyMarkupDataFormat(Node.class));
+        return dataFormat(new TidyMarkupDataFormat().dataObjectType(Node.class));
     }
 
     /**
@@ -910,7 +900,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param library the yaml library to use
      */
     public T yaml(YAMLLibrary library) {
-        return dataFormat(new YAMLDataFormat(library));
+        return dataFormat(new YAMLDataFormat().library(library));
     }
 
     /**
@@ -920,7 +910,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
      * @param type the type for json snakeyaml type
      */
     public T yaml(YAMLLibrary library, Class<?> type) {
-        return dataFormat(new YAMLDataFormat(library, type));
+        return dataFormat(new YAMLDataFormat().library(library).unmarshalType(type));
     }
 
     /**
@@ -1062,7 +1052,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setRecipientKeyAlias(recipientKeyAlias);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         xsdf.setKeyCipherAlgorithm(keyCipherAlgorithm);
-        xsdf.setKeyOrTrustStoreParametersRef(keyOrTrustStoreParametersId);
+        xsdf.keyOrTrustStoreParameters("#bean:" + keyOrTrustStoreParametersId);
         return dataFormat(xsdf);
     }
 
@@ -1077,7 +1067,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setRecipientKeyAlias(recipientKeyAlias);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         xsdf.setKeyCipherAlgorithm(keyCipherAlgorithm);
-        xsdf.setKeyOrTrustStoreParametersRef(keyOrTrustStoreParametersId);
+        xsdf.keyOrTrustStoreParameters("#bean:" + keyOrTrustStoreParametersId);
         xsdf.setKeyPassword(keyPassword);
         return dataFormat(xsdf);
     }
@@ -1124,7 +1114,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setRecipientKeyAlias(recipientKeyAlias);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         xsdf.setKeyCipherAlgorithm(keyCipherAlgorithm);
-        xsdf.setKeyOrTrustStoreParametersRef(keyOrTrustStoreParametersId);
+        xsdf.keyOrTrustStoreParameters("#bean:" + keyOrTrustStoreParametersId);
         return dataFormat(xsdf);
     }
 
@@ -1139,7 +1129,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setRecipientKeyAlias(recipientKeyAlias);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         xsdf.setKeyCipherAlgorithm(keyCipherAlgorithm);
-        xsdf.setKeyOrTrustStoreParametersRef(keyOrTrustStoreParametersId);
+        xsdf.keyOrTrustStoreParameters("#bean:" + keyOrTrustStoreParametersId);
         xsdf.setKeyPassword(keyPassword);
         return dataFormat(xsdf);
     }
@@ -1238,11 +1228,11 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
     }
 
     public T asn1(String clazzName) {
-        return dataFormat(new ASN1DataFormat(clazzName));
+        return dataFormat(new ASN1DataFormat().clazzName(clazzName));
     }
 
-    public T asn1(Boolean usingIterator) {
-        return dataFormat(new ASN1DataFormat(usingIterator));
+    public T asn1(boolean usingIterator) {
+        return dataFormat(new ASN1DataFormat().usingIterator(usingIterator));
     }
 
     /**

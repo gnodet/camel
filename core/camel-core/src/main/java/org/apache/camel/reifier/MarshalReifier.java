@@ -24,8 +24,9 @@ import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.processor.MarshalProcessor;
 
-public class MarshalReifier extends ProcessorReifier<MarshalDefinition> {
+public class MarshalReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<MarshalDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     MarshalReifier(ProcessorDefinition<?> definition) {
         super((MarshalDefinition) definition);
     }

@@ -21,8 +21,9 @@ import org.apache.camel.model.WhenDefinition;
 import org.apache.camel.processor.FilterProcessor;
 import org.apache.camel.spi.RouteContext;
 
-public class WhenReifier extends ExpressionReifier<WhenDefinition> {
+public class WhenReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<WhenDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     WhenReifier(ProcessorDefinition<?> definition) {
         super((WhenDefinition) definition);
     }

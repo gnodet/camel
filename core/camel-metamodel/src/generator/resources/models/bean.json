@@ -1,0 +1,22 @@
+{
+ "model": {
+    "kind": "model",
+    "name": "bean",
+    "title": "Bean",
+    "description": "Calls a java bean",
+    "javaType": "org.apache.camel.model.BeanDefinition",
+    "label": "eip,endpoint",
+    "deprecated": false,
+    "input": true,
+    "output": false
+  },
+  "properties": {
+    "ref": { "kind": "attribute", "displayName": "Ref", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets a reference to a bean to use" },
+    "method": { "kind": "attribute", "displayName": "Method", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the method name on the bean to use" },
+    "beanType": { "kind": "attribute", "displayName": "Bean Type", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the Class of the bean" },
+    "cache": { "kind": "attribute", "displayName": "Cache", "required": false, "type": "boolean", "javaType": "java.lang.Boolean", "deprecated": false, "secret": false, "defaultValue": true, "description": "Caches the bean lookup, to avoid lookup up bean on every usage." },
+    "id": { "kind": "attribute", "displayName": "Id", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Sets the id of this node" },
+    "description": { "kind": "element", "displayName": "Description", "required": false, "type": "object", "javaType": "org.apache.camel.model.DescriptionDefinition", "deprecated": false, "secret": false, "description": "Sets the description of this node" }
+  }
+}
+

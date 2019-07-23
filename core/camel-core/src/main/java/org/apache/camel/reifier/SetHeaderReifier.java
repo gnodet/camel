@@ -25,8 +25,9 @@ import org.apache.camel.processor.SetHeaderProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.util.ObjectHelper;
 
-public class SetHeaderReifier extends ExpressionReifier<SetHeaderDefinition> {
+public class SetHeaderReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SetHeaderDefinition<Type>> {
 
+    @SuppressWarnings("unchecked")
     SetHeaderReifier(ProcessorDefinition<?> definition) {
         super((SetHeaderDefinition) definition);
     }
@@ -35,7 +36,7 @@ public class SetHeaderReifier extends ExpressionReifier<SetHeaderDefinition> {
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         ObjectHelper.notNull(definition.getName(), "headerName");
         Expression expr = definition.getExpression().createExpression(routeContext);
-        Expression nameExpr = ExpressionBuilder.parseSimpleOrFallbackToConstantExpression(definition.getName(), routeContext.getCamelContext());
+        Expression nameExpr = ExpressionBuilder.parseSimpleOrFallbackToConstantExpression(asString(routeContext, definition.getName()), routeContext.getCamelContext());
         return new SetHeaderProcessor(nameExpr, expr);
     }
 }

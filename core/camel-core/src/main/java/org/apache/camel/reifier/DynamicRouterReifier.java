@@ -26,23 +26,26 @@ import org.apache.camel.processor.DynamicRouter;
 import org.apache.camel.reifier.errorhandler.ErrorHandlerReifier;
 import org.apache.camel.spi.RouteContext;
 
-public class DynamicRouterReifier extends ExpressionReifier<DynamicRouterDefinition<?>> {
+public class DynamicRouterReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<DynamicRouterDefinition<Type>> {
 
+    public static final String DEFAULT_DELIMITER = ",";
+
+    @SuppressWarnings("unchecked")
     DynamicRouterReifier(ProcessorDefinition<?> definition) {
-        super(DynamicRouterDefinition.class.cast(definition));
+        super((DynamicRouterDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         Expression expression = definition.getExpression().createExpression(routeContext);
-        String delimiter = definition.getUriDelimiter() != null ? definition.getUriDelimiter() : DynamicRouterDefinition.DEFAULT_DELIMITER;
+        String delimiter = definition.getUriDelimiter() != null ? asString(routeContext, definition.getUriDelimiter()) : DEFAULT_DELIMITER;
 
         DynamicRouter dynamicRouter = new DynamicRouter(routeContext.getCamelContext(), expression, delimiter);
         if (definition.getIgnoreInvalidEndpoints() != null) {
-            dynamicRouter.setIgnoreInvalidEndpoints(definition.getIgnoreInvalidEndpoints());
+            dynamicRouter.setIgnoreInvalidEndpoints(asBoolean(routeContext, definition.getIgnoreInvalidEndpoints()));
         }
         if (definition.getCacheSize() != null) {
-            dynamicRouter.setCacheSize(definition.getCacheSize());
+            dynamicRouter.setCacheSize(asInt(routeContext, definition.getCacheSize()));
         }
 
         // and wrap this in an error handler
