@@ -29,7 +29,6 @@ import org.apache.camel.processor.StreamResequencer;
 import org.apache.camel.processor.resequencer.DefaultExchangeComparator;
 import org.apache.camel.processor.resequencer.ExpressionResultComparator;
 import org.apache.camel.spi.RouteContext;
-import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
 public class ResequenceReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ResequenceDefinition<Type>> {

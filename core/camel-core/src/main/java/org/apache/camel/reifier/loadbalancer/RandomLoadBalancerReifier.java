@@ -18,8 +18,8 @@ package org.apache.camel.reifier.loadbalancer;
 
 import org.apache.camel.model.LoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition;
-import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.processor.loadbalancer.RandomLoadBalancer;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.RouteContext;
 
 public class RandomLoadBalancerReifier extends LoadBalancerReifier<RandomLoadBalancerDefinition> {

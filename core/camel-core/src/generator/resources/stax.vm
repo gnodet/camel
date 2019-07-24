@@ -30,7 +30,7 @@ package ${packageName};
 #set( $b = $imports.add("org.apache.camel.model.OptionalIdentifiedDefinition") )
 #set( $b = $imports.add("org.apache.camel.model.ProcessorDefinition") )
 #set( $b = $imports.add("org.apache.camel.model.dataformat.DataFormatDefinition") )
-#set( $b = $imports.add("org.apache.camel.model.endpoints.EndpointProducerBuilder") )
+#set( $b = $imports.add("org.apache.camel.builder.EndpointProducerBuilder") )
 #set( $b = $imports.add("org.apache.camel.model.language.ExpressionDefinition") )
 #set( $b = $imports.add("org.apache.camel.model.loadbalancer.LoadBalancerDefinition") )
 #set( $b = $imports.add("java.util.ArrayList") )

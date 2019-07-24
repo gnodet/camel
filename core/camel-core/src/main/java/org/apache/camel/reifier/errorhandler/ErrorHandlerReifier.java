@@ -19,6 +19,7 @@ package org.apache.camel.reifier.errorhandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ErrorHandlerFactory;
@@ -98,10 +99,14 @@ public abstract class ErrorHandlerReifier<T extends ErrorHandlerBuilderSupport> 
                 asPredicate(routeContext, definition.getRetryWhile()),
                 resolveProcessor(routeContext, definition.getOnRedelivery()),
                 resolveProcessor(routeContext, definition.getOnExceptionOccurred()),
-                definition.getRedeliveryPolicy() instanceof String
-                        ? asString(routeContext, definition.getRedeliveryPolicy()) : null,
-                getRedeliveryPolicy(definition.getRedeliveryPolicy()),
-                definition.getExceptions());
+                as(String.class, definition.getRedeliveryPolicy()),
+                getRedeliveryPolicy(as(RedeliveryPolicyDefinition.class, definition.getRedeliveryPolicy())),
+                resolveExceptions(routeContext, definition.getExceptions()).stream()
+                    .map(Class::getName).collect(Collectors.toList()));
+    }
+
+    private static <T> T as(Class<T> clazz, Object v) {
+        return clazz.isInstance(v) ? clazz.cast(v) : null;
     }
 
     private static Map<RedeliveryOption, String> getRedeliveryPolicy(RedeliveryPolicyDefinition definition) {

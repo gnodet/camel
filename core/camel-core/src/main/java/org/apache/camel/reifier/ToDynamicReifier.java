@@ -23,6 +23,7 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.Expression;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.ExpressionBuilder;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ToDynamicDefinition;
@@ -44,12 +45,15 @@ public class ToDynamicReifier<Type extends ProcessorDefinition<Type>> extends Pr
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         String uri;
         Expression exp;
-        if (definition.getUri() != null) {
-            uri = definition.getUri().getUri();
-            exp = definition.getUri().expr();
-        } else {
-            uri = StringHelper.notEmpty(definition.getUri(), "uri", this);
+        if (definition.getUri() instanceof EndpointProducerBuilder) {
+            EndpointProducerBuilder epb = (EndpointProducerBuilder) definition.getUri();
+            uri = epb.getUri();
+            exp = epb.expr();
+        } else if (definition.getUri() instanceof String) {
+            uri = StringHelper.notEmpty((String) definition.getUri(), "uri", this);
             exp = createExpression(routeContext, uri);
+        } else {
+            throw new IllegalArgumentException("Unsupported uri type: " + definition.getUri());
         }
 
         SendDynamicProcessor processor = new SendDynamicProcessor(uri, exp);

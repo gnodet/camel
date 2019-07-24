@@ -29,7 +29,7 @@ public class CustomDataFormatReifier extends DataFormatReifier<CustomDataFormat>
 
     @Override
     protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        return DataFormatReifier.getDataFormat(camelContext, null, definition.getRef());
+        return resolve(camelContext, DataFormat.class, definition.getDataFormat());
     }
 
     @Override

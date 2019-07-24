@@ -32,9 +32,6 @@ public class SoapJaxbDataFormatReifier extends DataFormatReifier<SoapJaxbDataFor
         if (definition.getElementNameStrategy() != null) {
             setProperty(camelContext, dataFormat, "elementNameStrategy", definition.getElementNameStrategy());
         }
-        if (definition.getElementNameStrategyRef() != null) {
-            setProperty(camelContext, dataFormat, "elementNameStrategyRef", definition.getElementNameStrategyRef());
-        }
         if (definition.getEncoding() != null) {
             setProperty(camelContext, dataFormat, "encoding", definition.getEncoding());
         }

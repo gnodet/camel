@@ -18,6 +18,7 @@ package org.apache.camel.reifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.camel.Processor;
 import org.apache.camel.model.CatchDefinition;
@@ -36,7 +37,8 @@ public class TryReifier<Type extends ProcessorDefinition<Type>> extends Processo
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        Processor tryProcessor = createOutputsProcessor(routeContext, definition.getOutputsWithoutCatches());
+        Processor tryProcessor = createOutputsProcessor(routeContext,
+                definition.getOutputs().stream().filter(p -> !(p instanceof CatchDefinition)).collect(Collectors.toList()));
         if (tryProcessor == null) {
             throw new IllegalArgumentException("Definition has no children on " + this);
         }

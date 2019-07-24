@@ -19,6 +19,7 @@ package org.apache.camel.reifier.validator;
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.validator.CustomValidatorDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Validator;
 
 public class CustomValidatorReifier extends ValidatorReifier<CustomValidatorDefinition> {
@@ -29,28 +30,42 @@ public class CustomValidatorReifier extends ValidatorReifier<CustomValidatorDefi
 
     @Override
     protected Validator doCreateValidator(CamelContext context) throws Exception {
-        if (definition.getRef() == null && definition.getClassName() == null) {
-            throw new IllegalArgumentException("'ref' or 'type' must be specified for customValidator");
+        if (definition.getValidator() == null) {
+            throw new IllegalArgumentException("'validator' must be specified for customValidator");
         }
         Validator validator;
-        if (definition.getRef() != null) {
-            validator = context.getRegistry().lookupByNameAndType(definition.getRef(), Validator.class);
-            if (validator == null) {
-                throw new IllegalArgumentException("Cannot find validator with ref:" + definition.getRef());
+        Object value = definition.getValidator();
+        if (value instanceof Validator) {
+            validator = (Validator) value;
+        } else if (value instanceof Class) {
+            Class<?> validatorClass = (Class) value;
+            if (!Validator.class.isAssignableFrom(validatorClass)) {
+                throw new IllegalArgumentException("Illegal validator class: " + value);
             }
-            if (validator.getType() != null) {
-                throw new IllegalArgumentException(String.format("Validator '%s' is already in use. Please check if duplicate validator exists.", definition.getRef()));
+            validator = context.getInjector().newInstance((Class<Validator>) validatorClass, false);
+        } else if (value instanceof String) {
+            String str = (String) value;
+            if (str.startsWith("#bean:")) {
+                validator = resolve(context, Validator.class, str);
+            } else if (str.startsWith("#class:")) {
+                String name = str.substring("#class:".length());
+                Class<?> validatorClass = context.getClassResolver().resolveMandatoryClass(name, Validator.class);
+                if (!Validator.class.isAssignableFrom(validatorClass)) {
+                    throw new IllegalArgumentException("Illegal validator class: " + value);
+                }
+                validator = context.getInjector().newInstance((Class<Validator>) validatorClass, false);
+            } else {
+                throw new IllegalArgumentException("Unsupported value: " + value);
             }
         } else {
-            Class<Validator> validatorClass = context.getClassResolver().resolveMandatoryClass(definition.getClassName(), Validator.class);
-            if (validatorClass == null) {
-                throw new IllegalArgumentException("Cannot find validator class: " + definition.getClassName());
-            }
-            validator = context.getInjector().newInstance(validatorClass, false);
-
+            throw new IllegalArgumentException("Unsupported value: " + value);
+        }
+        if (validator.getType() != null) {
+            throw new IllegalArgumentException(String.format("Validator '%s' is already in use. " +
+                    "Please check if duplicate validator exists.", value));
         }
         validator.setCamelContext(context);
-        return validator.setType(definition.getType());
+        return validator.setType(resolve(context, DataType.class, definition.getType()));
     }
 
 }

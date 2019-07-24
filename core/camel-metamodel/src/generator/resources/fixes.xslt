@@ -100,6 +100,7 @@
     <xsl:template match="/model/dataFormats/dataFormat[@name='yaml']/property[@name='unmarshalTypeName']">
         <property name="unmarshalType" type="class" display="Unmarshal Type" description="Java type to use when unmarshalling"/>
     </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='secureXML']/property[@name='passPhraseByte']"/>
     <xsl:template match="/model/dataFormats/dataFormat[@name='secureXML']/property[@name='keyOrTrustStoreParametersRef']">
         <property name="keyOrTrustStoreParameters" type="java:org.apache.camel.support.jsse.KeyStoreParameters" display="KeyStoreParameters" description="The element name strategy is used for two purposes. The first is to find a xml element name for a given object and soap action when marshaling the object into a SOAP message. The second is to find an Exception class for a given soap fault name. The following three element strategy class name is provided out of the box. QNameStrategy - Uses a fixed qName that is configured on instantiation. Exception lookup is not supported TypeNameStrategy - Uses the name and namespace from the XMLType annotation of the given type. If no namespace is set then package-info is used. Exception lookup is not supported ServiceInterfaceStrategy - Uses information from a webservice interface to determine the type name and to find the exception class for a SOAP fault All three classes is located in the package name org.apache.camel.dataformat.soap.name If you have generated the web service stub code with cxf-codegen or a similar tool then you probably will want to use the ServiceInterfaceStrategy. In the case you have no annotated service interface you should use QNameStrategy or TypeNameStrategy."/>
         <property name="namespaces" type="map(string,string)" display="Namespaces" description="XML Namespaces of prefix -> uri mappings" />
@@ -203,6 +204,9 @@
     <xsl:template match="/model/definitions/definition[@name='route']/property[@name='autoStartup']/@type">
         <xsl:attribute name="type">boolean</xsl:attribute>
     </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='route']/property[@name='errorHandlerRef']">
+        <property name="errorHandler" type="java:org.apache.camel.ErrorHandlerFactory" required="false"/>
+    </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='route']/property[@name='routePolicyRef']">
         <property name="routePolicies" type="list(java:org.apache.camel.spi.RoutePolicy)" required="false"/>
     </xsl:template>
@@ -261,6 +265,10 @@
             <xsl:apply-templates select="@* | node()"/>
             <property name="routeScoped" type="boolean"/>
         </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='onException']/property[@name='handled']">
+        <property name="handled" type="model:expression" display="Handled" kind="expression" description="Sets whether the exchange should be marked as handled or not."/>
+        <property name="handled" type="boolean" display="Handled" kind="expression" description="Sets whether the exchange should be marked as handled or not."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='onException']/property[@name='onExceptionOccurredRef']">
         <property name="onExceptionOccurred" type="model:processor" display="On Exception Occurred" description="Sets a processor that should be processed just after an exception occurred. Can be used to perform custom logging about the occurred exception at the exact time it happened. Important: Any exception thrown from this processor will be ignored."/>
@@ -399,7 +407,7 @@
             </definition>
             <definition name="processor" display="Processor" abstract="true" generate="false" extends="model:node" javaType="org.apache.camel.model.ProcessorDefinition" label="abstract"/>
             <definition name="loadBalancer" display="Load Balancer" abstract="true" generate="false" extends="model:identified" description="Balances message processing among a number of nodes." javaType="org.apache.camel.model.LoadBalancerDefinition" label="abstract" />
-            <definition name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.model.endpoints.EndpointProducerBuilder"/>
+            <definition name="endpoint" display="Endpoint" abstract="true" generate="false" javaType="org.apache.camel.builder.EndpointProducerBuilder"/>
             <definition name="resequencerConfig" display="Resequencer Config" abstract="true" generate="false" javaType="org.apache.camel.model.config.ResequencerConfig" label="abstract" />
             <xsl:apply-templates select="definition[not(starts-with(@javaType,'org.apache.camel.spring.'))][@name != 'serviceCall' and @name != 'route']"/>
             <definition name="sagaActionUri" javaType="org.apache.camel.model.SagaActionUriDefinition" label="eip,routing">
@@ -422,13 +430,14 @@
             </definition>
             <definition name="customTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.CustomTransformerDefinition" label="validation">
                 <property name="transformer" type="java:org.apache.camel.spi.Transformer"/>
-                <property name="type" type="class"/>
+                <property name="transformer" type="class"/>
             </definition>
             <definition name="dataFormatTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.DataFormatTransformerDefinition" label="validation">
                 <property name="dataFormat" type="model:dataFormat"/>
             </definition>
             <definition name="endpointTransformer" extends="model:transformer" javaType="org.apache.camel.model.transformer.EndpointTransformerDefinition" label="validation">
                 <property name="uri" type="model:endpoint"/>
+                <property name="endpoint" type="java:org.apache.camel.Endpoint"/>
             </definition>
             <definition name="validator" javaType="org.apache.camel.model.validator.ValidatorDefinition" label="validation">
                 <property name="type" type="class" description="Set the data type using Java class."/>
@@ -436,9 +445,11 @@
             </definition>
             <definition name="customValidator" extends="model:validator" javaType="org.apache.camel.model.validator.CustomValidatorDefinition" label="validation">
                 <property name="validator" type="java:org.apache.camel.spi.Validator"/>
+                <property name="validator" type="class"/>
             </definition>
             <definition name="endpointValidator" extends="model:validator" javaType="org.apache.camel.model.validator.EndpointValidatorDefinition" label="validation">
                 <property name="uri" type="model:endpoint"/>
+                <property name="endpoint" type="java:org.apache.camel.Endpoint"/>
             </definition>
             <definition name="predicateValidator" extends="model:validator" javaType="org.apache.camel.model.validator.PredicateValidatorDefinition" label="validation">
                 <property name="expression" type="model:expression"/>
@@ -466,9 +477,16 @@
     <xsl:template match="/model/definitions/definition[@name='expression']/@javaType">
         <xsl:attribute name="javaType">org.apache.camel.model.language.ExpressionDefinition</xsl:attribute>
     </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='from']">
+        <xsl:element name="definition">
+            <xsl:apply-templates select="@*" />
+            <property name="uri" type="model:endpoint" display="Uri" required="true" description="The uri of the endpoint to send to. The uri can be dynamic computed using the org.apache.camel.language.simple.SimpleLanguage expression."/>
+            <property name="endpoint" type="java:org.apache.camel.Endpoint" display="Endpoint" description="The endpoint to send to."/>
+        </xsl:element>
+    </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='language']"/>
     <xsl:template match="/model/definitions/definition[@name='loadBalancer']/@javaType">
-        <xsl:attribute name="javaType">org.apache.camel.model.loadbalancer.LoadBalancerDefinition</xsl:attribute>
+        <xsl:attribute name="javaType">org.apache.camel.model.LoadBalancerDefinition</xsl:attribute>
     </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='method']"/>
     <xsl:template match="/model/definitions/definition[@name='packageScan']/property[@name='package']/@name">
@@ -483,6 +501,17 @@
             <xsl:attribute name="extends">java:org.apache.camel.model.rest.AbstractRestDefinition</xsl:attribute>
             <xsl:apply-templates select="node()" />
             <property name="verbs" type="list(model:verb)" />
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='routes']">
+        <xsl:element name="definition">
+            <xsl:apply-templates select="@* | node()" />
+            <property name="intercepts" type="list(model:intercept)" />
+            <property name="interceptFroms" type="list(model:interceptFrom)" />
+            <property name="interceptSendTos" type="list(model:interceptSendToEndpoint)" />
+            <property name="onCompletions" type="list(model:onCompletion)" />
+            <property name="onExceptions" type="list(model:onException)" />
+            <property name="errorHandlerFactory" type="java:org.apache.camel.ErrorHandlerFactory" />
         </xsl:element>
     </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='securityDefinitions']/property[@name='securityDefinitions']/@type">
@@ -526,6 +555,9 @@
     </xsl:template>
     <xsl:template match="/model/loadBalancers/loadBalancer[@name='customLoadBalancer']/property[@name='ref']">
         <property name="loadBalancer" type="org.apache.camel.spi.LoadBalancer"/>
+    </xsl:template>
+    <xsl:template match="/model/loadBalancers/loadBalancer[@name='failover']/property[@name='exception']/@name">
+        <xsl:attribute name="name">exceptions</xsl:attribute>
     </xsl:template>
 
     <xsl:template match="/ | @* | node()">

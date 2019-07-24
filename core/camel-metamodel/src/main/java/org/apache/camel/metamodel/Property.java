@@ -11,6 +11,7 @@ public class Property {
     boolean required = true;
     boolean secret;
     boolean deprecated;
+    Boolean refs;
 
     public String getName() {
         return name;
@@ -82,5 +83,13 @@ public class Property {
 
     public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
+    }
+
+    public Boolean getRefs() {
+        return refs;
+    }
+
+    public void setRefs(Boolean refs) {
+        this.refs = refs;
     }
 }

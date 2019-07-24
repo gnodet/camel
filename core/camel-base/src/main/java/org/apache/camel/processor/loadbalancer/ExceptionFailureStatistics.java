@@ -27,18 +27,18 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class ExceptionFailureStatistics {
 
-    private final Map<Class<?>, AtomicLong> counters = new HashMap<>();
+    private final Map<Class<? extends Throwable>, AtomicLong> counters = new HashMap<>();
     private final AtomicLong fallbackCounter = new AtomicLong();
 
-    public void init(List<Class<?>> exceptions) {
+    public void init(List<Class<? extends Throwable>> exceptions) {
         if (exceptions != null) {
-            for (Class<?> exception : exceptions) {
+            for (Class<? extends Throwable> exception : exceptions) {
                 counters.put(exception, new AtomicLong());
             }
         }
     }
 
-    public Iterator<Class<?>> getExceptions() {
+    public Iterator<Class<? extends Throwable>> getExceptions() {
         return counters.keySet().iterator();
     }
 

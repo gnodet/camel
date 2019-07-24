@@ -19,7 +19,6 @@ package org.apache.camel.reifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
@@ -33,7 +32,6 @@ import org.apache.camel.ShutdownRoute;
 import org.apache.camel.ShutdownRunningTask;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.AdviceWithTask;
-import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.ModelHelper;
@@ -311,15 +309,8 @@ public class RouteReifier<Type extends ProcessorDefinition<Type>> extends Proces
         routeContext.setInterceptStrategies(definition.getInterceptStrategies());
 
         // resolve endpoint
-        Endpoint endpoint = definition.getInput().getEndpoint();
-        if (endpoint == null) {
-            EndpointConsumerBuilder def = definition.getInput().getEndpointConsumerBuilder();
-            if (def != null) {
-                endpoint = def.resolve(routeContext.getCamelContext());
-            } else {
-                endpoint = routeContext.resolveEndpoint(definition.getInput().getEndpointUri());
-            }
-        }
+        Endpoint endpoint = resolveEndpoint(routeContext,
+                definition.getInput().getEndpoint(), definition.getInput().getUri());
         routeContext.setEndpoint(endpoint);
 
         // notify route context created

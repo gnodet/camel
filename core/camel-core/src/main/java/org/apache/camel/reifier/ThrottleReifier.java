@@ -21,7 +21,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import org.apache.camel.Expression;
 import org.apache.camel.Processor;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.ThrottleDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.processor.Throttler;

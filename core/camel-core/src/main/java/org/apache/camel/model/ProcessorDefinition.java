@@ -41,11 +41,11 @@ import org.apache.camel.Expression;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.ExpressionClause;
 import org.apache.camel.builder.ProcessClause;
 import org.apache.camel.model.dataformat.CustomDataFormat;
 import org.apache.camel.model.dataformat.DataFormatClause;
-import org.apache.camel.model.endpoints.EndpointProducerBuilder;
 import org.apache.camel.model.language.ConstantExpression;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.model.language.LanguageExpression;
@@ -1414,7 +1414,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder for a choice expression
      */
-    public ChoiceDefinition choice() {
+    public ChoiceDefinition<?> choice() {
         ChoiceDefinition answer = new ChoiceDefinition();
         addOutput(answer);
         return answer;
@@ -1425,8 +1425,8 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder for a tryBlock expression
      */
-    public TryDefinition doTry() {
-        TryDefinition answer = new TryDefinition();
+    public TryDefinition<Type> doTry() {
+        TryDefinition<Type> answer = new TryDefinition<Type>();
         addOutput(answer);
         return answer;
     }

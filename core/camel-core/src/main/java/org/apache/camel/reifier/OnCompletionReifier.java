@@ -23,7 +23,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnCompletionDefinition.OnCompletionMode;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.processor.CamelInternalProcessor;
 import org.apache.camel.processor.OnCompletionProcessor;
 import org.apache.camel.spi.RouteContext;

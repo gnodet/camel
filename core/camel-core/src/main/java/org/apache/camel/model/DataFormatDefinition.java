@@ -22,9 +22,10 @@ import javax.xml.namespace.QName;
 
 import org.apache.camel.model.IdentifiedType;
 import org.apache.camel.model.OtherAttributesAware;
+import org.apache.camel.model.dataformat.CustomDataFormat;
 import org.apache.camel.model.dataformat.XStreamDataFormat;
 
-public class DataFormatDefinition extends IdentifiedType implements OtherAttributesAware {
+public class DataFormatDefinition<Type extends DataFormatDefinition<Type>> extends IdentifiedType implements OtherAttributesAware {
 
     private Map<QName, Object> otherAttributes;
 
@@ -42,4 +43,51 @@ public class DataFormatDefinition extends IdentifiedType implements OtherAttribu
     public void setOtherAttributes(Map<QName, Object> otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
+
+    /**
+     * Whether the data format should set the Content-Type header with the type
+     * from the data format if the data format is capable of doing so. For
+     * example application/xml for data formats marshalling to XML, or
+     * application/json for data formats marshalling to JSon etc.
+     * This property is of type <code>boolean</code>.
+     */
+    public Type contentTypeHeader(boolean contentTypeHeader) {
+        doSetProperty("contentTypeHeader", contentTypeHeader);
+        return (Type) this;
+    }
+
+    /**
+     * Whether the data format should set the Content-Type header with the type
+     * from the data format if the data format is capable of doing so. For
+     * example application/xml for data formats marshalling to XML, or
+     * application/json for data formats marshalling to JSon etc.
+     * This property is of type <code>boolean</code>.
+     */
+    public Type contentTypeHeader(String contentTypeHeader) {
+        doSetProperty("contentTypeHeader", contentTypeHeader);
+        return (Type) this;
+    }
+
+    /**
+     * Whether the data format should set the Content-Type header with the type
+     * from the data format if the data format is capable of doing so. For
+     * example application/xml for data formats marshalling to XML, or
+     * application/json for data formats marshalling to JSon etc.
+     * This property is of type <code>boolean</code>.
+     */
+    public void setContentTypeHeader(boolean contentTypeHeader) {
+        doSetProperty("contentTypeHeader", contentTypeHeader);
+    }
+
+    /**
+     * Whether the data format should set the Content-Type header with the type
+     * from the data format if the data format is capable of doing so. For
+     * example application/xml for data formats marshalling to XML, or
+     * application/json for data formats marshalling to JSon etc.
+     * This property is of type <code>boolean</code>.
+     */
+    public Object getContentTypeHeader() {
+        return doGetProperty("contentTypeHeader");
+    }
+
 }

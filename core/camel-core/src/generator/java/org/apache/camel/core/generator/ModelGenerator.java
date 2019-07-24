@@ -145,9 +145,12 @@ public class ModelGenerator {
         return cur.relativize(base.resolve(res)).toString();
     }
 
+    static String structName;
+
     private static void doGenerate(Path cur, Model model, AbstractData data, Template t) {
         String packageName = substringBeforeLast(data.getJavaType(), ".");
         String name = substringAfterLast(data.getJavaType(), ".");
+        structName = name;
         Path file = cur.resolve("target/generated/" + packageName.replace('.', '/') + "/" + name + ".java");
         StringWriter w = new StringWriter();
         try {
@@ -245,6 +248,10 @@ public class ModelGenerator {
     }
 
     public static String getRealType(String name) {
+        if (("endpoint".equals(name) || "model:endpoint".equals(name))
+                && "FromDefinition".equals(structName)) {
+            return "org.apache.camel.builder.EndpointConsumerBuilder";
+        }
         AbstractData data = getData(name);
         return data != null ? data.getJavaType() : null;
     }
@@ -462,6 +469,16 @@ public class ModelGenerator {
         }
     }
 
+    public static String singular(String s) {
+        if (s.endsWith("ies")) {
+            return s.substring(0, s.length() - 3) + "y";
+        } else if (s.endsWith("s")) {
+            return s.substring(0, s.length() - 1);
+        } else {
+            return s;
+        }
+    }
+
     public static boolean isVisible(String t) {
         if (t.startsWith("java.")) {
             return true;
@@ -515,9 +532,15 @@ public class ModelGenerator {
         return idx >= 0 ? s.substring(0, idx) : "";
     }
 
+    public static String substringAfter(String s, String c) {
+        int idx = s.indexOf(c);
+        return idx > 0 ? s.substring(idx + c.length()) : s;
+    }
+
     public static String substringAfterLast(final String s, final String c) {
         return s.substring(s.lastIndexOf(c) + c.length());
     }
+
     public static void updateResource(Path out, String data) {
         try {
             if (data == null) {

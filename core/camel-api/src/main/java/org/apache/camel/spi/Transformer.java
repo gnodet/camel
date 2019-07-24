@@ -82,8 +82,28 @@ public abstract class Transformer extends ServiceSupport implements CamelContext
      *
      * @param from 'from' data type
      */
+    public Transformer setFrom(DataType from) {
+        this.from = from;
+        return this;
+    }
+
+    /**
+     * Set 'from' data type.
+     *
+     * @param from 'from' data type
+     */
     public Transformer setFrom(String from) {
         this.from = new DataType(from);
+        return this;
+    }
+
+    /**
+     * Set 'to' data type.
+     *
+     * @param to 'to' data type
+     */
+    public Transformer setTo(DataType to) {
+        this.to = to;
         return this;
     }
 

@@ -18,10 +18,12 @@ package org.apache.camel.reifier.transformer;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.transformer.DataFormatTransformer;
+import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.transformer.DataFormatTransformerDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.reifier.dataformat.DataFormatReifier;
 import org.apache.camel.spi.DataFormat;
+import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Transformer;
 
 public class DataFormatTransformeReifier extends TransformerReifier<DataFormatTransformerDefinition> {
@@ -32,12 +34,18 @@ public class DataFormatTransformeReifier extends TransformerReifier<DataFormatTr
 
     @Override
     protected Transformer doCreateTransformer(CamelContext context) {
-        DataFormat dataFormat = DataFormatReifier.getDataFormat(context, definition.getDataFormatType(), definition.getRef());
+        DataFormat dataFormat = DataFormatReifier.getDataFormat(context,
+                as(DataFormatDefinition.class, definition.getDataFormat()),
+                as(String.class, definition.getDataFormat()));
         return new DataFormatTransformer(context)
                 .setDataFormat(dataFormat)
                 .setModel(definition.getScheme())
-                .setFrom(definition.getFromType())
-                .setTo(definition.getToType());
+                .setFrom(resolve(context, DataType.class, definition.getFromType()))
+                .setTo(resolve(context, DataType.class, definition.getToType()));
+    }
+
+    private static <T> T as(Class<T> clazz, Object v) {
+        return clazz.isInstance(v) ? clazz.cast(v) : null;
     }
 
 }

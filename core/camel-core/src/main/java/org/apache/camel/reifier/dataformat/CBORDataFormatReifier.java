@@ -17,7 +17,6 @@
 package org.apache.camel.reifier.dataformat;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.dataformat.CBORDataFormat;
 import org.apache.camel.spi.DataFormat;

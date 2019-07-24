@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Supplier;
@@ -13,9 +12,12 @@ import java.util.stream.Collectors;
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.Endpoint;
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.EndpointConsumerBuilder;
+import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.model.ExecutorServiceAwareDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
@@ -43,7 +45,15 @@ public class AbstractReifier<T> {
         return resolve(context, String.class, value);
     }
 
+    protected static String asString(CamelContext context, Object value) {
+        return resolve(context, String.class, value);
+    }
+
     protected static String asString(RouteContext context, Object value, String defaultValue) {
+        return asString(context.getCamelContext(), value, defaultValue);
+    }
+
+    protected static String asString(CamelContext context, Object value, String defaultValue) {
         return value != null ? resolve(context, String.class, value) : defaultValue;
     }
 
@@ -52,6 +62,10 @@ public class AbstractReifier<T> {
     }
 
     protected static boolean asBoolean(RouteContext context, Object value, boolean defaultValue) {
+        return value != null ? resolve(context, boolean.class, value) : defaultValue;
+    }
+
+    protected static boolean asBoolean(CamelContext context, Object value, boolean defaultValue) {
         return value != null ? resolve(context, boolean.class, value) : defaultValue;
     }
 
@@ -72,6 +86,10 @@ public class AbstractReifier<T> {
     }
 
     protected static Class<?> asClass(RouteContext context, Object value) {
+        return resolve(context, Class.class, value);
+    }
+
+    protected static Class<?> asClass(CamelContext context, Object value) {
         return resolve(context, Class.class, value);
     }
 
@@ -141,7 +159,7 @@ public class AbstractReifier<T> {
         throw new IllegalArgumentException("Cannot convert object '" + definition + "' to Processor");
     }
 
-    protected static List<Class<? extends Throwable>> resolveExceptions(RouteContext routeContext, Object value) {
+    public static List<Class<? extends Throwable>> resolveExceptions(RouteContext routeContext, Object value) {
         // must use the class resolver from CamelContext to load classes to ensure it can
         // be loaded in all kind of environments such as JEE servers and OSGi etc.
         List<Class<? extends Throwable>> answer = new ArrayList<>();
@@ -213,7 +231,17 @@ public class AbstractReifier<T> {
         return null;
     }
 
-    protected static AggregationStrategy resolveAggregationStrategy(RouteContext routeContext, Object value, Object method, Object allowNull, Supplier<AggregationStrategy> defaultStrategy) {
+    protected static Predicate asPredicate(CamelContext context, Object expression) {
+        if (expression instanceof ExpressionDefinition) {
+            return ((ExpressionDefinition) expression).createPredicate(context);
+        }
+        if (expression instanceof String) {
+            // TODO
+        }
+        return null;
+    }
+
+    protected AggregationStrategy resolveAggregationStrategy(RouteContext routeContext, Object value, Object method, Object allowNull, Supplier<AggregationStrategy> defaultStrategy) {
         AggregationStrategy strategy;
         if (value instanceof AggregationStrategy) {
             strategy = (AggregationStrategy) value;
@@ -367,6 +395,33 @@ public class AbstractReifier<T> {
         }
 
         return null;
+    }
+
+    protected static Endpoint resolveEndpoint(RouteContext routeContext, Object endpoint, Object uri) {
+        return resolveEndpoint(routeContext.getCamelContext(), endpoint, uri);
+    }
+
+    protected static Endpoint resolveEndpoint(CamelContext camelContext, Object endpoint, Object uri) {
+        if (endpoint instanceof Endpoint) {
+            return (Endpoint) endpoint;
+        }
+        if (endpoint instanceof String) {
+            Endpoint e = resolve(camelContext, Endpoint.class, endpoint);
+            if (e == null) {
+                throw new IllegalArgumentException("Could not find Endpoint with name " + endpoint);
+            }
+            return e;
+        }
+        if (uri instanceof EndpointProducerBuilder) {
+            return ((EndpointProducerBuilder) uri).resolve(camelContext);
+        }
+        if (uri instanceof EndpointConsumerBuilder) {
+            return ((EndpointConsumerBuilder) uri).resolve(camelContext);
+        }
+        if (uri instanceof String) {
+            return CamelContextHelper.getMandatoryEndpoint(camelContext, (String) uri);
+        }
+        throw new IllegalArgumentException("Endpoint or Uri must be set");
     }
 
 }

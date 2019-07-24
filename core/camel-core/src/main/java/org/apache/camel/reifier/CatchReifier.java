@@ -16,7 +16,6 @@
  */
 package org.apache.camel.reifier;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.Predicate;

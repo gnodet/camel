@@ -24,7 +24,6 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.processor.DelegateAsyncProcessor;
 import org.apache.camel.support.processor.DelegateSyncProcessor;
-import org.apache.camel.util.ObjectHelper;
 
 public class ProcessReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ProcessDefinition<Type>> {
 

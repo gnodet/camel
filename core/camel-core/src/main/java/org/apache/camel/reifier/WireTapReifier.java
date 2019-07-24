@@ -23,7 +23,6 @@ import org.apache.camel.Expression;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.ExpressionBuilder;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.SetHeaderDefinition;
 import org.apache.camel.model.WireTapDefinition;
 import org.apache.camel.processor.CamelInternalProcessor;
@@ -32,18 +31,18 @@ import org.apache.camel.processor.WireTapProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
 
-public class WireTapReifier<Type extends ProcessorDefinition<Type>> extends ToDynamicReifier<Type, WireTapDefinition<Type>> {
+public class WireTapReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<WireTapDefinition<Type>> {
 
     @SuppressWarnings("unchecked")
     WireTapReifier(ProcessorDefinition<?> definition) {
-        super(definition);
+        super((WireTapDefinition) definition);
     }
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         // executor service is mandatory for wire tap
-        boolean shutdownThreadPool = ProcessorDefinitionHelper.willCreateNewThreadPool(routeContext, definition, true);
-        ExecutorService threadPool = ProcessorDefinitionHelper.getConfiguredExecutorService(routeContext, "WireTap", definition, true);
+        boolean shutdownThreadPool = willCreateNewThreadPool(routeContext, definition.getExecutorService(), true);
+        ExecutorService threadPool = getConfiguredExecutorService(routeContext, "WireTap", definition.getExecutorService(), true);
 
         // must use InOnly for WireTap
         definition.setPattern(ExchangePattern.InOnly);

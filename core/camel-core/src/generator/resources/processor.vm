@@ -18,7 +18,15 @@
  */
 package ${packageName};
 
-#foreach( $imp in ${main.getImports(${data}, ${packageName})} )
+#set( $imports = ${main.newTreeSet()} )
+#if( $data.name == 'choice' )
+#set( $b = ${imports.add('org.apache.camel.Predicate')} )
+#set( $b = ${imports.add('org.apache.camel.builder.ExpressionClause')} )
+#set( $b = ${imports.add('org.apache.camel.model.language.ExpressionDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.spi.AsPredicate')} )
+#end
+#set( $b = ${imports.addAll(${main.getImports(${data}, ${packageName})})} )
+#foreach( $imp in ${imports} )
 import ${imp};
 #end
 
@@ -32,41 +40,41 @@ import ${imp};
 #set( $hasOutput = false )
 #set( $hasExpression = false )
 #foreach( $prop in ${data.properties} )
-#if( ${prop.name} == "outputs" )
-#set( $hasOutput = true )
-#elseif( ${prop.name} == "expression" )
-#set( $hasExpression = true )
-#end
+    #if( ${prop.name} == "outputs" )
+        #set( $hasOutput = true )
+    #elseif( ${prop.name} == "expression" )
+        #set( $hasExpression = true )
+    #end
 #end
 #if( $hasOutput && $hasExpression )
-#set( $parent = "OutputExpressionNode" )
+    #set( $parent = "OutputExpressionNode" )
 #elseif( $hasOutput )
-#set( $parent = "OutputDefinition" )
+    #set( $parent = "OutputDefinition" )
 #elseif( $hasExpression )
-#set( $parent = "ExpressionNode" )
+    #set( $parent = "ExpressionNode" )
 #else
-#set( $parent = "NoOutputDefinition" )
+    #set( $parent = "NoOutputDefinition" )
 #end
 #set( $param = "" )
 #set( $paramst = "" )
 #if( ${data.param} )
-#set( $param = "${data.param}, " )
-#set( $paramst = ${main.substringBefore(${data.param}," ")} + ", " )
+    #set( $param = "${data.param}, " )
+    #set( $paramst = ${main.substringBefore(${data.param}," ")} + ", " )
 #end
 public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${parent}<${name}<${paramst}Type>> {
 
 #foreach( $en in ${main.getEnums(${data}).entrySet()} )
     public enum ${en.key} {
-#set( $cplx = false )
-#foreach( $v in ${en.value} )
-#if( ${v.contains(":")} )
-#set( $cplx = true )
-#end
-#end
-#if( $cplx )
-#foreach( $v in ${en.value} )
+    #set( $cplx = false )
+    #foreach( $v in ${en.value} )
+        #if( ${v.contains(":")} )
+            #set( $cplx = true )
+        #end
+    #end
+    #if( $cplx )
+        #foreach( $v in ${en.value} )
         ${v.substring(0, ${v.indexOf(":")})}("${v.substring(${v.indexOf(":")}+1)}")#if( $foreach.hasNext ),#{else};#end
-#end
+        #end
 
         private String value;
         ${en.key}(String value) {
@@ -75,11 +83,11 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
         public String toString() {
             return value;
         }
-#else
-#foreach( $v in ${en.value} )
+    #else
+        #foreach( $v in ${en.value} )
         $v#if( $foreach.hasNext ),#end
-#end
-#end
+        #end
+    #end
     }
 #end
 
@@ -91,70 +99,327 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
         return "${data.name}";
     }
 
-#foreach( $prop in ${data.properties} )
-#if ( ${prop.name} != "outputs" && ${prop.name} != "expression" )
-#set( $propname = ${main.camelCaseUpper(${prop.name})} )
-#set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
-#set( $last = $prop )
-#set( $nbprops = 0 )
-#foreach( $p in ${data.properties} )
-#if( ${p.name} == ${prop.name} )
-#set( $last = $p )
-#set( $nbprops = $nbprops + 1 )
-#end
-#end
-    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${name}<${paramst}Type> ${propnamelow}(${main.getType($prop.type)} ${propnamelow}) {
-        set${propname}(${prop.name});
+#if( $data.name == 'route' )
+    /**
+     * Declare the expected data type of the input message with content validation enabled.
+     * If the actual message type is different at runtime, camel look for a required
+     * {@link Transformer} and apply if exists, and then applies {@link Validator} as well.
+     * The type name consists of two parts, 'scheme' and 'name' connected with ':'. For Java type 'name'
+     * is a fully qualified class name. For example {@code java:java.lang.String}, {@code json:ABCOrder}.
+     *
+     * @see org.apache.camel.spi.Transformer
+     * @see org.apache.camel.spi.Validator
+     *
+     * @param urn input type URN
+     * @return the builder
+     */
+    public RouteDefinition<Type> inputTypeWithValidate(String urn) {
+        return inputType(new InputTypeDefinition().urn(urn).validate(true));
+    }
+
+    /**
+     * Declare the expected data type of the input message by Java class with content validation enabled.
+     * If the actual message type is different at runtime, camel look for a required
+     * {@link Transformer} and apply if exists, and then applies {@link Validator} as well.
+     *
+     * @see org.apache.camel.spi.Transformer
+     * @see org.apache.camel.spi.Validator
+     *
+     * @param clazz Class object of the input type
+     * @return the builder
+     */
+    public RouteDefinition<Type> inputTypeWithValidate(Class clazz) {
+        return inputTypeWithValidate("java:" + clazz.getName());
+    }
+
+    /**
+     * Declare the expected data type of the output message with content validation enabled.
+     * If the actual message type is different at runtime, Camel look for a required
+     * {@link Transformer} and apply if exists, and then applies {@link Validator} as well.
+     * The type name consists of two parts, 'scheme' and 'name' connected with ':'. For Java type 'name'
+     * is a fully qualified class name. For example {@code java:java.lang.String}, {@code json:ABCOrder}.
+     *
+     * @see org.apache.camel.spi.Transformer
+     * @see org.apache.camel.spi.Validator
+     *
+     * @param urn output type URN
+     * @return the builder
+     */
+    public RouteDefinition<Type> outputTypeWithValidate(String urn) {
+        return outputType(new OutputTypeDefinition().urn(urn).validate(true));
+    }
+
+    /**
+     * Declare the expected data type of the output message by Java class.
+     * If the actual message type is different at runtime, camel look for a required
+     * {@link Transformer} and apply if exists.
+     *
+     * @see org.apache.camel.spi.Transformer
+     *
+     * @param clazz Class object of the output type
+     * @return the builder
+     */
+    public RouteDefinition<Type> outputType(Class clazz) {
+        return outputType(new OutputTypeDefinition().urn("java:" + clazz.getName()).validate(false));
+    }
+
+    /**
+     * Declare the expected data type of the ouput message by Java class with content validation enabled.
+     * If the actual message type is different at runtime, camel look for a required
+     * {@link Transformer} and apply if exists, and then applies {@link Validator} as well.
+     *
+     * @see org.apache.camel.spi.Transformer
+     * @see org.apache.camel.spi.Validator
+     * @param clazz Class object of the output type
+     * @return the builder
+     */
+    public RouteDefinition<Type> outputTypeWithValidate(Class clazz) {
+        return outputTypeWithValidate("java:" + clazz.getName());
+    }
+
+#elseif( $data.name == 'choice' )
+    /**
+     * Sets the predicate for the when node
+     *
+     * @param predicate the predicate
+     * @return the builder
+     */
+    public ChoiceDefinition<?> when(Predicate predicate) {
+        WhenDefinition when = new WhenDefinition();
+        when.expression(new ExpressionDefinition(predicate));
+        addWhenClause(when);
         return this;
     }
 
-#if( ${prop.type} == 'model:expression' )
+    /**
+     * Creates an expression for the when node
+     *
+     * @return expression to be used as builder to configure the when node
+     */
+    @AsPredicate
+    public ExpressionClause<ChoiceDefinition<Type>> when() {
+        ExpressionClause<ChoiceDefinition<Type>> clause = new ExpressionClause<ChoiceDefinition<Type>>(this);
+        WhenDefinition when = new WhenDefinition();
+        when.expression(new ExpressionDefinition((Predicate) clause));
+        addWhenClause(when);
+        return clause;
+    }
+
+    /**
+     * Sets the otherwise node
+     *
+     * @return the builder
+     */
+    public ChoiceDefinition<Type> otherwise() {
+        return otherwise(new OtherwiseDefinition());
+    }
+
+#elseif( $data.name == 'split' )
+    /**
+     * Will now stop further processing if an exception or failure occurred during processing of an
+     * {@link org.apache.camel.Exchange} and the caused exception will be thrown.
+     * <p/>
+     * Will also stop if processing the exchange failed (has a fault message) or an exception
+     * was thrown and handled by the error handler (such as using onException). In all situations
+     * the splitter will stop further processing. This is the same behavior as in pipeline, which
+     * is used by the routing engine.
+     * <p/>
+     * The default behavior is to <b>not</b> stop but continue processing till the end
+     *
+     * @return the builder
+     */
+    public SplitDefinition<Type> stopOnException() {
+        return stopOnException(true);
+    }
+
+#elseif( $data.name == 'doTry' )
+    /**
+     * Handles the given exception
+     *
+     * @param exceptionType  the exception
+     * @return the try builder
+     */
+    @SuppressWarnings("unchecked")
+    public TryDefinition<Type> doCatch(Class<? extends Throwable> exceptionType) {
+        // this method is introduced to avoid compiler warnings about the
+        // generic Class arrays in the case we've got only one single Class
+        // to build a TryDefinition for
+        return doCatch(new Class[] {exceptionType});
+    }
+
+    /**
+     * Handles the given exception(s)
+     *
+     * @param exceptionType  the exception(s)
+     * @return the try builder
+     */
+    public TryDefinition<Type> doCatch(Class<? extends Throwable>... exceptionType) {
+        popBlock();
+        List<Class<? extends Throwable>> list = Arrays.asList(exceptionType);
+        CatchDefinition answer = new CatchDefinition().exceptions(list);
+        addOutput(answer);
+        pushBlock(answer);
+        return this;
+    }
+
+    /**
+     * The finally block for a given handle
+     *
+     * @return  the try builder
+     */
+    public TryDefinition<Type> doFinally() {
+        popBlock();
+        FinallyDefinition answer = new FinallyDefinition();
+        addOutput(answer);
+        pushBlock(answer);
+        return this;
+    }
+
+#end
+#foreach( $prop in ${data.properties} )
+    #if ( ${prop.name} != "outputs" && ${prop.name} != "expression" )
+        #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+        #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+        #set( $last = $prop )
+        #set( $nbprops = 0 )
+        #foreach( $p in ${data.properties} )
+            #if( ${p.name} == ${prop.name} )
+                #set( $last = $p )
+                #set( $nbprops = $nbprops + 1 )
+            #end
+        #end
+        #if( ${prop.type} == 'model:expression' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name}<${paramst}Type> ${propnamelow}(ExpressionDefinition ${propnamelow}) {
+        doSetProperty("${prop.name}", ${prop.name});
+        return this;
+    }
+
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name}<${paramst}Type> ${propnamelow}(Expression ${propnamelow}) {
+        ${propnamelow}(new ExpressionDefinition(${propnamelow}));
+        return this;
+    }
+
+            #if( $last == $prop )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name}<${paramst}Type> ${propnamelow}(String ${propnamelow}) {
+        ${propnamelow}(new ExpressionDefinition(${propnamelow}));
+        return this;
+    }
+            #end
+
+        #elseif( ${prop.type.startsWith('list(model:')} )
+            #set( $type = ${main.getType($prop.type)} )
+            #set( $stype = ${main.getType(${prop.type.substring(5, ${prop.type.length()} - 1)})} )
+            #set( $singular = ${main.singular(${propname})} )
+            #set( $singularlow = ${main.camelCaseLower(${singular})} )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name}<${paramst}Type> ${propnamelow}(${type} ${propnamelow}) {
         doSetProperty("${prop.name}", ${prop.name});
         return this;
     }
 
-#end
-#if( ${main.getType($prop.type)} != "String" && ($last == $prop) && (${prop.type.equals('model:endpoint')} || !${prop.type.startsWith('list(model:')})  )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${name}<${paramst}Type> ${prop.name}(String ${prop.name}) {
-        doSetProperty("${prop.name}", ${prop.name});
+    public ${name}<${paramst}Type> add${singular}(${stype} ${singularlow}) {
+        ((${type}) doGetProperty("${propnamelow}", this::newList)).add(${singularlow});
         return this;
     }
 
-#end
+        #else
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public void set${propname}(${main.getType($prop.type)} ${prop.name}) {
-        doSetProperty("${prop.name}", ${prop.name});
+    public ${name}<${paramst}Type> ${propnamelow}(${main.getType($prop.type)} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+        return this;
     }
 
-#if( $last == $prop )
-#if( ${nbprops} > 1 || ${prop.type.equals('model:processor')} || ${prop.type.equals('model:expression')} || (!${prop.type.startsWith('model:')} && !${prop.type.startsWith('list(model:')}) )
+            #if( $last == $prop && ${prop.type} != 'string' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name}<${paramst}Type> ${propnamelow}(String ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+        return this;
+    }
+
+            #end
+        #end
+    #end
+#end
+#foreach( $prop in ${data.properties} )
+    #if ( ${prop.name} != "outputs" && ${prop.name} != "expression" )
+        #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+        #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+        #set( $last = $prop )
+        #set( $nbprops = 0 )
+        #foreach( $p in ${data.properties} )
+            #if( ${p.name} == ${prop.name} )
+                #set( $last = $p )
+                #set( $nbprops = $nbprops + 1 )
+            #end
+        #end
+        #if( $last == $prop )
+            #if( $nbprops == 1 && ${prop.type} == 'model:expression' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(ExpressionDefinition ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ExpressionDefinition get${propname}() {
+        return (ExpressionDefinition) doGetProperty("${prop.name}");
+    }
+
+            #elseif( $nbprops == 1 && ${prop.type} == 'string' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(String ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public String get${propname}() {
+        return (String) doGetProperty("${prop.name}");
+    }
+
+            #elseif( $nbprops == 1 && ${prop.type.startsWith('list(model:')} )
+                #set( $type = ${main.getType($prop.type)} )
+                #set( $stype = ${main.getType(${prop.type.substring(5, ${prop.type.length()} - 1)})} )
+                #set( $singular = ${main.singular(${propname})} )
+                #set( $singularlow = ${main.camelCaseLower(${singular})} )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(${type} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${type} get${propname}() {
+        return (${type}) doGetProperty("${prop.name}");
+    }
+
+            #elseif( $nbprops == 1 && ${prop.type.startsWith('model:')} && ${prop.type} != 'model:endpoint' )
+                #set( $type = ${main.getType($prop.type)} )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(${type} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${type} get${propname}() {
+        return (${type}) doGetProperty("${prop.name}");
+    }
+
+            #else
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(Object ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public Object get${propname}() {
         return doGetProperty("${prop.name}");
     }
-#else
-    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-#if( ${main.getType($prop.type).contains('<')} )
-    @SuppressWarnings("unchecked")
-#end
-    public ${main.getType($prop.type)} get${propname}() {
-        return (${main.getType($prop.type)}) doGetProperty("${prop.name}");
-    }
 
-#if( ${prop.type.startsWith('list(model:')} )
-    ${main.javadoc(${prop.description} + ${newline} + "Creates a list of none has been set previously, never returns <code>null</code>." + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${main.getType($prop.type)} getOrCreate${propname}() {
-        return (${main.getType($prop.type)}) doGetProperty("${propnamelow}", this::newList);
-    }
-
-#end
-#end
-#end
-#end
+            #end
+        #end
+    #end
 #end
 
     public Type end() {

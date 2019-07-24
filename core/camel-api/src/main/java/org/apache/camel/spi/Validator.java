@@ -57,6 +57,16 @@ public abstract class Validator extends ServiceSupport implements CamelContextAw
      *
      * @param type data type
      */
+    public Validator setType(DataType type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Set data type.
+     *
+     * @param type data type
+     */
     public Validator setType(String type) {
         this.type = new DataType(type);
         return this;

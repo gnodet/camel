@@ -20,17 +20,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
 
 import org.apache.camel.AggregationStrategy;
-import org.apache.camel.CamelContextAware;
 import org.apache.camel.Expression;
 import org.apache.camel.Processor;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.SplitDefinition;
 import org.apache.camel.processor.Splitter;
-import org.apache.camel.processor.aggregate.AggregationStrategyBeanAdapter;
 import org.apache.camel.processor.aggregate.ShareUnitOfWorkAggregationStrategy;
 import org.apache.camel.spi.RouteContext;
-import org.apache.camel.support.CamelContextHelper;
 
 public class SplitReifier<Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SplitDefinition<Type>> {
 
@@ -60,7 +56,7 @@ public class SplitReifier<Type extends ProcessorDefinition<Type>> extends Expres
 
         Expression exp = definition.getExpression().createExpression(routeContext);
 
-        AggregationStrategy strategy = resolveAggregationStrategy(routeContext, definition.getAggregationStrategy(),
+        AggregationStrategy strategy = createAggregationStrategy(routeContext, definition.getAggregationStrategy(),
                 definition.getStrategyMethodName(), definition.getStrategyMethodAllowNull(), () -> null);
 
         Splitter answer = new Splitter(routeContext.getCamelContext(), exp, childProcessor, strategy,
@@ -69,9 +65,8 @@ public class SplitReifier<Type extends ProcessorDefinition<Type>> extends Expres
         return answer;
     }
 
-    @Override
-    protected AggregationStrategy resolveAggregationStrategy(RouteContext routeContext, Object value, Object method, Object allowNull, Supplier<AggregationStrategy> defaultStrategy) {
-        AggregationStrategy strategy = super.resolveAggregationStrategy(routeContext, value, method, allowNull, defaultStrategy);
+    protected AggregationStrategy createAggregationStrategy(RouteContext routeContext, Object value, Object method, Object allowNull, Supplier<AggregationStrategy> defaultStrategy) {
+        AggregationStrategy strategy = resolveAggregationStrategy(routeContext, value, method, allowNull, defaultStrategy);
         if (strategy != null && definition.getShareUnitOfWork() != null && asBoolean(routeContext, definition.getShareUnitOfWork())) {
             // wrap strategy in share unit of work
             strategy = new ShareUnitOfWorkAggregationStrategy(strategy);

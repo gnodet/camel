@@ -23,6 +23,7 @@ import org.apache.camel.impl.transformer.ProcessorTransformer;
 import org.apache.camel.model.transformer.EndpointTransformerDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.processor.SendProcessor;
+import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Transformer;
 
 public class EndpointTransformeReifier extends TransformerReifier<EndpointTransformerDefinition> {
@@ -33,14 +34,13 @@ public class EndpointTransformeReifier extends TransformerReifier<EndpointTransf
 
     @Override
     protected Transformer doCreateTransformer(CamelContext context) throws Exception {
-        Endpoint endpoint = definition.getUri() != null ? context.getEndpoint(definition.getUri())
-                : context.getRegistry().lookupByNameAndType(definition.getRef(), Endpoint.class);
+        Endpoint endpoint = resolveEndpoint(context, definition.getEndpoint(), definition.getUri());
         SendProcessor processor = new SendProcessor(endpoint, ExchangePattern.InOut);
         return new ProcessorTransformer(context)
                 .setProcessor(processor)
                 .setModel(definition.getScheme())
-                .setFrom(definition.getFromType())
-                .setTo(definition.getToType());
+                .setFrom(resolve(context, DataType.class, definition.getFromType()))
+                .setTo(resolve(context, DataType.class, definition.getToType()));
     }
 
 }

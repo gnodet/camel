@@ -29,19 +29,6 @@ public class TidyMarkupDataFormatReifier extends DataFormatReifier<TidyMarkupDat
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        if (definition.getDataObjectType() == null && definition.getDataObjectTypeName() != null) {
-            try {
-                definition.setDataObjectType(camelContext.getClassResolver().resolveMandatoryClass(definition.getDataObjectTypeName()));
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
-
-        return super.doCreateDataFormat(camelContext);
-    }
-
-    @Override
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         if (definition.getDataObjectType() != null) {
             setProperty(camelContext, dataFormat, "dataObjectType", definition.getDataObjectType());

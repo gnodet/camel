@@ -89,7 +89,7 @@ public class ManagedFailoverLoadBalancer extends ManagedProcessor implements Man
             return exceptions;
         }
 
-        List<Class<?>> classes = processor.getExceptions();
+        List<Class<? extends Throwable>> classes = processor.getExceptions();
         if (classes == null || classes.isEmpty()) {
             exceptions = "";
         } else {
@@ -106,7 +106,7 @@ public class ManagedFailoverLoadBalancer extends ManagedProcessor implements Man
     public String getLastGoodProcessorId() {
         int idx = processor.getLastGoodIndex();
         if (idx != -1) {
-            LoadBalanceDefinition def = getDefinition();
+            LoadBalanceDefinition<?> def = getDefinition();
             ProcessorDefinition<?> output = def.getOutputs().get(idx);
             if (output != null) {
                 return output.getId();
@@ -122,11 +122,11 @@ public class ManagedFailoverLoadBalancer extends ManagedProcessor implements Man
 
             ExceptionFailureStatistics statistics = processor.getExceptionFailureStatistics();
 
-            Iterator<Class<?>> it = statistics.getExceptions();
+            Iterator<Class<? extends Throwable>> it = statistics.getExceptions();
             boolean empty = true;
             while (it.hasNext()) {
                 empty = false;
-                Class<?> exception = it.next();
+                Class<? extends Throwable> exception = it.next();
                 String name = ObjectHelper.name(exception);
                 long counter = statistics.getFailureCounter(exception);
 

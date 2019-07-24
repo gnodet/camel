@@ -37,17 +37,13 @@ public class XMLSecurityDataFormatReifier extends DataFormatReifier<XMLSecurityD
             setProperty(camelContext, dataFormat, "secureTag", "");
         }
 
-        boolean isSecureTagContents = definition.getSecureTagContents() != null && definition.getSecureTagContents();
+        boolean isSecureTagContents = asBoolean(camelContext, definition.getSecureTagContents(), false);
         setProperty(camelContext, dataFormat, "secureTagContents", isSecureTagContents);
 
-        if (definition.getPassPhrase() != null || definition.getPassPhraseByte() != null) {
-            if (definition.getPassPhraseByte() != null) {
-                setProperty(camelContext, dataFormat, "passPhrase", definition.getPassPhraseByte());
-            } else {
-                setProperty(camelContext, dataFormat, "passPhrase", definition.getPassPhrase().getBytes());
-            }
+        if (definition.getPassPhrase() != null) {
+            setProperty(camelContext, dataFormat, "passPhrase", definition.getPassPhrase());
         } else {
-            setProperty(camelContext, dataFormat, "passPhrase", "Just another 24 Byte key".getBytes());
+            setProperty(camelContext, dataFormat, "passPhrase", "Just another 24 Byte key");
         }
         if (definition.getXmlCipherAlgorithm() != null) {
             setProperty(camelContext, dataFormat, "xmlCipherAlgorithm", definition.getXmlCipherAlgorithm());
@@ -59,9 +55,6 @@ public class XMLSecurityDataFormatReifier extends DataFormatReifier<XMLSecurityD
         }
         if (definition.getRecipientKeyAlias() != null) {
             setProperty(camelContext, dataFormat, "recipientKeyAlias", definition.getRecipientKeyAlias());
-        }
-        if (definition.getKeyOrTrustStoreParametersRef() != null) {
-            setProperty(camelContext, dataFormat, "keyOrTrustStoreParametersRef", definition.getKeyOrTrustStoreParametersRef());
         }
         if (definition.getKeyOrTrustStoreParameters() != null) {
             setProperty(camelContext, dataFormat, "keyOrTrustStoreParameters", definition.getKeyOrTrustStoreParameters());
@@ -79,8 +72,11 @@ public class XMLSecurityDataFormatReifier extends DataFormatReifier<XMLSecurityD
             setProperty(camelContext, dataFormat, "mgfAlgorithm", definition.getMgfAlgorithm());
         }
         // should be true by default
-        boolean isAddKeyValueForEncryptedKey = definition.getAddKeyValueForEncryptedKey() == null || definition.getAddKeyValueForEncryptedKey();
-        setProperty(camelContext, dataFormat, "addKeyValueForEncryptedKey", isAddKeyValueForEncryptedKey);
+        if (definition.getAddKeyValueForEncryptedKey() != null) {
+            setProperty(camelContext, dataFormat, "addKeyValueForEncryptedKey", definition.getAddKeyValueForEncryptedKey());
+        } else {
+            setProperty(camelContext, dataFormat, "addKeyValueForEncryptedKey", true);
+        }
     }
 
 }

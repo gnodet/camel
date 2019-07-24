@@ -18,8 +18,8 @@ package org.apache.camel.reifier.loadbalancer;
 
 import org.apache.camel.model.LoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition;
-import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.processor.loadbalancer.StickyLoadBalancer;
+import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.RouteContext;
 
 public class StickyLoadBalancerReifier extends LoadBalancerReifier<StickyLoadBalancerDefinition> {

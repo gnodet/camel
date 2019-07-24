@@ -20,12 +20,9 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.Processor;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.SendDefinition;
 import org.apache.camel.model.ToDefinition;
-import org.apache.camel.model.endpoints.EndpointProducerBuilder;
 import org.apache.camel.processor.SendProcessor;
 import org.apache.camel.spi.RouteContext;
-import org.apache.camel.support.CamelContextHelper;
 
 public class ToReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<ToDefinition<Type>> {
 
@@ -39,23 +36,6 @@ public class ToReifier<Type extends ProcessorDefinition<Type>> extends Processor
         Endpoint endpoint = resolveEndpoint(routeContext, definition.getEndpoint(), definition.getUri());
         ExchangePattern pattern = resolve(routeContext, ExchangePattern.class, definition.getPattern());
         return new SendProcessor(endpoint, pattern);
-    }
-
-    public Endpoint resolveEndpoint(RouteContext routeContext, Object endpoint, EndpointProducerBuilder uri) {
-        if (endpoint instanceof Endpoint) {
-            return (Endpoint) endpoint;
-        }
-        if (endpoint instanceof String) {
-            Endpoint e = resolve(routeContext, Endpoint.class, endpoint);
-            if (e == null) {
-                throw new IllegalArgumentException("Could not find Endpoint with name " + endpoint);
-            }
-            return e;
-        }
-        if (definition.getUri() != null) {
-            return definition.getUri().resolve(routeContext.getCamelContext());
-        }
-        throw new IllegalArgumentException("Endpoint or Uri must be set");
     }
 
 }

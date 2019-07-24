@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.dataformat.ASN1DataFormat;
@@ -34,8 +35,6 @@ import org.apache.camel.model.dataformat.CBORDataFormat;
 import org.apache.camel.model.dataformat.CryptoDataFormat;
 import org.apache.camel.model.dataformat.CsvDataFormat;
 import org.apache.camel.model.dataformat.CustomDataFormat;
-import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.model.dataformat.FhirDataformat;
 import org.apache.camel.model.dataformat.FhirJsonDataFormat;
 import org.apache.camel.model.dataformat.FhirXmlDataFormat;
 import org.apache.camel.model.dataformat.FlatpackDataFormat;
@@ -89,7 +88,6 @@ public abstract class DataFormatReifier<T extends DataFormatDefinition> extends 
         map.put(CryptoDataFormat.class, CryptoDataFormatReifier::new);
         map.put(CsvDataFormat.class, CsvDataFormatReifier::new);
         map.put(CustomDataFormat.class, CustomDataFormatReifier::new);
-        map.put(FhirDataformat.class, FhirDataFormatReifier::new);
         map.put(FhirJsonDataFormat.class, FhirJsonDataFormatReifier::new);
         map.put(FhirXmlDataFormat.class, FhirXmlDataFormatReifier::new);
         map.put(FlatpackDataFormat.class, FlatpackDataFormatReifier::new);
@@ -160,9 +158,6 @@ public abstract class DataFormatReifier<T extends DataFormatDefinition> extends 
                 return dataFormat;
             }
         }
-        if (type.getDataFormat() != null) {
-            return type.getDataFormat();
-        }
         return reifier(type).createDataFormat(camelContext);
     }
 
@@ -175,38 +170,35 @@ public abstract class DataFormatReifier<T extends DataFormatDefinition> extends 
     }
 
     public DataFormat createDataFormat(CamelContext camelContext) {
-        DataFormat dataFormat = definition.getDataFormat();
-        if (dataFormat == null) {
-            Runnable propertyPlaceholdersChangeReverter = ProcessorDefinitionHelper.createPropertyPlaceholdersChangeReverter();
+        Runnable propertyPlaceholdersChangeReverter = ProcessorDefinitionHelper.createPropertyPlaceholdersChangeReverter();
 
-            // resolve properties before we create the data format
-            try {
-                ProcessorDefinitionHelper.resolvePropertyPlaceholders(camelContext, definition);
-            } catch (Exception e) {
-                throw new IllegalArgumentException("Error resolving property placeholders on data format: " + definition, e);
-            }
-            try {
-                dataFormat = doCreateDataFormat(camelContext);
-                if (dataFormat != null) {
-                    // is enabled by default so assume true if null
-                    final boolean contentTypeHeader = definition.getContentTypeHeader() == null || definition.getContentTypeHeader();
-                    try {
-                        setProperty(camelContext, dataFormat, "contentTypeHeader", contentTypeHeader);
-                    } catch (Exception e) {
-                        // ignore as this option is optional and not all data formats support this
-                    }
-                    // configure the rest of the options
-                    configureDataFormat(dataFormat, camelContext);
-                } else {
-                    throw new IllegalArgumentException(
-                            "Data format '" + (definition.getDataFormatName() != null ? definition.getDataFormatName() : "<null>") + "' could not be created. "
-                                    + "Ensure that the data format is valid and the associated Camel component is present on the classpath");
-                }
-            } finally {
-                propertyPlaceholdersChangeReverter.run();
-            }
+        // resolve properties before we create the data format
+        try {
+            ProcessorDefinitionHelper.resolvePropertyPlaceholders(camelContext, definition);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error resolving property placeholders on data format: " + definition, e);
         }
-        return dataFormat;
+        try {
+            DataFormat dataFormat = doCreateDataFormat(camelContext);
+            if (dataFormat != null) {
+                // is enabled by default so assume true if null
+                final boolean contentTypeHeader = asBoolean(camelContext, definition.getContentTypeHeader(), true);
+                try {
+                    setProperty(camelContext, dataFormat, "contentTypeHeader", contentTypeHeader);
+                } catch (Exception e) {
+                    // ignore as this option is optional and not all data formats support this
+                }
+                // configure the rest of the options
+                configureDataFormat(dataFormat, camelContext);
+            } else {
+                throw new IllegalArgumentException(
+                        "Data format '" + (definition.getDataFormatName() != null ? definition.getDataFormatName() : "<null>") + "' could not be created. "
+                                + "Ensure that the data format is valid and the associated Camel component is present on the classpath");
+            }
+            return dataFormat;
+        } finally {
+            propertyPlaceholdersChangeReverter.run();
+        }
     }
 
     /**

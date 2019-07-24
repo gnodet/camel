@@ -23,6 +23,7 @@ import org.apache.camel.impl.validator.ProcessorValidator;
 import org.apache.camel.model.validator.EndpointValidatorDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.processor.SendProcessor;
+import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Validator;
 
 public class EndpointValidatorReifier extends ValidatorReifier<EndpointValidatorDefinition> {
@@ -33,12 +34,11 @@ public class EndpointValidatorReifier extends ValidatorReifier<EndpointValidator
 
     @Override
     protected Validator doCreateValidator(CamelContext context) throws Exception {
-        Endpoint endpoint = definition.getUri() != null ? context.getEndpoint(definition.getUri())
-                : context.getRegistry().lookupByNameAndType(definition.getRef(), Endpoint.class);
+        Endpoint endpoint = resolveEndpoint(context, definition.getEndpoint(), definition.getUri());
         SendProcessor processor = new SendProcessor(endpoint, ExchangePattern.InOut);
         return new ProcessorValidator(context)
                 .setProcessor(processor)
-                .setType(definition.getType());
+                .setType(resolve(context, DataType.class, definition.getType()));
     }
 
 }

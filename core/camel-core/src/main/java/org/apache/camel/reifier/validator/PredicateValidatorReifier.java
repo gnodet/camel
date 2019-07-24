@@ -21,6 +21,7 @@ import org.apache.camel.Predicate;
 import org.apache.camel.impl.validator.ProcessorValidator;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Validator;
 import org.apache.camel.support.processor.validation.PredicateValidatingProcessor;
 
@@ -32,11 +33,11 @@ public class PredicateValidatorReifier extends ValidatorReifier<PredicateValidat
 
     @Override
     protected Validator doCreateValidator(CamelContext context) throws Exception {
-        Predicate pred = definition.getExpression().createPredicate(context);
+        Predicate pred = asPredicate(context, definition.getExpression());
         PredicateValidatingProcessor processor = new PredicateValidatingProcessor(pred);
         return new ProcessorValidator(context)
                 .setProcessor(processor)
-                .setType(definition.getType());
+                .setType(resolve(context, DataType.class, definition.getType()));
     }
 
 }

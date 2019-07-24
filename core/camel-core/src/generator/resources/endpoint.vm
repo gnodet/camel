@@ -35,7 +35,11 @@
  */
 package ${packageName};
 
-#foreach( $imp in ${main.getImports(${endpoint}, ${packageName})} )
+#set( $imports = ${main.newTreeSet()} )
+#set( $b = ${imports.add('org.apache.camel.builder.EndpointConsumerBuilder')} )
+#set( $b = ${imports.add('org.apache.camel.builder.EndpointProducerBuilder')} )
+#set( $b = ${imports.addAll(${main.getImports(${endpoint}, ${packageName})})} )
+#foreach( $imp in ${imports} )
 import ${imp};
 #end
 

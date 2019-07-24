@@ -38,7 +38,7 @@ import org.apache.camel.util.ObjectHelper;
  */
 public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceable, CamelContextAware {
 
-    private final List<Class<?>> exceptions;
+    private final List<Class<? extends Throwable>> exceptions;
     private CamelContext camelContext;
     private boolean roundRobin;
     private boolean sticky;
@@ -53,7 +53,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
         this.exceptions = null;
     }
 
-    public FailOverLoadBalancer(List<Class<?>> exceptions) {
+    public FailOverLoadBalancer(List<Class<? extends Throwable>> exceptions) {
         this.exceptions = exceptions;
 
         // validate its all exception types
@@ -80,7 +80,7 @@ public class FailOverLoadBalancer extends LoadBalancerSupport implements Traceab
         return lastGoodIndex.get();
     }
 
-    public List<Class<?>> getExceptions() {
+    public List<Class<? extends Throwable>> getExceptions() {
         return exceptions;
     }
 

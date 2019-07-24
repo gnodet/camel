@@ -18,7 +18,12 @@
  */
 package ${packageName};
 
-#foreach( $imp in ${main.getImports(${data}, ${packageName})} )
+#set( $imports = ${main.newTreeSet()} )
+#if( $data.name == 'routes' or $data.name == 'rests' )
+#set( $b = ${imports.add('org.apache.camel.CamelContext')} )
+#end
+#set( $b = ${imports.addAll(${main.getImports(${data}, ${packageName})})} )
+#foreach( $imp in ${imports} )
 import ${imp};
 #end
 
@@ -80,6 +85,11 @@ public ${abstract}class ${name} extends ${extends} {
         return "${data.name}";
     }
 
+#if( $data.name == 'routes' || $data.name == 'rests' )
+    public void setCamelContext(CamelContext context) {
+        // TODO
+    }
+#end
 #foreach( $parent in ${main.getHierarchy($data)} )
 #foreach( $prop in ${parent.properties} )
 #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )

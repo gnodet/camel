@@ -19,6 +19,7 @@ package org.apache.camel.reifier.transformer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.transformer.CustomTransformerDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.Transformer;
 
 public class CustomTransformeReifier extends TransformerReifier<CustomTransformerDefinition> {
@@ -29,30 +30,44 @@ public class CustomTransformeReifier extends TransformerReifier<CustomTransforme
 
     @Override
     protected Transformer doCreateTransformer(CamelContext context) throws Exception {
-        if (definition.getRef() == null && definition.getClassName() == null) {
-            throw new IllegalArgumentException("'ref' or 'className' must be specified for customTransformer");
+        if (definition.getTransformer() == null) {
+            throw new IllegalArgumentException("'transformer' must be specified for customTransformer");
         }
         Transformer transformer;
-        if (definition.getRef() != null) {
-            transformer = context.getRegistry().lookupByNameAndType(definition.getRef(), Transformer.class);
-            if (transformer == null) {
-                throw new IllegalArgumentException("Cannot find transformer with ref:" + definition.getRef());
+        Object value = definition.getTransformer();
+        if (value instanceof Transformer) {
+            transformer = (Transformer) value;
+        } else if (value instanceof Class) {
+            Class<?> transformerClass = (Class) value;
+            if (!Transformer.class.isAssignableFrom(transformerClass)) {
+                throw new IllegalArgumentException("Illegal transformer class: " + value);
             }
-            if (transformer.getModel() != null || transformer.getFrom() != null || transformer.getTo() != null) {
-                throw new IllegalArgumentException(String.format("Transformer '%s' is already in use. Please check if duplicate transformer exists.", definition.getRef()));
+            transformer = context.getInjector().newInstance((Class<Transformer>) transformerClass, false);
+        } else if (value instanceof String) {
+            String str = (String) value;
+            if (str.startsWith("#bean:")) {
+                transformer = resolve(context, Transformer.class, str);
+            } else if (str.startsWith("#class:")) {
+                String name = str.substring("#class:".length());
+                Class<?> transformerClass = context.getClassResolver().resolveMandatoryClass(name, Transformer.class);
+                if (!Transformer.class.isAssignableFrom(transformerClass)) {
+                    throw new IllegalArgumentException("Illegal transformer class: " + value);
+                }
+                transformer = context.getInjector().newInstance((Class<Transformer>) transformerClass, false);
+            } else {
+                throw new IllegalArgumentException("Unsupported value: " + value);
             }
         } else {
-            Class<Transformer> transformerClass = context.getClassResolver().resolveMandatoryClass(definition.getClassName(), Transformer.class);
-            if (transformerClass == null) {
-                throw new IllegalArgumentException("Cannot find transformer class: " + definition.getClassName());
-            }
-            transformer = context.getInjector().newInstance(transformerClass, false);
-
+            throw new IllegalArgumentException("Unsupported value: " + value);
+        }
+        if (transformer.getModel() != null || transformer.getFrom() != null || transformer.getTo() != null) {
+            throw new IllegalArgumentException(String.format("Transformer '%s' is already in use. " +
+                            "Please check if duplicate transformer exists.", value));
         }
         transformer.setCamelContext(context);
         return transformer.setModel(definition.getScheme())
-                .setFrom(definition.getFromType())
-                .setTo(definition.getToType());
+                .setFrom(resolve(context, DataType.class, definition.getFromType()))
+                .setTo(resolve(context, DataType.class, definition.getToType()));
     }
 
 }

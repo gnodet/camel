@@ -17,10 +17,8 @@
 package org.apache.camel.reifier.dataformat;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.dataformat.BindyDataFormat;
-import org.apache.camel.model.dataformat.BindyDataFormat.BindyType;
 import org.apache.camel.spi.DataFormat;
 
 public class BindyDataFormatReifier extends DataFormatReifier<BindyDataFormat> {

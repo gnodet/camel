@@ -17,7 +17,6 @@
 package org.apache.camel.reifier;
 
 import org.apache.camel.Processor;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ThrowExceptionDefinition;
 import org.apache.camel.processor.ThrowExceptionProcessor;

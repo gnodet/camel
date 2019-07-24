@@ -16,20 +16,13 @@
  */
 package org.apache.camel.reifier;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
-import org.apache.camel.NoSuchBeanException;
 import org.apache.camel.Processor;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.Service;
 import org.apache.camel.model.PolicyDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.WrapProcessor;
 import org.apache.camel.spi.Policy;
 import org.apache.camel.spi.RouteContext;
-import org.apache.camel.spi.TransactedPolicy;
-import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 
 public class PolicyReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<PolicyDefinition<Type>> {

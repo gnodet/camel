@@ -36,21 +36,7 @@ public class FailoverLoadBalancerReifier extends LoadBalancerReifier<FailoverLoa
     public LoadBalancer createLoadBalancer(RouteContext routeContext) {
         FailOverLoadBalancer answer;
 
-        List<Class<?>> classes = new ArrayList<>();
-        if (!definition.getExceptionTypes().isEmpty()) {
-            classes.addAll(definition.getExceptionTypes());
-        } else if (!definition.getExceptions().isEmpty()) {
-            for (String name : definition.getExceptions()) {
-                Class<?> type = routeContext.getCamelContext().getClassResolver().resolveClass(name);
-                if (type == null) {
-                    throw new IllegalArgumentException("Cannot find class: " + name + " in the classpath");
-                }
-                if (!ObjectHelper.isAssignableFrom(Throwable.class, type)) {
-                    throw new IllegalArgumentException("Class is not an instance of Throwable: " + type);
-                }
-                classes.add(type);
-            }
-        }
+        List<Class<? extends Throwable>> classes = resolveExceptions(routeContext, definition.getExceptions());
         if (classes.isEmpty()) {
             answer = new FailOverLoadBalancer();
         } else {

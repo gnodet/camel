@@ -27,7 +27,6 @@ import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.ObjectHelper;
 
 import static org.apache.camel.builder.ExpressionBuilder.bodyExpression;
-import static org.apache.camel.util.ObjectHelper.isNotEmpty;
 
 public class SortReifier<T, Type extends ProcessorDefinition<Type>> extends ExpressionReifier<SortDefinition<T, Type>> {
 

@@ -43,21 +43,6 @@ public class JsonDataFormatReifier extends DataFormatReifier<JsonDataFormat> {
             setProperty(camelContext, this, "dataFormatName", "json-johnzon");
         }
 
-        if (definition.getUnmarshalType() == null && definition.getUnmarshalTypeName() != null) {
-            try {
-                definition.setUnmarshalType(camelContext.getClassResolver().resolveMandatoryClass(definition.getUnmarshalTypeName()));
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
-        if (definition.getCollectionType() == null && definition.getCollectionTypeName() != null) {
-            try {
-                definition.setCollectionType(camelContext.getClassResolver().resolveMandatoryClass(definition.getCollectionTypeName()));
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
-
         return super.doCreateDataFormat(camelContext);
     }
 
@@ -116,7 +101,7 @@ public class JsonDataFormatReifier extends DataFormatReifier<JsonDataFormat> {
         // if we have the unmarshal type, but no permission set, then use it to
         // be allowed
         if (definition.getPermissions() == null && definition.getUnmarshalType() != null) {
-            String allow = "+" + definition.getUnmarshalType().getName();
+            String allow = "+" + definition.getUnmarshalType().toString();
             setProperty(camelContext, dataFormat, "permissions", allow);
         }
     }

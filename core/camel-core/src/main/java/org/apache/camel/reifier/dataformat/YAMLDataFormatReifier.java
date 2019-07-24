@@ -52,14 +52,7 @@ public class YAMLDataFormatReifier extends DataFormatReifier<YAMLDataFormat> {
     }
 
     protected void configureSnakeDataFormat(DataFormat dataFormat, CamelContext camelContext) {
-        Class<?> yamlUnmarshalType =  definition.getUnmarshalType();
-        if (yamlUnmarshalType == null && definition.getUnmarshalTypeName() != null) {
-            try {
-                yamlUnmarshalType = camelContext.getClassResolver().resolveMandatoryClass(definition.getUnmarshalTypeName());
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
+        Class<?> yamlUnmarshalType =  asClass(camelContext, definition.getUnmarshalType());
 
         setProperty(dataFormat, camelContext, "unmarshalType", yamlUnmarshalType);
         setProperty(dataFormat, camelContext, "classLoader", definition.getClassLoader());
