@@ -205,11 +205,11 @@ public abstract class DataFormatReifier<T extends DataFormatDefinition> extends 
      * Factory method to create the data format instance
      */
     protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        // must use getDataFormatName() as we need special logic in json dataformat
-        if (definition.getDataFormatName() != null) {
-            return camelContext.createDataFormat(definition.getDataFormatName());
-        }
-        return null;
+        return camelContext.createDataFormat(getDataFormatName(camelContext));
+    }
+
+    protected String getDataFormatName(CamelContext camelContext) {
+        return definition.getDataFormatName();
     }
 
     /**

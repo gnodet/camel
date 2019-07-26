@@ -144,8 +144,8 @@ public final class RouteDefinitionHelper {
                 }
                 customIds.add(id);
             } else {
-                RestDefinition rest = route.getRestDefinition();
-                if (rest != null && route.isRest()) {
+                RestDefinition rest = route.getRest();
+                if (rest != null) {
                     VerbDefinition verb = findVerbDefinition(rest, route.getInput().getEndpointUri());
                     if (verb != null) {
                         String id = verb.getId();
@@ -190,8 +190,8 @@ public final class RouteDefinitionHelper {
                 route.setCustomId(false);
                 customIds.add(route.getId());
             }
-            RestDefinition rest = route.getRestDefinition();
-            if (rest != null && route.isRest()) {
+            RestDefinition rest = route.getRest();
+            if (rest != null) {
                 VerbDefinition verb = findVerbDefinition(rest, route.getInput().getEndpointUri());
                 if (verb != null) {
                     String id = verb.idOrCreate(context.adapt(ExtendedCamelContext.class).getNodeIdFactory());
@@ -226,7 +226,7 @@ public final class RouteDefinitionHelper {
         VerbDefinition ret = null;
         String preVerbUri = "";
         for (VerbDefinition verb : rest.getVerbs()) {
-            String verbUri = rest.buildFromUri(verb);
+            String verbUri = "rest:" + verb.asVerb() + ":" + rest.buildUri(verb);
             if (endpointUri.startsWith(verbUri)
                 && preVerbUri.length() < verbUri.length()) {
                 //if there are multiple verb uri match, select the most specific one
@@ -322,12 +322,12 @@ public final class RouteDefinitionHelper {
      * @param interceptSendToEndpointDefinitions optional list of interceptSendToEndpoints
      * @param onCompletions                      optional list onCompletions
      */
-    public static void prepareRoute(CamelContext context, RouteDefinition route,
-                                    List<OnExceptionDefinition> onExceptions,
-                                    List<InterceptDefinition> intercepts,
-                                    List<InterceptFromDefinition> interceptFromDefinitions,
-                                    List<InterceptSendToEndpointDefinition> interceptSendToEndpointDefinitions,
-                                    List<OnCompletionDefinition> onCompletions) {
+    public static void prepareRoute(CamelContext context, RouteDefinition<?> route,
+                                    List<OnExceptionDefinition<?>> onExceptions,
+                                    List<InterceptDefinition<?>> intercepts,
+                                    List<InterceptFromDefinition<?>> interceptFromDefinitions,
+                                    List<InterceptSendToEndpointDefinition<?>> interceptSendToEndpointDefinitions,
+                                    List<OnCompletionDefinition<?>> onCompletions) {
 
         Runnable propertyPlaceholdersChangeReverter = ProcessorDefinitionHelper.createPropertyPlaceholdersChangeReverter();
         try {
@@ -351,11 +351,11 @@ public final class RouteDefinitionHelper {
      * @param interceptSendToEndpointDefinitions optional list of interceptSendToEndpoints
      * @param onCompletions                      optional list onCompletions
      */
-    private static void prepareRouteImp(CamelContext context, RouteDefinition route,
-                                    List<OnExceptionDefinition> onExceptions,
-                                    List<InterceptDefinition> intercepts,
-                                    List<InterceptFromDefinition> interceptFromDefinitions,
-                                    List<InterceptSendToEndpointDefinition> interceptSendToEndpointDefinitions,
+    private static void prepareRouteImp(CamelContext context, RouteDefinition<?> route,
+                                    List<OnExceptionDefinition<?>> onExceptions,
+                                    List<InterceptDefinition<?>> intercepts,
+                                    List<InterceptFromDefinition<?>> interceptFromDefinitions,
+                                    List<InterceptSendToEndpointDefinition<?>> interceptSendToEndpointDefinitions,
                                     List<OnCompletionDefinition<?>> onCompletions) {
 
         // init the route inputs
@@ -449,7 +449,7 @@ public final class RouteDefinitionHelper {
     }
 
     private static void initParentAndErrorHandlerBuilder(CamelContext context, RouteDefinition route,
-                                                         List<ProcessorDefinition<?>> abstracts, List<OnExceptionDefinition> onExceptions) {
+                                                         List<ProcessorDefinition<?>> abstracts, List<OnExceptionDefinition<?>> onExceptions) {
 
         if (context != null) {
             // let the route inherit the error handler builder from camel context if none already set
@@ -459,7 +459,9 @@ public final class RouteDefinitionHelper {
             if (builder != null) {
                 if (builder instanceof ErrorHandlerBuilder) {
                     builder = ((ErrorHandlerBuilder) builder).cloneBuilder();
-                    route.setErrorHandlerFactoryIfNull(builder);
+                    if (route.getErrorHandler() == null) {
+                        route.errorHandler(builder);
+                    }
                 } else {
                     throw new UnsupportedOperationException("The ErrorHandlerFactory must implement ErrorHandlerBuilder");
                 }
@@ -479,7 +481,7 @@ public final class RouteDefinitionHelper {
 
 
     private static void initOnExceptions(List<ProcessorDefinition<?>> abstracts, List<ProcessorDefinition<?>> upper,
-                                         List<OnExceptionDefinition> onExceptions) {
+                                         List<OnExceptionDefinition<?>> onExceptions) {
         // add global on exceptions if any
         if (onExceptions != null && !onExceptions.isEmpty()) {
             for (OnExceptionDefinition output : onExceptions) {
@@ -512,11 +514,11 @@ public final class RouteDefinitionHelper {
         }
     }
 
-    private static void initInterceptors(CamelContext context, RouteDefinition route,
+    private static void initInterceptors(CamelContext context, RouteDefinition<?> route,
                                          List<ProcessorDefinition<?>> abstracts, List<ProcessorDefinition<?>> upper,
-                                         List<InterceptDefinition> intercepts,
-                                         List<InterceptFromDefinition> interceptFromDefinitions,
-                                         List<InterceptSendToEndpointDefinition> interceptSendToEndpointDefinitions) {
+                                         List<InterceptDefinition<?>> intercepts,
+                                         List<InterceptFromDefinition<?>> interceptFromDefinitions,
+                                         List<InterceptSendToEndpointDefinition<?>> interceptSendToEndpointDefinitions) {
 
         // move the abstracts interceptors into the dedicated list
         for (ProcessorDefinition processor : abstracts) {
@@ -541,10 +543,10 @@ public final class RouteDefinitionHelper {
         doInitInterceptors(context, route, upper, intercepts, interceptFromDefinitions, interceptSendToEndpointDefinitions);
     }
 
-    private static void doInitInterceptors(CamelContext context, RouteDefinition route, List<ProcessorDefinition<?>> upper,
-                                           List<InterceptDefinition> intercepts,
-                                           List<InterceptFromDefinition> interceptFromDefinitions,
-                                           List<InterceptSendToEndpointDefinition> interceptSendToEndpointDefinitions) {
+    private static void doInitInterceptors(CamelContext context, RouteDefinition<?> route, List<ProcessorDefinition<?>> upper,
+                                           List<InterceptDefinition<?>> intercepts,
+                                           List<InterceptFromDefinition<?>> interceptFromDefinitions,
+                                           List<InterceptSendToEndpointDefinition<?>> interceptSendToEndpointDefinitions) {
 
         // configure intercept
         if (intercepts != null && !intercepts.isEmpty()) {

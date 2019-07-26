@@ -155,21 +155,13 @@ public class TransformerBuilder {
     public void configure(CamelContext camelContext) {
         TransformerDefinition transformer;
         if (uri != null) {
-            EndpointTransformerDefinition etd = new EndpointTransformerDefinition();
-            etd.setUri(uri);
-            transformer = etd;
+            transformer = new EndpointTransformerDefinition().uri(uri);
         } else if (dataFormat != null) {
-            DataFormatTransformerDefinition dtd = new DataFormatTransformerDefinition();
-            dtd.setDataFormatType(dataFormat);
-            transformer = dtd;
+            transformer = new DataFormatTransformerDefinition().dataFormat(dataFormat);
         } else if (clazz != null) {
-            CustomTransformerDefinition ctd = new CustomTransformerDefinition();
-            ctd.setClassName(clazz.getName());
-            transformer = ctd;
+            transformer = new CustomTransformerDefinition().transformer(clazz);
         } else if (beanRef != null) {
-            CustomTransformerDefinition ctd = new CustomTransformerDefinition();
-            ctd.setRef(beanRef);
-            transformer = ctd;
+            transformer = new CustomTransformerDefinition().transformer("#bean:" + beanRef);
         } else {
             throw new IllegalArgumentException("No Transformer type was specified");
         }

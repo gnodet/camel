@@ -69,9 +69,9 @@ public final class Builder {
     public static ValueBuilder bean(Object beanOrBeanRef, String method) {
         Expression exp;
         if (beanOrBeanRef instanceof String) {
-            exp = new MethodCallExpression((String) beanOrBeanRef, method);
+            exp = new MethodCallExpression().bean((String) beanOrBeanRef).method(method);
         } else {
-            exp = new MethodCallExpression(beanOrBeanRef, method);
+            exp = new MethodCallExpression().bean(beanOrBeanRef).method(method);
         }
         return new ValueBuilder(exp);
     }
@@ -85,7 +85,7 @@ public final class Builder {
      * @return the builder
      */
     public static ValueBuilder bean(Class<?> beanType, String method) {
-        Expression exp = new MethodCallExpression(beanType, method);
+        Expression exp = new MethodCallExpression().beanType(beanType).method(method);
         return new ValueBuilder(exp);
     }
 
@@ -106,7 +106,7 @@ public final class Builder {
      * Returns a constant expression
      */
     public static ValueBuilder language(String language, String expression) {
-        Expression exp = new LanguageExpression(language, expression);
+        Expression exp = new LanguageExpression().language(language).expression(expression);
         return new ValueBuilder(exp);
     }
 

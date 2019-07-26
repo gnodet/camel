@@ -32,7 +32,7 @@ public class FromRestGetEndPathTest extends FromRestGetTest {
         assertNotNull(rest);
         assertEquals("/say/hello", rest.getPath());
         assertEquals(1, rest.getVerbs().size());
-        ToDefinition to = assertIsInstanceOf(ToDefinition.class, rest.getVerbs().get(0).getTo());
+        ToDefinition to = assertIsInstanceOf(ToDefinition.class, rest.getVerbs().get(0).getRoute().getOutputs().get(0));
         assertEquals("direct:hello", to.getUri());
 
         rest = context.getRestDefinitions().get(1);

@@ -36,30 +36,25 @@ public class LoadBalanceReifier<Type extends ProcessorDefinition<Type>> extends 
     public Processor createProcessor(RouteContext routeContext) throws Exception {
         // the load balancer is stateful so we should only create it once in case its used from a context scoped error handler
 
-        LoadBalancer loadBalancer = definition.getLoadBalancerType().getLoadBalancer();
-        if (loadBalancer == null) {
-            // then create it and reuse it
-            loadBalancer = LoadBalancerReifier.reifier(definition.getLoadBalancerType()).createLoadBalancer(routeContext);
-            definition.getLoadBalancerType().setLoadBalancer(loadBalancer);
+        LoadBalancer loadBalancer = loadBalancer = LoadBalancerReifier.reifier(definition.getLoadBalancerType()).createLoadBalancer(routeContext);
 
-            // some load balancer can only support a fixed number of outputs
-            int max = definition.getLoadBalancerType().getMaximumNumberOfOutputs();
-            int size = definition.getOutputs().size();
-            if (size > max) {
-                throw new IllegalArgumentException("To many outputs configured on " + definition.getLoadBalancerType() + ": " + size + " > " + max);
-            }
+        // some load balancer can only support a fixed number of outputs
+        int max = definition.getLoadBalancerType().getMaximumNumberOfOutputs();
+        int size = definition.getOutputs().size();
+        if (size > max) {
+            throw new IllegalArgumentException("To many outputs configured on " + definition.getLoadBalancerType() + ": " + size + " > " + max);
+        }
 
-            for (ProcessorDefinition<?> processorType : definition.getOutputs()) {
-                // output must not be another load balancer
-                // check for instanceof as the code below as there is compilation errors on earlier versions of JDK6
-                // on Windows boxes or with IBM JDKs etc.
-                if (LoadBalanceDefinition.class.isInstance(processorType)) {
-                    throw new IllegalArgumentException("Loadbalancer already configured to: " + definition.getLoadBalancerType() + ". Cannot set it to: " + processorType);
-                }
-                Processor processor = createProcessor(routeContext, processorType);
-                Channel channel = wrapChannel(routeContext, processor, processorType);
-                loadBalancer.addProcessor(channel);
+        for (ProcessorDefinition<?> processorType : definition.getOutputs()) {
+            // output must not be another load balancer
+            // check for instanceof as the code below as there is compilation errors on earlier versions of JDK6
+            // on Windows boxes or with IBM JDKs etc.
+            if (LoadBalanceDefinition.class.isInstance(processorType)) {
+                throw new IllegalArgumentException("Loadbalancer already configured to: " + definition.getLoadBalancerType() + ". Cannot set it to: " + processorType);
             }
+            Processor processor = createProcessor(routeContext, processorType);
+            Channel channel = wrapChannel(routeContext, processor, processorType);
+            loadBalancer.addProcessor(channel);
         }
 
         Boolean inherit = definition.isInheritErrorHandler();

@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutorService;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.Expression;
 import org.apache.camel.Processor;
+import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.ExpressionBuilder;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetHeaderDefinition;
@@ -30,6 +31,7 @@ import org.apache.camel.processor.SendDynamicProcessor;
 import org.apache.camel.processor.WireTapProcessor;
 import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.CamelContextHelper;
+import org.apache.camel.util.StringHelper;
 
 public class WireTapReifier<Type extends ProcessorDefinition<Type>> extends ProcessorReifier<WireTapDefinition<Type>> {
 
@@ -44,57 +46,60 @@ public class WireTapReifier<Type extends ProcessorDefinition<Type>> extends Proc
         boolean shutdownThreadPool = willCreateNewThreadPool(routeContext, definition.getExecutorService(), true);
         ExecutorService threadPool = getConfiguredExecutorService(routeContext, "WireTap", definition.getExecutorService(), true);
 
-        // must use InOnly for WireTap
-        definition.setPattern(ExchangePattern.InOnly);
-
         // create the send dynamic producer to send to the wire tapped endpoint
-        SendDynamicProcessor dynamicTo = (SendDynamicProcessor) super.createProcessor(routeContext);
+        String uri;
+        Expression exp;
+        boolean dynamicUri = asBoolean(routeContext, definition.getDynamicUri(), true);
+        if (definition.getUri() instanceof EndpointProducerBuilder) {
+            EndpointProducerBuilder epb = (EndpointProducerBuilder) definition.getUri();
+            uri = epb.getUri();
+            exp = dynamicUri ? epb.expr() : ExpressionBuilder.constantExpression(uri);
+        } else if (definition.getUri() instanceof String) {
+            uri = StringHelper.notEmpty((String) definition.getUri(), "uri", this);
+            exp = dynamicUri ? ToDynamicReifier.createExpression(routeContext, uri)
+                             : ExpressionBuilder.constantExpression(uri);
+        } else {
+            throw new IllegalArgumentException("Unsupported uri type: " + definition.getUri());
+        }
+
+        SendDynamicProcessor processor = new SendDynamicProcessor(uri, exp);
+        processor.setCamelContext(routeContext.getCamelContext());
+        processor.setPattern(resolve(routeContext, ExchangePattern.class, definition.getPattern()));
+        if (definition.getCacheSize() != null) {
+            processor.setCacheSize(asInt(routeContext, definition.getCacheSize()));
+        }
+        processor.setIgnoreInvalidEndpoint(asBoolean(routeContext, definition.getIgnoreInvalidEndpoint(), false));
 
         // create error handler we need to use for processing the wire tapped
-        Processor target = wrapInErrorHandler(routeContext, dynamicTo);
+        Processor target = wrapInErrorHandler(routeContext, processor);
 
         // and wrap in unit of work
         CamelInternalProcessor internal = new CamelInternalProcessor(target);
         internal.addAdvice(new CamelInternalProcessor.UnitOfWorkProcessorAdvice(routeContext));
 
         // is true by default
-        boolean isCopy = definition.getCopy() == null || definition.getCopy();
+        boolean isCopy = asBoolean(routeContext, definition.getCopy(), true);
 
-        WireTapProcessor answer = new WireTapProcessor(dynamicTo, internal, definition.getPattern(), threadPool, shutdownThreadPool, definition.isDynamic());
+        WireTapProcessor answer = new WireTapProcessor(processor, internal, ExchangePattern.InOnly, threadPool, shutdownThreadPool, dynamicUri);
         answer.setCopy(isCopy);
-        if (definition.getNewExchangeProcessorRef() != null) {
-            definition.setNewExchangeProcessor(routeContext.mandatoryLookup(definition.getNewExchangeProcessorRef(), Processor.class));
+
+        Processor newExchangeProcessor = resolveProcessor(routeContext, definition.getNewExchange());
+        if (newExchangeProcessor != null) {
+            answer.addNewExchangeProcessor(newExchangeProcessor);
         }
-        if (definition.getNewExchangeProcessor() != null) {
-            answer.addNewExchangeProcessor(definition.getNewExchangeProcessor());
-        }
-        if (definition.getNewExchangeExpression() != null) {
-            answer.setNewExchangeExpression(definition.getNewExchangeExpression().createExpression(routeContext));
+        if (definition.getBody() != null) {
+            answer.setNewExchangeExpression(asExpression(routeContext, definition.getBody()));
         }
         if (definition.getHeaders() != null && !definition.getHeaders().isEmpty()) {
             for (SetHeaderDefinition header : definition.getHeaders()) {
-                Processor processor = createProcessor(routeContext, header);
-                answer.addNewExchangeProcessor(processor);
+                answer.addNewExchangeProcessor(createProcessor(routeContext, header));
             }
         }
-        if (definition.getOnPrepareRef() != null) {
-            definition.setOnPrepare(CamelContextHelper.mandatoryLookup(routeContext.getCamelContext(), definition.getOnPrepareRef(), Processor.class));
-        }
         if (definition.getOnPrepare() != null) {
-            answer.setOnPrepare(definition.getOnPrepare());
+            answer.setOnPrepare(resolveProcessor(routeContext, definition.getOnPrepare()));
         }
 
         return answer;
-    }
-
-    @Override
-    protected Expression createExpression(RouteContext routeContext, String uri) {
-        // whether to use dynamic or static uri
-        if (definition.isDynamic()) {
-            return super.createExpression(routeContext, uri);
-        } else {
-            return ExpressionBuilder.constantExpression(uri);
-        }
     }
 
 }

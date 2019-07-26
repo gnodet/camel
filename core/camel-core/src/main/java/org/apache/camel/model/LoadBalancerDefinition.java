@@ -20,9 +20,6 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import org.apache.camel.model.IdentifiedType;
-import org.apache.camel.model.OtherAttributesAware;
-import org.apache.camel.spi.LoadBalancer;
 import org.apache.camel.spi.Metadata;
 
 /**
@@ -31,15 +28,10 @@ import org.apache.camel.spi.Metadata;
 @Metadata(label = "eip,routing")
 public class LoadBalancerDefinition extends IdentifiedType implements OtherAttributesAware {
 
-    private LoadBalancer loadBalancer;
     // use xs:any to support optional property placeholders
     private Map<QName, Object> otherAttributes;
 
     public LoadBalancerDefinition() {
-    }
-
-    public LoadBalancerDefinition(LoadBalancer loadBalancer) {
-        this.loadBalancer = loadBalancer;
     }
 
     @Override
@@ -52,20 +44,6 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
      */
     public int getMaximumNumberOfOutputs() {
         return Integer.MAX_VALUE;
-    }
-
-    /**
-     * Allows derived classes to customize the load balancer
-     */
-    public void configureLoadBalancer(LoadBalancer loadBalancer) {
-    }
-
-    public LoadBalancer getLoadBalancer() {
-        return loadBalancer;
-    }
-
-    public void setLoadBalancer(LoadBalancer loadBalancer) {
-        this.loadBalancer = loadBalancer;
     }
 
     public String getLoadBalancerTypeName() {
@@ -84,10 +62,6 @@ public class LoadBalancerDefinition extends IdentifiedType implements OtherAttri
 
     @Override
     public String toString() {
-        if (loadBalancer != null) {
-            return loadBalancer.toString();
-        } else {
-            return getShortName();
-        }
+        return getShortName();
     }
 }

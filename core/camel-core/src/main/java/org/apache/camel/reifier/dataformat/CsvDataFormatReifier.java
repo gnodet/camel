@@ -56,8 +56,8 @@ public class CsvDataFormatReifier extends DataFormatReifier<CsvDataFormat> {
         if (definition.getHeaderDisabled() != null) {
             setProperty(camelContext, dataFormat, "headerDisabled", definition.getHeaderDisabled());
         }
-        if (definition.getHeader() != null && !definition.getHeader().isEmpty()) {
-            setProperty(camelContext, dataFormat, "header", definition.getHeader().toArray(new String[definition.getHeader().size()]));
+        if (definition.getHeader() != null) {
+            setProperty(camelContext, dataFormat, "header", definition.getHeader());
         }
         if (definition.getAllowMissingColumnNames() != null) {
             setProperty(camelContext, dataFormat, "allowMissingColumnNames", definition.getAllowMissingColumnNames());

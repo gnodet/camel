@@ -79,7 +79,7 @@ public class RouteIdFactory implements NodeIdFactory {
      * Extract id from routes
      */
     private Optional<String> extractId(RouteDefinition routeDefinition) {
-        if (routeDefinition.getRestDefinition() != null) {
+        if (routeDefinition.getRest() != null) {
             return Optional.empty();
         }
 
@@ -112,7 +112,7 @@ public class RouteIdFactory implements NodeIdFactory {
      * Extract id from a rest route.
      */
     private Optional<String> extractIdFromRestDefinition(RouteDefinition route) {
-        if (route.getRestDefinition() != null) {
+        if (route.getRest() != null) {
             return extractIdFromInput(route);
         }
 

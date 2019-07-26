@@ -16,11 +16,14 @@
  */
 package org.apache.camel.builder;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.camel.CamelContext;
@@ -35,15 +38,28 @@ import org.apache.camel.model.InterceptSendToEndpointDefinition;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnExceptionDefinition;
+import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.ToDefinition;
+import org.apache.camel.model.ToDynamicDefinition;
+import org.apache.camel.model.rest.RestBindingDefinition;
 import org.apache.camel.model.rest.RestConfigurationDefinition;
+import org.apache.camel.model.rest.RestConstants;
 import org.apache.camel.model.rest.RestDefinition;
+import org.apache.camel.model.rest.RestOperationParamDefinition;
+import org.apache.camel.model.rest.RestParamType;
 import org.apache.camel.model.rest.RestsDefinition;
+import org.apache.camel.model.rest.VerbDefinition;
+import org.apache.camel.reifier.rest.RestConfigurationReifier;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.RestConfiguration;
+import org.apache.camel.support.CamelContextHelper;
+import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
+import org.apache.camel.util.URISupport;
 import org.apache.camel.util.function.ThrowingConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -162,7 +178,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
     public RestDefinition rest() {
         getRestCollection().setCamelContext(getContext());
         RestDefinition answer = new RestDefinition();
-        getRestCollection().getOrCreateRests().add(answer);
+        getRestCollection().addRest(answer);
         configureRest(answer);
         return answer;
     }
@@ -176,7 +192,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
     public RestDefinition rest(String path) {
         getRestCollection().setCamelContext(getContext());
         RestDefinition answer = new RestDefinition().path(path);
-        getRestCollection().getOrCreateRests().add(answer);
+        getRestCollection().addRest(answer);
         configureRest(answer);
         return answer;
     }
@@ -212,7 +228,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
     public RouteDefinition<?> from(String uri) {
         getRouteCollection().setCamelContext(getContext());
         RouteDefinition<?> answer = new RouteDefinition<>().input(new FromDefinition().uri(uri));
-        getRouteCollection().getOrCreateRoutes().add(answer);
+        getRouteCollection().addRoute(answer);
         configureRoute(answer);
         return answer;
     }
@@ -237,7 +253,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
     public RouteDefinition from(Endpoint endpoint) {
         getRouteCollection().setCamelContext(getContext());
         RouteDefinition<?> answer = new RouteDefinition<>().input(new FromDefinition().endpoint(endpoint));
-        getRouteCollection().getOrCreateRoutes().add(answer);
+        getRouteCollection().addRoute(answer);
         configureRoute(answer);
         return answer;
     }
@@ -245,7 +261,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
     public RouteDefinition from(EndpointConsumerBuilder endpointDefinition) {
         getRouteCollection().setCamelContext(getContext());
         RouteDefinition<?> answer = new RouteDefinition<>().input(new FromDefinition().uri(endpointDefinition));
-        getRouteCollection().getOrCreateRoutes().add(answer);
+        getRouteCollection().addRoute(answer);
         return answer;
     }
 
@@ -291,13 +307,13 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
      *
      * @return the builder
      */
-    public InterceptDefinition intercept() {
+    public InterceptDefinition<?> intercept() {
         if (!getRouteCollection().getRoutes().isEmpty()) {
             throw new IllegalArgumentException("intercept must be defined before any routes in the RouteBuilder");
         }
         getRouteCollection().setCamelContext(getContext());
         InterceptDefinition answer = new InterceptDefinition();
-        getRouteCollection().getOrCreateIntercepts().add(answer);
+        getRouteCollection().addIntercept(answer);
         return answer;
     }
 
@@ -306,13 +322,13 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
      *
      * @return the builder
      */
-    public InterceptFromDefinition interceptFrom() {
+    public InterceptFromDefinition<?> interceptFrom() {
         if (!getRouteCollection().getRoutes().isEmpty()) {
             throw new IllegalArgumentException("interceptFrom must be defined before any routes in the RouteBuilder");
         }
         getRouteCollection().setCamelContext(getContext());
         InterceptFromDefinition answer = new InterceptFromDefinition();
-        getRouteCollection().getOrCreateInterceptFroms().add(answer);
+        getRouteCollection().addInterceptFrom(answer);
         return answer;
     }
 
@@ -322,13 +338,13 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
      * @param uri  endpoint uri
      * @return the builder
      */
-    public InterceptFromDefinition interceptFrom(String uri) {
+    public InterceptFromDefinition<?> interceptFrom(String uri) {
         if (!getRouteCollection().getRoutes().isEmpty()) {
             throw new IllegalArgumentException("interceptFrom must be defined before any routes in the RouteBuilder");
         }
         getRouteCollection().setCamelContext(getContext());
         InterceptFromDefinition answer = new InterceptFromDefinition().uri(uri);
-        getRouteCollection().getOrCreateInterceptFroms().add(answer);
+        getRouteCollection().addInterceptFrom(answer);
         return answer;
     }
 
@@ -344,7 +360,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
         }
         getRouteCollection().setCamelContext(getContext());
         InterceptSendToEndpointDefinition answer = new InterceptSendToEndpointDefinition().uri(uri);
-        getRouteCollection().getOrCreateInterceptSendTos().add(answer);
+        getRouteCollection().addInterceptSendTo(answer);
         return answer;
     }
 
@@ -362,7 +378,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
         }
         getRouteCollection().setCamelContext(getContext());
         OnExceptionDefinition answer = new OnExceptionDefinition();
-        getRouteCollection().getOrCreateOnExceptions().add(answer);
+        getRouteCollection().addOnException(answer);
         return answer;
     }
 
@@ -394,7 +410,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
         }
         getRouteCollection().setCamelContext(getContext());
         OnCompletionDefinition<?> onCompletion = new OnCompletionDefinition<>();
-        getRouteCollection().getOrCreateOnCompletions().add(onCompletion);
+        getRouteCollection().addOnCompletion(onCompletion);
         return onCompletion;
     }
     
@@ -480,7 +496,7 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
         // setup rest configuration before adding the rests
         if (getRestConfigurations() != null) {
             for (Map.Entry<String, RestConfigurationDefinition> entry : getRestConfigurations().entrySet()) {
-                RestConfiguration config = entry.getValue().asRestConfiguration(getContext());
+                RestConfiguration config = new RestConfigurationReifier(entry.getValue()).asRestConfiguration(getContext());
                 if ("".equals(entry.getKey())) {
                     camelContext.setRestConfiguration(config);
                 } else {
@@ -505,16 +521,332 @@ public abstract class RouteBuilder extends BuilderSupport implements RoutesBuild
                     }
                 }
                 if (!hasRestApi) {
-                    RouteDefinition route = RestDefinition.asRouteApiDefinition(camelContext, config);
+                    RouteDefinition route = asRouteApiDefinition(camelContext, config);
                     log.debug("Adding routeId: {} as rest-api route", route.getId());
-                    getRouteCollection().route(route);
+                    getRouteCollection().addRoute(route);
                 }
             }
         }
         // add rest as routes and have them prepared as well via routeCollection.route method
         getRestCollection().getRests()
-            .forEach(rest -> rest.asRouteDefinition(getContext())
-                .forEach(route -> getRouteCollection().route(route)));
+            .forEach(rest -> asRouteDefinition(getContext(), rest)
+                .forEach(route -> getRouteCollection().addRoute(route)));
+    }
+
+    /**
+     * Transforms the rest api configuration into a {@link org.apache.camel.model.RouteDefinition} which
+     * Camel routing engine uses to service the rest api docs.
+     */
+    public static RouteDefinition asRouteApiDefinition(CamelContext camelContext, RestConfiguration configuration) {
+        RouteDefinition answer = new RouteDefinition();
+
+        // create the from endpoint uri which is using the rest-api component
+        String from = "rest-api:" + configuration.getApiContextPath();
+
+        // append options
+        Map<String, Object> options = new HashMap<String, Object>();
+
+        String routeId = configuration.getApiContextRouteId();
+        if (routeId == null) {
+            routeId = answer.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory());
+        }
+        options.put("routeId", routeId);
+        if (configuration.getComponent() != null && !configuration.getComponent().isEmpty()) {
+            options.put("componentName", configuration.getComponent());
+        }
+        if (configuration.getApiContextIdPattern() != null) {
+            options.put("contextIdPattern", configuration.getApiContextIdPattern());
+        }
+
+        if (!options.isEmpty()) {
+            String query;
+            try {
+                query = URISupport.createQueryString(options);
+            } catch (URISyntaxException e) {
+                throw ObjectHelper.wrapRuntimeCamelException(e);
+            }
+            from = from + "?" + query;
+        }
+
+        // we use the same uri as the producer (so we have a little route for the rest api)
+        String to = from;
+        answer.rest();
+        answer.input(from);
+        answer.id(routeId);
+        answer.to(to);
+
+        return answer;
+    }
+
+    /**
+     * Transforms this REST definition into a list of {@link org.apache.camel.model.RouteDefinition} which
+     * Camel routing engine can add and run. This allows us to define REST services using this
+     * REST DSL and turn those into regular Camel routes.
+     *
+     * @param camelContext The Camel context
+     */
+    public static List<RouteDefinition> asRouteDefinition(CamelContext camelContext, RestDefinition definition) {
+        ObjectHelper.notNull(camelContext, "CamelContext");
+
+        // sanity check this rest definition do not have duplicates
+        validateUniquePaths(definition);
+
+        List<RouteDefinition> answer = new ArrayList<>();
+        if (camelContext.getRestConfigurations().isEmpty()) {
+            // make sure to initialize a rest configuration when its empty
+            // lookup a global which may have been setup via camel-spring-boot etc
+            RestConfiguration conf = CamelContextHelper.lookup(camelContext, RestConstants.DEFAULT_REST_CONFIGURATION_ID, RestConfiguration.class);
+            if (conf == null) {
+                conf = CamelContextHelper.findByType(camelContext, RestConfiguration.class);
+            }
+            if (conf != null) {
+                camelContext.setRestConfiguration(conf);
+            } else {
+                camelContext.setRestConfiguration(new RestConfiguration());
+            }
+        }
+        for (RestConfiguration config : camelContext.getRestConfigurations()) {
+            addRouteDefinition(camelContext, definition, answer, config.getComponent());
+        }
+        return answer;
+    }
+
+    private static void validateUniquePaths(RestDefinition rest) {
+        Set<String> paths = new HashSet<>();
+        for (VerbDefinition verb : rest.getVerbs()) {
+            String path = verb.asVerb();
+            if (verb.getUri() != null) {
+                path += ":" + verb.getUri();
+            }
+            if (!paths.add(path)) {
+                throw new IllegalArgumentException("Duplicate verb detected in rest-dsl: " + path);
+            }
+        }
+    }
+
+    private static void addRouteDefinition(CamelContext camelContext, RestDefinition definition, List<RouteDefinition> answer, String component) {
+        for (VerbDefinition verb : definition.getVerbs()) {
+            RouteDefinition route = asRouteDefinition(camelContext, definition, component, verb);
+            answer.add(route);
+        }
+    }
+
+    private static RouteDefinition asRouteDefinition(CamelContext camelContext, RestDefinition definition, String component, VerbDefinition verb) {
+        // either the verb has a singular to or a embedded route
+        RouteDefinition<?> route = verb.getRoute();
+        ObjectHelper.notNull(route, "route");
+
+        // ensure property placeholders is resolved on the verb
+        try {
+            ProcessorDefinitionHelper.resolvePropertyPlaceholders(camelContext, verb);
+            for (RestOperationParamDefinition param : verb.getParams()) {
+                ProcessorDefinitionHelper.resolvePropertyPlaceholders(camelContext, param);
+            }
+        } catch (Exception e) {
+            throw ObjectHelper.wrapRuntimeCamelException(e);
+        }
+
+        // add the binding
+        RestBindingDefinition binding = new RestBindingDefinition();
+        binding.setComponent(component);
+        binding.setType(verb.getType());
+        binding.setOutType(verb.getOutType());
+        // verb takes precedence over configuration on rest
+        if (verb.getConsumes() != null) {
+            binding.setConsumes(verb.getConsumes());
+        } else {
+            binding.setConsumes(definition.getConsumes());
+        }
+        if (verb.getProduces() != null) {
+            binding.setProduces(verb.getProduces());
+        } else {
+            binding.setProduces(definition.getProduces());
+        }
+        if (verb.getBindingMode() != null) {
+            binding.setBindingMode(verb.getBindingMode());
+        } else {
+            binding.setBindingMode(definition.getBindingMode());
+        }
+        if (verb.getSkipBindingOnErrorCode() != null) {
+            binding.setSkipBindingOnErrorCode(verb.getSkipBindingOnErrorCode());
+        } else {
+            binding.setSkipBindingOnErrorCode(definition.getSkipBindingOnErrorCode());
+        }
+        if (verb.getEnableCORS() != null) {
+            binding.setEnableCORS(verb.getEnableCORS());
+        } else {
+            binding.setEnableCORS(definition.getEnableCORS());
+        }
+        // register all the default values for the query parameters
+        for (RestOperationParamDefinition param : verb.getParams()) {
+            if (RestParamType.query == param.getType() && ObjectHelper.isNotEmpty(param.getDefaultValue())) {
+//                binding.addDefaultValue(param.getName(), param.getDefaultValue());
+                throw new UnsupportedOperationException("TODO");
+            }
+        }
+
+        route.setRestBinding(binding);
+
+        // create the from endpoint uri which is using the rest component
+        String from = "rest:" + verb.asVerb() + ":" + definition.buildUri(verb);
+
+        // append options
+        Map<String, Object> options = new HashMap<String, Object>();
+        // verb takes precedence over configuration on rest
+        if (verb.getConsumes() != null) {
+            options.put("consumes", verb.getConsumes());
+        } else if (definition.getConsumes() != null) {
+            options.put("consumes", definition.getConsumes());
+        }
+        if (verb.getProduces() != null) {
+            options.put("produces", verb.getProduces());
+        } else if (definition.getProduces() != null) {
+            options.put("produces", definition.getProduces());
+        }
+
+        // append optional type binding information
+        String inType = binding.getType();
+        if (inType != null) {
+            options.put("inType", inType);
+        }
+        String outType = binding.getOutType();
+        if (outType != null) {
+            options.put("outType", outType);
+        }
+        // if no route id has been set, then use the verb id as route id
+        if (!route.hasCustomIdAssigned()) {
+            // use id of verb as route id
+            String id = verb.getId();
+            if (id != null) {
+                route.setId(id);
+            }
+        }
+
+        String routeId = verb.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory());
+
+        if (!verb.getUsedForGeneratingNodeId()) {
+            routeId = route.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory());
+        }
+
+        verb.setRouteId(routeId);
+        options.put("routeId", routeId);
+        if (component != null && !component.isEmpty()) {
+            options.put("componentName", component);
+        }
+
+        // include optional description, which we favor from 1) to/route description 2) verb description 3) rest description
+        // this allows end users to define general descriptions and override then per to/route or verb
+        String description = null;
+        if (!route.getOutputs().isEmpty()) {
+            ProcessorDefinition<?> p = route.getOutputs().get(0);
+            description = p.getDescriptionText();
+        }
+        if (description == null) {
+            description = route.getDescriptionText();
+        }
+        if (description == null) {
+            description = verb.getDescriptionText();
+        }
+        if (description == null) {
+            description = definition.getDescriptionText();
+        }
+        if (description != null) {
+            options.put("description", description);
+        }
+
+        if (!options.isEmpty()) {
+            String query;
+            try {
+                query = URISupport.createQueryString(options);
+            } catch (URISyntaxException e) {
+                throw ObjectHelper.wrapRuntimeCamelException(e);
+            }
+            from = from + "?" + query;
+        }
+
+        String path = definition.getPath();
+        String s1 = FileUtil.stripTrailingSeparator(path);
+        String s2 = FileUtil.stripLeadingSeparator(verb.getUri());
+        String allPath;
+        if (s1 != null && s2 != null) {
+            allPath = s1 + "/" + s2;
+        } else if (path != null) {
+            allPath = path;
+        } else {
+            allPath = verb.getUri();
+        }
+
+        // each {} is a parameter (url templating)
+        if (allPath != null) {
+            String[] arr = allPath.split("\\/");
+            for (String a : arr) {
+                // need to resolve property placeholders first
+                try {
+                    a = camelContext.resolvePropertyPlaceholders(a);
+                } catch (Exception e) {
+                    throw ObjectHelper.wrapRuntimeCamelException(e);
+                }
+                if (a.startsWith("{") && a.endsWith("}")) {
+                    String key = a.substring(1, a.length() - 1);
+                    //  merge if exists
+                    boolean found = false;
+                    for (RestOperationParamDefinition param : verb.getParams()) {
+                        // name is mandatory
+                        String name = param.getName();
+                        StringHelper.notEmpty(name, "parameter name");
+                        // need to resolve property placeholders first
+                        try {
+                            name = camelContext.resolvePropertyPlaceholders(name);
+                        } catch (Exception e) {
+                            throw ObjectHelper.wrapRuntimeCamelException(e);
+                        }
+                        if (name.equalsIgnoreCase(key)) {
+                            param.type(RestParamType.path);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        param(verb).name(key).type(RestParamType.path).endParam();
+                    }
+                }
+            }
+        }
+
+        if (verb.getType() != null) {
+            String bodyType = verb.getType();
+            if (bodyType.endsWith("[]")) {
+                bodyType = "List[" + bodyType.substring(0, bodyType.length() - 2) + "]";
+            }
+            RestOperationParamDefinition param = findParam(verb, RestParamType.body.name());
+            if (param == null) {
+                // must be body type and set the model class as data type
+                param(verb).name(RestParamType.body.name()).type(RestParamType.body).dataType(bodyType).endParam();
+            } else {
+                // must be body type and set the model class as data type
+                param.type(RestParamType.body).dataType(bodyType);
+            }
+        }
+
+        // the route should be from this rest endpoint
+        route.rest();
+        route.rest(definition);
+        route.input(from);
+        route.routeId(routeId);
+        return route;
+    }
+
+    private static RestOperationParamDefinition findParam(VerbDefinition verb, String name) {
+        for (RestOperationParamDefinition param : verb.getParams()) {
+            if (name.equals(param.getName())) {
+                return param;
+            }
+        }
+        return null;
+    }
+
+    public static RestOperationParamDefinition param(VerbDefinition verb) {
+        return new RestOperationParamDefinition(verb);
     }
 
     protected void populateTransformers() {

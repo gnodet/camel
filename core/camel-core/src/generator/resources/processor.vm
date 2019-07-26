@@ -24,6 +24,20 @@ package ${packageName};
 #set( $b = ${imports.add('org.apache.camel.builder.ExpressionClause')} )
 #set( $b = ${imports.add('org.apache.camel.model.language.ExpressionDefinition')} )
 #set( $b = ${imports.add('org.apache.camel.spi.AsPredicate')} )
+#elseif ($data.name == 'loadBalance' )
+#set( $b = ${imports.add('java.util.Arrays')} )
+#set( $b = ${imports.add('java.util.stream.Collectors')} )
+#set( $b = ${imports.add('org.apache.camel.Expression')} )
+#set( $b = ${imports.add('org.apache.camel.model.language.ExpressionDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition')} )
+#set( $b = ${imports.add('org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition')} )
+#elseif( $data.name == 'doTry' )
+#set( $b = ${imports.add('java.util.Arrays')} )
 #end
 #set( $b = ${imports.addAll(${main.getImports(${data}, ${packageName})})} )
 #foreach( $imp in ${imports} )
@@ -99,7 +113,28 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
         return "${data.name}";
     }
 
-#if( $data.name == 'route' )
+#if( $data.name == 'intercept' || $data.name == 'interceptFrom' || $data.name == 'interceptSendToEndpoint' )
+    public void afterPropertiesSet() {
+        // TODO
+    }
+
+#elseif( $data.name == 'route' )
+    private boolean isRest;
+    public boolean isRest() {
+        return isRest;
+    }
+    public RouteDefinition<Type> rest() {
+        this.isRest = true;
+        return this;
+    }
+
+    public boolean isPrepared() {
+        return true; // TODO
+    }
+
+    public void markPrepared() {
+    }
+
     /**
      * Declare the expected data type of the input message with content validation enabled.
      * If the actual message type is different at runtime, camel look for a required
@@ -115,6 +150,20 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
      */
     public RouteDefinition<Type> inputTypeWithValidate(String urn) {
         return inputType(new InputTypeDefinition().urn(urn).validate(true));
+    }
+
+    /**
+     * Declare the expected data type of the input message by Java class.
+     * If the actual message type is different at runtime, camel look for a required
+     * {@link Transformer} and apply if exists.
+     *
+     * @see org.apache.camel.spi.Transformer
+     *
+     * @param clazz Class object of the input type
+     * @return the builder
+     */
+    public RouteDefinition<Type> inputType(Class clazz) {
+        return inputType("java:" + clazz.getName());
     }
 
     /**
@@ -214,24 +263,6 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
         return otherwise(new OtherwiseDefinition());
     }
 
-#elseif( $data.name == 'split' )
-    /**
-     * Will now stop further processing if an exception or failure occurred during processing of an
-     * {@link org.apache.camel.Exchange} and the caused exception will be thrown.
-     * <p/>
-     * Will also stop if processing the exchange failed (has a fault message) or an exception
-     * was thrown and handled by the error handler (such as using onException). In all situations
-     * the splitter will stop further processing. This is the same behavior as in pipeline, which
-     * is used by the routing engine.
-     * <p/>
-     * The default behavior is to <b>not</b> stop but continue processing till the end
-     *
-     * @return the builder
-     */
-    public SplitDefinition<Type> stopOnException() {
-        return stopOnException(true);
-    }
-
 #elseif( $data.name == 'doTry' )
     /**
      * Handles the given exception
@@ -275,6 +306,175 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
         return this;
     }
 
+#elseif( $data.name == 'loadBalance' )
+    /**
+     * Uses fail over load balancer
+     * <p/>
+     * Will not round robin and inherit the error handler.
+     *
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> failover() {
+        return failover(-1, true, false);
+    }
+
+    /**
+     * Uses fail over load balancer
+     * <p/>
+     * Will not round robin and inherit the error handler.
+     *
+     * @param exceptions exception classes which we want to failover if one of them was thrown
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> failover(Class<?>... exceptions) {
+        return failover(-1, true, false, exceptions);
+    }
+
+    /**
+     * Uses fail over load balancer
+     *
+     * @param maximumFailoverAttempts  maximum number of failover attempts before exhausting.
+     *                                 Use -1 to newer exhaust when round robin is also enabled.
+     *                                 If round robin is disabled then it will exhaust when there are no more endpoints to failover
+     * @param inheritErrorHandler      whether or not to inherit error handler.
+     *                                 If <tt>false</tt> then it will failover immediately in case of an exception
+     * @param roundRobin               whether or not to use round robin (which keeps state)
+     * @param exceptions               exception classes which we want to failover if one of them was thrown
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> failover(int maximumFailoverAttempts, boolean inheritErrorHandler, boolean roundRobin, Class<?>... exceptions) {
+        return failover(maximumFailoverAttempts, inheritErrorHandler, roundRobin, false, exceptions);
+    }
+
+    /**
+     * Uses fail over load balancer
+     *
+     * @param maximumFailoverAttempts  maximum number of failover attempts before exhausting.
+     *                                 Use -1 to newer exhaust when round robin is also enabled.
+     *                                 If round robin is disabled then it will exhaust when there are no more endpoints to failover
+     * @param inheritErrorHandler      whether or not to inherit error handler.
+     *                                 If <tt>false</tt> then it will failover immediately in case of an exception
+     * @param roundRobin               whether or not to use round robin (which keeps state)
+     * @param sticky                   whether or not to use sticky (which keeps state)
+     * @param exceptions               exception classes which we want to failover if one of them was thrown
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> failover(int maximumFailoverAttempts, boolean inheritErrorHandler, boolean roundRobin, boolean sticky, Class<?>... exceptions) {
+        FailoverLoadBalancerDefinition def = new FailoverLoadBalancerDefinition();
+        def.exceptions(Arrays.asList(exceptions).stream().map(Class::getName).collect(Collectors.toList()));
+        def.setMaximumFailoverAttempts(maximumFailoverAttempts);
+        def.setRoundRobin(roundRobin);
+        def.setSticky(sticky);
+        setLoadBalancerType(def);
+        this.setInheritErrorHandler(inheritErrorHandler);
+        return this;
+    }
+
+    /**
+     * Uses weighted load balancer
+     *
+     * @param roundRobin                   used to set the processor selection algorithm.
+     * @param distributionRatio            String of weighted ratios for distribution of messages.
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> weighted(boolean roundRobin, String distributionRatio) {
+        return weighted(roundRobin, distributionRatio, ",");
+    }
+
+    /**
+     * Uses weighted load balancer
+     *
+     * @param roundRobin                   used to set the processor selection algorithm.
+     * @param distributionRatio            String of weighted ratios for distribution of messages.
+     * @param distributionRatioDelimiter   String containing delimiter to be used for ratios
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> weighted(boolean roundRobin, String distributionRatio, String distributionRatioDelimiter) {
+        WeightedLoadBalancerDefinition def = new WeightedLoadBalancerDefinition();
+        def.setRoundRobin(roundRobin);
+        def.setDistributionRatio(distributionRatio);
+        def.setDistributionRatioDelimiter(distributionRatioDelimiter);
+        setLoadBalancerType(def);
+        return this;
+    }
+
+    /**
+     * Uses round robin load balancer
+     *
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> roundRobin() {
+        setLoadBalancerType(new RoundRobinLoadBalancerDefinition());
+        return this;
+    }
+
+    /**
+     * Uses random load balancer
+     *
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> random() {
+        setLoadBalancerType(new RandomLoadBalancerDefinition());
+        return this;
+    }
+
+    /**
+     * Uses the custom load balancer
+     *
+     * @param ref reference to lookup a custom load balancer from the {@link org.apache.camel.spi.Registry} to be used.
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> custom(String ref) {
+        CustomLoadBalancerDefinition balancer = new CustomLoadBalancerDefinition();
+        balancer.loadBalancer("#bean:" + ref);
+        setLoadBalancerType(balancer);
+        return this;
+    }
+
+    /**
+     * Uses sticky load balancer
+     *
+     * @param correlationExpression  the expression for correlation
+     * @return  the builder
+     */
+    public LoadBalanceDefinition<Type> sticky(Expression correlationExpression) {
+        StickyLoadBalancerDefinition def = new StickyLoadBalancerDefinition();
+        def.correlationExpression(new ExpressionDefinition(correlationExpression));
+        setLoadBalancerType(def);
+        return this;
+    }
+
+    /**
+     * Uses topic load balancer
+     *
+     * @return the builder
+     */
+    public LoadBalanceDefinition<Type> topic() {
+        setLoadBalancerType(new TopicLoadBalancerDefinition());
+        return this;
+    }
+
+#elseif( $data.name == 'aggregate' )
+    public AggregationStrategyClause<AggregateDefinition<Type>> strategy() {
+        return aggregationStrategy();
+    }
+
+    public AggregateDefinition<Type> strategy(AggregationStrategy aggregationStrategy) {
+        return aggregationStrategy(aggregationStrategy);
+    }
+
+    public AggregateDefinition<Type> strategy(String aggregationStrategy) {
+        return aggregationStrategy(aggregationStrategy);
+    }
+
+#elseif( $data.name == 'onException' || $data.name == 'onCompletion' )
+    private boolean routeScoped;
+    public void setRouteScoped(boolean routeScoped) {
+        this.routeScoped = routeScoped;
+    }
+    public boolean isRouteScoped() {
+        return routeScoped;
+    }
 #end
 #foreach( $prop in ${data.properties} )
     #if ( ${prop.name} != "outputs" && ${prop.name} != "expression" )
@@ -288,7 +488,19 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
                 #set( $nbprops = $nbprops + 1 )
             #end
         #end
-        #if( ${prop.type} == 'model:expression' )
+        #if( ${prop.type} == 'model:expression' || $prop.type == 'model:predicate' )
+            #if( ${prop.type} == 'model:expression' )
+                #set( $type = 'Expression' )
+            #else
+                #set( $type = 'Predicate' )
+            #end
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${type}Clause<${name}<${paramst}Type>> ${propnamelow}() {
+        ${type}Clause<${name}<${paramst}Type>> clause = new ${type}Clause<>(this);
+        ${propnamelow}(clause);
+        return clause;
+    }
+
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name}<${paramst}Type> ${propnamelow}(ExpressionDefinition ${propnamelow}) {
         doSetProperty("${prop.name}", ${prop.name});
@@ -296,7 +508,7 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
     }
 
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${name}<${paramst}Type> ${propnamelow}(Expression ${propnamelow}) {
+    public ${name}<${paramst}Type> ${propnamelow}(${type} ${propnamelow}) {
         ${propnamelow}(new ExpressionDefinition(${propnamelow}));
         return this;
     }
@@ -327,12 +539,41 @@ public class ${name}<${param}Type extends ProcessorDefinition<Type>> extends ${p
     }
 
         #else
+            #if( $prop.type == 'java:org.apache.camel.AggregationStrategy' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public AggregationStrategyClause<${name}<${paramst}Type>> ${propnamelow}() {
+        AggregationStrategyClause<${name}<${paramst}Type>> clause = new AggregationStrategyClause<>(this);
+        doSetProperty("${prop.name}", clause);
+        return clause;
+    }
+
+
+            #end
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name}<${paramst}Type> ${propnamelow}(${main.getType($prop.type)} ${propnamelow}) {
         doSetProperty("${prop.name}", ${propnamelow});
         return this;
     }
 
+            #if( $nbprops == 1 && ${prop.type} == 'boolean' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name}<${paramst}Type> ${propnamelow}() {
+        doSetProperty("${prop.name}", true);
+        return this;
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+                #if( $propname == 'asyncDelayed' )
+                    #set( $nopropname = 'syncDelayed' )
+                #else
+                    #set( $nopropname = 'no' + ${propname} )
+                #end
+    public ${name}<${paramst}Type> ${nopropname}() {
+        doSetProperty("${prop.name}", false);
+        return this;
+    }
+
+            #end
             #if( $last == $prop && ${prop.type} != 'string' )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name}<${paramst}Type> ${propnamelow}(String ${propnamelow}) {

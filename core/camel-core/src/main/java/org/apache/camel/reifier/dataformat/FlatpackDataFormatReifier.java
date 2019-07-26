@@ -30,19 +30,11 @@ public class FlatpackDataFormatReifier extends DataFormatReifier<FlatpackDataFor
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        DataFormat flatpack = super.doCreateDataFormat(camelContext);
-
+    protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         if (ObjectHelper.isNotEmpty(definition.getParserFactoryRef())) {
             Object parserFactory = CamelContextHelper.mandatoryLookup(camelContext, definition.getParserFactoryRef());
-            setProperty(camelContext, flatpack, "parserFactory", parserFactory);
+            setProperty(camelContext, dataFormat, "parserFactory", parserFactory);
         }
-
-        return flatpack;
-    }
-
-    @Override
-    protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         if (ObjectHelper.isNotEmpty(definition.getDefinition())) {
             setProperty(camelContext, dataFormat, "definition", definition.getDefinition());
         }

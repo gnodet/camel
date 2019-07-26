@@ -21,6 +21,10 @@ package ${packageName};
 #set( $imports = ${main.newTreeSet()} )
 #if( $data.name == 'routes' or $data.name == 'rests' )
 #set( $b = ${imports.add('org.apache.camel.CamelContext')} )
+#elseif( $data.name == 'rest' )
+#set( $b = ${imports.add('org.apache.camel.model.RouteDefinition')} )
+#elseif( $data.name == 'param' )
+#set( $b = ${imports.add('org.apache.camel.util.StringHelper')} )
 #end
 #set( $b = ${imports.addAll(${main.getImports(${data}, ${packageName})})} )
 #foreach( $imp in ${imports} )
@@ -73,22 +77,193 @@ public ${abstract}class ${name} extends ${extends} {
     }
 #end
 
+#if( $data.name == 'param' )
+    private VerbDefinition verb;
+
+#elseif( $data.name == 'verb' )
+    private boolean usedForGeneratingNodeId;
+
+#elseif( $data.name == 'routes' || $data.name == 'rests' )
+    private CamelContext context;
+
+#end
     public ${name}() {
     }
 
-#if( $data.extends == 'model:expression' )
+#if( $data.name == 'param' )
+    public RestOperationParamDefinition(VerbDefinition verb) {
+        this.verb = verb;
+    }
+
+#elseif( $data.extends == 'model:expression' )
     public ${name}(String expression) {
         expression(expression);
     }
+
 #end
     public String getShortName() {
         return "${data.name}";
     }
 
-#if( $data.name == 'routes' || $data.name == 'rests' )
-    public void setCamelContext(CamelContext context) {
-        // TODO
+#if( $data.name == 'param' )
+    /**
+     * Ends the configuration of this parameter
+     */
+    public RestDefinition endParam() {
+        // name is mandatory
+        StringHelper.notEmpty(getName(), "name");
+        verb.addParam(this);
+        return verb.getRest();
     }
+
+#elseif( $data.name == 'verb' )
+    public boolean getUsedForGeneratingNodeId() {
+        return usedForGeneratingNodeId;
+    }
+
+    public void setUsedForGeneratingNodeId(boolean usedForGeneratingNodeId) {
+        this.usedForGeneratingNodeId = usedForGeneratingNodeId;
+    }
+
+    public String asVerb() {
+        if (this instanceof GetVerbDefinition) {
+            return "get";
+        } else if (this instanceof PostVerbDefinition) {
+            return "post";
+        } else if (this instanceof PutVerbDefinition) {
+            return "put";
+        } else if (this instanceof PatchVerbDefinition) {
+            return "patch";
+        } else if (this instanceof DeleteVerbDefinition) {
+            return "delete";
+        } else if (this instanceof HeadVerbDefinition) {
+            return "head";
+        } else {
+            return getMethod();
+        }
+    }
+
+#elseif( $data.name == 'routes' || $data.name == 'rests' )
+    public void setCamelContext(CamelContext context) {
+        this.context = context;
+    }
+
+    public CamelContext getCamelContext() {
+        return this.context;
+    }
+
+#elseif( $data.name == 'from' )
+    public String getEndpointUri() {
+        String uri;
+        Object uriobj = getEndpoint() != null ? getEndpoint() : getUri();
+        if (uriobj instanceof Endpoint) {
+            uri = ((Endpoint) uriobj).getEndpointUri();
+        } else if (uriobj instanceof EndpointConsumerBuilder) {
+            uri = ((EndpointConsumerBuilder) uriobj).getUri();
+        } else if (uriobj instanceof String) {
+            uri = (String) uriobj;
+        } else {
+            throw new IllegalArgumentException("Unsupported route input: " + uriobj);
+        }
+        return uri;
+    }
+
+#elseif( $data.name == 'rest' )
+    /**
+     * Routes directly to the given static endpoint.
+     * <p/>
+     * If you need additional routing capabilities, then use {@link #route()} instead.
+     *
+     * @param uri the uri of the endpoint
+     * @return this builder
+     */
+    public RestDefinition to(String uri) {
+        route().to(uri);
+        return this;
+    }
+
+    /**
+     * Routes directly to the given dynamic endpoint.
+     * <p/>
+     * If you need additional routing capabilities, then use {@link #route()} instead.
+     *
+     * @param uri the uri of the endpoint
+     * @return this builder
+     */
+    public RestDefinition toD(String uri) {
+        route().toD(uri);
+        return this;
+    }
+
+    public RouteDefinition<?> route() {
+        // link them together so we can navigate using Java DSL
+        RouteDefinition route = new RouteDefinition().rest(this);
+        // add to last verb
+        if (getVerbs() == null || getVerbs().isEmpty()) {
+            throw new IllegalArgumentException("Must add verb first, such as get/post/delete");
+        }
+        getVerbs().get(getVerbs().size() - 1).route(route);
+        return route;
+    }
+
+#elseif( $data.name == 'restConfiguration' )
+    /*
+     * For additional configuration options on component level
+     * <p/>
+     * The value can use <tt>#</tt> to refer to a bean to lookup in the registry.
+     */
+    public RestConfigurationDefinition componentProperty(String key, String value) {
+        return addComponentProperty(new RestPropertyDefinition().key(key).value(value));
+    }
+
+    /**
+     * For additional configuration options on endpoint level
+     * <p/>
+     * The value can use <tt>#</tt> to refer to a bean to lookup in the registry.
+     */
+    public RestConfigurationDefinition endpointProperty(String key, String value) {
+        return addEndpointProperty(new RestPropertyDefinition().key(key).value(value));
+    }
+
+    /**
+     * For additional configuration options on consumer level
+     * <p/>
+     * The value can use <tt>#</tt> to refer to a bean to lookup in the registry.
+     */
+    public RestConfigurationDefinition consumerProperty(String key, String value) {
+        return addConsumerProperty(new RestPropertyDefinition().key(key).value(value));
+    }
+
+    /**
+     * For additional configuration options on data format level
+     * <p/>
+     * The value can use <tt>#</tt> to refer to a bean to lookup in the registry.
+     */
+    public RestConfigurationDefinition dataFormatProperty(String key, String value) {
+        return addDataFormatProperty(new RestPropertyDefinition().key(key).value(value));
+    }
+
+    /**
+     * For configuring an api property, such as <tt>api.title</tt>, or <tt>api.version</tt>.
+     */
+    public RestConfigurationDefinition apiProperty(String key, String value) {
+        return addApiProperty(new RestPropertyDefinition().key(key).value(value));
+    }
+
+    /**
+     * For configuring CORS headers
+     */
+    public RestConfigurationDefinition corsHeaderProperty(String key, String value) {
+        return addCorsHeader(new RestPropertyDefinition().key(key).value(value));
+    }
+
+    /**
+     * Shortcut for setting the {@code Access-Control-Allow-Credentials} header.
+     */
+    public RestConfigurationDefinition corsAllowCredentials(boolean corsAllowCredentials) {
+        return corsHeaderProperty("Access-Control-Allow-Credentials", String.valueOf(corsAllowCredentials));
+    }
+
 #end
 #foreach( $parent in ${main.getHierarchy($data)} )
 #foreach( $prop in ${parent.properties} )
@@ -102,56 +277,164 @@ public ${abstract}class ${name} extends ${extends} {
 #end
 #end
 #foreach( $prop in ${data.properties} )
-#set( $propname = ${main.camelCaseUpper(${prop.name})} )
-#set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
-#set( $nbprops = 0 )
-#foreach( $p in ${data.properties} )
-#if( ${p.name} == ${prop.name} )
-#set( $last = $p )
-#set( $nbprops = $nbprops + 1 )
-#end
-#end
+    #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+    #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+    #set( $last = $prop )
+    #set( $nbprops = 0 )
+    #foreach( $p in ${data.properties} )
+        #if( ${p.name} == ${prop.name} )
+            #set( $last = $p )
+            #set( $nbprops = $nbprops + 1 )
+        #end
+    #end
+    #if( ${prop.type} == 'model:expression' )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${name} ${propnamelow}(${main.getType($prop.type)} ${propnamelow}) {
-        set${propname}(${propnamelow});
+    public ${name} ${propnamelow}(ExpressionDefinition ${propnamelow}) {
+        doSetProperty("${prop.name}", ${prop.name});
         return this;
     }
 
-#if( $last == $prop && ${main.getType($prop.type)} != "String" && !${prop.type.startsWith('list(model:')})
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name} ${propnamelow}(Expression ${propnamelow}) {
+        ${propnamelow}(new ExpressionDefinition(${propnamelow}));
+        return this;
+    }
+
+        #if( $last == $prop )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public ${name} ${propnamelow}(String ${propnamelow}) {
-        doSetProperty("${propnamelow}", ${propnamelow});
+        ${propnamelow}(new ExpressionDefinition(${propnamelow}));
+        return this;
+    }
+        #end
+
+    #elseif( ${prop.type.startsWith('list(model:')} )
+        #set( $type = ${main.getType($prop.type)} )
+        #set( $stype = ${main.getType(${prop.type.substring(5, ${prop.type.length()} - 1)})} )
+        #set( $singular = ${main.singular(${propname})} )
+        #set( $singularlow = ${main.camelCaseLower(${singular})} )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name} ${propnamelow}(${type} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${prop.name});
         return this;
     }
 
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name} add${singular}(${stype} ${singularlow}) {
+        ((${type}) doGetProperty("${propnamelow}", this::newList)).add(${singularlow});
+        return this;
+    }
+
+    #else
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name} ${propnamelow}(${main.getType($prop.type)} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+        return this;
+    }
+
+        #if( $nbprops == 1 && ${prop.type} == 'boolean' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name} ${propnamelow}() {
+        doSetProperty("${prop.name}", true);
+        return this;
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+            #if( $propname == 'asyncDelayed' )
+                #set( $nopropname = 'syncDelayed' )
+            #else
+                #set( $nopropname = 'no' + ${propname} )
+            #end
+    public ${name} ${nopropname}() {
+        doSetProperty("${prop.name}", false);
+        return this;
+    }
+
+        #end
+        #if( $last == $prop && ${prop.type} != 'string' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${name} ${propnamelow}(String ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+        return this;
+    }
+
+        #end
+    #end
 #end
+#foreach( $prop in ${data.properties} )
+    #set( $propname = ${main.camelCaseUpper(${prop.name})} )
+    #set( $propnamelow = ${main.camelCaseLower(${prop.name})} )
+    #set( $last = $prop )
+    #set( $nbprops = 0 )
+    #foreach( $p in ${data.properties} )
+        #if( ${p.name} == ${prop.name} )
+            #set( $last = $p )
+            #set( $nbprops = $nbprops + 1 )
+        #end
+    #end
+    #if( $last == $prop )
+        #if( $nbprops == 1 && ${prop.type} == 'model:expression' )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public void set${propname}(${main.getType($prop.type)} ${propnamelow}) {
-        doSetProperty("${propnamelow}", ${propnamelow});
+    public void set${propname}(ExpressionDefinition ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
     }
 
-#if( $last == $prop )
     ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-#if( ${prop.type.startsWith('list(model:')} )
-    public ${main.getType($prop.type)} get${propname}() {
-        return (${main.getType($prop.type)}) doGetProperty("${propnamelow}");
+    public ExpressionDefinition get${propname}() {
+        return (ExpressionDefinition) doGetProperty("${prop.name}");
     }
 
-    ${main.javadoc(${prop.description} + ${newline} + "Creates a list of none has been set previously, never returns <code>null</code>." + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
-    public ${main.getType($prop.type)} getOrCreate${propname}() {
-        return (${main.getType($prop.type)}) doGetProperty("${propnamelow}", this::newList);
+        #elseif( $nbprops == 1 && ${prop.type} == 'string' )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(String ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
     }
-#elseif( ${main.getType($prop.type)} == "String" )
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
     public String get${propname}() {
-        return (String) doGetProperty("${propnamelow}");
+        return (String) doGetProperty("${prop.name}");
     }
-#else
-    public Object get${propname}() {
-        return doGetProperty("${propnamelow}");
-    }
-#end
-#end
 
+        #elseif( $nbprops == 1 && ${prop.type.startsWith('list(model:')} )
+            #set( $type = ${main.getType($prop.type)} )
+            #set( $stype = ${main.getType(${prop.type.substring(5, ${prop.type.length()} - 1)})} )
+            #set( $singular = ${main.singular(${propname})} )
+            #set( $singularlow = ${main.camelCaseLower(${singular})} )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(${type} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${type} get${propname}() {
+        return (${type}) doGetProperty("${prop.name}");
+    }
+
+        #elseif( $nbprops == 1 && ${prop.type.startsWith('model:')} && ${prop.type} != 'model:endpoint' )
+            #set( $type = ${main.getType($prop.type)} )
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(${type} ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public ${type} get${propname}() {
+        return (${type}) doGetProperty("${prop.name}");
+    }
+
+        #else
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public void set${propname}(Object ${propnamelow}) {
+        doSetProperty("${prop.name}", ${propnamelow});
+    }
+
+    ${main.javadoc(${prop.description} + ${newline} + "This property is of type <code>" + ${prop.type} + "</code>.", "    ")}
+    public Object get${propname}() {
+        return doGetProperty("${prop.name}");
+    }
+
+        #end
+    #end
 #end
 
 }

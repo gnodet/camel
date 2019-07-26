@@ -949,7 +949,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         XMLSecurityDataFormat xsdf = new XMLSecurityDataFormat();
         xsdf.setSecureTag(secureTag);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhrase(passPhrase);
+        xsdf.passPhrase(passPhrase);
         return dataFormat(xsdf);
     }
 
@@ -961,7 +961,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setSecureTag(secureTag);
         xsdf.setNamespaces(namespaces);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhrase(passPhrase);
+        xsdf.passPhrase(passPhrase);
         return dataFormat(xsdf);
     }
 
@@ -972,7 +972,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         XMLSecurityDataFormat xsdf = new XMLSecurityDataFormat();
         xsdf.setSecureTag(secureTag);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhrase(passPhrase);
+        xsdf.passPhrase(passPhrase);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         return dataFormat(xsdf);
     }
@@ -986,7 +986,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setSecureTag(secureTag);
         xsdf.setNamespaces(namespaces);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhrase(passPhrase);
+        xsdf.passPhrase(passPhrase);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         return dataFormat(xsdf);
     }
@@ -999,7 +999,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         XMLSecurityDataFormat xsdf = new XMLSecurityDataFormat();
         xsdf.setSecureTag(secureTag);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhraseByte(passPhraseByte);
+        xsdf.passPhrase(passPhraseByte);
         return dataFormat(xsdf);
     }
 
@@ -1011,7 +1011,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setSecureTag(secureTag);
         xsdf.setNamespaces(namespaces);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhraseByte(passPhraseByte);
+        xsdf.setPassPhrase(passPhraseByte);
         return dataFormat(xsdf);
     }
 
@@ -1022,7 +1022,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         XMLSecurityDataFormat xsdf = new XMLSecurityDataFormat();
         xsdf.setSecureTag(secureTag);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhraseByte(passPhraseByte);
+        xsdf.setPassPhrase(passPhraseByte);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         return dataFormat(xsdf);
     }
@@ -1036,7 +1036,7 @@ public class DataFormatClause<T extends ProcessorDefinition<?>> {
         xsdf.setSecureTag(secureTag);
         xsdf.setNamespaces(namespaces);
         xsdf.setSecureTagContents(secureTagContents);
-        xsdf.setPassPhraseByte(passPhraseByte);
+        xsdf.setPassPhrase(passPhraseByte);
         xsdf.setXmlCipherAlgorithm(xmlCipherAlgorithm);
         return dataFormat(xsdf);
     }

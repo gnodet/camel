@@ -18,6 +18,7 @@ package org.apache.camel.impl;
 
 import java.util.List;
 
+import net.sf.saxon.functions.Abs;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Processor;
@@ -29,6 +30,7 @@ import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteDefinitionHelper;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.support.CamelContextHelper;
 
 /**
@@ -37,11 +39,15 @@ import org.apache.camel.support.CamelContextHelper;
  */
 public class RouteService extends BaseRouteService {
 
-    private final RouteDefinition routeDefinition;
+    private final RouteDefinition<?> routeDefinition;
+    private final Integer startupOrder;
+    private final boolean autoStartup;
 
     public RouteService(Route route) {
         super(route);
         this.routeDefinition = (RouteDefinition) route.getRouteContext().getRoute();
+        this.startupOrder = AbstractReifier.resolve(route.getCamelContext(), Integer.class, routeDefinition.getStartupOrder());
+        this.autoStartup = AbstractReifier.asBoolean(route.getCamelContext(), routeDefinition.getAutoStartup(), false);
     }
 
     public RouteDefinition getRouteDefinition() {
@@ -49,7 +55,7 @@ public class RouteService extends BaseRouteService {
     }
 
     public Integer getStartupOrder() {
-        return routeDefinition.getStartupOrder();
+        return startupOrder;
     }
 
     @Override
@@ -68,11 +74,11 @@ public class RouteService extends BaseRouteService {
             // should auto startup by default
             return true;
         }
-        Boolean isAutoStartup = CamelContextHelper.parseBoolean(getCamelContext(), routeDefinition.getAutoStartup());
-        return isAutoStartup != null && isAutoStartup;
+        return autoStartup;
     }
 
     public boolean isContextScopedErrorHandler() {
+        /* TODO
         if (!routeDefinition.isContextScopedErrorHandler()) {
             return false;
         }
@@ -83,6 +89,7 @@ public class RouteService extends BaseRouteService {
             ErrorHandlerFactory contextScoped = getCamelContext().adapt(ExtendedCamelContext.class).getErrorHandlerFactory();
             return routeScoped != null && contextScoped != null && routeScoped == contextScoped;
         }
+        */
 
         return true;
     }

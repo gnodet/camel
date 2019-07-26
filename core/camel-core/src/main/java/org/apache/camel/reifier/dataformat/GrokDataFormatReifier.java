@@ -32,8 +32,8 @@ public class GrokDataFormatReifier extends DataFormatReifier<GrokDataFormat> {
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         ObjectHelper.notNull(definition.getPattern(), "pattern");
         setProperty(camelContext, dataFormat, "pattern", definition.getPattern());
-        setProperty(camelContext, dataFormat, "flattened", definition.isFlattened());
-        setProperty(camelContext, dataFormat, "allowMultipleMatchesPerLine", definition.isAllowMultipleMatchesPerLine());
-        setProperty(camelContext, dataFormat, "namedOnly", definition.isNamedOnly());
+        setProperty(camelContext, dataFormat, "flattened", definition.getFlattened());
+        setProperty(camelContext, dataFormat, "allowMultipleMatchesPerLine", definition.getAllowMultipleMatchesPerLine());
+        setProperty(camelContext, dataFormat, "namedOnly", asBoolean(camelContext, definition.getNamedOnly()));
     }
 }

@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.FailedToCreateRouteException;
 import org.apache.camel.NoSuchEndpointException;
@@ -83,8 +84,8 @@ public class RouteReifier<Type extends ProcessorDefinition<Type>> extends Proces
      * @throws Exception can be thrown from the route builder
      * @see AdviceWithRouteBuilder
      */
-    public static RouteDefinition adviceWith(RouteDefinition definition, CamelContext camelContext, RouteBuilder builder) throws Exception {
-        return new RouteReifier(definition).adviceWith(camelContext, builder);
+    public static RouteDefinition adviceWith(RouteDefinition<?> definition, CamelContext camelContext, RouteBuilder builder) throws Exception {
+        return new RouteReifier<>(definition).adviceWith(camelContext, builder);
     }
 
     @Override
@@ -178,29 +179,29 @@ public class RouteReifier<Type extends ProcessorDefinition<Type>> extends Proces
         }
 
         // now merge which also ensures that interceptors and the likes get mixed in correctly as well
-        RouteDefinition merged = routes.route(definition);
+        routes.addRoute(definition);
 
         // add the new merged route
-        camelContext.getExtension(Model.class).getRouteDefinitions().add(0, merged);
+        camelContext.getExtension(Model.class).getRouteDefinitions().add(0, definition);
 
         // log the merged route at info level to make it easier to end users to spot any mistakes they may have made
-        log.info("AdviceWith route after: {}", merged);
+        log.info("AdviceWith route after: {}", definition);
 
-        String afterAsXml = ModelHelper.dumpModelAsXml(camelContext, merged);
+        String afterAsXml = ModelHelper.dumpModelAsXml(camelContext, definition);
         log.info("Adviced route before/after as XML:\n{}\n{}", beforeAsXml, afterAsXml);
 
         // If the camel context is started then we start the route
         if (camelContext.isStarted()) {
-            camelContext.getExtension(Model.class).addRouteDefinition(merged);
+            camelContext.getExtension(Model.class).addRouteDefinition(definition);
         }
-        return merged;
+        return definition;
     }
 
     // Implementation methods
     // -------------------------------------------------------------------------
     protected Route doCreateRoute(CamelContext camelContext, RouteContext routeContext) throws Exception {
         // configure error handler
-        routeContext.setErrorHandlerFactory(definition.getErrorHandlerFactory());
+        routeContext.setErrorHandlerFactory(resolve(routeContext, ErrorHandlerFactory.class, definition.getErrorHandler()));
 
         // configure tracing
         Boolean isTrace = resolve(routeContext, Boolean.class, definition.getTrace());
@@ -335,9 +336,9 @@ public class RouteReifier<Type extends ProcessorDefinition<Type>> extends Proces
             }
         }
 
-        if (definition.getRestBindingDefinition() != null) {
+        if (definition.getRestBinding() != null) {
             try {
-                routeContext.addAdvice(new RestBindingReifier(definition.getRestBindingDefinition()).createRestBindingAdvice(routeContext));
+                routeContext.addAdvice(new RestBindingReifier(definition.getRestBinding()).createRestBindingAdvice(routeContext));
             } catch (Exception e) {
                 throw RuntimeCamelException.wrapRuntimeCamelException(e);
             }
@@ -367,10 +368,10 @@ public class RouteReifier<Type extends ProcessorDefinition<Type>> extends Proces
         if (definition.getGroup() != null) {
             routeContext.addProperty(Route.GROUP_PROPERTY, definition.getGroup());
         }
-        String rest = Boolean.toString(definition.isRest() != null && definition.isRest());
+        String rest = Boolean.toString(definition.isRest());
         routeContext.addProperty(Route.REST_PROPERTY, rest);
 
-        List<PropertyDefinition> properties = definition.getRouteProperties();
+        List<PropertyDefinition> properties = definition.getProperties();
         if (properties != null) {
             final String[] reservedProperties = new String[] {
             Route.ID_PROPERTY,

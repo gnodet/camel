@@ -45,6 +45,7 @@ import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.processor.MulticastProcessor;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.reifier.dataformat.DataFormatReifier;
 import org.apache.camel.reifier.transformer.TransformerReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
@@ -258,7 +259,7 @@ public abstract class AbstractModelCamelContext extends AbstractCamelContext imp
     }
 
     private ValidatorKey createKey(ValidatorDefinition def) {
-        return new ValidatorKey(new DataType(def.getType()));
+        return new ValidatorKey(asDataType(def.getType()));
     }
 
     @Override
@@ -274,7 +275,11 @@ public abstract class AbstractModelCamelContext extends AbstractCamelContext imp
     private TransformerKey createKey(TransformerDefinition def) {
         return ObjectHelper.isNotEmpty(def.getScheme())
                 ? new TransformerKey(def.getScheme())
-                : new TransformerKey(new DataType(def.getFromType()), new DataType(def.getToType()));
+                : new TransformerKey(asDataType(def.getFromType()), asDataType(def.getToType()));
+    }
+
+    private DataType asDataType(Object type) {
+        return AbstractReifier.resolve(this, DataType.class, type);
     }
 
     protected abstract HealthCheckRegistry createHealthCheckRegistry();

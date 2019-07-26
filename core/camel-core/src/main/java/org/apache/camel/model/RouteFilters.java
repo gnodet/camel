@@ -20,6 +20,9 @@ import java.util.function.Function;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.camel.Endpoint;
+import org.apache.camel.builder.EndpointConsumerBuilder;
+import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.support.PatternHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +72,8 @@ public final class RouteFilters implements Function<RouteDefinition, Boolean> {
     @Override
     public Boolean apply(RouteDefinition route) {
         String id = route.getId();
-        String uri = route.getInput() != null ? route.getInput().getEndpointUri() : null;
-
+        String uri = route.getInput() != null
+                ? route.getInput().getEndpointUri() : null;
         boolean answer = filter(route, id, uri);
         LOG.debug("Route filter: include={}, exclude={}, id={}, from={} -> {}", includesText, excludesText, id, uri, answer);
         return answer;

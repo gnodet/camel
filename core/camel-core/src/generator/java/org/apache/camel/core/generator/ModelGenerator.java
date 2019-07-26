@@ -252,6 +252,9 @@ public class ModelGenerator {
                 && "FromDefinition".equals(structName)) {
             return "org.apache.camel.builder.EndpointConsumerBuilder";
         }
+        if ("predicate".equals(name) || "model:predicate".equals(name)) {
+            return "org.apache.camel.Predicate";
+        }
         AbstractData data = getData(name);
         return data != null ? data.getJavaType() : null;
     }
@@ -380,14 +383,18 @@ public class ModelGenerator {
             return Stream.concat(Stream.of("java.util.Map"), Stream.concat(getSubTypes(t[0]), getSubTypes(t[1])));
         } else if (s.endsWith("[]")) {
             return getSubTypes(s.substring(0, s.length() - 2));
+        } else if ("model:expression".equals(s)) {
+            return Stream.of("org.apache.camel.Expression",
+                             "org.apache.camel.builder.ExpressionClause",
+                             "org.apache.camel.model.language.ExpressionDefinition");
+        } else if ("model:predicate".equals(s)) {
+            return Stream.of("org.apache.camel.Predicate",
+                    "org.apache.camel.builder.PredicateClause",
+                    "org.apache.camel.model.language.ExpressionDefinition");
         } else if (s.startsWith("model:")) {
             String t = s.substring("model:".length());
             String rt = getRealType(t);
-            if ("expression".equals(t)) {
-                return rt != null ? Stream.of(rt, "org.apache.camel.Expression") : Stream.of("org.apache.camel.Expression");
-            } else {
-                return rt != null ? Stream.of(rt) : Stream.empty();
-            }
+            return rt != null ? Stream.of(rt) : Stream.empty();
         } else if (s.startsWith("java:")) {
             return Stream.of(s.substring("java:".length()));
         } else {

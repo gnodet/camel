@@ -61,15 +61,24 @@ public class AbstractReifier<T> {
         return resolve(context, boolean.class, value);
     }
 
+    protected static boolean asBoolean(CamelContext context, Object value) {
+        return resolve(context, boolean.class, value);
+    }
+
     protected static boolean asBoolean(RouteContext context, Object value, boolean defaultValue) {
         return value != null ? resolve(context, boolean.class, value) : defaultValue;
     }
 
-    protected static boolean asBoolean(CamelContext context, Object value, boolean defaultValue) {
+    // TODO: should be protected
+    public static boolean asBoolean(CamelContext context, Object value, boolean defaultValue) {
         return value != null ? resolve(context, boolean.class, value) : defaultValue;
     }
 
     protected static int asInt(RouteContext context, Object value) {
+        return resolve(context, int.class, value);
+    }
+
+    protected static int asInt(CamelContext context, Object value) {
         return resolve(context, int.class, value);
     }
 
@@ -97,7 +106,8 @@ public class AbstractReifier<T> {
         return resolve(routeContext.getCamelContext(), clazz, value);
     }
 
-    protected static <T> T resolve(CamelContext context, Class<T> clazz, Object value) {
+    // TODO: should be protected
+    public static <T> T resolve(CamelContext context, Class<T> clazz, Object value) {
         if (value instanceof String) {
             value = context.resolvePropertyPlaceholders((String) value);
             String str = (String) value;
@@ -121,18 +131,23 @@ public class AbstractReifier<T> {
         return null;
     }
 
-    protected static <T> List<T> resolveList(RouteContext routeContext, Class<T> clazz, Object value, Supplier<List<T>> defaultValue) {
+    // TODO: should be protected
+    public static <T> List<T> resolveList(CamelContext camelContext, Class<T> clazz, Object value, Supplier<List<T>> defaultValue) {
         if (value instanceof String) {
             value = Arrays.asList(((String) value).split(","));
         }
         if (value instanceof List) {
-            return ((List<?>) value).stream().map(o -> resolve(routeContext, clazz, o)).collect(Collectors.toList());
+            return ((List<?>) value).stream().map(o -> resolve(camelContext, clazz, o)).collect(Collectors.toList());
         }
         if (value == null) {
             return defaultValue.get();
         } else {
             throw new IllegalArgumentException("Cannot convert object '" + value + "' to List<" + clazz.getName() + ">");
         }
+    }
+
+    public static <T> List<T> resolveList(RouteContext routeContext, Class<T> clazz, Object value, Supplier<List<T>> defaultValue) {
+        return resolveList(routeContext.getCamelContext(), clazz, value, defaultValue);
     }
 
     protected static Processor resolveProcessor(RouteContext routeContext, Object definition) {

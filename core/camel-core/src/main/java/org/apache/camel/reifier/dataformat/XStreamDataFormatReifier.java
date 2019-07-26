@@ -30,20 +30,20 @@ public class XStreamDataFormatReifier extends DataFormatReifier<XStreamDataForma
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
+    protected String getDataFormatName(CamelContext camelContext) {
         if ("json".equals(definition.getDriver())) {
-            definition.setDataFormatName("json-xstream");
+            return "json-xstream";
+        } else {
+            return super.getDataFormatName(camelContext);
         }
-        DataFormat answer = super.doCreateDataFormat(camelContext);
-        // need to lookup the reference for the xstreamDriver
-        if (ObjectHelper.isNotEmpty(definition.getDriverRef())) {
-            setProperty(camelContext, answer, "xstreamDriver", CamelContextHelper.mandatoryLookup(camelContext, definition.getDriverRef()));
-        }
-        return answer;
     }
 
     @Override
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
+        // need to lookup the reference for the xstreamDriver
+        if (ObjectHelper.isNotEmpty(definition.getDriverRef())) {
+            setProperty(camelContext, dataFormat, "xstreamDriver", CamelContextHelper.mandatoryLookup(camelContext, definition.getDriverRef()));
+        }
         if (definition.getPermissions() != null) {
             setProperty(camelContext, dataFormat, "permissions", definition.getPermissions());
         }

@@ -31,6 +31,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.Route;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.DefaultRouteContext;
 import org.apache.camel.model.DataFormatDefinition;
@@ -162,7 +163,7 @@ public class DefaultModel implements Model {
         if (addToRoutes) {
             // rests are also routes so need to add them there too
             for (final RestDefinition restDefinition : restDefinitions) {
-                List<RouteDefinition> routeDefinitions = restDefinition.asRouteDefinition(camelContext);
+                List<RouteDefinition> routeDefinitions = RouteBuilder.asRouteDefinition(camelContext, restDefinition);
                 addRouteDefinitions(routeDefinitions);
             }
         }

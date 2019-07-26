@@ -24,6 +24,7 @@ import java.util.Set;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.support.CamelContextHelper;
 
 public final class ClusteredRouteFilters {
@@ -38,8 +39,7 @@ public final class ClusteredRouteFilters {
                     // should auto startup by default
                     return true;
                 }
-                Boolean isAutoStartup = CamelContextHelper.parseBoolean(camelContext, route.getAutoStartup());
-                return isAutoStartup != null && isAutoStartup;
+                return AbstractReifier.asBoolean(camelContext, route.getAutoStartup(), false);
             } catch (Exception e) {
                 throw RuntimeCamelException.wrapRuntimeCamelException(e);
             }

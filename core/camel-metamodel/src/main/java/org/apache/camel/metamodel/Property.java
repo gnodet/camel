@@ -12,6 +12,7 @@ public class Property {
     boolean secret;
     boolean deprecated;
     Boolean refs;
+    String alias;
 
     public String getName() {
         return name;
@@ -91,5 +92,13 @@ public class Property {
 
     public void setRefs(Boolean refs) {
         this.refs = refs;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 }

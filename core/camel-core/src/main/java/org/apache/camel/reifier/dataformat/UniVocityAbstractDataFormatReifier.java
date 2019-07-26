@@ -21,11 +21,11 @@ import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.model.dataformat.UniVocityAbstractDataFormat;
+import org.apache.camel.model.dataformat.UniVocityDataFormat;
 import org.apache.camel.model.dataformat.UniVocityHeader;
 import org.apache.camel.spi.DataFormat;
 
-public class UniVocityAbstractDataFormatReifier<T extends UniVocityAbstractDataFormat> extends DataFormatReifier<T> {
+public class UniVocityAbstractDataFormatReifier<T extends UniVocityDataFormat> extends DataFormatReifier<T> {
 
     public UniVocityAbstractDataFormatReifier(DataFormatDefinition definition) {
         super((T) definition);

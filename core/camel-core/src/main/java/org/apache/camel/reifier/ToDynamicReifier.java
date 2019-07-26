@@ -66,7 +66,7 @@ public class ToDynamicReifier<Type extends ProcessorDefinition<Type>> extends Pr
         return processor;
     }
 
-    protected Expression createExpression(RouteContext routeContext, String uri) {
+    static Expression createExpression(RouteContext routeContext, String uri) {
         List<Expression> list = new ArrayList<>();
 
         String[] parts = safeSplitRaw(uri);

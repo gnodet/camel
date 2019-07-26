@@ -45,12 +45,13 @@ import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.ExpressionClause;
 import org.apache.camel.builder.ProcessClause;
 import org.apache.camel.model.dataformat.CustomDataFormat;
-import org.apache.camel.model.dataformat.DataFormatClause;
+import org.apache.camel.builder.DataFormatClause;
 import org.apache.camel.model.language.ConstantExpression;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.model.language.LanguageExpression;
 import org.apache.camel.model.ClaimCheckDefinition.ClaimCheckOperation;
 import org.apache.camel.model.cloud.ServiceCallDefinition;
+import org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.spi.AsEndpointUri;
 import org.apache.camel.spi.AsPredicate;
@@ -853,7 +854,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param aggregationStrategy the strategy used to aggregate responses for every part
      * @return the builder
      */
-    public MulticastDefinition multicast(AggregationStrategy aggregationStrategy) {
+    public MulticastDefinition<?> multicast(AggregationStrategy aggregationStrategy) {
         MulticastDefinition answer = new MulticastDefinition();
         addOutput(answer);
         answer.setAggregationStrategy(aggregationStrategy);
@@ -865,7 +866,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public StepDefinition step() {
+    public StepDefinition<?> step() {
         StepDefinition answer = new StepDefinition();
         addOutput(answer);
         return answer;
@@ -877,7 +878,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param id unique id of the step within the camel context
      * @return the builder
      */
-    public StepDefinition step(String id) {
+    public StepDefinition<?> step(String id) {
         StepDefinition answer = new StepDefinition();
         answer.setId(id);
         addOutput(answer);
@@ -892,7 +893,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public PipelineDefinition pipeline() {
+    public PipelineDefinition<?> pipeline() {
         PipelineDefinition answer = new PipelineDefinition();
         addOutput(answer);
         return answer;
@@ -951,7 +952,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      *
      * @return the builder
      */
-    public ThreadsDefinition threads() {
+    public ThreadsDefinition<?> threads() {
         ThreadsDefinition answer = new ThreadsDefinition();
         addOutput(answer);
         return answer;
@@ -963,7 +964,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param poolSize the core pool size
      * @return the builder
      */
-    public ThreadsDefinition threads(int poolSize) {
+    public ThreadsDefinition<?> threads(int poolSize) {
         ThreadsDefinition answer = new ThreadsDefinition();
         answer.setPoolSize(poolSize);
         addOutput(answer);
@@ -977,7 +978,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param maxPoolSize the maximum pool size
      * @return the builder
      */
-    public ThreadsDefinition threads(int poolSize, int maxPoolSize) {
+    public ThreadsDefinition<?> threads(int poolSize, int maxPoolSize) {
         ThreadsDefinition answer = new ThreadsDefinition();
         answer.setPoolSize(poolSize);
         answer.setMaxPoolSize(maxPoolSize);
@@ -993,7 +994,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
      * @param threadName the thread pool name
      * @return the builder
      */
-    public ThreadsDefinition threads(int poolSize, int maxPoolSize, String threadName) {
+    public ThreadsDefinition<?> threads(int poolSize, int maxPoolSize, String threadName) {
         ThreadsDefinition answer = new ThreadsDefinition();
         answer.setPoolSize(poolSize);
         answer.setMaxPoolSize(maxPoolSize);
@@ -1309,7 +1310,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>
     public LoadBalanceDefinition<Type> loadBalance(LoadBalancer loadBalancer) {
         LoadBalanceDefinition<Type> answer = new LoadBalanceDefinition<>();
         addOutput(answer);
-        return answer.loadBalancerType(new LoadBalancerDefinition(loadBalancer));
+        return answer.loadBalancerType(new CustomLoadBalancerDefinition().loadBalancer(loadBalancer));
     }
 
     /**

@@ -50,6 +50,19 @@
     <xsl:template match="/model/dataFormats/dataFormat[@name='customDataFormat']/property[@name='ref']">
         <property name="dataFormat" type="java:org.apache.camel.spi.DataFormat"  display="Data Format" required="true" description="Instance or reference to the custom org.apache.camel.spi.DataFormat to lookup from the Camel registry."/>
     </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='fhirJson' or @name='fhirXml']">
+        <xsl:element name="dataFormat">
+            <xsl:apply-templates select="@* | node()"/>
+            <property name="fhirContext" type="java:ca.uhn.fhir.context.FhirContext" />
+            <property name="forceResourceId" type="java:org.hl7.fhir.instance.model.api.IIdType"/>
+            <property name="preferTypes" type="list(java:java.lang.Class&lt;? extends org.hl7.fhir.instance.model.api.IBaseResource>)"/>
+            <property name="parserOptions" type="java:ca.uhn.fhir.context.ParserOptions"/>
+            <property name="parserErrorHandler" type="java:ca.uhn.fhir.parser.IParserErrorHandler"/>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='jacksonxml']/property[@name='collectionTypeName']">
+        <property name="collectionType" type="class" display="Collection Type" description="Refers to a custom collection type to lookup in the registry to use. This option should rarely be used, but allows to use different collection types than java.util.Collection based as default."/>
+    </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='json']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'json'"/></xsl:attribute>
         <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.JsonDataFormat'"/></xsl:attribute>
@@ -89,6 +102,26 @@
     <xsl:template match="/model/dataFormats/dataFormat[@name='tidyMarkup']/property[@name='dataObjectType']">
         <property name="dataObjectType" type="class" display="Data Object Type" description="What data type to unmarshal as, can either be org.w3c.dom.Node or java.lang.String. Is by default org.w3c.dom.Node"/>
     </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='univocity-csv']">
+        <dataFormat name="univocity-csv" display="uniVocity CSV" label="dataformat,transformation,csv" extends="model:univocity" maven="org.apache.camel:camel-univocity-parsers:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.UniVocityCsvDataFormat" since="2.15.0" description="The uniVocity CSV data format is used for working with CSV (Comma Separated Values) flat payloads.">
+            <property name="delimiter" type="string" display="Delimiter" description="The delimiter of values"/>
+            <property name="quote" type="string" display="Quote" description="The quote symbol."/>
+            <property name="quoteAllFields" type="boolean" display="Quote All Fields" description="Whether or not all values must be quoted when writing them."/>
+            <property name="quoteEscape" type="string" display="Quote Escape" description="The quote escape symbol"/>
+        </dataFormat>
+    </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='univocity-fixed']">
+        <dataFormat name="univocity-fixed" display="uniVocity Fixed Length" label="dataformat,transformation,csv" extends="model:univocity" maven="org.apache.camel:camel-univocity-parsers:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat" since="2.15.0" description="The uniVocity Fixed Length data format is used for working with fixed length flat payloads.">
+            <property name="padding" type="string" display="Padding" description="The padding character. The default value is a space"/>
+            <property name="recordEndsOnNewline" type="boolean" display="Record Ends On Newline" description="Whether or not the record ends on new line. The default value is false"/>
+            <property name="skipTrailingCharsUntilNewline" type="boolean" display="Skip Trailing Chars Until Newline" description="Whether or not the trailing characters until new line must be ignored. The default value is false"/>
+        </dataFormat>
+    </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='univocity-tsv']">
+        <dataFormat name="univocity-tsv" display="uniVocity TSV" label="dataformat,transformation,csv" extends="model:univocity" maven="org.apache.camel:camel-univocity-parsers:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.UniVocityTsvDataFormat" since="2.15.0" description="The uniVocity TSV data format is used for working with TSV (Tabular Separated Values) flat payloads.">
+            <property name="escapeChar" type="string" display="Escape Char" description="The escape character."/>
+        </dataFormat>
+    </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='xmlrpc']/@name">
         <xsl:attribute name="name"><xsl:value-of select="'xmlrpc'"/></xsl:attribute>
         <xsl:attribute name="javaType"><xsl:value-of select="'org.apache.camel.model.dataformat.XmlRpcDataFormat'"/></xsl:attribute>
@@ -100,7 +133,19 @@
     <xsl:template match="/model/dataFormats/dataFormat[@name='yaml']/property[@name='unmarshalTypeName']">
         <property name="unmarshalType" type="class" display="Unmarshal Type" description="Java type to use when unmarshalling"/>
     </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='yaml']/property[@name='typeFilter']/@name">
+        <xsl:attribute name="name">typeFilters</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='yaml']">
+        <xsl:element name="dataFormat">
+            <xsl:apply-templates select="@* | node()"/>
+            <property name="classLoader" type="java:java.lang.ClassLoader"/>
+        </xsl:element>
+    </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='secureXML']/property[@name='passPhraseByte']"/>
+    <xsl:template match="/model/dataFormats/dataFormat[@name='secureXML']/property[@name='passPhrase']/@type">
+        <xsl:attribute name="type">byte[]</xsl:attribute>
+    </xsl:template>
     <xsl:template match="/model/dataFormats/dataFormat[@name='secureXML']/property[@name='keyOrTrustStoreParametersRef']">
         <property name="keyOrTrustStoreParameters" type="java:org.apache.camel.support.jsse.KeyStoreParameters" display="KeyStoreParameters" description="The element name strategy is used for two purposes. The first is to find a xml element name for a given object and soap action when marshaling the object into a SOAP message. The second is to find an Exception class for a given soap fault name. The following three element strategy class name is provided out of the box. QNameStrategy - Uses a fixed qName that is configured on instantiation. Exception lookup is not supported TypeNameStrategy - Uses the name and namespace from the XMLType annotation of the given type. If no namespace is set then package-info is used. Exception lookup is not supported ServiceInterfaceStrategy - Uses information from a webservice interface to determine the type name and to find the exception class for a SOAP fault All three classes is located in the package name org.apache.camel.dataformat.soap.name If you have generated the web service stub code with cxf-codegen or a similar tool then you probably will want to use the ServiceInterfaceStrategy. In the case you have no annotated service interface you should use QNameStrategy or TypeNameStrategy."/>
         <property name="namespaces" type="map(string,string)" display="Namespaces" description="XML Namespaces of prefix -> uri mappings" />
@@ -194,7 +239,9 @@
     <xsl:template match="/model/definitions/definition[@name='route']">
         <xsl:element name="processor">
             <xsl:apply-templates select="@*|*[not(@name='input' or @name='outputs')]"/>
-<!--            <property name="rest" type="model:rest" />-->
+            <property name="properties" type="list(model:property)"/>
+            <property name="rest" type="model:rest" />
+            <property name="restBinding" type="model:restBinding" />
             <xsl:apply-templates select="property[@name='input']"/>
             <property name="inputType" type="model:inputType" required="false"/>
             <property name="outputType" type="model:outputType" required="false"/>
@@ -211,13 +258,19 @@
         <property name="routePolicies" type="list(java:org.apache.camel.spi.RoutePolicy)" required="false"/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='aggregateControllerRef']">
-        <property name="aggregationController" type="java:org.apache.camel.spi.AggregateController" />
+        <property name="aggregateController" type="java:org.apache.camel.spi.AggregateController" />
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='aggregationRepositoryRef']">
         <property name="aggregationRepository" type="java:org.apache.camel.spi.AggregationRepository" />
     </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='completionPredicate']/@type">
+        <xsl:attribute name="type">model:predicate</xsl:attribute>
+    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='executorServiceRef']" priority="2">
         <property name="executorService" type="java:java.util.concurrent.ExecutorService"/>
+    </xsl:template>
+    <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='strategyRef']" priority="1">
+        <property name="aggregationStrategy" alias="strategy" type="java:org.apache.camel.AggregationStrategy" display="Aggregation Strategy" description="Aggregation strategy to use."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='aggregate']/property[@name='timeoutCheckerExecutorServiceRef']">
         <property name="timeoutCheckerExecutorService" type="java:java.util.concurrent.ScheduledExecutorService"/>
@@ -260,12 +313,6 @@
     <xsl:template match="/model/processors/processor[@name='onCompletion']/property[@name='mode']/@type">
         <xsl:attribute name="type">enum:OnCompletionMode(AfterConsumer,BeforeConsumer)</xsl:attribute>
     </xsl:template>
-    <xsl:template match="/model/processors/processor[@name='onCompletion']">
-        <xsl:element name="processor">
-            <xsl:apply-templates select="@* | node()"/>
-            <property name="routeScoped" type="boolean"/>
-        </xsl:element>
-    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='onException']/property[@name='handled']">
         <property name="handled" type="model:expression" display="Handled" kind="expression" description="Sets whether the exchange should be marked as handled or not."/>
         <property name="handled" type="boolean" display="Handled" kind="expression" description="Sets whether the exchange should be marked as handled or not."/>
@@ -280,12 +327,6 @@
         <property name="onRedelivery" type="model:processor" display="On Redelivery" description="Sets a processor that should be processed before a redelivery attempt. Can be used to change the org.apache.camel.Exchange before its being redelivered."/>
     </xsl:template>
     <xsl:template match="/model/processors/processor[@name='onException']/property[@name='redeliveryPolicyRef']"/>
-    <xsl:template match="/model/processors/processor[@name='onException']">
-        <xsl:element name="processor">
-            <xsl:apply-templates select="@* | node()"/>
-            <property name="routeScoped" type="boolean"/>
-        </xsl:element>
-    </xsl:template>
     <xsl:template match="/model/processors/processor[@name='policy']/property[@name='ref']">
         <property name="type" type="class" display="Type" description="Sets a policy type that this definition should scope within."/>
         <property name="instance" type="java:org.apache.camel.spi.Policy" display="Policy" description="Sets a policy that this definition should scope within."/>
@@ -367,7 +408,7 @@
     <xsl:template match="/model/processors/processor/property[@name='executorServiceRef']">
         <property name="executorService" type="java:java.util.concurrent.ExecutorService"/>
     </xsl:template>
-    <xsl:template match="/model/processors/processor/property[@name='strategyRef']">
+    <xsl:template match="/model/processors/processor/property[@name='strategyRef']" priority="0">
         <property name="aggregationStrategy" type="java:org.apache.camel.AggregationStrategy" display="Aggregation Strategy" description="Aggregation strategy to use."/>
     </xsl:template>
 
@@ -454,6 +495,22 @@
             <definition name="predicateValidator" extends="model:validator" javaType="org.apache.camel.model.validator.PredicateValidatorDefinition" label="validation">
                 <property name="expression" type="model:expression"/>
             </definition>
+            <definition name="univocity" display="Abstract uniVocity DataFormat" label="dataformat,transformation,csv" extends="model:dataFormat" maven="org.apache.camel:camel-univocity-parsers:3.0.0-SNAPSHOT" javaType="org.apache.camel.model.dataformat.UniVocityDataFormat" abstract="true">
+                <property name="comment" type="string" display="Comment" description="The comment symbol. The default value is #"/>
+                <property name="asMap" type="boolean" display="As Map" description="Whether the unmarshalling should produce maps for the lines values instead of lists. It requires to have header (either defined or collected). The default value is false"/>
+                <property name="emptyValue" type="string" display="Empty Value" description="The String representation of an empty value"/>
+                <property name="headers" type="list(model:univocity-header)" />
+                <property name="headersDisabled" type="boolean" display="Headers Disabled" description="Whether or not the headers are disabled. When defined, this option explicitly sets the headers as null which indicates that there is no header. The default value is false"/>
+                <property name="headerExtractionEnabled" type="boolean" display="Header Extraction Enabled" description="Whether or not the header must be read in the first line of the test document The default value is false"/>
+                <property name="ignoreLeadingWhitespaces" type="boolean" display="Ignore Leading Whitespaces" description="Whether or not the leading white spaces must be ignored. The default value is true"/>
+                <property name="ignoreTrailingWhitespaces" type="boolean" display="Ignore Trailing Whitespaces" description="Whether or not the trailing white spaces must ignored. The default value is true"/>
+                <property name="lazyLoad" type="boolean" display="Lazy Load" description="Whether the unmarshalling should produce an iterator that reads the lines on the fly or if all the lines must be read at one. The default value is false"/>
+                <property name="lineSeparator" type="string" display="Line Separator" description="The line separator of the files The default value is to use the JVM platform line separator"/>
+                <property name="normalizedLineSeparator" type="string" display="Normalized Line Separator" description="The normalized line separator of the files The default value is a new line character."/>
+                <property name="numberOfRecordsToRead" type="int" display="Number Of Records To Read" description="The maximum number of record to read."/>
+                <property name="nullValue" type="string" display="Null Value" description="The string representation of a null value. The default value is null"/>
+                <property name="skipEmptyLines" type="boolean" display="Skip Empty Lines" description="Whether or not the empty lines must be ignored. The default value is true"/>
+            </definition>
         </definitions>
     </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='apiKey' or @name='basicAuth' or @name='oauth2']/@name">
@@ -503,6 +560,17 @@
             <property name="verbs" type="list(model:verb)" />
         </xsl:element>
     </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='restConfiguration']/property[ends-with(@name,'Property')]">
+        <xsl:element name="property">
+            <xsl:attribute name="name"><xsl:value-of select="replace(@name, 'Property', 'Properties')"/></xsl:attribute>
+            <xsl:apply-templates select="@type"/>
+            <xsl:attribute name="display"><xsl:value-of select="replace(@display, 'Property', 'Properties')"/></xsl:attribute>
+            <xsl:apply-templates select="@kind | @description"/>
+        </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='restConfiguration']/property[@name='port']/@type">
+        <xsl:attribute name="type">int</xsl:attribute>
+    </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='routes']">
         <xsl:element name="definition">
             <xsl:apply-templates select="@* | node()" />
@@ -525,7 +593,11 @@
             <xsl:apply-templates select="@*" />
             <xsl:attribute name="extends">java:org.apache.camel.model.rest.AbstractVerbDefinition</xsl:attribute>
             <xsl:apply-templates select="node()" />
+            <property name="params" type="list(model:param)"/>
         </xsl:element>
+    </xsl:template>
+    <xsl:template match="/model/definitions/definition[@name='verb']/property[@name='toOrRoute']">
+        <property name="route" type="model:route" display="Route" required="true" kind="element" description="To route from this REST service to a Camel endpoint, or an inlined route"/>
     </xsl:template>
     <xsl:template match="/model/definitions/definition[@name='transformers']/property[@name='transformers']/@type">
         <xsl:attribute name="type">list(model:transformer)</xsl:attribute>
@@ -554,7 +626,7 @@
         </xsl:element>
     </xsl:template>
     <xsl:template match="/model/loadBalancers/loadBalancer[@name='customLoadBalancer']/property[@name='ref']">
-        <property name="loadBalancer" type="org.apache.camel.spi.LoadBalancer"/>
+        <property name="loadBalancer" type="java:org.apache.camel.spi.LoadBalancer"/>
     </xsl:template>
     <xsl:template match="/model/loadBalancers/loadBalancer[@name='failover']/property[@name='exception']/@name">
         <xsl:attribute name="name">exceptions</xsl:attribute>

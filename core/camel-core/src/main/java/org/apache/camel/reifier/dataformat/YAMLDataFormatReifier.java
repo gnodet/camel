@@ -36,12 +36,13 @@ public class YAMLDataFormatReifier extends DataFormatReifier<YAMLDataFormat> {
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        if (definition.getLibrary() == YAMLLibrary.SnakeYAML) {
-            setProperty(camelContext, this, "dataFormatName", "yaml-snakeyaml");
+    protected String getDataFormatName(CamelContext camelContext) {
+        YAMLLibrary library = resolve(camelContext, YAMLLibrary.class, definition.getLibrary());
+        switch (library) {
+            case SnakeYAML:
+            default:
+                return "yaml-snakeyaml";
         }
-
-        return super.doCreateDataFormat(camelContext);
     }
 
     @Override
@@ -56,17 +57,17 @@ public class YAMLDataFormatReifier extends DataFormatReifier<YAMLDataFormat> {
 
         setProperty(dataFormat, camelContext, "unmarshalType", yamlUnmarshalType);
         setProperty(dataFormat, camelContext, "classLoader", definition.getClassLoader());
-        setProperty(dataFormat, camelContext, "useApplicationContextClassLoader", definition.isUseApplicationContextClassLoader());
-        setProperty(dataFormat, camelContext, "prettyFlow", definition.isPrettyFlow());
-        setProperty(dataFormat, camelContext, "allowAnyType", definition.isAllowAnyType());
+        setProperty(dataFormat, camelContext, "useApplicationContextClassLoader", asBoolean(camelContext, definition.getUseApplicationContextClassLoader(), false));
+        setProperty(dataFormat, camelContext, "prettyFlow", asBoolean(camelContext, definition.getPrettyFlow(), false));
+        setProperty(dataFormat, camelContext, "allowAnyType", asBoolean(camelContext, definition.getAllowAnyType(), false));
 
         if (definition.getTypeFilters() != null && !definition.getTypeFilters().isEmpty()) {
-            List<String> typeFilterDefinitions = new ArrayList<>(definition.getTypeFilters().size());
+            List<String> typeFilterDefinitions = new ArrayList<>();
             for (YAMLTypeFilterDefinition definition : definition.getTypeFilters()) {
                 String value = definition.getValue();
 
                 if (!value.startsWith("type") && !value.startsWith("regexp")) {
-                    YAMLTypeFilterType type = definition.getType();
+                    YAMLTypeFilterType type = resolve(camelContext, YAMLTypeFilterType.class, definition.getType());
                     if (type == null) {
                         type = YAMLTypeFilterType.type;
                     }

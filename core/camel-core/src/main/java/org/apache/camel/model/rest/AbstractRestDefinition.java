@@ -62,6 +62,20 @@ public abstract class AbstractRestDefinition extends OptionalIdentifiedDefinitio
         return addVerb(verb, uri);
     }
 
+    public abstract String getPath();
+
+    public String buildUri(VerbDefinition verb) {
+        String path = getPath();
+        if (path != null && verb.getUri() != null) {
+            return path + ":" + verb.getUri();
+        } else if (path != null) {
+            return path;
+        } else if (verb.getUri() != null) {
+            return verb.getUri();
+        } else {
+            return "";
+        }
+    }
 
     private RestDefinition addVerb(String verb, String uri) {
         VerbDefinition answer;

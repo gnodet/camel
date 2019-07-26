@@ -64,31 +64,31 @@ public class FhirJsonDataFormatReifier extends DataFormatReifier<FhirJsonDataFor
             setProperty(camelContext, dataFormat, "parserErrorHandler", definition.getParserErrorHandler());
         }
 
-        Boolean answer = ObjectHelper.toBoolean(definition.isEncodeElementsAppliesToChildResourcesOnly());
+        Boolean answer = resolve(camelContext, Boolean.class, definition.getEncodeElementsAppliesToChildResourcesOnly());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "encodeElementsAppliesToChildResourcesOnly", answer);
         }
-        answer = ObjectHelper.toBoolean(definition.isOmitResourceId());
+        answer = resolve(camelContext, Boolean.class, definition.getOmitResourceId());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "omitResourceId", answer);
         }
-        answer = ObjectHelper.toBoolean(definition.isPrettyPrint());
+        answer = resolve(camelContext, Boolean.class, definition.getPrettyPrint());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "prettyPrint", answer);
         }
-        answer = ObjectHelper.toBoolean(definition.isSuppressNarratives());
+        answer = resolve(camelContext, Boolean.class, definition.getSuppressNarratives());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "suppressNarratives", answer);
         }
-        answer = ObjectHelper.toBoolean(definition.isSummaryMode());
+        answer = resolve(camelContext, Boolean.class, definition.getSummaryMode());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "summaryMode", answer);
         }
-        answer = ObjectHelper.toBoolean(definition.getOverrideResourceIdWithBundleEntryFullUrl());
+        answer = resolve(camelContext, Boolean.class, definition.getOverrideResourceIdWithBundleEntryFullUrl());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "overrideResourceIdWithBundleEntryFullUrl", answer);
         }
-        answer = ObjectHelper.toBoolean(definition.getStripVersionsFromReferences());
+        answer = resolve(camelContext, Boolean.class, definition.getStripVersionsFromReferences());
         if (answer != null) {
             setProperty(camelContext, dataFormat, "stripVersionsFromReferences", answer);
         }

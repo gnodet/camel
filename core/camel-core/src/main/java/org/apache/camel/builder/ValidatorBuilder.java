@@ -37,7 +37,7 @@ import org.apache.camel.spi.Validator;
  */
 public class ValidatorBuilder {
 
-    private String type;
+    private DataType type;
     private String uri;
     private ExpressionDefinition expression;
     private Class<? extends Validator> clazz;
@@ -52,7 +52,7 @@ public class ValidatorBuilder {
      * @param type 'from' data type name
      */
     public ValidatorBuilder type(String type) {
-        this.type = type;
+        this.type = new DataType(type);
         return this;
     }
 
@@ -62,7 +62,7 @@ public class ValidatorBuilder {
      * @param type Java class represents data type
      */
     public ValidatorBuilder type(Class<?> type) {
-        this.type = new DataType(type).toString();
+        this.type = new DataType(type);
         return this;
     }
 
@@ -142,26 +142,18 @@ public class ValidatorBuilder {
     public void configure(CamelContext camelContext) {
         ValidatorDefinition validator;
         if (uri != null) {
-            EndpointValidatorDefinition etd = new EndpointValidatorDefinition();
-            etd.setUri(uri);
-            validator = etd;
+            validator = new EndpointValidatorDefinition().uri(uri);
         } else if (expression != null) {
-            PredicateValidatorDefinition dtd = new PredicateValidatorDefinition();
-            dtd.setExpression(expression);
-            validator = dtd;
+            validator = new PredicateValidatorDefinition().expression(expression);
         } else if (clazz != null) {
-            CustomValidatorDefinition ctd = new CustomValidatorDefinition();
-            ctd.setClassName(clazz.getName());
-            validator = ctd;
+            validator = new CustomValidatorDefinition().validator(clazz);
         } else if (beanRef != null) {
-            CustomValidatorDefinition ctd = new CustomValidatorDefinition();
-            ctd.setRef(beanRef);
-            validator = ctd;
+            validator = new CustomValidatorDefinition().validator("#bean:" + beanRef);
         } else {
             throw new IllegalArgumentException("No Validator type was specified");
         }
         
-        validator.setType(type);
+        validator.type(type);
         camelContext.getExtension(Model.class).getValidators().add(validator);
     }
 }

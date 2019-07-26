@@ -32,7 +32,7 @@ public class HL7DataFormatReifier extends DataFormatReifier<HL7DataFormat> {
         if (definition.getParser() != null) {
             setProperty(camelContext, dataFormat, "parser", definition.getParser());
         }
-        setProperty(camelContext, dataFormat, "validate", definition.isValidate());
+        setProperty(camelContext, dataFormat, "validate", definition.getValidate());
     }
 
 }

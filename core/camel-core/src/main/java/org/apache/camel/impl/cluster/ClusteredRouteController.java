@@ -38,6 +38,7 @@ import org.apache.camel.cluster.CamelClusterService;
 import org.apache.camel.impl.engine.DefaultRouteController;
 import org.apache.camel.meta.Experimental;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.reifier.AbstractReifier;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.cluster.ClusterServiceHelper;
@@ -305,7 +306,9 @@ public class ClusteredRouteController extends DefaultRouteController {
                 if (ObjectHelper.isNotEmpty(route.getRoutePolicies())) {
                     // Check if the route is already configured with a clustered
                     // route policy, in that case exclude it.
-                    if (route.getRoutePolicies().stream().anyMatch(ClusteredRoutePolicy.class::isInstance)) {
+                    List<RoutePolicy> routePolicies = AbstractReifier.resolveList(camelContext, RoutePolicy.class,
+                            route.getRoutePolicies(), Collections::emptyList);
+                    if (routePolicies.stream().anyMatch(ClusteredRoutePolicy.class::isInstance)) {
                         LOGGER.debug("Route '{}' has a ClusteredRoutePolicy already set-up", routeId);
                         return null;
                     }

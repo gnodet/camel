@@ -34,6 +34,10 @@ public class DataFormatDefinition<Type extends DataFormatDefinition<Type>> exten
         return "dataFormat";
     }
 
+    public String getDataFormatName() {
+        return getShortName();
+    }
+
     @Override
     public Map<QName, Object> getOtherAttributes() {
         return otherAttributes;

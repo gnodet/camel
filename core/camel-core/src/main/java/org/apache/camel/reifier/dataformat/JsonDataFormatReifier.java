@@ -30,20 +30,20 @@ public class JsonDataFormatReifier extends DataFormatReifier<JsonDataFormat> {
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        if (definition.getLibrary() == JsonLibrary.XStream) {
-            setProperty(camelContext, this, "dataFormatName", "json-xstream");
-        } else if (definition.getLibrary() == JsonLibrary.Jackson) {
-            setProperty(camelContext, this, "dataFormatName", "json-jackson");
-        } else if (definition.getLibrary() == JsonLibrary.Gson) {
-            setProperty(camelContext, this, "dataFormatName", "json-gson");
-        } else if (definition.getLibrary() == JsonLibrary.Fastjson) {
-            setProperty(camelContext, this, "dataFormatName", "json-fastjson");
-        } else {
-            setProperty(camelContext, this, "dataFormatName", "json-johnzon");
+    protected String getDataFormatName(CamelContext camelContext) {
+        JsonLibrary library = resolve(camelContext, JsonLibrary.class, definition.getLibrary());
+        switch (library) {
+            case XStream:
+                return "json-xstream";
+            case Jackson:
+                return "json-jackson";
+            case Gson:
+                return "json-gson";
+            case Fastjson:
+                return "json-fastjson";
+            default:
+                return "json-johnzon";
         }
-
-        return super.doCreateDataFormat(camelContext);
     }
 
     @Override

@@ -177,8 +177,8 @@ public class AggregateReifier<Type extends ProcessorDefinition<Type>> extends Pr
         if (definition.getOptimisticLockRetryPolicy() != null) {
             answer.setOptimisticLockRetryPolicy(createOptimisticLockRetryPolicy(routeContext, definition.getOptimisticLockRetryPolicy()));
         }
-        if (definition.getAggregationController() != null) {
-            AggregateController controller = resolve(routeContext, AggregateController.class, definition.getAggregationController());
+        if (definition.getAggregateController() != null) {
+            AggregateController controller = resolve(routeContext, AggregateController.class, definition.getAggregateController());
             answer.setAggregateController(controller);
         }
         if (definition.getCompletionTimeoutCheckerInterval() != null) {

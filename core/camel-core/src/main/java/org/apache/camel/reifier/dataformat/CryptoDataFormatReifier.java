@@ -33,27 +33,20 @@ public class CryptoDataFormatReifier extends DataFormatReifier<CryptoDataFormat>
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        DataFormat cryptoFormat = super.doCreateDataFormat(camelContext);
-
+    protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         if (ObjectHelper.isNotEmpty(definition.getKeyRef())) {
             Key key = CamelContextHelper.mandatoryLookup(camelContext, definition.getKeyRef(), Key.class);
-            setProperty(camelContext, cryptoFormat, "key", key);
+            setProperty(camelContext, dataFormat, "key", key);
         }
         if (ObjectHelper.isNotEmpty(definition.getAlgorithmParameterRef())) {
             AlgorithmParameterSpec spec = CamelContextHelper.mandatoryLookup(camelContext,
                     definition.getAlgorithmParameterRef(), AlgorithmParameterSpec.class);
-            setProperty(camelContext, cryptoFormat, "AlgorithmParameterSpec", spec);
+            setProperty(camelContext, dataFormat, "AlgorithmParameterSpec", spec);
         }
         if (ObjectHelper.isNotEmpty(definition.getInitVectorRef())) {
             byte[] iv = CamelContextHelper.mandatoryLookup(camelContext, definition.getInitVectorRef(), byte[].class);
-            setProperty(camelContext, cryptoFormat, "InitializationVector", iv);
+            setProperty(camelContext, dataFormat, "InitializationVector", iv);
         }
-        return cryptoFormat;
-    }
-
-    @Override
-    protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         Boolean answer = ObjectHelper.toBoolean(definition.getShouldAppendHMAC());
         if (answer != null && !answer) {
             setProperty(camelContext, dataFormat, "shouldAppendHMAC", Boolean.FALSE);

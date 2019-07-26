@@ -31,12 +31,10 @@ import org.apache.camel.spi.RouteContext;
 import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.PropertyBindingSupport;
 
-public class RestBindingReifier extends AbstractReifier {
-
-    private final RestBindingDefinition definition;
+public class RestBindingReifier extends AbstractReifier<RestBindingDefinition> {
 
     public RestBindingReifier(RestBindingDefinition definition) {
-        this.definition = definition;
+        super((RestBindingDefinition) definition);
     }
 
     public RestBindingAdvice createRestBindingAdvice(RouteContext routeContext) throws Exception {
@@ -47,29 +45,21 @@ public class RestBindingReifier extends AbstractReifier {
         // these options can be overridden per rest verb
         String mode = config.getBindingMode().name();
         if (definition.getBindingMode() != null) {
-            mode = definition.getBindingMode().name();
+            mode = resolve(routeContext, RestConfiguration.RestBindingMode.class, definition.getBindingMode()).name();
         }
-        boolean cors = config.isEnableCORS();
-        if (definition.getEnableCORS() != null) {
-            cors = definition.getEnableCORS();
-        }
-        boolean skip = config.isSkipBindingOnErrorCode();
-        if (definition.getSkipBindingOnErrorCode() != null) {
-            skip = definition.getSkipBindingOnErrorCode();
-        }
-        boolean validation = config.isClientRequestValidation();
-        if (definition.getClientRequestValidation() != null) {
-            validation = definition.getClientRequestValidation();
-        }
+        boolean cors = asBoolean(routeContext, definition.getEnableCORS(), config.isEnableCORS());
+        boolean skip = asBoolean(routeContext, definition.getSkipBindingOnErrorCode(), config.isSkipBindingOnErrorCode());
+        boolean validation = asBoolean(routeContext, definition.getClientRequestValidation(), config.isClientRequestValidation());
 
         // cors headers
         Map<String, String> corsHeaders = config.getCorsHeaders();
 
         if (mode == null || "off".equals(mode)) {
             // binding mode is off, so create a off mode binding processor
-            return new RestBindingAdvice(context, null, null, null, null, definition.getConsumes(), definition.getProduces(), mode, skip, validation,
-                    cors, corsHeaders, definition.getDefaultValues(), definition.getRequiredBody() != null ? definition.getRequiredBody() : false,
-                    definition.getRequiredQueryParameters(), definition.getRequiredHeaders());
+//            return new RestBindingAdvice(context, null, null, null, null, definition.getConsumes(), definition.getProduces(), mode, skip, validation,
+//                    cors, corsHeaders, definition.getDefaultValues(), definition.getRequiredBody() != null ? definition.getRequiredBody() : false,
+//                    definition.getRequiredQueryParameters(), definition.getRequiredHeaders());
+            throw new UnsupportedOperationException("TODO");
         }
 
         // setup json data format
@@ -171,9 +161,10 @@ public class RestBindingReifier extends AbstractReifier {
             }
         }
 
-        return new RestBindingAdvice(context, json, jaxb, outJson, outJaxb, definition.getConsumes(), definition.getProduces(), mode, skip, validation,
-                cors, corsHeaders, definition.getDefaultValues(), definition.getRequiredBody() != null ? definition.getRequiredBody() : false,
-                definition.getRequiredQueryParameters(), definition.getRequiredHeaders());
+//        return new RestBindingAdvice(context, json, jaxb, outJson, outJaxb, definition.getConsumes(), definition.getProduces(), mode, skip, validation,
+//                cors, corsHeaders, definition.getDefaultValues(), definition.getRequiredBody() != null ? definition.getRequiredBody() : false,
+//                definition.getRequiredQueryParameters(), definition.getRequiredHeaders());
+        throw new UnsupportedOperationException("TODO");
     }
 
     private void setAdditionalConfiguration(RestConfiguration config, CamelContext context,

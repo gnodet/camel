@@ -27,12 +27,12 @@ package ${packageName};
 #foreach( $struct in $allstructs )
     #set( $b = $imports.add(${struct.javaType}) )
 #end
+#set( $b = $imports.add("org.apache.camel.Predicate") )
 #set( $b = $imports.add("org.apache.camel.model.OptionalIdentifiedDefinition") )
 #set( $b = $imports.add("org.apache.camel.model.ProcessorDefinition") )
-#set( $b = $imports.add("org.apache.camel.model.dataformat.DataFormatDefinition") )
+#set( $b = $imports.add("org.apache.camel.builder.EndpointConsumerBuilder") )
 #set( $b = $imports.add("org.apache.camel.builder.EndpointProducerBuilder") )
 #set( $b = $imports.add("org.apache.camel.model.language.ExpressionDefinition") )
-#set( $b = $imports.add("org.apache.camel.model.loadbalancer.LoadBalancerDefinition") )
 #set( $b = $imports.add("java.util.ArrayList") )
 #set( $b = $imports.add("java.util.List") )
 #set( $b = $imports.add("javax.xml.stream.XMLStreamConstants") )
@@ -151,6 +151,7 @@ public class ModelParser {
     #set( $subtypem = ${main.substringBefore(${prop.type.substring(5)}, ")")} )
     #set( $subtype = ${main.getType($subtypem)} )
     #set( $propdata = ${main.getData($subtypem)} )
+    #set( $singular = ${main.singular(${propname})} )
     #set( $propdatanamelow = ${main.camelCaseLower(${propdata.name})} )
                 // subtype: ${subtypem}
     #if( ${propdata.abstract} )
@@ -162,7 +163,7 @@ public class ModelParser {
                 }
     #end
                 if (${propdatanamelow} != null) {
-                    definition.getOrCreate${propname}().add(${propdatanamelow});
+                    definition.add${singular}(${propdatanamelow});
                     consumed = true;
     #if( $doCheckRequired && ${prop.required} )
                 } else if (definition.get${propname}() == null) {
@@ -172,6 +173,11 @@ public class ModelParser {
                     state++;
                 }
   #elseif( ${prop.type.startsWith('model:')} )
+    #if( $proptype == 'Predicate' )
+      #set( $proptype = 'ExpressionDefinition' )
+    #elseif( $proptype == 'EndpointProducerBuilder' && $struct.name == 'from' )
+      #set( $proptype = 'EndpointConsumerBuilder' )
+    #end
     #set( $propdata = ${main.getData(${prop.type})} )
     #if( ${propdata.abstract} )
                 ${proptype} ${propnamelow} = parse${proptype}(parser, strict);
@@ -294,6 +300,10 @@ public class ModelParser {
     }
 
     private static EndpointProducerBuilder parseEndpointProducerBuilder(XMLStreamReader parser, boolean strict) throws XMLStreamException {
+        return null;
+    }
+
+    private static EndpointConsumerBuilder parseEndpointConsumerBuilder(XMLStreamReader parser, boolean strict) throws XMLStreamException {
         return null;
     }
 

@@ -17,7 +17,6 @@
 package org.apache.camel.reifier.dataformat;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.dataformat.JacksonXMLDataFormat;
 import org.apache.camel.spi.DataFormat;
@@ -29,26 +28,6 @@ public class JacksonXMLDataFormatReifier extends DataFormatReifier<JacksonXMLDat
     }
 
     @Override
-    protected DataFormat doCreateDataFormat(CamelContext camelContext) {
-        if (definition.getUnmarshalType() == null && definition.getUnmarshalTypeName() != null) {
-            try {
-                definition.setUnmarshalType(camelContext.getClassResolver().resolveMandatoryClass(definition.getUnmarshalTypeName()));
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
-        if (definition.getCollectionType() == null && definition.getCollectionTypeName() != null) {
-            try {
-                definition.setCollectionType(camelContext.getClassResolver().resolveMandatoryClass(definition.getCollectionTypeName()));
-            } catch (ClassNotFoundException e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
-        }
-
-        return super.doCreateDataFormat(camelContext);
-    }
-
-    @Override
     protected void configureDataFormat(DataFormat dataFormat, CamelContext camelContext) {
         if (definition.getXmlMapper() != null) {
             // must be a reference value
@@ -56,7 +35,7 @@ public class JacksonXMLDataFormatReifier extends DataFormatReifier<JacksonXMLDat
             setProperty(camelContext, dataFormat, "xmlMapper", ref);
         }
         if (definition.getUnmarshalType() != null) {
-            setProperty(camelContext, dataFormat, "unmarshalType", definition.getUnmarshalType());
+            setProperty(camelContext, dataFormat, "unmarshalType", asClass(camelContext, definition.getUnmarshalType()));
         }
         if (definition.getPrettyPrint() != null) {
             setProperty(camelContext, dataFormat, "prettyPrint", definition.getPrettyPrint());
@@ -70,8 +49,8 @@ public class JacksonXMLDataFormatReifier extends DataFormatReifier<JacksonXMLDat
         if (definition.getAllowJmsType() != null) {
             setProperty(camelContext, dataFormat, "allowJmsType", definition.getAllowJmsType());
         }
-        if (definition.getCollectionTypeName() != null) {
-            setProperty(camelContext, dataFormat, "collectionType", definition.getCollectionTypeName());
+        if (definition.getCollectionType() != null) {
+            setProperty(camelContext, dataFormat, "collectionType", asClass(camelContext, definition.getCollectionType()));
         }
         if (definition.getUseList() != null) {
             setProperty(camelContext, dataFormat, "useList", definition.getUseList());

@@ -422,7 +422,7 @@ public final class AdviceWithTasks {
      *
      * @return the iterator
      */
-    private static Iterator<ProcessorDefinition<?>> createMatchByIterator(final RouteDefinition route, final MatchBy matchBy,
+    private static Iterator<ProcessorDefinition<?>> createMatchByIterator(final RouteDefinition<?> route, final MatchBy matchBy,
                                                                final boolean selectFirst, final boolean selectLast,
                                                                final int selectFrom, final int selectTo, int maxDeep) {
 
@@ -436,7 +436,7 @@ public final class AdviceWithTasks {
         // and the user want to select first or last outputs in the route (not cross cutting functionality)
         boolean skip = selectFirst || selectLast;
 
-        for (ProcessorDefinition output : route.getOutputs()) {
+        for (ProcessorDefinition<?> output : route.getOutputs()) {
             // special for transacted, which we need to unwrap
             if (output instanceof TransactedDefinition) {
                 outputs.addAll(output.getOutputs());

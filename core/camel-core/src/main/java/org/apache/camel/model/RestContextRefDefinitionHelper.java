@@ -117,31 +117,29 @@ public final class RestContextRefDefinitionHelper {
                 VerbDefinition verb1 = verbit1.next();
                 VerbDefinition verb2 = verbit2.next();
 
-                if (verb1.getToOrRoute() instanceof RouteDefinition && verb2.getToOrRoute() instanceof RouteDefinition) {
-                    RouteDefinition route1 = (RouteDefinition) verb1.getToOrRoute();
-                    RouteDefinition route2 = (RouteDefinition) verb2.getToOrRoute();
+                RouteDefinition route1 = verb1.getRoute();
+                RouteDefinition route2 = verb2.getRoute();
 
-                    // need to clone the namespaces also as they are not JAXB marshalled (as they are transient)
-                    Iterator<ExpressionNode> it = ProcessorDefinitionHelper.filterTypeInOutputs(route1.getOutputs(), ExpressionNode.class);
-                    Iterator<ExpressionNode> it2 = ProcessorDefinitionHelper.filterTypeInOutputs(route2.getOutputs(), ExpressionNode.class);
-                    while (it.hasNext() && it2.hasNext()) {
-                        ExpressionNode node = it.next();
-                        ExpressionNode node2 = it2.next();
+                // need to clone the namespaces also as they are not JAXB marshalled (as they are transient)
+                Iterator<ExpressionNode> it = ProcessorDefinitionHelper.filterTypeInOutputs(route1.getOutputs(), ExpressionNode.class);
+                Iterator<ExpressionNode> it2 = ProcessorDefinitionHelper.filterTypeInOutputs(route2.getOutputs(), ExpressionNode.class);
+                while (it.hasNext() && it2.hasNext()) {
+                    ExpressionNode node = it.next();
+                    ExpressionNode node2 = it2.next();
 
-                        NamespaceAwareExpression name = null;
-                        NamespaceAwareExpression name2 = null;
-                        if (node.getExpression() instanceof NamespaceAwareExpression) {
-                            name = (NamespaceAwareExpression) node.getExpression();
-                        }
-                        if (node2.getExpression() instanceof NamespaceAwareExpression) {
-                            name2 = (NamespaceAwareExpression) node2.getExpression();
-                        }
+                    NamespaceAwareExpression name = null;
+                    NamespaceAwareExpression name2 = null;
+                    if (node.getExpression() instanceof NamespaceAwareExpression) {
+                        name = (NamespaceAwareExpression) node.getExpression();
+                    }
+                    if (node2.getExpression() instanceof NamespaceAwareExpression) {
+                        name2 = (NamespaceAwareExpression) node2.getExpression();
+                    }
 
-                        if (name != null && name2 != null && name.getNamespaces() != null && !name.getNamespaces().isEmpty()) {
-                            Map<String, String> map = new HashMap<>();
-                            map.putAll(name.getNamespaces());
-                            name2.setNamespaces(map);
-                        }
+                    if (name != null && name2 != null && name.getNamespaces() != null && !name.getNamespaces().isEmpty()) {
+                        Map<String, String> map = new HashMap<>();
+                        map.putAll(name.getNamespaces());
+                        name2.setNamespaces(map);
                     }
                 }
             }

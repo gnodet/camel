@@ -34,11 +34,11 @@ public class UniVocityFixedWidthDataFormatReifier extends UniVocityAbstractDataF
         if (definition.getHeaders() != null) {
             int[] lengths = new int[definition.getHeaders().size()];
             for (int i = 0; i < lengths.length; i++) {
-                Integer length = definition.getHeaders().get(i).getLength();
+                Object length = definition.getHeaders().get(i).getLength();
                 if (length == null) {
                     throw new IllegalArgumentException("The length of all headers must be defined.");
                 }
-                lengths[i] = length;
+                lengths[i] = asInt(camelContext, length);
             }
             setProperty(camelContext, dataFormat, "fieldLengths", lengths);
         }
