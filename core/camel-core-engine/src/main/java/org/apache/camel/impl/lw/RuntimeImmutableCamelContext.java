@@ -1272,16 +1272,6 @@ public class RuntimeImmutableCamelContext implements ExtendedCamelContext, Catal
     }
 
     @Override
-    public boolean isAllowAddingNewRoutes() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean isClearModelReferences() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void addRoute(Route route) {
         throw new UnsupportedOperationException();
     }
@@ -1529,16 +1519,6 @@ public class RuntimeImmutableCamelContext implements ExtendedCamelContext, Catal
 
     @Override
     public void setConfigurerResolver(ConfigurerResolver configurerResolver) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setAllowAddingNewRoutes(boolean allowAddingNewRoutes) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setClearModelReferences(boolean clearModelReferences) {
         throw new UnsupportedOperationException();
     }
 
