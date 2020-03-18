@@ -88,7 +88,7 @@
         <awaitility-version>4.0.2</awaitility-version>
         <aws-java-sdk-bundle-version>1.11.714_1</aws-java-sdk-bundle-version>
         <aws-java-sdk-version>1.11.714</aws-java-sdk-version>
-        <aws-java-sdk2-version>2.10.86</aws-java-sdk2-version>
+        <aws-java-sdk2-version>2.10.88</aws-java-sdk2-version>
         <aws-java-sdk-swf-libs>1.11.22</aws-java-sdk-swf-libs>
         <aws-xray-version>2.4.0</aws-xray-version>
         <axiom-version>1.2.14</axiom-version>
@@ -483,7 +483,8 @@
         <mock-javamail-version>1.9</mock-javamail-version>
         <mockwebserver-version>0.1.7</mockwebserver-version>
         <mockito-version>3.3.3</mockito-version>
-        <mongo-java-driver-version>3.12.2</mongo-java-driver-version>
+        <mongo3-java-driver-version>3.12.2</mongo3-java-driver-version>
+        <mongo-java-driver-version>4.0.0</mongo-java-driver-version>
         <mongo-hadoop-version>1.5.0</mongo-hadoop-version>
         <msv-version>2013.6.1</msv-version>
         <mustache-java-version>0.9.6</mustache-java-version>
@@ -550,7 +551,7 @@
         <pulsar-bundle-version>2.5.0_1</pulsar-bundle-version>
         <qpid-broker-version>8.0.0</qpid-broker-version>
         <qpid-proton-j-version>0.33.3</qpid-proton-j-version>
-        <qpid-jms-client-version>0.49.0</qpid-jms-client-version>
+        <qpid-jms-client-version>0.50.0</qpid-jms-client-version>
         <quartz-version>2.3.2</quartz-version>
         <quickfixj-version>2.1.1</quickfixj-version>
         <rabbitmq-amqp-client-version>5.8.0</rabbitmq-amqp-client-version>
@@ -572,7 +573,7 @@
         <robotframework-version>3.1.1</robotframework-version>
         <rome-version>1.12.2</rome-version>
         <rxjava-version>1.3.8</rxjava-version>
-        <rxjava2-version>2.2.18</rxjava2-version>
+        <rxjava2-version>2.2.19</rxjava2-version>
         <saxon-bundle-version>9.9.1-6_1</saxon-bundle-version>
         <saxon-version>9.9.1-6</saxon-version>
         <scala-version>2.11.7</scala-version>
@@ -595,9 +596,9 @@
         <snakeyaml-version>1.26</snakeyaml-version>
         <snappy-version>1.1.7.3</snappy-version>
         <snmp4j-version>2.6.3_1</snmp4j-version>
-        <solr-bundle-version>8.1.1_1</solr-bundle-version>
+        <solr-bundle-version>8.4.1_1</solr-bundle-version>
         <!-- solr version aligned with lucene -->
-        <solr-version>8.1.1</solr-version>
+        <solr-version>8.4.1</solr-version>
         <solr-version-range>[8,9)</solr-version-range>
         <spark-version>2.4.5</spark-version>
         <spark-rest-version>2.9.1</spark-rest-version>
@@ -645,7 +646,7 @@
         <testcontainers-version>1.13.0</testcontainers-version>
         <threetenbp-version>1.4.0</threetenbp-version>
         <tinybundles-version>2.1.1</tinybundles-version>
-        <tika-version>1.23</tika-version>
+        <tika-version>1.24</tika-version>
         <twilio-version>7.9.1</twilio-version>
         <twitter4j-bundle-version>4.0.7_1</twitter4j-bundle-version>
         <twitter4j-version>4.0.7</twitter4j-version>
