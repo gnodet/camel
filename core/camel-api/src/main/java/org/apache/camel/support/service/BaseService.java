@@ -338,6 +338,7 @@ public abstract class BaseService {
      * This method will only be called by frameworks which supports pre-building projects such as camel-quarkus.
      */
     protected void doBuild() throws Exception {
+        // noop
     }
 
     /**
@@ -345,6 +346,7 @@ public abstract class BaseService {
      * This method will only be called once before starting.
      */
     protected void doInit() throws Exception {
+        // noop
     }
 
     /**
@@ -354,7 +356,9 @@ public abstract class BaseService {
      *
      * @see #doStop()
      */
-    protected abstract void doStart() throws Exception;
+    protected void doStart() throws Exception {
+        // noop
+    }
 
     /**
      * Implementations override this method to support customized start/stop.
@@ -368,7 +372,9 @@ public abstract class BaseService {
      *
      * @see #doStart()
      */
-    protected abstract void doStop() throws Exception;
+    protected void doStop() throws Exception {
+        // noop
+    }
 
     /**
      * Implementations override this method to support customized suspend/resume.
