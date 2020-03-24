@@ -2497,11 +2497,8 @@ public abstract class AbstractCamelContext extends BaseService
 
     @Override
     public void doInit() throws Exception {
-        if (isNew()) {
-            doBuild();
-        }
-
         // Start the route controller
+        getRouteController();
         ServiceHelper.initService(this.routeController);
 
         // optimize - before starting routes lets check if event notifications is possible
@@ -2722,37 +2719,12 @@ public abstract class AbstractCamelContext extends BaseService
         // start notifiers as services
         for (EventNotifier notifier : getManagementStrategy().getEventNotifiers()) {
             if (notifier instanceof Service) {
-                Service service = (Service)notifier;
-                for (LifecycleStrategy strategy : lifecycleStrategies) {
-                    strategy.onServiceAdd(getCamelContextReference(), service, null);
-                }
                 startService((Service)notifier);
             }
         }
 
         // must let some bootstrap service be started before we can notify the starting event
         EventHelper.notifyCamelContextStarting(this);
-
-        // optimised to not include runtimeEndpointRegistry unless startServices
-        // is enabled or JMX statistics is in extended mode
-        if (runtimeEndpointRegistry == null && getManagementStrategy() != null && getManagementStrategy().getManagementAgent() != null) {
-            Boolean isEnabled = getManagementStrategy().getManagementAgent().getEndpointRuntimeStatisticsEnabled();
-            boolean isExtended = getManagementStrategy().getManagementAgent().getStatisticsLevel().isExtended();
-            // extended mode is either if we use Extended statistics level or
-            // the option is explicit enabled
-            boolean extended = isExtended || isEnabled != null && isEnabled;
-            if (extended) {
-                runtimeEndpointRegistry = new DefaultRuntimeEndpointRegistry();
-            }
-        }
-        if (runtimeEndpointRegistry != null) {
-            if (runtimeEndpointRegistry instanceof EventNotifier && getManagementStrategy() != null) {
-                getManagementStrategy().addEventNotifier((EventNotifier)runtimeEndpointRegistry);
-            }
-            addService(runtimeEndpointRegistry, true, true);
-        }
-
-        bindDataFormats();
 
         // start components
         startServices(components.values());
