@@ -84,7 +84,7 @@ public interface TimerEndpointBuilderFactory {
          * 
          * The option is a: <code>long</code> type.
          * 
-         * Default: 1000
+         * Default: 1s
          * Group: consumer
          */
         default TimerEndpointBuilder delay(long delay) {
@@ -96,7 +96,7 @@ public interface TimerEndpointBuilderFactory {
          * 
          * The option will be converted to a <code>long</code> type.
          * 
-         * Default: 1000
+         * Default: 1s
          * Group: consumer
          */
         default TimerEndpointBuilder delay(String delay) {
@@ -161,7 +161,7 @@ public interface TimerEndpointBuilderFactory {
          * 
          * The option is a: <code>long</code> type.
          * 
-         * Default: 1000
+         * Default: 1s
          * Group: consumer
          */
         default TimerEndpointBuilder period(long period) {
@@ -174,7 +174,7 @@ public interface TimerEndpointBuilderFactory {
          * 
          * The option will be converted to a <code>long</code> type.
          * 
-         * Default: 1000
+         * Default: 1s
          * Group: consumer
          */
         default TimerEndpointBuilder period(String period) {

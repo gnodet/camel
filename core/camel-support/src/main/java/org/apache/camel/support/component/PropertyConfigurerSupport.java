@@ -57,25 +57,7 @@ public abstract class PropertyConfigurerSupport {
                     throw new NoSuchBeanException(text, type.getName());
                 }
                 value = obj;
-            } else if (type == long.class || type == Long.class || type == int.class || type == Integer.class) {
-                Object obj = null;
-                // string to long/int then it may be a duration where we can convert the value to milli seconds
-                // it may be a time pattern, such as 5s for 5 seconds = 5000
-                try {
-                    long num = TimeUtils.toMilliSeconds(text);
-                    if (type == int.class || type == Integer.class) {
-                        // need to cast to int
-                        obj = (int) num;
-                    } else {
-                        obj = num;
-                    }
-                } catch (IllegalArgumentException e) {
-                    // ignore
-                }
-                if (obj != null) {
-                    value = obj;
-                }
-            }
+           }
         }
 
         // special for boolean values with string values as we only want to accept "true" or "false"
