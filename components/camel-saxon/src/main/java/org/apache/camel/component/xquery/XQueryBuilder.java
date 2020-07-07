@@ -31,6 +31,9 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMResult;
@@ -40,11 +43,15 @@ import javax.xml.transform.stax.StAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ModuleURIResolver;
 import net.sf.saxon.om.AllElementsSpaceStrippingRule;
+import net.sf.saxon.om.AxisInfo;
 import net.sf.saxon.om.IgnorableSpaceStrippingRule;
 import net.sf.saxon.om.Item;
 import net.sf.saxon.om.SequenceIterator;
@@ -68,6 +75,7 @@ import org.apache.camel.Message;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.RuntimeExpressionException;
 import org.apache.camel.spi.GeneratedPropertyConfigurer;
 import org.apache.camel.spi.NamespaceAware;
@@ -697,8 +705,29 @@ public abstract class XQueryBuilder implements Expression, Predicate, NamespaceA
             return DoubleValue.makeDoubleValue((double) value);
         } else if (value instanceof Float) {
             return FloatValue.makeFloatValue((float) value);
+        } else if (value instanceof Document) {
+            return getTree((Document) value).getRootNode();
+        } else if (value instanceof Element) {
+            try {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                dbf.setNamespaceAware(true);
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document d = db.newDocument();
+                d.appendChild(d.importNode((Element) value, true));
+                return getTree(d).getRootNode().iterateAxis(AxisInfo.CHILD).next();
+            } catch (DOMException | ParserConfigurationException e) {
+                throw new RuntimeCamelException(e);
+            }
         } else {
             return new ObjectValue(value);
+        }
+    }
+
+    private TreeInfo getTree(Document value) {
+        try {
+            return configuration.buildDocumentTree(new DOMSource(value));
+        } catch (XPathException e) {
+            throw new RuntimeCamelException(e);
         }
     }
 
