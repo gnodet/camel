@@ -610,6 +610,26 @@
         <sourcecheckExcludesComma></sourcecheckExcludesComma>
     </properties>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/mvndaemon/mvntia</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencyManagement>
         <dependencies>
 
@@ -4463,7 +4483,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin-version}</version>
                 <configuration>
-                    <argLine>${camel.surefire.fork.vmargs}</argLine>
+                    <argLine>@{camel.surefire.fork.vmargs}</argLine>
                     <!--forkMode>pertest</forkMode -->
                     <forkedProcessTimeoutInSeconds>300</forkedProcessTimeoutInSeconds>
                     <childDelegation>false</childDelegation>
@@ -4490,6 +4510,21 @@
                         <exclude>**/*XXXTest.*</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.fuse.mvntia</groupId>
+                <artifactId>mvntia-maven-plugin</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>camel.surefire.fork.vmargs</propertyName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
