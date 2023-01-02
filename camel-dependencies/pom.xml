@@ -80,13 +80,6 @@
     <californium-scandium-version>2.7.4</californium-scandium-version>
     <californium-version>2.7.2</californium-version>
     <camel.failsafe.forkTimeout>600</camel.failsafe.forkTimeout>
-    <camel.osgi.activator></camel.osgi.activator>
-    <camel.osgi.dynamic></camel.osgi.dynamic>
-    <camel.osgi.import.additional></camel.osgi.import.additional>
-    <camel.osgi.import.before.defaults></camel.osgi.import.before.defaults>
-    <camel.osgi.import.defaults></camel.osgi.import.defaults>
-    <camel.osgi.provide.capability></camel.osgi.provide.capability>
-    <camel.osgi.require.capability></camel.osgi.require.capability>
     <camel.surefire.fork.vmargs>-XX:+ExitOnOutOfMemoryError</camel.surefire.fork.vmargs>
     <camel.surefire.forkCount>1</camel.surefire.forkCount>
     <camel.surefire.forkTimeout>600</camel.surefire.forkTimeout>
@@ -96,7 +89,6 @@
     <camel.surefire.reuseForks>true</camel.surefire.reuseForks>
     <cassandra-driver-version>4.15.0</cassandra-driver-version>
     <cassandra-version>4.0.6</cassandra-version>
-    <jakarta-enterprise-cdi-api-version>4.0.1</jakarta-enterprise-cdi-api-version>
     <cglib-version>3.2.12</cglib-version>
     <checkstyle.failOnViolation>false</checkstyle.failOnViolation>
     <chunk-templates-version>3.6.2</chunk-templates-version>
@@ -185,12 +177,6 @@
     <geronimo-j2ee-management-spec-version>1.1</geronimo-j2ee-management-spec-version>
     <geronimo-jcdi-1.0-spec-version>1.0</geronimo-jcdi-1.0-spec-version>
     <geronimo-jcdi-1.1-spec-version>1.0</geronimo-jcdi-1.1-spec-version>
-    <jakarta-jms-api-version>3.1.0</jakarta-jms-api-version>
-    <jakarta-persistence-api-version>3.1.0</jakarta-persistence-api-version>
-    <jakarta-json-api-version>2.1.1</jakarta-json-api-version>
-    <jakarta-json-bind-api-version>3.0.0</jakarta-json-bind-api-version>
-    <jakarta-transaction-api-version>2.0.1</jakarta-transaction-api-version>
-    <jakarta-jws-api-version>3.0.0</jakarta-jws-api-version>
     <glassfish-javax-json>1.0.4</glassfish-javax-json>
     <glassfish-jaxb-runtime-version>4.0.1</glassfish-jaxb-runtime-version>
     <gmavenplus-plugin-version>1.13.1</gmavenplus-plugin-version>
@@ -258,10 +244,21 @@
     <jackson-version>1.9.12</jackson-version>
     <jackson2-module-scala-version>2.14.0</jackson2-module-scala-version>
     <jackson2-version>2.14.1</jackson2-version>
+    <jakarta-activation-version>2.0.1</jakarta-activation-version>
+    <jakarta-annotation-api-version>2.1.1</jakarta-annotation-api-version>
     <jakarta-api-version>2.1.5</jakarta-api-version>
     <jakarta-enterprise-cdi-api-version>4.0.1</jakarta-enterprise-cdi-api-version>
-    <jakarta-xml-bind-api-version>4.0.0</jakarta-xml-bind-api-version>
+    <jakarta-jms-api-version>3.1.0</jakarta-jms-api-version>
+    <jakarta-json-api-version>2.1.1</jakarta-json-api-version>
+    <jakarta-json-bind-api-version>3.0.0</jakarta-json-bind-api-version>
+    <jakarta-jws-api-version>3.0.0</jakarta-jws-api-version>
     <jakarta-mail-version>2.0.1</jakarta-mail-version>
+    <jakarta-persistence-api-version>3.1.0</jakarta-persistence-api-version>
+    <jakarta-servlet-api-version>6.0.0</jakarta-servlet-api-version>
+    <jakarta-transaction-api-version>2.0.1</jakarta-transaction-api-version>
+    <jakarta-xml-bind-api-version>4.0.0</jakarta-xml-bind-api-version>
+    <jakarta-xml-soap-api-version>3.0.0</jakarta-xml-soap-api-version>
+    <jakarta-xml-ws-api-version>4.0.0</jakarta-xml-ws-api-version>
     <jakarta.el-version>3.0.3</jakarta.el-version>
     <jandex-version>3.0.3</jandex-version>
     <jansi-version>2.4.0</jansi-version>
@@ -274,15 +271,10 @@
     <javaparser-version>3.13.10</javaparser-version>
     <javapoet-version>1.11.1</javapoet-version>
     <javassist-version>3.28.0-GA</javassist-version>
-    <jakarta-activation-version>2.0.1</jakarta-activation-version>
-    <jakarta-annotation-api-version>2.1.1</jakarta-annotation-api-version>
     <javax-el-api-hibernate-validator-version>3.0.1-b04</javax-el-api-hibernate-validator-version>
     <javax-el-hibernate-validator-version>3.0.1-b10</javax-el-hibernate-validator-version>
     <javax-el3-version>3.0.0</javax-el3-version>
-    <jakarta-servlet-api-version>6.0.0</jakarta-servlet-api-version>
-    <jakarta-xml-soap-api-version>3.0.0</jakarta-xml-soap-api-version>
     <jaxb2-maven-plugin-version>3.1.0</jaxb2-maven-plugin-version>
-    <jakarta-xml-ws-api-version>4.0.0</jakarta-xml-ws-api-version>
     <jboss-el-api_3.0_spec-version>2.0.0.Final</jboss-el-api_3.0_spec-version>
     <jboss-logging-version>3.4.3.Final</jboss-logging-version>
     <jboss-marshalling-version>1.4.10.Final</jboss-marshalling-version>
