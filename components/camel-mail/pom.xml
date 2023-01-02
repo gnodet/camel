@@ -32,10 +32,18 @@
     <description>Camel Mail support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            javax.activation.*;version="${javax-activation-version-range}"
-        </camel.osgi.import.before.defaults>
     </properties>
+
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2/</url>
+                </repository>
+                <repository>
+                    <id>jenkinsci-releases</id>
+                    <url>https://repo.jenkins-ci.org/releases/</url>
+                </repository>
+            </repositories>
 
     <dependencies>
         <dependency>

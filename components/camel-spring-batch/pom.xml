@@ -31,8 +31,6 @@
     <description>Camel Spring Batch support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>org.springframework.batch.*;version="[4,6)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

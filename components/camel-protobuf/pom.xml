@@ -33,9 +33,6 @@
     <description>Camel Google Protobuf data format support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            com.google.protobuf.*;version="[3.1,4)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

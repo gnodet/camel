@@ -17,7 +17,7 @@
 
 package org.apache.camel.test.infra.activemq.services;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 
 public interface ConnectionFactoryAware {
     ConnectionFactory createConnectionFactory();

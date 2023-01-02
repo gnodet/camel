@@ -35,7 +35,7 @@
     <properties>
         <firstVersion>2.10.0</firstVersion>
         <label>testing,java,spring</label>
-        <spring-version>${spring5-version}</spring-version>
+        <spring-version>6.0.2</spring-version>
     </properties>
 
     <dependencies>

@@ -32,9 +32,6 @@
     <description>Camel Asterisk to interact with an Asterisk PBX Server</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            org.asteriskjava.*;version="[1.0,4)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

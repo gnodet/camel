@@ -32,9 +32,6 @@
     <description>Camel JClouds support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            com.google.common.*;version="${jclouds-google-guava-version-range}",
-        </camel.osgi.import.before.defaults>
 
 
         <!-- jclouds requires guice 3 -->

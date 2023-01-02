@@ -90,7 +90,7 @@ public class MapperFactory {
                 answer = new DefaultELEngine(ELExpressionFactory.newInstance());
             }
         } else {
-            LOG.warn("Expressions are not supported by Dozer. Are you missing javax.el dependency?");
+            LOG.warn("Expressions are not supported by Dozer. Are you missing jakarta.el dependency?");
 
             answer = new NoopELEngine();
         }

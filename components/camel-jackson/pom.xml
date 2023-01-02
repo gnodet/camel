@@ -33,9 +33,6 @@
     <description>Camel Jackson support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            com.fasterxml.jackson.*;version="[2.13,3)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

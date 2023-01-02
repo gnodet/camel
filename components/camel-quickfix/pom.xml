@@ -32,10 +32,6 @@
     <description>Camel QuickFIX/J support</description>
 
     <properties>
-        <camel.osgi.import>
-            org.slf4j*;resolution:=optional,
-            *
-        </camel.osgi.import>
     </properties>
 
     <dependencies>

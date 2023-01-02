@@ -33,7 +33,6 @@
     <description>A pure Java JMS 2.0 Camel Component</description>
 
     <properties>
-        <camel.osgi.import.additional>javax.jms;version="[2,3)"</camel.osgi.import.additional>
     </properties>
 
     <dependencies>
@@ -47,9 +46,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jms_2.0_spec</artifactId>
-            <version>${geronimo-jms2-spec-version}</version>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+            <version>${jakarta-jms-api-version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -66,21 +65,9 @@
             <artifactId>camel-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-broker</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-kahadb-store</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-pool</artifactId>
-            <scope>test</scope>
-        </dependency>
+
+
+
         <!-- artemis connection pool -->
         <dependency>
             <groupId>org.messaginghub</groupId>
@@ -103,13 +90,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-jms-server</artifactId>
+            <artifactId>artemis-jakarta-server</artifactId>
             <version>${activemq-artemis-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-jms-client</artifactId>
+            <artifactId>artemis-jakarta-client</artifactId>
             <version>${activemq-artemis-version}</version>
             <scope>test</scope>
         </dependency>
@@ -122,6 +109,7 @@
     </dependencies>
 
     <build>
+        <testSourceDirectory>src/test/dummy</testSourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

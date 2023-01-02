@@ -32,9 +32,6 @@
     <description>Camel SCP Support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            com.jcraft.jsch.*;version="[0.2,1)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

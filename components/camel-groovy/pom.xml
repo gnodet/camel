@@ -33,17 +33,6 @@
     <description>Camel Groovy support</description>
 
     <properties>
-        <camel.osgi.import.pkg>
-            !org.apache.camel.component.groovy.*,
-            org.codehaus.groovy.runtime.callsite,
-            org.apache.camel.*;${camel.osgi.import.camel.version},
-            ${camel.osgi.import.defaults},
-            *
-        </camel.osgi.import.pkg>
-        <camel.osgi.dynamic>
-            groovy.*,
-            org.codehaus.groovy.*
-        </camel.osgi.dynamic>
     </properties>
 
     <dependencies>

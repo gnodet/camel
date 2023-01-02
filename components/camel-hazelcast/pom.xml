@@ -32,9 +32,6 @@
     <description>Camel HazelCast based work queue implementation</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            com.hazelcast.*;version="[5,6)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

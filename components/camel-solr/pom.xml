@@ -32,12 +32,6 @@
 
     <properties>
         <java.awt.headless>true</java.awt.headless>
-        <camel.osgi.import.before.defaults>
-            javax.activation.*;version="${javax-activation-version-range}"
-        </camel.osgi.import.before.defaults>
-        <camel.osgi.import.additional>
-            org.apache.solr.*;version="${solr-version-range}"
-        </camel.osgi.import.additional>
     </properties>
 
     <dependencies>

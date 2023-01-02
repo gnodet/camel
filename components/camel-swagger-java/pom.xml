@@ -36,9 +36,6 @@
         <firstVersion>2.16.0</firstVersion>
         <label>rest,api</label>
 
-        <camel.osgi.import.before.defaults>
-            com.fasterxml.jackson.*;version="[2.13,3)"
-        </camel.osgi.import.before.defaults>
         <camel.surefire.parallel>true</camel.surefire.parallel>
     </properties>
 
@@ -76,8 +73,8 @@
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+            <artifactId>jackson-jakarta-rs-json-provider</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

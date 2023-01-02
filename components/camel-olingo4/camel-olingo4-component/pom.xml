@@ -36,7 +36,6 @@
         <maven.exe.file.extension />
         <componentPackage>org.apache.camel.component.olingo4</componentPackage>
         <outPackage>org.apache.camel.component.olingo4.internal</outPackage>
-        <camel.osgi.private.pkg>${outPackage}</camel.osgi.private.pkg>
     </properties>
 
     <dependencies>

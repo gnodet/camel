@@ -31,10 +31,6 @@
     <description>Camel support for Spring LDAP</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            org.springframework.ldap.*;version="[2,3)",
-            org.springframework.transaction.compensating.*;version="[2,3)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

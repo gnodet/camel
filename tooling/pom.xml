@@ -45,6 +45,5 @@
     </modules>
 
     <properties>
-        <camel.osgi.export.pkg />
     </properties>
 </project>

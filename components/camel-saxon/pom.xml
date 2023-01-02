@@ -32,9 +32,6 @@
     <description>Camel Saxon (XQuery/XPath) support</description>
 
     <properties>
-        <camel.osgi.import.additional>
-            net.sf.saxon.*;version="[11,12)"
-        </camel.osgi.import.additional>
 
         <camel.surefire.parallel>true</camel.surefire.parallel>
     </properties>

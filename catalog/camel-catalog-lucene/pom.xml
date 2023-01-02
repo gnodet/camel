@@ -84,10 +84,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-bundle-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 

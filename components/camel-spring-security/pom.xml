@@ -34,8 +34,6 @@
         <firstVersion>2.3.0</firstVersion>
         <label>security,spring</label>
 
-        <camel.osgi.import.before.defaults>org.springframework.security.*;version="[4,5)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

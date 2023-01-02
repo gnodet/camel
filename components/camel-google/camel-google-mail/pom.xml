@@ -37,7 +37,6 @@
         <componentName>GoogleMail</componentName>
         <componentPackage>org.apache.camel.component.google.mail</componentPackage>
         <outPackage>org.apache.camel.component.google.mail.internal</outPackage>
-        <camel.osgi.private.pkg>org.apache.camel.component.google.mail.internal</camel.osgi.private.pkg>
     </properties>
 
     <dependencies>

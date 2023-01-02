@@ -32,9 +32,6 @@
     <description>Camel CMIS which is based on Apache Chemistry support</description>
 
     <properties>
-        <camel.osgi.import>
-            !org.apache.chemistry.opencmis.client.runtime,*
-        </camel.osgi.import>
     </properties>
 
     <dependencies>

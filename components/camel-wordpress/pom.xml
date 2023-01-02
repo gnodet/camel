@@ -34,9 +34,6 @@
     <description>Wordpress REST API support</description>
 
     <properties>
-        <camel.osgi.import.additional>
-            org.apache.cxf.*;version="${cxf-version-range}"
-        </camel.osgi.import.additional>
     </properties>
 
     <dependencies>
@@ -95,8 +92,8 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+            <artifactId>jackson-jakarta-rs-json-provider</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

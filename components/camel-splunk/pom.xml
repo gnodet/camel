@@ -32,9 +32,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            org.joda.time.*;version="[1.6,3)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

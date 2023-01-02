@@ -44,9 +44,9 @@
 
         <!-- CDI API -->
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>${cdi-api-2.0-version}</version>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${jakarta-enterprise-cdi-api-version}</version>
         </dependency>
 
         <!-- logging -->
@@ -93,7 +93,7 @@
                 <dependency>
                     <groupId>org.jboss.weld</groupId>
                     <artifactId>weld-core-impl</artifactId>
-                    <version>${weld3-version}</version>
+                    <version>${weld-version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>

@@ -32,9 +32,6 @@
     <description>Camel Atom support</description>
 
     <properties>
-        <camel.osgi.import.additional>
-            org.apache.abdera.*;version="[0.4,2)"
-        </camel.osgi.import.additional>
     </properties>
 
     <dependencies>

@@ -33,11 +33,6 @@
     <description>Camel JSON Path Language</description>
 
     <properties>
-        <camel.osgi.import>
-            com.fasterxml.jackson.databind,
-            com.fasterxml.jackson.module.jaxb;resolution:=optional,
-            *
-        </camel.osgi.import>
     </properties>
 
     <dependencies>

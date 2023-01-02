@@ -33,10 +33,6 @@
     <description>Gora Component for Apache Camel</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            com.google.common.base;version="[11,14)",
-            org.apache.hadoop.conf;version="[1,2)"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

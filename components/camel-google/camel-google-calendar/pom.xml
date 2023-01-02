@@ -37,7 +37,6 @@
         <componentName>GoogleCalendar</componentName>
         <componentPackage>org.apache.camel.component.google.calendar</componentPackage>
         <outPackage>org.apache.camel.component.google.calendar.internal</outPackage>
-        <camel.osgi.private.pkg>org.apache.camel.component.google.calendar.internal</camel.osgi.private.pkg>
     </properties>
 
     <dependencies>

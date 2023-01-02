@@ -32,10 +32,6 @@
     <description>Camel OPC UA support</description>
 
     <properties>
-        <camel.osgi.import.before.defaults>
-            javax.xml.bind*;version="[2.2,3.0)",
-            com.google.common.*;version="19.0.0"
-        </camel.osgi.import.before.defaults>
     </properties>
 
     <dependencies>

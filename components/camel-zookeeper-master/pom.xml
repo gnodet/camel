@@ -33,11 +33,6 @@
     <description>Camel Zookeeper Master Support</description>
 
     <properties>
-        <camel.osgi.import>
-            !com.google.common.base;,
-            !org.apache.camel.component.zookeepermaster.group,
-            *
-        </camel.osgi.import>
     </properties>
 
     <dependencies>

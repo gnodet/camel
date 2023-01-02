@@ -34,9 +34,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <camel.osgi.import.pkg>
-            *
-        </camel.osgi.import.pkg>
         <firstVersion>2.14.0</firstVersion>
     </properties>
 
