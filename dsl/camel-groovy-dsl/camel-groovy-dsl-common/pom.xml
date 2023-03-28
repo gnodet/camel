@@ -73,9 +73,7 @@
                     <execution>
                         <goals>
                             <goal>addSources</goal>
-                            <goal>addTestSources</goal>
                             <goal>compile</goal>
-                            <goal>compileTests</goal>
                         </goals>
                     </execution>
                 </executions>
