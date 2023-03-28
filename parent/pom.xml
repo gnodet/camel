@@ -349,7 +349,7 @@
         <maven-plugin-testing-harness-version>3.3.0</maven-plugin-testing-harness-version>
         <maven-remote-resources-plugin-version>3.0.0</maven-remote-resources-plugin-version>
         <!-- resources plugin needed by Camel maven archetypes -->
-        <maven-resources-plugin-version>3.3.0</maven-resources-plugin-version>
+        <maven-resources-plugin-version>3.3.1</maven-resources-plugin-version>
         <maven-reporting-api-version>2.2.1</maven-reporting-api-version>
         <maven-reporting-impl-version>2.0.5</maven-reporting-impl-version>
         <maven-resolver-version>1.9.7</maven-resolver-version>
@@ -436,8 +436,8 @@
         <servicemix-specs-version>2.9.0</servicemix-specs-version>
         <shiro-version>1.11.0</shiro-version>
         <slack-api-model-version>1.8.1</slack-api-model-version>
-        <slf4j-api-version>2.0.6</slf4j-api-version>
-        <slf4j-version>2.0.6</slf4j-version>
+        <slf4j-api-version>2.0.7</slf4j-api-version>
+        <slf4j-version>2.0.7</slf4j-version>
         <smack-version>4.3.5</smack-version>
         <smallrye-config-version>3.1.1</smallrye-config-version>
         <smallrye-health-version>4.0.1</smallrye-health-version>
@@ -3025,6 +3025,13 @@
                     <configuration>
                         <encoding>UTF-8</encoding>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.shared</groupId>
+                            <artifactId>maven-filtering</artifactId>
+                            <version>3.3.2-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
