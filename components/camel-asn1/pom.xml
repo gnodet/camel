@@ -91,6 +91,12 @@
     </dependencies>
 
     <build>
+        <!--
+         - The asn1 compiler will always overwrite the files, so to avoid
+         - recompiling and rebuilding downstream dependencies, we use
+         - the maven-resources-plugin to copy the generated sources and
+         - the build-helper-maven-plugin to add the directory as a test source.
+         -->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -114,14 +120,52 @@
                                 </classpath>
                                 <argument>com.beanit.asn1bean.compiler.Compiler</argument>
                                 <argument>-o</argument>
-                                <argument>${basedir}/target/generated/src/test/java</argument>
+                                <argument>${basedir}/target/generated-temp/src/test/java</argument>
                                 <argument>-p</argument>
                                 <argument>org.apache.camel.dataformat.asn1.model</argument>
                                 <argument>-f</argument>
                                 <argument>${basedir}/src/test/resources/asn1_structure/TestSMSCBerCdr.asn1</argument>
                             </arguments>
-                            <testSourceRoot>${basedir}/target/generated/src/test/java</testSourceRoot>
                             <longModulepath>false</longModulepath>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/generated/src/test/java</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/generated-temp/src/test/java</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-generated-test-source-directory</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated/src/test/java</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>

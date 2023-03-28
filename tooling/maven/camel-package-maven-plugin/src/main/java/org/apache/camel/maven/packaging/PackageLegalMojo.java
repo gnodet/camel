@@ -61,7 +61,7 @@ public class PackageLegalMojo extends AbstractGeneratorMojo {
             return;
         }
 
-        boolean exists = new File("src/main/resources/META-INF/LICENSE.txt").exists();
+        boolean exists = new File(project.getBasedir(), "src/main/resources/META-INF/LICENSE.txt").exists();
         if (!exists) {
             try (InputStream isLicense = getClass().getResourceAsStream("/camel-LICENSE.txt")) {
                 String license = IOUtils.toString(isLicense, StandardCharsets.UTF_8);
@@ -71,7 +71,7 @@ public class PackageLegalMojo extends AbstractGeneratorMojo {
             }
         }
 
-        exists = new File("src/main/resources/META-INF/NOTICE.txt").exists();
+        exists = new File(project.getBasedir(), "src/main/resources/META-INF/NOTICE.txt").exists();
         if (!exists) {
             try (InputStream isNotice = getClass().getResourceAsStream("/camel-NOTICE.txt")) {
                 String notice = IOUtils.toString(isNotice, StandardCharsets.UTF_8);

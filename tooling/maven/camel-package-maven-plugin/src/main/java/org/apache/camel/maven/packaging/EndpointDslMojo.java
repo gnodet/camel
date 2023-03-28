@@ -180,6 +180,7 @@ public class EndpointDslMojo extends AbstractGeneratorMojo {
                 throw new MojoFailureException("Error loading license-header-java.txt file", e);
             }
 
+            List<Method> staticBuilders = new ArrayList<>();
             for (List<ComponentModel> compModels : grModels.values()) {
                 // if there are alias then we need to sort scheme according to the alternative schemes position
                 if (compModels.size() > 1) {
@@ -194,7 +195,7 @@ public class EndpointDslMojo extends AbstractGeneratorMojo {
                 }
 
                 ComponentModel model = compModels.get(0); // master component
-                List<String> aliases = compModels.stream().map(ComponentModel::getScheme).collect(Collectors.toList());
+                List<String> aliases = compModels.stream().map(ComponentModel::getScheme).toList();
 
                 String overrideComponentName = null;
                 if (aliases.size() > 1) {
@@ -202,33 +203,36 @@ public class EndpointDslMojo extends AbstractGeneratorMojo {
                     overrideComponentName = model.getArtifactId().replace("camel-", "");
                 }
 
-                createEndpointDsl(model, compModels);
+                createEndpointDsl(model, compModels, staticBuilders);
+            }
+
+            // Update components metadata
+            getLog().debug("Load components EndpointFactories");
+            final List<File> endpointFactories = loadAllComponentsDslEndpointFactoriesAsFile();
+
+            getLog().debug("Regenerate EndpointBuilderFactory");
+            // make sure EndpointBuilderFactory is synced
+            if (synchronizeEndpointBuilderFactoryInterface(endpointFactories)) {
+                getLog().info("Updated EndpointBuilderFactory");
+            }
+
+            getLog().debug("Regenerate EndpointBuilders");
+            // make sure EndpointBuilders is synced
+            if (synchronizeEndpointBuildersInterface(endpointFactories)) {
+                getLog().info("Updated EndpointBuilders");
+            }
+
+            getLog().debug("Regenerate StaticEndpointBuilders");
+            // make sure StaticEndpointBuilders is synced
+            if (synchronizeEndpointBuildersStaticClass(staticBuilders)) {
+                getLog().info("Updated StaticEndpointBuilders");
             }
         }
     }
 
-    private void createEndpointDsl(ComponentModel model, List<ComponentModel> aliases)
+    private void createEndpointDsl(ComponentModel model, List<ComponentModel> aliases, List<Method> staticBuilders)
             throws MojoFailureException {
-        List<Method> staticBuilders = new ArrayList<>();
-        boolean updated = doCreateEndpointDsl(model, aliases, staticBuilders);
-
-        // Update components metadata
-        getLog().debug("Load components EndpointFactories");
-        final List<File> endpointFactories = loadAllComponentsDslEndpointFactoriesAsFile();
-
-        getLog().debug("Regenerate EndpointBuilderFactory");
-        // make sure EndpointBuilderFactory is synced
-        updated |= synchronizeEndpointBuilderFactoryInterface(endpointFactories);
-
-        getLog().debug("Regenerate EndpointBuilders");
-        // make sure EndpointBuilders is synced
-        updated |= synchronizeEndpointBuildersInterface(endpointFactories);
-
-        getLog().debug("Regenerate StaticEndpointBuilders");
-        // make sure StaticEndpointBuilders is synced
-        updated |= synchronizeEndpointBuildersStaticClass(staticBuilders);
-
-        if (updated) {
+        if (doCreateEndpointDsl(model, aliases, staticBuilders)) {
             getLog().info("Updated EndpointDsl: " + model.getScheme());
         }
     }
@@ -970,7 +974,7 @@ public class EndpointDslMojo extends AbstractGeneratorMojo {
         }
 
         // load components
-        return Arrays.stream(files).sorted().collect(Collectors.toUnmodifiableList());
+        return Arrays.stream(files).sorted().toList();
     }
 
     private static String camelCaseLower(String s) {

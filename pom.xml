@@ -81,7 +81,6 @@
         <module>dsl</module>
         <module>archetypes</module>
         <module>tests</module>
-        <module>docs</module>
     </modules>
 
     <scm>
@@ -452,6 +451,18 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>docs</id>
+            <activation>
+                <property>
+                    <name>!nodocs</name>
+                </property>
+            </activation>
+            <modules>
+                <module>docs</module>
+            </modules>
+        </profile>
+
         <profile>
             <id>assembly</id>
             <activation>
