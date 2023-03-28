@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>${cxf-version}</version>            
+            <version>${cxf-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -75,7 +75,6 @@
             <artifactId>cxf-rt-features-logging</artifactId>
             <version>${cxf-version}</version>
         </dependency>
-
 
         <!--  Test Dependencies -->
         <dependency>
@@ -94,7 +93,7 @@
             <artifactId>camel-xpath</artifactId>
             <scope>test</scope>
         </dependency>
-       
+
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-junit5</artifactId>
@@ -160,7 +159,6 @@
             <artifactId>camel-jetty</artifactId>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
@@ -272,7 +270,7 @@
                 <dependency>
                     <groupId>com.sun.xml.parsers</groupId>
                     <artifactId>jaxp-ri</artifactId>
-                    <version>${jaxp-ri-version}</version>                    
+                    <version>${jaxp-ri-version}</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -290,7 +288,7 @@
                         </configuration>
                     </plugin>
                 </plugins>
-           </build>
+            </build>
         </profile>
     </profiles>
 </project>

@@ -30,12 +30,10 @@ public class DataFormatFluentSyntaxTest extends RefDataFormatTest {
             public void configure() {
                 // START SNIPPET: e1
                 from("direct:a").marshal(
-                    dataFormat().custom().ref("reverse").end()
-                ).to("mock:a");
+                        dataFormat().custom().ref("reverse").end()).to("mock:a");
 
                 from("direct:b").unmarshal(
-                    dataFormat().custom().ref("reverse").end()
-                ).to("mock:b");
+                        dataFormat().custom().ref("reverse").end()).to("mock:b");
                 // END SNIPPET: e1
             }
         };

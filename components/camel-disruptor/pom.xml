@@ -25,14 +25,13 @@
         <artifactId>components</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-
-    <name>Camel :: Disruptor</name>
     <artifactId>camel-disruptor</artifactId>
-    <description>Camel :: Disruptor component</description>
     <packaging>jar</packaging>
 
-    <properties>
-    </properties>
+    <name>Camel :: Disruptor</name>
+    <description>Camel :: Disruptor component</description>
+
+    <properties />
 
     <dependencies>
         <dependency>

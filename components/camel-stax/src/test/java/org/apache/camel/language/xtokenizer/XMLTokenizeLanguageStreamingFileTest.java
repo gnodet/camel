@@ -56,7 +56,8 @@ public class XMLTokenizeLanguageStreamingFileTest extends CamelTestSupport {
             Namespaces ns = new Namespaces("C", "urn:c");
 
             public void configure() {
-                from(TestSupport.fileUri(testDirectory, "?initialDelay=0&delay=10")).split().xtokenize("//C:child", ns).streaming()
+                from(TestSupport.fileUri(testDirectory, "?initialDelay=0&delay=10")).split().xtokenize("//C:child", ns)
+                        .streaming()
                         .to("mock:result").end();
             }
         };

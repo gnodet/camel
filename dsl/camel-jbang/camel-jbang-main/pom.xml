@@ -54,14 +54,13 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/jbang/main</directory>
                 <targetPath>${basedir}/dist</targetPath>
+                <directory>src/main/jbang/main</directory>
                 <includes>
                     <include>**/*.java</include>
                 </includes>
             </resource>
         </resources>
-        <sourceDirectory>src/main/jbang</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -76,6 +75,9 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
@@ -87,12 +89,10 @@
                                 <chmod file="${dist.dir}/*.java" perm="u+x" />
                             </target>
                         </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
+        <sourceDirectory>src/main/jbang</sourceDirectory>
     </build>
 </project>

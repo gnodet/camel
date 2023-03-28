@@ -32,8 +32,7 @@
     <name>Camel :: Azure :: ServiceBus</name>
     <description>Camel Azure ServiceBus Component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

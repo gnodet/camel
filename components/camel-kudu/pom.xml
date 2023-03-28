@@ -31,51 +31,6 @@
     <name>Camel :: Kudu</name>
     <description>Camel Apache Kudu support</description>
 
-    <profiles>
-        <profile>
-            <id>jdk17-build</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-opens java.base/java.net=ALL-UNNAMED</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- kudu-binary is not available for Windows. It is needed for tests, so skip that -->
-            <id>Windows</id>
-            <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
-            </activation>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-                <os.detected.classifier>linux-x86_64</os.detected.classifier> <!-- Fake classifier to allow dependency resolution. kudu-binary will not be executed anyway on Windows -->
-            </properties>
-        </profile>
-        <profile>
-            <!-- kudu-binary is not available for Apple. It is needed for tests, so skip that -->
-            <id>Apple-Arm64-SkipTests</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                </os>
-            </activation>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-                <os.detected.classifier>linux-x86_64</os.detected.classifier> <!-- Fake classifier to allow dependency resolution. kudu-binary will not be executed anyway on Windows -->
-            </properties>
-        </profile>
-    </profiles>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -133,4 +88,51 @@
             </extension>
         </extensions>
     </build>
+
+    <profiles>
+        <profile>
+            <id>jdk17-build</id>
+            <activation>
+                <jdk>[17,)</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>--add-opens java.base/java.net=ALL-UNNAMED</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- kudu-binary is not available for Windows. It is needed for tests, so skip that -->
+            <id>Windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <os.detected.classifier>linux-x86_64</os.detected.classifier>
+                <!-- Fake classifier to allow dependency resolution. kudu-binary will not be executed anyway on Windows -->
+            </properties>
+        </profile>
+        <profile>
+            <!-- kudu-binary is not available for Apple. It is needed for tests, so skip that -->
+            <id>Apple-Arm64-SkipTests</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <os.detected.classifier>linux-x86_64</os.detected.classifier>
+                <!-- Fake classifier to allow dependency resolution. kudu-binary will not be executed anyway on Windows -->
+            </properties>
+        </profile>
+    </profiles>
 </project>

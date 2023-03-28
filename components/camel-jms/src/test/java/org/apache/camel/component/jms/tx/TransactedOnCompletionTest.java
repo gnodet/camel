@@ -64,11 +64,11 @@ public class TransactedOnCompletionTest extends CamelTestSupport {
             @Override
             public void configure() {
                 from("direct:start")
-                    .onCompletion()
-                    .setBody(simple("onCompletion"))
-                    .to("mock:onCompletion")
-                    .end()
-                    .to("jms:queue:test.queue?transacted=true");
+                        .onCompletion()
+                        .setBody(simple("onCompletion"))
+                        .to("mock:onCompletion")
+                        .end()
+                        .to("jms:queue:test.queue?transacted=true");
 
                 from("jms:queue:test.queue?transacted=true")
                         .to("mock:result");

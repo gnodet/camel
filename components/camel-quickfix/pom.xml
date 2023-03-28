@@ -31,8 +31,7 @@
     <name>Camel :: QuickFIX/J</name>
     <description>Camel QuickFIX/J support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

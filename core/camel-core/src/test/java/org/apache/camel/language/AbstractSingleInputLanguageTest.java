@@ -57,13 +57,12 @@ public abstract class AbstractSingleInputLanguageTest<
             @Override
             public void configure() {
                 from("direct:expression-only")
-                    .split(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .end()
-                        )
-                    ).to("mock:expression-only");
+                        .split(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .end()))
+                        .to("mock:expression-only");
             }
         });
         context.start();
@@ -83,14 +82,13 @@ public abstract class AbstractSingleInputLanguageTest<
             @Override
             public void configure() {
                 from("direct:header-only")
-                    .split(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .headerName("someHeader")
-                                .end()
-                        )
-                    ).to("mock:header-only");
+                        .split(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .headerName("someHeader")
+                                                .end()))
+                        .to("mock:header-only");
             }
         });
         context.start();
@@ -110,13 +108,12 @@ public abstract class AbstractSingleInputLanguageTest<
             @Override
             public void configure() {
                 from("direct:property-only")
-                    .split(
-                        expression(factory.apply(expression())
-                            .expression(expression)
-                            .propertyName("someProperty")
-                            .end()
-                        )
-                    ).to("mock:property-only");
+                        .split(
+                                expression(factory.apply(expression())
+                                        .expression(expression)
+                                        .propertyName("someProperty")
+                                        .end()))
+                        .to("mock:property-only");
             }
         });
         context.start();
@@ -137,15 +134,14 @@ public abstract class AbstractSingleInputLanguageTest<
             @Override
             public void configure() {
                 from("direct:all")
-                    .split(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .headerName("someHeader")
-                                .propertyName("someProperty")
-                                .end()
-                        )
-                    ).to("mock:all");
+                        .split(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .headerName("someHeader")
+                                                .propertyName("someProperty")
+                                                .end()))
+                        .to("mock:all");
             }
         });
         context.start();

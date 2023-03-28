@@ -31,8 +31,7 @@
     <name>Camel :: Vert.x :: WebSocket</name>
     <description>Expose WebSocket endpoints and connect to remote WebSocket servers using Vert.x</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

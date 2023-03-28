@@ -59,14 +59,14 @@ public class ManagedDisabledTest extends ManagementTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .to("mock:foo")
-                    .choice().disabled().id("mychoice")
+                        .to("mock:foo")
+                        .choice().disabled().id("mychoice")
                         .when(xpath("/bar")).to("mock:bar")
                         .when(xpath("/baz")).to("mock:baz")
-                    .end()
-                    .to("mock:baz").disabled(true).id("mybaz")
-                    .log("Hello World").disabled("true").id("mylog")
-                    .to("mock:result");
+                        .end()
+                        .to("mock:baz").disabled(true).id("mybaz")
+                        .log("Hello World").disabled("true").id("mylog")
+                        .to("mock:result");
             }
         };
     }

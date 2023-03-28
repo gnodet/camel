@@ -80,7 +80,8 @@ public class ClusteredJdbcAggregateRecoverTest extends AbstractClusteredJdbcAggr
                                 }
                             }
                         }).to("mock:result").end();
-                from("direct:tutu").aggregate(header("id"), new MyAggregationStrategy()).completionSize(5).aggregationRepository(repobis)
+                from("direct:tutu").aggregate(header("id"), new MyAggregationStrategy()).completionSize(5)
+                        .aggregationRepository(repobis)
                         .log("aggregated exchange id ${exchangeId} with ${body}").log("recover bis!!!!!!!!!!!!!!!!!").end();
             }
         };

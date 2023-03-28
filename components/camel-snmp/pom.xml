@@ -31,8 +31,7 @@
     <name>Camel :: SNMP</name>
     <description>Camel SNMP support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -42,16 +41,16 @@
         </dependency>
         <dependency>
             <groupId>org.snmp4j</groupId>
-	    <artifactId>snmp4j</artifactId>
-	    <version>${snmp4j-version}</version>
+            <artifactId>snmp4j</artifactId>
+            <version>${snmp4j-version}</version>
         </dependency>
 
         <!-- testing -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-junit5</artifactId>
-            <optional>true</optional>
             <scope>test</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

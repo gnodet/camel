@@ -111,20 +111,20 @@ public class ChoiceCompoundPredicateSimpleTest extends ContextTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 from("direct:or")
-                    .choice()
+                        .choice()
                         .when(or(body().isNull(), simple("${body.size()} == 0")))
                         .to("mock:empty")
-                    .otherwise()
+                        .otherwise()
                         .to("mock:data")
-                    .end();
+                        .end();
 
                 from("direct:simple")
-                    .choice()
+                        .choice()
                         .when(simple("${body} == null || ${body.size()} == 0"))
                         .to("mock:empty")
-                    .otherwise()
+                        .otherwise()
                         .to("mock:data")
-                    .end();
+                        .end();
             }
         };
     }

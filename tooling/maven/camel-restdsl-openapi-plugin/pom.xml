@@ -112,17 +112,6 @@
                         <goal>verify</goal>
                     </goals>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>install</goal>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.groovy</groupId>
@@ -130,6 +119,17 @@
                         <version>${groovy-version}</version>
                     </dependency>
                 </dependencies>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -138,7 +138,7 @@
         <profile>
             <id>fastinstall</id>
             <activation>
-            <activeByDefault>true</activeByDefault>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>skipTests</name>
                 </property>

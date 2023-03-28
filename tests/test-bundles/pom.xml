@@ -33,6 +33,11 @@
     <packaging>pom</packaging>
     <name>Camel :: Integration Tests :: Test Bundles</name>
 
+    <modules>
+        <!--module>mock-javamail_1.7</module-->
+        <module>camel-validator-test-resources</module>
+    </modules>
+
     <properties>
         <servicemix.legal.version>1.0</servicemix.legal.version>
     </properties>
@@ -82,13 +87,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.servicemix.legal</groupId>
+                        <artifactId>legal</artifactId>
+                        <version>${servicemix.legal.version}</version>
+                        <type>xml</type>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>copy-legal</id>
-                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
@@ -103,14 +116,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.servicemix.legal</groupId>
-                        <artifactId>legal</artifactId>
-                        <version>${servicemix.legal.version}</version>
-                        <type>xml</type>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -138,9 +143,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <modules>
-        <!--module>mock-javamail_1.7</module-->
-        <module>camel-validator-test-resources</module>
-    </modules>
 </project>

@@ -53,7 +53,8 @@ public class ResilienceRouteBulkheadFallbackTest extends CamelTestSupport {
                         .throwException(new IllegalArgumentException("Forced"))
                         .onFallback().transform().constant("Fallback message").end().to("log:result").to("mock:result");
 
-                from("direct:start.with.timeout.enabled").to("log:direct:start.with.timeout.enabled").circuitBreaker().resilience4jConfiguration().bulkheadEnabled(true)
+                from("direct:start.with.timeout.enabled").to("log:direct:start.with.timeout.enabled").circuitBreaker()
+                        .resilience4jConfiguration().bulkheadEnabled(true)
                         .timeoutEnabled(true).timeoutDuration(2000).end()
                         .throwException(new IllegalArgumentException("Forced"))
                         .onFallback().transform().constant("Fallback message").end().to("log:result").to("mock:result");

@@ -30,10 +30,10 @@ public class JsonPathChoicePrimitiveTest extends CamelTestSupport {
             public void configure() {
                 from("direct:start")
                         .choice()
-                            .when().jsonpath("$[?(@.counter>0)]")
-                                .to("mock:positive")
-                            .otherwise()
-                                .to("mock:zero")
+                        .when().jsonpath("$[?(@.counter>0)]")
+                        .to("mock:positive")
+                        .otherwise()
+                        .to("mock:zero")
                         .end();
             }
         };

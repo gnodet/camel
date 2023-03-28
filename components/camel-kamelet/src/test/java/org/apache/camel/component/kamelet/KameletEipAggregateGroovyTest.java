@@ -56,11 +56,11 @@ public class KameletEipAggregateGroovyTest extends CamelTestSupport {
                         .templateParameter("count")
                         .from("kamelet:source")
                         .aggregate(constant(true))
-                            .completionSize("{{count}}")
-                            // use the groovy script bean for aggregation
-                            .aggregationStrategy("{{myAgg}}")
-                            .to("log:aggregate")
-                            .to("kamelet:sink")
+                        .completionSize("{{count}}")
+                        // use the groovy script bean for aggregation
+                        .aggregationStrategy("{{myAgg}}")
+                        .to("log:aggregate")
+                        .to("kamelet:sink")
                         .end();
 
                 from("direct:start")

@@ -55,7 +55,6 @@
             <artifactId>camel-spring</artifactId>
         </dependency>
 
-
         <!--  Test Dependencies -->
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -99,8 +98,8 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-infra-artemis</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
             <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
 
         <!-- test for cxf failover feature -->
@@ -266,6 +265,11 @@
             <!-- generate the attached tests jar -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>log4j2.properties</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -273,11 +277,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>log4j2.properties</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -298,10 +297,10 @@
                 <executions>
                     <execution>
                         <id>attach-artifacts</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>attach-artifact</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <artifacts>
                                 <artifact>
@@ -320,6 +319,9 @@
                 <executions>
                     <execution>
                         <id>generate-sources</id>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
                         <phase>generate-sources</phase>
                         <configuration>
                             <fork>${cxf.codegenplugin.forkmode}</fork>
@@ -348,8 +350,7 @@
                                     <wsdl>${basedir}/src/test/resources/person-non-wrapper.wsdl</wsdl>
                                     <extraargs>
                                         <extraarg>-b</extraarg>
-                                        <extraarg>${basedir}/src/test/resources/person-non-wrapper-binding.xml
-                                        </extraarg>
+                                        <extraarg>${basedir}/src/test/resources/person-non-wrapper-binding.xml</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                                 <wsdlOption>
@@ -367,9 +368,6 @@
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -379,24 +377,24 @@
                 <executions>
                     <execution>
                         <id>copy-spring-meta-filter</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <phase>process-resources</phase>
                         <configuration>
                             <target>
                                 <echo>Copying spring meta files</echo>
-                                <copy todir="${project.build.directory}/spring-meta" preservelastmodified="true">
+                                <copy preservelastmodified="true" todir="${project.build.directory}/spring-meta">
                                     <fileset dir="${project.basedir}/src/main/resources">
                                         <include name="**/spring.*" />
                                     </fileset>
                                 </copy>
-                                <replace file="${project.build.directory}/spring-meta/META-INF/spring.schemas" token="$${camel.version}" value="${project.version}" preservelastmodified="true" />
-                                <copy todir="${project.build.directory}/classes" preservelastmodified="true">
+                                <replace file="${project.build.directory}/spring-meta/META-INF/spring.schemas" preservelastmodified="true" token="$${camel.version}" value="${project.version}" />
+                                <copy preservelastmodified="true" todir="${project.build.directory}/classes">
                                     <fileset dir="${project.build.directory}/spring-meta" />
                                 </copy>
                             </target>
                         </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -438,7 +436,7 @@
                         </configuration>
                     </plugin>
                 </plugins>
-           </build>
+            </build>
         </profile>
     </profiles>
 </project>

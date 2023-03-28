@@ -32,8 +32,7 @@
     <name>Camel :: Ehcache</name>
     <description>Camel Ehcache support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

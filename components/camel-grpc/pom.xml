@@ -164,16 +164,7 @@
 
     </dependencies>
 
-
     <build>
-        <extensions>
-            <!-- Operating system and CPU architecture detection extension -->
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${os-maven-plugin-version}</version>
-            </extension>
-        </extensions>
 
         <plugins>
             <!--
@@ -189,21 +180,6 @@
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
                 <version>${gmavenplus-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <scripts>
-                                <script><![CDATA[
-                  project.properties['skipTests']=project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true';
-                ]]></script>
-                            </scripts>
-                        </configuration>
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.groovy</groupId>
@@ -218,6 +194,19 @@
                         <scope>runtime</scope>
                     </dependency>
                 </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[project.properties['skipTests']=project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true';]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- gRPC and protobuf Java code generator plugin -->
@@ -226,11 +215,9 @@
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>${protobuf-maven-plugin-version}</version>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protobuf-version}:exe:${os.detected.classifier}
-                    </protocArtifact>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf-version}:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc-version}:exe:${os.detected.classifier}
-                    </pluginArtifact>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc-version}:exe:${os.detected.classifier}</pluginArtifact>
                     <checkStaleness>true</checkStaleness>
                     <skip>${skipTests}</skip>
                 </configuration>
@@ -249,10 +236,10 @@
                 <executions>
                     <execution>
                         <id>default-testCompile</id>
-                        <phase>test-compile</phase>
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
+                        <phase>test-compile</phase>
                         <configuration>
                             <skip>${skipTests}</skip>
                         </configuration>
@@ -281,5 +268,13 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <extensions>
+            <!-- Operating system and CPU architecture detection extension -->
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>${os-maven-plugin-version}</version>
+            </extension>
+        </extensions>
     </build>
 </project>

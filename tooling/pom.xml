@@ -44,6 +44,5 @@
         <module>camel-tooling-maven</module>
     </modules>
 
-    <properties>
-    </properties>
+    <properties />
 </project>

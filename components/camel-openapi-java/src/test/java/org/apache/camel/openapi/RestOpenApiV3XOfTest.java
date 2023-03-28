@@ -56,7 +56,7 @@ public class RestOpenApiV3XOfTest extends CamelTestSupport {
 
                         .consumes("application/json")
                         .produces("application/json")
-                         .type(OneOfFormWrapper.class)
+                        .type(OneOfFormWrapper.class)
                         .responseMessage()
                         .code(200).message("Ok")
                         .endResponseMessage()

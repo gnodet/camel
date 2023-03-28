@@ -39,10 +39,10 @@ public class Split123ParallelTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .split(body().tokenize(","), new StringAggregationStrategy()).parallelProcessing()
+                        .split(body().tokenize(","), new StringAggregationStrategy()).parallelProcessing()
                         .to("mock:foo")
-                    .end()
-                    .to("mock:result");
+                        .end()
+                        .to("mock:result");
             }
         };
     }

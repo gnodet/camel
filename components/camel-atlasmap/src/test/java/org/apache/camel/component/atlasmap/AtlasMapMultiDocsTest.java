@@ -19,6 +19,9 @@ package org.apache.camel.component.atlasmap;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.xmlunit.builder.Input;
+import org.xmlunit.xpath.JAXPXPathEngine;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.atlasmap.java.test.SourceContact;
@@ -32,8 +35,6 @@ import org.apache.camel.test.spring.junit5.CamelSpringTestSupport;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.xmlunit.builder.Input;
-import org.xmlunit.xpath.JAXPXPathEngine;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

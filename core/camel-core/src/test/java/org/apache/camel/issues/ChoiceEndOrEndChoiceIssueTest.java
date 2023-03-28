@@ -38,9 +38,9 @@ public class ChoiceEndOrEndChoiceIssueTest extends ContextTestSupport {
                 public void configure() throws Exception {
                     from("direct:start")
                             .choice()
-                                .when(header("number").isEqualTo("one")).to("mock:one")
-                                .when(header("number").isEqualTo("two")).to("mock:two")
-                                .when(header("number").isEqualTo("three")).to("mock:three").endChoice()
+                            .when(header("number").isEqualTo("one")).to("mock:one")
+                            .when(header("number").isEqualTo("two")).to("mock:two")
+                            .when(header("number").isEqualTo("three")).to("mock:three").endChoice()
                             .to("mock:finally");
                 }
             });
@@ -60,9 +60,9 @@ public class ChoiceEndOrEndChoiceIssueTest extends ContextTestSupport {
             public void configure() throws Exception {
                 from("direct:start")
                         .choice()
-                            .when(header("number").isEqualTo("one")).to("mock:one")
-                            .when(header("number").isEqualTo("two")).to("mock:two")
-                            .when(header("number").isEqualTo("three")).to("mock:three")
+                        .when(header("number").isEqualTo("one")).to("mock:one")
+                        .when(header("number").isEqualTo("two")).to("mock:two")
+                        .when(header("number").isEqualTo("three")).to("mock:three")
                         .end()
                         .to("mock:finally");
             }
@@ -88,9 +88,9 @@ public class ChoiceEndOrEndChoiceIssueTest extends ContextTestSupport {
             public void configure() throws Exception {
                 from("direct:start")
                         .choice()
-                            .when(header("number").isEqualTo("one")).to("mock:one")
-                            .when(header("number").isEqualTo("two")).to("mock:two")
-                            .when(header("number").isEqualTo("three")).to("mock:three").endChoice()
+                        .when(header("number").isEqualTo("one")).to("mock:one")
+                        .when(header("number").isEqualTo("two")).to("mock:two")
+                        .when(header("number").isEqualTo("three")).to("mock:three").endChoice()
                         .end()
                         .to("mock:finally");
             }

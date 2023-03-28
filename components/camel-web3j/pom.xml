@@ -31,8 +31,7 @@
     <name>Camel :: Web3j</name>
     <description>Camel Ethereum support through Web3j</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

@@ -215,16 +215,14 @@
                 <executions>
                     <execution>
                         <id>copy-it-resources</id>
-                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
+                        <phase>generate-test-sources</phase>
                         <configuration>
                             <encoding>UTF-8</encoding>
                             <overwrite>true</overwrite>
-                            <outputDirectory>
-                                ${project.build.directory}/it/all-it/src/main/java/org/apache/camel/component/test
-                            </outputDirectory>
+                            <outputDirectory>${project.build.directory}/it/all-it/src/main/java/org/apache/camel/component/test</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/test/java/org/apache/camel/component/test</directory>
@@ -241,10 +239,10 @@
                 <executions>
                     <execution>
                         <id>add-generated-test-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>add-test-source</goal>
                         </goals>
+                        <phase>verify</phase>
                         <configuration>
                             <sources>
                                 <source>${project.build.directory}/generated-test-sources/camel-component</source>
@@ -259,10 +257,10 @@
                 <executions>
                     <execution>
                         <id>validate-generated-test-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
+                        <phase>verify</phase>
                         <configuration>
                             <fork>false</fork>
                         </configuration>

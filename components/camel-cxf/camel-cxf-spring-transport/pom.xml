@@ -37,8 +37,6 @@
         <label>soap,webservice</label>
         <title>CXF Transport</title>
 
-
-
     </properties>
 
     <dependencies>
@@ -52,7 +50,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf-transport</artifactId>
         </dependency>
-
 
         <!-- for testing -->
         <dependency>
@@ -87,6 +84,9 @@
                 <executions>
                     <execution>
                         <id>generate-test-sources</id>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
                         <phase>generate-sources</phase>
                         <configuration>
                             <fork>${cxf.codegenplugin.forkmode}</fork>
@@ -101,14 +101,10 @@
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
 
 </project>

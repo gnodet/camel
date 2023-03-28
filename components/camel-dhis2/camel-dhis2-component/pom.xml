@@ -67,11 +67,36 @@
     <build>
         <defaultGoal>install</defaultGoal>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-api-component-maven-plugin</artifactId>
+                    <version>${project.version}</version>
+                    <configuration>
+                        <scheme>${schemeName}</scheme>
+                        <componentName>${componentName}</componentName>
+                        <componentPackage>${componentPackage}</componentPackage>
+                        <outPackage>${outPackage}</outPackage>
+                        <nullableOptions>true</nullableOptions>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <!-- generate Component source and test source -->
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-api-component-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-dhis2-api</artifactId>
+                        <version>${project.version}</version>
+                        <classifier>sources</classifier>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-test-component-classes</id>
@@ -116,33 +141,8 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-dhis2-api</artifactId>
-                        <version>${project.version}</version>
-                        <classifier>sources</classifier>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-api-component-maven-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <scheme>${schemeName}</scheme>
-                        <componentName>${componentName}</componentName>
-                        <componentPackage>${componentPackage}</componentPackage>
-                        <outPackage>${outPackage}</outPackage>
-                        <nullableOptions>true</nullableOptions>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
     <reporting>

@@ -49,14 +49,13 @@ public class RestOpenApiReaderModelBookOrderTest extends CamelTestSupport {
             @Override
             public void configure() {
                 rest()
-                    .securityDefinitions()
-                    .oauth2("global")
-                    .accessCode(
-                        "https://AUTHORIZATION_URL",
-                        "https://TOKEN_URL"
-                    )
-                    .withScope("groups", "Required scopes for Camel REST APIs")
-                    .end();
+                        .securityDefinitions()
+                        .oauth2("global")
+                        .accessCode(
+                                "https://AUTHORIZATION_URL",
+                                "https://TOKEN_URL")
+                        .withScope("groups", "Required scopes for Camel REST APIs")
+                        .end();
 
                 // this user REST service is json only
                 rest("/books").tag("dude").description("Book order service").consumes("application/json")

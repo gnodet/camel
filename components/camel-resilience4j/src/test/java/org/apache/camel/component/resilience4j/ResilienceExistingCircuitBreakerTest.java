@@ -70,7 +70,8 @@ public class ResilienceExistingCircuitBreakerTest extends CamelTestSupport {
                         .throwException(new IllegalArgumentException("Forced")).onFallback().transform()
                         .constant("Fallback message").end().to("log:result").to("mock:result");
 
-                from("direct:start.with.timeout.enabled").to("log:direct:start.with.timeout.enabled").circuitBreaker().resilience4jConfiguration()
+                from("direct:start.with.timeout.enabled").to("log:direct:start.with.timeout.enabled").circuitBreaker()
+                        .resilience4jConfiguration()
                         .circuitBreaker("myCircuitBreaker").timeoutEnabled(true).timeoutDuration(2000).end()
                         .throwException(new IllegalArgumentException("Forced")).onFallback().transform()
                         .constant("Fallback message").end().to("log:result").to("mock:result");

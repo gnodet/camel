@@ -68,12 +68,12 @@ public class ErrorHandlerDynamicContinueTest extends ContextTestSupport {
                         });
 
                 from("direct:start")
-                    .to("mock:start")
-                    .choice()
+                        .to("mock:start")
+                        .choice()
                         .when(simple("${header.exception} == 'iae'")).throwException(new IllegalArgumentException("Forced"))
                         .otherwise().throwException(new UnsupportedOperationException())
-                    .end()
-                    .to("mock:result");
+                        .end()
+                        .to("mock:result");
             }
         };
     }

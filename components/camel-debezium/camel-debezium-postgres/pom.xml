@@ -59,22 +59,6 @@
                 <groupId>org.apache.camel.maven</groupId>
                 <artifactId>camel-debezium-maven-plugin</artifactId>
                 <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate-connector-config</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>io.debezium</groupId>
-                        <artifactId>debezium-connector-postgres</artifactId>
-                        <version>${debezium-version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <connectorClassName>io.debezium.connector.postgresql.PostgresConnector</connectorClassName>
                     <connectorConfigClassName>io.debezium.connector.postgresql.PostgresConnectorConfig</connectorConfigClassName>
@@ -87,6 +71,22 @@
                     </requiredFields>
                     <generatedSrcDir>${project.basedir}/src/generated/java</generatedSrcDir>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.debezium</groupId>
+                        <artifactId>debezium-connector-postgres</artifactId>
+                        <version>${debezium-version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate-connector-config</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

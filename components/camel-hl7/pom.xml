@@ -31,8 +31,7 @@
     <name>Camel :: HL7</name>
     <description>Camel HL7 support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -41,7 +40,7 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core-engine</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>ca.uhn.hapi</groupId>
             <artifactId>hapi-base</artifactId>

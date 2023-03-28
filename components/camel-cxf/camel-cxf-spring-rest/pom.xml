@@ -155,7 +155,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
@@ -169,7 +168,6 @@
             <version>${cxf-version}</version>
             <scope>test</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -251,6 +249,11 @@
             <!-- generate the attached tests jar -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>log4j2.properties</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -258,11 +261,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>log4j2.properties</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -283,10 +281,10 @@
                 <executions>
                     <execution>
                         <id>attach-artifacts</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>attach-artifact</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <artifacts>
                                 <artifact>
@@ -305,24 +303,24 @@
                 <executions>
                     <execution>
                         <id>copy-spring-meta-filter</id>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <phase>process-resources</phase>
                         <configuration>
                             <target>
                                 <echo>Copying spring meta files</echo>
-                                <copy todir="${project.build.directory}/spring-meta" preservelastmodified="true">
+                                <copy preservelastmodified="true" todir="${project.build.directory}/spring-meta">
                                     <fileset dir="${project.basedir}/src/main/resources">
                                         <include name="**/spring.*" />
                                     </fileset>
                                 </copy>
-                                <replace file="${project.build.directory}/spring-meta/META-INF/spring.schemas" token="$${camel.version}" value="${project.version}" preservelastmodified="true" />
-                                <copy todir="${project.build.directory}/classes" preservelastmodified="true">
+                                <replace file="${project.build.directory}/spring-meta/META-INF/spring.schemas" preservelastmodified="true" token="$${camel.version}" value="${project.version}" />
+                                <copy preservelastmodified="true" todir="${project.build.directory}/classes">
                                     <fileset dir="${project.build.directory}/spring-meta" />
                                 </copy>
                             </target>
                         </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -364,7 +362,7 @@
                         </configuration>
                     </plugin>
                 </plugins>
-           </build>
+            </build>
         </profile>
     </profiles>
 </project>

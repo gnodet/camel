@@ -826,10 +826,10 @@ public class RestApiIntegrationTest extends AbstractSalesforceTestBase {
                         .filter(simple("${body.records.size} > 0"))
                         .split(simple("${body.records}"),
                                 AggregationStrategies.flexible().accumulateInCollection(ArrayList.class))
-                            .transform(simple("${body.id}"))
+                        .transform(simple("${body.id}"))
                         .end()
                         .split(simple("${collate(200)}"))
-                            .to("salesforce:compositeDeleteSObjectCollections")
+                        .to("salesforce:compositeDeleteSObjectCollections")
                         .end();
 
                 from("direct:createLineItem").to("salesforce:createSObject?sObjectName=Line_Item__c");

@@ -31,8 +31,7 @@
     <name>Camel :: Util :: JSon</name>
     <description>A json simple parser that preserves the ordering in Map as read from JSon source</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <!-- testing -->

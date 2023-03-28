@@ -52,12 +52,12 @@ public class TransactedSplitAggregateThreadStuckTest extends TransactionClientDa
                         .to("direct:aggregate");
 
                 from("direct:aggregate")
-                    .aggregate(constant("true"))
-                    .completionSize(1).aggregationStrategy(new StringAggregationStrategy())
+                        .aggregate(constant("true"))
+                        .completionSize(1).aggregationStrategy(new StringAggregationStrategy())
                         .log("Aggregated ${threadName}")
                         .setBody(simple("Aggregated ${body}"))
                         .to("mock:result", "mock:aggregated")
-                    .end();
+                        .end();
             }
         };
     }

@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 EKS</name>
     <description>A Camel Amazon EKS Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

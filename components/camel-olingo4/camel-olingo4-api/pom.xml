@@ -28,9 +28,9 @@
     </parent>
 
     <artifactId>camel-olingo4-api</artifactId>
+    <packaging>jar</packaging>
     <name>Camel :: Olingo4 :: API</name>
     <description>Camel Olingo4 API</description>
-    <packaging>jar</packaging>
 
     <properties>
         <firstVersion>2.19.0</firstVersion>
@@ -95,10 +95,10 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>

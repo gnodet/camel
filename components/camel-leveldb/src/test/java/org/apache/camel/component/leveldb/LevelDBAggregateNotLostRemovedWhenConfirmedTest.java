@@ -79,9 +79,9 @@ public class LevelDBAggregateNotLostRemovedWhenConfirmedTest extends LevelDBTest
             public void configure() {
                 from("direct:start")
                         .aggregate(header("id"), new MyAggregationStrategy())
-                            .completionSize(5).aggregationRepository(repo)
-                            .log("aggregated exchange id ${exchangeId} with ${body}")
-                            .to("mock:result")
+                        .completionSize(5).aggregationRepository(repo)
+                        .log("aggregated exchange id ${exchangeId} with ${body}")
+                        .to("mock:result")
                         .end();
             }
         };

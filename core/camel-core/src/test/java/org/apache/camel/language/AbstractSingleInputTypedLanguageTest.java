@@ -46,15 +46,14 @@ public abstract class AbstractSingleInputTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:header-only")
-                    .setBody()
-                    .expression(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .headerName("someHeader")
-                                .end()
-                        )
-                    ).to("mock:header-only");
+                        .setBody()
+                        .expression(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .headerName("someHeader")
+                                                .end()))
+                        .to("mock:header-only");
             }
         });
         context.start();
@@ -74,14 +73,13 @@ public abstract class AbstractSingleInputTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:property-only")
-                    .setBody()
-                    .expression(
-                        expression(factory.apply(expression())
-                            .expression(expression)
-                            .propertyName("someProperty")
-                            .end()
-                        )
-                    ).to("mock:property-only");
+                        .setBody()
+                        .expression(
+                                expression(factory.apply(expression())
+                                        .expression(expression)
+                                        .propertyName("someProperty")
+                                        .end()))
+                        .to("mock:property-only");
             }
         });
         context.start();
@@ -102,16 +100,15 @@ public abstract class AbstractSingleInputTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:header-and-type")
-                    .setBody()
-                    .expression(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .headerName("someHeader")
-                                .resultType(testContext.getBodyReceivedType())
-                                .end()
-                        )
-                    ).to("mock:header-and-type");
+                        .setBody()
+                        .expression(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .headerName("someHeader")
+                                                .resultType(testContext.getBodyReceivedType())
+                                                .end()))
+                        .to("mock:header-and-type");
             }
         });
         context.start();
@@ -132,16 +129,15 @@ public abstract class AbstractSingleInputTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:property-and-type")
-                    .setBody()
-                    .expression(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .propertyName("someProperty")
-                                .resultType(testContext.getBodyReceivedType())
-                                .end()
-                        )
-                    ).to("mock:property-and-type");
+                        .setBody()
+                        .expression(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .propertyName("someProperty")
+                                                .resultType(testContext.getBodyReceivedType())
+                                                .end()))
+                        .to("mock:property-and-type");
             }
         });
         context.start();
@@ -161,17 +157,16 @@ public abstract class AbstractSingleInputTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:all")
-                    .setBody()
-                    .expression(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .headerName("someHeader")
-                                .propertyName("someProperty")
-                                .resultType(testContext.getBodyReceivedType())
-                                .end()
-                        )
-                    ).to("mock:all");
+                        .setBody()
+                        .expression(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .headerName("someHeader")
+                                                .propertyName("someProperty")
+                                                .resultType(testContext.getBodyReceivedType())
+                                                .end()))
+                        .to("mock:all");
             }
         });
         context.start();

@@ -127,12 +127,37 @@
     <build>
         <defaultGoal>install</defaultGoal>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-api-component-maven-plugin</artifactId>
+                    <version>${project.version}</version>
+                    <configuration>
+                        <scheme>${schemeName}</scheme>
+                        <componentName>${componentName}</componentName>
+                        <componentPackage>${componentPackage}</componentPackage>
+                        <outPackage>${outPackage}</outPackage>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
 
             <!-- generate Component source and test source -->
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-api-component-maven-plugin</artifactId>
+                <dependencies>
+                    <!-- Component API to read API -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-olingo2-api</artifactId>
+                        <version>${project.version}</version>
+                        <classifier>sources</classifier>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-test-component-classes</id>
@@ -165,15 +190,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <!-- Component API to read API -->
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-olingo2-api</artifactId>
-                        <version>${project.version}</version>
-                        <classifier>sources</classifier>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -182,10 +198,10 @@
                     <!-- add the olingo odata2 sample service source. See profile get-olingo2-sample below -->
                     <execution>
                         <id>add-test-source</id>
-                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
                         </goals>
+                        <phase>generate-test-sources</phase>
                         <configuration>
                             <sources>
                                 <source>${basedir}/target/olingo2-my-car-service/src/main/java</source>
@@ -195,22 +211,6 @@
                 </executions>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-api-component-maven-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <scheme>${schemeName}</scheme>
-                        <componentName>${componentName}</componentName>
-                        <componentPackage>${componentPackage}</componentPackage>
-                        <outPackage>${outPackage}</outPackage>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
 
     </build>
 
@@ -241,10 +241,10 @@
                         <executions>
                             <execution>
                                 <id>clean-olingo2-sample</id>
-                                <phase>generate-test-sources</phase>
                                 <goals>
                                     <goal>clean</goal>
                                 </goals>
+                                <phase>generate-test-sources</phase>
                                 <configuration>
                                     <excludeDefaultDirectories>true</excludeDefaultDirectories>
                                     <filesets>
@@ -260,24 +260,6 @@
                         <groupId>org.codehaus.gmavenplus</groupId>
                         <artifactId>gmavenplus-plugin</artifactId>
                         <version>${gmavenplus-plugin-version}</version>
-                        <executions>
-                            <execution>
-                                <id>define-archetype-properties</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <scripts>
-                                        <script><![CDATA[
-                      session.userProperties['version'] = project.version
-                      session.userProperties['groupId'] = 'org.apache.camel'
-                      session.userProperties['artifactId'] = 'olingo2-my-car-service'
-                      ]]></script>
-                                    </scripts>
-                                </configuration>
-                            </execution>
-                        </executions>
                         <dependencies>
                             <dependency>
                                 <groupId>org.apache.groovy</groupId>
@@ -286,6 +268,22 @@
                                 <scope>runtime</scope>
                             </dependency>
                         </dependencies>
+                        <executions>
+                            <execution>
+                                <id>define-archetype-properties</id>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>generate-test-sources</phase>
+                                <configuration>
+                                    <scripts>
+                                        <script><![CDATA[session.userProperties['version'] = project.version
+                      session.userProperties['groupId'] = 'org.apache.camel'
+                      session.userProperties['artifactId'] = 'olingo2-my-car-service']]></script>
+                                    </scripts>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <artifactId>maven-archetype-plugin</artifactId>
@@ -293,16 +291,15 @@
                         <executions>
                             <execution>
                                 <id>generate-my-car-service</id>
-                                <phase>generate-test-sources</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
+                                <phase>generate-test-sources</phase>
                                 <configuration>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <interactiveMode>false</interactiveMode>
                                     <archetypeGroupId>org.apache.olingo</archetypeGroupId>
-                                    <archetypeArtifactId>olingo-odata2-sample-cars-annotation-archetype
-                                    </archetypeArtifactId>
+                                    <archetypeArtifactId>olingo-odata2-sample-cars-annotation-archetype</archetypeArtifactId>
                                     <archetypeVersion>${olingo2-version}</archetypeVersion>
                                 </configuration>
                             </execution>
@@ -314,7 +311,7 @@
         <profile>
             <id>fastinstall</id>
             <activation>
-            <activeByDefault>true</activeByDefault>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>skipTests</name>
                 </property>

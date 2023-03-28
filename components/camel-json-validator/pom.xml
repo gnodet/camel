@@ -27,12 +27,11 @@
     </parent>
 
     <artifactId>camel-json-validator</artifactId>
+    <packaging>jar</packaging>
     <name>Camel :: JSON validator</name>
     <description>Camel JSON Schema validation based on NetworkNT SON-schema library</description>
-    <packaging>jar</packaging>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

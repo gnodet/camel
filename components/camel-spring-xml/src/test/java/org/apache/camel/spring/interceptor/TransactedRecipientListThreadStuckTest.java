@@ -50,9 +50,9 @@ public class TransactedRecipientListThreadStuckTest extends TransactionClientDat
                         .to("mock:result");
 
                 from("direct:foo")
-                    .delay(1)
+                        .delay(1)
                         .transform().simple("Bye ${body}")
-                    .end();
+                        .end();
             }
         };
     }

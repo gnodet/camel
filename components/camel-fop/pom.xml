@@ -31,8 +31,7 @@
     <name>Camel :: FOP</name>
     <description>Camel FOP support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

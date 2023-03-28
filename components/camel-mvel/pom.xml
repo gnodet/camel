@@ -31,8 +31,7 @@
     <name>Camel :: MVEL</name>
     <description>Camel MVEL support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

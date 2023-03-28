@@ -31,8 +31,7 @@
     <name>Camel :: MongoDB</name>
     <description>Camel MongoDB (Java Driver 3) component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

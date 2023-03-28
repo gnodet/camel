@@ -25,11 +25,11 @@
         <artifactId>components</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>camel-splunk-hec</artifactId>
+    <packaging>jar</packaging>
 
     <name>Camel :: Splunk HEC</name>
-    <artifactId>camel-splunk-hec</artifactId>
     <description>Camel :: Splunk HEC component</description>
-    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

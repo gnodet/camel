@@ -95,7 +95,8 @@ public class ResilienceManagementTest extends CamelTestSupport {
                         .transform().constant("Fallback message").end()
                         .to("mock:result");
 
-                from("direct:start.with.timeout.enabled").routeId("start.with.timeout.enabled").circuitBreaker().id("myResilienceWithTimeout")
+                from("direct:start.with.timeout.enabled").routeId("start.with.timeout.enabled").circuitBreaker()
+                        .id("myResilienceWithTimeout")
                         .resilience4jConfiguration().timeoutEnabled(true).timeoutDuration(2000).end()
                         .to("direct:foo").onFallback()
                         .transform().constant("Fallback message").end()

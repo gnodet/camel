@@ -82,14 +82,14 @@ public class RollbackDoTryCatchTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .doTry()
+                        .doTry()
                         .to("mock:doTry")
                         .to("direct:rollback")
-                    .doCatch(Throwable.class)
+                        .doCatch(Throwable.class)
                         .log("doCatch")
                         .to("mock:doCatch")
-                    .end()
-                    .to("mock:result");
+                        .end()
+                        .to("mock:result");
 
                 from("direct:rollback")
                         .choice().when(body().isNotEqualTo("ok")).to("mock:rollback")

@@ -18,8 +18,8 @@ package org.apache.camel.component.thrift.server;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-
 import javassist.util.proxy.MethodHandler;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.component.thrift.ThriftConstants;

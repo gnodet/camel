@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.camel.component.wal;
 
 import java.io.File;
@@ -236,7 +235,7 @@ public final class LogWriter implements AutoCloseable {
         /*
          If it has layer information, then it's a hot record kept in the cache. In this case, just
          update the cache and let the LogSupervisor flush to disk.
-
+        
          Trying to update a persisted entry here is not acceptable
          */
         assert layerInfo != null;

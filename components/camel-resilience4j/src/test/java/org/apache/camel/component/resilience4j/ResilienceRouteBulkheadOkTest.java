@@ -53,7 +53,8 @@ public class ResilienceRouteBulkheadOkTest extends CamelTestSupport {
                         .to("log:foo").onFallback().transform()
                         .constant("Fallback message").end().to("log:result").to("mock:result");
 
-                from("direct:start.with.timeout.enabled").circuitBreaker().resilience4jConfiguration().bulkheadEnabled(true).timeoutEnabled(true).timeoutDuration(2000).end()
+                from("direct:start.with.timeout.enabled").circuitBreaker().resilience4jConfiguration().bulkheadEnabled(true)
+                        .timeoutEnabled(true).timeoutDuration(2000).end()
                         .to("direct:foo")
                         .to("log:foo").onFallback().transform()
                         .constant("Fallback message").end().to("log:result").to("mock:result");

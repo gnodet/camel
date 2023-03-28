@@ -62,10 +62,33 @@
 
     <build>
         <defaultGoal>install</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-api-component-maven-plugin</artifactId>
+                    <version>${project.version}</version>
+                    <configuration>
+                        <scheme>${schemeName}</scheme>
+                        <componentName>${componentName}</componentName>
+                        <componentPackage>${componentPackage}</componentPackage>
+                        <outPackage>${outPackage}</outPackage>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-api-component-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.cloudbees.thirdparty</groupId>
+                        <artifactId>zendesk-java-client</artifactId>
+                        <version>${zendesk-client-version}</version>
+                        <classifier>sources</classifier>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-test-component-classes</id>
@@ -78,8 +101,7 @@
                                     <apiName />
                                     <proxyClass>org.zendesk.client.v2.Zendesk</proxyClass>
                                     <fromJavasource>
-                                        <excludeMethods>isClosed|close|getTicketsByStatus|createGroups|importTickets|recoverSuspendedTickets|createMapper|getSearchResults
-                                        </excludeMethods>
+                                        <excludeMethods>isClosed|close|getTicketsByStatus|createGroups|importTickets|recoverSuspendedTickets|createMapper|getSearchResults</excludeMethods>
                                     </fromJavasource>
                                     <substitutions>
                                         <substitution>
@@ -196,30 +218,7 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.cloudbees.thirdparty</groupId>
-                        <artifactId>zendesk-java-client</artifactId>
-                        <version>${zendesk-client-version}</version>
-                        <classifier>sources</classifier>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-api-component-maven-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <scheme>${schemeName}</scheme>
-                        <componentName>${componentName}</componentName>
-                        <componentPackage>${componentPackage}</componentPackage>
-                        <outPackage>${outPackage}</outPackage>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>

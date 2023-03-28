@@ -56,10 +56,10 @@ public class CaffeineIdempotentRepositoryWithSplitTest extends CamelTestSupport 
             @Override
             public void configure() {
                 from("direct:idempotentRoute")
-                    .idempotentConsumer(body(),
-                            repo)
+                        .idempotentConsumer(body(),
+                                repo)
                         .to("mock:result")
-                    .end();
+                        .end();
             }
         };
     }

@@ -16,6 +16,10 @@
  */
 package org.apache.camel.component.atlasmap;
 
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.builder.Input;
+import org.xmlunit.diff.Diff;
+
 import io.atlasmap.java.test.SourceContact;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -26,9 +30,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.xmlunit.builder.DiffBuilder;
-import org.xmlunit.builder.Input;
-import org.xmlunit.diff.Diff;
 
 public class AtlasMapMultiNSTest extends CamelSpringTestSupport {
 

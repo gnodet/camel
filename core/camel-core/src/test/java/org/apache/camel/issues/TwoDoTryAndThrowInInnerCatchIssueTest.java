@@ -60,33 +60,31 @@ public class TwoDoTryAndThrowInInnerCatchIssueTest extends ContextTestSupport {
                 errorHandler(noErrorHandler());
 
                 from("direct:test").routeId("myroute")
-                    .doTry().
-                        doTry().
-                            throwException(new IllegalArgumentException("Forced by me"))
+                        .doTry().doTry().throwException(new IllegalArgumentException("Forced by me"))
                         .doCatch(IOException.class)
-                            .to("mock:catch1")
-                            .log("docatch 1")
-                            // end this doCatch block
-                            .endDoTry()
+                        .to("mock:catch1")
+                        .log("docatch 1")
+                        // end this doCatch block
+                        .endDoTry()
                         .doCatch(NullPointerException.class)
-                            .to("mock:catch2")
-                            .log("docatch 2")
-                            // no end this catch block as Camel can fix this itself
+                        .to("mock:catch2")
+                        .log("docatch 2")
+                        // no end this catch block as Camel can fix this itself
                         .doCatch(MalformedURLException.class)
-                            .to("mock:catch3")
-                            .log("docatch 3")
-                            // end this doCatch block
-                            .endDoTry()
+                        .to("mock:catch3")
+                        .log("docatch 3")
+                        // end this doCatch block
+                        .endDoTry()
                         .doCatch(Exception.class)
-                            .to("mock:catch4")
-                            .log("docatch 4")
-                            .throwException(new IllegalArgumentException("Second forced by me"))
-                            .endDoTry() // end catch block
+                        .to("mock:catch4")
+                        .log("docatch 4")
+                        .throwException(new IllegalArgumentException("Second forced by me"))
+                        .endDoTry() // end catch block
                         .endDoTry() // end inner doTry block
-                    .doCatch(Exception.class)
+                        .doCatch(Exception.class)
                         .to("mock:catch5")
                         .log("docatch 5")
-                    .end();
+                        .end();
             }
         };
     }

@@ -60,11 +60,11 @@ public class RestServletQueryParamTest extends ServletCamelRouterTestSupport {
 
                 // use the rest DSL to define the rest services
                 rest()
-                    .get("/users/")
+                        .get("/users/")
                         .param()
-                            .name("auth")
-                            .type(RestParamType.query)
-                            .required(true)
+                        .name("auth")
+                        .type(RestParamType.query)
+                        .required(true)
                         .endParam()
                         .to("direct:users");
 

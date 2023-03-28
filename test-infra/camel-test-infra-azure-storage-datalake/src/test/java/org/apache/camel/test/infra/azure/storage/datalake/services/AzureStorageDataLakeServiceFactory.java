@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.camel.test.infra.azure.storage.datalake.services;
 
 import org.apache.camel.test.infra.azure.common.services.AzureService;

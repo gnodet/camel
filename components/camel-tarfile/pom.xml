@@ -31,8 +31,7 @@
     <name>Camel :: Tar File</name>
     <description>Camel Tar file support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

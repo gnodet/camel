@@ -27,9 +27,9 @@
     </parent>
 
     <artifactId>camel-fhir-api</artifactId>
+    <packaging>jar</packaging>
     <name>Camel :: FHIR :: API</name>
     <description>Camel FHIR API</description>
-    <packaging>jar</packaging>
 
     <properties>
         <firstVersion>2.23.0</firstVersion>
@@ -68,10 +68,10 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>

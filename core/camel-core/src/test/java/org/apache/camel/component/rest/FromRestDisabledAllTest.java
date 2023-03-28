@@ -49,11 +49,11 @@ public class FromRestDisabledAllTest extends ContextTestSupport {
                 restConfiguration().host("localhost");
 
                 rest("/say").disabled(true)
-                    .post("/hi").to("mock:hi")
-                    .get("/bye").to("mock:bye");
+                        .post("/hi").to("mock:hi")
+                        .get("/bye").to("mock:bye");
 
                 rest("/translate")
-                    .get().to("mock:translate");
+                        .get().to("mock:translate");
             }
         };
     }

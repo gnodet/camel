@@ -31,8 +31,7 @@
     <name>Camel :: HDFS</name>
     <description>Camel HDFS support with Hadoop 3.x libraries</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

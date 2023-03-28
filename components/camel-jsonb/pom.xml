@@ -49,9 +49,8 @@
         <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>yasson</artifactId>
-	    <version>${yasson-version}</version>
+            <version>${yasson-version}</version>
         </dependency>
-
 
         <!-- testing -->
         <dependency>

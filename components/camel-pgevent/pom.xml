@@ -32,8 +32,7 @@
     <name>Camel :: PgEvent</name>
     <description>Component for sending/receiving notifications in PostgreSQL</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

@@ -47,11 +47,11 @@ public class KameletEipMulticastTest extends CamelTestSupport {
                         .setBody(this::reverse);
 
                 from("direct:start").routeId("start")
-                    .multicast()
+                        .multicast()
                         .kamelet("echo")
                         .kamelet("reverse") // this becomes output on previous kamelet
-                    .end()
-                    .to("mock:result");
+                        .end()
+                        .to("mock:result");
             }
 
             private Object reverse(Exchange exchange) {
@@ -87,7 +87,7 @@ public class KameletEipMulticastTest extends CamelTestSupport {
                         .setBody(this::reverse);
 
                 from("direct:start").routeId("start")
-                    .multicast()
+                        .multicast()
                         .kamelet("echo").end()
                         .kamelet("reverse").end()
                         .end()

@@ -31,8 +31,7 @@
     <name>Camel :: Printer</name>
     <description>Camel Printer support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

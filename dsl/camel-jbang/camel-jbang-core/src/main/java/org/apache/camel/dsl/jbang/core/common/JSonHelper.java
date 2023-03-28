@@ -44,8 +44,8 @@ public final class JSonHelper {
             public String color(Yytoken.Types type, Object value) {
                 String s = value != null ? value.toString() : "null";
                 switch (type) {
-                    case COLON, COMMA, LEFT_SQUARE, RIGHT_SQUARE, LEFT_BRACE, RIGHT_BRACE ->
-                        s = Ansi.ansi().bgDefault().bold().a(s).reset().toString();
+                    case COLON, COMMA, LEFT_SQUARE, RIGHT_SQUARE, LEFT_BRACE, RIGHT_BRACE -> s
+                            = Ansi.ansi().bgDefault().bold().a(s).reset().toString();
                     case VALUE -> {
                         if (Yytoken.Types.COLON == prev) {
                             if (StringHelper.isQuoted(s)) {

@@ -169,7 +169,7 @@ public class CompositeApiCollectionsIntegrationTest extends AbstractSalesforceTe
             public void configure() {
                 from("direct:deleteCompositeAccounts")
                         .to("salesforce:query?sObjectClass=" + Account.class.getName()
-                                + "&sObjectQuery=SELECT Id FROM Account WHERE Name = 'Account created from Composite Collections API'")
+                            + "&sObjectQuery=SELECT Id FROM Account WHERE Name = 'Account created from Composite Collections API'")
                         .split(simple("${body.records}")).setHeader("sObjectId", simple("${body.id}"))
                         .to("salesforce:deleteSObject?sObjectName=Account").end();
             }

@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 SES</name>
     <description>A Camel Amazon SES Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

@@ -41,15 +41,15 @@ public class RestOpenApiModelApiSecurityRequirementsTest extends CamelTestSuppor
             @Override
             public void configure() {
                 rest()
-                    .securityDefinitions()
+                        .securityDefinitions()
                         .oauth2("petstore_auth")
-                            .authorizationUrl("https://petstore.swagger.io/oauth/dialog")
+                        .authorizationUrl("https://petstore.swagger.io/oauth/dialog")
                         .end()
-                    .apiKey("api_key")
+                        .apiKey("api_key")
                         .withHeader("myHeader").end()
-                    .end()
-                    .security("petstore_auth", "read, write")
-                    .security("api_key");
+                        .end()
+                        .security("petstore_auth", "read, write")
+                        .security("api_key");
             }
         };
     }

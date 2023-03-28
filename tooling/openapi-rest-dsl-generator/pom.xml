@@ -31,8 +31,7 @@
     <name>Camel :: Tooling :: OpenApi REST DSL Generator</name>
     <description>Generator of REST DSL route definitions from OpenAPI specification</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

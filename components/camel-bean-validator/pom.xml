@@ -27,12 +27,11 @@
     </parent>
 
     <artifactId>camel-bean-validator</artifactId>
+    <packaging>jar</packaging>
     <name>Camel :: Bean validator</name>
     <description>Camel bean validation support (JSR 303)</description>
-    <packaging>jar</packaging>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

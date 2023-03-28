@@ -141,12 +141,37 @@
     <build>
         <defaultGoal>install</defaultGoal>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-api-component-maven-plugin</artifactId>
+                    <version>${project.version}</version>
+                    <configuration>
+                        <scheme>${schemeName}</scheme>
+                        <componentName>${componentName}</componentName>
+                        <componentPackage>${componentPackage}</componentPackage>
+                        <outPackage>${outPackage}</outPackage>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
 
             <!-- generate Component source and test source -->
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-api-component-maven-plugin</artifactId>
+                <dependencies>
+                    <!-- Component API to read API signatures -->
+                    <dependency>
+                        <groupId>com.google.apis</groupId>
+                        <artifactId>google-api-services-drive</artifactId>
+                        <version>${google-api-services-drive-version}</version>
+                        <classifier>sources</classifier>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-test-component-classes</id>
@@ -238,33 +263,8 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <!-- Component API to read API signatures -->
-                    <dependency>
-                        <groupId>com.google.apis</groupId>
-                        <artifactId>google-api-services-drive</artifactId>
-                        <version>${google-api-services-drive-version}</version>
-                        <classifier>sources</classifier>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-api-component-maven-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <scheme>${schemeName}</scheme>
-                        <componentName>${componentName}</componentName>
-                        <componentPackage>${componentPackage}</componentPackage>
-                        <outPackage>${outPackage}</outPackage>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
 
     </build>
 </project>

@@ -47,7 +47,8 @@ public class LoopWithAggregatorTest extends ContextTestSupport {
                         // copy of the input exchange
                         // for each loop iteration, instead of keep using the same
                         // exchange all over
-                        .loop(3).copy().enrich("direct:getTimeStamp", new ExampleAggregationStrategy()).to(ExchangePattern.InOnly,"mock:loop")
+                        .loop(3).copy().enrich("direct:getTimeStamp", new ExampleAggregationStrategy())
+                        .to(ExchangePattern.InOnly, "mock:loop")
                         .end().to("mock:result");
                 // END SNIPPET: e1
 

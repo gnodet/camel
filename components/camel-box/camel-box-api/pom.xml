@@ -28,9 +28,9 @@
     </parent>
 
     <artifactId>camel-box-api</artifactId>
+    <packaging>jar</packaging>
     <name>Camel :: Box :: API</name>
     <description>Camel Box API</description>
-    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -61,10 +61,10 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>

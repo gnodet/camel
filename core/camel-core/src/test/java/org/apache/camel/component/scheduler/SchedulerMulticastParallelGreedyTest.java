@@ -41,12 +41,12 @@ public class SchedulerMulticastParallelGreedyTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("scheduler:testBug?initialDelay=1&useFixedDelay=true&delay=20000&greedy=true&synchronous=true")
-                    .multicast().parallelProcessing()
+                        .multicast().parallelProcessing()
                         .log("test")
-                    .end()
-                    // this should result in the scheduler waiting its delay period before sending another exchange
-                    .setProperty(Exchange.SCHEDULER_POLLED_MESSAGES, constant(false))
-                    .to("mock:parentComplete");
+                        .end()
+                        // this should result in the scheduler waiting its delay period before sending another exchange
+                        .setProperty(Exchange.SCHEDULER_POLLED_MESSAGES, constant(false))
+                        .to("mock:parentComplete");
             }
         };
     }

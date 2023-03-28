@@ -59,7 +59,8 @@ public class ResilienceInheritErrorHandlerTest extends CamelTestSupport {
                 from("direct:start.with.timeout.enabled").to("log:direct:start.with.timeout.enabled")
                         // turn on Camel's error handler on so it can do
                         // redeliveries
-                        .circuitBreaker().inheritErrorHandler(true).resilience4jConfiguration().timeoutEnabled(true).timeoutDuration(2000).end()
+                        .circuitBreaker().inheritErrorHandler(true).resilience4jConfiguration().timeoutEnabled(true)
+                        .timeoutDuration(2000).end()
                         .to("mock:a")
                         .throwException(new IllegalArgumentException("Forced")).end().to("log:result").to("mock:result");
             }

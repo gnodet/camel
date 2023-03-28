@@ -66,20 +66,20 @@ public class TransactedStackSizeBreakOnExceptionTest extends TransactionClientDa
             @Override
             public void configure() throws Exception {
                 from("seda:start")
-                    .transacted()
-                    .setHeader("stackSize", TransactedStackSizeBreakOnExceptionTest::currentStackSize)
-                    .log("BEGIN: ${body} stack-size ${header.stackSize}")
-                    .split(body()).stopOnException()
+                        .transacted()
+                        .setHeader("stackSize", TransactedStackSizeBreakOnExceptionTest::currentStackSize)
+                        .log("BEGIN: ${body} stack-size ${header.stackSize}")
+                        .split(body()).stopOnException()
                         .setHeader("stackSize", TransactedStackSizeBreakOnExceptionTest::currentStackSize)
                         .log("LINE: ${body} stack-size ${header.stackSize}")
                         .to("mock:line")
                         .filter(header(Exchange.SPLIT_INDEX).isEqualTo(failAt))
-                            .throwException(new IllegalStateException("Forced"))
+                        .throwException(new IllegalStateException("Forced"))
                         .end()
-                    .end()
-                    .setHeader("stackSize", TransactedStackSizeBreakOnExceptionTest::currentStackSize)
-                    .log("RESULT: ${body} stack-size ${header.stackSize}")
-                    .to("mock:result");
+                        .end()
+                        .setHeader("stackSize", TransactedStackSizeBreakOnExceptionTest::currentStackSize)
+                        .log("RESULT: ${body} stack-size ${header.stackSize}")
+                        .to("mock:result");
             }
         };
     }

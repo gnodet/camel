@@ -32,8 +32,7 @@
     <name>Camel :: Azure :: CosmosDB</name>
     <description>Camel Azure CosmosDB Component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

@@ -105,11 +105,11 @@ class ChoiceInPreconditionModeTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start").routeId("myRoute")
-                    .choice().precondition().id("mySwitch")
+                        .choice().precondition().id("mySwitch")
                         .when(simple("{{?red}}")).to("mock:red").id("myRed")
                         .when(simple("{{?blue}}")).to("mock:blue").id("myBlue")
-                    .end()
-                    .to("mock:end");
+                        .end()
+                        .to("mock:end");
             }
         });
         context.start();

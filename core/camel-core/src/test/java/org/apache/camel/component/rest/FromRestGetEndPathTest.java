@@ -68,8 +68,8 @@ public class FromRestGetEndPathTest extends FromRestGetTest {
                 rest("/say/hello").get().to("direct:hello");
 
                 rest("/say/bye")
-                    .get().consumes("application/json").to("direct:bye")
-                    .post().to("mock:update");
+                        .get().consumes("application/json").to("direct:bye")
+                        .post().to("mock:update");
 
                 from("direct:hello").transform().constant("Hello World");
 

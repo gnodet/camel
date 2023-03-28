@@ -53,12 +53,12 @@ public class TransactedSplitAggregateThreadStuckParallelTest extends Transaction
                         .to("direct:aggregate");
 
                 from("direct:aggregate")
-                    .aggregate(constant("true"))
-                    .completionSize(1).aggregationStrategy(new StringAggregationStrategy()).parallelProcessing()
+                        .aggregate(constant("true"))
+                        .completionSize(1).aggregationStrategy(new StringAggregationStrategy()).parallelProcessing()
                         .log("Aggregated ${threadName}")
                         .setBody(simple("Aggregated ${body}"))
                         .to("mock:result", "mock:aggregated")
-                    .end();
+                        .end();
             }
         };
     }

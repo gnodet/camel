@@ -18,11 +18,11 @@ package org.apache.camel.component.grpc.server;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import javassist.util.proxy.MethodHandler;
+import javassist.util.proxy.ProxyFactory;
 
 import io.grpc.BindableService;
 import io.grpc.stub.StreamObserver;
-import javassist.util.proxy.MethodHandler;
-import javassist.util.proxy.ProxyFactory;
 import org.apache.camel.component.grpc.GrpcConsumer;
 import org.apache.camel.component.grpc.GrpcEndpoint;
 import org.apache.camel.component.grpc.GrpcUtils;

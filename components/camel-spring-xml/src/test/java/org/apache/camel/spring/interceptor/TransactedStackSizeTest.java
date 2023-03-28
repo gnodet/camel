@@ -66,17 +66,17 @@ public class TransactedStackSizeTest extends TransactionClientDataSourceSupport 
             @Override
             public void configure() throws Exception {
                 from("seda:start")
-                    .transacted()
-                    .setHeader("stackSize", TransactedStackSizeTest::currentStackSize)
-                    .log("BEGIN: ${body} stack-size ${header.stackSize}")
-                    .split(body())
+                        .transacted()
+                        .setHeader("stackSize", TransactedStackSizeTest::currentStackSize)
+                        .log("BEGIN: ${body} stack-size ${header.stackSize}")
+                        .split(body())
                         .setHeader("stackSize", TransactedStackSizeTest::currentStackSize)
                         .log("LINE: ${body} stack-size ${header.stackSize}")
                         .to("mock:line")
-                    .end()
-                    .setHeader("stackSize", TransactedStackSizeTest::currentStackSize)
-                    .log("RESULT: ${body} stack-size ${header.stackSize}")
-                    .to("mock:result");
+                        .end()
+                        .setHeader("stackSize", TransactedStackSizeTest::currentStackSize)
+                        .log("RESULT: ${body} stack-size ${header.stackSize}")
+                        .to("mock:result");
             }
         };
     }

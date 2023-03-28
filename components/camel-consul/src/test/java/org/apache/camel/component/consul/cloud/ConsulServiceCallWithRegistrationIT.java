@@ -73,8 +73,8 @@ public class ConsulServiceCallWithRegistrationIT extends ConsulTestSupport {
                 // context path is derived from the jetty endpoint.
                 from("direct:start")
                         .serviceCall()
-                            .name(serviceName).component("undertow").defaultLoadBalancer()
-                            .consulServiceDiscovery().url(service.getConsulUrl()).end()
+                        .name(serviceName).component("undertow").defaultLoadBalancer()
+                        .consulServiceDiscovery().url(service.getConsulUrl()).end()
                         .end()
                         .log("${body}");
 
@@ -102,8 +102,8 @@ public class ConsulServiceCallWithRegistrationIT extends ConsulTestSupport {
                 // by jetty
                 from("direct:start")
                         .serviceCall()
-                            .name(serviceName + "/bad/path").component("http")
-                            .defaultLoadBalancer().consulServiceDiscovery().url(service.getConsulUrl()).end()
+                        .name(serviceName + "/bad/path").component("http")
+                        .defaultLoadBalancer().consulServiceDiscovery().url(service.getConsulUrl()).end()
                         .end()
                         .log("${body}");
 

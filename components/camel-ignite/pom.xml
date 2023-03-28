@@ -31,8 +31,7 @@
     <name>Camel :: Ignite</name>
     <description>Camel Ignite component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -86,8 +85,8 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-infra-ignite</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
             <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

@@ -53,7 +53,7 @@
             <version>${twilio-version}</version>
         </dependency>
 
-         <!-- Component API source to read API signatures -->
+        <!-- Component API source to read API signatures -->
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
@@ -73,6 +73,22 @@
 
     <build>
         <defaultGoal>install</defaultGoal>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-api-component-maven-plugin</artifactId>
+                    <version>${project.version}</version>
+                    <configuration>
+                        <scheme>${schemeName}</scheme>
+                        <componentName>${componentName}</componentName>
+                        <componentPackage>${componentPackage}</componentPackage>
+                        <outPackage>${outPackage}</outPackage>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 
         <plugins>
 
@@ -115,8 +131,7 @@
                                 </api>
                                 <api>
                                     <apiName>available-phone-number-country</apiName>
-                                    <proxyClass>com.twilio.rest.api.v2010.account.AvailablePhoneNumberCountry
-                                    </proxyClass>
+                                    <proxyClass>com.twilio.rest.api.v2010.account.AvailablePhoneNumberCountry</proxyClass>
                                     <fromJavasource>
                                         <includeMethods>creator|deleter|fetcher|reader|updater</includeMethods>
                                         <includeStaticMethods>true</includeStaticMethods>
@@ -262,8 +277,7 @@
                                 <api>
                                     <apiName>address-dependent-phone-number</apiName>
                                     <classPrefix>Address</classPrefix>
-                                    <proxyClass>com.twilio.rest.api.v2010.account.address.DependentPhoneNumber
-                                    </proxyClass>
+                                    <proxyClass>com.twilio.rest.api.v2010.account.address.DependentPhoneNumber</proxyClass>
                                     <fromJavasource>
                                         <includeMethods>creator|deleter|fetcher|reader|updater</includeMethods>
                                         <includeStaticMethods>true</includeStaticMethods>
@@ -273,8 +287,7 @@
                                 <api>
                                     <apiName>available-phone-number-country-local</apiName>
                                     <classPrefix>AvailablePhoneNumberCountry</classPrefix>
-                                    <proxyClass>com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local
-                                    </proxyClass>
+                                    <proxyClass>com.twilio.rest.api.v2010.account.availablephonenumbercountry.Local</proxyClass>
                                     <fromJavasource>
                                         <includeMethods>creator|deleter|fetcher|reader|updater</includeMethods>
                                         <includeStaticMethods>true</includeStaticMethods>
@@ -283,8 +296,7 @@
                                 <api>
                                     <apiName>available-phone-number-country-mobile</apiName>
                                     <classPrefix>AvailablePhoneNumberCountry</classPrefix>
-                                    <proxyClass>com.twilio.rest.api.v2010.account.availablephonenumbercountry.Mobile
-                                    </proxyClass>
+                                    <proxyClass>com.twilio.rest.api.v2010.account.availablephonenumbercountry.Mobile</proxyClass>
                                     <fromJavasource>
                                         <includeMethods>creator|deleter|fetcher|reader|updater</includeMethods>
                                         <includeStaticMethods>true</includeStaticMethods>
@@ -293,8 +305,7 @@
                                 <api>
                                     <apiName>available-phone-number-country-toll-free</apiName>
                                     <classPrefix>AvailablePhoneNumberCountry</classPrefix>
-                                    <proxyClass>com.twilio.rest.api.v2010.account.availablephonenumbercountry.TollFree
-                                    </proxyClass>
+                                    <proxyClass>com.twilio.rest.api.v2010.account.availablephonenumbercountry.TollFree</proxyClass>
                                     <fromJavasource>
                                         <includeMethods>creator|deleter|fetcher|reader|updater</includeMethods>
                                         <includeStaticMethods>true</includeStaticMethods>
@@ -494,8 +505,7 @@
                                 <api>
                                     <apiName>sip-ip-access-control-list-ip-address</apiName>
                                     <classPrefix>SipIpAccessControlList</classPrefix>
-                                    <proxyClass>com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist.IpAddress
-                                    </proxyClass>
+                                    <proxyClass>com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist.IpAddress</proxyClass>
                                     <fromJavasource>
                                         <includeMethods>creator|deleter|fetcher|reader|updater</includeMethods>
                                         <includeStaticMethods>true</includeStaticMethods>
@@ -621,22 +631,6 @@
                 </executions>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-api-component-maven-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <scheme>${schemeName}</scheme>
-                        <componentName>${componentName}</componentName>
-                        <componentPackage>${componentPackage}</componentPackage>
-                        <outPackage>${outPackage}</outPackage>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
 
     </build>
 </project>

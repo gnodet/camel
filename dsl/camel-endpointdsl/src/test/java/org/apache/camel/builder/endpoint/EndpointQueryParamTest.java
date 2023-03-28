@@ -30,8 +30,8 @@ class EndpointQueryParamTest extends BaseEndpointDslTest {
                 int port = AvailablePortFinder.getNextAvailable();
                 restConfiguration().component("jetty").host("localhost").port(port);
                 rest().get("path/xyz")
-                    .to("log:myLogger?level=INFO&showAll=true")
-                    .to("mock:result");
+                        .to("log:myLogger?level=INFO&showAll=true")
+                        .to("mock:result");
                 from(direct("test"))
                         .to(http(String.format("localhost:%d/path/xyz?param1=1&param2=2", port)).httpMethod("GET"));
                 from(direct("test2"))

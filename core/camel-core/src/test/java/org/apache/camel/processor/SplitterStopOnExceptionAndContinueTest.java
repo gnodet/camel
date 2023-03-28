@@ -56,16 +56,17 @@ public class SplitterStopOnExceptionAndContinueTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .doTry()
+                        .doTry()
                         // split and stop if failing during splitting
                         // enable share unit of work so the result of the splitter has the caused exception, which we can then ignore
                         // via the try .. catch
-                        .split(body().tokenize(",")).shareUnitOfWork().stopOnException().process(new MyProcessor()).to("mock:split").end()
-                    .endDoTry().doCatch(Exception.class)
+                        .split(body().tokenize(",")).shareUnitOfWork().stopOnException().process(new MyProcessor())
+                        .to("mock:split").end()
+                        .endDoTry().doCatch(Exception.class)
                         // just continue
-                    .end()
-                    // result
-                    .to("mock:result");
+                        .end()
+                        // result
+                        .to("mock:result");
             }
         };
     }

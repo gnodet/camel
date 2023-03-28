@@ -52,10 +52,10 @@ public class KameletEipAggregateTest extends CamelTestSupport {
                         .templateParameter("count")
                         .from("kamelet:source")
                         .aggregate(constant(true))
-                            .completionSize("{{count}}")
-                            .aggregationStrategy(AggregationStrategies.string(","))
-                            .to("log:aggregate")
-                            .to("kamelet:sink")
+                        .completionSize("{{count}}")
+                        .aggregationStrategy(AggregationStrategies.string(","))
+                        .to("log:aggregate")
+                        .to("kamelet:sink")
                         .end();
 
                 from("direct:start")

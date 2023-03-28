@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 Kinesis</name>
     <description>A Camel Amazon Kinesis Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -83,7 +82,6 @@
             <version>${hamcrest-version}</version>
             <scope>test</scope>
         </dependency>
-
 
         <!-- test infra -->
         <dependency>

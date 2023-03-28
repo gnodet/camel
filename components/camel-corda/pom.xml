@@ -43,7 +43,7 @@
             <version>${corda-version}</version>
             <exclusions>
                 <!-- corda-rpc uses log4j for logging (only need log4j-api at runtime)
-                     but we need to exclude log4j-core and add log4j-api as dependency --> 
+                     but we need to exclude log4j-core and add log4j-api as dependency -->
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
                     <artifactId>log4j-core</artifactId>

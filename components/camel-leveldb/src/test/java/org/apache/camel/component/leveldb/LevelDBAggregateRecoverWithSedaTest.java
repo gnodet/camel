@@ -86,9 +86,9 @@ public class LevelDBAggregateRecoverWithSedaTest extends LevelDBTestSupport {
 
                 from("direct:start")
                         .aggregate(header("id"), new StringAggregationStrategy())
-                            .completionSize(5).aggregationRepository(repo)
-                            .to("mock:aggregated")
-                            .to("seda:foo")
+                        .completionSize(5).aggregationRepository(repo)
+                        .to("mock:aggregated")
+                        .to("seda:foo")
                         .end();
 
                 // should be able to recover when we send over SEDA as its a OnCompletion

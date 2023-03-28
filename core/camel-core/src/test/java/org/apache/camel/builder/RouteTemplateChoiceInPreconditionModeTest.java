@@ -93,8 +93,8 @@ class RouteTemplateChoiceInPreconditionModeTest extends ContextTestSupport {
                         .templateOptionalParameter("blue")
                         .from("direct:start")
                         .choice().precondition()
-                            .when(simple("{{?red}}")).to("mock:red")
-                            .when(simple("{{?blue}}")).to("mock:blue")
+                        .when(simple("{{?red}}")).to("mock:red")
+                        .when(simple("{{?blue}}")).to("mock:blue")
                         .end()
                         .to("mock:end");
             }

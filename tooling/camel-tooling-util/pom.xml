@@ -31,8 +31,7 @@
     <name>Camel :: Tooling :: Util</name>
     <description>Tooling utilities</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <!-- testing -->

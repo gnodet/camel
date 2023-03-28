@@ -31,8 +31,7 @@
     <name>Camel :: IEC 60870</name>
     <description>Camel IEC 60870-5-104 support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

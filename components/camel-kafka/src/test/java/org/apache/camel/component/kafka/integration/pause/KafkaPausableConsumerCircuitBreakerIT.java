@@ -144,14 +144,14 @@ public class KafkaPausableConsumerCircuitBreakerIT extends BaseEmbeddedKafkaTest
                 getCamelContext().getRegistry().bind("pausableCircuit", circuitBreaker);
 
                 from("kafka:" + SOURCE_TOPIC
-                        + "?groupId=KafkaPausableConsumerCircuitBreakerIT&autoOffsetReset=earliest&keyDeserializer=org.apache.kafka.common.serialization.StringDeserializer"
-                        + "&valueDeserializer=org.apache.kafka.common.serialization.StringDeserializer"
-                        + "&autoCommitIntervalMs=1000&pollTimeoutMs=1000&autoCommitEnable=true&interceptorClasses=org.apache.camel.component.kafka.MockConsumerInterceptor")
+                     + "?groupId=KafkaPausableConsumerCircuitBreakerIT&autoOffsetReset=earliest&keyDeserializer=org.apache.kafka.common.serialization.StringDeserializer"
+                     + "&valueDeserializer=org.apache.kafka.common.serialization.StringDeserializer"
+                     + "&autoCommitIntervalMs=1000&pollTimeoutMs=1000&autoCommitEnable=true&interceptorClasses=org.apache.camel.component.kafka.MockConsumerInterceptor")
                         .pausable(new KafkaConsumerListener(), o -> canContinue())
                         .routeId("pausable-it")
                         .process(exchange -> LOG.info("Got record from Kafka: {}", exchange.getMessage().getBody()))
                         .circuitBreaker()
-                            .resilience4jConfiguration().circuitBreaker("pausableCircuit").end()
+                        .resilience4jConfiguration().circuitBreaker("pausableCircuit").end()
                         .to("direct:intermediate");
 
                 from("direct:intermediate")

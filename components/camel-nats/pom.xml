@@ -31,8 +31,7 @@
     <packaging>jar</packaging>
     <name>Camel :: Nats</name>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

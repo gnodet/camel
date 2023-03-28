@@ -42,12 +42,8 @@
         <salesforce.component.root>${project.basedir}</salesforce.component.root>
 
         <!-- Exclude camel-salesforce code until checkstyle supports Java 17 -->
-        <sourcecheckExcludes>
-            **/*.java
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/*.java</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
     </properties>
 
 </project>

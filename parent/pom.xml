@@ -564,8 +564,8 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-core-all</artifactId>
-                <type>pom</type>
                 <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2470,7 +2470,7 @@
                 <artifactId>camel-servicenow-maven-plugin</artifactId>
                 <version>${project.version}</version>
             </dependency>
-        <!-- camel components: END -->
+            <!-- camel components: END -->
 
             <!-- camel dsl: START -->
             <dependency>
@@ -2543,7 +2543,7 @@
                 <artifactId>camel-yaml-dsl</artifactId>
                 <version>${project.version}</version>
             </dependency>
-        <!-- camel dsl: END -->
+            <!-- camel dsl: END -->
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-groovy-dsl-common</artifactId>
@@ -2574,8 +2574,8 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-allcomponents</artifactId>
-                <type>pom</type>
                 <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2702,7 +2702,6 @@
                 <version>${log4j2-version}</version>
             </dependency>
 
-
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
@@ -2717,7 +2716,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-	    
+
             <!-- Netty bom -->
             <dependency>
                 <groupId>io.netty</groupId>
@@ -2882,6 +2881,9 @@
                     <executions>
                         <execution>
                             <id>default-cli</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
                             <phase>validate</phase>
                             <configuration>
                                 <includeResources>false</includeResources>
@@ -2898,12 +2900,10 @@
                                 <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
                                 <excludes>${sourcecheckExcludesComma}**/archetype-resources/**/*.java,**/archetype-resources/**/*.groovy,**/archetype-resources/**/*.scala,**/archetype-resources/**/*.xml,**/org/json/simple/**/*.java</excludes>
                             </configuration>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
                         </execution>
                     </executions>
                 </plugin>
+                <!--
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
@@ -2953,6 +2953,54 @@
                             <goals>
                                 <goal>format</goal>
                             </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                -->
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>2.35.0</version>
+                    <configuration>
+                        <java>
+                            <!-- orders of used formatters are important MPOM-376 -->
+                            <!-- eg. palantir override importOrder, so should be first -->
+                            <eclipse>
+                                <file>camel-eclipse-formatter-config.xml</file>
+                            </eclipse>
+                            <removeUnusedImports />
+                            <importOrder>
+                                <order>java,jakarta,javax,org.w3c,org.xml,junit,,\#</order>
+                            </importOrder>
+                            <licenseHeader>
+                                <file>header-java.txt</file>
+                            </licenseHeader>
+                        </java>
+                        <pom>
+                            <sortPom>
+                                <nrOfIndentSpace>4</nrOfIndentSpace>
+                                <expandEmptyElements>false</expandEmptyElements>
+                                <!-- https://issues.apache.org/jira/browse/MRELEASE-1111 -->
+                                <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+                            </sortPom>
+                        </pom>
+                        <upToDateChecking>
+                            <enabled>true</enabled>
+                        </upToDateChecking>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>camel-buildtools</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>${spotless.action}</goal>
+                            </goals>
+                            <phase>process-sources</phase>
                         </execution>
                     </executions>
                 </plugin>
@@ -3044,12 +3092,9 @@
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Bundle-SymbolicName>${project.groupId}.${project.artifactId}.source
-                                </Bundle-SymbolicName>
+                                <Bundle-SymbolicName>${project.groupId}.${project.artifactId}.source</Bundle-SymbolicName>
                                 <Bundle-Version>${camel.osgi.version.clean}</Bundle-Version>
-                                <Eclipse-SourceBundle>
-                                    ${project.groupId}.${project.artifactId};version="${camel.osgi.version.clean}"
-                                </Eclipse-SourceBundle>
+                                <Eclipse-SourceBundle>${project.groupId}.${project.artifactId};version="${camel.osgi.version.clean}"</Eclipse-SourceBundle>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -3153,13 +3198,6 @@
                     <groupId>org.jvnet.jaxb2.maven2</groupId>
                     <artifactId>maven-jaxb2-plugin</artifactId>
                     <version>0.8.3</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                     <configuration>
                         <strict>false</strict>
                         <extension>true</extension>
@@ -3182,6 +3220,13 @@
                             <version>${xerces-version}</version>
                         </dependency>
                     </dependencies>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>${jetty-runner-groupId}</groupId>
@@ -3202,10 +3247,10 @@
                     </configuration>
                     <executions>
                         <execution>
-                            <phase>validate</phase>
                             <goals>
                                 <goal>aggregate</goal>
                             </goals>
+                            <phase>validate</phase>
                         </execution>
                     </executions>
                 </plugin>
@@ -3242,6 +3287,10 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+            </plugin>
             <!-- skip site-plugin as we dont use Maven site (inherited from Apache BOM) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -3283,10 +3332,8 @@
                         <javax.xml.accessExternalDTD>file,http</javax.xml.accessExternalDTD>
                         <derby.stream.error.file>target/derby.log</derby.stream.error.file>
                         <java.awt.headless>${java.awt.headless}</java.awt.headless>
-                        <java.util.logging.config.file>${basedir}/target/test-classes/logging.properties
-                        </java.util.logging.config.file>
-                        <org.apache.activemq.default.directory.prefix>target/
-                        </org.apache.activemq.default.directory.prefix>
+                        <java.util.logging.config.file>${basedir}/target/test-classes/logging.properties</java.util.logging.config.file>
+                        <org.apache.activemq.default.directory.prefix>target/</org.apache.activemq.default.directory.prefix>
                     </systemPropertyVariables>
                     <includes>
                         <include>**/*Test.java</include>
@@ -3299,13 +3346,11 @@
                     <reuseForks>${camel.surefire.reuseForks}</reuseForks>
                     <forkedProcessTimeoutInSeconds>${camel.surefire.forkTimeout}</forkedProcessTimeoutInSeconds>
                     <properties>
-                        <configurationParameters>
-                            junit.jupiter.execution.parallel.enabled = ${camel.surefire.parallel}
+                        <configurationParameters>junit.jupiter.execution.parallel.enabled = ${camel.surefire.parallel}
                             junit.jupiter.execution.parallel.mode.default = same_thread
                             junit.jupiter.execution.parallel.mode.classes.default = concurrent
                             junit.jupiter.execution.parallel.config.strategy = ${camel.surefire.parallel.strategy}
-                            junit.jupiter.execution.parallel.config.dynamic.factor = ${camel.surefire.parallel.factor}
-                        </configurationParameters>
+                            junit.jupiter.execution.parallel.config.dynamic.factor = ${camel.surefire.parallel.factor}</configurationParameters>
                     </properties>
                 </configuration>
             </plugin>
@@ -3393,8 +3438,12 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <spotless.action>apply</spotless.action>
+            </properties>
             <build>
                 <plugins>
+                    <!--
                     <plugin>
                         <groupId>net.revelc.code</groupId>
                         <artifactId>impsort-maven-plugin</artifactId>
@@ -3403,12 +3452,20 @@
                         <groupId>net.revelc.code.formatter</groupId>
                         <artifactId>formatter-maven-plugin</artifactId>
                     </plugin>
+                    -->
+                    <plugin>
+                        <groupId>com.diffplug.spotless</groupId>
+                        <artifactId>spotless-maven-plugin</artifactId>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
 
         <profile>
             <id>sourcecheck</id>
+            <properties>
+                <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -3425,10 +3482,10 @@
                             </execution>
                             <execution>
                                 <id>validate</id>
-                                <phase>validate</phase>
                                 <goals>
                                     <goal>validate</goal>
                                 </goals>
+                                <phase>validate</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -3442,18 +3499,15 @@
                             </execution>
                             <execution>
                                 <id>check</id>
-                                <phase>validate</phase>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
+                                <phase>validate</phase>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
-            <properties>
-                <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
-            </properties>
         </profile>
 
         <profile>
@@ -3554,7 +3608,6 @@
                     <name>partial-build</name>
                 </property>
             </activation>
-
 
             <build>
                 <plugins>

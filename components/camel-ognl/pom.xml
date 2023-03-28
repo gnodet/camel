@@ -31,8 +31,7 @@
     <name>Camel :: OGNL</name>
     <description>Camel OGNL support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

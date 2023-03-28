@@ -31,19 +31,7 @@
     <name>Camel :: Mail</name>
     <description>Camel Mail support</description>
 
-    <properties>
-    </properties>
-
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2/</url>
-                </repository>
-                <repository>
-                    <id>jenkinsci-releases</id>
-                    <url>https://repo.jenkins-ci.org/releases/</url>
-                </repository>
-            </repositories>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -82,13 +70,13 @@
             <groupId>org.jvnet.mock-javamail</groupId>
             <artifactId>mock-javamail</artifactId>
             <version>${mock-javamail-version}</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>javax.mail</groupId>
                     <artifactId>mail</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -126,6 +114,17 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>jenkinsci-releases</id>
+            <url>https://repo.jenkins-ci.org/releases/</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -135,10 +134,10 @@
                 <executions>
                     <execution>
                         <id>unpack</id>
-                        <phase>generate-resources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
@@ -147,10 +146,8 @@
                                     <version>${angus-mail-version}</version>
                                     <type>jar</type>
                                     <outputDirectory>${project.basedir}/src/generated/resources</outputDirectory>
-                                    <includes>
-                                        META-INF/javamail.default.address.map,
-                                        META-INF/javamail.default.providers
-                                    </includes>
+                                    <includes>META-INF/javamail.default.address.map,
+                                        META-INF/javamail.default.providers</includes>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

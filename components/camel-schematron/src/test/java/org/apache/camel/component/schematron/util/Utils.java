@@ -18,12 +18,13 @@ package org.apache.camel.component.schematron.util;
 
 import java.util.Collections;
 
+import org.xmlunit.builder.Input;
+import org.xmlunit.xpath.JAXPXPathEngine;
+
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.schematron.constant.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmlunit.builder.Input;
-import org.xmlunit.xpath.JAXPXPathEngine;
 
 /**
  * Utility Class.

@@ -36,7 +36,6 @@
         <firstVersion>3.1.0</firstVersion>
         <label>rest,api</label>
 
-
         <camel.surefire.parallel>true</camel.surefire.parallel>
     </properties>
 
@@ -90,7 +89,6 @@
             <artifactId>swagger-core-jakarta</artifactId>
             <version>${swagger-openapi3-version}</version>
         </dependency>
-
 
         <!-- servlet api -->
         <dependency>

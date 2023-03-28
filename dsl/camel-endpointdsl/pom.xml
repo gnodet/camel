@@ -143,11 +143,11 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>initialize</phase>
                         <goals>
                             <goal>add-source</goal>
                             <goal>add-resource</goal>
                         </goals>
+                        <phase>initialize</phase>
                         <configuration>
                             <sources>
                                 <source>src/generated/java</source>
@@ -165,15 +165,15 @@
                 <!-- The non generated code depends on the generated code,
                      so skip the first compilation phase -->
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <maxmem>1024M</maxmem>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-compile</id>
                         <phase>none</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <maxmem>1024M</maxmem>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>

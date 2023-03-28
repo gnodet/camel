@@ -32,8 +32,7 @@
     <name>Camel :: ElasticSearch Java API Client</name>
     <description>Camel ElasticSearch Java API Client support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

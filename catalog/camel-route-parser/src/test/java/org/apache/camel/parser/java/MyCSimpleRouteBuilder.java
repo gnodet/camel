@@ -24,10 +24,10 @@ public class MyCSimpleRouteBuilder extends RouteBuilder {
     public void configure() {
         from("timer:foo")
                 .filter(csimple("${body} > 99"))
-                    .toD("log:a")
+                .toD("log:a")
                 .end()
                 .filter().csimple("${body} > 201")
-                    .to("log:b")
+                .to("log:b")
                 .end()
                 .to("log:c");
     }

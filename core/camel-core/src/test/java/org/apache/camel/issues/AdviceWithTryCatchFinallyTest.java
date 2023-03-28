@@ -45,14 +45,14 @@ public class AdviceWithTryCatchFinallyTest extends ContextTestSupport {
             @Override
             public void configure() {
                 from("direct:start").routeId("my-route")
-                    .doTry()
+                        .doTry()
                         .log("try")
                         .to("mock:replace-me").id("replace-me")
-                    .doCatch(Exception.class)
+                        .doCatch(Exception.class)
                         .log("catch")
-                    .doFinally()
+                        .doFinally()
                         .log("finally")
-                    .end();
+                        .end();
             }
         };
     }

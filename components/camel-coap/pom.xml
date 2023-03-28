@@ -32,8 +32,7 @@
     <name>Camel :: CoAP</name>
     <description>Camel CoAP support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -46,12 +45,12 @@
             <version>${californium-version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>element-connector</artifactId>
                     <groupId>org.eclipse.californium</groupId>
+                    <artifactId>element-connector</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>californium-legal</artifactId>
                     <groupId>org.eclipse.californium</groupId>
+                    <artifactId>californium-legal</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -66,24 +65,24 @@
             <version>${californium-version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>element-connector</artifactId>
                     <groupId>org.eclipse.californium</groupId>
+                    <artifactId>element-connector</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>californium-legal</artifactId>
                     <groupId>org.eclipse.californium</groupId>
+                    <artifactId>californium-legal</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
 
         <dependency>
-            <artifactId>element-connector</artifactId>
             <groupId>org.eclipse.californium</groupId>
+            <artifactId>element-connector</artifactId>
             <version>${californium-scandium-version}</version>
         </dependency>
         <dependency>
-            <artifactId>californium-legal</artifactId>
             <groupId>org.eclipse.californium</groupId>
+            <artifactId>californium-legal</artifactId>
             <version>${californium-scandium-version}</version>
         </dependency>
 

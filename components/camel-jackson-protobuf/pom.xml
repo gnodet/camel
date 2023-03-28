@@ -32,7 +32,7 @@
     <description>Camel Jackson Protobuf support</description>
 
     <properties>
-    	<firstVersion>3.10.0</firstVersion>
+        <firstVersion>3.10.0</firstVersion>
     </properties>
 
     <dependencies>

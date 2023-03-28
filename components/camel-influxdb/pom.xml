@@ -31,8 +31,7 @@
     <name>Camel :: InfluxDB</name>
     <description>Camel InfluxDB component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -47,10 +46,10 @@
             <artifactId>influxdb-java</artifactId>
             <version>${influx-java-driver-version}</version>
             <exclusions>
-               <exclusion>
-                   <groupId>com.squareup.okhttp3</groupId>
-                   <artifactId>logging-interceptor</artifactId>
-               </exclusion>
+                <exclusion>
+                    <groupId>com.squareup.okhttp3</groupId>
+                    <artifactId>logging-interceptor</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>

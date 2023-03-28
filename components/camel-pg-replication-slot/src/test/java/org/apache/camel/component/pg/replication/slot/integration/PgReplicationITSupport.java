@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.camel.component.pg.replication.slot.integration;
 
 import org.apache.camel.test.infra.postgres.services.PostgresLocalContainerService;

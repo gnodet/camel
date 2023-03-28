@@ -58,38 +58,38 @@ public class ComplexTypesTest extends CamelTestSupport {
             @Override
             public void configure() {
                 rest().securityDefinitions()
-                    .oauth2("global")
-                    .accessCode("https://AUTHORIZATION_URL", "https://TOKEN_URL")
-                    .withScope("groups", "Required scopes for Camel REST APIs");
+                        .oauth2("global")
+                        .accessCode("https://AUTHORIZATION_URL", "https://TOKEN_URL")
+                        .withScope("groups", "Required scopes for Camel REST APIs");
 
                 rest().post("/complexRequest")
-                    .description("Demo complex request type")
-                    .type(SampleComplexRequestType.class)
-                    .consumes("application/json")
-                    .produces("text/plain")
-                    .bindingMode(RestBindingMode.json)
-                    .responseMessage()
-                    .code(200)
-                    .message("Receives a complex object as parameter")
-                    .endResponseMessage()
-                    .outType(SampleComplexResponseType.InnerClass.class)
-                    .to("direct:request");
+                        .description("Demo complex request type")
+                        .type(SampleComplexRequestType.class)
+                        .consumes("application/json")
+                        .produces("text/plain")
+                        .bindingMode(RestBindingMode.json)
+                        .responseMessage()
+                        .code(200)
+                        .message("Receives a complex object as parameter")
+                        .endResponseMessage()
+                        .outType(SampleComplexResponseType.InnerClass.class)
+                        .to("direct:request");
                 from("direct:request")
                         .routeId("complex request type")
                         .log("/complex request invoked");
 
                 rest().get("/complexResponse")
-                    .description("Demo complex response type")
-                    .type(SampleComplexRequestType.InnerClass.class)
-                    .consumes("application/json")
-                    .outType(SampleComplexResponseType.class)
-                    .produces("application/json")
-                    .bindingMode(RestBindingMode.json)
-                    .responseMessage()
-                    .code(200)
-                    .message("Returns a complex object")
-                    .endResponseMessage()
-                    .to("direct:response");
+                        .description("Demo complex response type")
+                        .type(SampleComplexRequestType.InnerClass.class)
+                        .consumes("application/json")
+                        .outType(SampleComplexResponseType.class)
+                        .produces("application/json")
+                        .bindingMode(RestBindingMode.json)
+                        .responseMessage()
+                        .code(200)
+                        .message("Returns a complex object")
+                        .endResponseMessage()
+                        .to("direct:response");
 
                 from("direct:response")
                         .routeId("complex response type")

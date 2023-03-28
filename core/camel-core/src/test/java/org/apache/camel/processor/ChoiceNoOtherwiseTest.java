@@ -69,7 +69,8 @@ public class ChoiceNoOtherwiseTest extends ContextTestSupport {
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").choice().when().simple("${header.foo} == 'bar'").to("mock:x").otherwise().end().to("mock:end");
+                from("direct:start").choice().when().simple("${header.foo} == 'bar'").to("mock:x").otherwise().end()
+                        .to("mock:end");
             }
         });
         context.start();
@@ -88,7 +89,8 @@ public class ChoiceNoOtherwiseTest extends ContextTestSupport {
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").choice().when(simple("${header.foo} == 'bar'")).to("mock:x").otherwise().end().to("mock:end");
+                from("direct:start").choice().when(simple("${header.foo} == 'bar'")).to("mock:x").otherwise().end()
+                        .to("mock:end");
             }
         });
         context.start();

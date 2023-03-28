@@ -31,8 +31,7 @@
     <name>Camel :: JMX</name>
     <description>Camel JMX support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -117,6 +116,9 @@
                 <executions>
                     <execution>
                         <id>generate-sources</id>
+                        <goals>
+                            <goal>xsdtojava</goal>
+                        </goals>
                         <phase>generate-sources</phase>
                         <configuration>
                             <fork>${cxf.codegenplugin.forkmode}</fork>
@@ -133,9 +135,6 @@
                                 </xsdOption>
                             </xsdOptions>
                         </configuration>
-                        <goals>
-                            <goal>xsdtojava</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

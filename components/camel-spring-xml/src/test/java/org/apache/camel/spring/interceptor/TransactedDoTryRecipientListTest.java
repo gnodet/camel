@@ -40,7 +40,7 @@ public class TransactedDoTryRecipientListTest extends TransactionClientDataSourc
                 from("direct:start")
                         .transacted()
                         .doTry()
-                            .recipientList(constant("direct:a"))
+                        .recipientList(constant("direct:a"))
                         .endDoTry();
 
                 from("direct:a")

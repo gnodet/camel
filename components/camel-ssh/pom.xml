@@ -31,8 +31,7 @@
     <name>Camel :: SSH</name>
     <description>Camel SSH support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

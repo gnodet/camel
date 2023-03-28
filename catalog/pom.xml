@@ -29,9 +29,9 @@
     </parent>
 
     <artifactId>catalog</artifactId>
+    <packaging>pom</packaging>
     <name>Camel :: Catalog</name>
     <description>Camel Catalog</description>
-    <packaging>pom</packaging>
 
     <modules>
         <!-- sync so all components are built first -->

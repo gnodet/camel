@@ -32,8 +32,7 @@
     <name>Camel :: AWS Cloutrail</name>
     <description>A Camel Amazon Cloudtrail Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -73,7 +72,6 @@
             <version>${hamcrest-version}</version>
             <scope>test</scope>
         </dependency>
-
 
         <!-- test infra -->
         <dependency>

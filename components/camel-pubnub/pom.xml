@@ -32,8 +32,7 @@
     <name>Camel :: PubNub</name>
     <description>Camel PubNub Support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

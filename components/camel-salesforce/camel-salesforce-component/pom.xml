@@ -133,7 +133,7 @@
             <artifactId>jaxb-impl</artifactId>
             <version>${jaxb-impl-version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -264,13 +264,6 @@
     </dependencies>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.1</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -314,6 +307,13 @@
                 </executions>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.7.1</version>
+            </extension>
+        </extensions>
     </build>
 
     <profiles>
@@ -333,9 +333,7 @@
                                     <rules>
                                         <requireFilesExist>
                                             <files>
-                                                <file>
-                                                    ${salesforce.component.root}/it/resources/migration-tool/ant-salesforce.jar
-                                                </file>
+                                                <file>${salesforce.component.root}/it/resources/migration-tool/ant-salesforce.jar</file>
                                             </files>
                                             <message><![CDATA[Salesforce Migration Tool required
 
@@ -370,10 +368,10 @@ https://developer.salesforce.com/page/Force.com_Migration_Tool]]></message>
                         <executions>
                             <execution>
                                 <id>copy-test-salesforce-login-properties</id>
-                                <phase>generate-test-resources</phase>
                                 <goals>
                                     <goal>copy-resources</goal>
                                 </goals>
+                                <phase>generate-test-resources</phase>
                                 <configuration>
                                     <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                                     <resources>
@@ -386,14 +384,12 @@ https://developer.salesforce.com/page/Force.com_Migration_Tool]]></message>
                             </execution>
                             <execution>
                                 <id>set-connected-app-client-id</id>
-                                <phase>generate-test-resources</phase>
                                 <goals>
                                     <goal>copy-resources</goal>
                                 </goals>
+                                <phase>generate-test-resources</phase>
                                 <configuration>
-                                    <outputDirectory>
-                                        ${salesforce.component.root}/it/resources/salesforce/connectedApps
-                                    </outputDirectory>
+                                    <outputDirectory>${salesforce.component.root}/it/resources/salesforce/connectedApps</outputDirectory>
                                     <overwrite>true</overwrite>
                                     <filters>
                                         <filter>${salesforce.component.root}/test-salesforce-login.properties</filter>
@@ -412,6 +408,13 @@ https://developer.salesforce.com/page/Force.com_Migration_Tool]]></message>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.ant</groupId>
+                                <artifactId>ant</artifactId>
+                                <version>1.10.12</version>
+                            </dependency>
+                        </dependencies>
                         <executions>
                             <execution>
                                 <id>setup-salesforce-instance</id>
@@ -427,45 +430,38 @@ https://developer.salesforce.com/page/Force.com_Migration_Tool]]></message>
                                             </classpath>
                                         </taskdef>
 
-                                        <property prefix="prop" file="${project.build.directory}/test-classes/test-salesforce-login.properties" />
+                                        <property file="${project.build.directory}/test-classes/test-salesforce-login.properties" prefix="prop" />
                                         <property environment="env" />
 
-                                        <property name="username" value="${prop.salesforce.username}" if:set="prop.salesforce.username" />
-                                        <property name="username" value="${env.SALESFORCE_USERNAME}" if:set="env.SALESFORCE_USERNAME" />
+                                        <property name="username" if:set="prop.salesforce.username" value="${prop.salesforce.username}" />
+                                        <property name="username" if:set="env.SALESFORCE_USERNAME" value="${env.SALESFORCE_USERNAME}" />
 
-                                        <property name="password" value="${prop.salesforce.password}" if:set="prop.salesforce.password" />
-                                        <property name="password" value="${env.SALESFORCE_PASSWORD}" if:set="env.SALESFORCE_PASSWORD" />
+                                        <property name="password" if:set="prop.salesforce.password" value="${prop.salesforce.password}" />
+                                        <property name="password" if:set="env.SALESFORCE_PASSWORD" value="${env.SALESFORCE_PASSWORD}" />
 
-                                        <property name="serverurl" value="${prop.salesforce.login.url}" if:set="prop.salesforce.login.url" />
-                                        <property name="serverurl" value="${env.SALESFORCE_LOGIN_URL}" if:set="env.SALESFORCE_LOGIN_URL" />
+                                        <property name="serverurl" if:set="prop.salesforce.login.url" value="${prop.salesforce.login.url}" />
+                                        <property name="serverurl" if:set="env.SALESFORCE_LOGIN_URL" value="${env.SALESFORCE_LOGIN_URL}" />
 
-                                        <fail unless:set="username" message="To run the migrations you need to specify either `salesforce.username` in: ${project.build.directory}/generated-resources/test-salesforce-login.properties or set SALESFORCE_USERNAME environment variable" />
+                                        <fail message="To run the migrations you need to specify either `salesforce.username` in: ${project.build.directory}/generated-resources/test-salesforce-login.properties or set SALESFORCE_USERNAME environment variable" unless:set="username" />
 
-                                        <fail unless:set="password" message="To run the migrations you need to specify either `salesforce.password` in: ${project.build.directory}/generated-resources/test-salesforce-login.properties or set SALESFORCE_PASSWORD environment variable" />
+                                        <fail message="To run the migrations you need to specify either `salesforce.password` in: ${project.build.directory}/generated-resources/test-salesforce-login.properties or set SALESFORCE_PASSWORD environment variable" unless:set="password" />
 
-                                        <fail unless:set="serverurl" message="To run the migrations you need to specify either `salesforce.login.url` in: ${project.build.directory}/generated-resources/test-salesforce-login.properties or set SALESFORCE_LOGIN_URL environment variable" />
+                                        <fail message="To run the migrations you need to specify either `salesforce.login.url` in: ${project.build.directory}/generated-resources/test-salesforce-login.properties or set SALESFORCE_LOGIN_URL environment variable" unless:set="serverurl" />
 
-                                        <sf:deploy xmlns:sf="antlib:com.salesforce" username="${username}" password="${password}" deployRoot="${salesforce.component.root}/it/resources/salesforce" rollbackOnError="true" serverurl="${serverurl}" />
+                                        <sf:deploy xmlns:sf="antlib:com.salesforce" deployRoot="${salesforce.component.root}/it/resources/salesforce" password="${password}" rollbackOnError="true" serverurl="${serverurl}" username="${username}" />
                                     </target>
                                 </configuration>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.ant</groupId>
-                                <artifactId>ant</artifactId>
-                                <version>1.10.12</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>integration-test</phase>
                                 <goals>
                                     <goal>integration-test</goal>
                                 </goals>
+                                <phase>integration-test</phase>
                                 <configuration>
                                     <childDelegation>false</childDelegation>
                                     <useFile>true</useFile>
@@ -482,10 +478,10 @@ https://developer.salesforce.com/page/Force.com_Migration_Tool]]></message>
                             </execution>
                             <execution>
                                 <id>standalone-integration-tests</id>
-                                <phase>integration-test</phase>
                                 <goals>
                                     <goal>integration-test</goal>
                                 </goals>
+                                <phase>integration-test</phase>
                                 <configuration>
                                     <childDelegation>false</childDelegation>
                                     <useFile>true</useFile>

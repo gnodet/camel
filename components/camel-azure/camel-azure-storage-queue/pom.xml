@@ -32,8 +32,7 @@
     <name>Camel :: Azure :: Storage Queue</name>
     <description>Camel Azure Storage Queue Service Component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

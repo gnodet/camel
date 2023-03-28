@@ -70,7 +70,7 @@
             <version>${nimbus-jose-jwt}</version>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
 </project>

@@ -31,8 +31,7 @@
     <name>Camel :: Cometd</name>
     <description>Camel Cometd support based on Jetty</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

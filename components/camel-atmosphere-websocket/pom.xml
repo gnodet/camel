@@ -32,8 +32,7 @@
     <name>Camel :: Atmosphere WebSocket Servlet</name>
     <description>Camel Atmosphere WebSocket Servlet</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <!-- Camel -->
@@ -58,7 +57,6 @@
             <version>${atmosphere-version}</version>
         </dependency>
 
-
         <!-- test dependencies -->
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -78,7 +76,7 @@
             <artifactId>camel-test-infra-common</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
-	        <scope>test</scope>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -86,7 +84,7 @@
             <artifactId>camel-test-infra-jetty</artifactId>
             <version>${project.version}</version>
             <type>test-jar</type>
-	        <scope>test</scope>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

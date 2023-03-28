@@ -109,9 +109,12 @@ public class JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest extends A
             public void configure() {
                 from("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.start?mapJmsMessage=false")
                         .loadBalance().failover(-1, false, true)
-                        .to("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.one?forceSendOriginalMessage=" + forceSendOriginalMessage)
-                        .to("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.two?forceSendOriginalMessage=" + forceSendOriginalMessage)
-                        .to("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.three?forceSendOriginalMessage=" + forceSendOriginalMessage)
+                        .to("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.one?forceSendOriginalMessage="
+                            + forceSendOriginalMessage)
+                        .to("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.two?forceSendOriginalMessage="
+                            + forceSendOriginalMessage)
+                        .to("jms:queue:JmsLoadBalanceFailoverWithForceSendOriginalJmsMessageTest.three?forceSendOriginalMessage="
+                            + forceSendOriginalMessage)
                         .end()
                         .to("mock:result");
 

@@ -46,11 +46,11 @@ public class XPathResultTypeTest extends ContextTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 from("direct:start")
-                    .setProperty("BOOK_COUNT", xpath( "//Books/@count", Long.class))
-                    .split(xpath("//Books/Book"))
+                        .setProperty("BOOK_COUNT", xpath("//Books/@count", Long.class))
+                        .split(xpath("//Books/Book"))
                         .to("mock:split")
-                    .end()
-                    .to("mock:result");
+                        .end()
+                        .to("mock:result");
             }
         };
     }

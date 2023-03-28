@@ -79,12 +79,12 @@
                         <executions>
                             <execution>
                                 <id>schemas</id>
-                                <phase>generate-sources</phase>
                                 <goals>
                                     <goal>schema</goal>
                                     <goal>protocol</goal>
                                     <goal>idl-protocol</goal>
                                 </goals>
+                                <phase>generate-sources</phase>
                                 <configuration>
                                     <sourceDirectory>${project.basedir}/src/test/avro/</sourceDirectory>
                                     <outputDirectory>${project.basedir}/src/test/java/</outputDirectory>

@@ -43,7 +43,7 @@ public class OnCompletionAfterConsumerModeIssueTest extends ContextTestSupport {
                         .transform(constant("b"))
                         .to("mock:b")
                         .onCompletion()
-                            .to("mock:end")
+                        .to("mock:end")
                         .end();
             }
         });
@@ -72,14 +72,14 @@ public class OnCompletionAfterConsumerModeIssueTest extends ContextTestSupport {
                         .transform(constant("c"))
                         .to("mock:c")
                         .onCompletion()
-                            .to("mock:end")
+                        .to("mock:end")
                         .end();
 
                 from("direct:sub")
                         .transform(constant("b"))
                         .to("mock:b")
                         .onCompletion()
-                            .to("mock:end")
+                        .to("mock:end")
                         .end();
             }
         });
@@ -114,7 +114,7 @@ public class OnCompletionAfterConsumerModeIssueTest extends ContextTestSupport {
                         .transform(constant("b"))
                         .to("mock:b")
                         .onCompletion()
-                            .to("mock:end")
+                        .to("mock:end")
                         .end();
             }
         });

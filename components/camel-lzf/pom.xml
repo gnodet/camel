@@ -31,8 +31,7 @@
     <name>Camel :: LZF</name>
     <description>Camel LZF support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

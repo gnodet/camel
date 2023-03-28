@@ -31,8 +31,7 @@
     <name>Camel :: Vertx</name>
     <description>Camel Vertx support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

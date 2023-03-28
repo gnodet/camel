@@ -57,11 +57,11 @@ public class RouteNodePrefixIdTest extends ContextTestSupport {
                 from("direct:cheese")
                         .nodePrefixId("ccc")
                         .choice()
-                            .when(header("cheese"))
-                                .to("mock:cheese").id("myCheese")
-                            .otherwise()
-                                .to("mock:gauda")
-                            .end();
+                        .when(header("cheese"))
+                        .to("mock:cheese").id("myCheese")
+                        .otherwise()
+                        .to("mock:gauda")
+                        .end();
             }
         };
     }

@@ -29,9 +29,9 @@
     </parent>
 
     <artifactId>apache-camel</artifactId>
+    <packaging>pom</packaging>
     <name>Camel :: Assembly</name>
     <description>Apache Camel Assembly</description>
-    <packaging>pom</packaging>
 
     <properties>
         <maven.test.skip>true</maven.test.skip>
@@ -217,10 +217,10 @@
                 <executions>
                     <execution>
                         <id>src</id>
-                        <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <descriptors>
                                 <descriptor>src/main/descriptors/src.xml</descriptor>

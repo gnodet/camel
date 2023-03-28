@@ -88,12 +88,12 @@ public class LevelDBAggregateNotLostTest extends LevelDBTestSupport {
             public void configure() {
                 from("direct:start")
                         .aggregate(header("id"), new StringAggregationStrategy())
-                            .completionSize(5).aggregationRepository(getRepo())
-                            .log("aggregated exchange id ${exchangeId} with ${body}")
-                            .to("mock:aggregated")
-                            // throw an exception to fail, which we then will loose this message
-                            .throwException(new IllegalArgumentException("Damn"))
-                            .to("mock:result")
+                        .completionSize(5).aggregationRepository(getRepo())
+                        .log("aggregated exchange id ${exchangeId} with ${body}")
+                        .to("mock:aggregated")
+                        // throw an exception to fail, which we then will loose this message
+                        .throwException(new IllegalArgumentException("Damn"))
+                        .to("mock:result")
                         .end();
             }
         };

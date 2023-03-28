@@ -32,8 +32,7 @@
     <name>Camel :: DigitalOcean</name>
     <description>Camel DigitalOcean support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

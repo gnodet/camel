@@ -24,14 +24,14 @@ public class MyChoiceRouteBuilder extends RouteBuilder {
     public void configure() {
         from("timer:foo")
                 .choice()
-                    .when(header("foo"))
-                        .to("log:foo")
-                    .when(header("bar"))
-                        .to("log:bar")
-                        .to("mock:bar")
-                    .otherwise()
-                        .to("log:other")
-                        .to("mock:other")
+                .when(header("foo"))
+                .to("log:foo")
+                .when(header("bar"))
+                .to("log:bar")
+                .to("mock:bar")
+                .otherwise()
+                .to("log:other")
+                .to("mock:other")
                 .end()
                 .to("log:end");
     }

@@ -72,14 +72,13 @@ public abstract class AbstractTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:expression-only")
-                    .setBody()
-                    .expression(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .end()
-                        )
-                    ).to("mock:expression-only");
+                        .setBody()
+                        .expression(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .end()))
+                        .to("mock:expression-only");
             }
         });
         context.start();
@@ -97,15 +96,14 @@ public abstract class AbstractTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:typed-with-class")
-                    .setBody()
-                    .expression(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .resultType(testContext.getBodyReceivedType())
-                                .end()
-                        )
-                    ).to("mock:typed-with-class");
+                        .setBody()
+                        .expression(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .resultType(testContext.getBodyReceivedType())
+                                                .end()))
+                        .to("mock:typed-with-class");
             }
         });
         context.start();
@@ -119,14 +117,13 @@ public abstract class AbstractTypedLanguageTest<
             @Override
             public void configure() {
                 from("direct:typed-with-name")
-                    .split(
-                        expression(
-                            factory.apply(expression())
-                                .expression(expression)
-                                .resultTypeName(testContext.getBodyReceivedType().getName())
-                                .end()
-                        )
-                    ).to("mock:typed-with-name");
+                        .split(
+                                expression(
+                                        factory.apply(expression())
+                                                .expression(expression)
+                                                .resultTypeName(testContext.getBodyReceivedType().getName())
+                                                .end()))
+                        .to("mock:typed-with-name");
             }
         });
         context.start();

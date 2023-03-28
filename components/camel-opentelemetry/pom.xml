@@ -26,7 +26,6 @@
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
-
     <artifactId>camel-opentelemetry</artifactId>
     <packaging>jar</packaging>
     <name>Camel :: OpenTelemetry</name>

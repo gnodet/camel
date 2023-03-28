@@ -31,8 +31,7 @@
     <name>Camel :: Asterisk</name>
     <description>Camel Asterisk to interact with an Asterisk PBX Server</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

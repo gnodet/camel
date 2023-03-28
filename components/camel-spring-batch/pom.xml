@@ -30,8 +30,7 @@
     <name>Camel :: Spring Batch</name>
     <description>Camel Spring Batch support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

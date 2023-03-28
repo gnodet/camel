@@ -95,8 +95,8 @@
         <dependency>
             <groupId>com.google.api</groupId>
             <artifactId>gax-grpc</artifactId>
-            <classifier>testlib</classifier>
             <version>${google-cloud-functions-gax-grpc-version}</version>
+            <classifier>testlib</classifier>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

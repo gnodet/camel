@@ -58,9 +58,9 @@ public class RestManagementTest extends BaseUndertowTest {
                 restConfiguration().component("undertow").host("localhost").port(getPort());
 
                 rest("/say")
-                    .get("/hello").to("direct:hello")
-                    .get("/bye").consumes("application/json").to("direct:bye")
-                    .post("/bye").to("mock:update");
+                        .get("/hello").to("direct:hello")
+                        .get("/bye").consumes("application/json").to("direct:bye")
+                        .post("/bye").to("mock:update");
 
                 from("direct:hello")
                         .transform().constant("Hello World");

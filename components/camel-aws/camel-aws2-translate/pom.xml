@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 Translate</name>
     <description>A Camel Amazon Translate Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

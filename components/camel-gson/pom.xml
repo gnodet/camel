@@ -31,8 +31,7 @@
     <name>Camel :: Gson</name>
     <description>Camel Gson support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -57,7 +56,7 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito-version}</version>
             <scope>test</scope>
-         </dependency>
+        </dependency>
     </dependencies>
 
 </project>

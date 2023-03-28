@@ -32,8 +32,7 @@
     <name>Camel :: Google :: BigQuery</name>
     <description>Camel Component for Google Cloud Platform BigQuery</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencyManagement>
         <dependencies>

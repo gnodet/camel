@@ -96,10 +96,9 @@ public class JmsInOutFixedReplyQueueTimeoutTest extends AbstractJMSTest {
                 from("activemq:queue:JmsInOutFixedReplyQueueTimeoutTest")
                         .routeId("route-2")
                         .choice()
-                            .when(body().isEqualTo("World"))
-                                .log("Sleeping for 4 sec to force a timeout")
-                                .delay(Duration.ofSeconds(4).toMillis()).
-                            endChoice().end()
+                        .when(body().isEqualTo("World"))
+                        .log("Sleeping for 4 sec to force a timeout")
+                        .delay(Duration.ofSeconds(4).toMillis()).endChoice().end()
                         .transform(body().prepend("Bye ")).to("log:reply");
             }
         };

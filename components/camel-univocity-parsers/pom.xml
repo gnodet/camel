@@ -31,8 +31,7 @@
     <name>Camel :: UniVocity Parsers</name>
     <description>Camel UniVocity parsers data format support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

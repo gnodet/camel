@@ -74,10 +74,10 @@ public class OnCompletionFailAndOkTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .onCompletion().onCompleteOnly().to("log:ok").to("mock:ok").end()
-                    .onCompletion().onFailureOnly().to("log:fail").to("mock:fail").end()
-                    .process(new OnCompletionTest.MyProcessor())
-                    .to("mock:result");
+                        .onCompletion().onCompleteOnly().to("log:ok").to("mock:ok").end()
+                        .onCompletion().onFailureOnly().to("log:fail").to("mock:fail").end()
+                        .process(new OnCompletionTest.MyProcessor())
+                        .to("mock:result");
             }
         };
     }

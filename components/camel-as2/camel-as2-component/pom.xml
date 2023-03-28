@@ -90,6 +90,15 @@
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-api-component-maven-plugin</artifactId>
+                <dependencies>
+                    <!-- Component API to read API signatures -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-as2-api</artifactId>
+                        <version>${project.version}</version>
+                        <classifier>sources</classifier>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-test-component-classes</id>
@@ -103,9 +112,7 @@
                                     <producerOnly>true</producerOnly>
                                     <proxyClass>org.apache.camel.component.as2.api.AS2ClientManager</proxyClass>
                                     <fromJavasource>
-                                        <excludeMethods>
-                                            createSigningGenerator|createEncryptingGenerator|createCompressorGenerator|createEncryptor|createCompressor
-                                        </excludeMethods>
+                                        <excludeMethods>createSigningGenerator|createEncryptingGenerator|createCompressorGenerator|createEncryptor|createCompressor</excludeMethods>
                                     </fromJavasource>
                                     <nullableOptions>
                                         <nullableOption>ediMessageTransferEncoding</nullableOption>
@@ -146,15 +153,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <!-- Component API to read API signatures -->
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-as2-api</artifactId>
-                        <version>${project.version}</version>
-                        <classifier>sources</classifier>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

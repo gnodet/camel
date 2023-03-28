@@ -32,8 +32,7 @@
     <name>Camel :: Paho MQTT 5</name>
     <description>Camel Eclipse Paho support for MQTT v5</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

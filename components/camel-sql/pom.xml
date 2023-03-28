@@ -107,16 +107,14 @@
                 <version>${javacc-maven-plugin-version}</version>
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <sourceDirectory>
-                                ${basedir}/src/main/java/org/apache/camel/component/sql/stored/template/grammar
-                            </sourceDirectory>
-                            <outputDirectory>${basedir}/src/generated/java</outputDirectory>
-                        </configuration>
                         <goals>
                             <goal>javacc</goal>
                         </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <sourceDirectory>${basedir}/src/main/java/org/apache/camel/component/sql/stored/template/grammar</sourceDirectory>
+                            <outputDirectory>${basedir}/src/generated/java</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

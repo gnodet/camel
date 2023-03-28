@@ -19,54 +19,54 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.apache.camel</groupId>
-    <artifactId>camel-huawei-parent</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-huawei-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+    </parent>
 
-  <properties>
-    <firstVersion>3.12.0</firstVersion>
-  </properties>
+    <artifactId>camel-huaweicloud-dms</artifactId>
+    <packaging>jar</packaging>
+    <name>Camel :: Huawei Cloud :: DMS</name>
+    <description>To integrate with a fully managed, high-performance message queuing service on Huawei Cloud</description>
 
-  <artifactId>camel-huaweicloud-dms</artifactId>
-  <packaging>jar</packaging>
-  <name>Camel :: Huawei Cloud :: DMS</name>
-  <description>To integrate with a fully managed, high-performance message queuing service on Huawei Cloud</description>
+    <properties>
+        <firstVersion>3.12.0</firstVersion>
+    </properties>
 
-  <dependencies>
+    <dependencies>
 
-    <!-- camel -->
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-support</artifactId>
-    </dependency>
+        <!-- camel -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-support</artifactId>
+        </dependency>
 
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-huaweicloud-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-huaweicloud-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>com.huaweicloud.sdk</groupId>
-      <artifactId>huaweicloud-sdk-core</artifactId>
-      <version>${huaweicloud-sdk-version}</version>
-    </dependency>
+        <dependency>
+            <groupId>com.huaweicloud.sdk</groupId>
+            <artifactId>huaweicloud-sdk-core</artifactId>
+            <version>${huaweicloud-sdk-version}</version>
+        </dependency>
 
-    <!-- testing -->
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-test-junit5</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>${mockito-version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!-- testing -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

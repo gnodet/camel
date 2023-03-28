@@ -68,10 +68,10 @@
                 <executions>
                     <execution>
                         <id>copy-spi-annotations</id>
-                        <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
+                        <phase>validate</phase>
                         <configuration>
                             <outputDirectory>${basedir}/src/generated/java</outputDirectory>
                             <resources>
@@ -97,10 +97,10 @@
                         <executions>
                             <execution>
                                 <id>package</id>
-                                <phase>package</phase>
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <phase>package</phase>
                             </execution>
                         </executions>
                     </plugin>

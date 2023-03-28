@@ -67,5 +67,5 @@
             <version>${hamcrest-version}</version>
             <scope>test</scope>
         </dependency>
-	</dependencies>
+    </dependencies>
 </project>

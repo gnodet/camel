@@ -77,17 +77,17 @@ public class TransactedStackSizeParallelProcessingTest extends TransactionClient
             @Override
             public void configure() throws Exception {
                 from("seda:start")
-                    .transacted()
-                    .setHeader("stackSize", TransactedStackSizeParallelProcessingTest::currentStackSize)
-                    .log("BEGIN: ${body} stack-size ${header.stackSize}")
-                    .split(body()).parallelProcessing()
+                        .transacted()
+                        .setHeader("stackSize", TransactedStackSizeParallelProcessingTest::currentStackSize)
+                        .log("BEGIN: ${body} stack-size ${header.stackSize}")
+                        .split(body()).parallelProcessing()
                         .setHeader("stackSize", TransactedStackSizeParallelProcessingTest::currentStackSize)
                         .log("LINE: ${body} stack-size ${header.stackSize}")
                         .to("mock:line")
-                    .end()
-                    .setHeader("stackSize", TransactedStackSizeParallelProcessingTest::currentStackSize)
-                    .log("RESULT: ${body} stack-size ${header.stackSize}")
-                    .to("mock:result");
+                        .end()
+                        .setHeader("stackSize", TransactedStackSizeParallelProcessingTest::currentStackSize)
+                        .log("RESULT: ${body} stack-size ${header.stackSize}")
+                        .to("mock:result");
             }
         };
     }

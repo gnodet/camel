@@ -29,13 +29,9 @@
     </parent>
 
     <artifactId>archetypes</artifactId>
+    <packaging>pom</packaging>
     <name>Camel :: Archetypes</name>
     <description>Camel Archetypes</description>
-    <packaging>pom</packaging>
-
-    <properties>
-        <checkstyle.skip>true</checkstyle.skip>
-    </properties>
 
     <modules>
         <module>camel-archetype-api-component</module>
@@ -45,6 +41,10 @@
         <module>camel-archetype-main</module>
         <module>camel-archetype-spring</module>
     </modules>
+
+    <properties>
+        <checkstyle.skip>true</checkstyle.skip>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -59,73 +59,7 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>archetypes-skip-tests</id>
-            <activation>
-                <property><name>skipTests</name></property>
-            </activation>
-            <properties>
-                <archetype.test.skip>true</archetype.test.skip>
-            </properties>
-        </profile>
-        <profile>
-            <id>archetypes-skip-tests-fastinstall</id>
-            <activation>
-                <property><name>fastinstall</name></property>
-            </activation>
-            <properties>
-                <archetype.test.skip>true</archetype.test.skip>
-            </properties>
-        </profile>
-        <profile>
-            <id>archetypes-skip-tests-release</id>
-            <activation>
-                <property><name>release</name></property>
-            </activation>
-            <properties>
-                <archetype.test.skip>true</archetype.test.skip>
-            </properties>
-        </profile>
-    </profiles>
-
     <build>
-        <plugins>
-
-            <!-- skip flatten plugin as this breaks all the archetypes -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <executions>
-                    <execution>
-                        <id>default-cli</id>
-                        <phase>none</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                        <configuration>
-                            <updatePomFile>false</updatePomFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- generate and attach Camel archetype catalog -->
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-package-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-and-attach-archetype-catalog</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
 
         <pluginManagement>
             <plugins>
@@ -149,5 +83,77 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+
+            <!-- skip flatten plugin as this breaks all the archetypes -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <phase>none</phase>
+                        <configuration>
+                            <updatePomFile>false</updatePomFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- generate and attach Camel archetype catalog -->
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-package-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-and-attach-archetype-catalog</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>archetypes-skip-tests</id>
+            <activation>
+                <property>
+                    <name>skipTests</name>
+                </property>
+            </activation>
+            <properties>
+                <archetype.test.skip>true</archetype.test.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>archetypes-skip-tests-fastinstall</id>
+            <activation>
+                <property>
+                    <name>fastinstall</name>
+                </property>
+            </activation>
+            <properties>
+                <archetype.test.skip>true</archetype.test.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>archetypes-skip-tests-release</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
+            <properties>
+                <archetype.test.skip>true</archetype.test.skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>

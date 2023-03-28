@@ -31,8 +31,7 @@
     <name>Camel :: CouchDB</name>
     <description>Camel CouchDB component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

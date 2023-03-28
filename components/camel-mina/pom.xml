@@ -31,8 +31,7 @@
     <name>Camel :: MINA</name>
     <description>Camel MINA support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

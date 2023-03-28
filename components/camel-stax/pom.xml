@@ -31,15 +31,14 @@
     <name>Camel :: StAX</name>
     <description>Camel StAX support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-support</artifactId>
-        </dependency>		
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xml-jaxp</artifactId>
@@ -49,7 +48,7 @@
             <artifactId>woodstox-core</artifactId>
             <version>${woodstox-core-version}</version>
         </dependency>
-        
+
         <!-- test dependencies -->
         <dependency>
             <groupId>org.apache.camel</groupId>

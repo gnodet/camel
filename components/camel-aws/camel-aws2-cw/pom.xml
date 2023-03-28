@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 CW</name>
     <description>A Camel Amazon CW Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

@@ -31,8 +31,7 @@
 
     <name>Camel :: Undertow</name>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

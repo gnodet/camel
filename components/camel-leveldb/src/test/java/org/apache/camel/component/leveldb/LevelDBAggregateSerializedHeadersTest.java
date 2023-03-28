@@ -76,10 +76,10 @@ public class LevelDBAggregateSerializedHeadersTest extends LevelDBTestSupport {
                 from("seda:start?size=" + SIZE)
                         .to("log:input?groupSize=500")
                         .aggregate(header("id"), new IntegerAggregationStrategy())
-                            .aggregationRepository(getRepo())
-                            .completionSize(SIZE)
-                            .to("log:output?showHeaders=true")
-                            .to("mock:result")
+                        .aggregationRepository(getRepo())
+                        .completionSize(SIZE)
+                        .to("log:output?showHeaders=true")
+                        .to("mock:result")
                         .end();
             }
         };

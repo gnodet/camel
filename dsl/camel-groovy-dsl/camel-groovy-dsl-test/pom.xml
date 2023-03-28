@@ -34,12 +34,8 @@
 
     <properties>
         <firstVersion>3.10.0</firstVersion>
-        <sourcecheckExcludes>
-            **/resources/**/*.groovy
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/resources/**/*.groovy</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
         <camel-prepare-component>false</camel-prepare-component>
     </properties>
 
@@ -156,6 +152,9 @@
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
                 <version>${gmavenplus-plugin-version}</version>
+                <configuration>
+                    <invokeDynamic>true</invokeDynamic>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -166,9 +165,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <invokeDynamic>true</invokeDynamic>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -71,12 +71,42 @@
     <build>
         <defaultGoal>install</defaultGoal>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-api-component-maven-plugin</artifactId>
+                    <configuration>
+                        <scheme>${schemeName}</scheme>
+                        <componentName>${componentName}</componentName>
+                        <componentPackage>${componentPackage}</componentPackage>
+                        <outPackage>${outPackage}</outPackage>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <!-- generate Component source and test source -->
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-api-component-maven-plugin</artifactId>
                 <version>${project.version}</version>
+                <dependencies>
+                    <!-- Component API to read API signatures -->
+                    <dependency>
+                        <groupId>com.braintreepayments.gateway</groupId>
+                        <artifactId>braintree-java</artifactId>
+                        <version>${braintree-gateway-version}</version>
+                        <classifier>sources</classifier>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.json</groupId>
+                                <artifactId>json</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>generate-test-component-classes</id>
@@ -145,8 +175,7 @@
                                         <substitution>
                                             <method>^.+$</method>
                                             <argName>^.+$</argName>
-                                            <argType>com.braintreegateway.MerchantAccountCreateForCurrencyRequest
-                                            </argType>
+                                            <argType>com.braintreegateway.MerchantAccountCreateForCurrencyRequest</argType>
                                             <replacement>currencyRequest</replacement>
                                             <replaceWithType>false</replaceWithType>
                                         </substitution>
@@ -245,37 +274,7 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <!-- Component API to read API signatures -->
-                    <dependency>
-                        <groupId>com.braintreepayments.gateway</groupId>
-                        <artifactId>braintree-java</artifactId>
-                        <version>${braintree-gateway-version}</version>
-                        <classifier>sources</classifier>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>org.json</groupId>
-                                <artifactId>json</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-api-component-maven-plugin</artifactId>
-                    <configuration>
-                        <scheme>${schemeName}</scheme>
-                        <componentName>${componentName}</componentName>
-                        <componentPackage>${componentPackage}</componentPackage>
-                        <outPackage>${outPackage}</outPackage>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>

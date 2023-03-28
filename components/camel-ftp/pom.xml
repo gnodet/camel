@@ -99,7 +99,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- for testing sftp through http proxy -->
         <dependency>
             <groupId>org.littleshoot</groupId>
@@ -157,7 +156,6 @@
             <version>${mockito-version}</version>
             <scope>test</scope>
         </dependency>
-
 
         <!-- test infra -->
         <dependency>

@@ -940,10 +940,10 @@ public class GitProducerTest extends GitTestSupport {
                 from("direct:add-status-commit").to("git://" + gitLocalRepo + "?operation=add")
                         .to("git://" + gitLocalRepo + "?operation=status")
                         .choice()
-                            .when(simple("${body.hasUncommittedChanges()}")).log("Commiting changes...")
-                                .to("git://" + gitLocalRepo + "?operation=commit")
-                            .otherwise()
-                                .log("Nothing to commit")
+                        .when(simple("${body.hasUncommittedChanges()}")).log("Commiting changes...")
+                        .to("git://" + gitLocalRepo + "?operation=commit")
+                        .otherwise()
+                        .log("Nothing to commit")
                         .end();
                 from("direct:create-branch").to("git://" + gitLocalRepo + "?operation=createBranch&branchName=" + branchTest);
                 from("direct:delete-branch").to("git://" + gitLocalRepo + "?operation=deleteBranch&branchName=" + branchTest);

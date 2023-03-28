@@ -61,7 +61,7 @@ public class RestServletQueryParamUriTest extends ServletCamelRouterTestSupport 
 
                 // use the rest DSL to define the rest services
                 rest()
-                    .get("/users/?auth={myAuth}").to("direct:auth");
+                        .get("/users/?auth={myAuth}").to("direct:auth");
 
                 from("direct:auth")
                         .to("mock:input").process(exchange -> {

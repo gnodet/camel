@@ -29,17 +29,13 @@
 
     <artifactId>camel-yaml-dsl-deserializers</artifactId>
     <packaging>jar</packaging>
-    <name>Camel :: YAML DSL :: Deserializers </name>
+    <name>Camel :: YAML DSL :: Deserializers</name>
     <description>Camel DSL with YAML Deserializers</description>
 
     <properties>
         <firstVersion>3.9.0</firstVersion>
-        <sourcecheckExcludes>
-            **/*.groovy
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/*.groovy</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
         <camel-prepare-component>false</camel-prepare-component>
     </properties>
 
@@ -115,12 +111,19 @@
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-yaml-dsl-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-catalog</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
                         <goals>
                             <goal>generate-yaml-deserializers</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <packageName>org.apache.camel.dsl.yaml.deserializers</packageName>
                             <bannedDefinitions>
@@ -148,13 +151,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-catalog</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

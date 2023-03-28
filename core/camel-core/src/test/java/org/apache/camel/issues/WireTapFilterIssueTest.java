@@ -60,8 +60,8 @@ public class WireTapFilterIssueTest extends ContextTestSupport {
                 from(DIRECT_START_REGULAR_TO_ROUTE)
                         .to(BEFORE_FILTER)
                         .filter(header(HEADER_FILTER))
-                            .to(MOCK_IN_FILTER)
-                            .to(DIRECT_SUBROUTE_ENDPOINT)
+                        .to(MOCK_IN_FILTER)
+                        .to(DIRECT_SUBROUTE_ENDPOINT)
                         .end()
                         .to(MOCK_AFTER_FILTER)
                         .end();
@@ -69,9 +69,9 @@ public class WireTapFilterIssueTest extends ContextTestSupport {
                 from(DIRECT_START_WIRETAP_ROUTE)
                         .to(BEFORE_FILTER)
                         .filter(header(HEADER_FILTER))
-                            .to(MOCK_IN_FILTER)
-                            .wireTap(DIRECT_SUBROUTE_ENDPOINT)
-                            .end()
+                        .to(MOCK_IN_FILTER)
+                        .wireTap(DIRECT_SUBROUTE_ENDPOINT)
+                        .end()
                         .end()
                         .to(MOCK_AFTER_FILTER)
                         .end();

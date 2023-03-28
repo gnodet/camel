@@ -112,10 +112,10 @@
                 <version>${properties-maven-plugin-version}</version>
                 <executions>
                     <execution>
-                        <phase>initialize</phase>
                         <goals>
                             <goal>read-project-properties</goal>
                         </goals>
+                        <phase>initialize</phase>
                         <configuration>
                             <files>
                                 <file>${project.basedir}/src/test/resources/config.properties</file>
@@ -130,13 +130,21 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
                 <version>${sql-maven-plugin-version}</version>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>${hsqldb-version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>create-database-hsql</id>
-                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
+                        <phase>generate-test-sources</phase>
                         <configuration>
                             <driver>${db.driver}</driver>
                             <url>${db.url}</url>
@@ -150,14 +158,6 @@
                         </configuration>
                     </execution>
                 </executions>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>org.hsqldb</groupId>
-                        <artifactId>hsqldb</artifactId>
-                        <version>${hsqldb-version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <!-- The jOOQ code generator plugin -->
@@ -166,13 +166,21 @@
                 <artifactId>jooq-codegen-maven</artifactId>
                 <version>${jooq-version}</version>
 
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>${hsqldb-version}</version>
+                    </dependency>
+                </dependencies>
+
                 <executions>
                     <execution>
                         <id>generate-hsql</id>
-                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <phase>generate-test-sources</phase>
                         <configuration>
                             <logging>WARN</logging>
                             <jdbc>
@@ -200,14 +208,6 @@
                     </execution>
                 </executions>
 
-                <dependencies>
-                    <dependency>
-                        <groupId>org.hsqldb</groupId>
-                        <artifactId>hsqldb</artifactId>
-                        <version>${hsqldb-version}</version>
-                    </dependency>
-                </dependencies>
-
             </plugin>
 
             <plugin>
@@ -217,10 +217,10 @@
                 <executions>
                     <execution>
                         <id>add-test-source</id>
-                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
                         </goals>
+                        <phase>generate-test-sources</phase>
                         <configuration>
                             <sources>
                                 <source>${generated-jooq-directory}</source>

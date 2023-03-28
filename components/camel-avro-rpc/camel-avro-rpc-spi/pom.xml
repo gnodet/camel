@@ -30,7 +30,6 @@
     <name>Camel :: Avro RPC :: Spi</name>
     <description>Camel Avro  RPC spi</description>
 
-
     <properties>
         <firstVersion>3.11.0</firstVersion>
     </properties>

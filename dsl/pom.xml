@@ -33,11 +33,6 @@
     <name>Camel :: DSL :: Parent</name>
     <description>Camel DSL Parent</description>
 
-    <properties>
-        <camel.surefire.parallel>true</camel.surefire.parallel>
-        <camel-prepare-component>true</camel-prepare-component>
-    </properties>
-
     <modules>
         <module>camel-endpointdsl</module>
         <module>camel-componentdsl</module>
@@ -58,13 +53,17 @@
         <module>camel-jbang</module>
     </modules>
 
+    <properties>
+        <camel.surefire.parallel>true</camel.surefire.parallel>
+        <camel-prepare-component>true</camel-prepare-component>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-package-maven-plugin</artifactId>
-                <configuration>
-                </configuration>
+                <configuration />
 
                 <executions>
                     <execution>
@@ -103,10 +102,10 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -115,11 +114,11 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>generate-sources</phase>
                         <goals>
                             <goal>add-source</goal>
                             <goal>add-resource</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <sources>
                                 <source>src/generated/java</source>

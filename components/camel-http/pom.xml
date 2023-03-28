@@ -32,8 +32,7 @@
     <name>Camel :: HTTP</name>
     <description>Camel HTTP support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -94,7 +93,6 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
-
 
         <!-- test infra -->
         <dependency>

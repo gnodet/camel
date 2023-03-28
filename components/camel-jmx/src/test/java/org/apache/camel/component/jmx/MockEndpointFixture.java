@@ -23,10 +23,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.xml.transform.Source;
 
+import org.xmlunit.xpath.JAXPXPathEngine;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.xmlunit.xpath.JAXPXPathEngine;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

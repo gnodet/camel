@@ -32,9 +32,7 @@
     <name>Camel :: ServiceNow :: Component</name>
     <description>Camel ServiceNow support</description>
 
-    <properties>
-    </properties>
-
+    <properties />
 
     <dependencies>
         <dependency>

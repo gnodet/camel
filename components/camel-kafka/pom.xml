@@ -75,8 +75,8 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-infra-core</artifactId>
             <version>${project.version}</version>
-            <scope>test</scope>
             <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -183,6 +183,10 @@
                         <executions>
                             <execution>
                                 <id>kafka-2</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
                                 <configuration>
                                     <skipITs>${skipTests}</skipITs>
                                     <systemPropertyVariables>
@@ -192,10 +196,6 @@
                                     <reportNameSuffix>kafka-2</reportNameSuffix>
                                     <excludedGroups>non-abstract</excludedGroups>
                                 </configuration>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

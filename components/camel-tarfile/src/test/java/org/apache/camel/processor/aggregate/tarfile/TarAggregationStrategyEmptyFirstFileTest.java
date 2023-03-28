@@ -112,11 +112,11 @@ public class TarAggregationStrategyEmptyFirstFileTest extends CamelTestSupport {
             public void configure() throws Exception {
                 // @formatter:off
                 from("direct:start")
-                    .split(body().tokenize("#"), new TarAggregationStrategy(false, true))
-                    .setHeader(Exchange.FILE_NAME, simple("${exchangeProperty.CamelSplitIndex}"))
-                .end()
-                .to("file:target/out")
-                .to("mock:aggregateToTarEntry");
+                        .split(body().tokenize("#"), new TarAggregationStrategy(false, true))
+                        .setHeader(Exchange.FILE_NAME, simple("${exchangeProperty.CamelSplitIndex}"))
+                        .end()
+                        .to("file:target/out")
+                        .to("mock:aggregateToTarEntry");
                 // @formatter:on
             }
         };

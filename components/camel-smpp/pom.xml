@@ -31,8 +31,7 @@
     <name>Camel :: SMPP</name>
     <description>Camel SMPP support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -72,8 +71,8 @@
         <dependency>
             <groupId>org.jsmpp</groupId>
             <artifactId>jsmpp-examples</artifactId>
-            <scope>test</scope>
             <version>${jsmpp-version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

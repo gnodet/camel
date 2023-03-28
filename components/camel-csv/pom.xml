@@ -31,8 +31,7 @@
     <name>Camel :: CSV</name>
     <description>Camel CSV data format support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

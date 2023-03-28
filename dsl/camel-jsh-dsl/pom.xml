@@ -37,12 +37,8 @@
         <title>JavaShell DSL</title>
         <label>dsl</label>
         <supportLevel>Experimental</supportLevel>
-        <sourcecheckExcludes>
-            **/resources/**/My*.java
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/resources/**/My*.java</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
     </properties>
 
     <dependencies>

@@ -50,12 +50,6 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>bundle-jar</id>
-                            <phase>package</phase>
-                        </execution>
-                    </executions>
                     <configuration>
                         <archive combine.self="override">
                             <manifestFile />
@@ -65,10 +59,15 @@
                             </manifest>
                         </archive>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>bundle-jar</id>
+                            <phase>package</phase>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-        </plugins>
+        <plugins />
     </build>
 </project>

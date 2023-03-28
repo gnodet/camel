@@ -32,8 +32,7 @@
     <name>Camel :: ChatScript</name>
     <description>Camel support for ChatScript</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -52,7 +51,6 @@
             <artifactId>camel-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-
 
         <!-- test infra -->
         <dependency>

@@ -31,8 +31,7 @@
     <name>Camel :: LDIF</name>
     <description>Camel LDIF support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
@@ -63,13 +62,13 @@
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-server-integ</artifactId>
             <version>${apacheds-version}</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>

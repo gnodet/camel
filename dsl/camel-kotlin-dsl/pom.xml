@@ -37,12 +37,8 @@
         <title>Kotlin DSL</title>
         <label>dsl</label>
         <supportLevel>Experimental</supportLevel>
-        <sourcecheckExcludes>
-            **/resources/**/My*.java
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/resources/**/My*.java</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
     </properties>
 
     <dependencies>
@@ -200,17 +196,17 @@
                     </execution>
                     <execution>
                         <id>java-compile</id>
-                        <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <phase>compile</phase>
                     </execution>
                     <execution>
                         <id>java-test-compile</id>
-                        <phase>test-compile</phase>
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
+                        <phase>test-compile</phase>
                     </execution>
                 </executions>
             </plugin>

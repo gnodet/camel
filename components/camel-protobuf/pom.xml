@@ -32,8 +32,7 @@
     <name>Camel :: Protobuf</name>
     <description>Camel Google Protobuf data format support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -70,14 +69,6 @@
     </dependencies>
 
     <build>
-        <extensions>
-            <!-- Operating system and CPU architecture detection extension -->
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>${os-maven-plugin-version}</version>
-            </extension>
-        </extensions>
 
         <plugins>
             <!--
@@ -93,21 +84,6 @@
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
                 <version>${gmavenplus-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <scripts>
-                                <script><![CDATA[
-                  project.properties['skipTests']=project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true';
-                ]]></script>
-                            </scripts>
-                        </configuration>
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.groovy</groupId>
@@ -122,6 +98,19 @@
                         <scope>runtime</scope>
                     </dependency>
                 </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[project.properties['skipTests']=project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true';]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Protobuf Java code generator plugin -->
@@ -136,9 +125,7 @@
                             <goal>test-compile</goal>
                         </goals>
                         <configuration>
-                            <protocArtifact>
-                                com.google.protobuf:protoc:${protobuf-version}:exe:${os.detected.classifier}
-                            </protocArtifact>
+                            <protocArtifact>com.google.protobuf:protoc:${protobuf-version}:exe:${os.detected.classifier}</protocArtifact>
                             <checkStaleness>true</checkStaleness>
                             <skip>${skipTests}</skip>
                         </configuration>
@@ -151,10 +138,10 @@
                 <executions>
                     <execution>
                         <id>default-testCompile</id>
-                        <phase>test-compile</phase>
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
+                        <phase>test-compile</phase>
                         <configuration>
                             <skip>${skipTests}</skip>
                         </configuration>
@@ -170,5 +157,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <extensions>
+            <!-- Operating system and CPU architecture detection extension -->
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>${os-maven-plugin-version}</version>
+            </extension>
+        </extensions>
     </build>
 </project>

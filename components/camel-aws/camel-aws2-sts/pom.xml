@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 STS</name>
     <description>A Camel Amazon STS Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

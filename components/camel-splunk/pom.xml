@@ -25,14 +25,13 @@
         <artifactId>components</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-
-    <name>Camel :: Splunk</name>
     <artifactId>camel-splunk</artifactId>
-    <description>Camel :: Splunk component</description>
     <packaging>jar</packaging>
 
-    <properties>
-    </properties>
+    <name>Camel :: Splunk</name>
+    <description>Camel :: Splunk component</description>
+
+    <properties />
 
     <dependencies>
         <dependency>
@@ -46,8 +45,8 @@
             <version>${splunk-version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>splunk</artifactId>
                     <groupId>com.splunk</groupId>
+                    <artifactId>splunk</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

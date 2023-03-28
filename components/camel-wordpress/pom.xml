@@ -33,8 +33,7 @@
     <name>Camel :: Wordpress</name>
     <description>Wordpress REST API support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

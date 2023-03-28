@@ -32,8 +32,7 @@
     <name>Camel :: AWS2 MQ</name>
     <description>A Camel Amazon MQ Web Service Component Version 2</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

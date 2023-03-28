@@ -36,7 +36,6 @@
         <firstVersion>3.12.0</firstVersion>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>

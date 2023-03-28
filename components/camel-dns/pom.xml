@@ -25,11 +25,11 @@
         <artifactId>components</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
+    <artifactId>camel-dns</artifactId>
+    <packaging>jar</packaging>
 
     <name>Camel :: DNS</name>
-    <artifactId>camel-dns</artifactId>
     <description>Camel DNS support</description>
-    <packaging>jar</packaging>
 
     <dependencies>
 

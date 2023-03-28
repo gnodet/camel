@@ -64,11 +64,11 @@
                 <executions>
                     <execution>
                         <id>generate-sources</id>
-                        <phase>generate-sources</phase>
                         <goals>
                             <goal>generate-xml-parser</goal>
                             <goal>generate-xml-writer</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                     </execution>
                 </executions>
             </plugin>

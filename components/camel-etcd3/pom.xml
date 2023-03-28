@@ -120,11 +120,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                       <endpoint>${endpoint}</endpoint>
+                        <endpoint>${endpoint}</endpoint>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
     </build>
- 
+
 </project>

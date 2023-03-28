@@ -31,8 +31,7 @@
     <name>Camel :: Cron</name>
     <description>Camel Cron Component</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

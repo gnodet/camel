@@ -42,23 +42,23 @@ public class RestOpenApiV2SecuritySchemesTest extends CamelTestSupport {
             public void configure() {
                 rest()
                         .securityDefinitions()
-                            .oauth2("petstore_auth_implicit")// OAuth implicit
-                                .authorizationUrl("https://petstore.swagger.io/oauth/dialog")
-                            .end()
-                            .oauth2("oauth_password")
-                                .flow("password")
-                                .tokenUrl("https://petstore.swagger.io/oauth/token")
-                            .end()
-                            .oauth2("oauth2_accessCode")// OAuth access/authorization code
-                                .authorizationUrl("https://petstore.swagger.io/oauth/dialog")
-                                .tokenUrl("https://petstore.swagger.io/oauth/token")
-                            .end()
-                            .apiKey("api_key_header")
-                                .withHeader("myHeader")
-                            .end()
-                            .apiKey("api_key_query")
-                                .withQuery("myQuery")
-                            .end()
+                        .oauth2("petstore_auth_implicit")// OAuth implicit
+                        .authorizationUrl("https://petstore.swagger.io/oauth/dialog")
+                        .end()
+                        .oauth2("oauth_password")
+                        .flow("password")
+                        .tokenUrl("https://petstore.swagger.io/oauth/token")
+                        .end()
+                        .oauth2("oauth2_accessCode")// OAuth access/authorization code
+                        .authorizationUrl("https://petstore.swagger.io/oauth/dialog")
+                        .tokenUrl("https://petstore.swagger.io/oauth/token")
+                        .end()
+                        .apiKey("api_key_header")
+                        .withHeader("myHeader")
+                        .end()
+                        .apiKey("api_key_query")
+                        .withQuery("myQuery")
+                        .end()
                         .end();
             }
         };

@@ -43,43 +43,43 @@ public class OnCompletionBeforeChainedSedaRoutesTest extends ContextTestSupport 
             @Override
             public void configure() throws Exception {
                 from("direct:a")
-                    .onCompletion()
-                            .modeBeforeConsumer()
-                            .log("a - done")
-                            .process(exchange -> exchange.getMessage().setBody("completion:a"))
-                            .to("mock:completion")
-                            .end()
-                    .to("seda:b");
+                        .onCompletion()
+                        .modeBeforeConsumer()
+                        .log("a - done")
+                        .process(exchange -> exchange.getMessage().setBody("completion:a"))
+                        .to("mock:completion")
+                        .end()
+                        .to("seda:b");
 
                 from("seda:b")
-                    .onCompletion()
+                        .onCompletion()
                         .modeBeforeConsumer()
                         .log("b - done")
                         .process(exchange -> exchange.getMessage().setBody("completion:b"))
                         .to("mock:completion")
                         .end()
-                    .delay(100)
-                    .to("seda:c");
+                        .delay(100)
+                        .to("seda:c");
 
                 from("seda:c")
-                    .onCompletion()
+                        .onCompletion()
                         .modeBeforeConsumer()
                         .log("c - done")
                         .process(exchange -> exchange.getMessage().setBody("completion:c"))
                         .to("mock:completion")
                         .end()
-                    .delay(100)
-                    .to("seda:d");
+                        .delay(100)
+                        .to("seda:d");
 
                 from("seda:d")
-                    .onCompletion()
+                        .onCompletion()
                         .modeBeforeConsumer()
                         .log("d - done")
                         .process(exchange -> exchange.getMessage().setBody("completion:d"))
                         .to("mock:completion")
                         .end()
-                    .delay(100)
-                    .to("mock:completion");
+                        .delay(100)
+                        .to("mock:completion");
             }
         };
     }

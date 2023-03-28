@@ -32,8 +32,7 @@
     <name>Camel :: Consul</name>
     <description>Camel Consul support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -143,7 +142,7 @@
             <artifactId>camel-spring-main</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- test infra -->
         <dependency>
             <groupId>org.apache.camel</groupId>

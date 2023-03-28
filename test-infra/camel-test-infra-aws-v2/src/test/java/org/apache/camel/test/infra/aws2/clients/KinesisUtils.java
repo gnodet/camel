@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.camel.test.infra.aws2.clients;
 
 import java.util.ArrayList;
@@ -201,7 +200,7 @@ public final class KinesisUtils {
 
                 /*
                  This works around the "... Cannot deserialize instance of `...AmazonKinesisException` out of NOT_AVAILABLE token
-
+                
                  It may take some time for the local Kinesis backend to be fully up - even though the container is
                  reportedly up and running. Therefore, it tries a few more times
                  */

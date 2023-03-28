@@ -32,8 +32,7 @@
     <name>Camel :: StringTemplate</name>
     <description>Camel StringTemplate support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

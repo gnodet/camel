@@ -36,12 +36,8 @@
         <firstVersion>3.9.0</firstVersion>
         <title>Java DSL (runtime compiled)</title>
         <label>dsl</label>
-        <sourcecheckExcludes>
-            **/resources/**/My*.java
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/resources/**/My*.java</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
     </properties>
 
     <dependencies>

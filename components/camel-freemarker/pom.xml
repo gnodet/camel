@@ -31,8 +31,7 @@
     <name>Camel :: Freemarker</name>
     <description>Camel Freemarker support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

@@ -34,12 +34,8 @@
 
     <properties>
         <firstVersion>3.10.0</firstVersion>
-        <sourcecheckExcludes>
-            **/resources/**/My*.java
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/resources/**/My*.java</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
         <camel-prepare-component>false</camel-prepare-component>
     </properties>
 
@@ -69,6 +65,10 @@
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
                 <version>${gmavenplus-plugin-version}</version>
+                <configuration>
+                    <invokeDynamic>true</invokeDynamic>
+                    <outputDirectory>${project.build.directory}/classes-tmp</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -77,10 +77,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <invokeDynamic>true</invokeDynamic>
-                    <outputDirectory>${project.build.directory}/classes-tmp</outputDirectory>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -88,10 +84,10 @@
                 <executions>
                     <execution>
                         <id>copy-classes</id>
-                        <phase>process-classes</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
+                        <phase>process-classes</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/classes</outputDirectory>
                             <resources>

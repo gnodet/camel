@@ -42,14 +42,14 @@ public class TryCatchWireTapOnPrepareTest extends ContextTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                    .doTry()
+                        .doTry()
                         .to("direct:validator")
                         .wireTap("mock:wireTap").onPrepare(exchange -> exchange.setProperty("valid", "true")).endDoTry()
                         .to("mock:valid")
-                    .doCatch(IllegalArgumentException.class)
+                        .doCatch(IllegalArgumentException.class)
                         .wireTap("mock:wireTap").onPrepare(exchange -> exchange.setProperty("valid", "false")).endDoCatch()
                         .to("mock:invalid")
-                    .end();
+                        .end();
 
                 from("direct:validator")
                         .throwException(new IllegalArgumentException("Not Valid"));

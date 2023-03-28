@@ -32,8 +32,7 @@
     <name>Camel :: XMPP</name>
     <description>Camel XMPP support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

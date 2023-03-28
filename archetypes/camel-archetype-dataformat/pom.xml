@@ -29,28 +29,21 @@
 
     <groupId>org.apache.camel.archetypes</groupId>
     <artifactId>camel-archetype-dataformat</artifactId>
+    <packaging>maven-archetype</packaging>
     <name>Camel :: Archetypes :: Data Format</name>
     <description>Creates a new Camel data format.</description>
-    <packaging>maven-archetype</packaging>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>${maven-archetype-packaging-version}</version>
-            </extension>
-        </extensions>
 
         <!-- include all resources but only filter archetype-metadata.xml -->
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
                 <filtering>false</filtering>
+                <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <directory>src/main/resources-filtered</directory>
                 <filtering>true</filtering>
+                <directory>src/main/resources-filtered</directory>
                 <includes>
                     <include>**/archetype-metadata.xml</include>
                 </includes>
@@ -58,13 +51,20 @@
         </resources>
         <testResources>
             <testResource>
-                <directory>src/test/resources</directory>
                 <filtering>true</filtering>
+                <directory>src/test/resources</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>
             </testResource>
         </testResources>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>${maven-archetype-packaging-version}</version>
+            </extension>
+        </extensions>
     </build>
 
 </project>

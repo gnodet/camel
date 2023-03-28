@@ -106,6 +106,11 @@
         <plugins>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>log4j.properties</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -113,11 +118,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>log4j.properties</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -170,9 +170,7 @@
                         </group>
                         <group>
                             <title>Management (JMX) API</title>
-                            <packages>
-                                org.apache.camel.management:org.apache.camel.management.*:org.apache.camel.api.management.mbean
-                            </packages>
+                            <packages>org.apache.camel.management:org.apache.camel.management.*:org.apache.camel.api.management.mbean</packages>
                         </group>
                         <group>
                             <title>Camel Runtime</title>
@@ -204,15 +202,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>package</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                         <configuration>
                             <links>
                                 <link>http://download.oracle.com/javase/7/docs/api/</link>
@@ -256,9 +245,7 @@
                                 </group>
                                 <group>
                                     <title>Management (JMX) API</title>
-                                    <packages>
-                                        org.apache.camel.management:org.apache.camel.management.*:org.apache.camel.api.management.mbean
-                                    </packages>
+                                    <packages>org.apache.camel.management:org.apache.camel.management.*:org.apache.camel.api.management.mbean</packages>
                                 </group>
                                 <group>
                                     <title>Camel Runtime</title>
@@ -278,6 +265,15 @@
                                 </group>
                             </groups>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>package</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

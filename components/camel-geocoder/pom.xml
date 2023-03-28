@@ -31,8 +31,7 @@
     <name>Camel :: Geocoder</name>
     <description>Camel GeoCoder support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 

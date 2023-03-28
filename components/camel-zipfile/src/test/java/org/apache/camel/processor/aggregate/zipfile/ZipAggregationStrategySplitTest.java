@@ -85,18 +85,19 @@ public class ZipAggregationStrategySplitTest extends CamelTestSupport {
             public void configure() {
                 // Unzip file and Split it according to FileEntry
                 from("file:src/test/resources/org/apache/camel/aggregate/zipfile/data?delay=1000&noop=true")
-                    .aggregate(new GroupedMessageAggregationStrategy())
-                    .constant(true)
-                    .completionFromBatchConsumer()
-                    .eagerCheckCompletion()
-                    .split(body(), new ZipAggregationStrategy(true, true))
-                    .streaming()
-                    .process(exchange -> { /* NOOP - Do nothing */ })
-                    .end()
-                    .setHeader("tempFile", header("CamelFileAbsolutePath"))
-                    .to("file:" + TEST_DIR)
-                    .to("mock:aggregateToZipEntry")
-                    .log("Done processing zip file: ${header.CamelFileName}");
+                        .aggregate(new GroupedMessageAggregationStrategy())
+                        .constant(true)
+                        .completionFromBatchConsumer()
+                        .eagerCheckCompletion()
+                        .split(body(), new ZipAggregationStrategy(true, true))
+                        .streaming()
+                        .process(exchange -> {
+                            /* NOOP - Do nothing */ })
+                        .end()
+                        .setHeader("tempFile", header("CamelFileAbsolutePath"))
+                        .to("file:" + TEST_DIR)
+                        .to("mock:aggregateToZipEntry")
+                        .log("Done processing zip file: ${header.CamelFileName}");
             }
         };
 

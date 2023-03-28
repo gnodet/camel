@@ -68,12 +68,12 @@ class LanguageFluentSyntaxTest extends ContextTestSupport {
             @Override
             public void configure() {
                 from("direct:a").split(
-                    expression().tokenize().token("\n").end()
-                ).to("mock:a");
+                        expression().tokenize().token("\n").end()).to("mock:a");
 
                 from("direct:b").setBody().expression(expression().simple().expression("Hello World Out").end()).to("mock:b");
                 from("direct:c").setBody(expression().simple().expression("Hello World In").end()).to("mock:c");
-                from("direct:d").filter(expression(expression().header().expression("foo").end()).isEqualTo("bar")).to("mock:d");
+                from("direct:d").filter(expression(expression().header().expression("foo").end()).isEqualTo("bar"))
+                        .to("mock:d");
             }
         };
     }

@@ -31,8 +31,7 @@
     <name>Camel :: Tooling :: Model</name>
     <description>Tooling Model</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>

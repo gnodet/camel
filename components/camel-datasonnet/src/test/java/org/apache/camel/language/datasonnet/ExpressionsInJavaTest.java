@@ -47,13 +47,13 @@ public class ExpressionsInJavaTest extends CamelTestSupport {
             @Override
             public void configure() {
                 from("direct:expressionsInJava")
-                                .choice()
-                                    .when(datasonnet("payload == 'World'"))
-                                        .setBody(datasonnet("'Hello, ' + payload", String.class))
-                                    .otherwise()
-                                        .setBody(datasonnet("'Good bye, ' + payload", String.class))
-                                    .end()
-                                .to("mock:direct:response");
+                        .choice()
+                        .when(datasonnet("payload == 'World'"))
+                        .setBody(datasonnet("'Hello, ' + payload", String.class))
+                        .otherwise()
+                        .setBody(datasonnet("'Good bye, ' + payload", String.class))
+                        .end()
+                        .to("mock:direct:response");
 
                 from("direct:fluentBuilder")
                         // no optional params, look in header

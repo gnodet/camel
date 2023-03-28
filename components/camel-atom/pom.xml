@@ -31,8 +31,7 @@
     <name>Camel :: Atom</name>
     <description>Camel Atom support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -77,24 +76,24 @@
                     <artifactId>stax-api</artifactId>
                 </exclusion>
                 <exclusion>
+                    <groupId>xerces</groupId>
                     <artifactId>xmlParserAPIs</artifactId>
-                    <groupId>xerces</groupId>
                 </exclusion>
                 <exclusion>
+                    <groupId>xerces</groupId>
                     <artifactId>xercesImpl</artifactId>
-                    <groupId>xerces</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xom</artifactId>
                     <groupId>xom</groupId>
+                    <artifactId>xom</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xalan</artifactId>
                     <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xml-apis</artifactId>
                     <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.codehaus.woodstox</groupId>
@@ -108,8 +107,8 @@
             <version>${axiom-version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
                     <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>xml-apis</groupId>
@@ -120,24 +119,24 @@
                     <artifactId>stax-api</artifactId>
                 </exclusion>
                 <exclusion>
+                    <groupId>xerces</groupId>
                     <artifactId>xmlParserAPIs</artifactId>
-                    <groupId>xerces</groupId>
                 </exclusion>
                 <exclusion>
+                    <groupId>xerces</groupId>
                     <artifactId>xercesImpl</artifactId>
-                    <groupId>xerces</groupId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xom</artifactId>
                     <groupId>xom</groupId>
+                    <artifactId>xom</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xalan</artifactId>
                     <groupId>xalan</groupId>
+                    <artifactId>xalan</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xml-apis</artifactId>
                     <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.codehaus.woodstox</groupId>
@@ -151,8 +150,8 @@
             <version>${axiom-version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
                     <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-javamail_1.4_spec</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>xml-apis</groupId>

@@ -31,8 +31,7 @@
     <name>Camel :: ASN.1</name>
     <description>Camel ASN.1 support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
         <dependency>
@@ -104,10 +103,10 @@
                 <executions>
                     <execution>
                         <id>generate-test-sources</id>
-                        <phase>generate-sources</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <executable>java</executable>
                             <arguments>
@@ -137,10 +136,10 @@
                 <executions>
                     <execution>
                         <id>copy-generated-sources</id>
-                        <phase>generate-sources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/generated/src/test/java</outputDirectory>
                             <resources>
@@ -158,10 +157,10 @@
                 <executions>
                     <execution>
                         <id>add-generated-test-source-directory</id>
-                        <phase>generate-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
                             <sources>
                                 <source>${project.build.directory}/generated/src/test/java</source>

@@ -54,13 +54,13 @@ public class RestNettyCircuitBreakerLeakTest extends BaseNettyTest {
 
                 rest().get("/demo/get").to("direct:get");
                 from("direct:get")
-                    .circuitBreaker()
+                        .circuitBreaker()
                         .resilience4jConfiguration().timeoutEnabled(true).timeoutDuration(10000).end()
-                            .log("incoming request")
-                            .to("rest:get:demo?host=localhost:" + getPort())
+                        .log("incoming request")
+                        .to("rest:get:demo?host=localhost:" + getPort())
                         .onFallback()
-                            .transform().constant("timeout")
-                    .end();
+                        .transform().constant("timeout")
+                        .end();
             }
         };
     }

@@ -34,12 +34,8 @@
 
     <properties>
         <firstVersion>3.7.0</firstVersion>
-        <sourcecheckExcludes>
-            **/MyRoutes*.java
-        </sourcecheckExcludes>
-        <sourcecheckExcludesComma>
-            ${sourcecheckExcludes},
-        </sourcecheckExcludesComma>
+        <sourcecheckExcludes>**/MyRoutes*.java</sourcecheckExcludes>
+        <sourcecheckExcludesComma>${sourcecheckExcludes},</sourcecheckExcludesComma>
     </properties>
 
     <dependencies>

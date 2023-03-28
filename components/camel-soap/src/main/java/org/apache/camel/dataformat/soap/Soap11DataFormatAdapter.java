@@ -33,15 +33,16 @@ import jakarta.xml.ws.soap.SOAPFaultException;
 
 import javax.xml.namespace.QName;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.ExchangePropertyKey;
-import org.apache.camel.RuntimeCamelException;
 import org.xmlsoap.schemas.soap.envelope.Body;
 import org.xmlsoap.schemas.soap.envelope.Detail;
 import org.xmlsoap.schemas.soap.envelope.Envelope;
 import org.xmlsoap.schemas.soap.envelope.Fault;
 import org.xmlsoap.schemas.soap.envelope.Header;
 import org.xmlsoap.schemas.soap.envelope.ObjectFactory;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePropertyKey;
+import org.apache.camel.RuntimeCamelException;
 
 /**
  * Marshaling from Objects to <b>SOAP 1.1</b> and back by using JAXB. The classes to be processed need to have JAXB

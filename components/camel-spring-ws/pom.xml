@@ -89,12 +89,12 @@
             <version>3.0.0</version>
             <exclusions>
                 <exclusion>
-                   <!--Get dependency from jaxb-runtime-->
-                   <groupId>org.jvnet.staxex</groupId>
-                   <artifactId>stax-ex</artifactId>
-                 </exclusion>
+                    <!--Get dependency from jaxb-runtime-->
+                    <groupId>org.jvnet.staxex</groupId>
+                    <artifactId>stax-ex</artifactId>
+                </exclusion>
             </exclusions>
-         </dependency>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
@@ -158,13 +158,13 @@
             <groupId>net.javacrumbs</groupId>
             <artifactId>spring-ws-test</artifactId>
             <version>${javacrumbs-version}</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>xmlunit</groupId>
                     <artifactId>xmlunit</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>

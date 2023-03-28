@@ -32,8 +32,7 @@
     <name>Camel :: Jackson</name>
     <description>Camel Jackson support</description>
 
-    <properties>
-    </properties>
+    <properties />
 
     <dependencies>
 
