@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import com.github.cameltooling.lsp.internal.CamelLanguageServer;
 import com.github.cameltooling.lsp.internal.CamelTextDocumentService;
@@ -36,10 +37,13 @@ import org.apache.camel.tooling.util.Strings;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
+import org.eclipse.lsp4j.InsertReplaceEdit;
 import org.eclipse.lsp4j.MarkupContent;
 import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.Range;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.TextDocumentItem;
+import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.jline.builtins.ConfigurationPath;
 import org.jline.builtins.Nano;
@@ -111,6 +115,70 @@ public class CamelNanoLspEditor extends Nano {
             // ignore
             // TODO: show exception message in help
         }
+    }
+
+    @Override
+    protected void insertHelp(int selected) {
+        String fileName = buffer.getFile();
+        StringBuilder text = new StringBuilder();
+        for (String line : this.buffer.getLines()) {
+            text.append(line);
+            text.append('\n');
+        }
+        // TODO store completions so we don't recompute them when inserting
+        TextDocumentItem textDocumentItem = new TextDocumentItem(fileName, CamelLanguageServer.LANGUAGE_ID, 0, text.toString());
+        CompletableFuture<Either<List<CompletionItem>, CompletionList>> eitherCompletableFuture = this.camelDocumentService
+                .completionLocal(textDocumentItem,
+                        new Position(buffer.getLine(), buffer.getOffsetInLine() + buffer.getColumn()));
+        List<CompletionItem> lines;
+        try {
+            lines = eitherCompletableFuture.get().getLeft();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        CompletionItem item = lines.get(selected);
+        Either<TextEdit, InsertReplaceEdit> textEdit = item.getTextEdit();
+        if (textEdit != null) {
+            TextEdit left = textEdit.getLeft();
+            Range range = left.getRange();
+            Position start = range.getStart();
+            int endLine = start.getLine();
+            Position end = range.getEnd();
+            int startLine = end.getLine();
+            if (startLine == endLine) {
+                StringBuilder newLine = new StringBuilder();
+                String line = this.buffer.getLines().get(startLine);
+                newLine.append(line, 0, start.getCharacter());
+                newLine.append(left.getNewText());
+                newLine.append(line.substring(end.getCharacter()));
+                this.buffer.getLines().set(startLine, newLine.toString());
+                this.buffer.moveRight(left.getNewText().length());
+            } else {
+                // first line
+                StringBuilder newFirstLine = new StringBuilder();
+                String oldFirstLine = this.buffer.getLines().get(startLine);
+                String newText = left.getNewText();
+                newFirstLine.append(oldFirstLine, 0, start.getCharacter());
+                newFirstLine.append(newText, 0, oldFirstLine.length() - start.getCharacter());
+                this.buffer.getLines().set(startLine, newFirstLine.toString());
+                // second line
+                StringBuilder newSecondLine = new StringBuilder();
+                String oldSecondLine = this.buffer.getLines().get(endLine);
+                newSecondLine.append(newText, oldFirstLine.length() - start.getCharacter(), end.getCharacter());
+                newSecondLine.append(oldSecondLine, end.getCharacter(), end.getCharacter());
+                this.buffer.getLines().set(endLine, newSecondLine.toString());
+                this.buffer.moveRight(left.getNewText().length());
+            }
+        } else if (!Strings.isEmpty(item.getInsertText()) || !Strings.isEmpty(item.getLabel())) {
+            String insert = Strings.isEmpty(item.getInsertText()) ? item.getLabel() : item.getInsertText();
+            StringBuilder newLine = new StringBuilder();
+            String line = this.buffer.getLines().get(buffer.getLine());
+            newLine.append(line, 0, buffer.getOffsetInLine() + buffer.getColumn());
+            newLine.append(insert);
+            this.buffer.getLines().set(buffer.getLine(), newLine.toString());
+            this.buffer.moveRight(insert.length());
+        }
+        this.buffer.setDirty(true);
     }
 
     private static class LocalCamelDocumentService extends CamelTextDocumentService {
