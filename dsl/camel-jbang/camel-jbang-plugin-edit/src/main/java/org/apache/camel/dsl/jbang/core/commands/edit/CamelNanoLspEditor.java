@@ -18,6 +18,7 @@ package org.apache.camel.dsl.jbang.core.commands.edit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -73,9 +74,8 @@ public class CamelNanoLspEditor extends Nano {
     }
 
     @Override
-    protected void initDocLines() {
-        this.suggestions = new ArrayList<>();
-        this.documentation = new ArrayList<>();
+    protected LinkedHashMap<AttributedString, List<AttributedString>> computeSuggestions() {
+        LinkedHashMap<AttributedString, List<AttributedString>> suggestions = new LinkedHashMap<>();
         String fileName = buffer.getFile();
         StringBuilder text = new StringBuilder();
         for (String line : this.buffer.getLines()) {
@@ -87,7 +87,7 @@ public class CamelNanoLspEditor extends Nano {
                 .completionLocal(textDocumentItem,
                         new Position(buffer.getLine(), buffer.getOffsetInLine() + buffer.getColumn()));
         if (eitherCompletableFuture.isCompletedExceptionally()) {
-            return;
+            return suggestions;
         }
         try {
             List<CompletionItem> left = eitherCompletableFuture.get().getLeft();
@@ -106,15 +106,13 @@ public class CamelNanoLspEditor extends Nano {
                         docs.add(new AttributedString(doc));
                     }
                 }
-                if (!docs.isEmpty()) {
-                    documentation.add(docs);
-                }
-                suggestions.add(new AttributedString(item.getLabel()));
+                suggestions.put(new AttributedString(item.getLabel()), docs);
             }
         } catch (Exception e) {
             // ignore
             // TODO: show exception message in help
         }
+        return suggestions;
     }
 
     @Override
