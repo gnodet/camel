@@ -43,6 +43,7 @@ import java.util.stream.Stream;
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.dsl.jbang.core.common.CommandLineHelper;
+import org.apache.camel.dsl.jbang.core.common.LauncherHelper;
 import org.apache.camel.dsl.jbang.core.common.LoggingLevelCompletionCandidates;
 import org.apache.camel.dsl.jbang.core.common.Printer;
 import org.apache.camel.dsl.jbang.core.common.PropertyResolver;
@@ -993,6 +994,25 @@ public class Run extends CamelCommand {
             var joined = String.join(",", dependencies);
             main.addInitialProperty(DEPENDENCIES, joined);
             writeSettings(DEPENDENCIES, joined);
+        }
+
+        // Check for launcher mode limitations
+        if (LauncherHelper.isLauncherMode()) {
+            if (camelVersion != null) {
+                printer().println("ERROR: The --camel-version option is not supported in launcher mode.");
+                printer().println("The camel-launcher is a self-contained JAR for a specific Camel version.");
+                printer().println("To use a different Camel version, download the corresponding camel-launcher JAR.");
+                printer().println("Alternatively, install JBang and use 'camel' command with --camel-version option.");
+                return 1;
+            }
+            if (RuntimeType.quarkus == runtime || RuntimeType.springBoot == runtime) {
+                if (!LauncherHelper.isJBangAvailable()) {
+                    printer().println("ERROR: The --runtime=" + runtime
+                                      + " option requires JBang to be installed when using camel-launcher.");
+                    printer().println("Please install JBang from https://www.jbang.dev/ or use --runtime=camel-main");
+                    return 1;
+                }
+            }
         }
 
         // if we have a specific camel version then make sure we really need to switch

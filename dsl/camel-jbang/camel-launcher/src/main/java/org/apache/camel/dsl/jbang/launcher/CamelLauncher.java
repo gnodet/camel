@@ -27,11 +27,18 @@ import org.apache.camel.dsl.jbang.core.commands.CamelJBangMain;
 public class CamelLauncher {
 
     /**
+     * System property to indicate that Camel is running in launcher mode (not JBang mode).
+     */
+    public static final String CAMEL_LAUNCHER_MODE = "camel.launcher.mode";
+
+    /**
      * Main entry point for the Camel JBang Fat-Jar Launcher.
      *
      * @param args command line arguments to pass to Camel JBang
      */
     public static void main(String... args) {
+        // Set system property to indicate we're running in launcher mode
+        System.setProperty(CAMEL_LAUNCHER_MODE, "true");
         CamelJBangMain.run(args);
     }
 }

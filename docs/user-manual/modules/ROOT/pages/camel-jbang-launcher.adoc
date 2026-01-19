@@ -59,6 +59,104 @@ bin\camel.bat [command] [options]
 - Each self-executing JAR is its own release, avoiding version complexity
 - Can still be used with JBang if preferred
 
+== Launcher Limitations
+
+The camel-launcher is a self-contained JAR for a specific Camel version. Some features that require JBang are not available or have limitations:
+
+=== Not Supported in Launcher Mode
+
+The following features require JBang and are **not supported** when using camel-launcher without JBang installed:
+
+* **`--camel-version` option**: The launcher is built for a specific Camel version and cannot switch to a different version at runtime.
+  - To use a different Camel version, download the corresponding camel-launcher JAR for that version.
+  - Alternatively, install JBang and use the `camel` command with the `--camel-version` option.
+
+* **`--runtime=quarkus` or `--runtime=spring-boot` options**: These runtimes require JBang for project generation and execution.
+  - If you need to use these runtimes with the launcher, install JBang from https://www.jbang.dev/
+  - Use `--runtime=camel-main` (the default) for launcher-only usage.
+
+=== Background Mode
+
+Background mode (`--background`) works in launcher mode but requires the launcher JAR to be accessible:
+
+[source,bash]
+----
+# This works if the launcher JAR is in the classpath
+java -jar camel-launcher-<version>.jar run myroute.yaml --background
+----
+
+=== Using Different Camel Versions
+
+The recommended approach for using different Camel versions is to download the appropriate launcher for each version:
+
+[source,bash]
+----
+# Download launcher for Camel 4.13.0
+wget https://repo1.maven.org/maven2/org/apache/camel/camel-launcher/4.13.0/camel-launcher-4.13.0.jar
+
+# Download launcher for Camel 4.14.0
+wget https://repo1.maven.org/maven2/org/apache/camel/camel-launcher/4.14.0/camel-launcher-4.14.0.jar
+
+# Run with specific version
+java -jar camel-launcher-4.13.0.jar run myroute.yaml
+java -jar camel-launcher-4.14.0.jar run myroute.yaml
+----
+
+Alternatively, install JBang for full flexibility:
+
+[source,bash]
+----
+# Install JBang
+curl -Ls https://sh.jbang.dev | bash -s - app setup
+
+# Use any Camel version
+camel run myroute.yaml --camel-version=4.13.0
+camel run myroute.yaml --camel-version=4.14.0
+----
+
+== Feature Comparison
+
+[cols="3,1,1", options="header"]
+|===
+|Feature |Launcher Mode |JBang Mode
+
+|Run Camel routes
+|✓
+|✓
+
+|Export to Quarkus/Spring Boot
+|✓
+|✓
+
+|Switch Camel versions (`--camel-version`)
+|✗
+|✓
+
+|Quarkus runtime (`--runtime=quarkus`)
+|Requires JBang
+|✓
+
+|Spring Boot runtime (`--runtime=spring-boot`)
+|Requires JBang
+|✓
+
+|Camel Main runtime (`--runtime=camel-main`)
+|✓
+|✓
+
+|Background mode (`--background`)
+|✓
+|✓
+
+|Debug mode
+|✓
+|✓
+
+|All other commands (get, cmd, etc.)
+|✓
+|✓
+|===
+
 == More Information
 
 See the general xref:camel-jbang.adoc[Camel JBang] documentation.

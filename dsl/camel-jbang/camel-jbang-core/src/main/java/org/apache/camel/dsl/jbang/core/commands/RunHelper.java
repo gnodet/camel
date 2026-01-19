@@ -30,6 +30,7 @@ import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
+import org.apache.camel.dsl.jbang.core.common.LauncherHelper;
 import org.apache.camel.main.download.MavenDependencyDownloader;
 import org.apache.camel.tooling.maven.MavenArtifact;
 import org.apache.camel.util.FileUtil;
@@ -306,11 +307,41 @@ public final class RunHelper {
      * (to run in background).
      */
     public static void addCamelJBangCommand(List<String> cmds) {
-        if (FileUtil.isWindows()) {
+        if (LauncherHelper.isLauncherMode()) {
+            // In launcher mode, we need to use java -jar to run the launcher JAR
+            // Find the launcher JAR from the classpath
+            String launcherJar = findLauncherJar();
+            if (launcherJar != null) {
+                cmds.add(0, launcherJar);
+                cmds.add(0, "-jar");
+                cmds.add(0, "java");
+            } else {
+                // Fallback to camel command if launcher JAR not found
+                cmds.add(0, "camel");
+            }
+        } else if (FileUtil.isWindows()) {
             String jbangDir = System.getenv().getOrDefault("JBANG_DIR", System.getProperty("user.home") + "\\.jbang");
             cmds.add(0, jbangDir + "\\bin\\camel.cmd");
         } else {
             cmds.add(0, "camel");
         }
+    }
+
+    /**
+     * Finds the launcher JAR from the classpath.
+     *
+     * @return the path to the launcher JAR, or null if not found
+     */
+    private static String findLauncherJar() {
+        String classPath = System.getProperty("java.class.path");
+        if (classPath != null) {
+            String[] paths = classPath.split(System.getProperty("path.separator"));
+            for (String path : paths) {
+                if (path.contains("camel-launcher") && path.endsWith(".jar")) {
+                    return path;
+                }
+            }
+        }
+        return null;
     }
 }
