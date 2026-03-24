@@ -43,12 +43,15 @@ import java.util.stream.Stream;
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.dsl.jbang.core.common.CommandLineHelper;
+import org.apache.camel.dsl.jbang.core.common.EnvironmentHelper;
+import org.apache.camel.dsl.jbang.core.common.JavaVersionCompletionCandidates;
 import org.apache.camel.dsl.jbang.core.common.LauncherHelper;
 import org.apache.camel.dsl.jbang.core.common.LoggingLevelCompletionCandidates;
 import org.apache.camel.dsl.jbang.core.common.Plugin;
 import org.apache.camel.dsl.jbang.core.common.PluginExporter;
 import org.apache.camel.dsl.jbang.core.common.PluginHelper;
 import org.apache.camel.dsl.jbang.core.common.Printer;
+import org.apache.camel.dsl.jbang.core.common.ProfileCompletionCandidates;
 import org.apache.camel.dsl.jbang.core.common.PropertyResolver;
 import org.apache.camel.dsl.jbang.core.common.RuntimeCompletionCandidates;
 import org.apache.camel.dsl.jbang.core.common.RuntimeType;
@@ -167,6 +170,10 @@ public class Run extends CamelCommand {
     @Option(names = { "--empty" }, defaultValue = "false", description = "Run an empty Camel without loading source files")
     public boolean empty;
 
+    @CommandLine.Option(names = { "--java-version" }, completionCandidates = JavaVersionCompletionCandidates.class,
+                        description = "Java version (${COMPLETION-CANDIDATES})", defaultValue = "21")
+    protected String javaVersion = "21";
+
     @Option(names = { "--camel-version" }, description = "To run using a different Camel version than the default version.")
     String camelVersion;
 
@@ -194,7 +201,8 @@ public class Run extends CamelCommand {
     String springBootVersion = RuntimeType.SPRING_BOOT_VERSION;
 
     @Option(names = { "--profile" }, scope = CommandLine.ScopeType.INHERIT, defaultValue = "dev",
-            description = "Profile to run (dev, test, or prod).")
+            completionCandidates = ProfileCompletionCandidates.class,
+            description = "Profile to run (${COMPLETION-CANDIDATES}).")
     String profile = "dev";
 
     @Option(names = { "--dep", "--dependency" }, description = "Add additional dependencies",
@@ -629,6 +637,7 @@ public class Run extends CamelCommand {
         writeSetting(main, profileProperties, QUARKUS_VERSION, quarkusVersion);
         writeSetting(main, profileProperties, QUARKUS_GROUP_ID, quarkusGroupId);
         writeSetting(main, profileProperties, QUARKUS_ARTIFACT_ID, quarkusArtifactId);
+        writeSetting(main, profileProperties, JAVA_VERSION, javaVersion);
 
         // command line arguments
         if (property != null) {
@@ -1054,7 +1063,7 @@ public class Run extends CamelCommand {
 
     protected int runQuarkus() throws Exception {
         if (background) {
-            printer().println("Run Camel Quarkus with --background is not supported");
+            printer().printErr("Run Camel Quarkus with --background is not supported");
             return 1;
         }
 
@@ -1101,6 +1110,7 @@ public class Run extends CamelCommand {
         eq.quarkusGroupId = PropertyResolver.fromSystemProperty(QUARKUS_GROUP_ID, () -> this.quarkusGroupId);
         eq.quarkusArtifactId = PropertyResolver.fromSystemProperty(QUARKUS_ARTIFACT_ID, () -> this.quarkusArtifactId);
         eq.camelVersion = this.camelVersion;
+        eq.javaVersion = this.javaVersion;
         eq.kameletsVersion = this.kameletsVersion;
         eq.exportDir = runDirPath.toString();
         eq.localKameletDir = this.localKameletDir;
@@ -1160,7 +1170,7 @@ public class Run extends CamelCommand {
 
     protected int runSpringBoot() throws Exception {
         if (background) {
-            printer().println("Run Camel Spring Boot with --background is not supported");
+            printer().printErr("Run Camel Spring Boot with --background is not supported");
             return 1;
         }
 
@@ -1208,6 +1218,7 @@ public class Run extends CamelCommand {
         eq.camelVersion = this.camelVersion;
         eq.camelSpringBootVersion = PropertyResolver.fromSystemProperty(CAMEL_SPRING_BOOT_VERSION,
                 () -> this.camelSpringBootVersion != null ? this.camelSpringBootVersion : this.camelVersion);
+        eq.javaVersion = this.javaVersion;
         eq.kameletsVersion = this.kameletsVersion;
         eq.exportDir = runDirPath.toString();
         eq.localKameletDir = this.localKameletDir;
@@ -1389,6 +1400,7 @@ public class Run extends CamelCommand {
             camelVersion = answer.getProperty(CAMEL_VERSION, camelVersion);
             kameletsVersion = answer.getProperty(KAMELETS_VERSION, kameletsVersion);
             springBootVersion = answer.getProperty(SPRING_BOOT_VERSION, springBootVersion);
+            javaVersion = answer.getProperty(JAVA_VERSION, javaVersion);
             quarkusGroupId = answer.getProperty(QUARKUS_GROUP_ID, quarkusGroupId);
             quarkusArtifactId = answer.getProperty(QUARKUS_ARTIFACT_ID, quarkusArtifactId);
             quarkusVersion = answer.getProperty(QUARKUS_VERSION, quarkusVersion);
@@ -1471,6 +1483,9 @@ public class Run extends CamelCommand {
             cmds.removeIf(arg -> arg.startsWith("--jvm-debug"));
         }
 
+        if (javaVersion != null) {
+            jbangArgs.add("--java-version=" + javaVersion);
+        }
         if (repositories != null) {
             jbangArgs.add("--repos=" + repositories);
         }
@@ -1573,7 +1588,7 @@ public class Run extends CamelCommand {
             if (!p.isAlive()) {
                 ec = p.exitValue();
                 if (ec != 0) {
-                    printer().println(kind + ": " + name + " startup failure");
+                    printer().printErr(kind + ": " + name + " startup failure");
                     printer().println("");
                     String text = Files.readString(logPath);
                     printer().print(text);
@@ -2159,8 +2174,9 @@ public class Run extends CamelCommand {
                 defaultValue = "info", description = "Logging level (${COMPLETION-CANDIDATES})")
         String loggingLevel;
 
-        @Option(names = { "--logging-color" }, defaultValue = "true", description = "Use colored logging")
-        boolean loggingColor = true;
+        @Option(names = { "--logging-color" },
+                description = "Use colored logging. Default is auto-detected based on NO_COLOR, CI, FORCE_COLOR environment variables and terminal capabilities")
+        boolean loggingColor = EnvironmentHelper.isColorEnabled();
 
         @Option(names = { "--logging-json" }, defaultValue = "false", description = "Use JSON logging (ECS Layout)")
         boolean loggingJson;
