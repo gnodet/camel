@@ -326,7 +326,7 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
       }
     })
 
-    return gulp.src(source, { ignore: ['**/target/**'] })
+    return gulp.src(source, { ignore: ['**/target/**', '**/.camel-jbang/**'], allowEmpty: true })
       .pipe(filterFn)
       .pipe(
         map((file, done) => {
@@ -409,7 +409,7 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
       return done()
     }
 
-    return gulp.src(source, { ignore: ['**/target/**'] }) // asciidoc files
+    return gulp.src(source, { ignore: ['**/target/**', '**/.camel-jbang/**'], allowEmpty: true }) // asciidoc files
       .pipe(through2.obj(extractExamples)) // extracted example files
       // symlink links from a fixed directory, i.e. we could link to
       // the example files from `destination`, that would not work for
@@ -448,6 +448,34 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
     return n
   }
 
+  // Wraps a stream-returning task with retry logic to handle ENOENT errors
+  // from ephemeral directories (e.g. target/ temp dirs created/deleted by
+  // tests running in parallel via mvnd during CI builds)
+  const namedWithRetry = (name, task, ...args) => {
+    const maxRetries = 3
+    const { [name]: n } = { [name]: async () => {
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          await new Promise((resolve, reject) => {
+            const stream = task(...args)
+            stream.on('end', resolve)
+            stream.on('finish', resolve)
+            stream.on('error', reject)
+          })
+          return
+        } catch (err) {
+          if (err.code === 'ENOENT' && attempt < maxRetries) {
+            console.warn(`⚠️ ENOENT in ${name} (attempt ${attempt}/${maxRetries}), retrying: ${err.path}`)
+            await new Promise(r => setTimeout(r, 1000))
+          } else {
+            throw err
+          }
+        }
+      }
+    }}
+    return n
+  }
+
   // accumulates all tasks performed per _kind_.
   const allTasks = []
 
@@ -455,7 +483,7 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
     allTasks.push(
       gulp.series(
         named(`clean:asciidoc:${type}`, clean, asciidoc.destination, asciidoc.keep),
-        named(`symlink:asciidoc:${type}`, createSymlinks, asciidoc.source, asciidoc.destination),
+        namedWithRetry(`symlink:asciidoc:${type}`, createSymlinks, asciidoc.source, asciidoc.destination),
         named(`nav:asciidoc:${type}`, createNav, asciidoc.destination)
       )
     )
@@ -465,7 +493,7 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
     allTasks.push(
       gulp.series(
         named(`clean:image:${type}`, clean, image.destination, image.keep),
-        named(`symlink:image:${type}`, createSymlinks, image.source, image.destination)
+        namedWithRetry(`symlink:image:${type}`, createSymlinks, image.source, image.destination)
       )
     )
   }
@@ -474,7 +502,7 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
     allTasks.push(
       gulp.series(
         named(`clean:example:${type}`, clean, example.destination, ['json', 'js']),
-        named(`symlink:example:${type}`, createExampleSymlinks, example.source, example.destination)
+        namedWithRetry(`symlink:example:${type}`, createExampleSymlinks, example.source, example.destination)
       )
     )
   }
@@ -482,7 +510,7 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
   if (json) {
     let tasks = [
       named(`clean:json:${type}`, clean, json.destination, json.keep),
-      named(`symlink:json:${type}`, createSymlinks, json.source, json.destination, json.filter)
+      namedWithRetry(`symlink:json:${type}`, createSymlinks, json.source, json.destination, json.filter)
     ]
 
     if (asciidoc && !asciidoc.source) {
