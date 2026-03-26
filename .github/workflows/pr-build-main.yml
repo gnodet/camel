@@ -48,7 +48,7 @@ permissions:
 
 jobs:
   build:
-    if: github.repository == 'apache/camel'
+    #if: github.repository == 'apache/camel'
     permissions:
       contents: read
       pull-requests: write
