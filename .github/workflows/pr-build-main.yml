@@ -45,6 +45,11 @@ on:
         required: false
         type: string
         default: ''
+      skip_full_build:
+        description: 'Skip full regen build — use quick targeted build instead (for /component-test)'
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || inputs.pr_number || github.ref }}${{ inputs.extra_modules && '-component-test' || '' }}
@@ -84,7 +89,14 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
       - name: maven build
+        if: ${{ !inputs.skip_full_build }}
         run: ./etc/scripts/regen.sh
+      - name: Quick dependency build
+        if: ${{ inputs.skip_full_build }}
+        shell: bash
+        env:
+          EXTRA_MODULES: ${{ inputs.extra_modules }}
+        run: ./mvnw -l build.log install -B -DskipTests -Dquickly -pl "$EXTRA_MODULES" -am
       - name: archive logs
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         if: always()
@@ -92,6 +104,7 @@ jobs:
           name: build-${{ matrix.java }}.log
           path: build.log
       - name: Fail if there are uncommitted changes
+        if: ${{ !inputs.skip_full_build }}
         shell: bash
         run: |
           [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; echo; echo; git diff; exit 1; }
@@ -103,6 +116,9 @@ jobs:
           skip-mvnd-install: 'true'
           artifact-upload-suffix: java-${{ matrix.java }}
           extra-modules: ${{ inputs.extra_modules || '' }}
+      # All non-experimental JDK matrix entries upload with overwrite: true.
+      # This ensures a comment is posted even if one JDK build fails — the
+      # content is identical across JDKs (same modules tested), so last writer wins.
       - name: Save PR number and test comment for commenter workflow
         if: always() && !matrix.experimental
         shell: bash

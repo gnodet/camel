@@ -36,7 +36,8 @@ PR comment: /component-test kafka http
   2. Check for uncommitted generated files
   3. Run incremental tests (only affected modules)
   4. Upload test comment as artifact
-- **Inputs** (workflow_dispatch): `pr_number`, `pr_ref`, `extra_modules`
+- **Inputs** (workflow_dispatch): `pr_number`, `pr_ref`, `extra_modules`,
+  `skip_full_build`
 
 ### `pr-test-commenter.yml` — Post CI test comment
 - **Trigger**: `workflow_run` on "Build and test" completion
@@ -48,7 +49,9 @@ PR comment: /component-test kafka http
 - **Trigger**: `issue_comment` with `/component-test` prefix
 - **Who**: MEMBER, OWNER, or CONTRIBUTOR only
 - **What**: Resolves component names to module paths, dispatches the main
-  "Build and test" workflow with `extra_modules`
+  "Build and test" workflow with `extra_modules` and `skip_full_build=true`
+- **Build**: Uses a quick targeted build (`-Dquickly`) of the requested
+  modules and their dependencies instead of the full `regen.sh` build
 
 ### `pr-id.yml` + `pr-commenter.yml` — Welcome message
 - **Trigger**: `pull_request` (all branches)
@@ -74,9 +77,10 @@ PR comment: /component-test kafka http
 ### `incremental-build`
 The core test runner. Determines which modules to test using:
 1. **File-path analysis**: Maps changed files to Maven modules
-2. **POM dependency analysis**: For changed `pom.xml` files, detects property
+2. **POM dependency analysis**: For `parent/pom.xml` changes, detects property
    changes and finds modules that reference the affected properties in their
-   `pom.xml` files
+   `pom.xml` files (uses simple grep, not Maveniverse Toolbox — see Known
+   Limitations below)
 3. **Extra modules**: Additional modules passed via `/component-test`
 
 Results are merged, deduplicated, and tested. The script also:
@@ -136,6 +140,13 @@ properties change. A future improvement could use
 [Maveniverse Toolbox](https://github.com/maveniverse/toolbox) `tree-find` or
 [Scalpel](https://github.com/maveniverse/scalpel) to resolve the full
 dependency graph and detect all affected modules.
+
+## Multi-JDK Artifact Behavior
+
+All non-experimental JDK matrix entries (17, 21) upload the CI comment
+artifact with `overwrite: true`. This ensures a comment is posted even if
+one JDK build fails. Since the comment content is identical across JDKs
+(same modules are tested regardless of JDK version), last writer wins.
 
 ## Comment Markers
 

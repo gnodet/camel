@@ -28,7 +28,7 @@ set -euo pipefail
 
 echo "Using MVND_OPTS=$MVND_OPTS"
 
-maxNumberOfTestableProjects=1000
+maxNumberOfTestableProjects=50
 
 # Modules excluded from targeted testing (generated code, meta-modules, etc.)
 EXCLUSION_LIST="!:camel-allcomponents,!:dummy-component,!:camel-catalog,!:camel-catalog-console,!:camel-catalog-lucene,!:camel-catalog-maven,!:camel-catalog-suggest,!:camel-route-parser,!:camel-csimple-maven-plugin,!:camel-report-maven-plugin,!:camel-endpointdsl,!:camel-componentdsl,!:camel-endpointdsl-support,!:camel-yaml-dsl,!:camel-kamelet-main,!:camel-yaml-dsl-deserializers,!:camel-yaml-dsl-maven-plugin,!:camel-jbang-core,!:camel-jbang-main,!:camel-jbang-plugin-generate,!:camel-jbang-plugin-edit,!:camel-jbang-plugin-kubernetes,!:camel-jbang-plugin-test,!:camel-launcher,!:camel-jbang-it,!:camel-itest,!:docs,!:apache-camel,!:coverage"
@@ -86,6 +86,11 @@ fetchDiff() {
 }
 
 # ── POM dependency analysis (previously detect-dependencies) ───────────
+#
+# Uses the pre-#22022 approach: grep for ${property-name} references in
+# module pom.xml files. The Maveniverse Toolbox approach (introduced in
+# #22022, reverted in #22279) is intentionally not used here. See
+# CI-ARCHITECTURE.md for known limitations of the grep approach.
 
 # Extract the diff section for a specific pom.xml file from the full diff
 extractPomDiff() {
@@ -326,9 +331,10 @@ main() {
       local projectRoot
       projectRoot=$(findProjectRoot "${project}")
       if [[ ${projectRoot} = "." ]]; then
-        # Root project change — don't add to pl, will rely on dependency analysis
-        # for pom.xml changes, or skip if it's just config files
-        continue
+        echo "The root project is affected, skipping targeted module testing"
+        echo "<!-- ci-tested-modules -->" > "incremental-test-comment.md"
+        echo ":information_source: CI did not run targeted module tests (root project files changed)." >> "incremental-test-comment.md"
+        exit 0
       elif [[ ${projectRoot} != "${lastProjectRoot}" ]]; then
         totalAffected=$((totalAffected + 1))
         pl="$pl,${projectRoot}"
@@ -338,8 +344,11 @@ main() {
   done
   pl="${pl:1}"  # strip leading comma
 
-  # Collect all changed pom.xml files for dependency analysis
-  pom_files=$(echo "$diff_body" | sed -n -e '/^diff --git a/p' | awk '{print $3}' | cut -b 3- | grep '/pom\.xml$' | sort -u || true)
+  # Only analyze parent/pom.xml for dependency detection
+  # (matches original detect-test.sh behavior; detection improvements deferred to follow-up PR)
+  if echo "$diff_body" | grep -q '^diff --git a/parent/pom.xml'; then
+    pom_files="parent/pom.xml"
+  fi
 
   # ── Step 2: POM dependency analysis ──
   # Variables shared with analyzePomDependencies/findAffectedModules
@@ -348,7 +357,7 @@ main() {
 
   if [ -n "$pom_files" ]; then
     echo ""
-    echo "Analyzing POM dependency changes..."
+    echo "Analyzing parent POM dependency changes..."
     while read -r pom_file; do
       [ -z "$pom_file" ] && continue
 
