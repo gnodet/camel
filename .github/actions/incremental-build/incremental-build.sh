@@ -445,7 +445,9 @@ main() {
       testedDependents=true
     else
       local totalTestableProjects
-      totalTestableProjects=$(./mvnw -B -q -amd exec:exec -Dexec.executable="pwd" -pl "$testable_pl" 2>/dev/null | wc -l || echo "0")
+      totalTestableProjects=$(./mvnw -B -q -amd exec:exec -Dexec.executable="pwd" -pl "$testable_pl" 2>/dev/null | wc -l) || true
+      totalTestableProjects=$(echo "$totalTestableProjects" | tail -1 | tr -d '[:space:]')
+      totalTestableProjects=${totalTestableProjects:-0}
 
       if [[ ${totalTestableProjects} -gt ${maxNumberOfTestableProjects} ]]; then
         echo "Too many dependent modules (${totalTestableProjects} > ${maxNumberOfTestableProjects}), testing only the affected modules"

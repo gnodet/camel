@@ -32,7 +32,7 @@ inputs:
   github-repo:
     description: 'The GitHub repository name (example, apache/camel)'
     required: false
-    default: 'apache/camel'
+    default: ${{ github.repository }}
   artifact-upload-suffix:
     description: 'Suffix for artifacts stored'
     required: false
