@@ -485,13 +485,11 @@ main() {
       build_pl="${build_pl:+${build_pl},}${extraModules}"
     fi
   fi
-  if [ -n "$dep_module_ids" ]; then
-    build_pl="${build_pl},${EXCLUSION_LIST}"
-  fi
-
   # This needs to install, not just test, otherwise test-infra will fail due to jandex maven plugin
+  # Exclusion list is only needed with -amd (to prevent testing generated/meta modules);
+  # without -amd, only the explicitly listed modules are built.
   if [[ "$use_amd" = true ]]; then
-    $mavenBinary -l "$log" $MVND_OPTS install -pl "$build_pl" -amd || ret=$?
+    $mavenBinary -l "$log" $MVND_OPTS install -pl "${build_pl},${EXCLUSION_LIST}" -amd || ret=$?
   else
     $mavenBinary -l "$log" $MVND_OPTS install -pl "$build_pl" || ret=$?
   fi
