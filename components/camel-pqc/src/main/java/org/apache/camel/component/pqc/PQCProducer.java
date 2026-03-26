@@ -31,6 +31,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.InvalidPayloadException;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.pqc.crypto.hybrid.HybridKEM;
 import org.apache.camel.component.pqc.crypto.hybrid.HybridSignature;
 import org.apache.camel.component.pqc.lifecycle.KeyLifecycleManager;
@@ -117,6 +118,14 @@ public class PQCProducer extends DefaultProducer {
 
     public PQCProducer(Endpoint endpoint) {
         super(endpoint);
+    }
+
+    /**
+     * Returns the runtime key pair used by this producer. Used by the health check to read actual key state rather than
+     * the configuration snapshot.
+     */
+    KeyPair getRuntimeKeyPair() {
+        return keyPair;
     }
 
     @Override
@@ -397,7 +406,7 @@ public class PQCProducer extends DefaultProducer {
 
         if (ObjectHelper.isNotEmpty(healthCheckRepository)) {
             String id = getEndpoint().getId();
-            producerHealthCheck = new PQCStatefulKeyHealthCheck(getEndpoint(), id);
+            producerHealthCheck = new PQCStatefulKeyHealthCheck(getEndpoint(), this, id);
             producerHealthCheck.setEnabled(getEndpoint().getComponent().isHealthCheckProducerEnabled());
             healthCheckRepository.addHealthCheck(producerHealthCheck);
         }
@@ -501,6 +510,8 @@ public class PQCProducer extends DefaultProducer {
 
     private void hybridSignature(Exchange exchange)
             throws InvalidPayloadException, InvalidKeyException, SignatureException {
+        checkStatefulKeyBeforeSign();
+
         String payload = exchange.getMessage().getMandatoryBody(String.class);
         byte[] data = payload.getBytes();
 
@@ -526,6 +537,12 @@ public class PQCProducer extends DefaultProducer {
         exchange.getMessage().setHeader(PQCConstants.HYBRID_SIGNATURE, hybridSig);
         exchange.getMessage().setHeader(PQCConstants.CLASSICAL_SIGNATURE, components.classicalSignature());
         exchange.getMessage().setHeader(PQCConstants.PQC_SIGNATURE, components.pqcSignature());
+
+        try {
+            persistStatefulKeyStateAfterSign(exchange);
+        } catch (Exception e) {
+            throw new RuntimeCamelException("Failed to persist stateful key state after hybrid signing", e);
+        }
     }
 
     private void hybridVerification(Exchange exchange)
@@ -789,15 +806,9 @@ public class PQCProducer extends DefaultProducer {
         }
 
         PrivateKey privateKey = keyPair.getPrivate();
-        long remaining;
+        long remaining = getStatefulKeyRemaining(privateKey);
 
-        if (privateKey instanceof XMSSPrivateKey) {
-            remaining = ((XMSSPrivateKey) privateKey).getUsagesRemaining();
-        } else if (privateKey instanceof XMSSMTPrivateKey) {
-            remaining = ((XMSSMTPrivateKey) privateKey).getUsagesRemaining();
-        } else if (privateKey instanceof LMSPrivateKey) {
-            remaining = ((LMSPrivateKey) privateKey).getUsagesRemaining();
-        } else {
+        if (remaining < 0) {
             throw new IllegalArgumentException(
                     "getRemainingSignatures is only supported for stateful signature schemes (XMSS, XMSSMT, LMS/HSS). "
                                                + "Key type: " + privateKey.getClass().getName());
@@ -812,22 +823,16 @@ public class PQCProducer extends DefaultProducer {
         }
 
         PrivateKey privateKey = keyPair.getPrivate();
-        StatefulKeyState state;
+        long remaining = getStatefulKeyRemaining(privateKey);
 
-        if (privateKey instanceof XMSSPrivateKey) {
-            XMSSPrivateKey xmssKey = (XMSSPrivateKey) privateKey;
-            state = new StatefulKeyState(privateKey.getAlgorithm(), xmssKey.getIndex(), xmssKey.getUsagesRemaining());
-        } else if (privateKey instanceof XMSSMTPrivateKey) {
-            XMSSMTPrivateKey xmssmtKey = (XMSSMTPrivateKey) privateKey;
-            state = new StatefulKeyState(privateKey.getAlgorithm(), xmssmtKey.getIndex(), xmssmtKey.getUsagesRemaining());
-        } else if (privateKey instanceof LMSPrivateKey) {
-            LMSPrivateKey lmsKey = (LMSPrivateKey) privateKey;
-            state = new StatefulKeyState(privateKey.getAlgorithm(), lmsKey.getIndex(), lmsKey.getUsagesRemaining());
-        } else {
+        if (remaining < 0) {
             throw new IllegalArgumentException(
                     "getKeyState is only supported for stateful signature schemes (XMSS, XMSSMT, LMS/HSS). "
                                                + "Key type: " + privateKey.getClass().getName());
         }
+
+        long index = getStatefulKeyIndex(privateKey);
+        StatefulKeyState state = new StatefulKeyState(privateKey.getAlgorithm(), index, remaining);
 
         exchange.getMessage().setHeader(PQCConstants.KEY_STATE, state);
     }
@@ -863,7 +868,7 @@ public class PQCProducer extends DefaultProducer {
             return;
         }
 
-        if (remaining <= 0) {
+        if (remaining == 0) {
             throw new IllegalStateException(
                     "Stateful key (" + privateKey.getAlgorithm() + ") is exhausted with 0 remaining signatures. "
                                             + "The key must not be reused — generate a new key pair.");
@@ -913,10 +918,17 @@ public class PQCProducer extends DefaultProducer {
 
         // Update metadata with current usage
         KeyMetadata metadata = klm.getKeyMetadata(keyId);
-        if (metadata != null) {
-            metadata.updateLastUsed();
-            klm.updateKeyMetadata(keyId, metadata);
+        if (metadata == null) {
+            LOG.warn(
+                    "No metadata found for stateful key '{}'. The key index has been advanced by the signing operation "
+                     + "but cannot be persisted — on restart this index advance will be lost, which may lead to key reuse. "
+                     + "Ensure a KeyLifecycleManager is properly configured and the key is stored with metadata.",
+                    keyId);
+            return;
         }
+
+        metadata.updateLastUsed();
+        klm.updateKeyMetadata(keyId, metadata);
 
         // Persist the updated key (with new index) so state survives restarts
         klm.storeKey(keyId, keyPair, metadata);
@@ -925,7 +937,7 @@ public class PQCProducer extends DefaultProducer {
     /**
      * Returns the remaining signatures for a stateful private key, or -1 if the key is not stateful.
      */
-    private long getStatefulKeyRemaining(PrivateKey privateKey) {
+    static long getStatefulKeyRemaining(PrivateKey privateKey) {
         if (privateKey instanceof XMSSPrivateKey) {
             return ((XMSSPrivateKey) privateKey).getUsagesRemaining();
         } else if (privateKey instanceof XMSSMTPrivateKey) {
@@ -940,7 +952,7 @@ public class PQCProducer extends DefaultProducer {
      * Returns the current index (number of signatures already produced) for a stateful private key, or 0 if the key is
      * not stateful.
      */
-    private long getStatefulKeyIndex(PrivateKey privateKey) {
+    static long getStatefulKeyIndex(PrivateKey privateKey) {
         if (privateKey instanceof XMSSPrivateKey) {
             return ((XMSSPrivateKey) privateKey).getIndex();
         } else if (privateKey instanceof XMSSMTPrivateKey) {
