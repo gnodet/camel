@@ -328,7 +328,6 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
     })
     src.on('error', function (err) {
       if (err.code === 'ENOENT') {
-        src.unpipe(passthrough)
         passthrough.end()
       } else {
         passthrough.destroy(err)
