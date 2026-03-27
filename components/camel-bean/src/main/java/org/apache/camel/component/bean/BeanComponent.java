@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.bean;
 
+// CI test: trigger file-path detection for camel-bean
 import java.util.Map;
 
 import org.apache.camel.BeanScope;
