@@ -444,8 +444,13 @@ main() {
       use_amd=true
       testedDependents=true
     else
+      # Include extra modules in the count — with -amd, Maven expands all of them
+      local threshold_pl="$testable_pl"
+      if [ -n "$extraModules" ]; then
+        threshold_pl="${threshold_pl},${extraModules}"
+      fi
       local totalTestableProjects
-      totalTestableProjects=$(./mvnw -B -q -amd exec:exec -Dexec.executable="pwd" -pl "$testable_pl" 2>/dev/null | wc -l) || true
+      totalTestableProjects=$(./mvnw -B -q -amd exec:exec -Dexec.executable="pwd" -pl "$threshold_pl" 2>/dev/null | wc -l) || true
       totalTestableProjects=$(echo "$totalTestableProjects" | tail -1 | tr -d '[:space:]')
       totalTestableProjects=${totalTestableProjects:-0}
 
@@ -548,6 +553,7 @@ main() {
   # Write step summary header
   if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
     {
+      echo ""
       echo "### Tested modules"
       echo ""
       for w in $(echo "$final_pl" | tr ',' '\n'); do
