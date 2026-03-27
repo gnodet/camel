@@ -48,6 +48,7 @@ import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.AnnotationSource;
 import org.jboss.forge.roaster.model.source.FieldSource;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
+import org.jboss.forge.roaster.model.source.JavaSource;
 
 /**
  * Prepares camel-jbang by scanning command classes and generating command metadata for documentation.
@@ -573,7 +574,7 @@ public class PrepareCamelJBangCommandsMojo extends AbstractGeneratorMojo {
         }
 
         // Try to find as a nested type in the declaring class
-        for (org.jboss.forge.roaster.model.source.JavaSource<?> nested : declaringClass.getNestedTypes()) {
+        for (JavaSource<?> nested : declaringClass.getNestedTypes()) {
             if (nested instanceof JavaClassSource nestedClass && nestedClass.getName().equals(className)) {
                 return extractCandidateValues(nestedClass);
             }
