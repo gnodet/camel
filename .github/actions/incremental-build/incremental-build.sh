@@ -19,8 +19,9 @@
 #
 # Determines which modules to test by:
 #   1. File-path analysis: maps changed files to their Maven modules
-#   2. POM dependency analysis: for changed pom.xml files, detects property
-#      changes and finds modules that reference the affected properties
+#   2. POM dependency analysis via Maveniverse Scalpel: detects changed
+#      properties, managed dependencies, and managed plugins in parent POMs,
+#      then finds modules that reference them
 #
 # Both sets of affected modules are merged and deduplicated before testing.
 
@@ -85,104 +86,96 @@ fetchDiff() {
   echo "$diff_body"
 }
 
-# ── POM dependency analysis (previously detect-dependencies) ───────────
+# ── POM dependency analysis via Scalpel ────────────────────────────────
 #
-# Uses the pre-#22022 approach: grep for ${property-name} references in
-# module pom.xml files. The Maveniverse Toolbox approach (introduced in
-# #22022, reverted in #22279) is intentionally not used here. See
-# CI-ARCHITECTURE.md for known limitations of the grep approach.
+# Uses Maveniverse Scalpel (Maven extension) for accurate POM change
+# detection: compares old/new POM models, detects changed properties,
+# managed dependencies, managed plugins, and property indirection.
+# Replaces the previous grep-based approach which had known limitations
+# (see CI-ARCHITECTURE.md).
 
-# Extract the diff section for a specific pom.xml file from the full diff
-extractPomDiff() {
-  local diff_body="$1"
-  local pom_path="$2"
+# Run Scalpel to detect modules affected by POM changes.
+# Populates: scalpel_module_ids, scalpel_props, scalpel_managed_deps, scalpel_managed_plugins
+runScalpelDetection() {
+  echo "  Running Scalpel change detection..."
 
-  echo "$diff_body" | awk -v target="a/${pom_path}" '
-    /^diff --git/ && found { exit }
-    /^diff --git/ && index($0, target) { found=1 }
-    found { print }
-  '
-}
+  # Ensure git history is available for JGit merge-base
+  git fetch origin main:refs/remotes/origin/main --depth=200 2>/dev/null || true
+  git fetch --deepen=200 2>/dev/null || true
 
-# Detect which properties changed in a pom.xml diff.
-# Returns one property name per line.
-# Filters out structural XML elements (groupId, artifactId, version, etc.)
-# to only return actual property names (e.g. openai-java-version).
-detectChangedProperties() {
-  local diff_content="$1"
+  # Clone and build Scalpel
+  if [ ! -d /tmp/scalpel ]; then
+    git clone --depth=1 -q https://github.com/maveniverse/scalpel.git /tmp/scalpel
+    (cd /tmp/scalpel && ./mvnw -B -q install -DskipTests -Denforcer.skip) || {
+      echo "  WARNING: Failed to build Scalpel, skipping detection"
+      return
+    }
+  fi
 
-  # Known structural POM elements that are NOT property names
-  local structural_elements="groupId|artifactId|version|scope|type|classifier|optional|systemPath|exclusions|exclusion|dependency|dependencies|dependencyManagement|parent|modules|module|packaging|name|description|url|relativePath"
+  # Temporarily inject Scalpel into extensions.xml
+  cp .mvn/extensions.xml .mvn/extensions.xml.bak
+  trap 'mv -f .mvn/extensions.xml.bak .mvn/extensions.xml 2>/dev/null || true' RETURN
 
-  echo "$diff_content" | \
-    grep -E '^[+-][[:space:]]*<[^>]+>[^<]*</[^>]+>' | \
-    grep -vE '^\+\+\+|^---' | \
-    sed -E 's/^[+-][[:space:]]*<([^>]+)>.*/\1/' | \
-    grep -vE "^(${structural_elements})$" | \
-    sort -u || true
-}
+  awk '/<\/extensions>/{print "    <extension>";print "        <groupId>eu.maveniverse.maven.scalpel</groupId>";print "        <artifactId>extension3</artifactId>";print "        <version>0.1.0-SNAPSHOT</version>";print "    </extension>"}1' \
+    .mvn/extensions.xml.bak > .mvn/extensions.xml
 
-# Find modules that reference a property in their pom.xml.
-# Searches pom.xml files under catalog/, components/, core/, dsl/ for
-# ${property_name} references and extracts the module's artifactId.
-# Adds discovered artifactIds to the dep_module_ids variable
-# (which must be declared in the caller).
-findAffectedModules() {
-  local property="$1"
+  # Run Maven validate with Scalpel in report mode
+  # - fullBuildTriggers="" : override .mvn/** default (we injected into extensions.xml)
+  # - alsoMake/alsoMakeDependents=false : we want only directly affected modules
+  local scalpel_args="-Dscalpel.mode=report -Dscalpel.fullBuildTriggers= -Dscalpel.alsoMake=false -Dscalpel.alsoMakeDependents=false"
+  # For workflow_dispatch, GITHUB_BASE_REF may not be set — specify base branch explicitly
+  if [ -z "${GITHUB_BASE_REF:-}" ]; then
+    scalpel_args="$scalpel_args -Dscalpel.baseBranch=origin/main"
+  fi
 
-  local matches
-  matches=$(grep -rl "\${${property}}" --include="pom.xml" . 2>/dev/null | \
-    grep -v "^\./parent/pom.xml" | \
-    grep -v "/target/" || true)
+  echo "  Scalpel: running mvn validate..."
+  ./mvnw -B validate $scalpel_args -l /tmp/scalpel-validate.log 2>/dev/null || {
+    echo "  WARNING: Scalpel detection failed (exit $?), skipping"
+    cat /tmp/scalpel-validate.log | grep -i "scalpel" || true
+    return
+  }
 
-  if [ -z "$matches" ]; then
+  # Restore extensions.xml
+  mv -f .mvn/extensions.xml.bak .mvn/extensions.xml
+  trap - RETURN
+
+  # Parse the report
+  local report="target/scalpel-report.json"
+  if [ ! -f "$report" ]; then
+    echo "  WARNING: Scalpel report not found at $report"
+    # Check if full build was triggered or no base branch
+    grep -i "scalpel" /tmp/scalpel-validate.log | head -5 || true
     return
   fi
 
-  while read -r pom_file; do
-    [ -z "$pom_file" ] && continue
-
-    # Only consider catalog, components, core, dsl paths (same as original detect-test.sh)
-    if [[ "$pom_file" == */catalog/* ]] || \
-       [[ "$pom_file" == */components/* ]] || \
-       [[ "$pom_file" == */core/* ]] || \
-       ([[ "$pom_file" == */dsl/* ]] && [[ "$pom_file" != */dsl/camel-jbang* ]]); then
-      local mod_artifact
-      mod_artifact=$(sed -n '/<parent>/,/<\/parent>/!{ s/.*<artifactId>\([^<]*\)<\/artifactId>.*/\1/p }' "$pom_file" | head -1)
-      if [ -n "$mod_artifact" ] && ! echo ",$dep_module_ids," | grep -q ",:${mod_artifact},"; then
-        echo "    Property '\${${property}}' referenced by: $mod_artifact"
-        dep_module_ids="${dep_module_ids:+${dep_module_ids},}:${mod_artifact}"
-      fi
-    fi
-  done <<< "$matches"
-}
-
-# Analyze pom.xml changes to find affected modules via property grep.
-# Adds discovered module artifactIds to the dep_module_ids variable
-# (which must be declared in the caller).
-analyzePomDependencies() {
-  local diff_body="$1"
-  local pom_path="$2"  # e.g. "parent/pom.xml" or "components/camel-foo/pom.xml"
-
-  local pom_diff
-  pom_diff=$(extractPomDiff "$diff_body" "$pom_path")
-  if [ -z "$pom_diff" ]; then
+  # Check if full build was triggered
+  local full_build
+  full_build=$(jq -r '.fullBuildTriggered' "$report")
+  if [ "$full_build" = "true" ]; then
+    local trigger_file
+    trigger_file=$(jq -r '.triggerFile // "unknown"' "$report")
+    echo "  Scalpel: Full build triggered by change to $trigger_file"
     return
   fi
 
-  local changed_props
-  changed_props=$(detectChangedProperties "$pom_diff")
-  if [ -z "$changed_props" ]; then
-    return
+  # Extract affected module artifactIds (colon-prefixed for compatibility)
+  scalpel_module_ids=$(jq -r '.affectedModules[].artifactId' "$report" 2>/dev/null | sort -u | sed 's/^/:/' | tr '\n' ',' | sed 's/,$//' || true)
+  scalpel_props=$(jq -r '.changedProperties // [] | join(", ")' "$report" 2>/dev/null || true)
+  scalpel_managed_deps=$(jq -r '.changedManagedDependencies // [] | join(", ")' "$report" 2>/dev/null || true)
+  scalpel_managed_plugins=$(jq -r '.changedManagedPlugins // [] | join(", ")' "$report" 2>/dev/null || true)
+
+  local mod_count
+  mod_count=$(jq '.affectedModules | length' "$report" 2>/dev/null || echo "0")
+  echo "  Scalpel detected $mod_count affected modules"
+  if [ -n "$scalpel_props" ]; then
+    echo "    Changed properties: $scalpel_props"
   fi
-
-  echo "  Property changes detected in ${pom_path}:"
-  echo "$changed_props" | while read -r p; do echo "    - $p"; done
-
-  while read -r prop; do
-    [ -z "$prop" ] && continue
-    findAffectedModules "$prop"
-  done <<< "$changed_props"
+  if [ -n "$scalpel_managed_deps" ]; then
+    echo "    Changed managed deps: $scalpel_managed_deps"
+  fi
+  if [ -n "$scalpel_managed_plugins" ]; then
+    echo "    Changed managed plugins: $scalpel_managed_plugins"
+  fi
 }
 
 # ── Disabled-test detection ─────────────────────────────────────────────
@@ -224,6 +217,8 @@ writeComment() {
   local changed_props_summary="$4"
   local testedDependents="$5"
   local extra_modules="$6"
+  local managed_deps_summary="${7:-}"
+  local managed_plugins_summary="${8:-}"
 
   echo "<!-- ci-tested-modules -->" > "$comment_file"
 
@@ -241,24 +236,32 @@ writeComment() {
     fi
   fi
 
-  # Section 2: pom dependency-detected modules
+  # Section 2: pom dependency-detected modules (Scalpel)
   if [ -n "$dep_ids" ]; then
     echo "" >> "$comment_file"
+    echo ":white_check_mark: **POM dependency changes detected** (via [Scalpel](https://github.com/maveniverse/scalpel))" >> "$comment_file"
+    echo "" >> "$comment_file"
     if [ -n "$changed_props_summary" ]; then
-      echo ":white_check_mark: **POM dependency changes: targeted tests included**" >> "$comment_file"
-      echo "" >> "$comment_file"
       echo "Changed properties: ${changed_props_summary}" >> "$comment_file"
       echo "" >> "$comment_file"
-      local dep_count
-      dep_count=$(echo "$dep_ids" | tr ',' '\n' | wc -l | tr -d ' ')
-      echo "<details><summary>Modules affected by dependency changes (${dep_count})</summary>" >> "$comment_file"
-      echo "" >> "$comment_file"
-      echo "$dep_ids" | tr ',' '\n' | while read -r m; do
-        echo "- \`$m\`" >> "$comment_file"
-      done
-      echo "" >> "$comment_file"
-      echo "</details>" >> "$comment_file"
     fi
+    if [ -n "$managed_deps_summary" ]; then
+      echo "Changed managed dependencies: ${managed_deps_summary}" >> "$comment_file"
+      echo "" >> "$comment_file"
+    fi
+    if [ -n "$managed_plugins_summary" ]; then
+      echo "Changed managed plugins: ${managed_plugins_summary}" >> "$comment_file"
+      echo "" >> "$comment_file"
+    fi
+    local dep_count
+    dep_count=$(echo "$dep_ids" | tr ',' '\n' | wc -l | tr -d ' ')
+    echo "<details><summary>Modules affected by dependency changes (${dep_count})</summary>" >> "$comment_file"
+    echo "" >> "$comment_file"
+    echo "$dep_ids" | tr ',' '\n' | while read -r m; do
+      echo "- \`$m\`" >> "$comment_file"
+    done
+    echo "" >> "$comment_file"
+    echo "</details>" >> "$comment_file"
   fi
 
   # Section 3: extra modules (from /component-test)
@@ -322,8 +325,6 @@ main() {
   local pl=""
   local lastProjectRoot=""
   local totalAffected=0
-  local pom_files=""
-
   for project in ${projects}; do
     if [[ ${project} == */archetype-resources ]]; then
       continue
@@ -344,36 +345,26 @@ main() {
   done
   pl="${pl:1}"  # strip leading comma
 
-  # Only analyze parent/pom.xml for dependency detection
-  # (matches original detect-test.sh behavior; detection improvements deferred to follow-up PR)
-  if echo "$diff_body" | grep -q '^diff --git a/parent/pom.xml'; then
-    pom_files="parent/pom.xml"
-  fi
-
-  # ── Step 2: POM dependency analysis ──
-  # Variables shared with analyzePomDependencies/findAffectedModules
+  # ── Step 2: POM dependency analysis via Scalpel ──
   local dep_module_ids=""
   local all_changed_props=""
+  local scalpel_module_ids=""
+  local scalpel_props=""
+  local scalpel_managed_deps=""
+  local scalpel_managed_plugins=""
 
-  if [ -n "$pom_files" ]; then
+  # Only run Scalpel if there are POM changes in the diff (its value is
+  # POM dependency analysis — file-path analysis already handles source changes)
+  if echo "$diff_body" | grep -q '^diff --git a/.*pom\.xml'; then
     echo ""
-    echo "Analyzing parent POM dependency changes..."
-    while read -r pom_file; do
-      [ -z "$pom_file" ] && continue
+    echo "Running POM dependency analysis..."
+    runScalpelDetection
+  fi
 
-      # Capture changed props for this pom before calling analyze
-      local pom_diff
-      pom_diff=$(extractPomDiff "$diff_body" "$pom_file")
-      if [ -n "$pom_diff" ]; then
-        local props
-        props=$(detectChangedProperties "$pom_diff")
-        if [ -n "$props" ]; then
-          all_changed_props="${all_changed_props:+${all_changed_props}, }$(echo "$props" | tr '\n' ',' | sed 's/,$//')"
-        fi
-      fi
-
-      analyzePomDependencies "$diff_body" "$pom_file"
-    done <<< "$pom_files"
+  # Use Scalpel results as the primary detection mechanism
+  if [ -n "$scalpel_module_ids" ]; then
+    dep_module_ids="$scalpel_module_ids"
+    all_changed_props="$scalpel_props"
   fi
 
   # ── Step 3: Merge and deduplicate ──
@@ -413,7 +404,7 @@ main() {
   if [ -z "$final_pl" ]; then
     echo ""
     echo "No modules to test"
-    writeComment "incremental-test-comment.md" "" "" "" "" ""
+    writeComment "incremental-test-comment.md" "" "" "" "" "" "" ""
     exit 0
   fi
 
@@ -496,7 +487,7 @@ main() {
 
   # ── Step 5: Write comment and summary ──
   local comment_file="incremental-test-comment.md"
-  writeComment "$comment_file" "$pl" "$dep_module_ids" "$all_changed_props" "$testedDependents" "$extraModules"
+  writeComment "$comment_file" "$pl" "$dep_module_ids" "$all_changed_props" "$testedDependents" "$extraModules" "$scalpel_managed_deps" "$scalpel_managed_plugins"
 
   # Check for tests disabled in CI via @DisabledIfSystemProperty(named = "ci.env.name")
   local disabled_tests
