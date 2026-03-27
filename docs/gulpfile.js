@@ -315,17 +315,26 @@ const tasks = Array.from(sourcesMap).flatMap(([type, definition]) => {
   }
 
   // Wraps gulp.src to gracefully handle ENOENT from ephemeral directories
-  // (e.g. .camel-jbang/work created/deleted by tests running in parallel)
-  // Node.js .pipe() does not propagate errors, so we must handle them at
-  // the source stream level rather than downstream.
+  // (e.g. .camel-jbang/work created/deleted by tests running in parallel).
+  // We pipe through a passthrough transform so that on ENOENT we can
+  // cleanly end() the passthrough, which properly signals downstream
+  // pipes to finish. Direct error handling on gulp.src() doesn't work
+  // because Node.js .pipe() does not propagate errors or end signals.
   const ignorePatterns = ['**/target/**', '**/.camel-jbang/**']
   const resilientSrc = (source, options) => {
-    return gulp.src(source, options)
-      .on('error', function (err) {
-        if (err.code === 'ENOENT') {
-          this.emit('end')
-        }
-      })
+    const src = gulp.src(source, options)
+    const passthrough = through2.obj(function (file, enc, done) {
+      done(null, file)
+    })
+    src.on('error', function (err) {
+      if (err.code === 'ENOENT') {
+        src.unpipe(passthrough)
+        passthrough.end()
+      } else {
+        passthrough.destroy(err)
+      }
+    })
+    return src.pipe(passthrough)
   }
 
   // creates symlinks from source to destination that satisfy the
