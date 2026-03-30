@@ -215,6 +215,49 @@ detectDisabledTests() {
   fi
 }
 
+# Check if changed modules have associated integration tests excluded from CI.
+# Reads manual-it-mapping.txt and appends advisories to the PR comment.
+checkManualItTests() {
+  local final_pl="$1"
+  local comment_file="$2"
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  local mapping_file="${script_dir}/manual-it-mapping.txt"
+
+  [[ ! -f "$mapping_file" ]] && return
+
+  declare -A it_commands
+  declare -A it_sources
+
+  while IFS=: read -r source_id it_module command; do
+    # Skip comments and empty lines
+    [[ -z "$source_id" || "$source_id" == \#* ]] && continue
+    source_id="${source_id// /}"
+    it_module="${it_module// /}"
+    command="${command#"${command%%[![:space:]]*}"}"
+
+    # Check if any module in final_pl matches this source_id
+    for module_path in $(echo "$final_pl" | tr ',' '\n'); do
+      if [[ "$(basename "$module_path")" == "$source_id" ]]; then
+        it_commands["$it_module"]="$command"
+        it_sources["$it_module"]="${it_sources[$it_module]:-}${it_sources[$it_module]:+, }\`${module_path}\`"
+      fi
+    done
+  done < "$mapping_file"
+
+  if [[ ${#it_sources[@]} -gt 0 ]]; then
+    echo "" >> "$comment_file"
+    echo ":bulb: **Manual integration tests recommended:**" >> "$comment_file"
+    for it_module in "${!it_sources[@]}"; do
+      echo "" >> "$comment_file"
+      echo "> You modified ${it_sources[$it_module]}. The related integration tests in \`${it_module}\` are excluded from CI. Consider running them manually:" >> "$comment_file"
+      echo '> ```' >> "$comment_file"
+      echo "> ${it_commands[$it_module]}" >> "$comment_file"
+      echo '> ```' >> "$comment_file"
+    done
+  fi
+}
+
 # ── Comment generation ─────────────────────────────────────────────────
 
 writeComment() {
@@ -511,6 +554,9 @@ main() {
     echo ":warning: **Some tests are disabled on GitHub Actions** (\`@DisabledIfSystemProperty(named = \"ci.env.name\")\`) and require manual verification:" >> "$comment_file"
     echo "$disabled_tests" >> "$comment_file"
   fi
+
+  # Check for excluded IT suites that should be run manually
+  checkManualItTests "$final_pl" "$comment_file"
 
   # Append reactor module list from build log
   if [[ -f "$log" ]]; then

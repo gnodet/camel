@@ -86,6 +86,8 @@ The core test runner. Determines which modules to test using:
 Results are merged, deduplicated, and tested. The script also:
 - Detects tests disabled in CI (`@DisabledIfSystemProperty(named = "ci.env.name")`)
 - Applies an exclusion list for generated/meta modules
+- Checks for excluded modules with associated integration tests (via
+  `manual-it-mapping.txt`) and advises contributors to run them manually
 - Generates a unified PR comment with all test information
 
 ### `install-mvnd`
@@ -140,6 +142,29 @@ properties change. A future improvement could use
 [Maveniverse Toolbox](https://github.com/maveniverse/toolbox) `tree-find` or
 [Scalpel](https://github.com/maveniverse/scalpel) to resolve the full
 dependency graph and detect all affected modules.
+
+## Manual Integration Test Advisories
+
+Some modules are excluded from CI's `-amd` expansion (the `EXCLUSION_LIST`)
+because they are generated code, meta-modules, or expensive integration test
+suites. When a contributor changes one of these modules, CI cannot automatically
+test all downstream effects.
+
+The file `manual-it-mapping.txt` (co-located with the incremental build script)
+maps source modules to their associated integration test suites. When a changed
+module has a mapping entry, CI posts an advisory in the PR comment:
+
+> You modified `dsl/camel-jbang/camel-jbang-core`. The related integration
+> tests in `dsl/camel-jbang/camel-jbang-it` are excluded from CI. Consider
+> running them manually:
+> ```
+> mvn verify -f dsl/camel-jbang/camel-jbang-it -Djbang-it-test
+> ```
+
+To add new mappings, edit `manual-it-mapping.txt` using the format:
+```
+source-artifact-id:it-module-path:command
+```
 
 ## Multi-JDK Artifact Behavior
 
