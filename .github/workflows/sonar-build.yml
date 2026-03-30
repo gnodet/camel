@@ -22,7 +22,6 @@ on:
     branches:
       - main
     paths-ignore:
-      - .github/**
       - README.md
       - SECURITY.md
       - Jenkinsfile
