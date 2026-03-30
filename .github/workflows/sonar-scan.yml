@@ -21,6 +21,7 @@ on:
   workflow_run:
     workflows: [SonarBuild]
     types: [completed]
+  workflow_dispatch: # manual trigger to bootstrap workflow registration
 
 concurrency:
   group: sonar-pr-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
