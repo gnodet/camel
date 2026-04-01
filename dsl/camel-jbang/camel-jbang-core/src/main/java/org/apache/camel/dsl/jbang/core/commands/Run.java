@@ -89,7 +89,15 @@ import static org.apache.camel.dsl.jbang.core.common.GistHelper.fetchGistUrls;
 import static org.apache.camel.dsl.jbang.core.common.GitHubHelper.asGithubSingleUrl;
 import static org.apache.camel.dsl.jbang.core.common.GitHubHelper.fetchGithubUrls;
 
-@Command(name = "run", description = "Run as local Camel integration", sortOptions = false, showDefaultValues = true)
+@Command(name = "run", description = "Run as local Camel integration", sortOptions = false, showDefaultValues = true,
+         footer = {
+                 "%nExamples:",
+                 "  camel run hello.java",
+                 "  camel run hello.yaml",
+                 "  camel run *",
+                 "  camel run hello.java --dev",
+                 "  camel run hello.java --port=8080",
+                 "  camel run https://gist.github.com/user/123456" })
 public class Run extends CamelCommand {
 
     // special template for running camel-jbang in docker containers
@@ -170,7 +178,9 @@ public class Run extends CamelCommand {
     @Option(names = { "--empty" }, defaultValue = "false", description = "Run an empty Camel without loading source files")
     public boolean empty;
 
-    @CommandLine.Option(names = { "--java-version" }, completionCandidates = JavaVersionCompletionCandidates.class,
+    @CommandLine.Option(names = {
+            "--java-version",
+            "--java" }, completionCandidates = JavaVersionCompletionCandidates.class,
                         description = "Java version (${COMPLETION-CANDIDATES})", defaultValue = "21")
     protected String javaVersion = "21";
 
@@ -689,8 +699,12 @@ public class Run extends CamelCommand {
         writeSetting(main, profileProperties, "camel.main.durationMaxIdleSeconds",
                 () -> executionLimitOptions.maxIdleSeconds > 0
                         ? String.valueOf(executionLimitOptions.maxIdleSeconds) : null);
-        if (serverOptions.port != -1 && serverOptions.port != 8080) {
-            writeSetting(main, profileProperties, "camel.server.port", () -> String.valueOf(serverOptions.port));
+        if (serverOptions.port != -1) {
+            // enable the main HTTP server when --port is explicitly specified
+            writeSetting(main, profileProperties, "camel.server.enabled", "true");
+            if (serverOptions.port != 8080) {
+                writeSetting(main, profileProperties, "camel.server.port", () -> String.valueOf(serverOptions.port));
+            }
         }
         if (serverOptions.port == 0 && serverOptions.managementPort == -1) {
             // use same port for management
@@ -962,11 +976,9 @@ public class Run extends CamelCommand {
                     .collect(Collectors.toSet());
 
             for (PluginExporter exporter : exporters) {
-                addDependencies(exporter.getDependencies(runtime)
-                        .stream()
-                        .filter(dependency -> !dependency.startsWith("mvn@test")) // filter test scoped dependencies
-                        .collect(Collectors.toSet())
-                        .toArray(String[]::new));
+                if (exporter.contributeRuntimeDependencies()) {
+                    addDependencies(exporter.getDependencies(runtime).toArray(String[]::new));
+                }
             }
         }
 
@@ -1484,7 +1496,10 @@ public class Run extends CamelCommand {
         }
 
         if (javaVersion != null) {
-            jbangArgs.add("--java-version=" + javaVersion);
+            jbangArgs.add("--java=" + javaVersion);
+            // remove from cmds so it is not passed to the older Camel version
+            // which may not recognize the --java alias
+            cmds.removeIf(arg -> arg.startsWith("--java-version") || arg.startsWith("--java="));
         }
         if (repositories != null) {
             jbangArgs.add("--repos=" + repositories);

@@ -43,7 +43,11 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 @Command(name = "health", description = "Get health check status of running Camel integrations", sortOptions = false,
-         showDefaultValues = true)
+         showDefaultValues = true,
+         footer = {
+                 "%nExamples:",
+                 "  camel get health",
+                 "  camel get health --watch" })
 public class ListHealth extends ProcessWatchCommand {
 
     @CommandLine.Option(names = { "--sort" }, completionCandidates = PidNameAgeCompletionCandidates.class,

@@ -52,7 +52,13 @@ import static org.apache.camel.dsl.jbang.core.commands.catalog.CatalogBaseComman
 
 @CommandLine.Command(name = "doc",
                      description = "Shows documentation for kamelet, component, and other Camel resources", sortOptions = false,
-                     showDefaultValues = true)
+                     showDefaultValues = true,
+                     footer = {
+                             "%nExamples:",
+                             "  camel doc kafka",
+                             "  camel doc timer",
+                             "  camel doc aws-s3-source",
+                             "  camel doc jsonpath" })
 public class CatalogDoc extends CamelCommand {
 
     @CommandLine.Parameters(description = "Name of kamelet, component, dataformat, or other Camel resource",
