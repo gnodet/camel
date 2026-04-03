@@ -27,7 +27,6 @@ permissions:
 
 jobs:
   dependency-review:
-    if: github.repository == 'apache/camel'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
