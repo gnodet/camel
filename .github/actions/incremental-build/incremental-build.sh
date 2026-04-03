@@ -245,7 +245,7 @@ checkManualItTests() {
     done
   done < "$mapping_file"
 
-  if [[ ${#it_sources[@]} -gt 0 ]]; then
+  if [[ ${#it_sources[@]:-0} -gt 0 ]]; then
     echo "" >> "$comment_file"
     echo ":bulb: **Manual integration tests recommended:**" >> "$comment_file"
     for it_module in "${!it_sources[@]}"; do
