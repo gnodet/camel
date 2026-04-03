@@ -228,6 +228,7 @@ checkManualItTests() {
 
   declare -A it_commands
   declare -A it_sources
+  local it_found=0
 
   while IFS=: read -r source_id it_module command; do
     # Skip comments and empty lines
@@ -241,11 +242,12 @@ checkManualItTests() {
       if [[ "$(basename "$module_path")" == "$source_id" ]]; then
         it_commands["$it_module"]="$command"
         it_sources["$it_module"]="${it_sources[$it_module]:-}${it_sources[$it_module]:+, }\`${module_path}\`"
+        it_found=1
       fi
     done
   done < "$mapping_file"
 
-  if [[ ${#it_sources[@]:-0} -gt 0 ]]; then
+  if [[ "$it_found" -eq 1 ]]; then
     echo "" >> "$comment_file"
     echo ":bulb: **Manual integration tests recommended:**" >> "$comment_file"
     for it_module in "${!it_sources[@]}"; do
