@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// CI test: exercise incremental build file-path detection
 package org.apache.camel.component.bean;
 
 import java.lang.reflect.Method;
