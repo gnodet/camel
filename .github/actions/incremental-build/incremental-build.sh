@@ -563,7 +563,7 @@ main() {
   # Append reactor module list from build log
   if [[ -f "$log" ]]; then
     local reactor_modules
-    reactor_modules=$(grep '^\[INFO\] Camel ::' "$log" | sed 's/\[INFO\] //' | sed 's/ \..*$//' | sort -u || true)
+    reactor_modules=$(grep '^\[INFO\] Camel ::' "$log" | sed 's/\[INFO\] //' | sed 's/ \..*$//' | sed 's/  *\[.*\]$//' | sort -u || true)
     if [[ -n "$reactor_modules" ]]; then
       local count
       count=$(echo "$reactor_modules" | wc -l | tr -d ' ')
