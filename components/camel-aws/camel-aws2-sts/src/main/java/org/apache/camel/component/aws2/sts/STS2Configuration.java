@@ -53,7 +53,7 @@ public class STS2Configuration implements Cloneable, AwsCommonConfiguration {
     private String region = Region.AWS_GLOBAL.id();
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

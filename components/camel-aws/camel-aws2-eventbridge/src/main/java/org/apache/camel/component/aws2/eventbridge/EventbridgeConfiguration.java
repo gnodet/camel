@@ -50,7 +50,7 @@ public class EventbridgeConfiguration implements Cloneable, AwsCommonConfigurati
     private String region;
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     @Metadata(supportFileReference = true)

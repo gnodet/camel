@@ -48,7 +48,7 @@ public class Lambda2Configuration implements Cloneable, AwsCommonConfiguration {
     private LambdaClient awsLambdaClient;
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

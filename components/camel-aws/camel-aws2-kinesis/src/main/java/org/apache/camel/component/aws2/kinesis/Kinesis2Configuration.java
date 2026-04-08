@@ -76,7 +76,8 @@ public class Kinesis2Configuration implements Cloneable, AwsCommonConfiguration 
     private String proxyHost;
     @UriParam(label = "proxy", description = "To define a proxy port when instantiating the Kinesis client")
     private Integer proxyPort;
-    @UriParam(label = "security", description = "If we want to trust all certificates in case of overriding the endpoint")
+    @UriParam(security = "insecure:ssl", label = "security",
+              description = "If we want to trust all certificates in case of overriding the endpoint")
     private boolean trustAllCertificates;
     @UriParam(label = "advanced",
               description = "If we want to a KinesisAsyncClient instance set it to true")

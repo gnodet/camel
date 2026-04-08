@@ -54,7 +54,8 @@ public class KinesisFirehose2Configuration implements Cloneable, AwsCommonConfig
     private Integer proxyPort;
     @UriParam(label = "producer", description = "The operation to do in case the user don't want to send only a record")
     private KinesisFirehose2Operations operation;
-    @UriParam(label = "security", description = "If we want to trust all certificates in case of overriding the endpoint")
+    @UriParam(security = "insecure:ssl", label = "security",
+              description = "If we want to trust all certificates in case of overriding the endpoint")
     private boolean trustAllCertificates;
     @UriParam(label = "common", defaultValue = "true",
               description = "This option will set the CBOR_ENABLED property during the execution")

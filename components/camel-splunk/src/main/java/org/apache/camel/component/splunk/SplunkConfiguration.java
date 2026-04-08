@@ -41,7 +41,7 @@ public class SplunkConfiguration {
     private int port = Service.DEFAULT_PORT;
     @UriParam(enums = "TLSv1.2,TLSv1.1,TLSv1,SSLv3", defaultValue = "TLSv1.2", label = "security")
     private SSLSecurityProtocol sslProtocol = SSLSecurityProtocol.TLSv1_2;
-    @UriParam(defaultValue = "true", label = "security")
+    @UriParam(defaultValue = "true", label = "security", security = "insecure:ssl", insecureValue = "false")
     private boolean validateCertificates = true;
     @UriParam
     private String app;

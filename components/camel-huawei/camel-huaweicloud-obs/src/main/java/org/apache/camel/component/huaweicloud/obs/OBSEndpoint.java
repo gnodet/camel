@@ -72,7 +72,7 @@ public class OBSEndpoint extends ScheduledPollEndpoint {
     private String proxyPassword;
 
     @UriParam(description = "Ignore SSL verification", displayName = "SSL Verification Ignored", defaultValue = "false",
-              label = "security")
+              label = "security", security = "insecure:ssl")
     @Metadata(required = false)
     private boolean ignoreSslVerification;
 

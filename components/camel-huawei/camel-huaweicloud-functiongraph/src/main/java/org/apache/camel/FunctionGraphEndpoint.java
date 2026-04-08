@@ -76,8 +76,8 @@ public class FunctionGraphEndpoint extends DefaultEndpoint {
     @Metadata(required = false)
     private String proxyPassword;
 
-    @UriParam(description = "Ignore SSL verification", displayName = "SSL Verification Ignored", secret = false,
-              defaultValue = "false", label = "security")
+    @UriParam(description = "Ignore SSL verification", displayName = "SSL Verification Ignored",
+              defaultValue = "false", label = "security", security = "insecure:ssl")
     @Metadata(required = false)
     private boolean ignoreSslVerification;
 

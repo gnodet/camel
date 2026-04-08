@@ -91,8 +91,8 @@ public class SimpleNotificationEndpoint extends DefaultEndpoint {
     @Metadata(required = false)
     private int messageTtl = 3600;
 
-    @UriParam(description = "Ignore SSL verification", displayName = "SSL Verification Ignored", secret = false,
-              defaultValue = "false")
+    @UriParam(description = "Ignore SSL verification", displayName = "SSL Verification Ignored", defaultValue = "false",
+              label = "security", security = "insecure:ssl")
     @Metadata(required = false)
     private boolean ignoreSslVerification;
 

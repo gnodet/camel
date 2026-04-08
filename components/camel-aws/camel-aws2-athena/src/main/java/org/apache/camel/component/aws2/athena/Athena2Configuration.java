@@ -136,7 +136,7 @@ public class Athena2Configuration implements Cloneable, AwsCommonConfiguration {
     @UriParam(label = "security")
     private String profileCredentialsName;
 
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

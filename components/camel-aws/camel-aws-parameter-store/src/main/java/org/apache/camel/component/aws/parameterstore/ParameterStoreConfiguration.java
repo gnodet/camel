@@ -54,7 +54,7 @@ public class ParameterStoreConfiguration implements Cloneable, AwsCommonConfigur
     private String region;
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

@@ -53,7 +53,7 @@ public class RedshiftData2Configuration implements Cloneable, AwsCommonConfigura
     private RedshiftDataClient awsRedshiftDataClient;
     @UriParam(defaultValue = "false")
     private boolean pojoRequest;
-    @UriParam(defaultValue = "false")
+    @UriParam(security = "insecure:ssl", defaultValue = "false")
     private boolean trustAllCertificates;
     @UriParam(defaultValue = "false")
     private boolean overrideEndpoint;

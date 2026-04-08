@@ -68,7 +68,7 @@ public class PahoMqtt5Configuration implements Cloneable {
     private SocketFactory socketFactory;
     @UriParam(label = "security")
     private Properties sslClientProps;
-    @UriParam(label = "security", defaultValue = "true")
+    @UriParam(label = "security", defaultValue = "true", security = "insecure:ssl", insecureValue = "false")
     private boolean httpsHostnameVerificationEnabled = true;
     @UriParam(label = "security")
     private HostnameVerifier sslHostnameVerifier;

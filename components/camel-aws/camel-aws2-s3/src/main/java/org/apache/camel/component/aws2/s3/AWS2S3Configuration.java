@@ -125,7 +125,7 @@ public class AWS2S3Configuration implements Cloneable, AwsCommonConfiguration {
     private String keyName;
     @UriParam
     private boolean overrideEndpoint;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private String uriEndpointOverride;

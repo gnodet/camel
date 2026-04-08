@@ -54,7 +54,7 @@ public class StepFunctions2Configuration implements Cloneable, AwsCommonConfigur
     private SfnClient awsSfnClient;
     @UriParam(defaultValue = "false")
     private boolean pojoRequest;
-    @UriParam(defaultValue = "false")
+    @UriParam(security = "insecure:ssl", defaultValue = "false")
     private boolean trustAllCertificates;
     @UriParam(defaultValue = "false")
     private boolean overrideEndpoint;

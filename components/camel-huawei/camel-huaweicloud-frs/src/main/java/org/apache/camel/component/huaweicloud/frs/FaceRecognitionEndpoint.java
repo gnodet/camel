@@ -76,7 +76,7 @@ public class FaceRecognitionEndpoint extends DefaultEndpoint {
     private String proxyPassword;
 
     @UriParam(description = "Ignore SSL verification", displayName = "SSL Verification Ignored",
-              defaultValue = "false", label = "security")
+              defaultValue = "false", label = "security", security = "insecure:ssl")
     @Metadata(required = false)
     private boolean ignoreSslVerification;
 

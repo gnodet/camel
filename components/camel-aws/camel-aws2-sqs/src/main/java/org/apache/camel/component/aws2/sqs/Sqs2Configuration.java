@@ -52,7 +52,7 @@ public class Sqs2Configuration implements Cloneable, AwsCommonConfiguration {
     private Integer proxyPort;
     @UriParam
     private boolean autoCreateQueue;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

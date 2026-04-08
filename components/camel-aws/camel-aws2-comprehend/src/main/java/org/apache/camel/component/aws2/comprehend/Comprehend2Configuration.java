@@ -57,7 +57,7 @@ public class Comprehend2Configuration implements Cloneable, AwsCommonConfigurati
     private String endpointArn;
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

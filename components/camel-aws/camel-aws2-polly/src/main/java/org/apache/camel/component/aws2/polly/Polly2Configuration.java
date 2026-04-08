@@ -83,7 +83,7 @@ public class Polly2Configuration implements Cloneable, AwsCommonConfiguration {
     private String snsTopicArn;
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

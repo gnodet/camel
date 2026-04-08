@@ -80,7 +80,8 @@ public abstract class HttpCommonEndpoint extends DefaultEndpoint
                             + " On the producer side the exception will be deserialized and thrown as is, instead of the HttpOperationFailedException."
                             + " The caused exception is required to be serialized."
                             + " This is by default turned off. If you enable this then be aware that Java will deserialize the incoming"
-                            + " data from the request to Java and that can be a potential security risk.")
+                            + " data from the request to Java and that can be a potential security risk.",
+              security = "insecure:serialization")
     boolean transferException;
     @UriParam(label = "consumer",
               description = "If enabled and an Exchange failed processing on the consumer side the response's body won't contain the exception's stack trace.")

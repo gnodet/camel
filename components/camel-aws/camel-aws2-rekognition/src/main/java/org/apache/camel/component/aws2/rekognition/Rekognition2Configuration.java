@@ -54,7 +54,7 @@ public class Rekognition2Configuration implements Cloneable, AwsCommonConfigurat
     private RekognitionClient awsRekognitionClient;
     @UriParam(defaultValue = "false")
     private boolean pojoRequest;
-    @UriParam(defaultValue = "false")
+    @UriParam(security = "insecure:ssl", defaultValue = "false")
     private boolean trustAllCertificates;
     @UriParam(defaultValue = "false")
     private boolean overrideEndpoint;

@@ -65,7 +65,7 @@ public class BedrockAgentConfiguration implements Cloneable, AwsCommonConfigurat
     private String region;
     @UriParam
     private boolean pojoRequest;
-    @UriParam(label = "security")
+    @UriParam(label = "security", security = "insecure:ssl")
     private boolean trustAllCertificates;
     @UriParam
     private boolean overrideEndpoint;

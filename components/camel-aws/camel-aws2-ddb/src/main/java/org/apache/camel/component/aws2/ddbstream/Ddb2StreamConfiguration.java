@@ -65,7 +65,8 @@ public class Ddb2StreamConfiguration implements Cloneable, AwsCommonConfiguratio
     private String proxyHost;
     @UriParam(label = "proxy", description = "To define a proxy port when instantiating the DDBStreams client")
     private Integer proxyPort;
-    @UriParam(label = "security", description = "If we want to trust all certificates in case of overriding the endpoint")
+    @UriParam(security = "insecure:ssl", label = "security",
+              description = "If we want to trust all certificates in case of overriding the endpoint")
     private boolean trustAllCertificates;
     @UriParam(defaultValue = "false",
               description = "Set the need for overidding the endpoint. This option needs to be used in combination with uriEndpointOverride option")
