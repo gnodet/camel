@@ -38,6 +38,8 @@ public abstract class BaseOptionModel {
     protected boolean deprecated;
     protected String deprecationNote;
     protected boolean secret;
+    protected String security;
+    protected String insecureValue;
     protected boolean autowired;
     protected Object defaultValue;
     protected String defaultValueNote;
@@ -190,6 +192,22 @@ public abstract class BaseOptionModel {
 
     public void setSecret(boolean secret) {
         this.secret = secret;
+    }
+
+    public String getSecurity() {
+        return security;
+    }
+
+    public void setSecurity(String security) {
+        this.security = security;
+    }
+
+    public String getInsecureValue() {
+        return insecureValue;
+    }
+
+    public void setInsecureValue(String insecureValue) {
+        this.insecureValue = insecureValue;
     }
 
     public boolean isAutowired() {
