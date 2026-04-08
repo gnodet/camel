@@ -37,7 +37,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository == 'apache/camel'
+    if: github.repository == 'apache/camel' || github.repository == 'gnodet/camel'
     name: Build for Sonar Analysis
     runs-on: ubuntu-latest
     steps:
