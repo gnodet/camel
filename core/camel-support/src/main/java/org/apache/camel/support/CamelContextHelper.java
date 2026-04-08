@@ -47,7 +47,7 @@ import org.apache.camel.util.TimeUtils;
 import static org.apache.camel.util.ObjectHelper.isNotEmpty;
 
 /**
- * A number of helper methods
+ * A number of helper methods for working with {@link CamelContext}.
  */
 public final class CamelContextHelper {
 
