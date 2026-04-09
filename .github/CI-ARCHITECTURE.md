@@ -11,11 +11,8 @@ PR opened/updated
        │
        ├──► pr-build-main.yml (Build and test)
        │        │
-       │        ├── regen.sh (full build, no tests)
-       │        ├── incremental-build (test affected modules)
-       │        │       ├── File-path analysis
-       │        │       ├── POM dependency analysis
-       │        │       └── Extra modules (/component-test)
+       │        ├── regen.sh (build + test via Scalpel skip-tests)
+       │        ├── generate test report (post-build comment)
        │        │
        │        └──► pr-test-commenter.yml (post unified comment)
        │
@@ -36,10 +33,11 @@ PR comment: /component-test kafka http
 - **Trigger**: `pull_request` (main branch), `workflow_dispatch`
 - **Matrix**: JDK 17, 21, 25 (25 is experimental)
 - **Steps**:
-  1. Full build via `regen.sh` (`mvn install -DskipTests -Pregen`)
-  2. Check for uncommitted generated files
-  3. Run incremental tests (only affected modules)
-  4. Upload test comment as artifact
+  1. Check `skip-tests` label
+  2. Build and test via `regen.sh` (single Maven invocation with Scalpel)
+  3. Check for uncommitted generated files
+  4. Generate test report from Scalpel's JSON output
+  5. Upload test comment as artifact
 - **Inputs** (workflow_dispatch): `pr_number`, `pr_ref`, `extra_modules`, `skip_full_build`
 
 ### `pr-test-commenter.yml` — Post CI test comment
@@ -70,8 +68,8 @@ PR comment: /component-test kafka http
 
 - **Status**: Temporarily disabled (INFRA-27808 — SonarCloud quality gate adjustment pending)
 - **Trigger**: `pull_request` (main branch) → `workflow_run` on SonarBuild completion
-- **Why two workflows**: `sonar-build.yml` runs in PR context (builds with JaCoCo coverage on core modules, uploads compiled classes artifact), `sonar-scan.yml` runs via `workflow_run` with secrets access to run the Sonar scanner and post results
-- **Coverage scope**: Currently limited to core modules (`camel-api`, `camel-core`, etc.) and `coverage` aggregator. Component coverage planned for future integration with `incremental-build.sh` module detection
+- **Why two workflows**: `sonar-build.yml` runs in PR context (builds with JaCoCo coverage via Scalpel, uploads compiled classes artifact), `sonar-scan.yml` runs via `workflow_run` with secrets access to run the Sonar scanner and post results
+- **Coverage scope**: Scalpel dynamically detects affected modules and runs tests with JaCoCo coverage on them — no hardcoded module list
 
 ### Other workflows
 
@@ -87,18 +85,19 @@ PR comment: /component-test kafka http
 
 ### `incremental-build`
 
-The core test runner. Determines which modules to test using:
+Post-build test report generator. Reads Scalpel's JSON report (`target/scalpel-report.json`) and generates a PR comment showing:
 
-1. **File-path analysis**: Maps changed files to Maven modules
-2. **POM dependency analysis**: For `parent/pom.xml` changes, detects property changes and finds modules that reference the affected properties in their `pom.xml` files (uses simple grep, not Maveniverse Toolbox — see Known Limitations below)
-3. **Extra modules**: Additional modules passed via `/component-test`
+1. **Directly affected modules** with detection reasons (`SOURCE_CHANGE`, `POM_CHANGE`, `TRANSITIVE_DEPENDENCY`, `MANAGED_PLUGIN`, `TEST_CHANGE`)
+2. **Changed properties, managed dependencies, managed plugins**
+3. **Downstream modules** tested as dependents (collapsible)
+4. **Upstream modules** compiled but with tests skipped (collapsible)
+5. **Extra modules** from `/component-test`
 
-Results are merged, deduplicated, and tested. The script also:
+The script also:
 
 - Detects tests disabled in CI (`@DisabledIfSystemProperty(named = "ci.env.name")`)
-- Applies an exclusion list for generated/meta modules
 - Checks for excluded modules with associated integration tests (via `manual-it-mapping.txt`) and advises contributors to run them manually
-- Generates a unified PR comment with all test information
+- Parses test failures from surefire/failsafe reports
 
 ### `install-mvnd`
 
@@ -108,38 +107,56 @@ Installs the Maven Daemon (mvnd) for faster builds.
 
 Installs system packages required for the build.
 
+## Scalpel: Automatic Test Selection
+
+[Maveniverse Scalpel](https://github.com/maveniverse/scalpel) is a Maven core extension that detects which modules are affected by a PR's changes and controls test execution accordingly.
+
+### How it works
+
+Scalpel is configured in `.mvn/extensions.xml` and runs automatically during Maven builds. In CI, it operates in **skip-tests** mode: all modules are compiled, but tests are only executed on affected modules.
+
+Detection capabilities:
+- **Source changes**: Files changed in a module's directory
+- **POM changes**: Property, dependency, and plugin changes in any `pom.xml`
+- **Transitive dependencies**: Changes that propagate through the dependency graph
+- **Managed dependencies**: Version changes via `<dependencyManagement>` (even without explicit `<version>` in child modules)
+- **Managed plugins**: Plugin version changes via `<pluginManagement>`
+- **Property indirection**: `${property}` references resolved transitively
+
+### Configuration
+
+Scalpel flags are set in `etc/scripts/regen.sh` when running in CI (`GITHUB_ACTIONS=true`):
+
+| Flag | Value | Purpose |
+| --- | --- | --- |
+| `scalpel.mode` | `skip-tests` | Build all, test only affected |
+| `scalpel.skipTestsForUpstream` | `true` | Don't test upstream-only modules |
+| `scalpel.fetchBaseBranch` | `false` | Base branch pre-fetched by workflow (git CLI handles shallow clones better than JGit) |
+| `scalpel.fullBuildTriggers` | *(empty)* | Override `.mvn/**` default |
+| `scalpel.reportFile` | `target/scalpel-report.json` | JSON report for PR comment |
+| `scalpel.impactedLog` | `target/scalpel-impacted.txt` | Simple module path list |
+
+### Developer machines
+
+On developer machines, Scalpel is a no-op: without `GITHUB_BASE_REF` (set by GitHub Actions for PRs), no base branch is detected and Scalpel returns immediately. Zero impact on local builds.
+
+### Fail-safe
+
+If Scalpel encounters an error, `failSafe=true` (the default) causes it to fall back to a full build — all tests run. This means Scalpel errors never cause false negatives (missed tests).
+
 ## PR Labels
 
 | Label | Effect |
 | --- | --- |
-| `skip-tests` | Skip all tests |
-| `test-dependents` | Force testing dependent modules even if threshold exceeded |
+| `incremental-skip-tests` | Skip all tests (pass `--skip-tests` to regen.sh) |
 
 ## CI Environment
 
 The CI sets `-Dci.env.name=github.com` via `MVND_OPTS` (in `install-mvnd`). Tests can use `@DisabledIfSystemProperty(named = "ci.env.name")` to skip flaky tests in CI. The test comment warns about these skipped tests.
 
-## Known Limitations of POM Dependency Detection
-
-The property-grep approach has structural limitations that can cause missed modules:
-
-1. **Managed dependencies without explicit** `<version>` — Most Camel modules inherit dependency versions via `<dependencyManagement>` in the parent POM and do not declare `<version>${property}</version>` themselves. When a managed dependency version property changes, only modules that explicitly reference the property are detected — modules relying on inheritance are missed.
-
-2. **Maven plugin version changes are completely invisible** — Plugin version properties (e.g. `<maven-surefire-plugin-version>`) are both defined and consumed in `parent/pom.xml` via `<pluginManagement>`. Since the module search excludes `parent/pom.xml`, no modules are found and **no tests run at all** for plugin updates. Modules inherit plugins from the parent without any `${property}` reference in their own `pom.xml`.
-
-3. **BOM imports** — When a BOM version property changes (e.g. `<spring-boot-bom-version>`), modules using artifacts from that BOM are not detected because they reference the BOM's artifacts, not the BOM property.
-
-4. **Transitive dependency changes** — Modules affected only via transitive dependencies are not detected.
-
-5. **Non-property version changes** — Direct edits to `<version>` values (not using `${property}` substitution) or structural changes to `<dependencyManagement>` sections are not caught.
-
-These limitations mean the incremental build may under-test when parent POM properties change. A future improvement could use [Maveniverse Toolbox](https://github.com/maveniverse/toolbox) `tree-find` or [Scalpel](https://github.com/maveniverse/scalpel) to resolve the full dependency graph and detect all affected modules.
-
 ## Manual Integration Test Advisories
 
-Some modules are excluded from CI's `-amd` expansion (the `EXCLUSION_LIST`) because they are generated code, meta-modules, or expensive integration test suites. When a contributor changes one of these modules, CI cannot automatically test all downstream effects.
-
-The file `manual-it-mapping.txt` (co-located with the incremental build script) maps source modules to their associated integration test suites. When a changed module has a mapping entry, CI posts an advisory in the PR comment:
+Some integration test suites are excluded from CI. When a contributor changes a module with a mapping entry in `manual-it-mapping.txt`, CI posts an advisory in the PR comment:
 
 > You modified `dsl/camel-jbang/camel-jbang-core`. The related integration tests in `dsl/camel-jbang/camel-jbang-it` are excluded from CI. Consider running them manually:
 >

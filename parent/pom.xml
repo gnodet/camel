@@ -80,7 +80,7 @@
         <avro-ipc-jetty-version>1.12.1</avro-ipc-jetty-version>
         <avro-ipc-netty-version>1.12.1</avro-ipc-netty-version>
         <awaitility-version>4.3.0</awaitility-version>
-        <aws-java-sdk2-version>2.42.30</aws-java-sdk2-version>
+        <aws-java-sdk2-version>2.42.31</aws-java-sdk2-version>
         <aws-xray-version>2.21.0</aws-xray-version>
         <azure-sdk-bom-version>1.3.3</azure-sdk-bom-version>
         <azure-storage-blob-changefeed-version>12.0.0-beta.36</azure-storage-blob-changefeed-version>
@@ -108,7 +108,7 @@
         <checker-framework-version>3.54.1</checker-framework-version>
         <chicory-version>1.7.5</chicory-version>
         <chunk-templates-version>3.6.2</chunk-templates-version>
-        <citrus-version>4.9.4</citrus-version>
+        <citrus-version>4.10.0</citrus-version>
         <classgraph-version>4.8.184</classgraph-version>
         <cloudant-version>0.10.16</cloudant-version>
         <com-ibm-mq-jakarta-client-version>9.4.5.0</com-ibm-mq-jakarta-client-version>
@@ -147,7 +147,7 @@
         <dapr-version>1.17.1</dapr-version>
         <dapr-workflow-version>1.17.1</dapr-workflow-version>
         <datasonnet-mapper-version>3.0.1.3</datasonnet-mapper-version>
-        <debezium-version>3.4.3.Final</debezium-version>
+        <debezium-version>3.5.0.Final</debezium-version>
         <debezium-mysql-connector-version>9.6.0</debezium-mysql-connector-version>
         <derby-version>10.16.1.1</derby-version>
         <dhis2-version>3.0.2</dhis2-version>
@@ -214,9 +214,9 @@
         <google-api-services-mail-version>v1-rev20251201-2.0.0</google-api-services-mail-version>
         <google-oauth-client-version>1.39.0</google-oauth-client-version>
         <google-cloud-bigquery-version>2.62.0</google-cloud-bigquery-version>
-        <google-cloud-core-version>2.66.0</google-cloud-core-version>
+        <google-cloud-core-version>2.67.0</google-cloud-core-version>
         <google-cloud-firestore-version>3.39.0</google-cloud-firestore-version>
-        <google-cloud-functions-version>2.76.0</google-cloud-functions-version>
+        <google-cloud-functions-version>2.77.0</google-cloud-functions-version>
         <google-cloud-http-client-version>2.1.0</google-cloud-http-client-version>
         <google-cloud-pubsub-version>1.150.0</google-cloud-pubsub-version>
         <google-cloud-secretmanager-version>2.88.0</google-cloud-secretmanager-version>
@@ -281,7 +281,7 @@
         <ironmq-version>3.0.5</ironmq-version>
         <ivy-version>2.5.3</ivy-version>
         <jackson-databind-nullable-version>0.2.9</jackson-databind-nullable-version>
-        <jackson-jq-version>1.6.0</jackson-jq-version>
+        <jackson-jq-version>1.6.1</jackson-jq-version>
         <jackson2-version>2.21.2</jackson2-version>
         <jackson2-annotations-version>2.20</jackson2-annotations-version>
         <jackson3-version>3.1.1</jackson3-version>
@@ -424,7 +424,7 @@
         <mock-javamail-version>1.9</mock-javamail-version>
         <mockito-version>5.23.0</mockito-version>
         <mojo-executor-version>2.4.1</mojo-executor-version>
-        <mongo-java-driver-version>5.6.4</mongo-java-driver-version>
+        <mongo-java-driver-version>5.6.5</mongo-java-driver-version>
         <mongo-hadoop-version>1.5.0</mongo-hadoop-version>
         <msal4j-version>1.24.0</msal4j-version>
         <mustache-java-version>0.9.14</mustache-java-version>
@@ -484,7 +484,7 @@
         <qpid-proton-j-version>0.34.1</qpid-proton-j-version>
         <qpid-jms-client-version>2.10.0</qpid-jms-client-version>
         <quarkus-extension-registry-base-url>https://registry.quarkus.io</quarkus-extension-registry-base-url>
-        <quarkus-mcp-server-version>1.11.0</quarkus-mcp-server-version>
+        <quarkus-mcp-server-version>1.11.1</quarkus-mcp-server-version>
         <quarkus-version>3.34.2</quarkus-version>
         <quartz-version>2.5.2</quartz-version>
         <quickfixj-version>3.0.0</quickfixj-version>

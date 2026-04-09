@@ -480,7 +480,7 @@ org.apache.camel.component.as2.api.AS2ClientManager.HTTP_RESPONSE
 org.apache.camel.component.as2.api.AS2Constants.HTTP_CLIENT_CONNECTION
 ----
 
-They can be replaced by the the getter/setter method of the HttpContext implementation, for example:
+They can be replaced by the getter/setter method of the HttpContext implementation, for example:
 
 [source,java]
 ----
@@ -504,6 +504,10 @@ endpoint option allows providing explicit SQL++ queries. When no `statement` is 
 
 To continue using the deprecated MapReduce Views, set `useView=true` explicitly. See the component
 documentation for migration guidance.
+
+=== camel-debezium
+
+Debezium has been upgraded from 3.4.x to 3.5.0.
 
 === camel-ftp
 

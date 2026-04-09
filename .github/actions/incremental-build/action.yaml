@@ -15,40 +15,23 @@
 # limitations under the License.
 #
 
-name: "Incremental Test Runner"
-description: "Test only affected projects, using file-path analysis and POM dependency detection"
+name: "Test Report Generator"
+description: "Generate PR comment from Scalpel's change detection report"
 inputs:
-  pr-id:
-    description: 'Id of the pull request (optional for push builds)'
+  extra-modules:
+    description: 'Additional modules tested (comma-separated paths, e.g. from /component-test)'
     required: false
     default: ''
-  github-token:
-    description: 'The github token to access to the API'
-    required: false
-  skip-mvnd-install:
-    description: 'Flag indicating whether the installation of mvnd should be skipped'
+  build-failed:
+    description: 'Whether the build step failed (true/false)'
     required: false
     default: 'false'
-  github-repo:
-    description: 'The GitHub repository name (example, apache/camel)'
-    required: false
-    default: ${{ github.repository }}
-  extra-modules:
-    description: 'Additional modules to test (comma-separated paths, e.g. from /component-test)'
-    required: false
-    default: ''
 runs:
   using: "composite"
   steps:
-    - id: install-mvnd
-      uses: apache/camel/.github/actions/install-mvnd@main
-      with:
-        dry-run: ${{ inputs.skip-mvnd-install }}
-    - name: maven test
+    - name: Generate test report
       env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
-        PR_ID: ${{ inputs.pr-id }}
-        GITHUB_REPO: ${{ inputs.github-repo }}
         EXTRA_MODULES: ${{ inputs.extra-modules }}
+        BUILD_FAILED: ${{ inputs.build-failed }}
       shell: bash
-      run: ${{ github.action_path }}/incremental-build.sh ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd "$PR_ID" "$GITHUB_REPO" "$EXTRA_MODULES"
+      run: ${{ github.action_path }}/incremental-build.sh "$EXTRA_MODULES"
