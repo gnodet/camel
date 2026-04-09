@@ -88,9 +88,31 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
           cache: 'maven'
-      - name: maven build
+      - name: Check skip-tests label
+        id: labels
+        if: ${{ github.event.number || inputs.pr_number }}
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number || inputs.pr_number }}
+        run: |
+          has_skip=$(curl -s \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${PR_NUMBER}/labels" \
+            | jq -r '.[].name' | { grep -c "incremental-skip-tests" || true; })
+          echo "skip-tests=${has_skip}" >> $GITHUB_OUTPUT
+      - name: Build and test
+        id: build-and-test
         if: ${{ !inputs.skip_full_build }}
-        run: ./etc/scripts/regen.sh
+        run: |
+          if [ "${{ steps.labels.outputs.skip-tests }}" = "1" ]; then
+            echo "The skip-tests label has been detected, skipping tests"
+            ./etc/scripts/regen.sh --skip-tests
+          else
+            ./etc/scripts/regen.sh
+          fi
       - name: Quick dependency build
         if: ${{ inputs.skip_full_build }}
         shell: bash
@@ -104,23 +126,24 @@ jobs:
           name: build-${{ matrix.java }}.log
           path: build.log
       - name: Fail if there are uncommitted changes
-        if: ${{ !inputs.skip_full_build }}
+        if: always() && !inputs.skip_full_build && steps.build-and-test.outcome != 'skipped'
         shell: bash
         run: |
           [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; echo; echo; git diff; exit 1; }
-      - name: mvn test
+      - name: Test extra modules
+        id: test-extra
+        if: ${{ inputs.skip_full_build && inputs.extra_modules }}
+        shell: bash
+        env:
+          EXTRA_MODULES: ${{ inputs.extra_modules }}
+        run: |
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd -l build.log $MVND_OPTS install -pl "$EXTRA_MODULES" || true
+      - name: Generate test report
+        if: always()
         uses: ./.github/actions/incremental-build
         with:
-          pr-id: ${{ github.event.number || inputs.pr_number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          skip-mvnd-install: 'true'
           extra-modules: ${{ inputs.extra_modules || '' }}
-      - name: archive incremental test logs
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        if: always()
-        with:
-          name: incremental-test-java-${{ matrix.java }}.log
-          path: incremental-test.log
+          build-failed: ${{ steps.build-and-test.outcome == 'failure' || steps.test-extra.outcome == 'failure' }}
       # All non-experimental JDK matrix entries upload with overwrite: true.
       # This ensures a comment is posted even if one JDK build fails — the
       # content is identical across JDKs (same modules tested), so last writer wins.

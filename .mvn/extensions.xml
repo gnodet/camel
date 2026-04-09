@@ -22,7 +22,7 @@
     </extension>
     <extension>
         <groupId>eu.maveniverse.maven.scalpel</groupId>
-        <artifactId>extension3</artifactId>
-        <version>0.1.0</version>
+        <artifactId>extension</artifactId>
+        <version>0.2.0</version>
     </extension>
 </extensions>
