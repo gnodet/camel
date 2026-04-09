@@ -39,7 +39,7 @@ rm -Rf **/src/generated/
 # On developer machines, Scalpel auto-disables (no GITHUB_BASE_REF).
 scalpel_flags=""
 if [ "${GITHUB_ACTIONS:-}" = "true" ] && [ -z "$skip_tests" ]; then
-  scalpel_flags="-Dscalpel.mode=skip-tests -Dscalpel.skipTestsForUpstream=true -Dscalpel.fetchBaseBranch=true -Dscalpel.fullBuildTriggers= -Dscalpel.reportFile=target/scalpel-report.json -Dscalpel.impactedLog=target/scalpel-impacted.txt"
+  scalpel_flags="-Dscalpel.mode=skip-tests -Dscalpel.skipTestsForUpstream=true -Dscalpel.fetchBaseBranch=false -Dscalpel.fullBuildTriggers= -Dscalpel.reportFile=target/scalpel-report.json -Dscalpel.impactedLog=target/scalpel-impacted.txt"
 fi
 
 extra_flags=""

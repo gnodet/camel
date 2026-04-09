@@ -131,7 +131,7 @@ Scalpel flags are set in `etc/scripts/regen.sh` when running in CI (`GITHUB_ACTI
 | --- | --- | --- |
 | `scalpel.mode` | `skip-tests` | Build all, test only affected |
 | `scalpel.skipTestsForUpstream` | `true` | Don't test upstream-only modules |
-| `scalpel.fetchBaseBranch` | `true` | Auto-fetch base branch in shallow clones |
+| `scalpel.fetchBaseBranch` | `false` | Base branch pre-fetched by workflow (git CLI handles shallow clones better than JGit) |
 | `scalpel.fullBuildTriggers` | *(empty)* | Override `.mvn/**` default |
 | `scalpel.reportFile` | `target/scalpel-report.json` | JSON report for PR comment |
 | `scalpel.impactedLog` | `target/scalpel-impacted.txt` | Simple module path list |
