@@ -33,7 +33,7 @@ class RouteDiagramLayoutEngine {
     private static final Set<String> BRANCHING_EIPS = Set.of(
             "choice", "multicast", "doTry", "loadBalance", "recipientList");
 
-    private static final Set<String> SCOPE_EIPS = Set.of("filter", "split");
+    private static final Set<String> SCOPE_EIPS = Set.of("filter", "split", "loop", "idempotentConsumer");
 
     static class NodeInfo {
         String type;
