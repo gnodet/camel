@@ -218,8 +218,8 @@ class RouteDiagramRenderer {
         g.setStroke(new BasicStroke(STROKE_WIDTH));
 
         for (LayoutNode ln : lr.nodes) {
-            if (RouteDiagramLayoutEngine.isBranchingEip(ln.type) && ln.treeNode != null
-                    && !ln.treeNode.children.isEmpty()) {
+            if ((RouteDiagramLayoutEngine.isBranchingEip(ln.type) || RouteDiagramLayoutEngine.isScopeEip(ln.type))
+                    && ln.treeNode != null && !ln.treeNode.children.isEmpty()) {
                 drawMergeLines(g, ln, colors);
             }
         }
@@ -249,6 +249,9 @@ class RouteDiagramRenderer {
         if (parentNode == null) {
             return;
         }
+        if (RouteDiagramLayoutEngine.isBranchingEip(parentNode.info.type)) {
+            return;
+        }
         int myIndex = parentNode.children.indexOf(tn);
         if (myIndex < 0 || myIndex >= parentNode.children.size() - 1) {
             return;
@@ -260,21 +263,29 @@ class RouteDiagramRenderer {
         g.setColor(colors.getArrow());
         g.setStroke(new BasicStroke(STROKE_WIDTH));
 
-        int minCx = Integer.MAX_VALUE;
-        int maxCx = Integer.MIN_VALUE;
-        for (TreeNode child : tn.children) {
-            LayoutNode lastNode = RouteDiagramLayoutEngine.findLastLayoutNode(child);
+        if (RouteDiagramLayoutEngine.isBranchingEip(tn.info.type)) {
+            int minCx = Integer.MAX_VALUE;
+            int maxCx = Integer.MIN_VALUE;
+            for (TreeNode child : tn.children) {
+                LayoutNode lastNode = RouteDiagramLayoutEngine.findLastLayoutNode(child);
+                if (lastNode != null) {
+                    int cx = lastNode.x + NODE_WIDTH / 2;
+                    int by = lastNode.y + NODE_HEIGHT;
+                    g.drawLine(cx, by, cx, mergeY);
+                    minCx = Math.min(minCx, cx);
+                    maxCx = Math.max(maxCx, cx);
+                }
+            }
+            if (minCx < maxCx) {
+                g.drawLine(minCx, mergeY, maxCx, mergeY);
+            }
+        } else {
+            LayoutNode lastNode = RouteDiagramLayoutEngine.findLastLayoutNode(tn);
             if (lastNode != null) {
                 int cx = lastNode.x + NODE_WIDTH / 2;
                 int by = lastNode.y + NODE_HEIGHT;
                 g.drawLine(cx, by, cx, mergeY);
-                minCx = Math.min(minCx, cx);
-                maxCx = Math.max(maxCx, cx);
             }
-        }
-
-        if (minCx < maxCx) {
-            g.drawLine(minCx, mergeY, maxCx, mergeY);
         }
 
         int mergeCx = branchingNode.x + NODE_WIDTH / 2;

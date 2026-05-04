@@ -33,6 +33,8 @@ class RouteDiagramLayoutEngine {
     private static final Set<String> BRANCHING_EIPS = Set.of(
             "choice", "multicast", "doTry", "loadBalance", "recipientList");
 
+    private static final Set<String> SCOPE_EIPS = Set.of("filter", "split");
+
     static class NodeInfo {
         String type;
         String code;
@@ -195,7 +197,7 @@ class RouteDiagramLayoutEngine {
                 int myIndex = parentNode.children.indexOf(node);
                 if (myIndex > 0) {
                     TreeNode prevSibling = parentNode.children.get(myIndex - 1);
-                    if (isBranchingEip(prevSibling.info.type)) {
+                    if (isBranchingEip(prevSibling.info.type) || isScopeEip(prevSibling.info.type)) {
                         ln.connectFromMerge = true;
                         ln.mergeY = findMaxY(prevSibling) + V_GAP / 2;
                         ln.mergeCx = prevSibling.layoutNode.x + NODE_WIDTH / 2;
@@ -231,7 +233,8 @@ class RouteDiagramLayoutEngine {
                 TreeNode child = node.children.get(i);
                 assignPositions(child, x, curY, availableWidth, lr);
                 curY = findMaxY(child) + V_GAP;
-                if (isBranchingEip(child.info.type) && i < node.children.size() - 1) {
+                if ((isBranchingEip(child.info.type) || isScopeEip(child.info.type))
+                        && i < node.children.size() - 1) {
                     curY += V_GAP;
                 }
             }
@@ -258,5 +261,9 @@ class RouteDiagramLayoutEngine {
 
     static boolean isBranchingEip(String type) {
         return type != null && BRANCHING_EIPS.contains(type);
+    }
+
+    static boolean isScopeEip(String type) {
+        return type != null && SCOPE_EIPS.contains(type);
     }
 }
