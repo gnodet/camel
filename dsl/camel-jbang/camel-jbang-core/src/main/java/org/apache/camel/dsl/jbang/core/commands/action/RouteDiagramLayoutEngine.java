@@ -248,17 +248,29 @@ class RouteDiagramLayoutEngine {
         if (isBranchingEip(node.info.type)) {
             int childX = x + (availableWidth - node.subtreeWidth) / 2;
             for (TreeNode child : node.children) {
-                assignPositions(child, childX, childY, child.subtreeWidth, lr);
+                int adjustedY = childY;
+                if (!child.children.isEmpty() && !BRANCH_CHILD_TYPES.contains(child.info.type)) {
+                    adjustedY += SCOPE_BOX_PAD;
+                }
+                assignPositions(child, childX, adjustedY, child.subtreeWidth, lr);
                 childX += child.subtreeWidth + H_GAP;
             }
         } else {
             int curY = childY;
             for (int i = 0; i < node.children.size(); i++) {
                 TreeNode child = node.children.get(i);
-                assignPositions(child, x, curY, availableWidth, lr);
-                curY = findMaxY(child) + V_GAP;
-                if (isBranchingEip(child.info.type) && i < node.children.size() - 1) {
-                    curY += V_GAP;
+                int adjustedY = hasScope(child) ? curY + SCOPE_BOX_PAD : curY;
+                assignPositions(child, x, adjustedY, availableWidth, lr);
+                if (hasScope(child)) {
+                    int[] cb = {
+                            child.layoutNode.x, child.layoutNode.y,
+                            child.layoutNode.x + NODE_WIDTH, child.layoutNode.y + NODE_HEIGHT };
+                    for (TreeNode c : child.children) {
+                        expandBoundsForBox(c, cb);
+                    }
+                    curY = cb[3] + SCOPE_BOX_PAD + V_GAP;
+                } else {
+                    curY = findMaxY(child) + V_GAP;
                 }
             }
         }

@@ -251,8 +251,8 @@ class RouteDiagramRenderer {
         int boxH = bounds[3] - bounds[1] + 2 * SCOPE_BOX_PAD;
 
         Color c = colors.getArrow();
-        g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 80));
-        g.setStroke(new BasicStroke(BORDER_STROKE_WIDTH));
+        g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 140));
+        g.setStroke(new BasicStroke(STROKE_WIDTH));
         g.drawRoundRect(boxX, boxY, boxW, boxH, ARC, ARC);
     }
 
@@ -261,17 +261,19 @@ class RouteDiagramRenderer {
         g.setStroke(new BasicStroke(STROKE_WIDTH));
 
         int toCx = to.x + NODE_WIDTH / 2;
-        int toTy = to.y;
+        int toTy = to.treeNode != null && RouteDiagramLayoutEngine.hasScope(to.treeNode)
+                ? to.y - SCOPE_BOX_PAD
+                : to.y;
         int mergeCx = to.mergeCx;
         int mergeY = to.mergeY;
 
         if (mergeCx == toCx) {
-            g.drawLine(mergeCx, mergeY, toCx, toTy);
+            g.drawLine(mergeCx, mergeY, toCx, toTy - ARROW_SIZE / 2);
         } else {
             int midY = mergeY + (toTy - mergeY) / 2;
             g.drawLine(mergeCx, mergeY, mergeCx, midY);
             g.drawLine(mergeCx, midY, toCx, midY);
-            g.drawLine(toCx, midY, toCx, toTy);
+            g.drawLine(toCx, midY, toCx, toTy - ARROW_SIZE / 2);
         }
         drawArrowHead(g, toCx, toTy);
     }
@@ -305,15 +307,17 @@ class RouteDiagramRenderer {
         int fromCx = from.x + NODE_WIDTH / 2;
         int fromBy = from.y + NODE_HEIGHT;
         int toCx = to.x + NODE_WIDTH / 2;
-        int toTy = to.y;
+        int toTy = to.treeNode != null && RouteDiagramLayoutEngine.hasScope(to.treeNode)
+                ? to.y - SCOPE_BOX_PAD
+                : to.y;
 
         if (fromCx == toCx) {
-            g.drawLine(fromCx, fromBy, toCx, toTy);
+            g.drawLine(fromCx, fromBy, toCx, toTy - ARROW_SIZE / 2);
         } else {
             int midY = fromBy + V_GAP / 2;
             g.drawLine(fromCx, fromBy, fromCx, midY);
             g.drawLine(fromCx, midY, toCx, midY);
-            g.drawLine(toCx, midY, toCx, toTy);
+            g.drawLine(toCx, midY, toCx, toTy - ARROW_SIZE / 2);
         }
         drawArrowHead(g, toCx, toTy);
     }
