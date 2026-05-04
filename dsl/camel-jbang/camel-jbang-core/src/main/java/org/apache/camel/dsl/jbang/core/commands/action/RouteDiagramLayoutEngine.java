@@ -32,9 +32,13 @@ class RouteDiagramLayoutEngine {
     static final int LABEL_OFFSET = 24 * SCALE;
 
     private static final Set<String> BRANCHING_EIPS = Set.of(
-            "choice", "multicast", "doTry", "loadBalance", "recipientList");
+            "choice", "multicast", "doTry", "loadBalance", "recipientList", "circuitBreaker");
 
-    private static final Set<String> SCOPE_EIPS = Set.of("filter", "split", "loop", "idempotentConsumer");
+    private static final Set<String> SCOPE_EIPS = Set.of(
+            "filter", "split", "loop", "idempotentConsumer",
+            "aggregate", "resequence", "saga", "kamelet", "step",
+            "pipeline", "policy", "transacted", "throttle", "threads",
+            "onException", "onCompletion", "intercept");
 
     static class NodeInfo {
         String type;
