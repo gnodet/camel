@@ -495,7 +495,7 @@ class CamelRouteDiagramActionTest {
         assertTrue(toNode.connectFromMerge, "Node after filter should connect from merge point");
 
         LayoutNode filterNode = lr.nodes.get(2);
-        assertTrue(RouteDiagramLayoutEngine.isScopeEip(filterNode.type));
+        assertTrue(RouteDiagramLayoutEngine.hasScope(filterNode.treeNode));
 
         LayoutNode removeNode = lr.nodes.get(3);
         assertEquals(filterNode.x, removeNode.x, "Filter child should be in same column (sequential)");

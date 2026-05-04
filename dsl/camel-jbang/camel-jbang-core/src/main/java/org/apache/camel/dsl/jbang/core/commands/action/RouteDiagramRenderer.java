@@ -218,8 +218,7 @@ class RouteDiagramRenderer {
         g.setStroke(new BasicStroke(STROKE_WIDTH));
 
         for (LayoutNode ln : lr.nodes) {
-            if ((RouteDiagramLayoutEngine.isBranchingEip(ln.type) || RouteDiagramLayoutEngine.isScopeEip(ln.type))
-                    && ln.treeNode != null && !ln.treeNode.children.isEmpty()) {
+            if (ln.treeNode != null && RouteDiagramLayoutEngine.hasScope(ln.treeNode)) {
                 drawScopeBox(g, ln, colors);
             }
         }

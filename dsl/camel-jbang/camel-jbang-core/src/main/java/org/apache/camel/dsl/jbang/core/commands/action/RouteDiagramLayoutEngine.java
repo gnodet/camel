@@ -34,11 +34,8 @@ class RouteDiagramLayoutEngine {
     private static final Set<String> BRANCHING_EIPS = Set.of(
             "choice", "multicast", "doTry", "loadBalance", "recipientList", "circuitBreaker");
 
-    private static final Set<String> SCOPE_EIPS = Set.of(
-            "filter", "split", "loop", "idempotentConsumer",
-            "aggregate", "resequence", "saga", "kamelet", "step",
-            "pipeline", "policy", "transacted", "throttle", "threads",
-            "onException", "onCompletion", "intercept");
+    private static final Set<String> BRANCH_CHILD_TYPES = Set.of(
+            "when", "otherwise", "doCatch", "doFinally", "onFallback");
 
     static class NodeInfo {
         String type;
@@ -217,7 +214,7 @@ class RouteDiagramLayoutEngine {
                 int myIndex = parentNode.children.indexOf(node);
                 if (myIndex > 0) {
                     TreeNode prevSibling = parentNode.children.get(myIndex - 1);
-                    if (isBranchingEip(prevSibling.info.type) || isScopeEip(prevSibling.info.type)) {
+                    if (hasScope(prevSibling)) {
                         ln.connectFromMerge = true;
                         int[] boxBounds = {
                                 prevSibling.layoutNode.x, prevSibling.layoutNode.y,
@@ -289,13 +286,14 @@ class RouteDiagramLayoutEngine {
         return type != null && BRANCHING_EIPS.contains(type);
     }
 
-    static boolean isScopeEip(String type) {
-        return type != null && SCOPE_EIPS.contains(type);
+    static boolean hasScope(TreeNode node) {
+        return node.parent != null
+                && !node.children.isEmpty()
+                && !BRANCH_CHILD_TYPES.contains(node.info.type);
     }
 
     static void expandBoundsForBox(TreeNode node, int[] bounds) {
-        boolean hasOwnBox = !node.children.isEmpty()
-                && (isBranchingEip(node.info.type) || isScopeEip(node.info.type));
+        boolean hasOwnBox = hasScope(node);
 
         if (hasOwnBox) {
             int[] inner = {
