@@ -37,6 +37,9 @@ class RouteDiagramLayoutEngine {
     private static final Set<String> BRANCH_CHILD_TYPES = Set.of(
             "when", "otherwise", "doCatch", "doFinally", "onFallback");
 
+    private static final Set<String> STRUCTURAL_TYPES = Set.of(
+            "route", "from");
+
     static class NodeInfo {
         String type;
         String code;
@@ -301,7 +304,8 @@ class RouteDiagramLayoutEngine {
     static boolean hasScope(TreeNode node) {
         return node.parent != null
                 && !node.children.isEmpty()
-                && !BRANCH_CHILD_TYPES.contains(node.info.type);
+                && !BRANCH_CHILD_TYPES.contains(node.info.type)
+                && !STRUCTURAL_TYPES.contains(node.info.type);
     }
 
     static void expandBoundsForBox(TreeNode node, int[] bounds) {
