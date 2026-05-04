@@ -37,6 +37,7 @@ import static org.apache.camel.dsl.jbang.core.commands.action.RouteDiagramLayout
 import static org.apache.camel.dsl.jbang.core.commands.action.RouteDiagramLayoutEngine.NODE_WIDTH;
 import static org.apache.camel.dsl.jbang.core.commands.action.RouteDiagramLayoutEngine.PADDING;
 import static org.apache.camel.dsl.jbang.core.commands.action.RouteDiagramLayoutEngine.SCALE;
+import static org.apache.camel.dsl.jbang.core.commands.action.RouteDiagramLayoutEngine.SCOPE_BOX_PAD;
 import static org.apache.camel.dsl.jbang.core.commands.action.RouteDiagramLayoutEngine.V_GAP;
 
 class RouteDiagramRenderer {
@@ -45,7 +46,6 @@ class RouteDiagramRenderer {
     private static final int FONT_SIZE_LABEL = 13 * SCALE;
     private static final int FONT_SIZE_NODE = 12 * SCALE;
     private static final int ARROW_SIZE = 6 * SCALE;
-    private static final int MERGE_DOT = 5 * SCALE;
     private static final float STROKE_WIDTH = 1.5f * SCALE;
     private static final float BORDER_STROKE_WIDTH = 1.0f * SCALE;
     private static final int NODE_TEXT_PADDING = 16 * SCALE;
@@ -220,7 +220,7 @@ class RouteDiagramRenderer {
         for (LayoutNode ln : lr.nodes) {
             if ((RouteDiagramLayoutEngine.isBranchingEip(ln.type) || RouteDiagramLayoutEngine.isScopeEip(ln.type))
                     && ln.treeNode != null && !ln.treeNode.children.isEmpty()) {
-                drawMergeLines(g, ln, colors);
+                drawScopeBox(g, ln, colors);
             }
         }
 
@@ -239,57 +239,22 @@ class RouteDiagramRenderer {
         }
     }
 
-    private void drawMergeLines(Graphics2D g, LayoutNode branchingNode, DiagramColors colors) {
-        TreeNode tn = branchingNode.treeNode;
-        if (tn.children.isEmpty()) {
-            return;
+    private void drawScopeBox(Graphics2D g, LayoutNode scopeNode, DiagramColors colors) {
+        TreeNode tn = scopeNode.treeNode;
+        int[] bounds = { scopeNode.x, scopeNode.y, scopeNode.x + NODE_WIDTH, scopeNode.y + NODE_HEIGHT };
+        for (TreeNode child : tn.children) {
+            RouteDiagramLayoutEngine.expandBoundsForBox(child, bounds);
         }
 
-        TreeNode parentNode = tn.parent;
-        if (parentNode == null) {
-            return;
-        }
-        if (RouteDiagramLayoutEngine.isBranchingEip(parentNode.info.type)) {
-            return;
-        }
-        int myIndex = parentNode.children.indexOf(tn);
-        if (myIndex < 0 || myIndex >= parentNode.children.size() - 1) {
-            return;
-        }
+        int boxX = bounds[0] - SCOPE_BOX_PAD;
+        int boxY = bounds[1] - SCOPE_BOX_PAD;
+        int boxW = bounds[2] - bounds[0] + 2 * SCOPE_BOX_PAD;
+        int boxH = bounds[3] - bounds[1] + 2 * SCOPE_BOX_PAD;
 
-        int branchesMaxY = RouteDiagramLayoutEngine.findMaxY(tn);
-        int mergeY = branchesMaxY + V_GAP / 2;
-
-        g.setColor(colors.getArrow());
-        g.setStroke(new BasicStroke(STROKE_WIDTH));
-
-        if (RouteDiagramLayoutEngine.isBranchingEip(tn.info.type)) {
-            int minCx = Integer.MAX_VALUE;
-            int maxCx = Integer.MIN_VALUE;
-            for (TreeNode child : tn.children) {
-                LayoutNode lastNode = RouteDiagramLayoutEngine.findLastLayoutNode(child);
-                if (lastNode != null) {
-                    int cx = lastNode.x + NODE_WIDTH / 2;
-                    int by = lastNode.y + NODE_HEIGHT;
-                    g.drawLine(cx, by, cx, mergeY);
-                    minCx = Math.min(minCx, cx);
-                    maxCx = Math.max(maxCx, cx);
-                }
-            }
-            if (minCx < maxCx) {
-                g.drawLine(minCx, mergeY, maxCx, mergeY);
-            }
-        } else {
-            LayoutNode lastNode = RouteDiagramLayoutEngine.findLastLayoutNode(tn);
-            if (lastNode != null) {
-                int cx = lastNode.x + NODE_WIDTH / 2;
-                int by = lastNode.y + NODE_HEIGHT;
-                g.drawLine(cx, by, cx, mergeY);
-            }
-        }
-
-        int mergeCx = branchingNode.x + NODE_WIDTH / 2;
-        g.fillOval(mergeCx - MERGE_DOT, mergeY - MERGE_DOT, MERGE_DOT * 2, MERGE_DOT * 2);
+        Color c = colors.getArrow();
+        g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 80));
+        g.setStroke(new BasicStroke(BORDER_STROKE_WIDTH));
+        g.drawRoundRect(boxX, boxY, boxW, boxH, ARC, ARC);
     }
 
     private void drawArrowFromMerge(Graphics2D g, LayoutNode to, DiagramColors colors) {

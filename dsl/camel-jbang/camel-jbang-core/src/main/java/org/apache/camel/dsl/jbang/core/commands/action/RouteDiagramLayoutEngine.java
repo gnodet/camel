@@ -28,6 +28,7 @@ class RouteDiagramLayoutEngine {
     static final int H_GAP = 30 * SCALE;
     static final int V_GAP = 40 * SCALE;
     static final int PADDING = 30 * SCALE;
+    static final int SCOPE_BOX_PAD = 14 * SCALE;
     static final int LABEL_OFFSET = 24 * SCALE;
 
     private static final Set<String> BRANCHING_EIPS = Set.of(
@@ -144,11 +145,26 @@ class RouteDiagramLayoutEngine {
         computeSubtreeWidth(tree);
         assignPositions(tree, PADDING, startY + LABEL_OFFSET, tree.subtreeWidth, lr);
 
-        int maxX = 0;
-        for (LayoutNode ln : lr.nodes) {
-            maxX = Math.max(maxX, ln.x + NODE_WIDTH);
+        int[] extent = {
+                tree.layoutNode.x, tree.layoutNode.y,
+                tree.layoutNode.x + NODE_WIDTH, tree.layoutNode.y + NODE_HEIGHT };
+        for (TreeNode child : tree.children) {
+            expandBoundsForBox(child, extent);
         }
-        lr.maxX = maxX + PADDING;
+
+        if (extent[0] < PADDING) {
+            int shift = PADDING - extent[0];
+            for (LayoutNode ln : lr.nodes) {
+                ln.x += shift;
+                if (ln.connectFromMerge) {
+                    ln.mergeCx += shift;
+                }
+            }
+            extent[2] += shift;
+        }
+
+        lr.maxX = extent[2];
+        lr.maxY = Math.max(lr.maxY, extent[3]);
 
         return lr;
     }
@@ -199,7 +215,14 @@ class RouteDiagramLayoutEngine {
                     TreeNode prevSibling = parentNode.children.get(myIndex - 1);
                     if (isBranchingEip(prevSibling.info.type) || isScopeEip(prevSibling.info.type)) {
                         ln.connectFromMerge = true;
-                        ln.mergeY = findMaxY(prevSibling) + V_GAP / 2;
+                        int[] boxBounds = {
+                                prevSibling.layoutNode.x, prevSibling.layoutNode.y,
+                                prevSibling.layoutNode.x + NODE_WIDTH,
+                                prevSibling.layoutNode.y + NODE_HEIGHT };
+                        for (TreeNode c : prevSibling.children) {
+                            expandBoundsForBox(c, boxBounds);
+                        }
+                        ln.mergeY = boxBounds[3] + SCOPE_BOX_PAD;
                         ln.mergeCx = prevSibling.layoutNode.x + NODE_WIDTH / 2;
                         ln.parentNode = prevSibling.layoutNode;
                     } else {
@@ -213,7 +236,7 @@ class RouteDiagramLayoutEngine {
             }
         }
 
-        lr.maxY = Math.max(lr.maxY, y + NODE_HEIGHT + V_GAP);
+        lr.maxY = Math.max(lr.maxY, y + NODE_HEIGHT);
 
         if (node.children.isEmpty()) {
             return;
@@ -233,8 +256,7 @@ class RouteDiagramLayoutEngine {
                 TreeNode child = node.children.get(i);
                 assignPositions(child, x, curY, availableWidth, lr);
                 curY = findMaxY(child) + V_GAP;
-                if ((isBranchingEip(child.info.type) || isScopeEip(child.info.type))
-                        && i < node.children.size() - 1) {
+                if (isBranchingEip(child.info.type) && i < node.children.size() - 1) {
                     curY += V_GAP;
                 }
             }
@@ -265,5 +287,33 @@ class RouteDiagramLayoutEngine {
 
     static boolean isScopeEip(String type) {
         return type != null && SCOPE_EIPS.contains(type);
+    }
+
+    static void expandBoundsForBox(TreeNode node, int[] bounds) {
+        boolean hasOwnBox = !node.children.isEmpty()
+                && (isBranchingEip(node.info.type) || isScopeEip(node.info.type));
+
+        if (hasOwnBox) {
+            int[] inner = {
+                    node.layoutNode.x, node.layoutNode.y,
+                    node.layoutNode.x + NODE_WIDTH, node.layoutNode.y + NODE_HEIGHT };
+            for (TreeNode child : node.children) {
+                expandBoundsForBox(child, inner);
+            }
+            bounds[0] = Math.min(bounds[0], inner[0] - SCOPE_BOX_PAD);
+            bounds[1] = Math.min(bounds[1], inner[1] - SCOPE_BOX_PAD);
+            bounds[2] = Math.max(bounds[2], inner[2] + SCOPE_BOX_PAD);
+            bounds[3] = Math.max(bounds[3], inner[3] + SCOPE_BOX_PAD);
+        } else {
+            if (node.layoutNode != null) {
+                bounds[0] = Math.min(bounds[0], node.layoutNode.x);
+                bounds[1] = Math.min(bounds[1], node.layoutNode.y);
+                bounds[2] = Math.max(bounds[2], node.layoutNode.x + NODE_WIDTH);
+                bounds[3] = Math.max(bounds[3], node.layoutNode.y + NODE_HEIGHT);
+            }
+            for (TreeNode child : node.children) {
+                expandBoundsForBox(child, bounds);
+            }
+        }
     }
 }
