@@ -37,8 +37,7 @@ concurrency:
 
 jobs:
   build:
-    # Temporarily disabled until SonarCloud quality gate is adjusted (INFRA-27808)
-    if: false && github.repository == 'apache/camel'
+    if: true
     name: Build for Sonar Analysis
     runs-on: ubuntu-latest
     steps:
