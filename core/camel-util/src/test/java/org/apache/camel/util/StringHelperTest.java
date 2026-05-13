@@ -712,4 +712,19 @@ public class StringHelperTest {
         assertEquals("Hello Big World", StringHelper.normalizeWhitespace(" Hello   Big   World "));
     }
 
+    @Test
+    void testTruncate() {
+        assertNull(StringHelper.truncate(null, 10));
+        assertEquals("Hello", StringHelper.truncate("Hello", 10));
+        assertEquals("Hello", StringHelper.truncate("Hello", 5));
+        assertEquals("He...", StringHelper.truncate("Hello World", 5));
+        assertEquals("Hello W...", StringHelper.truncate("Hello World", 10));
+        assertEquals("", StringHelper.truncate("Hello", 0));
+        assertEquals("He", StringHelper.truncate("Hello", 2, false));
+        assertEquals("He", StringHelper.truncate("Hello", 2, true));
+        assertEquals("...", StringHelper.truncate("Hello World", 3));
+        assertEquals("Hel", StringHelper.truncate("Hello World", 3, false));
+        assertThrows(IllegalArgumentException.class, () -> StringHelper.truncate("Hello", -1));
+    }
+
 }

@@ -1452,6 +1452,26 @@ public final class StringHelper {
     /**
      * Normalizes the whitespaces by removing any excess spaces so there are only at most a single whitespace.
      */
+    public static String truncate(String text, int maxLength) {
+        return truncate(text, maxLength, true);
+    }
+
+    public static String truncate(String text, int maxLength, boolean addEllipsis) {
+        if (text == null) {
+            return null;
+        }
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("maxLength must be non-negative, was: " + maxLength);
+        }
+        if (text.length() <= maxLength) {
+            return text;
+        }
+        if (addEllipsis && maxLength >= 3) {
+            return text.substring(0, maxLength - 3) + "...";
+        }
+        return text.substring(0, maxLength);
+    }
+
     public static String normalizeWhitespace(String text) {
         if (text == null) {
             return null;
