@@ -28,11 +28,8 @@ concurrency:
 
 jobs:
   sonar:
-    # Temporarily disabled until SonarCloud quality gate is adjusted (INFRA-27808)
     if: >
-      false &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.repository == 'apache/camel'
+      github.event.workflow_run.conclusion == 'success'
     name: Sonar Analysis
     runs-on: ubuntu-latest
     permissions:
@@ -143,11 +140,11 @@ jobs:
           -Dsonar.pullrequest.branch=${{ env.pr_head_ref }}
           -Dsonar.pullrequest.base=${{ env.pr_base_ref }}
           -Dsonar.pullrequest.key=${{ env.pr_number }}
-          -Dsonar.pullrequest.github.repository=apache/camel
+          -Dsonar.pullrequest.github.repository=gnodet/camel
           -Dsonar.pullrequest.provider=GitHub
           -Dsonar.pullrequest.github.summary_comment=true
-          -Dsonar.projectKey=apache_camel
-          -Dsonar.organization=apache
+          -Dsonar.projectKey=gnodet_camel
+          -Dsonar.organization=gnodet
           -B -V
         env:
           MAVEN_OPTS: "-XX:+UseG1GC -XX:InitialHeapSize=2g -XX:MaxHeapSize=6g -XX:+UseStringDeduplication"
