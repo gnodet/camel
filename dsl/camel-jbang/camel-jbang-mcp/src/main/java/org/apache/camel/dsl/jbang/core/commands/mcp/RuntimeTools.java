@@ -43,8 +43,9 @@ public class RuntimeTools {
     // ---- Process discovery ----
 
     @Tool(annotations = @Tool.Annotations(readOnlyHint = true, destructiveHint = false, openWorldHint = false),
-          description = "List all running Camel processes that can be inspected. "
-                        + "Returns PID, name, and context name for each discovered process.")
+          description = """
+                  List all running Camel processes that can be inspected. \
+                  Returns PID, name, and context name for each discovered process.""")
     public List<RuntimeService.ProcessInfo> camel_runtime_processes() {
         return runtimeService.discoverProcesses();
     }
@@ -253,8 +254,9 @@ public class RuntimeTools {
     }
 
     @Tool(annotations = @Tool.Annotations(readOnlyHint = true, destructiveHint = false, openWorldHint = false),
-          description = "Evaluate an expression in the given language (e.g., simple, jsonpath, xpath) "
-                        + "against the Camel context.")
+          description = """
+                  Evaluate an expression in the given language (e.g., simple, jsonpath, xpath) \
+                  against the Camel context.""")
     public JsonObject camel_runtime_eval(
             @ToolArg(description = NAME_OR_PID_DESC) String nameOrPid,
             @ToolArg(description = "Expression language (e.g., simple, jsonpath, xpath, jq)") String language,
