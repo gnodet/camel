@@ -39,6 +39,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Embedded MCP server service that exposes Camel DevConsole data as MCP tools.
+ *
+ * @since 4.21
  */
 public class McpServerService extends ServiceSupport implements CamelContextAware, StaticService {
 
@@ -48,7 +50,7 @@ public class McpServerService extends ServiceSupport implements CamelContextAwar
     private McpSyncServer syncServer;
 
     private String serverName = "camel-mcp-server";
-    private String serverVersion = "1.0.0";
+    private String serverVersion;
     private String transport = "stdio";
     private boolean devConsoleEnabled = true;
     private String includeTools;
@@ -73,15 +75,22 @@ public class McpServerService extends ServiceSupport implements CamelContextAwar
     protected void doStart() throws Exception {
         ObjectHelper.notNull(camelContext, "CamelContext", this);
 
+        String version = serverVersion != null ? serverVersion : camelContext.getVersion();
         McpServerTransportProvider transportProvider = createTransportProvider();
 
+        DevConsoleRegistry dcr = camelContext.getCamelContextExtension()
+                .getContextPlugin(DevConsoleRegistry.class);
+
+        McpSchema.ServerCapabilities.Builder capBuilder = McpSchema.ServerCapabilities.builder()
+                .tools(true)
+                .prompts(true);
+        if (dcr != null) {
+            capBuilder.resources(true, false);
+        }
+
         McpServer.SyncSpecification<?> spec = McpServer.sync(transportProvider)
-                .serverInfo(serverName, serverVersion)
-                .capabilities(McpSchema.ServerCapabilities.builder()
-                        .tools(true)
-                        .prompts(true)
-                        .resources(true, false)
-                        .build());
+                .serverInfo(serverName, version)
+                .capabilities(capBuilder.build());
 
         if (devConsoleEnabled) {
             McpToolRegistry toolRegistry = new McpToolRegistry(camelContext);
@@ -98,9 +107,6 @@ public class McpServerService extends ServiceSupport implements CamelContextAwar
             spec = spec.prompts(prompt);
         }
 
-        // register a resource listing available dev consoles
-        DevConsoleRegistry dcr = camelContext.getCamelContextExtension()
-                .getContextPlugin(DevConsoleRegistry.class);
         if (dcr != null) {
             McpSchema.Resource resource = new McpSchema.Resource(
                     "camel://consoles",

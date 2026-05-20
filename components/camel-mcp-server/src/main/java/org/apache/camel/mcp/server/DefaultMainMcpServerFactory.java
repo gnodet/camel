@@ -24,6 +24,9 @@ import org.apache.camel.main.MainMcpServerFactory;
 import org.apache.camel.main.McpServerConfigurationProperties;
 import org.apache.camel.spi.annotations.JdkService;
 
+/**
+ * @since 4.21
+ */
 @JdkService(MainConstants.MCP_SERVER)
 public class DefaultMainMcpServerFactory implements CamelContextAware, MainMcpServerFactory {
 

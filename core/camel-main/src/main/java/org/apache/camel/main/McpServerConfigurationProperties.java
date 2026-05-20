@@ -36,8 +36,8 @@ public class McpServerConfigurationProperties implements BootstrapCloseable {
     private String transport = "stdio";
     @Metadata(defaultValue = "camel-mcp-server")
     private String serverName = "camel-mcp-server";
-    @Metadata(defaultValue = "1.0.0")
-    private String serverVersion = "1.0.0";
+    @Metadata
+    private String serverVersion;
     @Metadata(defaultValue = "true")
     private boolean mcpDevConsoleEnabled = true;
     @Metadata
@@ -96,7 +96,7 @@ public class McpServerConfigurationProperties implements BootstrapCloseable {
     }
 
     /**
-     * Version of the MCP server reported to clients.
+     * Version of the MCP server reported to clients. If not set, defaults to the Camel version.
      */
     public void setServerVersion(String serverVersion) {
         this.serverVersion = serverVersion;

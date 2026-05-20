@@ -28,6 +28,8 @@ import org.apache.camel.util.json.JsonObject;
 
 /**
  * Bridges MCP tool calls to Camel DevConsole invocations.
+ *
+ * @since 4.21
  */
 public class DevConsoleToolHandler {
 

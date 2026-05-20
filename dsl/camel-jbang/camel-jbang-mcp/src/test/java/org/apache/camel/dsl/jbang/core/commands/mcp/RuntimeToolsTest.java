@@ -91,6 +91,14 @@ class RuntimeToolsTest {
     }
 
     @Test
+    void traceRequiresAction() {
+        RuntimeTools tools = createTools();
+        assertThatThrownBy(() -> tools.camel_runtime_trace(null, null))
+                .isInstanceOf(ToolCallException.class)
+                .hasMessageContaining("action is required");
+    }
+
+    @Test
     void browseRequiresEndpoint() {
         RuntimeTools tools = createTools();
         assertThatThrownBy(() -> tools.camel_runtime_browse(null, null, null))

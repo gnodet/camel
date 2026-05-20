@@ -23,6 +23,7 @@ import jakarta.inject.Inject;
 
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
+import io.quarkiverse.mcp.server.ToolCallException;
 import org.apache.camel.util.json.JsonObject;
 
 /**
@@ -198,10 +199,10 @@ public class RuntimeTools {
             @ToolArg(description = "Route ID to control") String routeId,
             @ToolArg(description = "Command: start, stop, suspend, or resume") String command) {
         if (routeId == null || routeId.isBlank()) {
-            throw new io.quarkiverse.mcp.server.ToolCallException("routeId is required", null);
+            throw new ToolCallException("routeId is required", null);
         }
         if (command == null || command.isBlank()) {
-            throw new io.quarkiverse.mcp.server.ToolCallException("command is required (start, stop, suspend, resume)", null);
+            throw new ToolCallException("command is required (start, stop, suspend, resume)", null);
         }
         RuntimeService.ProcessInfo p = runtimeService.findSingleProcess(nameOrPid);
         return runtimeService.executeAction(p.pid(), "route", root -> {
@@ -210,7 +211,7 @@ public class RuntimeTools {
         });
     }
 
-    @Tool(annotations = @Tool.Annotations(readOnlyHint = false, destructiveHint = false, openWorldHint = false),
+    @Tool(annotations = @Tool.Annotations(readOnlyHint = false, destructiveHint = true, openWorldHint = false),
           description = "Send a test message to a Camel endpoint in the running application.")
     public JsonObject camel_runtime_send(
             @ToolArg(description = NAME_OR_PID_DESC) String nameOrPid,
@@ -218,7 +219,7 @@ public class RuntimeTools {
             @ToolArg(description = "Message body to send") String body,
             @ToolArg(description = "Message headers as key=value pairs separated by newlines") String headers) {
         if (endpoint == null || endpoint.isBlank()) {
-            throw new io.quarkiverse.mcp.server.ToolCallException("endpoint is required", null);
+            throw new ToolCallException("endpoint is required", null);
         }
         RuntimeService.ProcessInfo p = runtimeService.findSingleProcess(nameOrPid);
         return runtimeService.executeAction(p.pid(), "send", root -> {
@@ -237,10 +238,21 @@ public class RuntimeTools {
     public JsonObject camel_runtime_trace(
             @ToolArg(description = NAME_OR_PID_DESC) String nameOrPid,
             @ToolArg(description = "Action: enable, disable, or dump") String action) {
+        if (action == null || action.isBlank()) {
+            throw new ToolCallException("action is required (enable, disable, dump)", null);
+        }
         RuntimeService.ProcessInfo p = runtimeService.findSingleProcess(nameOrPid);
         return runtimeService.executeAction(p.pid(), "trace", root -> {
-            if (action != null) {
-                root.put("command", action);
+            switch (action.toLowerCase()) {
+                case "enable" -> root.put("enabled", "true");
+                case "disable" -> root.put("enabled", "false");
+                case "dump" -> {
+                    // no extra keys needed — the handler returns current trace data by default
+                }
+                default -> throw new ToolCallException(
+                        "Unknown trace action: " + action
+                                                       + ". Use 'enable', 'disable', or 'dump'.",
+                        null);
             }
         });
     }
@@ -262,10 +274,10 @@ public class RuntimeTools {
             @ToolArg(description = "Expression language (e.g., simple, jsonpath, xpath, jq)") String language,
             @ToolArg(description = "Expression to evaluate") String expression) {
         if (language == null || language.isBlank()) {
-            throw new io.quarkiverse.mcp.server.ToolCallException("language is required", null);
+            throw new ToolCallException("language is required", null);
         }
         if (expression == null || expression.isBlank()) {
-            throw new io.quarkiverse.mcp.server.ToolCallException("expression is required", null);
+            throw new ToolCallException("expression is required", null);
         }
         RuntimeService.ProcessInfo p = runtimeService.findSingleProcess(nameOrPid);
         return runtimeService.executeAction(p.pid(), "eval", root -> {
@@ -281,7 +293,7 @@ public class RuntimeTools {
             @ToolArg(description = "Endpoint URI to browse") String endpoint,
             @ToolArg(description = "Maximum number of messages to return (default: 50)") Integer limit) {
         if (endpoint == null || endpoint.isBlank()) {
-            throw new io.quarkiverse.mcp.server.ToolCallException("endpoint is required", null);
+            throw new ToolCallException("endpoint is required", null);
         }
         RuntimeService.ProcessInfo p = runtimeService.findSingleProcess(nameOrPid);
         return runtimeService.executeAction(p.pid(), "browse", root -> {

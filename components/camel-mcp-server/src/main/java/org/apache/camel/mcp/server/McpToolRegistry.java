@@ -30,6 +30,8 @@ import org.apache.camel.CamelContext;
 
 /**
  * Builds MCP tool specifications that map to Camel DevConsole endpoints.
+ *
+ * @since 4.21
  */
 public class McpToolRegistry {
 
@@ -224,10 +226,13 @@ public class McpToolRegistry {
         McpServerFeatures.SyncToolSpecification spec = McpServerFeatures.SyncToolSpecification.builder()
                 .tool(tool)
                 .callHandler((exchange, request) -> {
-                    Boolean processors = request.arguments() != null
-                            ? (Boolean) request.arguments().get("processors")
+                    Object processorsArg = request.arguments() != null
+                            ? request.arguments().get("processors")
                             : null;
-                    String consoleId = Boolean.TRUE.equals(processors) ? "top/*" : "top";
+                    boolean processors = processorsArg instanceof Boolean b
+                            ? b
+                            : Boolean.parseBoolean(String.valueOf(processorsArg));
+                    String consoleId = processors ? "top/*" : "top";
                     return handler.handle(consoleId, request);
                 })
                 .build();

@@ -24,6 +24,8 @@ import io.modelcontextprotocol.spec.McpSchema;
 
 /**
  * Builds MCP prompt specifications for guided Camel debugging and analysis workflows.
+ *
+ * @since 4.21
  */
 public class McpPromptRegistry {
 
