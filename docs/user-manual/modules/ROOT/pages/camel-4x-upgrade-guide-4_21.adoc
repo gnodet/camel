@@ -58,6 +58,18 @@ auto-disables `contentCache` on resource-based components (such as `xslt`) whose
 the route. Set `camel.component.<name>.contentCache=true` (or pass `?contentCache=true` on the
 URI) to opt back in to caching during dev mode.
 
+==== camel-jbang MCP Server
+
+The Camel JBang MCP Server now includes 21 runtime introspection tools (`camel_runtime_*`) for inspecting and
+interacting with live Camel applications. These tools communicate with running Camel processes via the
+file-based IPC protocol in `~/.camel/` and support process auto-discovery.
+
+The IPC protocol has been enhanced to support multiple concurrent clients using request-ID-suffixed
+action/output files (`{pid}-action-{requestId}.json` / `{pid}-output-{requestId}.json`). This is fully
+backward compatible — existing CLI commands continue to use the single-file pattern.
+
+See xref:camel-jbang-mcp.adoc[Camel MCP Server] for the full list of tools.
+
 ==== camel-jbang plugins
 
 Plugins are now loaded lazily. Built-in commands that do not consume plugins
@@ -74,6 +86,24 @@ locally are picked up automatically. The cache is also invalidated when the
 Camel version, the plugin GAV, or the effective `--repos`/`--repo` value
 changes. No user action is required; existing plugin entries are populated on
 first use after upgrade.
+
+=== camel-mcp-server (new)
+
+A new `camel-mcp-server` component provides an embedded MCP server for standalone Camel applications. When
+enabled, it exposes Camel DevConsole data (context, routes, health, endpoints, tracing, etc.) as MCP tools
+over the STDIO transport, allowing AI assistants to introspect the running application directly.
+
+Configuration via `application.properties`:
+
+[source,properties]
+----
+camel.main.mcpServer.enabled = true
+camel.main.mcpServer.transport = stdio
+camel.main.mcpServer.serverName = camel-mcp-server
+----
+
+The property `mcpDevConsoleEnabled` (default `true`) controls whether DevConsole-based tools are registered.
+Use `includeTools` and `excludeTools` to filter which tools are exposed.
 
 === camel-yaml-dsl
 
