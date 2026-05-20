@@ -2088,6 +2088,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-mcp-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-mdc</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -3552,6 +3557,16 @@
                 <groupId>io.micrometer</groupId>
                 <artifactId>micrometer-tracing-test</artifactId>
                 <version>${micrometer-tracing-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.modelcontextprotocol.sdk</groupId>
+                <artifactId>mcp-core</artifactId>
+                <version>${mcp-java-sdk-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.modelcontextprotocol.sdk</groupId>
+                <artifactId>mcp-json-jackson2</artifactId>
+                <version>${mcp-java-sdk-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
