@@ -46,7 +46,7 @@ public class DefaultMainMcpServerFactory implements CamelContextAware, MainMcpSe
         server.setServerName(configuration.getServerName());
         server.setServerVersion(configuration.getServerVersion());
         server.setTransport(configuration.getTransport());
-        server.setDevConsoleEnabled(configuration.isDevConsoleEnabled());
+        server.setDevConsoleEnabled(configuration.isMcpDevConsoleEnabled());
         server.setIncludeTools(configuration.getIncludeTools());
         server.setExcludeTools(configuration.getExcludeTools());
         return server;

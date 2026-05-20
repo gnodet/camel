@@ -18,6 +18,7 @@ package org.apache.camel.mcp.server;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.modelcontextprotocol.json.jackson2.JacksonMcpJsonMapper;
 import io.modelcontextprotocol.server.McpServer;
 import io.modelcontextprotocol.server.McpServerFeatures;
@@ -143,7 +144,7 @@ public class McpServerService extends ServiceSupport implements CamelContextAwar
     private McpServerTransportProvider createTransportProvider() {
         if ("stdio".equals(transport)) {
             return new StdioServerTransportProvider(
-                    new JacksonMcpJsonMapper(new com.fasterxml.jackson.databind.ObjectMapper()));
+                    new JacksonMcpJsonMapper(new ObjectMapper()));
         }
         throw new IllegalArgumentException(
                 "Unsupported MCP transport: " + transport

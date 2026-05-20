@@ -21,6 +21,8 @@ import org.apache.camel.Service;
 
 /**
  * Factory for creating an embedded MCP server for standalone (not Spring Boot or Quarkus).
+ *
+ * @since 4.21
  */
 public interface MainMcpServerFactory {
 

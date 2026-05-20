@@ -22,10 +22,10 @@ public class McpServerConfigurationPropertiesConfigurer extends org.apache.camel
     private static final Map<String, Object> ALL_OPTIONS;
     static {
         Map<String, Object> map = new CaseInsensitiveMap();
-        map.put("DevConsoleEnabled", boolean.class);
         map.put("Enabled", boolean.class);
         map.put("ExcludeTools", java.lang.String.class);
         map.put("IncludeTools", java.lang.String.class);
+        map.put("McpDevConsoleEnabled", boolean.class);
         map.put("ServerName", java.lang.String.class);
         map.put("ServerVersion", java.lang.String.class);
         map.put("Transport", java.lang.String.class);
@@ -36,13 +36,13 @@ public class McpServerConfigurationPropertiesConfigurer extends org.apache.camel
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.main.McpServerConfigurationProperties target = (org.apache.camel.main.McpServerConfigurationProperties) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
-        case "devconsoleenabled":
-        case "devConsoleEnabled": target.setDevConsoleEnabled(property(camelContext, boolean.class, value)); return true;
         case "enabled": target.setEnabled(property(camelContext, boolean.class, value)); return true;
         case "excludetools":
         case "excludeTools": target.setExcludeTools(property(camelContext, java.lang.String.class, value)); return true;
         case "includetools":
         case "includeTools": target.setIncludeTools(property(camelContext, java.lang.String.class, value)); return true;
+        case "mcpdevconsoleenabled":
+        case "mcpDevConsoleEnabled": target.setMcpDevConsoleEnabled(property(camelContext, boolean.class, value)); return true;
         case "servername":
         case "serverName": target.setServerName(property(camelContext, java.lang.String.class, value)); return true;
         case "serverversion":
@@ -60,13 +60,13 @@ public class McpServerConfigurationPropertiesConfigurer extends org.apache.camel
     @Override
     public Class<?> getOptionType(String name, boolean ignoreCase) {
         switch (ignoreCase ? name.toLowerCase() : name) {
-        case "devconsoleenabled":
-        case "devConsoleEnabled": return boolean.class;
         case "enabled": return boolean.class;
         case "excludetools":
         case "excludeTools": return java.lang.String.class;
         case "includetools":
         case "includeTools": return java.lang.String.class;
+        case "mcpdevconsoleenabled":
+        case "mcpDevConsoleEnabled": return boolean.class;
         case "servername":
         case "serverName": return java.lang.String.class;
         case "serverversion":
@@ -80,13 +80,13 @@ public class McpServerConfigurationPropertiesConfigurer extends org.apache.camel
     public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
         org.apache.camel.main.McpServerConfigurationProperties target = (org.apache.camel.main.McpServerConfigurationProperties) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
-        case "devconsoleenabled":
-        case "devConsoleEnabled": return target.isDevConsoleEnabled();
         case "enabled": return target.isEnabled();
         case "excludetools":
         case "excludeTools": return target.getExcludeTools();
         case "includetools":
         case "includeTools": return target.getIncludeTools();
+        case "mcpdevconsoleenabled":
+        case "mcpDevConsoleEnabled": return target.isMcpDevConsoleEnabled();
         case "servername":
         case "serverName": return target.getServerName();
         case "serverversion":

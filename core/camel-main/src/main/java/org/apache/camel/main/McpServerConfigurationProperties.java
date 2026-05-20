@@ -22,13 +22,15 @@ import org.apache.camel.spi.Metadata;
 
 /**
  * Configuration for embedded MCP server for standalone Camel applications (not Spring Boot / Quarkus).
+ *
+ * @since 4.21
  */
 @Configurer(extended = true)
 public class McpServerConfigurationProperties implements BootstrapCloseable {
 
     private MainConfigurationProperties parent;
 
-    @Metadata
+    @Metadata(security = "insecure:dev")
     private boolean enabled;
     @Metadata(defaultValue = "stdio")
     private String transport = "stdio";
@@ -37,7 +39,7 @@ public class McpServerConfigurationProperties implements BootstrapCloseable {
     @Metadata(defaultValue = "1.0.0")
     private String serverVersion = "1.0.0";
     @Metadata(defaultValue = "true")
-    private boolean devConsoleEnabled = true;
+    private boolean mcpDevConsoleEnabled = true;
     @Metadata
     private String includeTools;
     @Metadata
@@ -72,7 +74,7 @@ public class McpServerConfigurationProperties implements BootstrapCloseable {
     }
 
     /**
-     * Transport to use for the MCP server (stdio, uds, tcp).
+     * Transport to use for the MCP server. Currently only 'stdio' is supported.
      */
     public void setTransport(String transport) {
         this.transport = transport;
@@ -100,15 +102,15 @@ public class McpServerConfigurationProperties implements BootstrapCloseable {
         this.serverVersion = serverVersion;
     }
 
-    public boolean isDevConsoleEnabled() {
-        return devConsoleEnabled;
+    public boolean isMcpDevConsoleEnabled() {
+        return mcpDevConsoleEnabled;
     }
 
     /**
      * Whether to register MCP tools based on the DevConsole registry. By default, this is enabled.
      */
-    public void setDevConsoleEnabled(boolean devConsoleEnabled) {
-        this.devConsoleEnabled = devConsoleEnabled;
+    public void setMcpDevConsoleEnabled(boolean mcpDevConsoleEnabled) {
+        this.mcpDevConsoleEnabled = mcpDevConsoleEnabled;
     }
 
     public String getIncludeTools() {
