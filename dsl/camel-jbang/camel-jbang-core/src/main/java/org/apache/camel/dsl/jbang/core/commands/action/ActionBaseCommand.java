@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.dsl.jbang.core.commands.CamelCommand;
 import org.apache.camel.dsl.jbang.core.commands.CamelJBangMain;
+import org.apache.camel.dsl.jbang.core.common.CommandLineHelper;
 import org.apache.camel.dsl.jbang.core.common.PathUtils;
 import org.apache.camel.dsl.jbang.core.common.ProcessHelper;
 import org.apache.camel.support.PatternHelper;
@@ -172,6 +173,34 @@ abstract class ActionBaseCommand extends CamelCommand {
         }
 
         Path file = getActionFile(pid);
+        PathUtils.writeTextSafely(root.toJson(), file);
+
+        return outputFile;
+    }
+
+    /**
+     * Prepares and writes an action with a unique request ID for multi-client support. Uses per-request action/output
+     * files ({pid}-action-{requestId}.json / {pid}-output-{requestId}.json) to avoid conflicts with concurrent clients.
+     *
+     * @param  pid             the process ID
+     * @param  action          the action name
+     * @param  requestId       unique request identifier
+     * @param  configureAction a function to configure the action JSON object
+     * @return                 the output file path
+     */
+    protected Path prepareAction(String pid, String action, String requestId, Consumer<JsonObject> configureAction) {
+        Path camelDir = CommandLineHelper.getCamelDir();
+        Path outputFile = camelDir.resolve(pid + "-output-" + requestId + ".json");
+        PathUtils.deleteFile(outputFile);
+
+        JsonObject root = new JsonObject();
+        root.put("action", action);
+
+        if (configureAction != null) {
+            configureAction.accept(root);
+        }
+
+        Path file = camelDir.resolve(pid + "-action-" + requestId + ".json");
         PathUtils.writeTextSafely(root.toJson(), file);
 
         return outputFile;
