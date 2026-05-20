@@ -76,10 +76,26 @@
         </dependency>
 
         <!-- Spring AI MCP integration for Model Context Protocol client support.
-             The MCP SDK is included transitively via spring-ai-mcp. -->
+             The MCP SDK is included transitively via spring-ai-mcp.
+             Exclude the old mcp umbrella artifact so dependencyManagement
+             can align mcp-core and mcp-json-jackson2 to ${mcp-java-sdk-version}. -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-mcp</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.modelcontextprotocol.sdk</groupId>
+                    <artifactId>mcp</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.modelcontextprotocol.sdk</groupId>
+            <artifactId>mcp-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.modelcontextprotocol.sdk</groupId>
+            <artifactId>mcp-json-jackson2</artifactId>
         </dependency>
 
         <!-- Test dependencies -->

@@ -52,12 +52,10 @@
         <dependency>
             <groupId>io.modelcontextprotocol.sdk</groupId>
             <artifactId>mcp-core</artifactId>
-            <version>${mcp-java-sdk-version}</version>
         </dependency>
         <dependency>
             <groupId>io.modelcontextprotocol.sdk</groupId>
             <artifactId>mcp-json-jackson2</artifactId>
-            <version>${mcp-java-sdk-version}</version>
         </dependency>
 
         <!-- test dependencies -->
