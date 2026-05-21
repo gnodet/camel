@@ -125,7 +125,7 @@ interacting with live Camel applications. These tools communicate with running C
 file-based IPC protocol in `~/.camel/` and support process auto-discovery.
 
 The IPC protocol has been enhanced to support multiple concurrent clients using request-ID-suffixed
-action/output files (`{pid}-action-{requestId}.json` / `{pid}-output-{requestId}.json`). This is fully
+action/output files (`\{pid}-action-\{requestId}.json` / `\{pid}-output-\{requestId}.json`). This is fully
 backward compatible — existing CLI commands continue to use the single-file pattern.
 
 See xref:camel-jbang-mcp.adoc[Camel MCP Server] for the full list of tools.
