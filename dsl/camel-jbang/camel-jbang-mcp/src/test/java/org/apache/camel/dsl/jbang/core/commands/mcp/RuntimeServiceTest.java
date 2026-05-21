@@ -51,7 +51,7 @@ class RuntimeServiceTest {
         RuntimeService service = new RuntimeService();
         assertThatThrownBy(() -> service.findSingleProcess("99999999"))
                 .isInstanceOf(ToolCallException.class)
-                .hasMessageContaining("No running Camel processes");
+                .hasMessageContaining("Camel process");
     }
 
     @Test

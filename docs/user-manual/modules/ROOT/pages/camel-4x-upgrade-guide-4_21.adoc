@@ -87,24 +87,6 @@ Camel version, the plugin GAV, or the effective `--repos`/`--repo` value
 changes. No user action is required; existing plugin entries are populated on
 first use after upgrade.
 
-=== camel-mcp-server (new)
-
-A new `camel-mcp-server` component provides an embedded MCP server for standalone Camel applications. When
-enabled, it exposes Camel DevConsole data (context, routes, health, endpoints, tracing, etc.) as MCP tools
-over the STDIO transport, allowing AI assistants to introspect the running application directly.
-
-Configuration via `application.properties`:
-
-[source,properties]
-----
-camel.main.mcpServer.enabled = true
-camel.main.mcpServer.transport = stdio
-camel.main.mcpServer.serverName = camel-mcp-server
-----
-
-The property `mcpDevConsoleEnabled` (default `true`) controls whether DevConsole-based tools are registered.
-Use `includeTools` and `excludeTools` to filter which tools are exposed.
-
 === camel-yaml-dsl
 
 A new canonical JSON Schema variant (`camelYamlDsl-canonical.json`) has been added alongside the existing classic

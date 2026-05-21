@@ -77,7 +77,6 @@ public class MainConfigurationProperties extends DefaultConfigurationProperties<
     private DebuggerConfigurationProperties debuggerConfigurationProperties;
     private TracerConfigurationProperties tracerConfigurationProperties;
     private RouteControllerConfigurationProperties routeControllerConfigurationProperties;
-    private McpServerConfigurationProperties mcpServerConfigurationProperties;
 
     @Override
     public void close() {
@@ -156,10 +155,6 @@ public class MainConfigurationProperties extends DefaultConfigurationProperties<
         if (routeControllerConfigurationProperties != null) {
             routeControllerConfigurationProperties.close();
             routeControllerConfigurationProperties = null;
-        }
-        if (mcpServerConfigurationProperties != null) {
-            mcpServerConfigurationProperties.close();
-            mcpServerConfigurationProperties = null;
         }
         if (routesBuilders != null) {
             routesBuilders.clear();
@@ -398,23 +393,6 @@ public class MainConfigurationProperties extends DefaultConfigurationProperties<
      */
     public boolean hasRouteControllerConfiguration() {
         return routeControllerConfigurationProperties != null;
-    }
-
-    /**
-     * To configure embedded MCP server (for standalone applications; not Spring Boot or Quarkus)
-     */
-    public McpServerConfigurationProperties mcpServer() {
-        if (mcpServerConfigurationProperties == null) {
-            mcpServerConfigurationProperties = new McpServerConfigurationProperties(this);
-        }
-        return mcpServerConfigurationProperties;
-    }
-
-    /**
-     * Whether there has been any MCP server configuration specified.
-     */
-    public boolean hasMcpServerConfiguration() {
-        return mcpServerConfigurationProperties != null;
     }
 
     /**

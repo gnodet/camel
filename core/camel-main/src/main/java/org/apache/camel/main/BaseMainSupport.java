@@ -146,7 +146,6 @@ public abstract class BaseMainSupport extends BaseService {
     private static final String PREFIX_DEBUG = "camel.debug.";
     private static final String PREFIX_TRACE = "camel.trace.";
     private static final String PREFIX_ROUTE_CONTROLLER = "camel.routeController.";
-    private static final String PREFIX_MCP = "camel.mcp.";
 
     private static final String[] GROUP_PREFIXES = new String[] {
             "camel.context.", "camel.resilience4j.", "camel.faulttolerance.",
@@ -155,7 +154,7 @@ public abstract class BaseMainSupport extends BaseService {
             "camel.telemetryDev.", "camel.management.", "camel.mdc.", "camel.metrics.", "camel.routeTemplate",
             "camel.devConsole.", "camel.variable.", "camel.beans.", "camel.globalOptions.",
             PREFIX_SERVER, PREFIX_SSL, PREFIX_SECURITY, PREFIX_DEBUG, PREFIX_TRACE,
-            PREFIX_ROUTE_CONTROLLER, PREFIX_MCP };
+            PREFIX_ROUTE_CONTROLLER };
 
     protected final List<MainListener> listeners = new ArrayList<>();
     protected volatile CamelContext camelContext;
@@ -1410,7 +1409,6 @@ public abstract class BaseMainSupport extends BaseService {
         OrderedLocationProperties debuggerProperties = new OrderedLocationProperties();
         OrderedLocationProperties tracerProperties = new OrderedLocationProperties();
         OrderedLocationProperties routeControllerProperties = new OrderedLocationProperties();
-        OrderedLocationProperties mcpServerProperties = new OrderedLocationProperties();
 
         for (String key : prop.stringPropertyNames()) {
             String loc = prop.getLocation(key);
@@ -1558,12 +1556,6 @@ public abstract class BaseMainSupport extends BaseService {
                 String option = key.substring(22);
                 validateOptionAndValue(key, option, value);
                 routeControllerProperties.put(loc, optionKey(option), value);
-            } else if (startsWithIgnoreCase(key, PREFIX_MCP)) {
-                // grab the value
-                String value = prop.getProperty(key);
-                String option = key.substring(10);
-                validateOptionAndValue(key, option, value);
-                mcpServerProperties.put(loc, optionKey(option), value);
             }
         }
 
@@ -1618,12 +1610,6 @@ public abstract class BaseMainSupport extends BaseService {
             LOG.debug("Auto-configuring HTTP Management Server from loaded properties: {}",
                     httpManagementServerProperties.size());
             setHttpManagementServerProperties(camelContext, httpManagementServerProperties,
-                    mainConfigurationProperties.isAutoConfigurationFailFast(),
-                    autoConfiguredProperties);
-        }
-        if (!mcpServerProperties.isEmpty() || mainConfigurationProperties.hasMcpServerConfiguration()) {
-            LOG.debug("Auto-configuring MCP Server from loaded properties: {}", mcpServerProperties.size());
-            setMcpServerProperties(camelContext, mcpServerProperties,
                     mainConfigurationProperties.isAutoConfigurationFailFast(),
                     autoConfiguredProperties);
         }
@@ -2167,35 +2153,6 @@ public abstract class BaseMainSupport extends BaseService {
         // force eager starting as embedded http management server is used for
         // container platform to check readiness and need to be started eager
         camelContext.addService(http, true, true);
-    }
-
-    private void setMcpServerProperties(
-            CamelContext camelContext, OrderedLocationProperties properties,
-            boolean failIfNotSet, OrderedLocationProperties autoConfiguredProperties)
-            throws Exception {
-
-        McpServerConfigurationProperties config = mainConfigurationProperties.mcpServer();
-
-        setPropertiesOnTarget(camelContext, config, properties, PREFIX_MCP,
-                mainConfigurationProperties.isAutoConfigurationFailFast(), true, autoConfiguredProperties);
-
-        if (!config.isEnabled()) {
-            return;
-        }
-
-        // auto-detect camel-mcp-server on classpath
-        MainMcpServerFactory sf = resolveMainMcpServerFactory(camelContext);
-        Service mcp = sf.newMcpServer(camelContext, config);
-        camelContext.addService(mcp, true, true);
-    }
-
-    private static MainMcpServerFactory resolveMainMcpServerFactory(CamelContext camelContext) {
-        MainMcpServerFactory answer = camelContext.getRegistry().findSingleByType(MainMcpServerFactory.class);
-        if (answer == null) {
-            answer = ResolverHelper.resolveMandatoryBootstrapService(camelContext, MainConstants.MCP_SERVER,
-                    MainMcpServerFactory.class, "camel-mcp-server");
-        }
-        return CamelContextAware.trySetCamelContext(answer, camelContext);
     }
 
     private void setVaultProperties(
