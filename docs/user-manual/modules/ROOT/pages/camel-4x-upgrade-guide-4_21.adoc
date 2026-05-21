@@ -18,7 +18,7 @@ See the xref:camel-upgrade-recipes-tool.adoc[documentation] page for details.
 The library used for Camel Grok component has been migrated from no more maintained `io.krakens:java-grok` to its fork `io.github.whatap:java-grok`.
 It implies small differences listed https://github.com/whatap/java-grok#what-is-different-from-iokrakensjava-grok[here].
 
-=== camel-coreand camel-paho-mqtt5 are
+=== camel-core
 
 The `camel-api` module now has an optional dependency on `org.jspecify:jspecify` for null safety annotations
 (`@NullMarked`, `@Nullable`). The dependency is `<optional>true</optional>`, so it is not pulled transitively
@@ -52,11 +52,64 @@ and dev consoles for nodes inside Choice EIP branches.
 The `camel wrapper` command now installs the scripts as `camel` instead of `camelw`.
 You can use the `--command-name=camelw` to use the old name.
 
+The `camel run` and `camel export` commands now auto-detect `application.properties` (and profile-specific
+variants such as `application-prod.properties`) in the current directory and include them automatically.
+Previously you had to explicitly list the properties file on the command line
+(e.g. `camel run hello.java application.properties`). This is no longer required.
+
 When `camel.main.routesReloadEnabled=true` (automatically set by `camel run --dev`), Camel now
 auto-disables `contentCache` on resource-based components (such as `xslt`) whose default is
 `true`, so that edits to the resource file are picked up on the next message without restarting
 the route. Set `camel.component.<name>.contentCache=true` (or pass `?contentCache=true` on the
 URI) to opt back in to caching during dev mode.
+
+==== Improved default `--quarkus-version`
+
+The default behavior of commands requiring Quarkus Platform version has improved.
+Before Camel 4.21.0, when the version was not set via `--quarkus-version`, a default hardcoded value was used.
+We were not especially good at upgrading that version and also, the version of Quarkus Platform that delivers
+a specific version of Camel was always released several weeks after Camel, so it could never be up to date.
+
+Since Camel 4.21.0, the default version of Quarkus Platform is determined at Camel JBang runtime by querying
+Quarkus Extension Registry (https://registry.quarkus.io/), especially its
+`https://registry.quarkus.io/client/platforms/all[/client/platforms/all]` endpoint.
+The version chosen is the newest Quarkus Platform compatible with either the Camel version specified via `--camel-version`,
+if available, or the version of the currently running `camel-jbang`.
+
+Unless you pass `--fresh`, the content from Quarkus Extension Registry is fetched at most once a day
+and cached under `~/.camel/quarkus-extension-registries`.
+You may force using the cached resource by passing `--download=false`.
+
+Finally, the default base URI `https://registry.quarkus.io` of Quarkus Extension Registry
+can be overridden via `--quarkus-ext-registry`.
+In addition to `http://` and `https://`, it also accepts `file://` URIs.
+Those may come in handy when cannot access the internet.
+Append `.json` to the resource path when you store it locally.
+
+The internal Maven downloader used by Camel JBang now defaults to preferring locally cached
+artifacts over remote ones (`preferLocal = true`). Previously the default was `false`, meaning
+the downloader would always check remote repositories first. With the new default, already-resolved
+artifacts in the local Maven repository are used directly without contacting remote repositories.
+Use `--fresh` to force re-downloading from remote repositories when needed.
+
+==== camel-jbang-mcp
+
+The `camel_route_context` tool response no longer echoes the input route back to the caller. The
+`route` field has been removed from `RouteContextResult`; the response now contains only `format`,
+`components`, `eips`, and `summary`. This reduces token consumption for callers passing large
+routes.
+
+The `camel_catalog_component_doc` tool no longer returns every component option by default. Two new
+arguments make the response lean by default to reduce LLM context-window pressure:
+
+* `optionsFilter` (optional) — case-insensitive substring match on option name.
+* `includeOptions` (optional) — one of `required`, `common`, or `all`; defaults to `common`, which
+  excludes deprecated options and options whose label contains `advanced`. Pass `all` to restore the
+  previous behaviour.
+
+The `groupId`, `artifactId`, and `version` fields have been removed from the `camel_catalog_component_doc`
+response. A new `camel_catalog_component_maven` tool returns just those Maven coordinates and should be
+called only when you actually need to add the component as a dependency.
 
 ==== camel-jbang MCP Server
 
@@ -363,6 +416,80 @@ work without changes. Routes that set the header by its literal string value
 (for example `setHeader("SEARCH_QUERY", ...)`) must be updated to use the
 new value (`setHeader("CamelElasticsearchSearchQuery", ...)`).
 
+=== camel-cxf
+
+The Exchange header constants in `CxfConstants` (module `camel-cxf-common`, shared
+by `camel-cxf` and `camel-cxfrs`) have been renamed to follow the Camel naming
+convention used across the rest of the component catalog. The Java field names are
+unchanged; only the header string values have changed:
+
+[options="header"]
+|===
+| Constant | Previous value | New value
+| `CxfConstants.OPERATION_NAME` | `operationName` | `CamelCxfOperationName`
+| `CxfConstants.OPERATION_NAMESPACE` | `operationNamespace` | `CamelCxfOperationNamespace`
+|===
+
+Routes that reference the constant symbolically (for example
+`setHeader(CxfConstants.OPERATION_NAME, ...)`) continue to work without changes.
+Routes that set the header by its literal string value (for example
+`setHeader("operationName", ...)`) must be updated to use the new value
+(`setHeader("CamelCxfOperationName", ...)`).
+
+In particular, the documented `cxfrs` `SimpleConsumer` dispatch idiom that routes
+on the operation name by its literal header name must be updated:
+
+[source,java]
+----
+// before
+from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer")
+    .recipientList(simple("direct:${header.operationName}"));
+
+// after
+from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer")
+    .recipientList(simple("direct:${header.CamelCxfOperationName}"));
+----
+
+==== Behaviour change: cross-transport propagation of the operation header
+
+Because the renamed header value now begins with `Camel`, it is filtered by the
+standard transport `HeaderFilterStrategy` (`JmsHeaderFilterStrategy`,
+`HttpHeaderFilterStrategy`, etc.) when crossing a transport boundary, by design
+— `Camel*` headers are framework-internal and are not propagated over the wire.
+
+Routes that bridge an external transport (JMS, HTTP, ...) into a `cxf:` producer
+and select the SOAP operation from a header supplied by the sender must
+therefore carry the operation in a non-`Camel`-prefixed application header and
+map it to `CxfConstants.OPERATION_NAME` (`CamelCxfOperationName`) in the route
+between the transport `from` and the `cxf:` `to`:
+
+[source,xml]
+----
+<!-- before (pre-4.21) -->
+<route>
+    <from uri="jms:queue:bridge.cxf"/>
+    <to uri="cxf://bean:serviceEndpoint"/>
+</route>
+<!-- caller sets the header keyed by the pre-4.21 value:
+     setHeader("operationName", "greetMe") -->
+
+<!-- after -->
+<route>
+    <from uri="jms:queue:bridge.cxf"/>
+    <setHeader name="CamelCxfOperationName">
+        <simple>${header.operationName}</simple>
+    </setHeader>
+    <to uri="cxf://bean:serviceEndpoint"/>
+</route>
+<!-- caller sets a non-Camel-prefixed application carrier header (any name
+     that is not stripped by the transport HeaderFilterStrategy works);
+     the route restores the CXF operation header after the transport hop. -->
+----
+
+The same pattern applies to HTTP-based bridges (`platform-http`/`jetty`/`netty
+-http`/`http` -> `cxf:`) and any other transport whose default
+`HeaderFilterStrategy` filters `Camel*` headers.
+
 === camel-aws2-s3
 
 The `listObjects` operation now uses the `ListObjectsV2` AWS API instead of the deprecated `ListObjects` API.
@@ -540,6 +667,18 @@ built (CAMEL-23531). The pages have been split and now carry an explicit `2` or 
 The page titles are likewise disambiguated (`JSON Jackson 2` / `JSON Jackson 3`, etc.) and both
 variants now appear in the dataformats navigation. Update any external `xref:` links that point
 at the old filenames; routes referencing the dataformats by `name` are unaffected.
+
+=== camel-platform-http-main
+
+Two new optional configuration properties are available on both `camel.server.*` and `camel.management.*`
+for the embedded HTTP server:
+
+* `jwtIssuer` — when set, validates the `iss` (issuer) claim of incoming JWT tokens.
+* `jwtAudience` — comma-separated list of accepted audience values; when set, validates the `aud` (audience)
+  claim. A token is accepted if its `aud` claim matches any configured value.
+
+Both default to unset. When both are unset, JWT validation behaviour is unchanged (signature plus the
+default `exp` / `nbf` checks).
 
 === Deprecation of camel-ironmq
 

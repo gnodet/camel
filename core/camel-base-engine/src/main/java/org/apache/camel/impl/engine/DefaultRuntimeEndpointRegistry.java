@@ -25,8 +25,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.Endpoint;
+import org.apache.camel.Exchange;
 import org.apache.camel.spi.CamelEvent;
+import org.apache.camel.spi.CamelEvent.ExchangeCompletedEvent;
 import org.apache.camel.spi.CamelEvent.ExchangeCreatedEvent;
+import org.apache.camel.spi.CamelEvent.ExchangeFailedEvent;
 import org.apache.camel.spi.CamelEvent.ExchangeSendingEvent;
 import org.apache.camel.spi.CamelEvent.RouteAddedEvent;
 import org.apache.camel.spi.CamelEvent.RouteRemovedEvent;
@@ -260,21 +263,6 @@ public class DefaultRuntimeEndpointRegistry extends EventNotifierSupport impleme
             if (endpoint != null) {
                 String routeId = ece.getExchange().getFromRouteId();
                 String uri = endpoint.getEndpointUri();
-                // some components (e.g. rest-openapi) delegate to an underlying consumer (e.g. platform-http)
-                // whose exchange may not carry a fromRouteId; fall back to scanning inputs by URI
-                if (routeId == null) {
-                    for (Map.Entry<String, Set<String>> entry : inputs.entrySet()) {
-                        if (entry.getValue().contains(uri)) {
-                            routeId = entry.getKey();
-                            break;
-                        }
-                    }
-                }
-                // ensure the actual consumer URI is in inputs so getEndpointStatistics() can find it
-                Set<String> routeInputs = inputs.get(routeId);
-                if (routeInputs != null) {
-                    routeInputs.add(uri);
-                }
                 String key = asUtilizationKey(routeId, uri);
                 if (key != null) {
                     inputUtilization.onHit(key);
@@ -295,6 +283,28 @@ public class DefaultRuntimeEndpointRegistry extends EventNotifierSupport impleme
                     outputUtilization.onHit(key);
                 }
             }
+        } else if (event instanceof ExchangeCompletedEvent || event instanceof ExchangeFailedEvent) {
+            // InOut consumers send a reply back when the exchange completes;
+            // record this as an "out" hit on the consumer's fromEndpoint
+            CamelEvent.ExchangeEvent ee = (CamelEvent.ExchangeEvent) event;
+            Exchange exchange = ee.getExchange();
+            if (exchange.getPattern() != null && exchange.getPattern().isOutCapable()) {
+                Endpoint endpoint = exchange.getFromEndpoint();
+                if (endpoint != null) {
+                    String routeId = exchange.getFromRouteId();
+                    String uri = endpoint.getEndpointUri();
+                    Map<String, String> uris = outputs.get(routeId);
+                    if (uris != null) {
+                        uris.putIfAbsent(uri, uri);
+                    }
+                    if (extended) {
+                        String key = asUtilizationKey(routeId, uri);
+                        if (key != null) {
+                            outputUtilization.onHit(key);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -307,6 +317,8 @@ public class DefaultRuntimeEndpointRegistry extends EventNotifierSupport impleme
     public boolean isEnabled(CamelEvent event) {
         return enabled && event instanceof ExchangeCreatedEvent
                 || event instanceof ExchangeSendingEvent
+                || event instanceof ExchangeCompletedEvent
+                || event instanceof ExchangeFailedEvent
                 || event instanceof RouteAddedEvent
                 || event instanceof RouteRemovedEvent;
     }

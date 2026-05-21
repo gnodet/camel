@@ -798,7 +798,9 @@ such as in the following:
 
 The profile-specific configuration will override values in the common configuration.
 
-NOTE: You MUST include the properties files in the files path when using `camel run` or `camel export` to include the files, such as `camel run hello.java application.properties`.
+NOTE: Since Camel 4.21, the `camel run` and `camel export` commands auto-detect `application.properties`
+(and profile-specific variants such as `application-prod.properties`) in the current directory.
+You no longer need to list them explicitly on the command line.
 
 
 === Downloading JARs over the internet
@@ -887,7 +889,8 @@ This is useful for custom Camel distributions that require additional repositori
 export JAVA_TOOL_OPTIONS="-Dcamel.extra.repos=repo1=https://repo1.example.com/maven2,repo2=https://repo2.example.com/releases"
 ----
 
-When running Camel you need to include the properties file to use:
+When running Camel, `application.properties` in the current directory is auto-detected and included.
+You can also pass it explicitly if needed:
 
 [source,bash]
 ----
@@ -4207,7 +4210,7 @@ The follow options related to _exporting_ or _running_, can be configured in `ap
 
 // jbang options: START
 === Camel JBang configurations
-The camel.jbang supports 45 options, which are listed below.
+The camel.jbang supports 47 options, which are listed below.
 
 [width="100%",cols="2,5,^1,2",options="header"]
 |===
@@ -4224,6 +4227,7 @@ The camel.jbang supports 45 options, which are listed below.
 | *camel.jbang.download* | Whether to allow automatic downloading JAR dependencies (over the internet) | true | boolean
 | *camel.jbang.excludes* | Exclude files by name or pattern (Use commas to separate multiple files) |  | String
 | *camel.jbang.exportDir* | Directory where the project will be exported | . | String
+| *camel.jbang.fresh* | Whether to force using fresh (i.e. non-cached) resources | false | boolean
 | *camel.jbang.gav* | Maven coordinate (groupId:artifactId:version) |  | String
 | *camel.jbang.groovyFiles* | Additional groovy source files to export to src/main/resources/camel-groovy directory (Use commas to separate multiple files) |  | String
 | *camel.jbang.health* | Health check at /observe/health on local HTTP server (port 8080 by default) | false | boolean
@@ -4246,9 +4250,10 @@ The camel.jbang supports 45 options, which are listed below.
 | *camel.jbang.openApi* | File name of open-api spec file (JSON or YAML) to generate routes from the swagger/openapi API spec file. |  | String
 | *camel.jbang.packageScanJars* | Whether to automatic package scan JARs for custom Spring or Quarkus beans making them available for Camel JBang | false | boolean
 | *camel.jbang.prompt* | Allow user to type in required parameters in prompt if not present in application | false | boolean
-| *camel.jbang.quarkusArtifactId* | Quarkus Platform Maven artifactId |  | String
-| *camel.jbang.quarkusGroupId* | Quarkus Platform Maven groupId |  | String
-| *camel.jbang.quarkusVersion* | Quarkus Platform version |  | String
+| *camel.jbang.quarkusArtifactId* | artifactId of Quarkus Platform BOM |  | String
+| *camel.jbang.quarkusExtensionRegistryBaseUri* | The base URI of Quarkus Extension Registry |  | String
+| *camel.jbang.quarkusGroupId* | groupId of Quarkus Platform BOM |  | String
+| *camel.jbang.quarkusVersion* | version of Quarkus Platform BOM |  | String
 | *camel.jbang.repos* | Additional Maven repositories for download on-demand (Use commas to separate multiple repositories) |  | String
 | *camel.jbang.runtime* | Which runtime to use (camel-main, spring-boot, quarkus) |  | String
 | *camel.jbang.scriptFiles* | Additional shell script files to export to src/main/scripts directory |  | String
