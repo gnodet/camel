@@ -529,6 +529,109 @@ Once connected, you can navigate the available MCP Tools, Resources, and Prompts
 This is useful for understanding what data the server provides and for testing tool invocations
 before integrating with an AI coding assistant.
 
+== Getting Started
+
+This walkthrough demonstrates the full AI-assisted Camel workflow: use the catalog tools to build a route,
+launch it with `camel run`, then use the runtime tools to inspect and interact with the live application.
+The same MCP server provides both catalog and runtime capabilities.
+
+=== Prerequisites
+
+* https://www.jbang.dev/[JBang] installed and on your PATH
+* https://camel.apache.org/manual/camel-jbang.html[Camel JBang] installed (`jbang app install camel@apache/camel`)
+* An MCP-capable AI tool (Claude Code, VS Code with Copilot, JetBrains AI, etc.) configured as shown in the <<Setup>> section above
+
+=== Step 1: Ask the AI to build a route
+
+Start by asking your AI assistant to create a Camel route. The assistant uses the catalog tools to discover
+components, look up their documentation, build the route, and validate it:
+
+----
+Build me a Camel route that generates a message every 5 seconds with a random number,
+logs it, and sends it to a SEDA queue called "numbers".
+----
+
+The assistant uses `camel_catalog_component_doc` to look up the `timer`, `log`, and `seda` component options,
+builds a YAML route, and validates it with `camel_validate_yaml_dsl`. You can also use the
+`camel_build_integration` prompt for a more structured multi-step workflow.
+
+The result is a route file, for example `random-numbers.yaml`:
+
+[source,yaml]
+----
+- route:
+    from:
+      uri: timer:generate?period=5000
+      steps:
+        - setBody:
+            simple: "${random(1000)}"
+        - log: "Generated number: ${body}"
+        - to: seda:numbers
+----
+
+=== Step 2: Launch the route
+
+In AI tools that can execute shell commands (such as Claude Code), ask the assistant to launch the route:
+
+----
+Run this route with camel run
+----
+
+The assistant runs `camel run random-numbers.yaml` in the background. Alternatively, open a separate terminal
+and run it yourself:
+
+[source,bash]
+----
+camel run random-numbers.yaml
+----
+
+=== Step 3: Inspect the running application
+
+Once the route is running, use the runtime tools to inspect it:
+
+----
+Show me the running Camel processes and their route statistics
+----
+
+The assistant calls `camel_runtime_processes` to discover the running application, then `camel_runtime_routes`
+to show route state, message counts, and throughput. You can drill deeper:
+
+----
+Are there any health issues? What do the endpoints look like?
+----
+
+The assistant calls `camel_runtime_health` and `camel_runtime_endpoints` to provide a full picture of the
+live application.
+
+=== Step 4: Interact with the running application
+
+Try sending a test message or enabling tracing:
+
+----
+Enable message tracing so I can see the exchange flow, wait a few seconds,
+then show me the traced messages.
+----
+
+The assistant calls `camel_runtime_trace` with `action=enable`, waits, then calls it again with `action=dump`
+to show the message path through the route processors.
+
+----
+Browse the messages queued in the seda:numbers endpoint
+----
+
+The assistant calls `camel_runtime_browse` with `endpoint=seda:numbers` to show pending messages.
+
+=== Step 5: Debug and iterate
+
+If something goes wrong, combine catalog and runtime tools:
+
+----
+The route is showing errors. Diagnose the issue and suggest a fix.
+----
+
+The assistant calls `camel_runtime_health` and checks error details from `camel_runtime_routes`, then uses
+`camel_error_diagnose` (a catalog tool) to analyze the error and suggest fixes — all in one conversation.
+
 == Examples
 
 === Listing Components
