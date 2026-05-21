@@ -246,9 +246,7 @@ public class RuntimeTools {
             switch (action.toLowerCase()) {
                 case "enable" -> root.put("enabled", "true");
                 case "disable" -> root.put("enabled", "false");
-                case "dump" -> {
-                    // no extra keys needed — the handler returns current trace data by default
-                }
+                case "dump" -> root.put("dump", "true");
                 default -> throw new ToolCallException(
                         "Unknown trace action: " + action
                                                        + ". Use 'enable', 'disable', or 'dump'.",
