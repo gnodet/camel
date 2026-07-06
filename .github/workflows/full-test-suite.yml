@@ -1,0 +1,255 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Full Test Suite (flaky test hunt)
+
+on:
+  workflow_dispatch:
+    inputs:
+      java-version:
+        description: 'Java version to use'
+        required: true
+        default: '21'
+        type: choice
+        options:
+          - '17'
+          - '21'
+          - '25'
+      runs:
+        description: 'Number of times to run tests (higher = more flaky detection)'
+        required: true
+        default: '1'
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - id: install-packages
+        uses: ./.github/actions/install-packages
+      - id: install-mvnd
+        uses: ./.github/actions/install-mvnd
+      - name: Set up JDK ${{ inputs.java-version }}
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: ${{ inputs.java-version }}
+          cache: 'maven'
+      - name: Build without tests
+        run: |
+          ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd \
+            -B -V -e -ntp \
+            -P apache-snapshots \
+            -Dmvnd.threads=2 \
+            -Daether.connector.http.connectionMaxTtl=120 \
+            -Daether.connector.requestTimeout=300000 \
+            -Daether.dependencyCollector.impl=bf \
+            -Dmaven.artifact.threads=25 \
+            -DskipTests install
+      - name: Save Maven cache
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.m2/repository
+          key: full-test-m2-${{ github.sha }}-${{ inputs.java-version }}
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        group:
+          - name: "core-catalog-dsl"
+            pattern: "core/,catalog/,dsl/"
+          - name: "components-a-b"
+            pattern: "components/camel-a,components/camel-b"
+          - name: "components-c-d"
+            pattern: "components/camel-c,components/camel-d"
+          - name: "components-e-g"
+            pattern: "components/camel-e,components/camel-f,components/camel-g"
+          - name: "components-h-j"
+            pattern: "components/camel-h,components/camel-i,components/camel-j"
+          - name: "components-k-m"
+            pattern: "components/camel-k,components/camel-l,components/camel-m"
+          - name: "components-n-q"
+            pattern: "components/camel-n,components/camel-o,components/camel-p,components/camel-q"
+          - name: "components-r-s"
+            pattern: "components/camel-r,components/camel-s"
+          - name: "components-t-z"
+            pattern: "components/camel-t,components/camel-u,components/camel-v,components/camel-w,components/camel-x,components/camel-y,components/camel-z"
+          - name: "tests"
+            pattern: "tests/"
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - id: install-packages
+        uses: ./.github/actions/install-packages
+      - id: install-mvnd
+        uses: ./.github/actions/install-mvnd
+      - name: Set up JDK ${{ inputs.java-version }}
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: ${{ inputs.java-version }}
+          cache: 'maven'
+      - name: Restore Maven cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.m2/repository
+          key: full-test-m2-${{ github.sha }}-${{ inputs.java-version }}
+      - name: Discover modules for group ${{ matrix.group.name }}
+        id: discover
+        run: |
+          # Find all modules matching the group pattern
+          patterns="${{ matrix.group.pattern }}"
+          modules=""
+          IFS=',' read -ra PREFIXES <<< "$patterns"
+          for prefix in "${PREFIXES[@]}"; do
+            while IFS= read -r dir; do
+              if [[ -f "$dir/pom.xml" ]] && grep -q '<packaging>jar</packaging>\|<packaging>bundle</packaging>' "$dir/pom.xml" 2>/dev/null; then
+                if [[ -d "$dir/src/test" ]]; then
+                  if [[ -n "$modules" ]]; then
+                    modules="$modules,$dir"
+                  else
+                    modules="$dir"
+                  fi
+                fi
+              fi
+            done < <(find "$prefix" -name pom.xml -maxdepth 3 -not -path '*/target/*' -not -path '*/src/*' -not -path '*/.worktrees/*' -exec dirname {} \; 2>/dev/null | sort)
+          done
+          echo "modules=$modules" >> $GITHUB_OUTPUT
+          echo "Found modules:"
+          echo "$modules" | tr ',' '\n' | head -50
+          echo "Total: $(echo "$modules" | tr ',' '\n' | wc -l) modules"
+      - name: Run tests (attempt ${{ inputs.runs }})
+        if: steps.discover.outputs.modules != ''
+        run: |
+          modules="${{ steps.discover.outputs.modules }}"
+          run_count=${{ inputs.runs }}
+
+          for run in $(seq 1 $run_count); do
+            echo "========================================="
+            echo "Test run $run of $run_count"
+            echo "========================================="
+
+            ${{ steps.install-mvnd.outputs.mvnd-dir }}/mvnd \
+              -B -V -e -ntp \
+              -P apache-snapshots \
+              -Dmvnd.threads=2 \
+              -Daether.connector.http.connectionMaxTtl=120 \
+              -Daether.connector.requestTimeout=300000 \
+              -Daether.dependencyCollector.impl=bf \
+              -Dmaven.artifact.threads=25 \
+              -Dci.env.name=github.com \
+              -Dsurefire.rerunFailingTestsCount=0 \
+              -Dfailsafe.rerunFailingTestsCount=0 \
+              -Dmaven.test.failure.ignore=true \
+              install \
+              -pl "$modules" 2>&1 | tee "test-run-${run}.log"
+          done
+      - name: Collect test reports
+        if: always()
+        run: |
+          mkdir -p test-reports
+          # Find all surefire and failsafe XML reports
+          find . -path '*/target/surefire-reports/*.xml' -exec cp --parents {} test-reports/ \; 2>/dev/null || true
+          find . -path '*/target/failsafe-reports/*.xml' -exec cp --parents {} test-reports/ \; 2>/dev/null || true
+          # Parse failures
+          echo "## Test Failures for ${{ matrix.group.name }}" > test-reports/summary.md
+          echo "" >> test-reports/summary.md
+          failed_count=0
+          error_count=0
+          while IFS= read -r report; do
+            # Extract test failures from XML
+            if grep -q '<failure\|<error' "$report" 2>/dev/null; then
+              testclass=$(grep 'testcase' "$report" | head -1 | sed 's/.*name="\([^"]*\)".*/\1/' || true)
+              classname=$(grep 'testcase' "$report" | head -1 | sed 's/.*classname="\([^"]*\)".*/\1/' || true)
+              failures=$(grep -c '<failure' "$report" 2>/dev/null || echo "0")
+              errors=$(grep -c '<error' "$report" 2>/dev/null || echo "0")
+              if [[ $failures -gt 0 || $errors -gt 0 ]]; then
+                echo "- **$classname** ($failures failures, $errors errors)" >> test-reports/summary.md
+                failed_count=$((failed_count + failures))
+                error_count=$((error_count + errors))
+              fi
+            fi
+          done < <(find . -path '*/target/*-reports/TEST-*.xml' 2>/dev/null)
+          echo "" >> test-reports/summary.md
+          echo "Total: $failed_count failures, $error_count errors" >> test-reports/summary.md
+          cat test-reports/summary.md
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: test-reports-${{ matrix.group.name }}
+          path: |
+            test-reports/
+            test-run-*.log
+          retention-days: 7
+      - name: Upload surefire/failsafe reports
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: xml-reports-${{ matrix.group.name }}
+          path: |
+            **/target/surefire-reports/TEST-*.xml
+            **/target/failsafe-reports/TEST-*.xml
+          retention-days: 7
+
+  summarize:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all test reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-reports-*
+          path: all-reports
+      - name: Generate summary
+        run: |
+          echo "# Full Test Suite Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Java version: ${{ inputs.java-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "Test runs: ${{ inputs.runs }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          for dir in all-reports/test-reports-*/; do
+            group=$(basename "$dir" | sed 's/test-reports-//')
+            echo "## Group: $group" >> $GITHUB_STEP_SUMMARY
+            if [[ -f "$dir/summary.md" ]]; then
+              cat "$dir/summary.md" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "No summary available" >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "" >> $GITHUB_STEP_SUMMARY
+          done
