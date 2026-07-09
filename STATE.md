@@ -2,11 +2,11 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-09T22:30:00Z
+- **Timestamp:** 2026-07-09T22:45:00Z
 - **Branch checked:** main, camel-4.18.x
 - **Failures found:** 0
 - **Fixes proposed:** 0
-- **Status:** main in_progress (skipped), camel-4.18.x no runs (early exit)
+- **Status:** CI green on all watched branches (early exit)
 
 ## Active Failures
 
