@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(mvn *)",
+      "Bash(cd * && mvn *)",
+      "Read(*)",
+      "WebFetch(github.com/*)",
+      "WebFetch(issues.apache.org/*)"
+    ]
+  }
+}

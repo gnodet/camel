@@ -1,0 +1,6 @@
+{
+  "goal": "Keep watched branches CI green",
+  "pattern": "ci-sweeper",
+  "level": "L2",
+  "attempts": []
+}
