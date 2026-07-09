@@ -105,3 +105,17 @@ Append one entry per run. Prune entries older than 30 days.
   "outcome": "no-op"
 }
 ```
+
+```json
+{
+  "run_id": "2026-07-09T22:00:00Z",
+  "pattern": "ci-sweeper",
+  "duration_s": 4,
+  "branch": "main",
+  "failures_found": 0,
+  "fixes_proposed": 0,
+  "escalations": 0,
+  "tokens_estimate": 2000,
+  "outcome": "no-op"
+}
+```
