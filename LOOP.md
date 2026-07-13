@@ -10,7 +10,8 @@
 - Max failures acted on per run: 2
 - Max files changed per fix: 5 (larger scope = escalate)
 - Auto-merge: **disabled** (always draft PR)
-- Watched branches: `main`, `camel-4.18.x`
+| Watched branches | main, camel-4.18.x |
+| CI workflow | Main build |
 
 ## Human Gates
 
@@ -47,22 +48,22 @@ Main loop (orchestrator) → discover + classify inline
 
 | Skill | Role |
 |-------|------|
-| `/ci-sweeper` | Main orchestrator — discover, classify, dispatch, state |
-| `/ci-triage` | Classify each failure (flake, regression, infra) |
-| `/minimal-fix` | Craft smallest possible fix for a specific failure |
+| `/forgebot-ci-sweeper` | Main orchestrator — discover, classify, dispatch, state |
+| `/forgebot-ci-triage` | Classify each failure (flake, regression, infra) |
+| `/forgebot-minimal-fix` | Craft smallest possible fix for a specific failure |
 | `loop-verifier` (agent) | Independent checker — confirms fix is correct |
-| `/loop-guard` | Circuit breaker — checks attempt limits |
-| `/loop-budget` | Token spend tracking |
-| `/loop-constraints` | Binding rules (denylist paths, merge policy) |
+| `/forgebot-loop-guard` | Circuit breaker — checks attempt limits |
+| `/forgebot-loop-budget` | Token spend tracking |
+| `/forgebot-loop-constraints` | Binding rules (denylist paths, merge policy) |
 
 ## Invocation
 
 ```
 cd /path/to/camel-ci-sweeper && claude
-/loop 15m /ci-sweeper
+/loop 15m /forgebot-ci-sweeper
 ```
 
 Or for a single run:
 ```
-/ci-sweeper
+/forgebot-ci-sweeper
 ```

@@ -2,11 +2,13 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-10T00:00:00Z
+- **Timestamp:** 2026-07-10T20:37:00Z
 - **Branch checked:** main, camel-4.18.x
 - **Failures found:** 0
 - **Fixes proposed:** 0
-- **Status:** CI green on all watched branches (early exit)
+- **Status:** all green (early exit)
+- **Main CI run:** [29115837385](https://github.com/apache/camel/actions/runs/29115837385) — ✅ success (SHA 28607575)
+- **camel-4.18.x:** No CI workflow runs found on this branch
 
 ## Active Failures
 

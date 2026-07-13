@@ -4,30 +4,36 @@ This checkout is dedicated to running an automated CI sweeper loop for Apache Ca
 It monitors CI failures on `main` (and optionally release branches), classifies them,
 and proposes minimal fixes via PRs on the operator's fork.
 
-## Purpose
+## Skills
 
-Periodically check CI status on watched branches of `apache/camel`. When failures are
-detected, triage them (flake vs regression vs infra), and for actionable regressions,
-propose the smallest possible fix as a draft PR.
+This loop uses **forgebot-skills** (installed from
+`https://gitea.gnodet.fr/gnodet/forgebot-skills`). All skills are globally installed
+under `~/.claude/skills/forgebot-*` — there are no local skill overrides in this
+checkout.
 
-## Loop Configuration
+See `LOOP.md` for the full skill inventory and loop configuration.
 
-- **Pattern:** CI Sweeper (fix-capable)
-- **Cadence:** Run via `/loop` — recommended: `/loop 15m /ci-sweeper`
-- **Level:** L2 — fixes are proposed as draft PRs, never merged
-- **Watched branches:** `main`, `camel-4.18.x` (active maintenance)
-- **Max fix attempts per failure:** 3 (circuit breaker via loop-guard)
+## Quick Start
 
-## Architecture
+```bash
+# Single run
+/forgebot-ci-sweeper
 
-The loop uses a **triage-then-fix sub-agent pattern**:
+# Continuous loop with precondition (recommended)
+/loop 15m --precondition .claude/scripts/ci-sweeper-precondition.sh /forgebot-ci-sweeper
+```
 
-1. **Main loop** (orchestrator) — discovers failures, classifies inline
-2. **Implementer sub-agents** — one per fixable failure, spawned in worktrees.
-   Each uses the `minimal-fix` skill to produce the smallest diff.
-3. **Verifier sub-agents** — one per fix, spawned after implementers complete.
-   Each independently confirms the fix addresses root cause, passes tests,
-   and introduces no unrelated changes.
+### Precondition Script
+
+The loop uses a two-tier precondition (`.claude/scripts/ci-sweeper-precondition.sh`)
+to minimize API cost:
+
+1. **Tier 1 — ETag check**: Conditional request to GitHub Events API. A `304 Not
+   Modified` response means no repo activity — exits at **zero API cost**.
+2. **Tier 2 — CI check**: Only runs when ETag changes. Checks each watched branch
+   for a failed CI run (~1 API call per branch).
+
+The script reads watched branches and CI workflow name from `LOOP.md`.
 
 ## Safety Rules
 
@@ -49,11 +55,6 @@ All PRs and commits must include:
 
 And include:
 "_Claude Code on behalf of Guillaume Nodet_"
-
-## Maven
-
-When running Maven commands, always add `-B` (batch mode).
-For module-specific builds: `mvn clean install -B -pl <module> -am`
 
 ## State Tracking
 
