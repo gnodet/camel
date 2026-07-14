@@ -2,26 +2,25 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-13T07:51:27Z
+- **Timestamp:** 2026-07-14T20:39:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24648 | dependabot | Bump bouncycastle-version 1.84 → 1.85 | APPROVE | 2026-07-13T07:51:27Z |
-| #24647 | dependabot | Bump jackson-bom 3.2.0 → 3.2.1 | APPROVE | 2026-07-13T07:43:27Z |
-| #24646 | dependabot | Bump aws-java-sdk2 2.47.4 → 2.47.5 | APPROVE | 2026-07-13T07:43:28Z |
-| #24645 | davsclaus | CAMEL-24032: Rolling exchange throughput | APPROVE | 2026-07-13T07:43:25Z |
-| #24644 | oscerd | CAMEL-23847: PQC stream sign/verify | APPROVE | 2026-07-13T07:37:08Z |
-| #24643 | gnodet | CAMEL-24040: Fix flaky tests batch | COMMENT | 2026-07-13T07:36:53Z |
-| #24642 | github-actions | Upgrade Ollama 0.31.2 | APPROVE | 2026-07-13T07:36:34Z |
-| #24641 | github-actions | Upgrade Milvus v2.6.20 | APPROVE | 2026-07-13T07:36:33Z |
+| #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-14T20:38:46Z |
+| #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | COMMENT | 2026-07-14T20:38:55Z |
+| #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | REQUEST_CHANGES | 2026-07-14T20:39:02Z |
+| #24690 | davsclaus | CAMEL-23995: Fix saslAuthType overriding explicit securityProtocol | REQUEST_CHANGES | 2026-07-14T20:39:14Z |
+| #24670 | prasanthrao | CAMEL-24055: Quartz custom calendar name collision fix | APPROVE | 2026-07-14T04:15:00Z |
+| #24669 | davsclaus | CAMEL-24003: Pass F-keys through AI panel to TUI | APPROVE | 2026-07-13T20:15:00Z |
+| #24668 | gbhavya07 | CAMEL-23970: Mark sslEndpointAlgorithm insecure:ssl | REQUEST_CHANGES | 2026-07-13T19:25:00Z |
+| #24665 | ammachado | CAMEL-23703: native camel.exe bootstrap for Windows | COMMENT | 2026-07-14T20:39:22Z |
+| #24664 | ammachado | CAMEL-23703: camel-launcher Java runtime discovery | COMMENT | 2026-07-13T15:25:00Z |
+| #24660 | gnodet | CAMEL-24049: Fix flaky JMS Spring tests | COMMENT | 2026-07-13T12:00:00Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
-| #24638 | dependabot | Bump OpenTelemetry 1.63.0 → 1.64.0 | APPROVE | 2026-07-13T07:08:21Z |
-| #24637 | davsclaus | CAMEL-24003: BacklogTracer thread-safety | APPROVE | 2026-07-13T06:21:51Z |
-| #24622 | Croway | CAMEL-24025: observability-services docs | APPROVE | 2026-07-12T12:36:06Z |
-| #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-10T14:31:13Z |
+| #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-13T08:42:59Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
 | #24040 | dependabot | Bump IBM MQ client 10.0.0.0 | APPROVE | 2026-07-11T08:44:05Z |
 | #22560 | github-actions | Upgrade Milvus ppc64le v2.6.5 | APPROVE | 2026-07-11T08:44:18Z |
@@ -39,6 +38,33 @@ _(none)_
 
 | # | Author | Title | Verdict | Merged At |
 |---|--------|-------|---------|-----------|
+| #24667 | davsclaus | CAMEL-24054: POST dev consoles + eval-language vars | APPROVE | 2026-07-13 |
+| #24666 | ammachado | CAMEL-24053: Pin golden test fixtures to LF | APPROVE | 2026-07-13 |
+| #24663 | davsclaus | CAMEL-24003: Add heap dump command to CLI/TUI/MCP | COMMENT | 2026-07-13 |
+| #24662 | Croway | CAMEL-24052: Fix model dumpers destroying EndpointDSL builders | APPROVE | 2026-07-13 |
+| #24661 | davsclaus | CAMEL-23877: Fix camel-pinecone tls default + insecure:ssl | APPROVE | 2026-07-13 |
+| #24650 | gnodet | CAMEL-24042: Fix flaky tests batch 10 | COMMENT | 2026-07-13 |
+| #24659 | JiriOndrusek | chore: fix absolute links in MCP docs | APPROVE | 2026-07-13 |
+| #24600 | davsclaus | CAMEL-24003: Add live activity tracking | APPROVE | 2026-07-13 |
+| #24658 | gbhavya07 | CAMEL-24032: Rolling 1-min exchange rate | CLOSED | 2026-07-13 |
+| #24657 | Croway | CAMEL-24046: camel-sql cache thread-safety | APPROVE | 2026-07-13 |
+| #24656 | Croway | CAMEL-24045: camel-sql connection leak fix | APPROVE | 2026-07-13 |
+| #24655 | Croway | CAMEL-24044: camel-sql Postgres binding fix | APPROVE | 2026-07-13 |
+| #24654 | oscerd | CAMEL-23846: PQC NIST parameter set config | APPROVE | 2026-07-13 |
+| #24653 | davsclaus | chore: Adapt camel-pqc to BC 1.85 renames | APPROVE | 2026-07-13 |
+| #24652 | oscerd | [backport] CAMEL-23768: keycloak JWKS kid | APPROVE | 2026-07-13 |
+| #24649 | gnodet | CAMEL-24041: Fix flaky tests batch 9 | COMMENT | 2026-07-13 |
+| #24648 | dependabot | Bump bouncycastle-version 1.84 → 1.85 | CLOSED | 2026-07-13 |
+| #24647 | dependabot | Bump jackson-bom 3.2.0 → 3.2.1 | APPROVE | 2026-07-13 |
+| #24646 | dependabot | Bump aws-java-sdk2 2.47.4 → 2.47.5 | APPROVE | 2026-07-13 |
+| #24645 | davsclaus | CAMEL-24032: Rolling exchange throughput | APPROVE | 2026-07-13 |
+| #24644 | oscerd | CAMEL-23847: PQC stream sign/verify | APPROVE | 2026-07-13 |
+| #24643 | gnodet | CAMEL-24040: Fix flaky tests batch | COMMENT | 2026-07-13 |
+| #24642 | github-actions | Upgrade Ollama 0.31.2 | APPROVE | 2026-07-13 |
+| #24641 | github-actions | Upgrade Milvus v2.6.20 | APPROVE | 2026-07-13 |
+| #24638 | dependabot | Bump OpenTelemetry 1.63.0 → 1.64.0 | APPROVE | 2026-07-13 |
+| #24622 | Croway | CAMEL-24025: observability-services docs | APPROVE | 2026-07-13 |
+| #24637 | davsclaus | CAMEL-24003: BacklogTracer thread-safety | APPROVE | 2026-07-13 |
 | #24636 | gnodet | Fix flaky telemetry tests | COMMENT | 2026-07-13 |
 | #24635 | gnodet | Fix flaky scheduler/throttle tests | COMMENT | 2026-07-13 |
 | #24634 | gnodet | Fix flaky Kafka single message test | COMMENT | 2026-07-13 |
