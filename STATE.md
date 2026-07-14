@@ -2,13 +2,17 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-14T20:39:00Z
+- **Timestamp:** 2026-07-14T21:05:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
+| #24696 | davsclaus | CAMEL-24063: camel-kafka manual commit streaming fix | COMMENT | 2026-07-14T21:04:29Z |
+| #24694 | davsclaus | CAMEL-24060: Deprecate queueBufferingMaxMessages | APPROVE | 2026-07-14T21:04:37Z |
+| #24692 | davsclaus | CAMEL-24058: camel-kafka idempotent repository fixes | COMMENT | 2026-07-14T21:04:42Z |
+| #24691 | davsclaus | CAMEL-24057: camel-kafka idempotent repository improvements | COMMENT | 2026-07-14T21:04:50Z |
 | #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-14T20:38:46Z |
 | #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | COMMENT | 2026-07-14T20:38:55Z |
 | #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | REQUEST_CHANGES | 2026-07-14T20:39:02Z |
@@ -17,6 +21,7 @@
 | #24669 | davsclaus | CAMEL-24003: Pass F-keys through AI panel to TUI | APPROVE | 2026-07-13T20:15:00Z |
 | #24668 | gbhavya07 | CAMEL-23970: Mark sslEndpointAlgorithm insecure:ssl | REQUEST_CHANGES | 2026-07-13T19:25:00Z |
 | #24665 | ammachado | CAMEL-23703: native camel.exe bootstrap for Windows | COMMENT | 2026-07-14T20:39:22Z |
+| #24651 | gnodet | CAMEL-24042: Fix flaky tests batch 11 | COMMENT | 2026-07-14T21:04:20Z |
 | #24664 | ammachado | CAMEL-23703: camel-launcher Java runtime discovery | COMMENT | 2026-07-13T15:25:00Z |
 | #24660 | gnodet | CAMEL-24049: Fix flaky JMS Spring tests | COMMENT | 2026-07-13T12:00:00Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
