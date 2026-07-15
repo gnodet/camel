@@ -2,14 +2,15 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T19:25:00Z
+- **Timestamp:** 2026-07-15T19:50:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24719 | davsclaus | CAMEL-24068: camel-spring-rabbitmq - Align component replyTimeout default to 30000 | COMMENT | 2026-07-15T11:28:48Z |
+| #24721 | davsclaus | CAMEL-24069: camel-spring-rabbitmq - Use consumer exception handler for async failures | APPROVE | 2026-07-15T11:44:08Z |
+| #24719 | davsclaus | CAMEL-24068: camel-spring-rabbitmq - Align component replyTimeout default to 30000 | COMMENT | 2026-07-15T11:37:21Z |
 | #24718 | davsclaus | CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs | APPROVE | 2026-07-15T11:20:05Z |
 | #24717 | oscerd | CAMEL-24080: camel-aws2-kinesis - make consumer shard state thread-safe | APPROVE | 2026-07-15T11:20:19Z |
 | #24716 | oscerd | CAMEL-23843: Camel-PQC - sign and verify String payloads as UTF-8 | APPROVE | 2026-07-15T11:20:48Z |
@@ -19,7 +20,7 @@
 | #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:45:59Z |
 | #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:24:48Z |
 | #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T09:21:07Z |
-| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T09:12:45Z |
+| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T11:40:45Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T10:31:33Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-15T10:00:52Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
