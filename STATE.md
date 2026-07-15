@@ -2,7 +2,7 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T20:15:00Z
+- **Timestamp:** 2026-07-15T20:30:00Z
 - **Status:** active
 
 ## Reviewed PRs
@@ -11,7 +11,7 @@
 |---|--------|-------|---------|-------------|
 | #24722 | davsclaus | CAMEL-24083: camel-sjms - Use consumer exception handler for async failures | APPROVE | 2026-07-15T11:55:23Z |
 | #24721 | davsclaus | CAMEL-24069: camel-spring-rabbitmq - Use consumer exception handler for async failures | APPROVE | 2026-07-15T11:48:30Z |
-| #24719 | davsclaus | CAMEL-24068: camel-spring-rabbitmq - Align component replyTimeout default to 30000 | COMMENT | 2026-07-15T11:37:21Z |
+| #24719 | davsclaus | CAMEL-24068: camel-spring-rabbitmq - Align component replyTimeout default to 30000 | COMMENT | 2026-07-15T12:01:33Z |
 | #24718 | davsclaus | CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs | APPROVE | 2026-07-15T11:20:05Z |
 | #24717 | oscerd | CAMEL-24080: camel-aws2-kinesis - make consumer shard state thread-safe | APPROVE | 2026-07-15T11:48:29Z |
 | #24716 | oscerd | CAMEL-23843: Camel-PQC - sign and verify String payloads as UTF-8 | APPROVE | 2026-07-15T11:20:48Z |
