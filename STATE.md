@@ -2,13 +2,14 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T07:30:00Z
+- **Timestamp:** 2026-07-15T07:48:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
+| #24699 | davsclaus | [backport camel-4.18.x] CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-15T07:16:44Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T05:59:03Z |
 | #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | COMMENT | 2026-07-14T21:04:30Z |
 | #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub channel in camel-zeebe | COMMENT | 2026-07-15T05:48:19Z |
