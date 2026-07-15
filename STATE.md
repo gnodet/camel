@@ -2,14 +2,14 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T15:35:00Z
+- **Timestamp:** 2026-07-15T15:50:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:18:29Z |
+| #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:22:34Z |
 | #24711 | davsclaus | CAMEL-24065: camel-spring EventComponent ConcurrentModificationException | APPROVE | 2026-07-15T09:46:11Z |
 | #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T10:19:03Z |
 | #24707 | davsclaus | CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names | APPROVE | 2026-07-15T10:17:08Z |
