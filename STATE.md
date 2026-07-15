@@ -2,17 +2,17 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T11:05:00Z
+- **Timestamp:** 2026-07-15T11:25:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T08:36:33Z |
-| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T07:33:09Z |
-| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T08:11:53Z |
-| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T08:30:02Z |
+| #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T08:39:51Z |
+| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T08:39:32Z |
+| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T08:38:39Z |
+| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T08:40:54Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-14T21:09:00Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
