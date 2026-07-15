@@ -2,7 +2,7 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T16:25:00Z
+- **Timestamp:** 2026-07-15T16:50:00Z
 - **Status:** active
 
 ## Reviewed PRs
@@ -10,13 +10,13 @@
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
 | #24713 | gnodet | Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz | COMMENT | 2026-07-15T10:33:14Z |
-| #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:22:34Z |
+| #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:45:59Z |
 | #24711 | davsclaus | CAMEL-24065: camel-spring EventComponent ConcurrentModificationException | APPROVE | 2026-07-15T10:26:22Z |
 | #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T10:26:16Z |
 | #24707 | davsclaus | CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names | APPROVE | 2026-07-15T10:17:08Z |
 | #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T09:21:07Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T09:12:45Z |
-| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T09:40:44Z |
+| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T10:45:48Z |
 | #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T10:30:06Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-15T10:00:52Z |
