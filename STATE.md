@@ -2,13 +2,14 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T12:25:00Z
+- **Timestamp:** 2026-07-15T12:45:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
+| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T09:14:12Z |
 | #24707 | davsclaus | CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names | APPROVE | 2026-07-15T09:01:20Z |
 | #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T08:40:57Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T08:41:00Z |
