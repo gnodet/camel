@@ -2,7 +2,7 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T19:10:00Z
+- **Timestamp:** 2026-07-15T19:15:00Z
 - **Status:** active
 
 ## Reviewed PRs
@@ -16,13 +16,13 @@
 | #24714 | davsclaus | CAMEL-24067: Fix SpringInjector not injecting CamelContext into CamelContextAware | APPROVE | 2026-07-15T11:14:19Z |
 | #24713 | gnodet | Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz | COMMENT | 2026-07-15T10:53:16Z |
 | #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:45:59Z |
-| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:15:59Z |
+| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:24:48Z |
 | #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T09:21:07Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T09:12:45Z |
-| #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
+| #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T10:31:33Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-15T10:00:52Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
-| #24040 | dependabot | Bump IBM MQ client 10.0.0.0 | APPROVE | 2026-07-11T08:44:05Z |
+| #24040 | dependabot | Bump IBM MQ client 10.0.0.0 | APPROVE | 2026-07-11T08:44:06Z |
 | #22560 | github-actions | Upgrade Milvus ppc64le v2.6.5 | APPROVE | 2026-07-11T08:44:18Z |
 | #22158 | gnodet | CAMEL-23239: camel-state-store | COMMENT | 2026-07-11T11:56:52Z |
 
