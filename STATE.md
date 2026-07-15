@@ -2,27 +2,23 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T18:45:00Z
+- **Timestamp:** 2026-07-15T19:10:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24718 | davsclaus | CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs | APPROVE | 2026-07-15T11:12:14Z |
-| #24717 | oscerd | CAMEL-24080: camel-aws2-kinesis - make consumer shard state thread-safe | APPROVE | 2026-07-15T11:11:46Z |
-| #24716 | oscerd | CAMEL-23843: Camel-PQC - sign and verify String payloads as UTF-8 | APPROVE | 2026-07-15T11:11:14Z |
-| #24715 | davsclaus | CAMEL-24079: Fix QuartzScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T11:03:33Z |
-| #24714 | davsclaus | CAMEL-24067: Fix SpringInjector not injecting CamelContext into CamelContextAware | APPROVE | 2026-07-15T10:54:10Z |
+| #24718 | davsclaus | CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs | APPROVE | 2026-07-15T11:20:05Z |
+| #24717 | oscerd | CAMEL-24080: camel-aws2-kinesis - make consumer shard state thread-safe | APPROVE | 2026-07-15T11:20:19Z |
+| #24716 | oscerd | CAMEL-23843: Camel-PQC - sign and verify String payloads as UTF-8 | APPROVE | 2026-07-15T11:20:48Z |
+| #24715 | davsclaus | CAMEL-24079: Fix QuartzScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T11:16:21Z |
+| #24714 | davsclaus | CAMEL-24067: Fix SpringInjector not injecting CamelContext into CamelContextAware | APPROVE | 2026-07-15T11:14:19Z |
 | #24713 | gnodet | Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz | COMMENT | 2026-07-15T10:53:16Z |
 | #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:45:59Z |
-| #24711 | davsclaus | CAMEL-24065: camel-spring EventComponent ConcurrentModificationException | APPROVE | 2026-07-15T10:26:22Z |
-| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:08:32Z |
-| #24707 | davsclaus | CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names | APPROVE | 2026-07-15T10:17:08Z |
+| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:15:59Z |
 | #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T09:21:07Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T09:12:45Z |
-| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T10:45:48Z |
-| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T10:30:06Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-15T10:00:52Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
@@ -42,6 +38,10 @@ _(none)_
 
 | # | Author | Title | Verdict | Merged At |
 |---|--------|-------|---------|-----------|
+| #24711 | davsclaus | CAMEL-24065: camel-spring EventComponent ConcurrentModificationException | APPROVE | 2026-07-15 |
+| #24707 | davsclaus | CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names | APPROVE | 2026-07-15 |
+| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15 |
+| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15 |
 | #24701 | davsclaus | [backport camel-4.18.x] CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | APPROVE | 2026-07-15 |
 | #24699 | davsclaus | [backport camel-4.18.x] CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-15 |
 | #24691 | davsclaus | CAMEL-23996: Fix KafkaIdempotentRepository correctness bugs | APPROVE | 2026-07-15 |
