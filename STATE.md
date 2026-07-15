@@ -2,13 +2,14 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T17:05:00Z
+- **Timestamp:** 2026-07-15T17:20:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
+| #24714 | davsclaus | CAMEL-24067: Fix SpringInjector not injecting CamelContext into CamelContextAware | APPROVE | 2026-07-15T10:50:46Z |
 | #24713 | gnodet | Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz | COMMENT | 2026-07-15T10:46:14Z |
 | #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:45:59Z |
 | #24711 | davsclaus | CAMEL-24065: camel-spring EventComponent ConcurrentModificationException | APPROVE | 2026-07-15T10:26:22Z |
