@@ -2,20 +2,19 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T08:40:00Z
+- **Timestamp:** 2026-07-15T08:55:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24701 | davsclaus | [backport camel-4.18.x] CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | APPROVE | 2026-07-15T07:28:55Z |
+| #24701 | davsclaus | [backport camel-4.18.x] CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | APPROVE | 2026-07-15T07:30:03Z |
 | #24699 | davsclaus | [backport camel-4.18.x] CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-15T07:24:16Z |
-| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T05:59:03Z |
+| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T07:31:01Z |
 | #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T07:23:57Z |
-| #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub channel in camel-zeebe | COMMENT | 2026-07-15T05:48:19Z |
 | #24691 | davsclaus | CAMEL-23996: Fix KafkaIdempotentRepository correctness bugs | APPROVE | 2026-07-15T07:08:42Z |
-| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T05:52:35Z |
+| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T07:29:11Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-14T21:09:00Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
@@ -35,6 +34,7 @@ _(none)_
 
 | # | Author | Title | Verdict | Merged At |
 |---|--------|-------|---------|-----------|
+| #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub channel in camel-zeebe | COMMENT | 2026-07-15 |
 | #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-15 |
 | #24694 | davsclaus | CAMEL-24060: Deprecate queueBufferingMaxMessages | APPROVE | 2026-07-15 |
 | #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | APPROVE | 2026-07-15 |
