@@ -2,7 +2,7 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T05:42:00Z
+- **Timestamp:** 2026-07-15T05:51:00Z
 - **Status:** active
 
 ## Reviewed PRs
@@ -15,7 +15,7 @@
 | #24691 | davsclaus | CAMEL-24057: camel-kafka idempotent repository improvements | COMMENT | 2026-07-14T21:04:50Z |
 | #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-14T22:29:17Z |
 | #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | COMMENT | 2026-07-14T20:38:55Z |
-| #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | REQUEST_CHANGES | 2026-07-14T20:39:02Z |
+| #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | APPROVE | 2026-07-15T05:50:56Z |
 | #24690 | davsclaus | CAMEL-23995: Fix saslAuthType overriding explicit securityProtocol | APPROVE | 2026-07-15T05:39:44Z |
 | #24670 | prasanthrao | CAMEL-24055: Quartz custom calendar name collision fix | APPROVE | 2026-07-14T04:15:00Z |
 | #24669 | davsclaus | CAMEL-24003: Pass F-keys through AI panel to TUI | APPROVE | 2026-07-13T20:15:00Z |
