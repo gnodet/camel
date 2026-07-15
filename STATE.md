@@ -2,14 +2,14 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T20:00:00Z
+- **Timestamp:** 2026-07-15T20:15:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24722 | davsclaus | CAMEL-24083: camel-sjms - Use consumer exception handler for async failures | APPROVE | 2026-07-15T11:46:31Z |
+| #24722 | davsclaus | CAMEL-24083: camel-sjms - Use consumer exception handler for async failures | APPROVE | 2026-07-15T11:55:23Z |
 | #24721 | davsclaus | CAMEL-24069: camel-spring-rabbitmq - Use consumer exception handler for async failures | APPROVE | 2026-07-15T11:48:30Z |
 | #24719 | davsclaus | CAMEL-24068: camel-spring-rabbitmq - Align component replyTimeout default to 30000 | COMMENT | 2026-07-15T11:37:21Z |
 | #24718 | davsclaus | CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs | APPROVE | 2026-07-15T11:20:05Z |
