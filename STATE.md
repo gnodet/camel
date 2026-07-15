@@ -2,13 +2,16 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T18:25:00Z
+- **Timestamp:** 2026-07-15T18:45:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
+| #24718 | davsclaus | CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs | APPROVE | 2026-07-15T11:12:14Z |
+| #24717 | oscerd | CAMEL-24080: camel-aws2-kinesis - make consumer shard state thread-safe | APPROVE | 2026-07-15T11:11:46Z |
+| #24716 | oscerd | CAMEL-23843: Camel-PQC - sign and verify String payloads as UTF-8 | APPROVE | 2026-07-15T11:11:14Z |
 | #24715 | davsclaus | CAMEL-24079: Fix QuartzScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T11:03:33Z |
 | #24714 | davsclaus | CAMEL-24067: Fix SpringInjector not injecting CamelContext into CamelContextAware | APPROVE | 2026-07-15T10:54:10Z |
 | #24713 | gnodet | Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz | COMMENT | 2026-07-15T10:53:16Z |
