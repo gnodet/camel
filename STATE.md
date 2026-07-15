@@ -2,7 +2,7 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T18:10:00Z
+- **Timestamp:** 2026-07-15T18:25:00Z
 - **Status:** active
 
 ## Reviewed PRs
@@ -14,7 +14,7 @@
 | #24713 | gnodet | Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz | COMMENT | 2026-07-15T10:53:16Z |
 | #24712 | davsclaus | CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false | APPROVE | 2026-07-15T10:45:59Z |
 | #24711 | davsclaus | CAMEL-24065: camel-spring EventComponent ConcurrentModificationException | APPROVE | 2026-07-15T10:26:22Z |
-| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:05:14Z |
+| #24710 | davsclaus | CAMEL-24048: camel-sql stale remove, idempotent race, lexer error | APPROVE | 2026-07-15T11:08:32Z |
 | #24707 | davsclaus | CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names | APPROVE | 2026-07-15T10:17:08Z |
 | #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T09:21:07Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T09:12:45Z |
