@@ -2,7 +2,7 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T06:28:00Z
+- **Timestamp:** 2026-07-15T07:09:00Z
 - **Status:** active
 
 ## Reviewed PRs
@@ -13,7 +13,7 @@
 | #24696 | davsclaus | CAMEL-24063: camel-kafka manual commit streaming fix | COMMENT | 2026-07-14T21:04:29Z |
 | #24694 | davsclaus | CAMEL-24060: Deprecate queueBufferingMaxMessages | APPROVE | 2026-07-14T21:04:37Z |
 | #24692 | davsclaus | CAMEL-24058: camel-kafka idempotent repository fixes | COMMENT | 2026-07-14T21:04:42Z |
-| #24691 | davsclaus | CAMEL-24057: camel-kafka idempotent repository improvements | COMMENT | 2026-07-14T21:04:50Z |
+| #24691 | davsclaus | CAMEL-23996: camel-kafka idempotent repository fixes | APPROVE | 2026-07-15T07:08:42Z |
 | #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-14T22:29:17Z |
 | #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | COMMENT | 2026-07-15T05:48:19Z |
 | #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | APPROVE | 2026-07-15T06:26:11Z |
