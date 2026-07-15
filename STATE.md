@@ -2,29 +2,18 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T07:09:00Z
+- **Timestamp:** 2026-07-15T07:30:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
-| #24698 | gnodet | CAMEL-24063: Fix flaky tests JMS/Seda/Disruptor/Scheduler/Direct | COMMENT | 2026-07-15T05:59:03Z |
-| #24696 | davsclaus | CAMEL-24063: camel-kafka manual commit streaming fix | COMMENT | 2026-07-14T21:04:29Z |
-| #24694 | davsclaus | CAMEL-24060: Deprecate queueBufferingMaxMessages | APPROVE | 2026-07-14T21:04:37Z |
-| #24692 | davsclaus | CAMEL-24058: camel-kafka idempotent repository fixes | COMMENT | 2026-07-14T21:04:42Z |
-| #24691 | davsclaus | CAMEL-23996: camel-kafka idempotent repository fixes | APPROVE | 2026-07-15T07:08:42Z |
-| #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-14T22:29:17Z |
-| #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe | COMMENT | 2026-07-15T05:48:19Z |
-| #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | APPROVE | 2026-07-15T06:26:11Z |
-| #24690 | davsclaus | CAMEL-23995: Fix saslAuthType overriding explicit securityProtocol | APPROVE | 2026-07-15T06:18:36Z |
-| #24670 | prasanthrao | CAMEL-24055: Quartz custom calendar name collision fix | APPROVE | 2026-07-14T04:15:00Z |
-| #24669 | davsclaus | CAMEL-24003: Pass F-keys through AI panel to TUI | APPROVE | 2026-07-13T20:15:00Z |
-| #24668 | gbhavya07 | CAMEL-23970: Mark sslEndpointAlgorithm insecure:ssl | REQUEST_CHANGES | 2026-07-13T19:25:00Z |
-| #24665 | ammachado | CAMEL-23703: native camel.exe bootstrap for Windows | APPROVE | 2026-07-15T05:58:35Z |
-| #24651 | gnodet | CAMEL-24043: Fix flaky tests batch 11 | COMMENT | 2026-07-15T05:52:35Z |
-| #24664 | ammachado | CAMEL-23703: camel-launcher Java runtime discovery | COMMENT | 2026-07-13T15:25:00Z |
-| #24660 | gnodet | CAMEL-24049: Fix flaky JMS Spring tests | COMMENT | 2026-07-13T12:00:00Z |
+| #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T05:59:03Z |
+| #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | COMMENT | 2026-07-14T21:04:30Z |
+| #24695 | davsclaus | CAMEL-24061: Wire OAuth credentials onto gRPC stub channel in camel-zeebe | COMMENT | 2026-07-15T05:48:19Z |
+| #24691 | davsclaus | CAMEL-23996: Fix KafkaIdempotentRepository correctness bugs | APPROVE | 2026-07-15T07:08:42Z |
+| #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T05:52:35Z |
 | #24640 | github-actions | Upgrade IBM MQ 10.0.0.0-r2 | APPROVE | 2026-07-13T07:36:27Z |
 | #24473 | zbendhiba | CAMEL-23382: camel-ai-tool | APPROVE | 2026-07-14T21:09:00Z |
 | #24320 | renjth-81 | CAMEL-23338: OpenSearchClient param | COMMENT | 2026-07-11T08:42:28Z |
@@ -44,6 +33,17 @@ _(none)_
 
 | # | Author | Title | Verdict | Merged At |
 |---|--------|-------|---------|-----------|
+| #24697 | davsclaus | CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy | APPROVE | 2026-07-15 |
+| #24694 | davsclaus | CAMEL-24060: Deprecate queueBufferingMaxMessages | APPROVE | 2026-07-15 |
+| #24693 | davsclaus | CAMEL-23997: Fix medium-severity findings from camel-kafka review | APPROVE | 2026-07-15 |
+| #24692 | davsclaus | CAMEL-24058: camel-kafka idempotent repository fixes | COMMENT | 2026-07-15 |
+| #24690 | davsclaus | CAMEL-23995: Fix saslAuthType overriding explicit securityProtocol | APPROVE | 2026-07-15 |
+| #24670 | prasanthrao | CAMEL-24055: Quartz custom calendar name collision fix | APPROVE | 2026-07-15 |
+| #24669 | davsclaus | CAMEL-24003: Pass F-keys through AI panel to TUI | APPROVE | 2026-07-15 |
+| #24668 | gbhavya07 | CAMEL-23970: Mark sslEndpointAlgorithm insecure:ssl | REQUEST_CHANGES | 2026-07-15 |
+| #24665 | ammachado | CAMEL-23703: native camel.exe bootstrap for Windows | APPROVE | 2026-07-15 |
+| #24664 | ammachado | CAMEL-23703: camel-launcher Java runtime discovery | COMMENT | 2026-07-15 |
+| #24660 | gnodet | CAMEL-24049: Fix flaky JMS Spring tests | COMMENT | 2026-07-15 |
 | #24667 | davsclaus | CAMEL-24054: POST dev consoles + eval-language vars | APPROVE | 2026-07-13 |
 | #24666 | ammachado | CAMEL-24053: Pin golden test fixtures to LF | APPROVE | 2026-07-13 |
 | #24663 | davsclaus | CAMEL-24003: Add heap dump command to CLI/TUI/MCP | COMMENT | 2026-07-13 |
