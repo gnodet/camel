@@ -2,13 +2,14 @@
 
 ## Last Run
 
-- **Timestamp:** 2026-07-15T10:50:00Z
+- **Timestamp:** 2026-07-15T11:05:00Z
 - **Status:** active
 
 ## Reviewed PRs
 
 | # | Author | Title | Verdict | Reviewed At |
 |---|--------|-------|---------|-------------|
+| #24705 | Croway | CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping | APPROVE | 2026-07-15T08:36:33Z |
 | #24698 | gnodet | CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct | COMMENT | 2026-07-15T07:33:09Z |
 | #24696 | davsclaus | CAMEL-23997: Fix manual commit mode auto-committing offsets | APPROVE | 2026-07-15T08:11:53Z |
 | #24651 | gnodet | CAMEL-24043: Fix flaky tests (batch 11) | COMMENT | 2026-07-15T08:30:02Z |
