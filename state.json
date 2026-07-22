@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T20:00:59Z",
+    "timestamp": "2026-07-22T20:05:37Z",
     "prs_checked": 3,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -148,33 +148,43 @@
       "number": 25029,
       "title": "CAMEL-24242: camel-aws2-athena - stop ignoring thread interruption while polling",
       "author": "oscerd",
-      "reviewed_at": "2026-07-22T13:31:27Z",
+      "reviewed_at": "2026-07-22T20:05:37Z",
       "verdict": "APPROVE",
-      "notes": "Clean fix for interrupt regression from Task API migration",
+      "notes": "Re-review: no changes since previous APPROVE, additional approvals from davsclaus",
       "interactions": [
         {
           "at": "2026-07-22T13:31:27Z",
           "verdict": "APPROVE",
           "notes": "Clean fix for interrupt regression from Task API migration"
+        },
+        {
+          "at": "2026-07-22T20:05:37Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: no changes since previous APPROVE, additional approvals from davsclaus"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25028,
       "title": "CAMEL-24222: Add camel_dependency_security_audit tool for CVE analysis",
       "author": "oscerd",
-      "reviewed_at": "2026-07-22T13:31:27Z",
+      "reviewed_at": "2026-07-22T20:05:37Z",
       "verdict": "COMMENT",
-      "notes": "Well-structured CVE tool; 6 verified code quality findings",
+      "notes": "Re-review: 4 findings still unaddressed, no new commits, davsclaus raised design question",
       "interactions": [
         {
           "at": "2026-07-22T13:31:27Z",
           "verdict": "COMMENT",
           "notes": "Well-structured CVE tool; 6 verified code quality findings"
+        },
+        {
+          "at": "2026-07-22T20:05:37Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: 4 findings still unaddressed, no new commits, davsclaus raised design question"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25027,
@@ -196,17 +206,22 @@
       "number": 25026,
       "title": "CAMEL-24220: Add camel_security_scan tool for route security analysis",
       "author": "oscerd",
-      "reviewed_at": "2026-07-22T13:31:27Z",
+      "reviewed_at": "2026-07-22T20:05:37Z",
       "verdict": "REQUEST_CHANGES",
-      "notes": "7 verified findings incl 2 high-severity correctness bugs",
+      "notes": "Re-review: 5 findings still unaddressed, no new commits, only CI bot comments",
       "interactions": [
         {
           "at": "2026-07-22T13:31:27Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "7 verified findings incl 2 high-severity correctness bugs"
+        },
+        {
+          "at": "2026-07-22T20:05:37Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "Re-review: 5 findings still unaddressed, no new commits, only CI bot comments"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25024,
