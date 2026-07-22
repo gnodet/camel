@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T20:05:37Z",
-    "prs_checked": 3,
+    "timestamp": "2026-07-22T20:10:48Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
@@ -275,17 +275,22 @@
       "number": 25012,
       "title": "CAMEL-24236: camel-cyberark-vault - add support for cyberark policies",
       "author": "tdiesler",
-      "reviewed_at": "2026-07-22T14:23:14Z",
-      "verdict": "COMMENT",
-      "notes": "Minor doc inconsistency and test helper improvements",
+      "reviewed_at": "2026-07-22T20:10:48Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: author replied done but no new commits, 2 approvals, CI green, ready to merge",
       "interactions": [
         {
           "at": "2026-07-22T14:23:14Z",
           "verdict": "COMMENT",
           "notes": "Minor doc inconsistency and test helper improvements"
+        },
+        {
+          "at": "2026-07-22T20:10:48Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: author replied done but no new commits, 2 approvals, CI green, ready to merge"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25018,
@@ -413,9 +418,9 @@
       "number": 24997,
       "title": "CAMEL-24234: Fix double gzip decompression with HttpClient 5.6+",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-22T16:22:27Z",
+      "reviewed_at": "2026-07-22T20:10:48Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: contributor addressed AssertJ consistency note, all assertions now uniform",
+      "notes": "Re-review: no changes since our approval, stale CHANGES_REQUESTED from oscerd, 2 approvals, CI green",
       "interactions": [
         {
           "at": "2026-07-22T15:30:23Z",
@@ -431,9 +436,14 @@
           "at": "2026-07-22T16:22:27Z",
           "verdict": "APPROVE",
           "notes": "Re-review: contributor addressed AssertJ consistency note, all assertions now uniform"
+        },
+        {
+          "at": "2026-07-22T20:10:48Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: no changes since our approval, stale CHANGES_REQUESTED from oscerd, 2 approvals, CI green"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25031,
