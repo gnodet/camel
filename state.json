@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T15:56:14Z",
+    "timestamp": "2026-07-22T16:09:32Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -404,6 +404,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25031,
+      "title": "CAMEL-24231: camel-ftp - Fix pollNamedFile to use dynamic exchange for useList=false",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-22T16:09:32Z",
+      "verdict": "APPROVE",
+      "notes": "Clean follow-up to PR #24994, threads dynamic exchange through useList=false path",
+      "interactions": [
+        {
+          "at": "2026-07-22T16:09:32Z",
+          "verdict": "APPROVE",
+          "notes": "Clean follow-up to PR #24994, threads dynamic exchange through useList=false path"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
