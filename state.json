@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T14:23:19Z",
+    "timestamp": "2026-07-22T14:55:34Z",
     "prs_checked": 5,
     "reviews_posted": 5,
     "tokens_estimate": 0
@@ -300,6 +300,86 @@
           "at": "2026-07-22T14:23:14Z",
           "verdict": "COMMENT",
           "notes": "6 confirmed findings (redacted flag bug, dead code, missing docs), 2 false positives filtered"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25022,
+      "title": "[4.14.x] CAMEL-24240: Align all FHIR core dependencies",
+      "author": "jamesnetherton",
+      "reviewed_at": "2026-07-22T14:55:22Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of FHIR dependency alignment",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:55:22Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of FHIR dependency alignment"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25021,
+      "title": "[4.18.x] CAMEL-24240: Align all FHIR core dependencies",
+      "author": "jamesnetherton",
+      "reviewed_at": "2026-07-22T14:55:23Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of FHIR dependency alignment",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:55:23Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of FHIR dependency alignment"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25016,
+      "title": "CAMEL-24238: camel-aws2-ses - send RawMessage body content instead of the SdkBytes descriptor",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-22T14:55:26Z",
+      "verdict": "APPROVE",
+      "notes": "Clean SES bug fix backport to 4.18.x",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:55:26Z",
+          "verdict": "APPROVE",
+          "notes": "Clean SES bug fix backport to 4.18.x"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25015,
+      "title": "CAMEL-24238: camel-aws2-ses - send RawMessage body content instead of the SdkBytes descriptor",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-22T14:55:27Z",
+      "verdict": "APPROVE",
+      "notes": "Correct SES bug fix on main branch",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:55:27Z",
+          "verdict": "APPROVE",
+          "notes": "Correct SES bug fix on main branch"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25001,
+      "title": "CAMEL-23938: add Camel-managed session lock renewal for session-enabled Service Bus consumers",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-07-22T14:55:29Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "Fundamental session lock contention: acceptSession blocks because processor already holds exclusive lock",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:55:29Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "Fundamental session lock contention: acceptSession blocks because processor already holds exclusive lock"
         }
       ],
       "review_count": 1
