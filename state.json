@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T16:22:27Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-07-22T16:44:55Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -427,6 +427,22 @@
           "at": "2026-07-22T16:09:32Z",
           "verdict": "APPROVE",
           "notes": "Clean follow-up to PR #24994, threads dynamic exchange through useList=false path"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25032,
+      "title": "CAMEL-24242: camel-aws2-athena - stop ignoring thread interruption while polling a query",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-22T16:44:55Z",
+      "verdict": "APPROVE",
+      "notes": "Correct backport of interrupt fix from #25029 to camel-4.18.x",
+      "interactions": [
+        {
+          "at": "2026-07-22T16:44:55Z",
+          "verdict": "APPROVE",
+          "notes": "Correct backport of interrupt fix from #25029 to camel-4.18.x"
         }
       ],
       "review_count": 1
