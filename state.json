@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T16:09:32Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-07-22T16:22:27Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -276,17 +276,22 @@
       "number": 25018,
       "title": "CAMEL-24237: TUI Catalog tab doc viewer and EIP scope",
       "author": "davsclaus",
-      "reviewed_at": "2026-07-22T14:23:14Z",
+      "reviewed_at": "2026-07-22T16:22:27Z",
       "verdict": "APPROVE",
-      "notes": "Well-structured TUI feature, code follows patterns",
+      "notes": "Re-review: new commit is pure auto-regeneration (trailing spaces, nav re-sort, comment indentation)",
       "interactions": [
         {
           "at": "2026-07-22T14:23:14Z",
           "verdict": "APPROVE",
           "notes": "Well-structured TUI feature, code follows patterns"
+        },
+        {
+          "at": "2026-07-22T16:22:27Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: new commit is pure auto-regeneration (trailing spaces, nav re-sort, comment indentation)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25020,
@@ -388,9 +393,9 @@
       "number": 24997,
       "title": "CAMEL-24234: Fix double gzip decompression with HttpClient 5.6+",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-22T15:56:14Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: contributor addressed all critical findings, PR now test-only. Minor assertion style note.",
+      "reviewed_at": "2026-07-22T16:22:27Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: contributor addressed AssertJ consistency note, all assertions now uniform",
       "interactions": [
         {
           "at": "2026-07-22T15:30:23Z",
@@ -401,9 +406,14 @@
           "at": "2026-07-22T15:56:14Z",
           "verdict": "COMMENT",
           "notes": "Re-review: contributor addressed all critical findings, PR now test-only. Minor assertion style note."
+        },
+        {
+          "at": "2026-07-22T16:22:27Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: contributor addressed AssertJ consistency note, all assertions now uniform"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25031,
