@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T20:10:48Z",
-    "prs_checked": 2,
+    "timestamp": "2026-07-22T20:15:41Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
@@ -296,9 +296,9 @@
       "number": 25018,
       "title": "CAMEL-24237: TUI Catalog tab doc viewer and EIP scope",
       "author": "davsclaus",
-      "reviewed_at": "2026-07-22T18:46:11Z",
+      "reviewed_at": "2026-07-22T20:15:41Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: trivial formatting revert, no issues",
+      "notes": "Re-review: 3 new commits add TUI features (options viewer, TOC popup, scroll fix), clean code",
       "interactions": [
         {
           "at": "2026-07-22T14:23:14Z",
@@ -314,9 +314,14 @@
           "at": "2026-07-22T18:46:11Z",
           "verdict": "APPROVE",
           "notes": "Re-review: trivial formatting revert, no issues"
+        },
+        {
+          "at": "2026-07-22T20:15:41Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: 3 new commits add TUI features (options viewer, TOC popup, scroll fix), clean code"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25020,
