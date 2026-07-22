@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T16:44:55Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-07-22T18:46:12Z",
+    "prs_checked": 3,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -276,9 +276,9 @@
       "number": 25018,
       "title": "CAMEL-24237: TUI Catalog tab doc viewer and EIP scope",
       "author": "davsclaus",
-      "reviewed_at": "2026-07-22T16:22:27Z",
+      "reviewed_at": "2026-07-22T18:46:11Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: new commit is pure auto-regeneration (trailing spaces, nav re-sort, comment indentation)",
+      "notes": "Re-review: trivial formatting revert, no issues",
       "interactions": [
         {
           "at": "2026-07-22T14:23:14Z",
@@ -289,9 +289,14 @@
           "at": "2026-07-22T16:22:27Z",
           "verdict": "APPROVE",
           "notes": "Re-review: new commit is pure auto-regeneration (trailing spaces, nav re-sort, comment indentation)"
+        },
+        {
+          "at": "2026-07-22T18:46:11Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: trivial formatting revert, no issues"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25020,
@@ -443,6 +448,38 @@
           "at": "2026-07-22T16:44:55Z",
           "verdict": "APPROVE",
           "notes": "Correct backport of interrupt fix from #25029 to camel-4.18.x"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25033,
+      "title": "chore: Improve exchange pattern documentation to clarify behavior",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-22T18:46:12Z",
+      "verdict": "APPROVE",
+      "notes": "Clean docs improvement. CI fix needed for generated catalog files.",
+      "interactions": [
+        {
+          "at": "2026-07-22T18:46:12Z",
+          "verdict": "APPROVE",
+          "notes": "Clean docs improvement. CI fix needed for generated catalog files."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25034,
+      "title": "CAMEL-24245: Add camel-clickhouse component",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-07-22T18:46:12Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "6 verified findings: ssl/batchSize not applied, missing volatile, unrelated changes, missing skipITs",
+      "interactions": [
+        {
+          "at": "2026-07-22T18:46:12Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "6 verified findings: ssl/batchSize not applied, missing volatile, unrelated changes, missing skipITs"
         }
       ],
       "review_count": 1
