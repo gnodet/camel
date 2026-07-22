@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T14:55:34Z",
-    "prs_checked": 5,
-    "reviews_posted": 5,
+    "timestamp": "2026-07-22T15:30:23Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -380,6 +380,22 @@
           "at": "2026-07-22T14:55:29Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "Fundamental session lock contention: acceptSession blocks because processor already holds exclusive lock"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 24997,
+      "title": "CAMEL-24234: Fix double gzip decompression with HttpClient 5.6+",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-07-22T15:30:23Z",
+      "verdict": "COMMENT",
+      "notes": "Fix already exists on main (4a903e2b8f3c); PR should target camel-4.18.x as backport. Component-level flag concern.",
+      "interactions": [
+        {
+          "at": "2026-07-22T15:30:23Z",
+          "verdict": "COMMENT",
+          "notes": "Fix already exists on main (4a903e2b8f3c); PR should target camel-4.18.x as backport. Component-level flag concern."
         }
       ],
       "review_count": 1
