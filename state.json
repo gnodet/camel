@@ -1,0 +1,520 @@
+{
+  "version": "1.0",
+  "project": "apache/camel",
+  "project_name": "Apache Camel",
+  "loop_type": "review-loop",
+  "last_run": "2026-07-15T20:30:00Z",
+  "paused": false,
+  "reviewed_prs": [
+    {
+      "number": 24722,
+      "author": "davsclaus",
+      "title": "CAMEL-24083: camel-sjms - Use consumer exception handler for async failures",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:55:23Z"
+    },
+    {
+      "number": 24721,
+      "author": "davsclaus",
+      "title": "CAMEL-24069: camel-spring-rabbitmq - Use consumer exception handler for async failures",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:48:30Z"
+    },
+    {
+      "number": 24719,
+      "author": "davsclaus",
+      "title": "CAMEL-24068: camel-spring-rabbitmq - Align component replyTimeout default to 30000",
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-15T12:01:33Z"
+    },
+    {
+      "number": 24718,
+      "author": "davsclaus",
+      "title": "CAMEL-24081: ci - Do not run Windows launcher check on unrelated PRs",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:20:05Z"
+    },
+    {
+      "number": 24717,
+      "author": "oscerd",
+      "title": "CAMEL-24080: camel-aws2-kinesis - make consumer shard state thread-safe",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:48:29Z"
+    },
+    {
+      "number": 24716,
+      "author": "oscerd",
+      "title": "CAMEL-23843: Camel-PQC - sign and verify String payloads as UTF-8",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:20:48Z"
+    },
+    {
+      "number": 24715,
+      "author": "davsclaus",
+      "title": "CAMEL-24079: Fix QuartzScheduledPollConsumerScheduler ignoring startScheduler=false",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:46:28Z"
+    },
+    {
+      "number": 24714,
+      "author": "davsclaus",
+      "title": "CAMEL-24067: Fix SpringInjector not injecting CamelContext into CamelContextAware",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:14:19Z"
+    },
+    {
+      "number": 24713,
+      "author": "gnodet",
+      "title": "Fix flaky tests (batch 14): SSL, BacklogTracer, CXF timeout, Quartz",
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-15T10:53:16Z"
+    },
+    {
+      "number": 24712,
+      "author": "davsclaus",
+      "title": "CAMEL-24066: Fix SpringScheduledPollConsumerScheduler ignoring startScheduler=false",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T10:45:59Z"
+    },
+    {
+      "number": 24710,
+      "author": "davsclaus",
+      "title": "CAMEL-24048: camel-sql stale remove, idempotent race, lexer error",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T11:54:16Z"
+    },
+    {
+      "number": 24705,
+      "author": "Croway",
+      "title": "CAMEL-24064: Fix jackson3 module registration and JacksonException wrapping",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T09:21:07Z"
+    },
+    {
+      "number": 24698,
+      "author": "gnodet",
+      "title": "CAMEL-24063: Fix flaky tests in JMS, Seda, Disruptor, Scheduler, and Direct",
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-15T11:48:44Z"
+    },
+    {
+      "number": 24640,
+      "author": "github-actions",
+      "title": "Upgrade IBM MQ 10.0.0.0-r2",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-13T10:31:33Z"
+    },
+    {
+      "number": 24473,
+      "author": "zbendhiba",
+      "title": "CAMEL-23382: camel-ai-tool",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-15T10:00:52Z"
+    },
+    {
+      "number": 24320,
+      "author": "renjth-81",
+      "title": "CAMEL-23338: OpenSearchClient param",
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-11T08:42:28Z"
+    },
+    {
+      "number": 24040,
+      "author": "dependabot",
+      "title": "Bump IBM MQ client 10.0.0.0",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-11T08:44:06Z"
+    },
+    {
+      "number": 22560,
+      "author": "github-actions",
+      "title": "Upgrade Milvus ppc64le v2.6.5",
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-07-11T08:44:18Z"
+    },
+    {
+      "number": 22158,
+      "author": "gnodet",
+      "title": "CAMEL-23239: camel-state-store",
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-11T11:56:52Z"
+    }
+  ],
+  "skipped_prs": [],
+  "review_queue": [],
+  "escalated": [],
+  "resolved": [
+    {
+      "number": 24711,
+      "author": "davsclaus",
+      "title": "CAMEL-24065: camel-spring EventComponent ConcurrentModificationException",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24707,
+      "author": "davsclaus",
+      "title": "CAMEL-24047: camel-sql verifyTableName accepts schema-qualified names",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24696,
+      "author": "davsclaus",
+      "title": "CAMEL-23997: Fix manual commit mode auto-committing offsets",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24651,
+      "author": "gnodet",
+      "title": "CAMEL-24043: Fix flaky tests (batch 11)",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24701,
+      "author": "davsclaus",
+      "title": "[backport camel-4.18.x] CAMEL-24061: Wire OAuth credentials onto gRPC stub in camel-zeebe",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24699,
+      "author": "davsclaus",
+      "title": "[backport camel-4.18.x] CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24691,
+      "author": "davsclaus",
+      "title": "CAMEL-23996: Fix KafkaIdempotentRepository correctness bugs",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24695,
+      "author": "davsclaus",
+      "title": "CAMEL-24061: Wire OAuth credentials onto gRPC stub channel in camel-zeebe",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24697,
+      "author": "davsclaus",
+      "title": "CAMEL-24062: Fix Multicast EIP UseOriginalAggregationStrategy",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24694,
+      "author": "davsclaus",
+      "title": "CAMEL-24060: Deprecate queueBufferingMaxMessages",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24693,
+      "author": "davsclaus",
+      "title": "CAMEL-23997: Fix medium-severity findings from camel-kafka review",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24692,
+      "author": "davsclaus",
+      "title": "CAMEL-24058: camel-kafka idempotent repository fixes",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24690,
+      "author": "davsclaus",
+      "title": "CAMEL-23995: Fix saslAuthType overriding explicit securityProtocol",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24670,
+      "author": "prasanthrao",
+      "title": "CAMEL-24055: Quartz custom calendar name collision fix",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24669,
+      "author": "davsclaus",
+      "title": "CAMEL-24003: Pass F-keys through AI panel to TUI",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24668,
+      "author": "gbhavya07",
+      "title": "CAMEL-23970: Mark sslEndpointAlgorithm insecure:ssl",
+      "verdict": "REQUEST_CHANGES",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24665,
+      "author": "ammachado",
+      "title": "CAMEL-23703: native camel.exe bootstrap for Windows",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24664,
+      "author": "ammachado",
+      "title": "CAMEL-23703: camel-launcher Java runtime discovery",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24660,
+      "author": "gnodet",
+      "title": "CAMEL-24049: Fix flaky JMS Spring tests",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-15"
+    },
+    {
+      "number": 24667,
+      "author": "davsclaus",
+      "title": "CAMEL-24054: POST dev consoles + eval-language vars",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24666,
+      "author": "ammachado",
+      "title": "CAMEL-24053: Pin golden test fixtures to LF",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24663,
+      "author": "davsclaus",
+      "title": "CAMEL-24003: Add heap dump command to CLI/TUI/MCP",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24662,
+      "author": "Croway",
+      "title": "CAMEL-24052: Fix model dumpers destroying EndpointDSL builders",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24661,
+      "author": "davsclaus",
+      "title": "CAMEL-23877: Fix camel-pinecone tls default + insecure:ssl",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24650,
+      "author": "gnodet",
+      "title": "CAMEL-24042: Fix flaky tests batch 10",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24659,
+      "author": "JiriOndrusek",
+      "title": "chore: fix absolute links in MCP docs",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24600,
+      "author": "davsclaus",
+      "title": "CAMEL-24003: Add live activity tracking",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24658,
+      "author": "gbhavya07",
+      "title": "CAMEL-24032: Rolling 1-min exchange rate",
+      "verdict": "CLOSED",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24657,
+      "author": "Croway",
+      "title": "CAMEL-24046: camel-sql cache thread-safety",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24656,
+      "author": "Croway",
+      "title": "CAMEL-24045: camel-sql connection leak fix",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24655,
+      "author": "Croway",
+      "title": "CAMEL-24044: camel-sql Postgres binding fix",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24654,
+      "author": "oscerd",
+      "title": "CAMEL-23846: PQC NIST parameter set config",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24653,
+      "author": "davsclaus",
+      "title": "chore: Adapt camel-pqc to BC 1.85 renames",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24652,
+      "author": "oscerd",
+      "title": "[backport] CAMEL-23768: keycloak JWKS kid",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24649,
+      "author": "gnodet",
+      "title": "CAMEL-24041: Fix flaky tests batch 9",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24648,
+      "author": "dependabot",
+      "title": "Bump bouncycastle-version 1.84 \u2192 1.85",
+      "verdict": "CLOSED",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24647,
+      "author": "dependabot",
+      "title": "Bump jackson-bom 3.2.0 \u2192 3.2.1",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24646,
+      "author": "dependabot",
+      "title": "Bump aws-java-sdk2 2.47.4 \u2192 2.47.5",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24645,
+      "author": "davsclaus",
+      "title": "CAMEL-24032: Rolling exchange throughput",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24644,
+      "author": "oscerd",
+      "title": "CAMEL-23847: PQC stream sign/verify",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24643,
+      "author": "gnodet",
+      "title": "CAMEL-24040: Fix flaky tests batch",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24642,
+      "author": "github-actions",
+      "title": "Upgrade Ollama 0.31.2",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24641,
+      "author": "github-actions",
+      "title": "Upgrade Milvus v2.6.20",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24638,
+      "author": "dependabot",
+      "title": "Bump OpenTelemetry 1.63.0 \u2192 1.64.0",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24622,
+      "author": "Croway",
+      "title": "CAMEL-24025: observability-services docs",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24637,
+      "author": "davsclaus",
+      "title": "CAMEL-24003: BacklogTracer thread-safety",
+      "verdict": "APPROVE",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24636,
+      "author": "gnodet",
+      "title": "Fix flaky telemetry tests",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24635,
+      "author": "gnodet",
+      "title": "Fix flaky scheduler/throttle tests",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24634,
+      "author": "gnodet",
+      "title": "Fix flaky Kafka single message test",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24633,
+      "author": "gnodet",
+      "title": "Fix flaky file/seda/splitter/throttle tests",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24632,
+      "author": "gnodet",
+      "title": "Fix flaky JMS add/remove route test",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24631,
+      "author": "gnodet",
+      "title": "Fix flaky scheduler timing test",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    },
+    {
+      "number": 24630,
+      "author": "gnodet",
+      "title": "Fix flaky context suspend/resume tests",
+      "verdict": "COMMENT",
+      "merged_at": "2026-07-13"
+    }
+  ],
+  "created_at": "2026-07-11T08:00:00Z"
+}
