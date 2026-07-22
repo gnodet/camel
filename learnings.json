@@ -13,9 +13,9 @@
       },
       "pattern": "PR #25022 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
-      "confidence": 0.65,
-      "occurrences": 1,
-      "last_seen": "2026-07-22T14:55:54Z",
+      "confidence": 0.8,
+      "occurrences": 2,
+      "last_seen": "2026-07-22T15:30:09Z",
       "suppressed": false
     },
     {
@@ -29,9 +29,25 @@
       },
       "pattern": "PR #25021 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
+      "confidence": 0.8,
+      "occurrences": 2,
+      "last_seen": "2026-07-22T15:30:10Z",
+      "suppressed": false
+    },
+    {
+      "id": "135d8104-5920-401b-bdda-ede430f86332",
+      "type": "accepted",
+      "source": {
+        "pr": 25024,
+        "review_date": "2026-07-22T15:29:59Z",
+        "finding_rule": "review-25024",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25024 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
       "confidence": 0.65,
       "occurrences": 1,
-      "last_seen": "2026-07-22T14:55:56Z",
+      "last_seen": "2026-07-22T15:29:59Z",
       "suppressed": false
     }
   ]
