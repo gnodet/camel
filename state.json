@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T13:31:42Z",
+    "timestamp": "2026-07-22T14:23:19Z",
     "prs_checked": 5,
     "reviews_posted": 5,
     "tokens_estimate": 0
@@ -220,6 +220,86 @@
           "at": "2026-07-22T13:31:27Z",
           "verdict": "APPROVE",
           "notes": "Clean dependency version bump, both releases verified"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25006,
+      "title": "CAMEL-20428: camel-kafka - expose the batch-wide topic and partition on the batch exchange",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-22T14:23:14Z",
+      "verdict": "APPROVE",
+      "notes": "Clean additive feature, good test coverage",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:23:14Z",
+          "verdict": "APPROVE",
+          "notes": "Clean additive feature, good test coverage"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25017,
+      "title": "CAMEL-24238: camel-aws2-ses - send RawMessage body content instead of the SdkBytes descriptor",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-22T14:23:14Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of PR #25015 to 4.14.x",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:23:14Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of PR #25015 to 4.14.x"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25012,
+      "title": "CAMEL-24236: camel-cyberark-vault - add support for cyberark policies",
+      "author": "tdiesler",
+      "reviewed_at": "2026-07-22T14:23:14Z",
+      "verdict": "COMMENT",
+      "notes": "Minor doc inconsistency and test helper improvements",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:23:14Z",
+          "verdict": "COMMENT",
+          "notes": "Minor doc inconsistency and test helper improvements"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25018,
+      "title": "CAMEL-24237: TUI Catalog tab doc viewer and EIP scope",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-22T14:23:14Z",
+      "verdict": "APPROVE",
+      "notes": "Well-structured TUI feature, code follows patterns",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:23:14Z",
+          "verdict": "APPROVE",
+          "notes": "Well-structured TUI feature, code follows patterns"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25020,
+      "title": "CAMEL-24218: Add Security-First execution layer to Camel JBang MCP Server",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-22T14:23:14Z",
+      "verdict": "COMMENT",
+      "notes": "6 confirmed findings (redacted flag bug, dead code, missing docs), 2 false positives filtered",
+      "interactions": [
+        {
+          "at": "2026-07-22T14:23:14Z",
+          "verdict": "COMMENT",
+          "notes": "6 confirmed findings (redacted flag bug, dead code, missing docs), 2 false positives filtered"
         }
       ],
       "review_count": 1
