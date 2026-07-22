@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-22T15:30:23Z",
+    "timestamp": "2026-07-22T15:56:14Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -388,17 +388,22 @@
       "number": 24997,
       "title": "CAMEL-24234: Fix double gzip decompression with HttpClient 5.6+",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-22T15:30:23Z",
+      "reviewed_at": "2026-07-22T15:56:14Z",
       "verdict": "COMMENT",
-      "notes": "Fix already exists on main (4a903e2b8f3c); PR should target camel-4.18.x as backport. Component-level flag concern.",
+      "notes": "Re-review: contributor addressed all critical findings, PR now test-only. Minor assertion style note.",
       "interactions": [
         {
           "at": "2026-07-22T15:30:23Z",
           "verdict": "COMMENT",
           "notes": "Fix already exists on main (4a903e2b8f3c); PR should target camel-4.18.x as backport. Component-level flag concern."
+        },
+        {
+          "at": "2026-07-22T15:56:14Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: contributor addressed all critical findings, PR now test-only. Minor assertion style note."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
