@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T13:33:57Z",
-    "prs_checked": 4,
-    "reviews_posted": 4,
+    "timestamp": "2026-07-23T13:51:25Z",
+    "prs_checked": 3,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -585,9 +585,9 @@
       "number": 25050,
       "title": "CAMEL-24221: Add camel_runtime_ai_trace MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T13:11:19Z",
+      "reviewed_at": "2026-07-23T13:51:25Z",
       "verdict": "COMMENT",
-      "notes": "Re-review: all 6 prior findings fixed, new LangChain4j casing mismatch and modelId lookup bug",
+      "notes": "Re-review: previous 3 findings fixed, new categorizeHeader gaps for OpenAI/LangChain4j FinishReason/Tokens",
       "interactions": [
         {
           "at": "2026-07-23T09:38:21Z",
@@ -598,17 +598,22 @@
           "at": "2026-07-23T13:11:19Z",
           "verdict": "COMMENT",
           "notes": "Re-review: all 6 prior findings fixed, new LangChain4j casing mismatch and modelId lookup bug"
+        },
+        {
+          "at": "2026-07-23T13:51:25Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: previous 3 findings fixed, new categorizeHeader gaps for OpenAI/LangChain4j FinishReason/Tokens"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25051,
       "title": "CAMEL-24222: Add camel_dependency_security_audit MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T13:11:19Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: 5/7 addressed, new case-sensitivity bug in severity comparison",
+      "reviewed_at": "2026-07-23T13:51:25Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: case-sensitivity fix applied, all findings addressed",
       "interactions": [
         {
           "at": "2026-07-23T09:38:21Z",
@@ -619,9 +624,14 @@
           "at": "2026-07-23T13:11:19Z",
           "verdict": "COMMENT",
           "notes": "Re-review: 5/7 addressed, new case-sensitivity bug in severity comparison"
+        },
+        {
+          "at": "2026-07-23T13:51:25Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: case-sensitivity fix applied, all findings addressed"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25048,
@@ -648,9 +658,9 @@
       "number": 25052,
       "title": "CAMEL-24223: Add camel_route_cost_estimate MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T13:11:19Z",
+      "reviewed_at": "2026-07-23T13:51:25Z",
       "verdict": "COMMENT",
-      "notes": "Re-review: no changes since last review, only CI bot comment, all findings still unaddressed",
+      "notes": "Re-review: 3/4 original findings fixed, YAML regex bug persists (from:\\s+ captures uri)",
       "interactions": [
         {
           "at": "2026-07-23T09:57:19Z",
@@ -661,9 +671,14 @@
           "at": "2026-07-23T13:11:19Z",
           "verdict": "COMMENT",
           "notes": "Re-review: no changes since last review, only CI bot comment, all findings still unaddressed"
+        },
+        {
+          "at": "2026-07-23T13:51:25Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: 3/4 original findings fixed, YAML regex bug persists (from:\\s+ captures uri)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25054,
