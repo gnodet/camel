@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T14:20:54Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
-    "tokens_estimate": 102821
+    "timestamp": "2026-07-23T16:18:17Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
+    "tokens_estimate": 142850
   },
   "paused": false,
   "reviewed_prs": [
@@ -590,9 +590,9 @@
       "number": 25050,
       "title": "CAMEL-24221: Add camel_runtime_ai_trace MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T13:51:25Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: previous 3 findings fixed, new categorizeHeader gaps for OpenAI/LangChain4j FinishReason/Tokens",
+      "reviewed_at": "2026-07-23T16:18:17Z",
+      "verdict": "APPROVE",
+      "notes": "Header casing and categorizeHeader fixes verified",
       "interactions": [
         {
           "at": "2026-07-23T09:38:21Z",
@@ -608,9 +608,14 @@
           "at": "2026-07-23T13:51:25Z",
           "verdict": "COMMENT",
           "notes": "Re-review: previous 3 findings fixed, new categorizeHeader gaps for OpenAI/LangChain4j FinishReason/Tokens"
+        },
+        {
+          "at": "2026-07-23T16:18:17Z",
+          "verdict": "APPROVE",
+          "notes": "Header casing and categorizeHeader fixes verified"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25051,
@@ -663,9 +668,9 @@
       "number": 25052,
       "title": "CAMEL-24223: Add camel_route_cost_estimate MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T13:51:25Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: 3/4 original findings fixed, YAML regex bug persists (from:\\s+ captures uri)",
+      "reviewed_at": "2026-07-23T16:18:17Z",
+      "verdict": "APPROVE",
+      "notes": "YAML regex fix verified - \\s+ to [ \\t]+ correctly applied",
       "interactions": [
         {
           "at": "2026-07-23T09:57:19Z",
@@ -681,9 +686,14 @@
           "at": "2026-07-23T13:51:25Z",
           "verdict": "COMMENT",
           "notes": "Re-review: 3/4 original findings fixed, YAML regex bug persists (from:\\s+ captures uri)"
+        },
+        {
+          "at": "2026-07-23T16:18:17Z",
+          "verdict": "APPROVE",
+          "notes": "YAML regex fix verified - \\s+ to [ \\t]+ correctly applied"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25054,
