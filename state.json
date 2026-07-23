@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T09:08:13Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-07-23T09:38:22Z",
+    "prs_checked": 5,
+    "reviews_posted": 5,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -543,6 +543,86 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25049,
+      "title": "CAMEL-24243: camel-aws2-athena - do not relaunch a still-running query (backport 4.14)",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-23T09:38:21Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of PR #25040 to camel-4.14.x",
+      "interactions": [
+        {
+          "at": "2026-07-23T09:38:21Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of PR #25040 to camel-4.14.x"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25043,
+      "title": "CAMEL-23216 - remove concurrency for Mina sftp tests",
+      "author": "apupier",
+      "reviewed_at": "2026-07-23T09:38:21Z",
+      "verdict": "APPROVE",
+      "notes": "Sound approach using reuseForks=false for JVM isolation",
+      "interactions": [
+        {
+          "at": "2026-07-23T09:38:21Z",
+          "verdict": "APPROVE",
+          "notes": "Sound approach using reuseForks=false for JVM isolation"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25050,
+      "title": "CAMEL-24221: Add camel_runtime_ai_trace MCP tool",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-23T09:38:21Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "Wrong OpenAI header casing, nonexistent torchserve scheme, incomplete AI component/header coverage",
+      "interactions": [
+        {
+          "at": "2026-07-23T09:38:21Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "Wrong OpenAI header casing, nonexistent torchserve scheme, incomplete AI component/header coverage"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25051,
+      "title": "CAMEL-24222: Add camel_dependency_security_audit MCP tool",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-23T09:38:21Z",
+      "verdict": "COMMENT",
+      "notes": "Uses heuristic severity instead of adv.severity(), broken URL construction, dead code paths",
+      "interactions": [
+        {
+          "at": "2026-07-23T09:38:21Z",
+          "verdict": "COMMENT",
+          "notes": "Uses heuristic severity instead of adv.severity(), broken URL construction, dead code paths"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25048,
+      "title": "CAMEL-24219: Add camel_ai_pipeline_scaffold MCP tool",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-23T09:38:22Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "Fabricated Bedrock headers, wrong Docling params, missing required modelId",
+      "interactions": [
+        {
+          "at": "2026-07-23T09:38:22Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "Fabricated Bedrock headers, wrong Docling params, missing required modelId"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
