@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T09:38:22Z",
-    "prs_checked": 5,
-    "reviews_posted": 5,
+    "timestamp": "2026-07-23T13:11:19Z",
+    "prs_checked": 4,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -580,65 +580,85 @@
       "number": 25050,
       "title": "CAMEL-24221: Add camel_runtime_ai_trace MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T09:38:21Z",
-      "verdict": "REQUEST_CHANGES",
-      "notes": "Wrong OpenAI header casing, nonexistent torchserve scheme, incomplete AI component/header coverage",
+      "reviewed_at": "2026-07-23T13:11:19Z",
+      "verdict": "COMMENT",
+      "notes": "Re-review: all 6 prior findings fixed, new LangChain4j casing mismatch and modelId lookup bug",
       "interactions": [
         {
           "at": "2026-07-23T09:38:21Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "Wrong OpenAI header casing, nonexistent torchserve scheme, incomplete AI component/header coverage"
+        },
+        {
+          "at": "2026-07-23T13:11:19Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: all 6 prior findings fixed, new LangChain4j casing mismatch and modelId lookup bug"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25051,
       "title": "CAMEL-24222: Add camel_dependency_security_audit MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T09:38:21Z",
+      "reviewed_at": "2026-07-23T13:11:19Z",
       "verdict": "COMMENT",
-      "notes": "Uses heuristic severity instead of adv.severity(), broken URL construction, dead code paths",
+      "notes": "Re-review: 5/7 addressed, new case-sensitivity bug in severity comparison",
       "interactions": [
         {
           "at": "2026-07-23T09:38:21Z",
           "verdict": "COMMENT",
           "notes": "Uses heuristic severity instead of adv.severity(), broken URL construction, dead code paths"
+        },
+        {
+          "at": "2026-07-23T13:11:19Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: 5/7 addressed, new case-sensitivity bug in severity comparison"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25048,
       "title": "CAMEL-24219: Add camel_ai_pipeline_scaffold MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T09:38:22Z",
-      "verdict": "REQUEST_CHANGES",
-      "notes": "Fabricated Bedrock headers, wrong Docling params, missing required modelId",
+      "reviewed_at": "2026-07-23T13:11:19Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 8 previous findings addressed, correct Bedrock/Docling/Textract params",
       "interactions": [
         {
           "at": "2026-07-23T09:38:22Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "Fabricated Bedrock headers, wrong Docling params, missing required modelId"
+        },
+        {
+          "at": "2026-07-23T13:11:19Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 8 previous findings addressed, correct Bedrock/Docling/Textract params"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25052,
       "title": "CAMEL-24223: Add camel_route_cost_estimate MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T09:57:19Z",
+      "reviewed_at": "2026-07-23T13:11:19Z",
       "verdict": "COMMENT",
-      "notes": "4 inline comments: package-private records (recurring), missing try/catch, regex fails on XML routes, shallow test assertions",
+      "notes": "Re-review: no changes since last review, only CI bot comment, all findings still unaddressed",
       "interactions": [
         {
           "at": "2026-07-23T09:57:19Z",
           "verdict": "COMMENT",
           "notes": "4 inline comments: package-private records (recurring), missing try/catch, regex fails on XML routes, shallow test assertions"
+        },
+        {
+          "at": "2026-07-23T13:11:19Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: no changes since last review, only CI bot comment, all findings still unaddressed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
