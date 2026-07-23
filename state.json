@@ -623,6 +623,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25052,
+      "title": "CAMEL-24223: Add camel_route_cost_estimate MCP tool",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-23T09:57:19Z",
+      "verdict": "COMMENT",
+      "notes": "4 inline comments: package-private records (recurring), missing try/catch, regex fails on XML routes, shallow test assertions",
+      "interactions": [
+        {
+          "at": "2026-07-23T09:57:19Z",
+          "verdict": "COMMENT",
+          "notes": "4 inline comments: package-private records (recurring), missing try/catch, regex fails on XML routes, shallow test assertions"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
