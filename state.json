@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T16:18:17Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
-    "tokens_estimate": 142850
+    "timestamp": "2026-07-23T20:19:26Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
+    "tokens_estimate": 140277
   },
   "paused": false,
   "reviewed_prs": [
@@ -522,9 +522,9 @@
       "number": 25034,
       "title": "CAMEL-24245: Add camel-clickhouse component",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-23T13:59:00Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: xref syntax error fixed, waiting on CI",
+      "reviewed_at": "2026-07-23T20:18:41Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: xref and symlink fixes verified, component follows Camel conventions",
       "interactions": [
         {
           "at": "2026-07-22T18:46:12Z",
@@ -550,9 +550,14 @@
           "at": "2026-07-23T13:59:00Z",
           "verdict": "COMMENT",
           "notes": "Re-review: xref syntax error fixed, waiting on CI"
+        },
+        {
+          "at": "2026-07-23T20:18:41Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: xref and symlink fixes verified, component follows Camel conventions"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25049,
