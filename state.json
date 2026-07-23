@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T13:51:25Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-07-23T13:59:00Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -522,9 +522,9 @@
       "number": 25034,
       "title": "CAMEL-24245: Add camel-clickhouse component",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-23T13:33:57Z",
+      "reviewed_at": "2026-07-23T13:59:00Z",
       "verdict": "COMMENT",
-      "notes": "Re-review: new commits add generated sources, CI-blocking xref syntax error persists",
+      "notes": "Re-review: xref syntax error fixed, waiting on CI",
       "interactions": [
         {
           "at": "2026-07-22T18:46:12Z",
@@ -545,9 +545,14 @@
           "at": "2026-07-23T13:33:57Z",
           "verdict": "COMMENT",
           "notes": "Re-review: new commits add generated sources, CI-blocking xref syntax error persists"
+        },
+        {
+          "at": "2026-07-23T13:59:00Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: xref syntax error fixed, waiting on CI"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25049,
@@ -724,6 +729,22 @@
           "at": "2026-07-23T13:33:57Z",
           "verdict": "APPROVE",
           "notes": "Correct fix for query relaunch bug, good regression tests"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25060,
+      "title": "CAMEL-24249: camel-aws2 - fix copy-pasted validation messages in MSK/MQ/STS producers",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-23T13:59:00Z",
+      "verdict": "APPROVE",
+      "notes": "Clean copy-paste fix with targeted tests",
+      "interactions": [
+        {
+          "at": "2026-07-23T13:59:00Z",
+          "verdict": "APPROVE",
+          "notes": "Clean copy-paste fix with targeted tests"
         }
       ],
       "review_count": 1
