@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-24T14:12:20Z",
+    "timestamp": "2026-07-24T14:32:03Z",
     "prs_checked": 5,
-    "reviews_posted": 5,
-    "tokens_estimate": 550000
+    "reviews_posted": 3,
+    "tokens_estimate": 400000
   },
   "paused": false,
   "reviewed_prs": [
@@ -863,14 +863,51 @@
       "number": 25072,
       "title": "CAMEL-23703: camel launcher self-update and doctor installation diagnostics",
       "author": "ammachado",
-      "reviewed_at": "2026-07-24T14:12:20Z",
-      "verdict": "REQUEST_CHANGES",
-      "notes": "ManifestFetcher.parse() breaks on license header, SDKMAN secret literal, interrupt flag",
+      "reviewed_at": "2026-07-24T14:32:03Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 4 prior findings fixed in commit f94d9a597",
       "interactions": [
         {
           "at": "2026-07-24T14:12:20Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "ManifestFetcher.parse() breaks on license header, SDKMAN secret literal, interrupt flag"
+        },
+        {
+          "at": "2026-07-24T14:32:03Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 4 prior findings fixed in commit f94d9a597"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25097,
+      "title": "MongoDB/Cassandra kamelets: Unable to export an integration without running instance",
+      "author": "JinyuChen97",
+      "reviewed_at": "2026-07-24T14:32:03Z",
+      "verdict": "COMMENT",
+      "notes": "Missing JIRA ticket, pre-existing dead code in annotation lookup",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:32:03Z",
+          "verdict": "COMMENT",
+          "notes": "Missing JIRA ticket, pre-existing dead code in annotation lookup"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25083,
+      "title": "camel-jbang - Add camel_runtime_processor_detail MCP tool",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-24T14:32:03Z",
+      "verdict": "APPROVE",
+      "notes": "Clean MCP tool addition following established patterns",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:32:03Z",
+          "verdict": "APPROVE",
+          "notes": "Clean MCP tool addition following established patterns"
         }
       ],
       "review_count": 1
@@ -886,6 +923,16 @@
       "number": 24985,
       "reason": "own PR (author: gnodet)",
       "since": "2026-07-24T13:24:51Z"
+    },
+    {
+      "number": 25094,
+      "reason": "Just reviewed, only own review comment as new activity",
+      "since": "2026-07-24T14:32:03Z"
+    },
+    {
+      "number": 25096,
+      "reason": "Just reviewed, only own review comment as new activity",
+      "since": "2026-07-24T14:32:03Z"
     }
   ],
   "review_queue": [],
@@ -1264,5 +1311,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-24T13:51:56Z"
+  "last_reviewed_updated_at": "2026-07-24T14:19:34Z"
 }
