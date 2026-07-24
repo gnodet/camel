@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-24T14:46:28Z",
-    "prs_checked": 4,
+    "timestamp": "2026-07-24T15:05:51Z",
+    "prs_checked": 5,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
@@ -900,17 +900,22 @@
       "number": 25083,
       "title": "camel-jbang - Add camel_runtime_processor_detail MCP tool",
       "author": "davsclaus",
-      "reviewed_at": "2026-07-24T14:32:03Z",
+      "reviewed_at": "2026-07-24T15:05:51Z",
       "verdict": "APPROVE",
-      "notes": "Clean MCP tool addition following established patterns",
+      "notes": "Re-review after feedback commit. LOG.debug for exceptions, routeId optional with * default, clean enrichment code.",
       "interactions": [
         {
           "at": "2026-07-24T14:32:03Z",
           "verdict": "APPROVE",
           "notes": "Clean MCP tool addition following established patterns"
+        },
+        {
+          "at": "2026-07-24T15:05:51Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after feedback commit. LOG.debug for exceptions, routeId optional with * default, clean enrichment code."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25085,
