@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-24T14:32:03Z",
-    "prs_checked": 5,
-    "reviews_posted": 3,
-    "tokens_estimate": 400000
+    "timestamp": "2026-07-24T14:46:28Z",
+    "prs_checked": 4,
+    "reviews_posted": 1,
+    "tokens_estimate": 0
   },
   "paused": false,
   "reviewed_prs": [
@@ -908,6 +908,22 @@
           "at": "2026-07-24T14:32:03Z",
           "verdict": "APPROVE",
           "notes": "Clean MCP tool addition following established patterns"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25085,
+      "title": "CAMEL-24244: Fix DefaultStreamCachingStrategy.updateSpool releasing the lock",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-24T14:46:28Z",
+      "verdict": "APPROVE",
+      "notes": "One-line lock.lock->lock.unlock fix + concurrent regression test. Clean.",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:46:28Z",
+          "verdict": "APPROVE",
+          "notes": "One-line lock.lock->lock.unlock fix + concurrent regression test. Clean."
         }
       ],
       "review_count": 1
