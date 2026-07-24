@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-23T20:19:26Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
-    "tokens_estimate": 140277
+    "timestamp": "2026-07-24T13:24:51Z",
+    "prs_checked": 5,
+    "reviews_posted": 3,
+    "tokens_estimate": 310000
   },
   "paused": false,
   "reviewed_prs": [
@@ -206,9 +206,9 @@
       "number": 25026,
       "title": "CAMEL-24220: Add camel_security_scan tool for route security analysis",
       "author": "oscerd",
-      "reviewed_at": "2026-07-22T20:05:37Z",
-      "verdict": "REQUEST_CHANGES",
-      "notes": "Re-review: 5 findings still unaddressed, no new commits, only CI bot comments",
+      "reviewed_at": "2026-07-24T13:24:51Z",
+      "verdict": "COMMENT",
+      "notes": "Re-review: all 4 blocking fixes correct, but missing regression tests and dead code",
       "interactions": [
         {
           "at": "2026-07-22T13:31:27Z",
@@ -219,9 +219,14 @@
           "at": "2026-07-22T20:05:37Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "Re-review: 5 findings still unaddressed, no new commits, only CI bot comments"
+        },
+        {
+          "at": "2026-07-24T13:24:51Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: all 4 blocking fixes correct, but missing regression tests and dead code"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25024,
@@ -626,9 +631,9 @@
       "number": 25051,
       "title": "CAMEL-24222: Add camel_dependency_security_audit MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T13:51:25Z",
+      "reviewed_at": "2026-07-24T13:24:51Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: case-sensitivity fix applied, all findings addressed",
+      "notes": "Re-review: 1 new commit adds comment and strengthened assertions, all prior issues resolved",
       "interactions": [
         {
           "at": "2026-07-23T09:38:21Z",
@@ -644,9 +649,14 @@
           "at": "2026-07-23T13:51:25Z",
           "verdict": "APPROVE",
           "notes": "Re-review: case-sensitivity fix applied, all findings addressed"
+        },
+        {
+          "at": "2026-07-24T13:24:51Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: 1 new commit adds comment and strengthened assertions, all prior issues resolved"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25048,
@@ -673,9 +683,9 @@
       "number": 25052,
       "title": "CAMEL-24223: Add camel_route_cost_estimate MCP tool",
       "author": "oscerd",
-      "reviewed_at": "2026-07-23T16:18:17Z",
+      "reviewed_at": "2026-07-24T13:24:51Z",
       "verdict": "APPROVE",
-      "notes": "YAML regex fix verified - \\s+ to [ \\t]+ correctly applied",
+      "notes": "Re-review: all 4 davsclaus feedback items addressed, YAML regex fix intact",
       "interactions": [
         {
           "at": "2026-07-23T09:57:19Z",
@@ -696,9 +706,14 @@
           "at": "2026-07-23T16:18:17Z",
           "verdict": "APPROVE",
           "notes": "YAML regex fix verified - \\s+ to [ \\t]+ correctly applied"
+        },
+        {
+          "at": "2026-07-24T13:24:51Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 4 davsclaus feedback items addressed, YAML regex fix intact"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25054,
@@ -781,7 +796,18 @@
       "review_count": 1
     }
   ],
-  "skipped_prs": [],
+  "skipped_prs": [
+    {
+      "number": 24698,
+      "reason": "own PR (author: gnodet)",
+      "since": "2026-07-24T13:24:51Z"
+    },
+    {
+      "number": 24985,
+      "reason": "own PR (author: gnodet)",
+      "since": "2026-07-24T13:24:51Z"
+    }
+  ],
   "review_queue": [],
   "escalated": [],
   "resolved": [
@@ -1157,5 +1183,6 @@
       "merged_at": "2026-07-13"
     }
   ],
-  "created_at": "2026-07-11T08:00:00Z"
+  "created_at": "2026-07-11T08:00:00Z",
+  "last_reviewed_updated_at": "2026-07-24T13:02:54Z"
 }
