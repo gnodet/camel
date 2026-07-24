@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-24T20:49:12Z",
-    "prs_checked": 4,
-    "reviews_posted": 0,
+    "timestamp": "2026-07-24T21:10:54Z",
+    "prs_checked": 5,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -995,6 +995,22 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25103,
+      "title": "CAMEL-24214: Fix circuit-breaker jbang example after the seconds-to-millis change",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-24T21:10:54Z",
+      "verdict": "APPROVE",
+      "notes": "One-line fix adding duration suffix after CAMEL-24137 seconds-to-millis migration",
+      "interactions": [
+        {
+          "at": "2026-07-24T21:10:54Z",
+          "verdict": "APPROVE",
+          "notes": "One-line fix adding duration suffix after CAMEL-24137 seconds-to-millis migration"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1395,5 +1411,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-24T20:45:52Z"
+  "last_reviewed_updated_at": "2026-07-24T21:08:20Z"
 }
