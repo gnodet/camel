@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-24T13:24:51Z",
+    "timestamp": "2026-07-24T14:12:20Z",
     "prs_checked": 5,
-    "reviews_posted": 3,
-    "tokens_estimate": 310000
+    "reviews_posted": 5,
+    "tokens_estimate": 550000
   },
   "paused": false,
   "reviewed_prs": [
@@ -794,6 +794,86 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25086,
+      "title": "CAMEL-23467: camel-aws-bedrock - add invokeAgent and invokeInlineAgent operations",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-24T14:12:20Z",
+      "verdict": "COMMENT",
+      "notes": "2 low findings: streamOutputMode init, async client Javadoc",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:12:20Z",
+          "verdict": "COMMENT",
+          "notes": "2 low findings: streamOutputMode init, async client Javadoc"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25093,
+      "title": "camel-jbang - Redact secrets in structured MCP tool results",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-24T14:12:20Z",
+      "verdict": "COMMENT",
+      "notes": "3 confirmed findings after 1 false positive removed: double redact, type change, test gaps",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:12:20Z",
+          "verdict": "COMMENT",
+          "notes": "3 confirmed findings after 1 false positive removed: double redact, type change, test gaps"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25094,
+      "title": "CAMEL-24241: Apply the tool argument allowlist to tools declaring no parameters",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-24T14:12:20Z",
+      "verdict": "APPROVE",
+      "notes": "Clean security hardening fix, well-tested",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:12:20Z",
+          "verdict": "APPROVE",
+          "notes": "Clean security hardening fix, well-tested"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25096,
+      "title": "CAMEL-22887: camel-cyberark-vault - add test-infra for automated testing",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-24T14:12:20Z",
+      "verdict": "APPROVE",
+      "notes": "Well-structured test-infra module, follows established patterns",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:12:20Z",
+          "verdict": "APPROVE",
+          "notes": "Well-structured test-infra module, follows established patterns"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25072,
+      "title": "CAMEL-23703: camel launcher self-update and doctor installation diagnostics",
+      "author": "ammachado",
+      "reviewed_at": "2026-07-24T14:12:20Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "ManifestFetcher.parse() breaks on license header, SDKMAN secret literal, interrupt flag",
+      "interactions": [
+        {
+          "at": "2026-07-24T14:12:20Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "ManifestFetcher.parse() breaks on license header, SDKMAN secret literal, interrupt flag"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1184,5 +1264,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-24T13:02:54Z"
+  "last_reviewed_updated_at": "2026-07-24T13:51:56Z"
 }
