@@ -14,8 +14,8 @@
       "pattern": "PR #25022 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 22,
-      "last_seen": "2026-07-24T14:31:26Z",
+      "occurrences": 23,
+      "last_seen": "2026-07-24T14:45:31Z",
       "suppressed": false
     },
     {
@@ -30,8 +30,8 @@
       "pattern": "PR #25021 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 22,
-      "last_seen": "2026-07-24T14:31:27Z",
+      "occurrences": 23,
+      "last_seen": "2026-07-24T14:45:32Z",
       "suppressed": false
     },
     {
@@ -46,8 +46,8 @@
       "pattern": "PR #25024 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 21,
-      "last_seen": "2026-07-24T14:31:17Z",
+      "occurrences": 22,
+      "last_seen": "2026-07-24T14:45:22Z",
       "suppressed": false
     },
     {
@@ -62,8 +62,8 @@
       "pattern": "PR #24997 had 1 commit(s) after review \u2014 suggestions likely applied",
       "action": "flag as issue",
       "confidence": 0.15,
-      "occurrences": 29,
-      "last_seen": "2026-07-24T14:31:33Z",
+      "occurrences": 31,
+      "last_seen": "2026-07-24T14:45:38Z",
       "suppressed": true
     },
     {
@@ -78,8 +78,8 @@
       "pattern": "PR #25027 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 19,
-      "last_seen": "2026-07-24T14:31:14Z",
+      "occurrences": 20,
+      "last_seen": "2026-07-24T14:45:19Z",
       "suppressed": false
     },
     {
@@ -94,8 +94,8 @@
       "pattern": "PR #25034 had 1 commit(s) after review \u2014 suggestions likely applied",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 8,
-      "last_seen": "2026-07-24T14:31:39Z",
+      "occurrences": 9,
+      "last_seen": "2026-07-24T14:45:44Z",
       "suppressed": false
     },
     {
@@ -110,8 +110,8 @@
       "pattern": "PR #25012 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 14,
-      "last_seen": "2026-07-24T14:31:21Z",
+      "occurrences": 15,
+      "last_seen": "2026-07-24T14:45:26Z",
       "suppressed": false
     },
     {
@@ -126,8 +126,8 @@
       "pattern": "PR #25018 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 14,
-      "last_seen": "2026-07-24T14:31:23Z",
+      "occurrences": 15,
+      "last_seen": "2026-07-24T14:45:28Z",
       "suppressed": false
     },
     {
@@ -142,8 +142,8 @@
       "pattern": "PR #25031 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 14,
-      "last_seen": "2026-07-24T14:31:35Z",
+      "occurrences": 15,
+      "last_seen": "2026-07-24T14:45:40Z",
       "suppressed": false
     },
     {
@@ -158,8 +158,8 @@
       "pattern": "PR #25033 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 14,
-      "last_seen": "2026-07-24T14:31:37Z",
+      "occurrences": 15,
+      "last_seen": "2026-07-24T14:45:42Z",
       "suppressed": false
     },
     {
@@ -174,8 +174,8 @@
       "pattern": "PR #25020 had 1 commit(s) after review \u2014 suggestions likely applied",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 10,
-      "last_seen": "2026-07-24T14:31:24Z",
+      "occurrences": 11,
+      "last_seen": "2026-07-24T14:45:30Z",
       "suppressed": false
     },
     {
@@ -190,8 +190,8 @@
       "pattern": "PR #25006 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 10,
-      "last_seen": "2026-07-24T14:31:19Z",
+      "occurrences": 11,
+      "last_seen": "2026-07-24T14:45:23Z",
       "suppressed": false
     },
     {
@@ -206,8 +206,8 @@
       "pattern": "PR #25050 had 1 commit(s) after review \u2014 suggestions likely applied",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 6,
-      "last_seen": "2026-07-24T14:31:43Z",
+      "occurrences": 7,
+      "last_seen": "2026-07-24T14:45:48Z",
       "suppressed": false
     },
     {
@@ -238,8 +238,8 @@
       "pattern": "PR #25048 had 1 commit(s) after review \u2014 suggestions likely applied",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 9,
-      "last_seen": "2026-07-24T14:31:46Z",
+      "occurrences": 10,
+      "last_seen": "2026-07-24T14:45:51Z",
       "suppressed": false
     },
     {
@@ -254,8 +254,8 @@
       "pattern": "PR #25029 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 9,
-      "last_seen": "2026-07-24T14:31:11Z",
+      "occurrences": 10,
+      "last_seen": "2026-07-24T14:45:16Z",
       "suppressed": false
     },
     {
@@ -270,8 +270,8 @@
       "pattern": "PR #25017 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 9,
-      "last_seen": "2026-07-24T14:31:20Z",
+      "occurrences": 10,
+      "last_seen": "2026-07-24T14:45:25Z",
       "suppressed": false
     },
     {
@@ -286,8 +286,8 @@
       "pattern": "PR #25016 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 9,
-      "last_seen": "2026-07-24T14:31:29Z",
+      "occurrences": 10,
+      "last_seen": "2026-07-24T14:45:34Z",
       "suppressed": false
     },
     {
@@ -302,8 +302,8 @@
       "pattern": "PR #25015 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 9,
-      "last_seen": "2026-07-24T14:31:30Z",
+      "occurrences": 10,
+      "last_seen": "2026-07-24T14:45:35Z",
       "suppressed": false
     },
     {
@@ -318,8 +318,8 @@
       "pattern": "PR #25032 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 9,
-      "last_seen": "2026-07-24T14:31:36Z",
+      "occurrences": 10,
+      "last_seen": "2026-07-24T14:45:41Z",
       "suppressed": false
     },
     {
@@ -350,8 +350,8 @@
       "pattern": "PR #25043 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 5,
-      "last_seen": "2026-07-24T14:31:42Z",
+      "occurrences": 6,
+      "last_seen": "2026-07-24T14:45:46Z",
       "suppressed": false
     },
     {
@@ -366,8 +366,8 @@
       "pattern": "PR #25036 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
       "confidence": 1.0,
-      "occurrences": 5,
-      "last_seen": "2026-07-24T14:31:55Z",
+      "occurrences": 6,
+      "last_seen": "2026-07-24T14:46:00Z",
       "suppressed": false
     },
     {
@@ -397,9 +397,9 @@
       },
       "pattern": "PR #25049 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
-      "confidence": 0.9500000000000001,
-      "occurrences": 3,
-      "last_seen": "2026-07-24T14:31:41Z",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-24T14:45:45Z",
       "suppressed": false
     },
     {
@@ -413,9 +413,9 @@
       },
       "pattern": "PR #25054 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
-      "confidence": 0.9500000000000001,
-      "occurrences": 3,
-      "last_seen": "2026-07-24T14:31:50Z",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-24T14:45:54Z",
       "suppressed": false
     },
     {
@@ -429,9 +429,9 @@
       },
       "pattern": "PR #25047 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
-      "confidence": 0.9500000000000001,
-      "occurrences": 3,
-      "last_seen": "2026-07-24T14:31:51Z",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-24T14:45:55Z",
       "suppressed": false
     },
     {
@@ -445,9 +445,9 @@
       },
       "pattern": "PR #25040 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
-      "confidence": 0.9500000000000001,
-      "occurrences": 3,
-      "last_seen": "2026-07-24T14:31:52Z",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-24T14:45:57Z",
       "suppressed": false
     },
     {
@@ -461,9 +461,9 @@
       },
       "pattern": "PR #25060 merged after APPROVE \u2014 review aligned with maintainer",
       "action": "flag as issue",
-      "confidence": 0.9500000000000001,
-      "occurrences": 3,
-      "last_seen": "2026-07-24T14:31:54Z",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-24T14:45:58Z",
       "suppressed": false
     },
     {
