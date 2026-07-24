@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-24T17:40:57Z",
-    "prs_checked": 4,
-    "reviews_posted": 0,
+    "timestamp": "2026-07-24T18:48:36Z",
+    "prs_checked": 5,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -953,14 +953,35 @@
       "number": 25101,
       "title": "CAMEL-24254: Add configurable TUI shell and AI prompt history",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-24T17:35:49Z",
+      "reviewed_at": "2026-07-24T18:48:36Z",
       "verdict": "APPROVE",
-      "notes": "Clean TUI history feature. Well-factored classes, thorough tests, proper JLine integration. Minor: JUnit assertions in one test file.",
+      "notes": "Re-review: clean follow-up commit guarding prompt history in stats view + AssertJ migration",
       "interactions": [
         {
           "at": "2026-07-24T17:35:49Z",
           "verdict": "APPROVE",
           "notes": "Clean TUI history feature. Well-factored classes, thorough tests, proper JLine integration. Minor: JUnit assertions in one test file."
+        },
+        {
+          "at": "2026-07-24T18:48:36Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: clean follow-up commit guarding prompt history in stats view + AssertJ migration"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25102,
+      "title": "CAMEL-24255: Add camel-duckdb component and test-infra",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-07-24T18:48:36Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "Checked exception compilation error, dead readOnly param, alphabetical ordering in 5 files, unquoted SQL identifiers",
+      "interactions": [
+        {
+          "at": "2026-07-24T18:48:36Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "Checked exception compilation error, dead readOnly param, alphabetical ordering in 5 files, unquoted SQL identifiers"
         }
       ],
       "review_count": 1
@@ -1364,5 +1385,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-24T15:51:11Z"
+  "last_reviewed_updated_at": "2026-07-24T18:34:17Z"
 }
