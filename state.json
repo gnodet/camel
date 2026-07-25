@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T08:05:00Z",
+    "timestamp": "2026-07-25T08:23:13Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 99000
   },
   "paused": false,
   "reviewed_prs": [
@@ -937,17 +937,22 @@
       "number": 25100,
       "title": "CAMEL-24235: camel-jactl - A new language for jactl",
       "author": "jaccomoc",
-      "reviewed_at": "2026-07-24T16:39:05Z",
-      "verdict": "COMMENT",
-      "notes": "New language component. Missing BOM entry, hardcoded dep version, doc/API name mismatch. Good security sandbox design.",
+      "reviewed_at": "2026-07-25T08:23:13Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 5 prior findings addressed in commit 7d51958. BOM entry, managed version, doc fixes, AsciiDoc formatting, EOF newline all resolved.",
       "interactions": [
         {
           "at": "2026-07-24T16:39:05Z",
           "verdict": "COMMENT",
           "notes": "New language component. Missing BOM entry, hardcoded dep version, doc/API name mismatch. Good security sandbox design."
+        },
+        {
+          "at": "2026-07-25T08:23:13Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 5 prior findings addressed in commit 7d51958. BOM entry, managed version, doc fixes, AsciiDoc formatting, EOF newline all resolved."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25101,
