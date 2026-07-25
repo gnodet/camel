@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T15:28:15Z",
+    "timestamp": "2026-07-25T16:21:08Z",
     "prs_checked": 4,
     "reviews_posted": 0,
     "tokens_estimate": 0
@@ -984,9 +984,9 @@
       "number": 25102,
       "title": "CAMEL-24255: Add camel-duckdb component and test-infra",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-24T20:47:57Z",
+      "reviewed_at": "2026-07-25T16:21:02Z",
       "verdict": "APPROVE",
-      "notes": "Final re-review: all findings addressed including BOM ordering and unrelated script removal",
+      "notes": "Re-checked: 3 new commits since prior approval are all infra (doc symlinks, regen deps, build SIGPIPE fix). Core code unchanged. Approval stands.",
       "interactions": [
         {
           "at": "2026-07-24T18:48:36Z",
@@ -1002,9 +1002,14 @@
           "at": "2026-07-24T20:47:57Z",
           "verdict": "APPROVE",
           "notes": "Final re-review: all findings addressed including BOM ordering and unrelated script removal"
+        },
+        {
+          "at": "2026-07-25T16:21:02Z",
+          "verdict": "APPROVE",
+          "notes": "Re-checked: 3 new commits since prior approval are all infra (doc symlinks, regen deps, build SIGPIPE fix). Core code unchanged. Approval stands."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25103,
