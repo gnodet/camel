@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T05:58:56Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
-    "tokens_estimate": 57000
+    "timestamp": "2026-07-25T06:00:46Z",
+    "prs_checked": 5,
+    "reviews_posted": 0,
+    "tokens_estimate": 0
   },
   "paused": false,
   "reviewed_prs": [
