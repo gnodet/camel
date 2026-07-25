@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T19:13:39Z",
-    "prs_checked": 2,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "timestamp": "2026-07-25T19:57:24Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
+    "tokens_estimate": 109430
   },
   "paused": false,
   "reviewed_prs": [
@@ -1143,6 +1143,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25030,
+      "title": "CAMEL-23703: Package-native validation CI for the Camel CLI launcher",
+      "author": "ammachado",
+      "reviewed_at": "2026-07-25T19:57:24Z",
+      "verdict": "APPROVE",
+      "notes": "Well-structured CI workflow for native validation; PowerShell 7 fix correct, proper conventions, comprehensive tests",
+      "interactions": [
+        {
+          "at": "2026-07-25T19:57:24Z",
+          "verdict": "APPROVE",
+          "notes": "Well-structured CI workflow for native validation; PowerShell 7 fix correct, proper conventions, comprehensive tests"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1543,5 +1559,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-25T18:41:08Z"
+  "last_reviewed_updated_at": "2026-07-25T19:52:35Z"
 }
