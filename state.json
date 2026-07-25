@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T11:46:15Z",
+    "timestamp": "2026-07-25T11:57:47Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1082,6 +1082,22 @@
           "at": "2026-07-25T10:23:48Z",
           "verdict": "COMMENT",
           "notes": "CI failure: JmsReplyToIbmMQTest.testCustomJMSReplyToInOut returns null reply with MQ 10.0 - behavioral change in replyTo handling"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25108,
+      "title": "CAMEL-24215: camel-resilience4j - JMX waitDurationInOpenState now returns millis",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-25T11:57:39Z",
+      "verdict": "APPROVE",
+      "notes": "Clean 1-line fix: .getSeconds() -> .toMillis() for JMX consistency. Upgrade guide properly documented.",
+      "interactions": [
+        {
+          "at": "2026-07-25T11:57:39Z",
+          "verdict": "APPROVE",
+          "notes": "Clean 1-line fix: .getSeconds() -> .toMillis() for JMX consistency. Upgrade guide properly documented."
         }
       ],
       "review_count": 1
