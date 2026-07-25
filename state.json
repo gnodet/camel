@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T05:53:36Z",
-    "prs_checked": 6,
+    "timestamp": "2026-07-25T05:58:56Z",
+    "prs_checked": 1,
     "reviews_posted": 1,
-    "tokens_estimate": 0
+    "tokens_estimate": 57000
   },
   "paused": false,
   "reviewed_prs": [
@@ -1040,6 +1040,22 @@
           "at": "2026-07-25T05:53:36Z",
           "verdict": "APPROVE",
           "notes": "Clean cherry-pick backport of PR #25085 lock fix to camel-4.14.x, completes backport chain"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25106,
+      "title": "[backport camel-4.18.x] CAMEL-24257: Fix stub pattern matching for kamelets with #class component beans",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-25T05:58:53Z",
+      "verdict": "APPROVE",
+      "notes": "Clean cherry-pick backport of PR #25097. Identical diff. Approved.",
+      "interactions": [
+        {
+          "at": "2026-07-25T05:58:53Z",
+          "verdict": "APPROVE",
+          "notes": "Clean cherry-pick backport of PR #25097. Identical diff. Approved."
         }
       ],
       "review_count": 1
