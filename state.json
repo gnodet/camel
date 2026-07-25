@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-25T06:09:18Z",
+    "timestamp": "2026-07-25T06:32:46Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 5000
   },
   "paused": false,
   "reviewed_prs": [
@@ -953,9 +953,9 @@
       "number": 25101,
       "title": "CAMEL-24254: Add configurable TUI shell and AI prompt history",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-24T18:48:36Z",
+      "reviewed_at": "2026-07-25T06:32:46Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: clean follow-up commit guarding prompt history in stats view + AssertJ migration",
+      "notes": "Re-review: author migrated JUnit assertions to AssertJ in TuiSettingsTest per our feedback",
       "interactions": [
         {
           "at": "2026-07-24T17:35:49Z",
@@ -966,9 +966,14 @@
           "at": "2026-07-24T18:48:36Z",
           "verdict": "APPROVE",
           "notes": "Re-review: clean follow-up commit guarding prompt history in stats view + AssertJ migration"
+        },
+        {
+          "at": "2026-07-25T06:32:46Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: author migrated JUnit assertions to AssertJ in TuiSettingsTest per our feedback"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25102,
