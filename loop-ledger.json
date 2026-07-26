@@ -1,6 +1,0 @@
-{
-  "goal": "Review open PRs on apache/camel",
-  "pattern": "pr-review-loop",
-  "level": "L2",
-  "attempts": []
-}
