@@ -1,0 +1,678 @@
+{
+  "version": "1.0",
+  "project": "apache/camel",
+  "learnings": [
+    {
+      "id": "78ed99d6-bdd4-4362-94c1-17b2a6526e9a",
+      "type": "accepted",
+      "source": {
+        "pr": 25022,
+        "review_date": "2026-07-22T14:55:54Z",
+        "finding_rule": "review-25022",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25022 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 38,
+      "last_seen": "2026-07-26T06:17:14Z",
+      "suppressed": false
+    },
+    {
+      "id": "03e213c9-a07e-423c-8e4a-efc5657bbaf9",
+      "type": "accepted",
+      "source": {
+        "pr": 25021,
+        "review_date": "2026-07-22T14:55:56Z",
+        "finding_rule": "review-25021",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25021 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 38,
+      "last_seen": "2026-07-26T06:17:16Z",
+      "suppressed": false
+    },
+    {
+      "id": "135d8104-5920-401b-bdda-ede430f86332",
+      "type": "accepted",
+      "source": {
+        "pr": 25024,
+        "review_date": "2026-07-22T15:29:59Z",
+        "finding_rule": "review-25024",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25024 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 37,
+      "last_seen": "2026-07-26T06:17:06Z",
+      "suppressed": false
+    },
+    {
+      "id": "9ffe63db-339e-4486-9c09-62e33a829d18",
+      "type": "accepted",
+      "source": {
+        "pr": 24997,
+        "review_date": "2026-07-22T16:20:12Z",
+        "finding_rule": "review-24997",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #24997 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 0.15,
+      "occurrences": 61,
+      "last_seen": "2026-07-26T06:17:21Z",
+      "suppressed": true
+    },
+    {
+      "id": "4384328b-2c94-49df-95ef-834f5d886811",
+      "type": "accepted",
+      "source": {
+        "pr": 25027,
+        "review_date": "2026-07-22T18:45:39Z",
+        "finding_rule": "review-25027",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25027 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 35,
+      "last_seen": "2026-07-26T06:17:04Z",
+      "suppressed": false
+    },
+    {
+      "id": "753981da-69da-4f08-b9e5-4ab79116ad5f",
+      "type": "accepted",
+      "source": {
+        "pr": 25034,
+        "review_date": "2026-07-22T20:00:48Z",
+        "finding_rule": "review-25034",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25034 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 24,
+      "last_seen": "2026-07-26T06:17:27Z",
+      "suppressed": false
+    },
+    {
+      "id": "969dbf99-1ae1-411b-b0f1-14ef493e13fd",
+      "type": "accepted",
+      "source": {
+        "pr": 25012,
+        "review_date": "2026-07-23T08:57:22Z",
+        "finding_rule": "review-25012",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25012 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 30,
+      "last_seen": "2026-07-26T06:17:10Z",
+      "suppressed": false
+    },
+    {
+      "id": "d8035b0f-79d7-41f5-9606-25523cdc99ce",
+      "type": "accepted",
+      "source": {
+        "pr": 25018,
+        "review_date": "2026-07-23T08:57:23Z",
+        "finding_rule": "review-25018",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25018 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 30,
+      "last_seen": "2026-07-26T06:17:12Z",
+      "suppressed": false
+    },
+    {
+      "id": "d40807ce-ae3e-412a-8da6-bd0da3ac6ca2",
+      "type": "accepted",
+      "source": {
+        "pr": 25031,
+        "review_date": "2026-07-23T08:57:35Z",
+        "finding_rule": "review-25031",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25031 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 30,
+      "last_seen": "2026-07-26T06:17:23Z",
+      "suppressed": false
+    },
+    {
+      "id": "4bedebd7-e2da-42e8-aaf6-e1ee27f13a03",
+      "type": "accepted",
+      "source": {
+        "pr": 25033,
+        "review_date": "2026-07-23T08:57:38Z",
+        "finding_rule": "review-25033",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25033 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 30,
+      "last_seen": "2026-07-26T06:17:25Z",
+      "suppressed": false
+    },
+    {
+      "id": "82357bd2-90a2-4f88-ba80-b919477f6778",
+      "type": "accepted",
+      "source": {
+        "pr": 25020,
+        "review_date": "2026-07-23T09:07:58Z",
+        "finding_rule": "review-25020",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25020 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 26,
+      "last_seen": "2026-07-26T06:17:13Z",
+      "suppressed": false
+    },
+    {
+      "id": "d5faa9cc-7b50-4a29-a47c-6fe99a0ea673",
+      "type": "accepted",
+      "source": {
+        "pr": 25006,
+        "review_date": "2026-07-23T13:10:37Z",
+        "finding_rule": "review-25006",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25006 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 26,
+      "last_seen": "2026-07-26T06:17:08Z",
+      "suppressed": false
+    },
+    {
+      "id": "a907f4e2-670f-42a5-b06e-af674282fbbf",
+      "type": "accepted",
+      "source": {
+        "pr": 25050,
+        "review_date": "2026-07-23T13:11:02Z",
+        "finding_rule": "review-25050",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25050 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 22,
+      "last_seen": "2026-07-26T06:17:31Z",
+      "suppressed": false
+    },
+    {
+      "id": "6ced3c2b-9201-4441-a112-23c614399767",
+      "type": "accepted",
+      "source": {
+        "pr": 25051,
+        "review_date": "2026-07-23T13:11:04Z",
+        "finding_rule": "review-25051",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25051 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 0.9500000000000001,
+      "occurrences": 3,
+      "last_seen": "2026-07-23T13:51:18Z",
+      "suppressed": false
+    },
+    {
+      "id": "32b1e3b8-da3f-4c41-bece-383e35769d72",
+      "type": "accepted",
+      "source": {
+        "pr": 25048,
+        "review_date": "2026-07-23T13:11:05Z",
+        "finding_rule": "review-25048",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25048 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 25,
+      "last_seen": "2026-07-26T06:17:34Z",
+      "suppressed": false
+    },
+    {
+      "id": "230e8337-73d3-43f4-be9c-923de0349afc",
+      "type": "accepted",
+      "source": {
+        "pr": 25029,
+        "review_date": "2026-07-23T13:33:19Z",
+        "finding_rule": "review-25029",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25029 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 25,
+      "last_seen": "2026-07-26T06:17:01Z",
+      "suppressed": false
+    },
+    {
+      "id": "86f0376a-2a1a-4c4f-b671-5b942d7ad547",
+      "type": "accepted",
+      "source": {
+        "pr": 25017,
+        "review_date": "2026-07-23T13:33:29Z",
+        "finding_rule": "review-25017",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25017 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 25,
+      "last_seen": "2026-07-26T06:17:09Z",
+      "suppressed": false
+    },
+    {
+      "id": "fbd0c813-3a16-4e7e-963e-74add26980c0",
+      "type": "accepted",
+      "source": {
+        "pr": 25016,
+        "review_date": "2026-07-23T13:33:38Z",
+        "finding_rule": "review-25016",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25016 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 25,
+      "last_seen": "2026-07-26T06:17:17Z",
+      "suppressed": false
+    },
+    {
+      "id": "8ce86a1e-6576-47d6-9cf3-7b908de73e7a",
+      "type": "accepted",
+      "source": {
+        "pr": 25015,
+        "review_date": "2026-07-23T13:33:39Z",
+        "finding_rule": "review-25015",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25015 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 25,
+      "last_seen": "2026-07-26T06:17:18Z",
+      "suppressed": false
+    },
+    {
+      "id": "0d298b61-e6e7-45e7-bc39-31ee5af9857f",
+      "type": "accepted",
+      "source": {
+        "pr": 25032,
+        "review_date": "2026-07-23T13:33:45Z",
+        "finding_rule": "review-25032",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25032 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 25,
+      "last_seen": "2026-07-26T06:17:24Z",
+      "suppressed": false
+    },
+    {
+      "id": "113be6dc-ff62-44fe-8bcc-ae62f2914727",
+      "type": "accepted",
+      "source": {
+        "pr": 25052,
+        "review_date": "2026-07-23T13:33:57Z",
+        "finding_rule": "review-25052",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25052 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 0.8,
+      "occurrences": 2,
+      "last_seen": "2026-07-23T13:51:21Z",
+      "suppressed": false
+    },
+    {
+      "id": "c56dbdc8-aac0-4a49-a56d-c96e0819f18b",
+      "type": "accepted",
+      "source": {
+        "pr": 25043,
+        "review_date": "2026-07-23T16:18:53Z",
+        "finding_rule": "review-25043",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25043 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 21,
+      "last_seen": "2026-07-26T06:17:30Z",
+      "suppressed": false
+    },
+    {
+      "id": "edfea326-99a0-49d6-abb3-78f965754ec8",
+      "type": "accepted",
+      "source": {
+        "pr": 25036,
+        "review_date": "2026-07-23T16:19:06Z",
+        "finding_rule": "review-25036",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25036 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 21,
+      "last_seen": "2026-07-26T06:17:42Z",
+      "suppressed": false
+    },
+    {
+      "id": "4bee35fb-f50c-44cd-a34a-b209bfc3e9b8",
+      "type": "accepted",
+      "source": {
+        "pr": 25026,
+        "review_date": "2026-07-24T13:23:59Z",
+        "finding_rule": "review-25026",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25026 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 0.65,
+      "occurrences": 1,
+      "last_seen": "2026-07-24T13:23:59Z",
+      "suppressed": false
+    },
+    {
+      "id": "6635a987-4120-4111-a6d9-3539bb994c92",
+      "type": "accepted",
+      "source": {
+        "pr": 25049,
+        "review_date": "2026-07-24T13:24:23Z",
+        "finding_rule": "review-25049",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25049 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 19,
+      "last_seen": "2026-07-26T06:17:28Z",
+      "suppressed": false
+    },
+    {
+      "id": "8b374f7c-2c20-4c38-9b70-ed69a32e4cd5",
+      "type": "accepted",
+      "source": {
+        "pr": 25054,
+        "review_date": "2026-07-24T13:24:32Z",
+        "finding_rule": "review-25054",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25054 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 19,
+      "last_seen": "2026-07-26T06:17:36Z",
+      "suppressed": false
+    },
+    {
+      "id": "f05ca606-0921-4a6f-8355-9c8ef5e9bce1",
+      "type": "accepted",
+      "source": {
+        "pr": 25047,
+        "review_date": "2026-07-24T13:24:34Z",
+        "finding_rule": "review-25047",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25047 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 19,
+      "last_seen": "2026-07-26T06:17:38Z",
+      "suppressed": false
+    },
+    {
+      "id": "be1f2210-8dc4-4668-afb2-ff39786c66b9",
+      "type": "accepted",
+      "source": {
+        "pr": 25040,
+        "review_date": "2026-07-24T13:24:35Z",
+        "finding_rule": "review-25040",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25040 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 19,
+      "last_seen": "2026-07-26T06:17:39Z",
+      "suppressed": false
+    },
+    {
+      "id": "1ebff5b3-9b8d-4721-878b-0cdac69e7911",
+      "type": "accepted",
+      "source": {
+        "pr": 25060,
+        "review_date": "2026-07-24T13:24:36Z",
+        "finding_rule": "review-25060",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25060 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 19,
+      "last_seen": "2026-07-26T06:17:40Z",
+      "suppressed": false
+    },
+    {
+      "id": "cce9ec1e-706a-4ce1-966b-076694dbc47b",
+      "type": "accepted",
+      "source": {
+        "pr": 25072,
+        "review_date": "2026-07-24T14:32:03Z",
+        "finding_rule": "review-25072",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25072 had 1 commit(s) after review \u2014 suggestions likely applied",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 14,
+      "last_seen": "2026-07-26T06:17:48Z",
+      "suppressed": false
+    },
+    {
+      "id": "bc47cec3-bd4c-4722-9011-0e98a7fe42a1",
+      "type": "accepted",
+      "source": {
+        "pr": 25083,
+        "review_date": "2026-07-25T05:40:22Z",
+        "finding_rule": "review-25083",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25083 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 13,
+      "last_seen": "2026-07-26T06:17:51Z",
+      "suppressed": false
+    },
+    {
+      "id": "013e70e6-d562-4a18-a157-952de834aab9",
+      "type": "accepted",
+      "source": {
+        "pr": 25085,
+        "review_date": "2026-07-25T05:50:59Z",
+        "finding_rule": "review-25085",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25085 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 12,
+      "last_seen": "2026-07-26T06:17:52Z",
+      "suppressed": false
+    },
+    {
+      "id": "0861f06d-d2ba-4b77-a189-14df2de40f8d",
+      "type": "accepted",
+      "source": {
+        "pr": 25096,
+        "review_date": "2026-07-25T09:32:15Z",
+        "finding_rule": "review-25096",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25096 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 11,
+      "last_seen": "2026-07-26T06:17:47Z",
+      "suppressed": false
+    },
+    {
+      "id": "4381a4cc-8b5f-419c-b7e5-ae8a2415c952",
+      "type": "accepted",
+      "source": {
+        "pr": 25101,
+        "review_date": "2026-07-25T09:32:23Z",
+        "finding_rule": "review-25101",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25101 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 11,
+      "last_seen": "2026-07-26T06:17:55Z",
+      "suppressed": false
+    },
+    {
+      "id": "cc578593-de68-44bc-bd58-5c3148ab03bb",
+      "type": "accepted",
+      "source": {
+        "pr": 25104,
+        "review_date": "2026-07-25T09:32:27Z",
+        "finding_rule": "review-25104",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25104 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 11,
+      "last_seen": "2026-07-26T06:17:59Z",
+      "suppressed": false
+    },
+    {
+      "id": "42c1cb8e-beb2-4c0c-b014-35ed01b81bb8",
+      "type": "accepted",
+      "source": {
+        "pr": 25105,
+        "review_date": "2026-07-25T09:32:28Z",
+        "finding_rule": "review-25105",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25105 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 11,
+      "last_seen": "2026-07-26T06:18:00Z",
+      "suppressed": false
+    },
+    {
+      "id": "50e341a2-be6a-4637-b5a0-c1440de0d7fb",
+      "type": "accepted",
+      "source": {
+        "pr": 25106,
+        "review_date": "2026-07-25T09:32:30Z",
+        "finding_rule": "review-25106",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25106 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 11,
+      "last_seen": "2026-07-26T06:18:02Z",
+      "suppressed": false
+    },
+    {
+      "id": "827e29ea-67d9-4c6c-8dbb-398ac7816228",
+      "type": "accepted",
+      "source": {
+        "pr": 25094,
+        "review_date": "2026-07-25T09:39:47Z",
+        "finding_rule": "review-25094",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25094 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 10,
+      "last_seen": "2026-07-26T06:17:46Z",
+      "suppressed": false
+    },
+    {
+      "id": "0bc54f31-3441-4b3f-8064-d87eae934436",
+      "type": "accepted",
+      "source": {
+        "pr": 25100,
+        "review_date": "2026-07-25T09:56:21Z",
+        "finding_rule": "review-25100",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25100 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 7,
+      "last_seen": "2026-07-26T06:17:54Z",
+      "suppressed": false
+    },
+    {
+      "id": "f05b8ebd-0644-4381-a531-bcbc73913089",
+      "type": "accepted",
+      "source": {
+        "pr": 25102,
+        "review_date": "2026-07-25T20:31:27Z",
+        "finding_rule": "review-25102",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25102 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-26T06:17:56Z",
+      "suppressed": false
+    },
+    {
+      "id": "54e0e6dc-acc8-4f85-a5c5-1f0100884ed6",
+      "type": "accepted",
+      "source": {
+        "pr": 25030,
+        "review_date": "2026-07-25T20:31:37Z",
+        "finding_rule": "review-25030",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25030 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 1.0,
+      "occurrences": 4,
+      "last_seen": "2026-07-26T06:18:05Z",
+      "suppressed": false
+    },
+    {
+      "id": "5cbc8889-ba2c-48fc-a8b1-9d98f3a15928",
+      "type": "accepted",
+      "source": {
+        "pr": 25111,
+        "review_date": "2026-07-26T00:55:33Z",
+        "finding_rule": "review-25111",
+        "file_pattern": "*"
+      },
+      "pattern": "PR #25111 merged after APPROVE \u2014 review aligned with maintainer",
+      "action": "flag as issue",
+      "confidence": 0.9500000000000001,
+      "occurrences": 3,
+      "last_seen": "2026-07-26T06:18:04Z",
+      "suppressed": false
+    }
+  ]
+}
