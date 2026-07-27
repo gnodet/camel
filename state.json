@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T07:26:03Z",
+    "timestamp": "2026-07-27T07:33:50Z",
     "prs_checked": 2,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 85323
   },
   "paused": false,
   "reviewed_prs": [
@@ -1164,17 +1164,22 @@
       "number": 25113,
       "title": "CAMEL-24256: Mask URI userinfo credentials and PEM private keys",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-26T21:36:52Z",
+      "reviewed_at": "2026-07-27T07:33:40Z",
       "verdict": "APPROVE",
-      "notes": "Security enhancement: URI userinfo password and PEM key masking. Well-designed regex, comprehensive tests, upgrade guide included.",
+      "notes": "Re-review: author addressed all prior feedback (typo fix, quoteReplacement consistency, pattern rename, fast pre-checks). Clean APPROVE.",
       "interactions": [
         {
           "at": "2026-07-26T21:36:52Z",
           "verdict": "APPROVE",
           "notes": "Security enhancement: URI userinfo password and PEM key masking. Well-designed regex, comprehensive tests, upgrade guide included."
+        },
+        {
+          "at": "2026-07-27T07:33:40Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: author addressed all prior feedback (typo fix, quoteReplacement consistency, pattern rename, fast pre-checks). Clean APPROVE."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
