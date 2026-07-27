@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T10:19:48Z",
-    "prs_checked": 3,
+    "timestamp": "2026-07-27T10:24:22Z",
+    "prs_checked": 2,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
@@ -206,9 +206,9 @@
       "number": 25026,
       "title": "CAMEL-24220: Add camel_security_scan tool for route security analysis",
       "author": "oscerd",
-      "reviewed_at": "2026-07-27T09:11:41Z",
+      "reviewed_at": "2026-07-27T10:24:17Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: all 8 prior findings addressed (RAW() false negative, empty insecureValue FPs, SQL substring matching, dead method, operator precedence, per-consumer header filter, regression tests). APPROVE posted.",
+      "notes": "Re-review: refactored to use SecurityUtils.isInsecureValue(), restored sslEndpointAlgorithm detection, all prior findings addressed",
       "interactions": [
         {
           "at": "2026-07-22T13:31:27Z",
@@ -229,9 +229,14 @@
           "at": "2026-07-27T09:11:41Z",
           "verdict": "APPROVE",
           "notes": "Re-review: all 8 prior findings addressed (RAW() false negative, empty insecureValue FPs, SQL substring matching, dead method, operator precedence, per-consumer header filter, regression tests). APPROVE posted."
+        },
+        {
+          "at": "2026-07-27T10:24:17Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: refactored to use SecurityUtils.isInsecureValue(), restored sslEndpointAlgorithm detection, all prior findings addressed"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25024,
