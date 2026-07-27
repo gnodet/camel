@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T18:42:02Z",
+    "timestamp": "2026-07-27T18:49:56Z",
     "prs_checked": 4,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 2,
+    "tokens_estimate": 136497
   },
   "paused": false,
   "reviewed_prs": [
@@ -1400,6 +1400,38 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25167,
+      "title": "CAMEL-24223: camel-jbang-mcp - Locale.ROOT cost formatting and model-specific disclaimer (follow-up)",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-27T18:49:50Z",
+      "verdict": "APPROVE",
+      "notes": "Clean follow-up addressing 3 review points from PR #25052: Locale.ROOT formatting, model-specific disclaimer, tightened test assertions",
+      "interactions": [
+        {
+          "at": "2026-07-27T18:49:50Z",
+          "verdict": "APPROVE",
+          "notes": "Clean follow-up addressing 3 review points from PR #25052: Locale.ROOT formatting, model-specific disclaimer, tightened test assertions"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25168,
+      "title": "CAMEL-24222: camel-jbang-mcp - catalog-based scheme detection in dependency audit (follow-up)",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-27T18:49:52Z",
+      "verdict": "APPROVE",
+      "notes": "Replaced ad-hoc token-based scheme detection with catalog-based approach, meaningful test assertions, proper negative test case",
+      "interactions": [
+        {
+          "at": "2026-07-27T18:49:52Z",
+          "verdict": "APPROVE",
+          "notes": "Replaced ad-hoc token-based scheme detection with catalog-based approach, meaningful test assertions, proper negative test case"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
