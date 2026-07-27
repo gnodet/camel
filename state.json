@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T14:37:37Z",
+    "timestamp": "2026-07-27T14:44:31Z",
     "prs_checked": 4,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 60312
   },
   "paused": false,
   "reviewed_prs": [
@@ -1348,6 +1348,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25158,
+      "title": "CAMEL-24264: camel-aws2-translate - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-27T14:44:25Z",
+      "verdict": "APPROVE",
+      "notes": "Clean minimal fix following CAMEL-23462 pattern for POJO type validation",
+      "interactions": [
+        {
+          "at": "2026-07-27T14:44:25Z",
+          "verdict": "APPROVE",
+          "notes": "Clean minimal fix following CAMEL-23462 pattern for POJO type validation"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
