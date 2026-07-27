@@ -1374,9 +1374,9 @@
       "number": 25162,
       "title": "CAMEL-24274: camel-tui - Send Message uses HTTP for platform-http routes",
       "author": "davsclaus",
-      "reviewed_at": "2026-07-27T15:06:53Z",
-      "verdict": "COMMENT",
-      "notes": "Re-recorded: bot CI comment triggered re-review, no human response",
+      "reviewed_at": "2026-07-27T17:04:57Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: both previous findings (missing tests, code duplication) addressed. New HttpHelper utility class with 11 tests.",
       "interactions": [
         {
           "at": "2026-07-27T15:00:51Z",
@@ -1387,9 +1387,14 @@
           "at": "2026-07-27T15:06:53Z",
           "verdict": "COMMENT",
           "notes": "Re-recorded: bot CI comment triggered re-review, no human response"
+        },
+        {
+          "at": "2026-07-27T17:04:57Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: both previous findings (missing tests, code duplication) addressed. New HttpHelper utility class with 11 tests."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [
@@ -1795,5 +1800,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-27T15:48:33Z"
+  "last_reviewed_updated_at": "2026-07-27T17:00:50Z"
 }
