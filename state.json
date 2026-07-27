@@ -1332,9 +1332,9 @@
       "number": 25156,
       "title": "CAMEL-24271: camel-kafka - Use BackgroundTask for reconnection visibility",
       "author": "davsclaus",
-      "reviewed_at": "2026-07-27T14:31:49Z",
-      "verdict": "COMMENT",
-      "notes": "Re-recorded: bot CI comment triggered re-review, no human response yet",
+      "reviewed_at": "2026-07-27T17:19:58Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 4 previous findings addressed (deprecated backoff options, try-finally added, upgrade guide entry, retry semantics documented)",
       "interactions": [
         {
           "at": "2026-07-27T14:07:50Z",
@@ -1345,9 +1345,14 @@
           "at": "2026-07-27T14:31:49Z",
           "verdict": "COMMENT",
           "notes": "Re-recorded: bot CI comment triggered re-review, no human response yet"
+        },
+        {
+          "at": "2026-07-27T17:19:58Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 4 previous findings addressed (deprecated backoff options, try-finally added, upgrade guide entry, retry semantics documented)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25158,
