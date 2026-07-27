@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T10:09:54Z",
+    "timestamp": "2026-07-27T10:19:48Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -825,9 +825,9 @@
       "number": 25093,
       "title": "camel-jbang - Redact secrets in structured MCP tool results",
       "author": "oscerd",
-      "reviewed_at": "2026-07-25T19:13:35Z",
-      "verdict": "COMMENT",
-      "notes": "No-op: davsclaus echoed double-redact finding, no new author commits since our review",
+      "reviewed_at": "2026-07-27T10:19:43Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all prior feedback addressed - switched to SensitiveUtils/DefaultMaskingFormatter, fixed double-redaction",
       "interactions": [
         {
           "at": "2026-07-24T14:12:20Z",
@@ -838,9 +838,14 @@
           "at": "2026-07-25T19:13:35Z",
           "verdict": "COMMENT",
           "notes": "No-op: davsclaus echoed double-redact finding, no new author commits since our review"
+        },
+        {
+          "at": "2026-07-27T10:19:43Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all prior feedback addressed - switched to SensitiveUtils/DefaultMaskingFormatter, fixed double-redaction"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25094,
