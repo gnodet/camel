@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T13:50:03Z",
+    "timestamp": "2026-07-27T14:07:56Z",
     "prs_checked": 4,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 2,
+    "tokens_estimate": 233330
   },
   "paused": false,
   "reviewed_prs": [
@@ -1308,6 +1308,38 @@
           "at": "2026-07-27T13:46:34Z",
           "verdict": "APPROVE",
           "notes": "Clean additive PR: 3 federated identity ops with tests and docs, follows existing patterns"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25071,
+      "title": "CAMEL-23460: camel-telemetry - add span decorators for Google Cloud (AI/ML & misc batch)",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-27T14:07:50Z",
+      "verdict": "APPROVE",
+      "notes": "Clean batch of 6 Google Cloud span decorators, proper security handling, complete tests",
+      "interactions": [
+        {
+          "at": "2026-07-27T14:07:50Z",
+          "verdict": "APPROVE",
+          "notes": "Clean batch of 6 Google Cloud span decorators, proper security handling, complete tests"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25156,
+      "title": "CAMEL-24271: camel-kafka - Use BackgroundTask for reconnection visibility",
+      "author": "davsclaus",
+      "reviewed_at": "2026-07-27T14:07:50Z",
+      "verdict": "COMMENT",
+      "notes": "4 verified findings: dead subscribeConsumerBackoff* options, changed retry semantics, missing try-finally, no upgrade guide",
+      "interactions": [
+        {
+          "at": "2026-07-27T14:07:50Z",
+          "verdict": "COMMENT",
+          "notes": "4 verified findings: dead subscribeConsumerBackoff* options, changed retry semantics, missing try-finally, no upgrade guide"
         }
       ],
       "review_count": 1
