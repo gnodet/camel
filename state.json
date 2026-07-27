@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T18:59:27Z",
-    "prs_checked": 1,
+    "timestamp": "2026-07-27T19:01:25Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
@@ -1405,17 +1405,22 @@
       "number": 25167,
       "title": "CAMEL-24223: camel-jbang-mcp - Locale.ROOT cost formatting and model-specific disclaimer (follow-up)",
       "author": "oscerd",
-      "reviewed_at": "2026-07-27T18:49:50Z",
+      "reviewed_at": "2026-07-27T19:01:20Z",
       "verdict": "APPROVE",
-      "notes": "Clean follow-up addressing 3 review points from PR #25052: Locale.ROOT formatting, model-specific disclaimer, tightened test assertions",
+      "notes": "Re-recorded: bot CI comment triggered re-review detection, no human activity",
       "interactions": [
         {
           "at": "2026-07-27T18:49:50Z",
           "verdict": "APPROVE",
           "notes": "Clean follow-up addressing 3 review points from PR #25052: Locale.ROOT formatting, model-specific disclaimer, tightened test assertions"
+        },
+        {
+          "at": "2026-07-27T19:01:20Z",
+          "verdict": "APPROVE",
+          "notes": "Re-recorded: bot CI comment triggered re-review detection, no human activity"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25168,
@@ -1837,5 +1842,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-27T15:05:59Z"
+  "last_reviewed_updated_at": "2026-07-27T18:59:59Z"
 }
