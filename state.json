@@ -1227,17 +1227,22 @@
       "number": 25147,
       "title": "CAMEL-24217: Document the camel-main Resilience4j Integer->String API break in the 4.22 upgrade guide",
       "author": "oscerd",
-      "reviewed_at": "2026-07-27T09:26:29Z",
+      "reviewed_at": "2026-07-27T09:36:10Z",
       "verdict": "APPROVE",
-      "notes": "Clean docs PR documenting Resilience4j Integer->String API break for programmatic camel-main users. APPROVE posted.",
+      "notes": "Re-review triggered by our own APPROVE. Already reviewed and approved. No action needed.",
       "interactions": [
         {
           "at": "2026-07-27T09:26:29Z",
           "verdict": "APPROVE",
           "notes": "Clean docs PR documenting Resilience4j Integer->String API break for programmatic camel-main users. APPROVE posted."
+        },
+        {
+          "at": "2026-07-27T09:36:10Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review triggered by our own APPROVE. Already reviewed and approved. No action needed."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
