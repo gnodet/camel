@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T11:47:29Z",
+    "timestamp": "2026-07-27T12:16:26Z",
     "prs_checked": 2,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1258,6 +1258,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25153,
+      "title": "CAMEL-24263: camel-aws2-sts - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-27T12:16:20Z",
+      "verdict": "APPROVE",
+      "notes": "Fail-fast for wrong POJO type in STS ops, consistent with bedrock precedent, well-tested with AssertJ",
+      "interactions": [
+        {
+          "at": "2026-07-27T12:16:20Z",
+          "verdict": "APPROVE",
+          "notes": "Fail-fast for wrong POJO type in STS ops, consistent with bedrock precedent, well-tested with AssertJ"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
