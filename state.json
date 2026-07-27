@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-27T09:00:34Z",
-    "prs_checked": 3,
+    "timestamp": "2026-07-27T09:11:43Z",
+    "prs_checked": 2,
     "reviews_posted": 1,
-    "tokens_estimate": 86548
+    "tokens_estimate": 90848
   },
   "paused": false,
   "reviewed_prs": [
@@ -206,9 +206,9 @@
       "number": 25026,
       "title": "CAMEL-24220: Add camel_security_scan tool for route security analysis",
       "author": "oscerd",
-      "reviewed_at": "2026-07-24T13:24:51Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: all 4 blocking fixes correct, but missing regression tests and dead code",
+      "reviewed_at": "2026-07-27T09:11:41Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 8 prior findings addressed (RAW() false negative, empty insecureValue FPs, SQL substring matching, dead method, operator precedence, per-consumer header filter, regression tests). APPROVE posted.",
       "interactions": [
         {
           "at": "2026-07-22T13:31:27Z",
@@ -224,9 +224,14 @@
           "at": "2026-07-24T13:24:51Z",
           "verdict": "COMMENT",
           "notes": "Re-review: all 4 blocking fixes correct, but missing regression tests and dead code"
+        },
+        {
+          "at": "2026-07-27T09:11:41Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 8 prior findings addressed (RAW() false negative, empty insecureValue FPs, SQL substring matching, dead method, operator precedence, per-consumer header filter, regression tests). APPROVE posted."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25024,
@@ -1622,5 +1627,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-27T08:55:27Z"
+  "last_reviewed_updated_at": "2026-07-27T08:48:25Z"
 }
