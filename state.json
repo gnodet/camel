@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T12:49:21Z",
+    "timestamp": "2026-07-28T13:03:18Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1586,6 +1586,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25194,
+      "title": "CAMEL-24283: camel-aws2-comprehend - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-28T13:03:14Z",
+      "verdict": "APPROVE",
+      "notes": "Type safety for POJO-mode operations, follows sibling PRs pattern",
+      "interactions": [
+        {
+          "at": "2026-07-28T13:03:14Z",
+          "verdict": "APPROVE",
+          "notes": "Type safety for POJO-mode operations, follows sibling PRs pattern"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1996,5 +2012,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-28T12:25:01Z"
+  "last_reviewed_updated_at": "2026-07-28T13:03:04Z"
 }
