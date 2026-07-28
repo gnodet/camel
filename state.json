@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T19:14:06Z",
-    "prs_checked": 4,
-    "reviews_posted": 0,
+    "timestamp": "2026-07-28T19:46:33Z",
+    "prs_checked": 5,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1463,17 +1463,22 @@
       "number": 25171,
       "title": "CAMEL-24276: Azure OpenAI and GitHub Models support for Camel TUI AI prompt",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-28T09:01:04Z",
+      "reviewed_at": "2026-07-28T19:46:26Z",
       "verdict": "APPROVE",
-      "notes": "Well-structured opt-in Azure/GitHub Models support, good test coverage, auth design correct",
+      "notes": "Re-review after GitHub Models removal: clean implementation, consistent auth, good tests",
       "interactions": [
         {
           "at": "2026-07-28T09:01:04Z",
           "verdict": "APPROVE",
           "notes": "Well-structured opt-in Azure/GitHub Models support, good test coverage, auth design correct"
+        },
+        {
+          "at": "2026-07-28T19:46:26Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after GitHub Models removal: clean implementation, consistent auth, good tests"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25172,
