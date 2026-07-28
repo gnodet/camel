@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T08:25:07Z",
+    "timestamp": "2026-07-28T08:30:42Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 67000
   },
   "paused": false,
   "reviewed_prs": [
@@ -1442,6 +1442,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25174,
+      "title": "Upgrade Vert.x to 4.5.30",
+      "author": "jamesnetherton",
+      "reviewed_at": "2026-07-28T08:30:41Z",
+      "verdict": "APPROVE",
+      "notes": "Clean patch version bump 4.5.28\u21924.5.30, CI green, no breaking changes for Camel",
+      "interactions": [
+        {
+          "at": "2026-07-28T08:30:41Z",
+          "verdict": "APPROVE",
+          "notes": "Clean patch version bump 4.5.28\u21924.5.30, CI green, no breaking changes for Camel"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
