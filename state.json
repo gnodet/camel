@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T21:06:58Z",
+    "timestamp": "2026-07-28T21:16:51Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1628,17 +1628,22 @@
       "number": 25161,
       "title": "CAMEL-24267: Synchronize writer-side setters in ThrottlingInflightRoutePolicy",
       "author": "gnodet",
-      "reviewed_at": "2026-07-28T17:11:42Z",
+      "reviewed_at": "2026-07-28T21:16:47Z",
       "verdict": "APPROVE",
-      "notes": "Clean synchronized setters fix for writer-side race condition, thorough CyclicBarrier concurrency test",
+      "notes": "Re-review: FQCN fix commit clean and correct",
       "interactions": [
         {
           "at": "2026-07-28T17:11:42Z",
           "verdict": "APPROVE",
           "notes": "Clean synchronized setters fix for writer-side race condition, thorough CyclicBarrier concurrency test"
+        },
+        {
+          "at": "2026-07-28T21:16:47Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: FQCN fix commit clean and correct"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25201,
