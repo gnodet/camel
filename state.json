@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T11:53:31Z",
+    "timestamp": "2026-07-28T12:00:52Z",
     "prs_checked": 5,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -1567,6 +1567,22 @@
           "at": "2026-07-28T11:53:26Z",
           "verdict": "APPROVE",
           "notes": "Path traversal fix using Path.normalize()+Path.startsWith() containment, aligned with Azure Storage fix pattern"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25184,
+      "title": "CAMEL-24280: camel-aws2-mq - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-28T12:00:47Z",
+      "verdict": "APPROVE",
+      "notes": "Type safety fix for MQ2Producer POJO mode, consistent with sibling PRs pattern",
+      "interactions": [
+        {
+          "at": "2026-07-28T12:00:47Z",
+          "verdict": "APPROVE",
+          "notes": "Type safety fix for MQ2Producer POJO mode, consistent with sibling PRs pattern"
         }
       ],
       "review_count": 1
