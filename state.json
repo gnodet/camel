@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T09:10:31Z",
+    "timestamp": "2026-07-28T09:22:14Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1490,6 +1490,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25181,
+      "title": "[backport camel-4.14.x] CAMEL-24279: camel-google-storage - contain downloadFileName downloads within the configured directory",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-28T09:20:15Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of path-traversal containment fix, byte-for-byte identical to main, thorough test coverage",
+      "interactions": [
+        {
+          "at": "2026-07-28T09:20:15Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of path-traversal containment fix, byte-for-byte identical to main, thorough test coverage"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25182,
+      "title": "CAMEL-24279: sync camel-google-storage download containment note to the 4.18/4.14 upgrade guides on main",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-28T09:22:08Z",
+      "verdict": "APPROVE",
+      "notes": "Clean doc-sync, upgrade guide text identical across all versions, follows backport policy",
+      "interactions": [
+        {
+          "at": "2026-07-28T09:22:08Z",
+          "verdict": "APPROVE",
+          "notes": "Clean doc-sync, upgrade guide text identical across all versions, follows backport policy"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1895,5 +1927,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-28T09:07:45Z"
+  "last_reviewed_updated_at": "2026-07-28T09:14:55Z"
 }
