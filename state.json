@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T17:01:44Z",
+    "timestamp": "2026-07-28T17:11:49Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1599,6 +1599,38 @@
           "at": "2026-07-28T13:03:14Z",
           "verdict": "APPROVE",
           "notes": "Type safety for POJO-mode operations, follows sibling PRs pattern"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25148,
+      "title": "CAMEL-22000: Fix flaky EventBridge integration tests",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-28T17:11:10Z",
+      "verdict": "APPROVE",
+      "notes": "Well-scoped fix centralizing readiness probe and cleanup in shared base class",
+      "interactions": [
+        {
+          "at": "2026-07-28T17:11:10Z",
+          "verdict": "APPROVE",
+          "notes": "Well-scoped fix centralizing readiness probe and cleanup in shared base class"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25161,
+      "title": "CAMEL-24267: Synchronize writer-side setters in ThrottlingInflightRoutePolicy",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-28T17:11:42Z",
+      "verdict": "APPROVE",
+      "notes": "Clean synchronized setters fix for writer-side race condition, thorough CyclicBarrier concurrency test",
+      "interactions": [
+        {
+          "at": "2026-07-28T17:11:42Z",
+          "verdict": "APPROVE",
+          "notes": "Clean synchronized setters fix for writer-side race condition, thorough CyclicBarrier concurrency test"
         }
       ],
       "review_count": 1
