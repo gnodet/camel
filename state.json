@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-28T12:00:52Z",
+    "timestamp": "2026-07-28T12:03:53Z",
     "prs_checked": 5,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1613,6 +1613,11 @@
       "number": 24858,
       "reason": "skip_own_prs: author is gnodet (operator)",
       "since": "2026-07-27T08:43:06Z"
+    },
+    {
+      "number": 25157,
+      "reason": "own PR (gnodet)",
+      "since": "2026-07-28T12:03:38Z"
     }
   ],
   "review_queue": [],
@@ -1991,5 +1996,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-28T11:36:56Z"
+  "last_reviewed_updated_at": "2026-07-28T11:57:12Z"
 }
