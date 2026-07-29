@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T15:22:55Z",
-    "prs_checked": 5,
-    "reviews_posted": 0,
+    "timestamp": "2026-07-29T15:54:46Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1665,9 +1665,9 @@
       "number": 25208,
       "title": "CAMEL-24288: Add IBM watsonx.ai support for TUI/CLI AI prompt (F8)",
       "author": "gnodet",
-      "reviewed_at": "2026-07-29T13:55:53Z",
-      "verdict": "COMMENT",
-      "notes": "1 confirmed finding: WATSONX_URL env var undocumented. 2 false positives filtered.",
+      "reviewed_at": "2026-07-29T15:41:22Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: previous WATSONX_URL finding fully addressed. All review feedback resolved.",
       "interactions": [
         {
           "at": "2026-07-29T07:36:27Z",
@@ -1678,9 +1678,14 @@
           "at": "2026-07-29T13:55:53Z",
           "verdict": "COMMENT",
           "notes": "1 confirmed finding: WATSONX_URL env var undocumented. 2 false positives filtered."
+        },
+        {
+          "at": "2026-07-29T15:41:22Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: previous WATSONX_URL finding fully addressed. All review feedback resolved."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25206,
@@ -1843,6 +1848,22 @@
           "at": "2026-07-29T14:52:12Z",
           "verdict": "APPROVE",
           "notes": "pojoRequest validation for all 10 RedshiftData2Producer operations. Same pattern as aws2-ec2/polly/timestream."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25198,
+      "title": "CAMEL-24282: Resolve dynamic-URI property placeholders at build time instead of per message",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-29T15:54:43Z",
+      "verdict": "COMMENT",
+      "notes": "PollEnricher inconsistency: same per-message resolution code not removed; upgrade guide incorrectly groups pollEnrich with unchanged EIPs; missing pollEnrich and dynamicRouter tests",
+      "interactions": [
+        {
+          "at": "2026-07-29T15:54:43Z",
+          "verdict": "COMMENT",
+          "notes": "PollEnricher inconsistency: same per-message resolution code not removed; upgrade guide incorrectly groups pollEnrich with unchanged EIPs; missing pollEnrich and dynamicRouter tests"
         }
       ],
       "review_count": 1
