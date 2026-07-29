@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T14:37:24Z",
+    "timestamp": "2026-07-29T14:44:55Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1766,17 +1766,22 @@
       "number": 25219,
       "title": "Fix flakiness of Eventbridge tests",
       "author": "apupier",
-      "reviewed_at": "2026-07-29T12:45:48Z",
-      "verdict": "COMMENT",
-      "notes": "1 medium finding: missed rule name suffix in putTargets. 2 low: mixed JUnit/AssertJ assertions.",
+      "reviewed_at": "2026-07-29T14:44:55Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: medium finding fixed (rule name suffix in putTargets). Two low mixed-assertion findings intentionally declined.",
       "interactions": [
         {
           "at": "2026-07-29T12:45:48Z",
           "verdict": "COMMENT",
           "notes": "1 medium finding: missed rule name suffix in putTargets. 2 low: mixed JUnit/AssertJ assertions."
+        },
+        {
+          "at": "2026-07-29T14:44:55Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: medium finding fixed (rule name suffix in putTargets). Two low mixed-assertion findings intentionally declined."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25220,
