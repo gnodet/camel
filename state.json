@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T19:57:43Z",
+    "timestamp": "2026-07-29T20:05:02Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -1896,6 +1896,22 @@
           "at": "2026-07-29T19:51:14Z",
           "verdict": "APPROVE",
           "notes": "Clean dead-code removal after ThrottlingLimits refactoring in PR #24985"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25173,
+      "title": "CAMEL-23383: Add JFR runtime instrumentation",
+      "author": "ammachado",
+      "reviewed_at": "2026-07-29T20:05:02Z",
+      "verdict": "COMMENT",
+      "notes": "3 confirmed findings: misleading warning message, missing Awaitility timeout, duplicate mnemonic J (first duplication in TabRegistry)",
+      "interactions": [
+        {
+          "at": "2026-07-29T20:05:02Z",
+          "verdict": "COMMENT",
+          "notes": "3 confirmed findings: misleading warning message, missing Awaitility timeout, duplicate mnemonic J (first duplication in TabRegistry)"
         }
       ],
       "review_count": 1
