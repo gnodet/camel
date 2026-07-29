@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T20:05:02Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-07-29T20:14:47Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1912,6 +1912,38 @@
           "at": "2026-07-29T20:05:02Z",
           "verdict": "COMMENT",
           "notes": "3 confirmed findings: misleading warning message, missing Awaitility timeout, duplicate mnemonic J (first duplication in TabRegistry)"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25218,
+      "title": "CAMEL-24293: Strip path segments from externally-derived filenames before setting Exchange.FILE_NAME",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-29T20:12:40Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "ZipIterator and TarIterator not patched despite PR description claiming they are; same path-traversal vector remains via split path",
+      "interactions": [
+        {
+          "at": "2026-07-29T20:12:40Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "ZipIterator and TarIterator not patched despite PR description claiming they are; same path-traversal vector remains via split path"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25204,
+      "title": "CAMEL-24287: Add plain text edit mode to TUI source viewer",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-07-29T20:14:47Z",
+      "verdict": "COMMENT",
+      "notes": "4 low-severity findings: 2 dead methods, FQCNs in test, redundant assignments in saveEdit()",
+      "interactions": [
+        {
+          "at": "2026-07-29T20:14:47Z",
+          "verdict": "COMMENT",
+          "notes": "4 low-severity findings: 2 dead methods, FQCNs in test, redundant assignments in saveEdit()"
         }
       ],
       "review_count": 1
