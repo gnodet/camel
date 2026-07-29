@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T10:58:57Z",
+    "timestamp": "2026-07-29T11:08:35Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 64668
   },
   "paused": false,
   "reviewed_prs": [
@@ -1721,6 +1721,22 @@
           "at": "2026-07-29T10:55:59Z",
           "verdict": "APPROVE",
           "notes": "Docs fix: old datasonnet.com redirects to unrelated portx.io, updated to GitHub repo URL"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25215,
+      "title": "CAMEL-24300: camel-aws2-ec2 - throw when pojoRequest=true and body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-29T11:08:35Z",
+      "verdict": "APPROVE",
+      "notes": "Part of CAMEL-24261 series. All 9 EC2 ops get IllegalArgumentException on wrong body type. Clean and consistent.",
+      "interactions": [
+        {
+          "at": "2026-07-29T11:08:35Z",
+          "verdict": "APPROVE",
+          "notes": "Part of CAMEL-24261 series. All 9 EC2 ops get IllegalArgumentException on wrong body type. Clean and consistent."
         }
       ],
       "review_count": 1
