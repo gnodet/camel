@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T13:43:35Z",
+    "timestamp": "2026-07-29T13:55:53Z",
     "prs_checked": 5,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -1665,17 +1665,22 @@
       "number": 25208,
       "title": "CAMEL-24288: Add IBM watsonx.ai support for TUI/CLI AI prompt (F8)",
       "author": "gnodet",
-      "reviewed_at": "2026-07-29T07:36:27Z",
-      "verdict": "APPROVE",
-      "notes": "Clean addition of IBM watsonx.ai provider following existing patterns. Tests and docs included.",
+      "reviewed_at": "2026-07-29T13:55:53Z",
+      "verdict": "COMMENT",
+      "notes": "1 confirmed finding: WATSONX_URL env var undocumented. 2 false positives filtered.",
       "interactions": [
         {
           "at": "2026-07-29T07:36:27Z",
           "verdict": "APPROVE",
           "notes": "Clean addition of IBM watsonx.ai provider following existing patterns. Tests and docs included."
+        },
+        {
+          "at": "2026-07-29T13:55:53Z",
+          "verdict": "COMMENT",
+          "notes": "1 confirmed finding: WATSONX_URL env var undocumented. 2 false positives filtered."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25206,
