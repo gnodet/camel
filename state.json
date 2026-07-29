@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T08:34:33Z",
+    "timestamp": "2026-07-29T08:52:42Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "reviews_posted": 1,
+    "tokens_estimate": 68856
   },
   "paused": false,
   "reviewed_prs": [
@@ -1689,6 +1689,22 @@
           "at": "2026-07-29T08:32:38Z",
           "verdict": "APPROVE",
           "notes": "Correct volatile fix for cross-thread visibility. Verified no other fields need same treatment."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25210,
+      "title": "CAMEL-24289: camel-aws2-textract - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-29T08:52:38Z",
+      "verdict": "APPROVE",
+      "notes": "Consistent with CAMEL-24261 series. All 9 operations covered with tests.",
+      "interactions": [
+        {
+          "at": "2026-07-29T08:52:38Z",
+          "verdict": "APPROVE",
+          "notes": "Consistent with CAMEL-24261 series. All 9 operations covered with tests."
         }
       ],
       "review_count": 1
