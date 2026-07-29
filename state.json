@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T13:26:01Z",
+    "timestamp": "2026-07-29T13:43:35Z",
     "prs_checked": 5,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1788,6 +1788,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25217,
+      "title": "CAMEL-24286: Release the latch and unregister when a BackgroundTask supplier throws",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-29T13:43:35Z",
+      "verdict": "APPROVE",
+      "notes": "Clean fix for thread-hang bug in BackgroundTask exception path",
+      "interactions": [
+        {
+          "at": "2026-07-29T13:43:35Z",
+          "verdict": "APPROVE",
+          "notes": "Clean fix for thread-hang bug in BackgroundTask exception path"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2198,5 +2214,5 @@
     }
   ],
   "created_at": "2026-07-11T08:00:00Z",
-  "last_reviewed_updated_at": "2026-07-29T13:24:46Z"
+  "last_reviewed_updated_at": "2026-07-29T13:26:35Z"
 }
