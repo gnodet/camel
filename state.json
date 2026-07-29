@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-29T12:23:51Z",
-    "prs_checked": 3,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "timestamp": "2026-07-29T12:45:48Z",
+    "prs_checked": 4,
+    "reviews_posted": 1,
+    "tokens_estimate": 153067
   },
   "paused": false,
   "reviewed_prs": [
@@ -1753,6 +1753,22 @@
           "at": "2026-07-29T11:51:18Z",
           "verdict": "APPROVE",
           "notes": "Part of CAMEL-24261 series. All 9 Polly ops get IllegalArgumentException on wrong body type. Consistent with siblings."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25219,
+      "title": "Fix flakiness of Eventbridge tests",
+      "author": "apupier",
+      "reviewed_at": "2026-07-29T12:45:48Z",
+      "verdict": "COMMENT",
+      "notes": "1 medium finding: missed rule name suffix in putTargets. 2 low: mixed JUnit/AssertJ assertions.",
+      "interactions": [
+        {
+          "at": "2026-07-29T12:45:48Z",
+          "verdict": "COMMENT",
+          "notes": "1 medium finding: missed rule name suffix in putTargets. 2 low: mixed JUnit/AssertJ assertions."
         }
       ],
       "review_count": 1
