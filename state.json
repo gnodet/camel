@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T13:02:22Z",
+    "timestamp": "2026-07-30T13:21:15Z",
     "prs_checked": 10,
-    "reviews_posted": 2,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -2115,17 +2115,22 @@
       "number": 25245,
       "title": "CAMEL-20199: Replace synchronized with ReentrantLock in AI components",
       "author": "gnodet",
-      "reviewed_at": "2026-07-30T09:46:15Z",
+      "reviewed_at": "2026-07-30T13:15:12Z",
       "verdict": "APPROVE",
-      "notes": "Also fixes pre-existing lock coordination bug between A2AProgress and GuardedTaskStore",
+      "notes": "Re-review: apupier feedback addressed (STORE_LOCKS leak fix, ownership scoping). Human approval from apupier.",
       "interactions": [
         {
           "at": "2026-07-30T09:46:15Z",
           "verdict": "APPROVE",
           "notes": "Also fixes pre-existing lock coordination bug between A2AProgress and GuardedTaskStore"
+        },
+        {
+          "at": "2026-07-30T13:15:12Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: apupier feedback addressed (STORE_LOCKS leak fix, ownership scoping). Human approval from apupier."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25230,
@@ -2187,6 +2192,38 @@
           "at": "2026-07-30T13:02:18Z",
           "verdict": "COMMENT",
           "notes": "Fix is correct. Minor: putRule is only op not using executeOperation helper; error message format inconsistency."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25247,
+      "title": "CAMEL-20199: Replace synchronized with ReentrantLock in misc components",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T13:17:44Z",
+      "verdict": "APPROVE",
+      "notes": "Clean mechanical migration across 8 components. Correct lock patterns. No public API changes. CI green.",
+      "interactions": [
+        {
+          "at": "2026-07-30T13:17:44Z",
+          "verdict": "APPROVE",
+          "notes": "Clean mechanical migration across 8 components. Correct lock patterns. No public API changes. CI green."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25242,
+      "title": "CAMEL-20199: Migrate context-passing ThreadLocals to ContextValue",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T13:21:11Z",
+      "verdict": "COMMENT",
+      "notes": "Correct migration. 3 binary-incompatible public API changes need upgrade guide entries (CML, JqFunctions, MessageVariableResolver).",
+      "interactions": [
+        {
+          "at": "2026-07-30T13:21:11Z",
+          "verdict": "COMMENT",
+          "notes": "Correct migration. 3 binary-incompatible public API changes need upgrade guide entries (CML, JqFunctions, MessageVariableResolver)."
         }
       ],
       "review_count": 1
