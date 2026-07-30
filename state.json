@@ -4,7 +4,7 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T12:04:34Z",
+    "timestamp": "2026-07-30T12:10:54Z",
     "prs_checked": 11,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -1824,9 +1824,9 @@
       "number": 25216,
       "title": "CAMEL-23963: configurable strategies for tool errors and hallucinated tool names",
       "author": "gnodet",
-      "reviewed_at": "2026-07-30T10:17:22Z",
-      "verdict": "COMMENT",
-      "notes": "Missing upgrade guide entry for breaking default change (toolExecutionErrorStrategy=failExchange), test visibility",
+      "reviewed_at": "2026-07-30T12:10:53Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all previous findings addressed (upgrade guide, test visibility). Posted as COMMENT (own PR).",
       "interactions": [
         {
           "at": "2026-07-29T14:31:57Z",
@@ -1842,9 +1842,14 @@
           "at": "2026-07-30T10:17:22Z",
           "verdict": "COMMENT",
           "notes": "Missing upgrade guide entry for breaking default change (toolExecutionErrorStrategy=failExchange), test visibility"
+        },
+        {
+          "at": "2026-07-30T12:10:53Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all previous findings addressed (upgrade guide, test visibility). Posted as COMMENT (own PR)."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25227,
