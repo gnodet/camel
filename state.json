@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T12:40:42Z",
+    "timestamp": "2026-07-30T13:02:22Z",
     "prs_checked": 10,
-    "reviews_posted": 0,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -1945,9 +1945,9 @@
       "number": 25218,
       "title": "CAMEL-24293: Strip path segments from externally-derived filenames before setting Exchange.FILE_NAME",
       "author": "oscerd",
-      "reviewed_at": "2026-07-30T08:26:01Z",
-      "verdict": "COMMENT",
-      "notes": "",
+      "reviewed_at": "2026-07-30T12:44:47Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all previously raised concerns addressed. ZipIterator and TarIterator now strip paths. Security fix covers all 5 code paths.",
       "interactions": [
         {
           "at": "2026-07-29T20:12:40Z",
@@ -1958,9 +1958,14 @@
           "at": "2026-07-30T08:26:01Z",
           "verdict": "COMMENT",
           "notes": ""
+        },
+        {
+          "at": "2026-07-30T12:44:47Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all previously raised concerns addressed. ZipIterator and TarIterator now strip paths. Security fix covers all 5 code paths."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25204,
@@ -2166,6 +2171,22 @@
           "at": "2026-07-30T12:04:34Z",
           "verdict": "APPROVE",
           "notes": "Clean synchronized->ReentrantLock conversion in OAuth/security components. Posted as COMMENT (own PR)."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25255,
+      "title": "CAMEL-24317: camel-aws2-eventbridge - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-30T13:02:18Z",
+      "verdict": "COMMENT",
+      "notes": "Fix is correct. Minor: putRule is only op not using executeOperation helper; error message format inconsistency.",
+      "interactions": [
+        {
+          "at": "2026-07-30T13:02:18Z",
+          "verdict": "COMMENT",
+          "notes": "Fix is correct. Minor: putRule is only op not using executeOperation helper; error message format inconsistency."
         }
       ],
       "review_count": 1
