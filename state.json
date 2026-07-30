@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T14:05:15Z",
-    "prs_checked": 8,
+    "timestamp": "2026-07-30T14:39:50Z",
+    "prs_checked": 7,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
@@ -2240,6 +2240,22 @@
           "at": "2026-07-30T14:05:08Z",
           "verdict": "APPROVE",
           "notes": "Clean fix with good tests. URL from app properties now correctly loaded in QuarkusPlatformMixin.of()."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25248,
+      "title": "CAMEL-24315: camel-google-pubsub - stop subscribers that finish starting after doStop",
+      "author": "henrik242",
+      "reviewed_at": "2026-07-30T14:39:50Z",
+      "verdict": "APPROVE",
+      "notes": "Correct fix for race condition: double-check pattern with volatile status field closes the window. Good deterministic tests.",
+      "interactions": [
+        {
+          "at": "2026-07-30T14:39:50Z",
+          "verdict": "APPROVE",
+          "notes": "Correct fix for race condition: double-check pattern with volatile status field closes the window. Good deterministic tests."
         }
       ],
       "review_count": 1
