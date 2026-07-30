@@ -4,9 +4,9 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T13:21:15Z",
-    "prs_checked": 10,
-    "reviews_posted": 3,
+    "timestamp": "2026-07-30T14:05:15Z",
+    "prs_checked": 8,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
@@ -2224,6 +2224,22 @@
           "at": "2026-07-30T13:21:11Z",
           "verdict": "COMMENT",
           "notes": "Correct migration. 3 binary-incompatible public API changes need upgrade guide entries (CML, JqFunctions, MessageVariableResolver)."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25254,
+      "title": "CAMEL-23931: Fix camel.jbang.quarkus.platform.url ignored from application.properties",
+      "author": "jomin7",
+      "reviewed_at": "2026-07-30T14:05:08Z",
+      "verdict": "APPROVE",
+      "notes": "Clean fix with good tests. URL from app properties now correctly loaded in QuarkusPlatformMixin.of().",
+      "interactions": [
+        {
+          "at": "2026-07-30T14:05:08Z",
+          "verdict": "APPROVE",
+          "notes": "Clean fix with good tests. URL from app properties now correctly loaded in QuarkusPlatformMixin.of()."
         }
       ],
       "review_count": 1
