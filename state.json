@@ -4,8 +4,8 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T14:39:50Z",
-    "prs_checked": 7,
+    "timestamp": "2026-07-30T15:46:24Z",
+    "prs_checked": 9,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
@@ -2256,6 +2256,22 @@
           "at": "2026-07-30T14:39:50Z",
           "verdict": "APPROVE",
           "notes": "Correct fix for race condition: double-check pattern with volatile status field closes the window. Good deterministic tests."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25260,
+      "title": "CAMEL-24318 - improve regen.sh",
+      "author": "apupier",
+      "reviewed_at": "2026-07-30T15:46:24Z",
+      "verdict": "COMMENT",
+      "notes": "Good improvements. Missing pr-build-main.yml update for new log filenames. Minor: git clean -x removal causes log accumulation locally.",
+      "interactions": [
+        {
+          "at": "2026-07-30T15:46:24Z",
+          "verdict": "COMMENT",
+          "notes": "Good improvements. Missing pr-build-main.yml update for new log filenames. Minor: git clean -x removal causes log accumulation locally."
         }
       ],
       "review_count": 1
