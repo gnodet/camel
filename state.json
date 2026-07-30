@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T09:37:00Z",
-    "prs_checked": 3,
-    "reviews_posted": 0,
-    "tokens_estimate": 0
+    "timestamp": "2026-07-30T09:46:22Z",
+    "prs_checked": 8,
+    "reviews_posted": 5,
+    "tokens_estimate": 344768
   },
   "paused": false,
   "reviewed_prs": [
@@ -2028,6 +2028,86 @@
           "at": "2026-07-30T09:29:30Z",
           "verdict": "APPROVE",
           "notes": "Clean mechanical PR adding IllegalArgumentException branches to all 27 Rekognition operations, following established series pattern"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25239,
+      "title": "CAMEL-20199: Migrate TomcatReactiveExecutor from raw ThreadLocal to ContextValue",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T09:46:15Z",
+      "verdict": "APPROVE",
+      "notes": "Clean ThreadLocal\u2192ContextValue migration, fixes broken reflection cleanup and stats accounting bugs",
+      "interactions": [
+        {
+          "at": "2026-07-30T09:46:15Z",
+          "verdict": "APPROVE",
+          "notes": "Clean ThreadLocal\u2192ContextValue migration, fixes broken reflection cleanup and stats accounting bugs"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25240,
+      "title": "CAMEL-20199: Remove ThreadLocal Yaml caching in SnakeYAMLDataFormat",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T09:46:15Z",
+      "verdict": "APPROVE",
+      "notes": "ThreadLocal removal, per-operation Yaml instantiation, pre-existing thread-safety note for user-provided constructors",
+      "interactions": [
+        {
+          "at": "2026-07-30T09:46:15Z",
+          "verdict": "APPROVE",
+          "notes": "ThreadLocal removal, per-operation Yaml instantiation, pre-existing thread-safety note for user-provided constructors"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25241,
+      "title": "CAMEL-20199: Convert MllpSocketBuffer synchronized methods to ReentrantLock",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T09:46:15Z",
+      "verdict": "APPROVE",
+      "notes": "All 34 synchronized methods converted to ReentrantLock, clean mechanical conversion",
+      "interactions": [
+        {
+          "at": "2026-07-30T09:46:15Z",
+          "verdict": "APPROVE",
+          "notes": "All 34 synchronized methods converted to ReentrantLock, clean mechanical conversion"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25244,
+      "title": "CAMEL-20199: Replace synchronized with ReentrantLock in telemetry and metrics components",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T09:46:15Z",
+      "verdict": "APPROVE",
+      "notes": "6 files across 3 modules, double-checked locking preserved, comprehensive conversion",
+      "interactions": [
+        {
+          "at": "2026-07-30T09:46:15Z",
+          "verdict": "APPROVE",
+          "notes": "6 files across 3 modules, double-checked locking preserved, comprehensive conversion"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25245,
+      "title": "CAMEL-20199: Replace synchronized with ReentrantLock in AI components",
+      "author": "gnodet",
+      "reviewed_at": "2026-07-30T09:46:15Z",
+      "verdict": "APPROVE",
+      "notes": "Also fixes pre-existing lock coordination bug between A2AProgress and GuardedTaskStore",
+      "interactions": [
+        {
+          "at": "2026-07-30T09:46:15Z",
+          "verdict": "APPROVE",
+          "notes": "Also fixes pre-existing lock coordination bug between A2AProgress and GuardedTaskStore"
         }
       ],
       "review_count": 1
