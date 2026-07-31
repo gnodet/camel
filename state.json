@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-31T09:46:13Z",
+    "timestamp": "2026-07-31T10:30:26Z",
     "prs_checked": 4,
     "reviews_posted": 1,
-    "tokens_estimate": 70214
+    "tokens_estimate": 112004
   },
   "paused": false,
   "reviewed_prs": [
@@ -2008,17 +2008,22 @@
       "number": 25202,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-07-30T06:33:40Z",
-      "verdict": "COMMENT",
-      "notes": "",
+      "reviewed_at": "2026-07-31T10:30:23Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 5 previous findings addressed, CI green",
       "interactions": [
         {
           "at": "2026-07-30T06:33:40Z",
           "verdict": "COMMENT",
           "notes": ""
+        },
+        {
+          "at": "2026-07-31T10:30:23Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 5 previous findings addressed, CI green"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25203,
