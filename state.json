@@ -2480,17 +2480,22 @@
       "number": 25271,
       "title": "CAMEL-23382: deprecate camel-langchain4j-tools, replaced by ai-tool + langchain4j",
       "author": "zbendhiba",
-      "reviewed_at": "2026-07-31T12:13:44Z",
-      "verdict": "COMMENT",
-      "notes": "Upgrade guide overwrites existing behavioral changes, missing xref",
+      "reviewed_at": "2026-07-31T15:15:39Z",
+      "verdict": "APPROVE",
+      "notes": "",
       "interactions": [
         {
           "at": "2026-07-31T12:13:44Z",
           "verdict": "COMMENT",
           "notes": "Upgrade guide overwrites existing behavioral changes, missing xref"
+        },
+        {
+          "at": "2026-07-31T15:15:39Z",
+          "verdict": "APPROVE",
+          "notes": ""
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25276,
