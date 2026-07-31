@@ -2339,6 +2339,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25264,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-07-31T05:26:47Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T05:26:47Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25249,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-07-31T05:27:44Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T05:27:44Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
