@@ -4,10 +4,10 @@
   "project_name": "Apache Camel",
   "loop_type": "review-loop",
   "last_run": {
-    "timestamp": "2026-07-30T15:46:24Z",
-    "prs_checked": 9,
+    "timestamp": "2026-07-31T08:42:19Z",
+    "prs_checked": 10,
     "reviews_posted": 1,
-    "tokens_estimate": 0
+    "tokens_estimate": 79180
   },
   "paused": false,
   "reviewed_prs": [
@@ -1971,17 +1971,22 @@
       "number": 25204,
       "title": "CAMEL-24287: Add plain text edit mode to TUI source viewer",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-07-29T20:14:47Z",
-      "verdict": "COMMENT",
-      "notes": "4 low-severity findings: 2 dead methods, FQCNs in test, redundant assignments in saveEdit()",
+      "reviewed_at": "2026-07-31T08:42:15Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all previous feedback addressed, good test coverage",
       "interactions": [
         {
           "at": "2026-07-29T20:14:47Z",
           "verdict": "COMMENT",
           "notes": "4 low-severity findings: 2 dead methods, FQCNs in test, redundant assignments in saveEdit()"
+        },
+        {
+          "at": "2026-07-31T08:42:15Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all previous feedback addressed, good test coverage"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25228,
