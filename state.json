@@ -2264,17 +2264,22 @@
       "number": 25260,
       "title": "CAMEL-24318 - improve regen.sh",
       "author": "apupier",
-      "reviewed_at": "2026-07-30T15:46:24Z",
+      "reviewed_at": "2026-07-31T07:00:22Z",
       "verdict": "COMMENT",
-      "notes": "Good improvements. Missing pr-build-main.yml update for new log filenames. Minor: git clean -x removal causes log accumulation locally.",
+      "notes": "",
       "interactions": [
         {
           "at": "2026-07-30T15:46:24Z",
           "verdict": "COMMENT",
           "notes": "Good improvements. Missing pr-build-main.yml update for new log filenames. Minor: git clean -x removal causes log accumulation locally."
+        },
+        {
+          "at": "2026-07-31T07:00:22Z",
+          "verdict": "COMMENT",
+          "notes": ""
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25259,
