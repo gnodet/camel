@@ -2264,8 +2264,8 @@
       "number": 25260,
       "title": "CAMEL-24318 - improve regen.sh",
       "author": "apupier",
-      "reviewed_at": "2026-07-31T07:00:22Z",
-      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-31T08:01:59Z",
+      "verdict": "APPROVE",
       "notes": "",
       "interactions": [
         {
@@ -2277,9 +2277,14 @@
           "at": "2026-07-31T07:00:22Z",
           "verdict": "COMMENT",
           "notes": ""
+        },
+        {
+          "at": "2026-07-31T08:01:59Z",
+          "verdict": "APPROVE",
+          "notes": ""
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25259,
