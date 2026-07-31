@@ -2539,6 +2539,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25270,
+      "title": "CAMEL-23078: camel-openai - Parallel MCP tool execution and runtime tool refresh",
+      "author": "Croway",
+      "reviewed_at": "2026-07-31T13:33:14Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T13:33:14Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
