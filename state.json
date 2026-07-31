@@ -2194,17 +2194,22 @@
       "number": 25255,
       "title": "CAMEL-24317: camel-aws2-eventbridge - throw when pojoRequest=true and the body is the wrong type",
       "author": "oscerd",
-      "reviewed_at": "2026-07-30T13:02:18Z",
-      "verdict": "COMMENT",
-      "notes": "Fix is correct. Minor: putRule is only op not using executeOperation helper; error message format inconsistency.",
+      "reviewed_at": "2026-07-31T13:03:35Z",
+      "verdict": "APPROVE",
+      "notes": "",
       "interactions": [
         {
           "at": "2026-07-30T13:02:18Z",
           "verdict": "COMMENT",
           "notes": "Fix is correct. Minor: putRule is only op not using executeOperation helper; error message format inconsistency."
+        },
+        {
+          "at": "2026-07-31T13:03:35Z",
+          "verdict": "APPROVE",
+          "notes": ""
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25247,
@@ -2401,17 +2406,22 @@
       "number": 25232,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-07-31T06:22:21Z",
-      "verdict": "COMMENT",
+      "reviewed_at": "2026-07-31T13:05:05Z",
+      "verdict": "APPROVE",
       "notes": "",
       "interactions": [
         {
           "at": "2026-07-31T06:22:21Z",
           "verdict": "COMMENT",
           "notes": ""
+        },
+        {
+          "at": "2026-07-31T13:05:05Z",
+          "verdict": "APPROVE",
+          "notes": ""
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25266,
@@ -2433,17 +2443,22 @@
       "number": 25274,
       "title": "CAMEL-23950: complete AgentConfiguration coverage of AiServices builder",
       "author": "gnodet",
-      "reviewed_at": "2026-07-31T11:45:28Z",
+      "reviewed_at": "2026-07-31T13:04:53Z",
       "verdict": "APPROVE",
-      "notes": "Clean PR, one minor test visibility suggestion",
+      "notes": "",
       "interactions": [
         {
           "at": "2026-07-31T11:45:28Z",
           "verdict": "APPROVE",
           "notes": "Clean PR, one minor test visibility suggestion"
+        },
+        {
+          "at": "2026-07-31T13:04:53Z",
+          "verdict": "APPROVE",
+          "notes": ""
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25273,
