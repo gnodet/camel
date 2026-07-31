@@ -2576,6 +2576,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25283,
+      "title": "CAMEL-24284: Reset recoverTask after successful SJMS connection recovery",
+      "author": "gansheer",
+      "reviewed_at": "2026-07-31T21:08:47Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T21:08:47Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
