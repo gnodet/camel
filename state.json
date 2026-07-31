@@ -2555,6 +2555,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25280,
+      "title": "camel-24318 - improve assertions in jbang mcp",
+      "author": "apupier",
+      "reviewed_at": "2026-07-31T14:37:54Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T14:37:54Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
