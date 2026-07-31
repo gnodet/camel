@@ -2492,6 +2492,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25278,
+      "title": "CAMEL-24324: camel-aws-bedrock - throw when pojoRequest=true and the body is the wrong type",
+      "author": "oscerd",
+      "reviewed_at": "2026-07-31T12:58:34Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T12:58:34Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25277,
+      "title": "Improve assertions",
+      "author": "apupier",
+      "reviewed_at": "2026-07-31T12:59:12Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T12:59:12Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
