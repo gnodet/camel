@@ -2392,6 +2392,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25266,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-07-31T07:35:34Z",
+      "verdict": "APPROVE",
+      "notes": "",
+      "interactions": [
+        {
+          "at": "2026-07-31T07:35:34Z",
+          "verdict": "APPROVE",
+          "notes": ""
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
