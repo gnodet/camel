@@ -327,17 +327,22 @@
       "number": 25283,
       "title": "CAMEL-24284: Reset recoverTask after successful SJMS connection recovery",
       "author": "gansheer",
-      "reviewed_at": "2026-08-02T07:58:45Z",
+      "reviewed_at": "2026-08-02T19:37:07Z",
       "verdict": "APPROVE",
-      "notes": "Correct fix for BackgroundTask.schedule() running=true permanence bug",
+      "notes": "No-action: new clean approval from davsclaus, ready to merge",
       "interactions": [
         {
           "at": "2026-08-02T07:58:45Z",
           "verdict": "APPROVE",
           "notes": "Correct fix for BackgroundTask.schedule() running=true permanence bug"
+        },
+        {
+          "at": "2026-08-02T19:37:07Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: new clean approval from davsclaus, ready to merge"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25172,
@@ -495,12 +500,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:34:39Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-02T19:37:07Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:32:23Z"
+  "last_reviewed_updated_at": "2026-08-02T19:35:00Z"
 }
