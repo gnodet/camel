@@ -398,11 +398,59 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25273,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-02T10:29:54Z",
+      "verdict": "COMMENT",
+      "notes": "3 verified findings on text segment loss in batch langchain4j pipelines",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:29:54Z",
+          "verdict": "COMMENT",
+          "notes": "3 verified findings on text segment loss in batch langchain4j pipelines"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25284,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-02T10:29:55Z",
+      "verdict": "COMMENT",
+      "notes": "Style observations on MongoDB TLS test-infra fix",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:29:55Z",
+          "verdict": "COMMENT",
+          "notes": "Style observations on MongoDB TLS test-infra fix"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25285,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-02T10:29:55Z",
+      "verdict": "APPROVE",
+      "notes": "Clean security hardening for SnakeYAML TagInspector",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:29:55Z",
+          "verdict": "APPROVE",
+          "notes": "Clean security hardening for SnakeYAML TagInspector"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T10:16:21Z",
+    "timestamp": "2026-08-02T10:30:04Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
