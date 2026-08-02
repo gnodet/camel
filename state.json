@@ -514,9 +514,9 @@
       "number": 25284,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-02T19:40:03Z",
-      "verdict": "APPROVE",
-      "notes": "No-action: clean approval from davsclaus",
+      "reviewed_at": "2026-08-02T20:08:05Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: clean davsclaus approval, no new commits or issues, no review posted",
       "interactions": [
         {
           "at": "2026-08-02T10:29:55Z",
@@ -527,9 +527,14 @@
           "at": "2026-08-02T19:40:03Z",
           "verdict": "APPROVE",
           "notes": "No-action: clean approval from davsclaus"
+        },
+        {
+          "at": "2026-08-02T20:08:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: clean davsclaus approval, no new commits or issues, no review posted"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25285,
@@ -555,12 +560,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:53:13Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-02T20:08:05Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:48:50Z"
+  "last_reviewed_updated_at": "2026-08-02T20:05:33Z"
 }
