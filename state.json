@@ -158,9 +158,9 @@
       "number": 25272,
       "title": "CAMEL-24318 - use Maven parallelization for compilation part of Jbang IT tests on Jenkins",
       "author": "apupier",
-      "reviewed_at": "2026-08-02T06:38:22Z",
+      "reviewed_at": "2026-08-02T19:40:03Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: no changes since prior approval, new activity was second human approval from @oscerd",
+      "notes": "No-action: clean approval from davsclaus, 3 approvals total",
       "interactions": [
         {
           "at": "2026-08-02T06:01:36Z",
@@ -171,9 +171,14 @@
           "at": "2026-08-02T06:38:22Z",
           "verdict": "APPROVE",
           "notes": "Re-review: no changes since prior approval, new activity was second human approval from @oscerd"
+        },
+        {
+          "at": "2026-08-02T19:40:03Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: clean approval from davsclaus, 3 approvals total"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25274,
@@ -469,43 +474,53 @@
       "number": 25284,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-02T10:29:55Z",
-      "verdict": "COMMENT",
-      "notes": "Style observations on MongoDB TLS test-infra fix",
+      "reviewed_at": "2026-08-02T19:40:03Z",
+      "verdict": "APPROVE",
+      "notes": "No-action: clean approval from davsclaus",
       "interactions": [
         {
           "at": "2026-08-02T10:29:55Z",
           "verdict": "COMMENT",
           "notes": "Style observations on MongoDB TLS test-infra fix"
+        },
+        {
+          "at": "2026-08-02T19:40:03Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: clean approval from davsclaus"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25285,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-02T10:29:55Z",
+      "reviewed_at": "2026-08-02T19:40:03Z",
       "verdict": "APPROVE",
-      "notes": "Clean security hardening for SnakeYAML TagInspector",
+      "notes": "No-action: clean approval from davsclaus",
       "interactions": [
         {
           "at": "2026-08-02T10:29:55Z",
           "verdict": "APPROVE",
           "notes": "Clean security hardening for SnakeYAML TagInspector"
+        },
+        {
+          "at": "2026-08-02T19:40:03Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: clean approval from davsclaus"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:37:07Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-02T19:40:03Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:35:00Z"
+  "last_reviewed_updated_at": "2026-08-02T19:37:22Z"
 }
