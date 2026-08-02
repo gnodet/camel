@@ -323,17 +323,22 @@
       "number": 25172,
       "title": "CAMEL-24275: Native Google Gemini API for Camel JBang TUI",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T10:03:24Z",
+      "reviewed_at": "2026-08-02T12:17:01Z",
       "verdict": "APPROVE",
-      "notes": "Well-structured Gemini provider following existing patterns, comprehensive tests",
+      "notes": "Re-review: latest commit addresses all prior feedback cleanly",
       "interactions": [
         {
           "at": "2026-08-02T10:03:24Z",
           "verdict": "APPROVE",
           "notes": "Well-structured Gemini provider following existing patterns, comprehensive tests"
+        },
+        {
+          "at": "2026-08-02T12:17:01Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: latest commit addresses all prior feedback cleanly"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25202,
@@ -450,12 +455,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T10:30:04Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-08-02T12:17:07Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-01T01:37:19Z"
+  "last_reviewed_updated_at": "2026-08-02T12:11:52Z"
 }
