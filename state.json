@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "project": "apache/camel",
+  "project_name": "Apache Camel",
+  "loop_type": "review-loop",
+  "last_run": null,
+  "reviewed_prs": [],
+  "skipped_prs": [],
+  "review_queue": [],
+  "active_failures": [],
+  "escalated": [],
+  "resolved": [],
+  "created_at": "2026-08-02T04:35:25Z"
+}
