@@ -365,9 +365,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T12:47:16Z",
+      "reviewed_at": "2026-08-02T17:05:50Z",
       "verdict": "COMMENT",
-      "notes": "Re-review: CAMEL-24308 namespace conflict confirmed, test resource leak; security model solid",
+      "notes": "Re-review: both code fixes applied; CAMEL-24308 namespace hold remains sole blocker",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -378,9 +378,14 @@
           "at": "2026-08-02T12:47:16Z",
           "verdict": "COMMENT",
           "notes": "Re-review: CAMEL-24308 namespace conflict confirmed, test resource leak; security model solid"
+        },
+        {
+          "at": "2026-08-02T17:05:50Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: both code fixes applied; CAMEL-24308 namespace hold remains sole blocker"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25204,
@@ -465,12 +470,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T12:47:25Z",
+    "timestamp": "2026-08-02T17:05:50Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T12:38:43Z"
+  "last_reviewed_updated_at": "2026-08-02T16:58:21Z"
 }
