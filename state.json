@@ -265,16 +265,64 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25282,
+      "title": "CAMEL-23931: Fix -Dcamel.jbang.quarkus.platform.url system property ignored in export",
+      "author": "jomin7",
+      "reviewed_at": "2026-08-02T07:58:45Z",
+      "verdict": "COMMENT",
+      "notes": "Missing test coverage for custom platform URL path; fix itself is correct",
+      "interactions": [
+        {
+          "at": "2026-08-02T07:58:45Z",
+          "verdict": "COMMENT",
+          "notes": "Missing test coverage for custom platform URL path; fix itself is correct"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25265,
+      "title": "CAMEL-24320: Fix Kamelet route creation with virtual threads on JDK 25",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-08-02T07:58:45Z",
+      "verdict": "COMMENT",
+      "notes": "Correct JDK 25 ScopedValue.orElse fix; minor test observations (non-blocking)",
+      "interactions": [
+        {
+          "at": "2026-08-02T07:58:45Z",
+          "verdict": "COMMENT",
+          "notes": "Correct JDK 25 ScopedValue.orElse fix; minor test observations (non-blocking)"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25283,
+      "title": "CAMEL-24284: Reset recoverTask after successful SJMS connection recovery",
+      "author": "gansheer",
+      "reviewed_at": "2026-08-02T07:58:45Z",
+      "verdict": "APPROVE",
+      "notes": "Correct fix for BackgroundTask.schedule() running=true permanence bug",
+      "interactions": [
+        {
+          "at": "2026-08-02T07:58:45Z",
+          "verdict": "APPROVE",
+          "notes": "Correct fix for BackgroundTask.schedule() running=true permanence bug"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T07:23:17Z",
+    "timestamp": "2026-08-02T07:58:45Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-07-31T15:15:30Z"
+  "last_reviewed_updated_at": "2026-07-31T21:08:42Z"
 }
