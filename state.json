@@ -350,16 +350,64 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25203,
+      "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-08-02T10:16:21Z",
+      "verdict": "COMMENT",
+      "notes": "Hold for CAMEL-24308 namespace alignment per committer feedback",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:16:21Z",
+          "verdict": "COMMENT",
+          "notes": "Hold for CAMEL-24308 namespace alignment per committer feedback"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25204,
+      "title": "CAMEL-24287: Add plain text edit mode to TUI source viewer",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-08-02T10:16:21Z",
+      "verdict": "APPROVE",
+      "notes": "Comprehensive edit mode with 22 tests, 3 review rounds addressed",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:16:21Z",
+          "verdict": "APPROVE",
+          "notes": "Comprehensive edit mode with 22 tests, 3 review rounds addressed"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25173,
+      "title": "CAMEL-23383: Add JFR runtime instrumentation",
+      "author": "ammachado",
+      "reviewed_at": "2026-08-02T10:16:21Z",
+      "verdict": "APPROVE",
+      "notes": "Well-structured JFR instrumentation with 30 tests, minimal overhead design",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:16:21Z",
+          "verdict": "APPROVE",
+          "notes": "Well-structured JFR instrumentation with 30 tests, minimal overhead design"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T10:03:24Z",
+    "timestamp": "2026-08-02T10:16:21Z",
     "prs_checked": 3,
-    "reviews_posted": 2,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T09:51:34Z"
+  "last_reviewed_updated_at": "2026-08-01T01:37:19Z"
 }
