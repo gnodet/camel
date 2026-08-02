@@ -370,9 +370,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T17:05:50Z",
+      "reviewed_at": "2026-08-02T17:36:56Z",
       "verdict": "COMMENT",
-      "notes": "Re-review: both code fixes applied; CAMEL-24308 namespace hold remains sole blocker",
+      "notes": "No-action: new commit is test-only (2 small test methods), skipped to avoid noise",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -388,9 +388,14 @@
           "at": "2026-08-02T17:05:50Z",
           "verdict": "COMMENT",
           "notes": "Re-review: both code fixes applied; CAMEL-24308 namespace hold remains sole blocker"
+        },
+        {
+          "at": "2026-08-02T17:36:56Z",
+          "verdict": "COMMENT",
+          "notes": "No-action: new commit is test-only (2 small test methods), skipped to avoid noise"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25204,
@@ -475,12 +480,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T17:15:06Z",
+    "timestamp": "2026-08-02T17:36:56Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T17:09:03Z"
+  "last_reviewed_updated_at": "2026-08-02T17:34:42Z"
 }
