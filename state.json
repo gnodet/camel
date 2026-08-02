@@ -89,17 +89,22 @@
       "number": 25230,
       "title": "CAMEL-24305: Fix autowiring of KafkaClientFactory via addComponent()",
       "author": "gnodet",
-      "reviewed_at": "2026-08-02T05:56:25Z",
+      "reviewed_at": "2026-08-02T19:30:14Z",
       "verdict": "COMMENT",
-      "notes": "Informational review \u2014 correct autowiring regression fix, operator's own PR",
+      "notes": "No-action: new activity is clean approval from davsclaus, no new issues",
       "interactions": [
         {
           "at": "2026-08-02T05:56:25Z",
           "verdict": "COMMENT",
           "notes": "Informational review \u2014 correct autowiring regression fix, operator's own PR"
+        },
+        {
+          "at": "2026-08-02T19:30:14Z",
+          "verdict": "COMMENT",
+          "notes": "No-action: new activity is clean approval from davsclaus, no new issues"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25205,
@@ -480,12 +485,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T17:36:56Z",
+    "timestamp": "2026-08-02T19:30:15Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T17:34:42Z"
+  "last_reviewed_updated_at": "2026-08-02T19:27:52Z"
 }
