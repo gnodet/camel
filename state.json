@@ -217,16 +217,64 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25280,
+      "title": "camel-24318 - improve assertions in jbang mcp",
+      "author": "apupier",
+      "reviewed_at": "2026-08-02T07:23:16Z",
+      "verdict": "APPROVE",
+      "notes": "Clean assertion improvements \u2014 isNotEmpty guards, idiomatic AssertJ, Jackson deprecation fix",
+      "interactions": [
+        {
+          "at": "2026-08-02T07:23:16Z",
+          "verdict": "APPROVE",
+          "notes": "Clean assertion improvements \u2014 isNotEmpty guards, idiomatic AssertJ, Jackson deprecation fix"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25279,
+      "title": "CAMEL-24299: disable DTD support in XmlStreamDetector for consistency with other XML parsers",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-02T07:23:16Z",
+      "verdict": "APPROVE",
+      "notes": "Security hardening \u2014 SUPPORT_DTD=false consistent with StaxConverter",
+      "interactions": [
+        {
+          "at": "2026-08-02T07:23:16Z",
+          "verdict": "APPROVE",
+          "notes": "Security hardening \u2014 SUPPORT_DTD=false consistent with StaxConverter"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25271,
+      "title": "CAMEL-23382: deprecate camel-langchain4j-tools, replaced by ai-tool + langchain4j-agent",
+      "author": "zbendhiba",
+      "reviewed_at": "2026-08-02T07:23:16Z",
+      "verdict": "APPROVE",
+      "notes": "Thorough deprecation following all Camel conventions",
+      "interactions": [
+        {
+          "at": "2026-08-02T07:23:16Z",
+          "verdict": "APPROVE",
+          "notes": "Thorough deprecation following all Camel conventions"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T06:38:32Z",
+    "timestamp": "2026-08-02T07:23:17Z",
     "prs_checked": 3,
-    "reviews_posted": 2,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T06:31:07Z"
+  "last_reviewed_updated_at": "2026-07-31T15:15:30Z"
 }
