@@ -336,9 +336,9 @@
       "number": 25265,
       "title": "CAMEL-24320: Fix Kamelet route creation with virtual threads on JDK 25",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T19:42:00Z",
-      "verdict": "APPROVE",
-      "notes": "No-action: clean approval from davsclaus",
+      "reviewed_at": "2026-08-02T19:53:09Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: clean davsclaus approval, no new commits, no review posted",
       "interactions": [
         {
           "at": "2026-08-02T07:58:45Z",
@@ -354,9 +354,14 @@
           "at": "2026-08-02T19:42:00Z",
           "verdict": "APPROVE",
           "notes": "No-action: clean approval from davsclaus"
+        },
+        {
+          "at": "2026-08-02T19:53:09Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: clean davsclaus approval, no new commits, no review posted"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25283,
@@ -383,9 +388,9 @@
       "number": 25172,
       "title": "CAMEL-24275: Native Google Gemini API for Camel JBang TUI",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T12:17:01Z",
-      "verdict": "APPROVE",
-      "notes": "Re-review: latest commit addresses all prior feedback cleanly",
+      "reviewed_at": "2026-08-02T19:53:08Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new commit is trivial javadoc line-wrapping fix for CI sourcecheck, previous approval stands",
       "interactions": [
         {
           "at": "2026-08-02T10:03:24Z",
@@ -396,9 +401,14 @@
           "at": "2026-08-02T12:17:01Z",
           "verdict": "APPROVE",
           "notes": "Re-review: latest commit addresses all prior feedback cleanly"
+        },
+        {
+          "at": "2026-08-02T19:53:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new commit is trivial javadoc line-wrapping fix for CI sourcecheck, previous approval stands"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25202,
@@ -545,12 +555,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:47:28Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-02T19:53:13Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:43:18Z"
+  "last_reviewed_updated_at": "2026-08-02T19:48:50Z"
 }
