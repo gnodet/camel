@@ -126,33 +126,43 @@
       "number": 25248,
       "title": "CAMEL-24315: camel-google-pubsub - stop subscribers that finish starting after the consumer stopped",
       "author": "henrik242",
-      "reviewed_at": "2026-08-02T05:56:25Z",
-      "verdict": "APPROVE",
-      "notes": "Correct race condition fix with sound double-check pattern",
+      "reviewed_at": "2026-08-02T19:45:12Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: 4 approvals from 3 committers, no new commits, no review posted",
       "interactions": [
         {
           "at": "2026-08-02T05:56:25Z",
           "verdict": "APPROVE",
           "notes": "Correct race condition fix with sound double-check pattern"
+        },
+        {
+          "at": "2026-08-02T19:45:12Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 4 approvals from 3 committers, no new commits, no review posted"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25276,
       "title": "CAMEL-23382: remove camel-spring-ai-tools, replaced by camel-ai-tool",
       "author": "zbendhiba",
-      "reviewed_at": "2026-08-02T06:01:36Z",
-      "verdict": "APPROVE",
-      "notes": "Clean module removal, all registrations cleaned up, upgrade guide updated",
+      "reviewed_at": "2026-08-02T19:45:11Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: 6 approvals on same commit, no review posted",
       "interactions": [
         {
           "at": "2026-08-02T06:01:36Z",
           "verdict": "APPROVE",
           "notes": "Clean module removal, all registrations cleaned up, upgrade guide updated"
+        },
+        {
+          "at": "2026-08-02T19:45:11Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 6 approvals on same commit, no review posted"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25272,
@@ -530,12 +540,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:42:00Z",
-    "prs_checked": 3,
+    "timestamp": "2026-08-02T19:45:17Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:39:45Z"
+  "last_reviewed_updated_at": "2026-08-02T19:41:33Z"
 }
