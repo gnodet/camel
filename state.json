@@ -20,17 +20,22 @@
       "number": 25228,
       "title": "CAMEL-23952: Support executeToolsConcurrently for langchain4j-agent",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T04:35:08Z",
+      "reviewed_at": "2026-08-02T05:38:12Z",
       "verdict": "APPROVE",
-      "notes": "Well-structured concurrent tool execution support with proper lifecycle management",
+      "notes": "Re-review: all 3 previous suggestions addressed in commit a9f0680",
       "interactions": [
         {
           "at": "2026-08-02T04:35:08Z",
           "verdict": "APPROVE",
           "notes": "Well-structured concurrent tool execution support with proper lifecycle management"
+        },
+        {
+          "at": "2026-08-02T05:38:12Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 3 previous suggestions addressed in commit a9f0680"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25239,
@@ -47,16 +52,48 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25240,
+      "title": "CAMEL-20199: Remove ThreadLocal Yaml caching in SnakeYAMLDataFormat",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-02T05:38:12Z",
+      "verdict": "COMMENT",
+      "notes": "Informational review \u2014 clean ThreadLocal removal, operator's own PR",
+      "interactions": [
+        {
+          "at": "2026-08-02T05:38:12Z",
+          "verdict": "COMMENT",
+          "notes": "Informational review \u2014 clean ThreadLocal removal, operator's own PR"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25242,
+      "title": "CAMEL-20199: Migrate context-passing ThreadLocals to ContextValue",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-02T05:38:12Z",
+      "verdict": "COMMENT",
+      "notes": "Missing upgrade guide entry for 3 binary-incompatible public API changes; stale ThreadLocal comments",
+      "interactions": [
+        {
+          "at": "2026-08-02T05:38:12Z",
+          "verdict": "COMMENT",
+          "notes": "Missing upgrade guide entry for 3 binary-incompatible public API changes; stale ThreadLocal comments"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T04:35:08Z",
+    "timestamp": "2026-08-02T05:38:12Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-07-31T05:35:50Z"
+  "last_reviewed_updated_at": "2026-08-02T05:26:25Z"
 }
