@@ -336,9 +336,9 @@
       "number": 25265,
       "title": "CAMEL-24320: Fix Kamelet route creation with virtual threads on JDK 25",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T19:53:09Z",
+      "reviewed_at": "2026-08-02T20:26:07Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: clean davsclaus approval, no new commits, no review posted",
+      "notes": "NO_ACTION: new commit is CI cleanup only (removed unreachable test, simplified factory), production fix unchanged, 4 low non-blocking notes",
       "interactions": [
         {
           "at": "2026-08-02T07:58:45Z",
@@ -359,9 +359,14 @@
           "at": "2026-08-02T19:53:09Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: clean davsclaus approval, no new commits, no review posted"
+        },
+        {
+          "at": "2026-08-02T20:26:07Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new commit is CI cleanup only (removed unreachable test, simplified factory), production fix unchanged, 4 low non-blocking notes"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25283,
@@ -560,12 +565,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T20:08:05Z",
+    "timestamp": "2026-08-02T20:26:07Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T20:05:33Z"
+  "last_reviewed_updated_at": "2026-08-02T20:16:48Z"
 }
