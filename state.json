@@ -227,25 +227,30 @@
       "number": 25280,
       "title": "camel-24318 - improve assertions in jbang mcp",
       "author": "apupier",
-      "reviewed_at": "2026-08-02T07:23:16Z",
+      "reviewed_at": "2026-08-02T19:34:39Z",
       "verdict": "APPROVE",
-      "notes": "Clean assertion improvements \u2014 isNotEmpty guards, idiomatic AssertJ, Jackson deprecation fix",
+      "notes": "No-action: new clean approval from davsclaus, ready to merge",
       "interactions": [
         {
           "at": "2026-08-02T07:23:16Z",
           "verdict": "APPROVE",
           "notes": "Clean assertion improvements \u2014 isNotEmpty guards, idiomatic AssertJ, Jackson deprecation fix"
+        },
+        {
+          "at": "2026-08-02T19:34:39Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: new clean approval from davsclaus, ready to merge"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25279,
       "title": "CAMEL-24299: disable DTD support in XmlStreamDetector for consistency with other XML parsers",
       "author": "oscerd",
-      "reviewed_at": "2026-08-02T10:03:24Z",
+      "reviewed_at": "2026-08-02T19:34:39Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: just a merge of main, no substantive changes, prior approval still valid",
+      "notes": "No-action: new clean approval from davsclaus, ready to merge",
       "interactions": [
         {
           "at": "2026-08-02T07:23:16Z",
@@ -256,9 +261,14 @@
           "at": "2026-08-02T10:03:24Z",
           "verdict": "APPROVE",
           "notes": "Re-review: just a merge of main, no substantive changes, prior approval still valid"
+        },
+        {
+          "at": "2026-08-02T19:34:39Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: new clean approval from davsclaus, ready to merge"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25271,
@@ -485,12 +495,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:30:15Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-02T19:34:39Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:27:52Z"
+  "last_reviewed_updated_at": "2026-08-02T19:32:23Z"
 }
