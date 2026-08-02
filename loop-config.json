@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "pattern": "pr-review-loop",
+  "project": "apache/camel",
+  "project_name": "Apache Camel",
+  "cadence": "1h",
+  "max_items_per_run": 3,
+  "state_branch": "forgebot-review-loop-state",
+  "level": "L2",
+  "budget": {
+    "max_runs_per_day": 24,
+    "max_tokens_per_day": 10000000,
+    "max_subagents_per_run": 6
+  },
+  "constraints": {
+    "never_merge": true,
+    "never_close": true,
+    "never_label": true,
+    "never_push": true,
+    "review_only": true,
+    "skip_drafts": true,
+    "skip_bots": ["dependabot", "renovate", "github-actions"],
+    "always_verify": true,
+    "always_check_history": true,
+    "ai_attribution": true
+  },
+  "operator": "Guillaume Nodet"
+}
