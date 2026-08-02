@@ -216,17 +216,22 @@
       "number": 25270,
       "title": "CAMEL-23078: camel-openai - Parallel MCP tool execution and runtime tool refresh",
       "author": "Croway",
-      "reviewed_at": "2026-08-02T06:38:26Z",
+      "reviewed_at": "2026-08-02T19:42:00Z",
       "verdict": "APPROVE",
-      "notes": "High-quality refactoring with solid concurrency model and excellent test coverage",
+      "notes": "No-action: clean approval from davsclaus, 4 approvals total",
       "interactions": [
         {
           "at": "2026-08-02T06:38:26Z",
           "verdict": "APPROVE",
           "notes": "High-quality refactoring with solid concurrency model and excellent test coverage"
+        },
+        {
+          "at": "2026-08-02T19:42:00Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: clean approval from davsclaus, 4 approvals total"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25280,
@@ -279,17 +284,22 @@
       "number": 25271,
       "title": "CAMEL-23382: deprecate camel-langchain4j-tools, replaced by ai-tool + langchain4j-agent",
       "author": "zbendhiba",
-      "reviewed_at": "2026-08-02T07:23:16Z",
+      "reviewed_at": "2026-08-02T19:42:00Z",
       "verdict": "APPROVE",
-      "notes": "Thorough deprecation following all Camel conventions",
+      "notes": "No-action: clean approval from davsclaus",
       "interactions": [
         {
           "at": "2026-08-02T07:23:16Z",
           "verdict": "APPROVE",
           "notes": "Thorough deprecation following all Camel conventions"
+        },
+        {
+          "at": "2026-08-02T19:42:00Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: clean approval from davsclaus"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25282,
@@ -311,9 +321,9 @@
       "number": 25265,
       "title": "CAMEL-24320: Fix Kamelet route creation with virtual threads on JDK 25",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T17:15:06Z",
+      "reviewed_at": "2026-08-02T19:42:00Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: JDK 25 ScopedValue.orElse fix correct, all reviewer feedback addressed",
+      "notes": "No-action: clean approval from davsclaus",
       "interactions": [
         {
           "at": "2026-08-02T07:58:45Z",
@@ -324,9 +334,14 @@
           "at": "2026-08-02T17:15:06Z",
           "verdict": "APPROVE",
           "notes": "Re-review: JDK 25 ScopedValue.orElse fix correct, all reviewer feedback addressed"
+        },
+        {
+          "at": "2026-08-02T19:42:00Z",
+          "verdict": "APPROVE",
+          "notes": "No-action: clean approval from davsclaus"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25283,
@@ -515,12 +530,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T19:40:03Z",
+    "timestamp": "2026-08-02T19:42:00Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T19:37:22Z"
+  "last_reviewed_updated_at": "2026-08-02T19:39:45Z"
 }
