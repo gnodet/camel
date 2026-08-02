@@ -84,16 +84,64 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25230,
+      "title": "CAMEL-24305: Fix autowiring of KafkaClientFactory via addComponent()",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-02T05:56:25Z",
+      "verdict": "COMMENT",
+      "notes": "Informational review \u2014 correct autowiring regression fix, operator's own PR",
+      "interactions": [
+        {
+          "at": "2026-08-02T05:56:25Z",
+          "verdict": "COMMENT",
+          "notes": "Informational review \u2014 correct autowiring regression fix, operator's own PR"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25205,
+      "title": "CAMEL-24301: Fix RouteService NPE when startup-failure exception carries no message",
+      "author": "mayurbm",
+      "reviewed_at": "2026-08-02T05:56:25Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "Broken tests in camel-main and camel-spring-xml; InternalRouteStartupManager changes exceed JIRA scope",
+      "interactions": [
+        {
+          "at": "2026-08-02T05:56:25Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "Broken tests in camel-main and camel-spring-xml; InternalRouteStartupManager changes exceed JIRA scope"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25248,
+      "title": "CAMEL-24315: camel-google-pubsub - stop subscribers that finish starting after the consumer stopped",
+      "author": "henrik242",
+      "reviewed_at": "2026-08-02T05:56:25Z",
+      "verdict": "APPROVE",
+      "notes": "Correct race condition fix with sound double-check pattern",
+      "interactions": [
+        {
+          "at": "2026-08-02T05:56:25Z",
+          "verdict": "APPROVE",
+          "notes": "Correct race condition fix with sound double-check pattern"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T05:38:12Z",
+    "timestamp": "2026-08-02T05:56:25Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T05:26:25Z"
+  "last_reviewed_updated_at": "2026-07-31T09:08:35Z"
 }
