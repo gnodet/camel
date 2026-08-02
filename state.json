@@ -132,16 +132,64 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25276,
+      "title": "CAMEL-23382: remove camel-spring-ai-tools, replaced by camel-ai-tool",
+      "author": "zbendhiba",
+      "reviewed_at": "2026-08-02T06:01:36Z",
+      "verdict": "APPROVE",
+      "notes": "Clean module removal, all registrations cleaned up, upgrade guide updated",
+      "interactions": [
+        {
+          "at": "2026-08-02T06:01:36Z",
+          "verdict": "APPROVE",
+          "notes": "Clean module removal, all registrations cleaned up, upgrade guide updated"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25272,
+      "title": "CAMEL-24318 - use Maven parallelization for compilation part of Jbang IT tests on Jenkins",
+      "author": "apupier",
+      "reviewed_at": "2026-08-02T06:01:36Z",
+      "verdict": "APPROVE",
+      "notes": "Validated CI optimization, compilation 1h32m down to 37min",
+      "interactions": [
+        {
+          "at": "2026-08-02T06:01:36Z",
+          "verdict": "APPROVE",
+          "notes": "Validated CI optimization, compilation 1h32m down to 37min"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25274,
+      "title": "CAMEL-23950: complete AgentConfiguration coverage of AiServices builder",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-02T06:01:36Z",
+      "verdict": "COMMENT",
+      "notes": "Informational review \u2014 clean AgentConfiguration extension, operator's own PR",
+      "interactions": [
+        {
+          "at": "2026-08-02T06:01:36Z",
+          "verdict": "COMMENT",
+          "notes": "Informational review \u2014 clean AgentConfiguration extension, operator's own PR"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T05:56:25Z",
+    "timestamp": "2026-08-02T06:01:36Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-07-31T09:08:35Z"
+  "last_reviewed_updated_at": "2026-07-31T13:04:48Z"
 }
