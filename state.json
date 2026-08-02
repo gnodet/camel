@@ -1,14 +1,62 @@
 {
-  "version": "1.0",
-  "project": "apache/camel",
-  "project_name": "Apache Camel",
-  "loop_type": "review-loop",
-  "last_run": null,
-  "reviewed_prs": [],
+  "reviewed_prs": [
+    {
+      "number": 25107,
+      "title": "chore(deps): upgrade IBM MQ to 10.0",
+      "author": "davsclaus",
+      "reviewed_at": "2026-08-02T04:35:08Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "CI deterministically failing: MQ 10.0 breaks JmsReplyToIbmMQTest.testCustomJMSReplyToInOut",
+      "interactions": [
+        {
+          "at": "2026-08-02T04:35:08Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "CI deterministically failing: MQ 10.0 breaks JmsReplyToIbmMQTest.testCustomJMSReplyToInOut"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25228,
+      "title": "CAMEL-23952: Support executeToolsConcurrently for langchain4j-agent",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-08-02T04:35:08Z",
+      "verdict": "APPROVE",
+      "notes": "Well-structured concurrent tool execution support with proper lifecycle management",
+      "interactions": [
+        {
+          "at": "2026-08-02T04:35:08Z",
+          "verdict": "APPROVE",
+          "notes": "Well-structured concurrent tool execution support with proper lifecycle management"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25239,
+      "title": "CAMEL-20199: Migrate TomcatReactiveExecutor from raw ThreadLocal to ContextValue",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-02T04:35:08Z",
+      "verdict": "COMMENT",
+      "notes": "Informational review only \u2014 operator's own PR, cannot self-approve",
+      "interactions": [
+        {
+          "at": "2026-08-02T04:35:08Z",
+          "verdict": "COMMENT",
+          "notes": "Informational review only \u2014 operator's own PR, cannot self-approve"
+        }
+      ],
+      "review_count": 1
+    }
+  ],
   "skipped_prs": [],
+  "last_run": {
+    "timestamp": "2026-08-02T04:35:08Z",
+    "prs_checked": 3,
+    "reviews_posted": 3,
+    "tokens_estimate": 0
+  },
+  "paused": false,
   "review_queue": [],
-  "active_failures": [],
-  "escalated": [],
-  "resolved": [],
-  "created_at": "2026-08-02T04:35:25Z"
+  "last_reviewed_updated_at": "2026-07-31T05:35:50Z"
 }
