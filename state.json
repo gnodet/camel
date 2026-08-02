@@ -344,17 +344,22 @@
       "number": 25202,
       "title": "CAMEL-18552: camel-jbang --openapi-ui with Swagger UI at /q/openapi",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T10:03:24Z",
-      "verdict": "COMMENT",
-      "notes": "swagger-ui webjar should be optional; override behavior should be documented",
+      "reviewed_at": "2026-08-02T12:24:04Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 7 prior findings resolved, swagger-ui optional, upgrade guide expanded",
       "interactions": [
         {
           "at": "2026-08-02T10:03:24Z",
           "verdict": "COMMENT",
           "notes": "swagger-ui webjar should be optional; override behavior should be documented"
+        },
+        {
+          "at": "2026-08-02T12:24:04Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 7 prior findings resolved, swagger-ui optional, upgrade guide expanded"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25203,
@@ -455,12 +460,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T12:17:07Z",
+    "timestamp": "2026-08-02T12:24:08Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-02T12:11:52Z"
+  "last_reviewed_updated_at": "2026-08-02T10:03:13Z"
 }
