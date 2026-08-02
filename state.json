@@ -238,17 +238,22 @@
       "number": 25279,
       "title": "CAMEL-24299: disable DTD support in XmlStreamDetector for consistency with other XML parsers",
       "author": "oscerd",
-      "reviewed_at": "2026-08-02T07:23:16Z",
+      "reviewed_at": "2026-08-02T10:03:24Z",
       "verdict": "APPROVE",
-      "notes": "Security hardening \u2014 SUPPORT_DTD=false consistent with StaxConverter",
+      "notes": "Re-review: just a merge of main, no substantive changes, prior approval still valid",
       "interactions": [
         {
           "at": "2026-08-02T07:23:16Z",
           "verdict": "APPROVE",
           "notes": "Security hardening \u2014 SUPPORT_DTD=false consistent with StaxConverter"
+        },
+        {
+          "at": "2026-08-02T10:03:24Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: just a merge of main, no substantive changes, prior approval still valid"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25271,
@@ -313,16 +318,48 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25172,
+      "title": "CAMEL-24275: Native Google Gemini API for Camel JBang TUI",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-08-02T10:03:24Z",
+      "verdict": "APPROVE",
+      "notes": "Well-structured Gemini provider following existing patterns, comprehensive tests",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:03:24Z",
+          "verdict": "APPROVE",
+          "notes": "Well-structured Gemini provider following existing patterns, comprehensive tests"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25202,
+      "title": "CAMEL-18552: camel-jbang --openapi-ui with Swagger UI at /q/openapi",
+      "author": "atiaomar1978-hub",
+      "reviewed_at": "2026-08-02T10:03:24Z",
+      "verdict": "COMMENT",
+      "notes": "swagger-ui webjar should be optional; override behavior should be documented",
+      "interactions": [
+        {
+          "at": "2026-08-02T10:03:24Z",
+          "verdict": "COMMENT",
+          "notes": "swagger-ui webjar should be optional; override behavior should be documented"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-02T07:58:45Z",
+    "timestamp": "2026-08-02T10:03:24Z",
     "prs_checked": 3,
-    "reviews_posted": 3,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-07-31T21:08:42Z"
+  "last_reviewed_updated_at": "2026-08-02T09:51:34Z"
 }
