@@ -1075,16 +1075,48 @@
         }
       ],
       "review_count": 4
+    },
+    {
+      "number": 25316,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-03T20:53:21Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean Artemis groupId migration from org.apache.activemq to org.apache.artemis, all 4 artifacts covered",
+      "interactions": [
+        {
+          "at": "2026-08-03T20:53:21Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean Artemis groupId migration from org.apache.activemq to org.apache.artemis, all 4 artifacts covered"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25281,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-03T21:00:49Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT (self-review): 2 verified findings - template method pattern for latch field visibility, AssertJ convention for test assertion",
+      "interactions": [
+        {
+          "at": "2026-08-03T21:00:49Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT (self-review): 2 verified findings - template method pattern for latch field visibility, AssertJ convention for test assertion"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T20:28:38Z",
-    "prs_checked": 1,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-03T21:00:49Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T20:27:28Z"
+  "last_reviewed_updated_at": "2026-08-03T20:44:34Z"
 }
