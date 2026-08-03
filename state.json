@@ -224,17 +224,22 @@
       "number": 25274,
       "title": "CAMEL-23950: complete AgentConfiguration coverage of AiServices builder",
       "author": "gnodet",
-      "reviewed_at": "2026-08-02T06:01:36Z",
+      "reviewed_at": "2026-08-03T14:18:09Z",
       "verdict": "COMMENT",
-      "notes": "Informational review \u2014 clean AgentConfiguration extension, operator's own PR",
+      "notes": "NO_ACTION: operator's own PR, self-review prohibited",
       "interactions": [
         {
           "at": "2026-08-02T06:01:36Z",
           "verdict": "COMMENT",
           "notes": "Informational review \u2014 clean AgentConfiguration extension, operator's own PR"
+        },
+        {
+          "at": "2026-08-03T14:18:09Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator's own PR, self-review prohibited"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25232,
@@ -906,12 +911,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T14:08:26Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T14:18:09Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T14:08:26Z"
+  "last_reviewed_updated_at": "2026-08-03T14:16:53Z"
 }
