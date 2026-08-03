@@ -611,27 +611,32 @@
       "number": 25287,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T05:53:09Z",
-      "verdict": "APPROVE",
-      "notes": "Clean backport of #25248 to camel-4.18.x, identical changes, correct target branch",
+      "reviewed_at": "2026-08-03T05:56:35Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: oscerd also approved, 2 approvals total, no review posted",
       "interactions": [
         {
           "at": "2026-08-03T05:53:09Z",
           "verdict": "APPROVE",
           "notes": "Clean backport of #25248 to camel-4.18.x, identical changes, correct target branch"
+        },
+        {
+          "at": "2026-08-03T05:56:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: oscerd also approved, 2 approvals total, no review posted"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T05:53:09Z",
+    "timestamp": "2026-08-03T05:56:35Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T05:49:34Z"
+  "last_reviewed_updated_at": "2026-08-03T05:55:00Z"
 }
