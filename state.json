@@ -943,16 +943,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25314,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-03T16:06:57Z",
+      "verdict": "COMMENT",
+      "notes": "AI component doc improvements; 1 broken xref (others: prefix on ai-summary.adoc which is in ROOT)",
+      "interactions": [
+        {
+          "at": "2026-08-03T16:06:57Z",
+          "verdict": "COMMENT",
+          "notes": "AI component doc improvements; 1 broken xref (others: prefix on ai-summary.adoc which is in ROOT)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T15:41:28Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-03T16:06:57Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T15:41:28Z"
+  "last_reviewed_updated_at": "2026-08-03T15:55:45Z"
 }
