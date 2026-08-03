@@ -977,9 +977,9 @@
       "number": 25313,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T16:13:00Z",
+      "reviewed_at": "2026-08-03T18:42:39Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: self-triggered from our acknowledgment comment",
+      "notes": "NO_ACTION: bot welcome comment triggered re-detection",
       "interactions": [
         {
           "at": "2026-08-03T15:31:11Z",
@@ -995,25 +995,35 @@
           "at": "2026-08-03T16:13:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: self-triggered from our acknowledgment comment"
+        },
+        {
+          "at": "2026-08-03T18:42:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: bot welcome comment triggered re-detection"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25314,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T16:06:57Z",
+      "reviewed_at": "2026-08-03T18:42:39Z",
       "verdict": "COMMENT",
-      "notes": "AI component doc improvements; 1 broken xref (others: prefix on ai-summary.adoc which is in ROOT)",
+      "notes": "NO_ACTION: bot welcome comment triggered re-detection",
       "interactions": [
         {
           "at": "2026-08-03T16:06:57Z",
           "verdict": "COMMENT",
           "notes": "AI component doc improvements; 1 broken xref (others: prefix on ai-summary.adoc which is in ROOT)"
+        },
+        {
+          "at": "2026-08-03T18:42:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: bot welcome comment triggered re-detection"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25315,
@@ -1039,12 +1049,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T18:04:01Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T18:42:39Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T17:50:33Z"
+  "last_reviewed_updated_at": "2026-08-03T18:41:10Z"
 }
