@@ -335,17 +335,22 @@
       "number": 25282,
       "title": "CAMEL-23931: Fix -Dcamel.jbang.quarkus.platform.url system property ignored in export",
       "author": "jomin7",
-      "reviewed_at": "2026-08-02T07:58:45Z",
+      "reviewed_at": "2026-08-03T06:03:50Z",
       "verdict": "COMMENT",
-      "notes": "Missing test coverage for custom platform URL path; fix itself is correct",
+      "notes": "NO_ACTION: davsclaus approved echoing our existing concerns, no new issues",
       "interactions": [
         {
           "at": "2026-08-02T07:58:45Z",
           "verdict": "COMMENT",
           "notes": "Missing test coverage for custom platform URL path; fix itself is correct"
+        },
+        {
+          "at": "2026-08-03T06:03:50Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus approved echoing our existing concerns, no new issues"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25265,
@@ -631,12 +636,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T05:56:35Z",
+    "timestamp": "2026-08-03T06:03:50Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T05:55:00Z"
+  "last_reviewed_updated_at": "2026-08-03T06:01:57Z"
 }
