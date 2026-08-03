@@ -512,17 +512,22 @@
       "number": 25173,
       "title": "CAMEL-23383: Add JFR runtime instrumentation",
       "author": "ammachado",
-      "reviewed_at": "2026-08-02T10:16:21Z",
-      "verdict": "APPROVE",
-      "notes": "Well-structured JFR instrumentation with 30 tests, minimal overhead design",
+      "reviewed_at": "2026-08-03T05:22:41Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: davsclaus APPROVED with 2 non-blocking observations (trailing newline, writeSetting calls), no review posted",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
           "verdict": "APPROVE",
           "notes": "Well-structured JFR instrumentation with 30 tests, minimal overhead design"
+        },
+        {
+          "at": "2026-08-03T05:22:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus APPROVED with 2 non-blocking observations (trailing newline, writeSetting calls), no review posted"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25273,
@@ -590,12 +595,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T05:16:27Z",
+    "timestamp": "2026-08-03T05:22:41Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T05:13:57Z"
+  "last_reviewed_updated_at": "2026-08-03T05:20:24Z"
 }
