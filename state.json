@@ -439,9 +439,9 @@
       "number": 25202,
       "title": "CAMEL-18552: camel-jbang --openapi-ui with Swagger UI at /q/openapi",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-03T05:31:24Z",
+      "reviewed_at": "2026-08-03T06:40:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED still pending, no new commits or contributor response",
+      "notes": "NO_ACTION: contributor addressed davsclaus feedback, moved swagger-ui version to parent/pom.xml",
       "interactions": [
         {
           "at": "2026-08-02T10:03:24Z",
@@ -462,9 +462,14 @@
           "at": "2026-08-03T05:31:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED still pending, no new commits or contributor response"
+        },
+        {
+          "at": "2026-08-03T06:40:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: contributor addressed davsclaus feedback, moved swagger-ui version to parent/pom.xml"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25203,
@@ -652,12 +657,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T06:08:41Z",
+    "timestamp": "2026-08-03T06:40:42Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T06:04:44Z"
+  "last_reviewed_updated_at": "2026-08-03T06:38:37Z"
 }
