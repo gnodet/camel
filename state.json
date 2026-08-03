@@ -977,9 +977,9 @@
       "number": 25313,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T18:42:39Z",
+      "reviewed_at": "2026-08-03T19:24:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: bot welcome comment triggered re-detection",
+      "notes": "NO_ACTION: new commit (template placeholder escaping) and CI fix comment, still iterating",
       "interactions": [
         {
           "at": "2026-08-03T15:31:11Z",
@@ -1000,9 +1000,14 @@
           "at": "2026-08-03T18:42:39Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: bot welcome comment triggered re-detection"
+        },
+        {
+          "at": "2026-08-03T19:24:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new commit (template placeholder escaping) and CI fix comment, still iterating"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25314,
@@ -1054,12 +1059,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T19:18:09Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T19:24:43Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T18:48:53Z"
+  "last_reviewed_updated_at": "2026-08-03T19:22:43Z"
 }
