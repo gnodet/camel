@@ -620,9 +620,9 @@
       "number": 25285,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-02T19:40:03Z",
+      "reviewed_at": "2026-08-03T08:02:02Z",
       "verdict": "APPROVE",
-      "notes": "No-action: clean approval from davsclaus",
+      "notes": "Security re-review: new commit is merge from main (doc conflicts only). Fix correctly wires TrustedTagInspector to enforce typeFilters allow-list. No bypass vectors. 1 nit (JUnit->AssertJ).",
       "interactions": [
         {
           "at": "2026-08-02T10:29:55Z",
@@ -633,9 +633,14 @@
           "at": "2026-08-02T19:40:03Z",
           "verdict": "APPROVE",
           "notes": "No-action: clean approval from davsclaus"
+        },
+        {
+          "at": "2026-08-03T08:02:02Z",
+          "verdict": "APPROVE",
+          "notes": "Security re-review: new commit is merge from main (doc conflicts only). Fix correctly wires TrustedTagInspector to enforce typeFilters allow-list. No bypass vectors. 1 nit (JUnit->AssertJ)."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25287,
@@ -719,12 +724,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T07:51:21Z",
+    "timestamp": "2026-08-03T08:02:02Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T07:49:37Z"
+  "last_reviewed_updated_at": "2026-08-03T07:51:31Z"
 }
