@@ -931,9 +931,9 @@
       "number": 25312,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T17:41:51Z",
+      "reviewed_at": "2026-08-03T17:52:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: still under active iteration (commit at 17:39), deferring",
+      "notes": "NO_ACTION: new comment but still actively iterated (14 commits today), deferring",
       "interactions": [
         {
           "at": "2026-08-03T14:07:36Z",
@@ -964,9 +964,14 @@
           "at": "2026-08-03T17:41:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: still under active iteration (commit at 17:39), deferring"
+        },
+        {
+          "at": "2026-08-03T17:52:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new comment but still actively iterated (14 commits today), deferring"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25313,
@@ -1034,12 +1039,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T17:47:44Z",
+    "timestamp": "2026-08-03T17:52:14Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T17:46:27Z"
+  "last_reviewed_updated_at": "2026-08-03T17:50:33Z"
 }
