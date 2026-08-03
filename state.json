@@ -745,9 +745,9 @@
       "number": 25306,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T11:09:05Z",
+      "reviewed_at": "2026-08-03T12:07:36Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: self-triggered from our Run 118 acknowledgment comment",
+      "notes": "NO_ACTION: same commits from Run 118 acknowledgment, likely rebased",
       "interactions": [
         {
           "at": "2026-08-03T08:08:29Z",
@@ -768,9 +768,14 @@
           "at": "2026-08-03T11:09:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: self-triggered from our Run 118 acknowledgment comment"
+        },
+        {
+          "at": "2026-08-03T12:07:36Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: same commits from Run 118 acknowledgment, likely rebased"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25307,
@@ -839,27 +844,32 @@
       "number": 25310,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T11:39:49Z",
-      "verdict": "APPROVE",
-      "notes": "LDIF URL-body dereferencing opt-in security hardening; clean implementation with proper security annotations, upgrade guide, and tests",
+      "reviewed_at": "2026-08-03T12:07:36Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: self-triggered from our Run 127 approval",
       "interactions": [
         {
           "at": "2026-08-03T11:39:49Z",
           "verdict": "APPROVE",
           "notes": "LDIF URL-body dereferencing opt-in security hardening; clean implementation with proper security annotations, upgrade guide, and tests"
+        },
+        {
+          "at": "2026-08-03T12:07:36Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: self-triggered from our Run 127 approval"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T11:40:57Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T12:07:36Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T11:40:57Z"
+  "last_reviewed_updated_at": "2026-08-03T12:06:12Z"
 }
