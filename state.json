@@ -947,12 +947,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T15:40:18Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-03T15:41:28Z",
+    "prs_checked": 0,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T15:38:50Z"
+  "last_reviewed_updated_at": "2026-08-03T15:41:28Z"
 }
