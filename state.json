@@ -879,9 +879,9 @@
       "number": 25310,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T13:23:10Z",
+      "reviewed_at": "2026-08-03T16:53:06Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: only a merge from main, no substantive changes",
+      "notes": "NO_ACTION: bot welcome comment triggered re-detection, PR already approved",
       "interactions": [
         {
           "at": "2026-08-03T11:39:49Z",
@@ -897,9 +897,14 @@
           "at": "2026-08-03T13:23:10Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: only a merge from main, no substantive changes"
+        },
+        {
+          "at": "2026-08-03T16:53:06Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: bot welcome comment triggered re-detection, PR already approved"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25311,
@@ -993,12 +998,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T16:34:27Z",
+    "timestamp": "2026-08-03T16:53:06Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T16:32:41Z"
+  "last_reviewed_updated_at": "2026-08-03T16:51:20Z"
 }
