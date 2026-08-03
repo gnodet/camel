@@ -56,9 +56,9 @@
       "number": 25239,
       "title": "CAMEL-20199: Migrate TomcatReactiveExecutor from raw ThreadLocal to ContextValue",
       "author": "gnodet",
-      "reviewed_at": "2026-08-03T05:42:03Z",
+      "reviewed_at": "2026-08-03T21:02:46Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED - architectural concern about component becoming redundant, directed at operator/author gnodet",
+      "notes": "NO_ACTION: operator's own PR, CHANGES_REQUESTED by davsclaus, self-triggered re-detection from our comment",
       "interactions": [
         {
           "at": "2026-08-02T04:35:08Z",
@@ -74,9 +74,14 @@
           "at": "2026-08-03T05:42:03Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED - architectural concern about component becoming redundant, directed at operator/author gnodet"
+        },
+        {
+          "at": "2026-08-03T21:02:46Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator's own PR, CHANGES_REQUESTED by davsclaus, self-triggered re-detection from our comment"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25240,
@@ -1111,12 +1116,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T21:00:49Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-03T21:02:46Z",
+    "prs_checked": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T20:44:34Z"
+  "last_reviewed_updated_at": "2026-08-03T21:00:25Z"
 }
