@@ -765,9 +765,9 @@
       "number": 25306,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T12:25:00Z",
+      "reviewed_at": "2026-08-03T16:10:41Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: PR received new approval from another reviewer, no action needed",
+      "notes": "NO_ACTION: ongoing discussion, already reviewed and all findings addressed",
       "interactions": [
         {
           "at": "2026-08-03T08:08:29Z",
@@ -798,9 +798,14 @@
           "at": "2026-08-03T12:25:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: PR received new approval from another reviewer, no action needed"
+        },
+        {
+          "at": "2026-08-03T16:10:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: ongoing discussion, already reviewed and all findings addressed"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25307,
@@ -963,12 +968,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T16:09:22Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T16:10:41Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T16:09:22Z"
+  "last_reviewed_updated_at": "2026-08-03T12:27:43Z"
 }
