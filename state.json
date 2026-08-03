@@ -745,41 +745,51 @@
       "number": 25306,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T08:08:29Z",
+      "reviewed_at": "2026-08-03T10:20:28Z",
       "verdict": "COMMENT",
-      "notes": "Large new MCP server module (2623 additions, 33 files). Well-architected SPI + Vert.x engine. 1 major (wrong artifact hint), 3 minor (missing @since, session leak, block without timeout), 2 nits.",
+      "notes": "NO_ACTION: new activity is another AI review by davsclaus agent, no new commits needing our re-review",
       "interactions": [
         {
           "at": "2026-08-03T08:08:29Z",
           "verdict": "COMMENT",
           "notes": "Large new MCP server module (2623 additions, 33 files). Well-architected SPI + Vert.x engine. 1 major (wrong artifact hint), 3 minor (missing @since, session leak, block without timeout), 2 nits."
+        },
+        {
+          "at": "2026-08-03T10:20:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new activity is another AI review by davsclaus agent, no new commits needing our re-review"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25307,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T09:45:14Z",
-      "verdict": "APPROVE",
-      "notes": "Clean backport of #25259 (keycloak token type/azp validation) to camel-4.18.x. Original reviewed by gnodet and apupier. Single-commit cherry-pick.",
+      "reviewed_at": "2026-08-03T10:20:27Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: self-triggered re-detection from our Run 106 approval",
       "interactions": [
         {
           "at": "2026-08-03T09:45:14Z",
           "verdict": "APPROVE",
           "notes": "Clean backport of #25259 (keycloak token type/azp validation) to camel-4.18.x. Original reviewed by gnodet and apupier. Single-commit cherry-pick."
+        },
+        {
+          "at": "2026-08-03T10:20:27Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: self-triggered re-detection from our Run 106 approval"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25308,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T10:03:51Z",
+      "reviewed_at": "2026-08-03T10:20:28Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: self-triggered by our own APPROVE review from Run 111.",
+      "notes": "NO_ACTION: self-triggered re-detection from our Run 111 approval",
       "interactions": [
         {
           "at": "2026-08-03T09:59:35Z",
@@ -790,9 +800,14 @@
           "at": "2026-08-03T10:03:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: self-triggered by our own APPROVE review from Run 111."
+        },
+        {
+          "at": "2026-08-03T10:20:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: self-triggered re-detection from our Run 111 approval"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25309,
@@ -813,12 +828,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T10:18:54Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-03T10:20:28Z",
+    "prs_checked": 3,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T10:08:36Z"
+  "last_reviewed_updated_at": "2026-08-03T10:14:40Z"
 }
