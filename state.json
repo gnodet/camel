@@ -51,17 +51,22 @@
       "number": 25239,
       "title": "CAMEL-20199: Migrate TomcatReactiveExecutor from raw ThreadLocal to ContextValue",
       "author": "gnodet",
-      "reviewed_at": "2026-08-02T04:35:08Z",
+      "reviewed_at": "2026-08-03T05:35:09Z",
       "verdict": "COMMENT",
-      "notes": "Informational review only \u2014 operator's own PR, cannot self-approve",
+      "notes": "NO_ACTION: clean davsclaus approval, no new issues or commits, no review posted",
       "interactions": [
         {
           "at": "2026-08-02T04:35:08Z",
           "verdict": "COMMENT",
           "notes": "Informational review only \u2014 operator's own PR, cannot self-approve"
+        },
+        {
+          "at": "2026-08-03T05:35:09Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: clean davsclaus approval, no new issues or commits, no review posted"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25240,
@@ -600,12 +605,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T05:31:24Z",
+    "timestamp": "2026-08-03T05:35:09Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T05:28:56Z"
+  "last_reviewed_updated_at": "2026-08-03T05:33:14Z"
 }
