@@ -777,27 +777,32 @@
       "number": 25308,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T09:59:35Z",
-      "verdict": "APPROVE",
-      "notes": "Test infra: PID tracking for nohup-launched JBang processes. Fixes process leak during test cleanup. Clean, follows existing pattern. 1 nit (PID parsing consistency).",
+      "reviewed_at": "2026-08-03T10:03:51Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: self-triggered by our own APPROVE review from Run 111.",
       "interactions": [
         {
           "at": "2026-08-03T09:59:35Z",
           "verdict": "APPROVE",
           "notes": "Test infra: PID tracking for nohup-launched JBang processes. Fixes process leak during test cleanup. Clean, follows existing pattern. 1 nit (PID parsing consistency)."
+        },
+        {
+          "at": "2026-08-03T10:03:51Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: self-triggered by our own APPROVE review from Run 111."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T10:00:32Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T10:03:51Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T09:54:26Z"
+  "last_reviewed_updated_at": "2026-08-03T10:02:49Z"
 }
