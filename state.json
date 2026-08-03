@@ -356,9 +356,9 @@
       "number": 25265,
       "title": "CAMEL-24320: Fix Kamelet route creation with virtual threads on JDK 25",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T20:26:07Z",
+      "reviewed_at": "2026-08-03T06:54:25Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new commit is CI cleanup only (removed unreachable test, simplified factory), production fix unchanged, 4 low non-blocking notes",
+      "notes": "NO_ACTION: 2 new commits are CI fixes (removed reflection test, inline routeTemplate), production fix unchanged",
       "interactions": [
         {
           "at": "2026-08-02T07:58:45Z",
@@ -384,9 +384,14 @@
           "at": "2026-08-02T20:26:07Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new commit is CI cleanup only (removed unreachable test, simplified factory), production fix unchanged, 4 low non-blocking notes"
+        },
+        {
+          "at": "2026-08-03T06:54:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 2 new commits are CI fixes (removed reflection test, inline routeTemplate), production fix unchanged"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25283,
@@ -439,9 +444,9 @@
       "number": 25202,
       "title": "CAMEL-18552: camel-jbang --openapi-ui with Swagger UI at /q/openapi",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-03T06:40:42Z",
+      "reviewed_at": "2026-08-03T06:54:25Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: contributor addressed davsclaus feedback, moved swagger-ui version to parent/pom.xml",
+      "notes": "NO_ACTION: davsclaus re-approved after swagger-ui version move to parent POM",
       "interactions": [
         {
           "at": "2026-08-02T10:03:24Z",
@@ -467,9 +472,14 @@
           "at": "2026-08-03T06:40:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: contributor addressed davsclaus feedback, moved swagger-ui version to parent/pom.xml"
+        },
+        {
+          "at": "2026-08-03T06:54:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus re-approved after swagger-ui version move to parent POM"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25203,
@@ -657,12 +667,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T06:40:42Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-03T06:54:25Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T06:38:37Z"
+  "last_reviewed_updated_at": "2026-08-03T06:48:35Z"
 }
