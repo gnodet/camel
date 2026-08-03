@@ -693,9 +693,9 @@
       "number": 25301,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T08:17:40Z",
+      "reviewed_at": "2026-08-03T14:37:47Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already approved. New activity is a comment.",
+      "notes": "NO_ACTION: already approved, new comment is non-blocking discussion",
       "interactions": [
         {
           "at": "2026-08-03T07:36:54Z",
@@ -716,9 +716,14 @@
           "at": "2026-08-03T08:17:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already approved. New activity is a comment."
+        },
+        {
+          "at": "2026-08-03T14:37:47Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already approved, new comment is non-blocking discussion"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25305,
@@ -916,12 +921,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T14:28:31Z",
+    "timestamp": "2026-08-03T14:37:47Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T14:27:03Z"
+  "last_reviewed_updated_at": "2026-08-03T14:36:37Z"
 }
