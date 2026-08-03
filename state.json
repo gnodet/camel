@@ -865,16 +865,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25311,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-03T13:06:35Z",
+      "verdict": "APPROVE",
+      "notes": "aws2-s3 pojoRequest type validation; 22 operations covered, follows established CAMEL-24261 pattern",
+      "interactions": [
+        {
+          "at": "2026-08-03T13:06:35Z",
+          "verdict": "APPROVE",
+          "notes": "aws2-s3 pojoRequest type validation; 22 operations covered, follows established CAMEL-24261 pattern"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T12:57:21Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-03T13:06:35Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T12:57:21Z"
+  "last_reviewed_updated_at": "2026-08-03T13:02:45Z"
 }
