@@ -926,9 +926,9 @@
       "number": 25312,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T16:25:31Z",
+      "reviewed_at": "2026-08-03T17:02:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: still under rapid active iteration (5 commits in last 90 min), deferring re-review",
+      "notes": "NO_ACTION: still under active iteration (13 commits today), deferring re-review",
       "interactions": [
         {
           "at": "2026-08-03T14:07:36Z",
@@ -949,9 +949,14 @@
           "at": "2026-08-03T16:25:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: still under rapid active iteration (5 commits in last 90 min), deferring re-review"
+        },
+        {
+          "at": "2026-08-03T17:02:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still under active iteration (13 commits today), deferring re-review"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25313,
@@ -994,16 +999,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25315,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-03T17:14:07Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: 2 non-blocking findings (pre-parse allowedSchemes for performance, add multi-scheme test coverage). 1 false positive rejected (equalsIgnoreCase).",
+      "interactions": [
+        {
+          "at": "2026-08-03T17:14:07Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: 2 non-blocking findings (pre-parse allowedSchemes for performance, add multi-scheme test coverage). 1 false positive rejected (equalsIgnoreCase)."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T16:59:45Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-03T17:14:07Z",
+    "prs_checked": 2,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T16:51:20Z"
+  "last_reviewed_updated_at": "2026-08-03T17:01:17Z"
 }
