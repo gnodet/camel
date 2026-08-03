@@ -770,9 +770,9 @@
       "number": 25306,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T16:10:41Z",
+      "reviewed_at": "2026-08-03T17:34:19Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: ongoing discussion, already reviewed and all findings addressed",
+      "notes": "NO_ACTION: CI bot comment triggered re-detection, PR already approved",
       "interactions": [
         {
           "at": "2026-08-03T08:08:29Z",
@@ -808,9 +808,14 @@
           "at": "2026-08-03T16:10:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: ongoing discussion, already reviewed and all findings addressed"
+        },
+        {
+          "at": "2026-08-03T17:34:19Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI bot comment triggered re-detection, PR already approved"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25307,
@@ -1019,12 +1024,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T17:15:49Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T17:34:19Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T17:01:17Z"
+  "last_reviewed_updated_at": "2026-08-03T17:33:02Z"
 }
