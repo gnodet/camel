@@ -683,9 +683,9 @@
       "number": 25301,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T07:42:33Z",
+      "reviewed_at": "2026-08-03T08:03:58Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: self-triggered by our own APPROVE review from Run 75.",
+      "notes": "NO_ACTION: already approved in Run 75. New activity is just a comment.",
       "interactions": [
         {
           "at": "2026-08-03T07:36:54Z",
@@ -696,9 +696,14 @@
           "at": "2026-08-03T07:42:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: self-triggered by our own APPROVE review from Run 75."
+        },
+        {
+          "at": "2026-08-03T08:03:58Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already approved in Run 75. New activity is just a comment."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25305,
@@ -720,16 +725,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25306,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-03T08:08:29Z",
+      "verdict": "COMMENT",
+      "notes": "Large new MCP server module (2623 additions, 33 files). Well-architected SPI + Vert.x engine. 1 major (wrong artifact hint), 3 minor (missing @since, session leak, block without timeout), 2 nits.",
+      "interactions": [
+        {
+          "at": "2026-08-03T08:08:29Z",
+          "verdict": "COMMENT",
+          "notes": "Large new MCP server module (2623 additions, 33 files). Well-architected SPI + Vert.x engine. 1 major (wrong artifact hint), 3 minor (missing @since, session leak, block without timeout), 2 nits."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T08:02:02Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-03T08:08:29Z",
+    "prs_checked": 2,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T07:51:31Z"
+  "last_reviewed_updated_at": "2026-08-03T08:01:06Z"
 }
