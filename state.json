@@ -714,7 +714,7 @@
       "number": 25305,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T08:17:40Z",
+      "reviewed_at": "2026-08-03T09:16:55Z",
       "verdict": "COMMENT",
       "notes": "NO_ACTION: already approved in Run 80. New activity is a comment.",
       "interactions": [
@@ -732,9 +732,14 @@
           "at": "2026-08-03T08:17:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already approved in Run 80. New activity is a comment."
+        },
+        {
+          "at": "2026-08-03T09:16:55Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already approved in Run 80. New activity is a comment."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25306,
@@ -755,12 +760,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T09:06:21Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T09:16:55Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T08:16:24Z"
+  "last_reviewed_updated_at": "2026-08-03T09:15:02Z"
 }
