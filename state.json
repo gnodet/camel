@@ -931,9 +931,9 @@
       "number": 25312,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T17:52:14Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: new comment but still actively iterated (14 commits today), deferring",
+      "reviewed_at": "2026-08-03T19:57:19Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: JFR TUI tab with snapshot aggregation, data views, and CamelContextAware bug fix. 3 low-severity informational findings noted.",
       "interactions": [
         {
           "at": "2026-08-03T14:07:36Z",
@@ -969,9 +969,14 @@
           "at": "2026-08-03T17:52:14Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new comment but still actively iterated (14 commits today), deferring"
+        },
+        {
+          "at": "2026-08-03T19:57:19Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: JFR TUI tab with snapshot aggregation, data views, and CamelContextAware bug fix. 3 low-severity informational findings noted."
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25313,
@@ -1069,12 +1074,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T19:29:36Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-03T19:57:19Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T19:27:20Z"
+  "last_reviewed_updated_at": "2026-08-03T19:48:32Z"
 }
