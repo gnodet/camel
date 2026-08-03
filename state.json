@@ -1029,9 +1029,9 @@
       "number": 25315,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T17:47:44Z",
+      "reviewed_at": "2026-08-03T18:50:37Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus added independent review comments, our review already posted",
+      "notes": "NO_ACTION: bot welcome comment triggered re-detection",
       "interactions": [
         {
           "at": "2026-08-03T17:14:07Z",
@@ -1042,19 +1042,24 @@
           "at": "2026-08-03T17:47:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus added independent review comments, our review already posted"
+        },
+        {
+          "at": "2026-08-03T18:50:37Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: bot welcome comment triggered re-detection"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T18:49:05Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T18:50:37Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T18:41:10Z"
+  "last_reviewed_updated_at": "2026-08-03T18:48:53Z"
 }
