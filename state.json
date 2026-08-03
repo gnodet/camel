@@ -932,9 +932,9 @@
       "number": 25313,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T15:40:18Z",
+      "reviewed_at": "2026-08-03T16:13:00Z",
       "verdict": "COMMENT",
-      "notes": "Follow-up: author addressed all 5 review items in d1db30c. Dismissed REQUEST_CHANGES, posted acknowledgment.",
+      "notes": "NO_ACTION: self-triggered from our acknowledgment comment",
       "interactions": [
         {
           "at": "2026-08-03T15:31:11Z",
@@ -945,9 +945,14 @@
           "at": "2026-08-03T15:40:18Z",
           "verdict": "COMMENT",
           "notes": "Follow-up: author addressed all 5 review items in d1db30c. Dismissed REQUEST_CHANGES, posted acknowledgment."
+        },
+        {
+          "at": "2026-08-03T16:13:00Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: self-triggered from our acknowledgment comment"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25314,
@@ -968,12 +973,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-03T16:11:49Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-03T16:13:00Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-03T16:11:49Z"
+  "last_reviewed_updated_at": "2026-08-03T16:11:43Z"
 }
