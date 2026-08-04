@@ -1301,17 +1301,22 @@
       "number": 25323,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T09:58:36Z",
+      "reviewed_at": "2026-08-04T11:25:12Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new Salesforce docs PR, CI not yet reported - defer",
+      "notes": "NO_ACTION: re-review triggered by bot CI comment only; already approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-04T09:58:36Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new Salesforce docs PR, CI not yet reported - defer"
+        },
+        {
+          "at": "2026-08-04T11:25:12Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: re-review triggered by bot CI comment only; already approved by davsclaus"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25324,
@@ -1337,12 +1342,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T11:05:43Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T11:25:12Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T11:02:26Z"
+  "last_reviewed_updated_at": "2026-08-04T11:07:42Z"
 }
