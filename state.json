@@ -1348,9 +1348,9 @@
       "number": 25317,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T14:55:19Z",
+      "reviewed_at": "2026-08-04T16:09:01Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author pushed new commits, CI still pending (5 checks)",
+      "notes": "NO_ACTION: author addressed our suggestions but davsclaus requested rebase; active iteration",
       "interactions": [
         {
           "at": "2026-08-04T12:40:15Z",
@@ -1371,9 +1371,14 @@
           "at": "2026-08-04T14:55:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author pushed new commits, CI still pending (5 checks)"
+        },
+        {
+          "at": "2026-08-04T16:09:01Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author addressed our suggestions but davsclaus requested rebase; active iteration"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25325,
@@ -1488,12 +1493,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T16:07:36Z",
+    "timestamp": "2026-08-04T16:09:01Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T16:06:42Z"
+  "last_reviewed_updated_at": "2026-08-04T16:07:23Z"
 }
