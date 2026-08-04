@@ -1348,9 +1348,9 @@
       "number": 25317,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T16:39:42Z",
+      "reviewed_at": "2026-08-04T17:04:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus approved, atiaomar1978-hub posted AI review; author still needs to rebase per davsclaus request",
+      "notes": "NO_ACTION: author rebased/addressed davsclaus feedback, CI pending (5 checks)",
       "interactions": [
         {
           "at": "2026-08-04T12:40:15Z",
@@ -1381,9 +1381,14 @@
           "at": "2026-08-04T16:39:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus approved, atiaomar1978-hub posted AI review; author still needs to rebase per davsclaus request"
+        },
+        {
+          "at": "2026-08-04T17:04:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author rebased/addressed davsclaus feedback, CI pending (5 checks)"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25325,
@@ -1446,9 +1451,9 @@
       "number": 25327,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T15:40:50Z",
+      "reviewed_at": "2026-08-04T17:04:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: trivial 3-line CI test fix, already approved by davsclaus",
+      "notes": "NO_ACTION: bot CI comment, already approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-04T14:55:19Z",
@@ -1459,9 +1464,14 @@
           "at": "2026-08-04T15:40:50Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: trivial 3-line CI test fix, already approved by davsclaus"
+        },
+        {
+          "at": "2026-08-04T17:04:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: bot CI comment, already approved by davsclaus"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25328,
@@ -1498,12 +1508,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T16:40:50Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T17:04:14Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T16:38:01Z"
+  "last_reviewed_updated_at": "2026-08-04T17:02:53Z"
 }
