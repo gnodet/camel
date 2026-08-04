@@ -933,17 +933,22 @@
       "number": 25309,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T10:18:54Z",
+      "reviewed_at": "2026-08-04T09:43:58Z",
       "verdict": "COMMENT",
-      "notes": "MCP server config properties; 3 minor + 3 nit observations (race in publish/unpublish, exchange leak on timeout, missing Content-Type validation)",
+      "notes": "NO_ACTION: already reviewed, new activity is davsclaus/Croway discussion, CI pending",
       "interactions": [
         {
           "at": "2026-08-03T10:18:54Z",
           "verdict": "COMMENT",
           "notes": "MCP server config properties; 3 minor + 3 nit observations (race in publish/unpublish, exchange leak on timeout, missing Content-Type validation)"
+        },
+        {
+          "at": "2026-08-04T09:43:58Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already reviewed, new activity is davsclaus/Croway discussion, CI pending"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25310,
@@ -1280,12 +1285,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T09:32:29Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T09:43:58Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T09:18:57Z"
+  "last_reviewed_updated_at": "2026-08-04T09:42:33Z"
 }
