@@ -1400,9 +1400,9 @@
       "number": 25326,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T16:05:06Z",
+      "reviewed_at": "2026-08-04T16:07:36Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author addressing review conventions (AssertJ, package-private tests), bot CI comments, already approved by davsclaus",
+      "notes": "NO_ACTION: oscerd self-comment on own PR, already approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-04T13:58:46Z",
@@ -1423,9 +1423,14 @@
           "at": "2026-08-04T16:05:06Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author addressing review conventions (AssertJ, package-private tests), bot CI comments, already approved by davsclaus"
+        },
+        {
+          "at": "2026-08-04T16:07:36Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: oscerd self-comment on own PR, already approved by davsclaus"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25327,
@@ -1483,12 +1488,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T16:06:24Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T16:07:36Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T16:03:43Z"
+  "last_reviewed_updated_at": "2026-08-04T16:06:42Z"
 }
