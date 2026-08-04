@@ -1374,17 +1374,22 @@
       "number": 25325,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T13:58:46Z",
+      "reviewed_at": "2026-08-04T14:03:59Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: brand new PR (created 13:57 UTC), no CI checks reported yet. Will review when CI completes.",
+      "notes": "NO_ACTION: trivial 1-line c3p0 version bump, already approved by oscerd",
       "interactions": [
         {
           "at": "2026-08-04T13:58:46Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: brand new PR (created 13:57 UTC), no CI checks reported yet. Will review when CI completes."
+        },
+        {
+          "at": "2026-08-04T14:03:59Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: trivial 1-line c3p0 version bump, already approved by oscerd"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25326,
@@ -1405,12 +1410,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T13:59:52Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T14:03:59Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T13:57:50Z"
+  "last_reviewed_updated_at": "2026-08-04T14:02:47Z"
 }
