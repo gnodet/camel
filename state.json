@@ -1270,14 +1270,35 @@
       "number": 25322,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T09:20:16Z",
+      "reviewed_at": "2026-08-04T09:58:36Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new backport of CAMEL-24299 to camel-4.14.x, CI pending - defer",
+      "notes": "NO_ACTION: backport already approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-04T09:20:16Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new backport of CAMEL-24299 to camel-4.14.x, CI pending - defer"
+        },
+        {
+          "at": "2026-08-04T09:58:36Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: backport already approved by davsclaus"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25323,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-04T09:58:36Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new Salesforce docs PR, CI not yet reported - defer",
+      "interactions": [
+        {
+          "at": "2026-08-04T09:58:36Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new Salesforce docs PR, CI not yet reported - defer"
         }
       ],
       "review_count": 1
@@ -1285,12 +1306,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T09:46:00Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T09:58:36Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T09:42:33Z"
+  "last_reviewed_updated_at": "2026-08-04T09:57:17Z"
 }
