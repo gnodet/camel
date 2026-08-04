@@ -1322,9 +1322,9 @@
       "number": 25324,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T10:48:47Z",
+      "reviewed_at": "2026-08-04T11:26:53Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: AWS null guard PR already approved by davsclaus",
+      "notes": "NO_ACTION: re-review triggered by bot CI comment only; already approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-04T10:44:08Z",
@@ -1335,19 +1335,24 @@
           "at": "2026-08-04T10:48:47Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: AWS null guard PR already approved by davsclaus"
+        },
+        {
+          "at": "2026-08-04T11:26:53Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: re-review triggered by bot CI comment only; already approved by davsclaus"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T11:25:12Z",
+    "timestamp": "2026-08-04T11:26:54Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T11:07:42Z"
+  "last_reviewed_updated_at": "2026-08-04T11:25:43Z"
 }
