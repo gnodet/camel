@@ -1084,9 +1084,9 @@
       "number": 25315,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T20:28:38Z",
+      "reviewed_at": "2026-08-04T06:48:56Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI tested-modules bot comment",
+      "notes": "NO_ACTION: author addressed review feedback with new commit, CI still pending - defer until checks green",
       "interactions": [
         {
           "at": "2026-08-03T17:14:07Z",
@@ -1107,9 +1107,14 @@
           "at": "2026-08-03T20:28:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI tested-modules bot comment"
+        },
+        {
+          "at": "2026-08-04T06:48:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author addressed review feedback with new commit, CI still pending - defer until checks green"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25316,
@@ -1182,12 +1187,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T05:30:03Z",
+    "timestamp": "2026-08-04T06:48:56Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T05:28:43Z"
+  "last_reviewed_updated_at": "2026-08-04T06:46:36Z"
 }
