@@ -1534,9 +1534,9 @@
       "number": 25330,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T21:26:42Z",
+      "reviewed_at": "2026-08-04T23:44:30Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already approved by davsclaus. No review needed.",
+      "notes": "NO_ACTION: CI bot comment. Already approved by davsclaus.",
       "interactions": [
         {
           "at": "2026-08-04T20:33:18Z",
@@ -1552,9 +1552,14 @@
           "at": "2026-08-04T21:26:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already approved by davsclaus. No review needed."
+        },
+        {
+          "at": "2026-08-04T23:44:30Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI bot comment. Already approved by davsclaus."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25331,
@@ -1575,12 +1580,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T23:31:22Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T23:44:30Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T21:53:45Z"
+  "last_reviewed_updated_at": "2026-08-04T23:43:19Z"
 }
