@@ -1105,9 +1105,9 @@
       "number": 25316,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T04:43:44Z",
+      "reviewed_at": "2026-08-04T05:08:07Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new activity is just oscerd APPROVED, already reviewed",
+      "notes": "NO_ACTION: new activity is davsclaus APPROVED, already reviewed",
       "interactions": [
         {
           "at": "2026-08-03T20:53:21Z",
@@ -1118,9 +1118,14 @@
           "at": "2026-08-04T04:43:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new activity is just oscerd APPROVED, already reviewed"
+        },
+        {
+          "at": "2026-08-04T05:08:07Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new activity is davsclaus APPROVED, already reviewed"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25281,
@@ -1162,12 +1167,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T04:43:44Z",
+    "timestamp": "2026-08-04T05:08:07Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T04:42:21Z"
+  "last_reviewed_updated_at": "2026-08-04T05:06:07Z"
 }
