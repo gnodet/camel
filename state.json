@@ -805,9 +805,9 @@
       "number": 25306,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T07:39:17Z",
+      "reviewed_at": "2026-08-04T07:42:34Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author pushed new commit addressing review comments, CI pending - defer",
+      "notes": "NO_ACTION: author still iterating, Croway commented, CI pending",
       "interactions": [
         {
           "at": "2026-08-03T08:08:29Z",
@@ -858,9 +858,14 @@
           "at": "2026-08-04T07:39:17Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author pushed new commit addressing review comments, CI pending - defer"
+        },
+        {
+          "at": "2026-08-04T07:42:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author still iterating, Croway commented, CI pending"
         }
       ],
-      "review_count": 10
+      "review_count": 11
     },
     {
       "number": 25307,
@@ -1202,12 +1207,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T07:39:17Z",
+    "timestamp": "2026-08-04T07:42:35Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T07:33:07Z"
+  "last_reviewed_updated_at": "2026-08-04T07:40:42Z"
 }
