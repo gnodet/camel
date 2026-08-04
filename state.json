@@ -1348,27 +1348,32 @@
       "number": 25317,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T12:40:15Z",
+      "reviewed_at": "2026-08-04T13:03:38Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: 4 verified findings (ASF license on MIT vendored files, unbounded thread pool, incomplete awaitTermination, FQCN style). 1 false positive rejected (null Origin by design).",
+      "notes": "NO_ACTION: author addressed review feedback with new commit (13:01 UTC), CI still pending (5 checks). Will re-review when CI is green.",
       "interactions": [
         {
           "at": "2026-08-04T12:40:15Z",
           "verdict": "COMMENT",
           "notes": "COMMENT: 4 verified findings (ASF license on MIT vendored files, unbounded thread pool, incomplete awaitTermination, FQCN style). 1 false positive rejected (null Origin by design)."
+        },
+        {
+          "at": "2026-08-04T13:03:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author addressed review feedback with new commit (13:01 UTC), CI still pending (5 checks). Will re-review when CI is green."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T12:52:19Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T13:03:38Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T12:07:20Z"
+  "last_reviewed_updated_at": "2026-08-04T13:02:32Z"
 }
