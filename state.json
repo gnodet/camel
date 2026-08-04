@@ -56,9 +56,9 @@
       "number": 25239,
       "title": "CAMEL-20199: Migrate TomcatReactiveExecutor from raw ThreadLocal to ContextValue",
       "author": "gnodet",
-      "reviewed_at": "2026-08-03T22:15:55Z",
+      "reviewed_at": "2026-08-04T05:13:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator's own PR, already approved, new commits re-detection",
+      "notes": "NO_ACTION: new activity is davsclaus second APPROVED, already reviewed",
       "interactions": [
         {
           "at": "2026-08-02T04:35:08Z",
@@ -89,9 +89,14 @@
           "at": "2026-08-03T22:15:55Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator's own PR, already approved, new commits re-detection"
+        },
+        {
+          "at": "2026-08-04T05:13:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new activity is davsclaus second APPROVED, already reviewed"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25240,
@@ -1131,9 +1136,9 @@
       "number": 25281,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T04:42:22Z",
+      "reviewed_at": "2026-08-04T05:13:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new activity is just oscerd APPROVED, no code changes",
+      "notes": "NO_ACTION: new activity is davsclaus APPROVED, already reviewed",
       "interactions": [
         {
           "at": "2026-08-03T21:00:49Z",
@@ -1144,9 +1149,14 @@
           "at": "2026-08-04T04:42:22Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new activity is just oscerd APPROVED, no code changes"
+        },
+        {
+          "at": "2026-08-04T05:13:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new activity is davsclaus APPROVED, already reviewed"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25289,
@@ -1167,12 +1177,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T05:11:21Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T05:13:38Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T05:06:07Z"
+  "last_reviewed_updated_at": "2026-08-04T05:12:33Z"
 }
