@@ -1343,16 +1343,32 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25317,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-04T12:40:15Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: 4 verified findings (ASF license on MIT vendored files, unbounded thread pool, incomplete awaitTermination, FQCN style). 1 false positive rejected (null Origin by design).",
+      "interactions": [
+        {
+          "at": "2026-08-04T12:40:15Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: 4 verified findings (ASF license on MIT vendored files, unbounded thread pool, incomplete awaitTermination, FQCN style). 1 false positive rejected (null Origin by design)."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T12:01:22Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-04T12:40:15Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T11:25:43Z"
+  "last_reviewed_updated_at": "2026-08-04T12:07:20Z"
 }
