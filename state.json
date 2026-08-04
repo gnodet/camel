@@ -1129,9 +1129,9 @@
       "number": 25315,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T06:48:56Z",
+      "reviewed_at": "2026-08-04T18:19:11Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author addressed review feedback with new commit, CI still pending - defer until checks green",
+      "notes": "NO_ACTION: New commit is just merge from main. Already approved. No re-review needed.",
       "interactions": [
         {
           "at": "2026-08-03T17:14:07Z",
@@ -1157,9 +1157,14 @@
           "at": "2026-08-04T06:48:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author addressed review feedback with new commit, CI still pending - defer until checks green"
+        },
+        {
+          "at": "2026-08-04T18:19:11Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New commit is just merge from main. Already approved. No re-review needed."
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25316,
@@ -1528,12 +1533,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T18:06:03Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T18:19:11Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T18:02:09Z"
+  "last_reviewed_updated_at": "2026-08-04T18:17:43Z"
 }
