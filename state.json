@@ -155,9 +155,9 @@
       "number": 25205,
       "title": "CAMEL-24301: Fix RouteService NPE when startup-failure exception carries no message",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-04T07:45:50Z",
+      "reviewed_at": "2026-08-04T07:48:05Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author pushed new commit addressing davsclaus review, CI not yet reported - defer",
+      "notes": "NO_ACTION: author replied to comments, CI still pending on new commit",
       "interactions": [
         {
           "at": "2026-08-02T05:56:25Z",
@@ -188,9 +188,14 @@
           "at": "2026-08-04T07:45:50Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author pushed new commit addressing davsclaus review, CI not yet reported - defer"
+        },
+        {
+          "at": "2026-08-04T07:48:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author replied to comments, CI still pending on new commit"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25248,
@@ -1212,8 +1217,8 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T07:46:51Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T07:48:05Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
