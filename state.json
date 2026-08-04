@@ -805,9 +805,9 @@
       "number": 25306,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T04:42:22Z",
+      "reviewed_at": "2026-08-04T07:39:17Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new activity is just oscerd APPROVED, no code changes",
+      "notes": "NO_ACTION: author pushed new commit addressing review comments, CI pending - defer",
       "interactions": [
         {
           "at": "2026-08-03T08:08:29Z",
@@ -853,9 +853,14 @@
           "at": "2026-08-04T04:42:22Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new activity is just oscerd APPROVED, no code changes"
+        },
+        {
+          "at": "2026-08-04T07:39:17Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author pushed new commit addressing review comments, CI pending - defer"
         }
       ],
-      "review_count": 9
+      "review_count": 10
     },
     {
       "number": 25307,
@@ -1197,12 +1202,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T07:32:05Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T07:39:17Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T07:15:44Z"
+  "last_reviewed_updated_at": "2026-08-04T07:33:07Z"
 }
