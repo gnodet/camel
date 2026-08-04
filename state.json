@@ -1348,9 +1348,9 @@
       "number": 25317,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T13:03:38Z",
+      "reviewed_at": "2026-08-04T13:54:20Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author addressed review feedback with new commit (13:01 UTC), CI still pending (5 checks). Will re-review when CI is green.",
+      "notes": "NO_ACTION: new comment is just author requesting review from another person; CI still pending (5 checks)",
       "interactions": [
         {
           "at": "2026-08-04T12:40:15Z",
@@ -1361,19 +1361,24 @@
           "at": "2026-08-04T13:03:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author addressed review feedback with new commit (13:01 UTC), CI still pending (5 checks). Will re-review when CI is green."
+        },
+        {
+          "at": "2026-08-04T13:54:20Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new comment is just author requesting review from another person; CI still pending (5 checks)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T13:22:04Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T13:54:20Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T13:02:32Z"
+  "last_reviewed_updated_at": "2026-08-04T13:53:06Z"
 }
