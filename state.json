@@ -1239,27 +1239,32 @@
       "number": 25321,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T08:52:24Z",
+      "reviewed_at": "2026-08-04T08:57:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: docs-only PR already approved by davsclaus",
+      "notes": "NO_ACTION: docs-only PR, new commits but still approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-04T08:52:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: docs-only PR already approved by davsclaus"
+        },
+        {
+          "at": "2026-08-04T08:57:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: docs-only PR, new commits but still approved by davsclaus"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T08:52:24Z",
+    "timestamp": "2026-08-04T08:57:32Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T08:50:59Z"
+  "last_reviewed_updated_at": "2026-08-04T08:53:14Z"
 }
