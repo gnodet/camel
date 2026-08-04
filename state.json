@@ -1105,17 +1105,22 @@
       "number": 25316,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T20:53:21Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean Artemis groupId migration from org.apache.activemq to org.apache.artemis, all 4 artifacts covered",
+      "reviewed_at": "2026-08-04T04:43:44Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new activity is just oscerd APPROVED, already reviewed",
       "interactions": [
         {
           "at": "2026-08-03T20:53:21Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean Artemis groupId migration from org.apache.activemq to org.apache.artemis, all 4 artifacts covered"
+        },
+        {
+          "at": "2026-08-04T04:43:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new activity is just oscerd APPROVED, already reviewed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25281,
@@ -1157,12 +1162,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T04:42:22Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-04T04:43:44Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T04:40:14Z"
+  "last_reviewed_updated_at": "2026-08-04T04:42:21Z"
 }
