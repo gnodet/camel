@@ -1260,16 +1260,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25322,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-04T09:20:16Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new backport of CAMEL-24299 to camel-4.14.x, CI pending - defer",
+      "interactions": [
+        {
+          "at": "2026-08-04T09:20:16Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new backport of CAMEL-24299 to camel-4.14.x, CI pending - defer"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-04T08:59:46Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-04T09:20:16Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-04T07:40:42Z"
+  "last_reviewed_updated_at": "2026-08-04T09:18:57Z"
 }
