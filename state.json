@@ -2202,27 +2202,32 @@
       "number": 25364,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T16:03:59Z",
+      "reviewed_at": "2026-08-05T16:17:00Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already APPROVED by jamesnetherton and davsclaus. No review needed.",
+      "notes": "NO_ACTION: Already APPROVED by jamesnetherton and davsclaus. New review activity is just re-detection.",
       "interactions": [
         {
           "at": "2026-08-05T16:03:59Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already APPROVED by jamesnetherton and davsclaus. No review needed."
+        },
+        {
+          "at": "2026-08-05T16:17:00Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED by jamesnetherton and davsclaus. New review activity is just re-detection."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T16:09:39Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T16:17:00Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T15:55:16Z"
+  "last_reviewed_updated_at": "2026-08-05T16:15:23Z"
 }
