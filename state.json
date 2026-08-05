@@ -1963,9 +1963,9 @@
       "number": 25354,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T10:11:45Z",
+      "reviewed_at": "2026-08-05T10:16:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still pending (1/6 checks complete)",
+      "notes": "NO_ACTION: Active iteration - davsclaus commenting, Croway pushing fixes, CI pending (1/6)",
       "interactions": [
         {
           "at": "2026-08-05T09:55:49Z",
@@ -1976,9 +1976,14 @@
           "at": "2026-08-05T10:11:45Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still pending (1/6 checks complete)"
+        },
+        {
+          "at": "2026-08-05T10:16:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Active iteration - davsclaus commenting, Croway pushing fixes, CI pending (1/6)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25355,
@@ -2000,27 +2005,32 @@
       "number": 25356,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T10:07:26Z",
+      "reviewed_at": "2026-08-05T10:16:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (0/3 checks), backport of #25343 which we already approved",
+      "notes": "NO_ACTION: Already approved by davsclaus, backport of #25343",
       "interactions": [
         {
           "at": "2026-08-05T10:07:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (0/3 checks), backport of #25343 which we already approved"
+        },
+        {
+          "at": "2026-08-05T10:16:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already approved by davsclaus, backport of #25343"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T10:14:14Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-05T10:16:42Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T10:13:21Z"
+  "last_reviewed_updated_at": "2026-08-05T10:14:57Z"
 }
