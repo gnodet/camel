@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-05T21:36:19Z",
+      "reviewed_at": "2026-08-05T22:07:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus APPROVED at 21:09Z. Already approved by committer.",
+      "notes": "NO_ACTION: Already APPROVED by davsclaus+Croway. New commits are post-approval updates.",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -653,9 +653,14 @@
           "at": "2026-08-05T21:36:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus APPROVED at 21:09Z. Already approved by committer."
+        },
+        {
+          "at": "2026-08-05T22:07:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED by davsclaus+Croway. New commits are post-approval updates."
         }
       ],
-      "review_count": 19
+      "review_count": 20
     },
     {
       "number": 25204,
@@ -2251,9 +2256,9 @@
       "number": 25363,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T19:40:50Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean DataWeave parser extraction to reusable module with DataSonnet auto-detection. CI green, well-integrated.",
+      "reviewed_at": "2026-08-05T22:07:44Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Already APPROVED by us. New commits/comments are post-approval updates.",
       "interactions": [
         {
           "at": "2026-08-05T14:22:48Z",
@@ -2284,9 +2289,14 @@
           "at": "2026-08-05T19:40:50Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean DataWeave parser extraction to reusable module with DataSonnet auto-detection. CI green, well-integrated."
+        },
+        {
+          "at": "2026-08-05T22:07:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED by us. New commits/comments are post-approval updates."
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25364,
@@ -2333,12 +2343,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T21:57:41Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-05T22:07:44Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T21:50:31Z"
+  "last_reviewed_updated_at": "2026-08-05T22:06:33Z"
 }
