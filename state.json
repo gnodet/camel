@@ -1570,17 +1570,22 @@
       "number": 25331,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-04T21:55:00Z",
+      "reviewed_at": "2026-08-05T04:59:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: PR just created, no CI checks reported yet. Deferring until CI completes.",
+      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
       "interactions": [
         {
           "at": "2026-08-04T21:55:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: PR just created, no CI checks reported yet. Deferring until CI completes."
+        },
+        {
+          "at": "2026-08-05T04:59:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25332,
@@ -1612,9 +1617,9 @@
       "number": 25333,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T03:11:33Z",
+      "reviewed_at": "2026-08-05T04:59:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still no CI, author actively iterating. Deferring.",
+      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
       "interactions": [
         {
           "at": "2026-08-05T03:07:21Z",
@@ -1625,17 +1630,22 @@
           "at": "2026-08-05T03:11:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still no CI, author actively iterating. Deferring."
+        },
+        {
+          "at": "2026-08-05T04:59:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25334,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T03:21:14Z",
+      "reviewed_at": "2026-08-05T04:59:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still no CI, author actively iterating. Deferring.",
+      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
       "interactions": [
         {
           "at": "2026-08-05T03:17:48Z",
@@ -1646,9 +1656,14 @@
           "at": "2026-08-05T03:21:14Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still no CI, author actively iterating. Deferring."
+        },
+        {
+          "at": "2026-08-05T04:59:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25335,
@@ -1674,12 +1689,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T04:58:10Z",
+    "timestamp": "2026-08-05T04:59:26Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T04:56:39Z"
+  "last_reviewed_updated_at": "2026-08-05T04:58:17Z"
 }
