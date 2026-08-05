@@ -2062,16 +2062,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25358,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-05T12:22:15Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI pending (1/6 checks), PR just created",
+      "interactions": [
+        {
+          "at": "2026-08-05T12:22:15Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending (1/6 checks), PR just created"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T12:03:23Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T12:22:16Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T11:50:02Z"
+  "last_reviewed_updated_at": "2026-08-05T12:20:02Z"
 }
