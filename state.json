@@ -1791,9 +1791,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T16:03:59Z",
+      "reviewed_at": "2026-08-05T16:48:41Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author pushed new commit at 15:55Z addressing davsclaus review. Active iteration, external contributor CI not triggered yet.",
+      "notes": "NO_ACTION: Bot comment on new commit push. Active iteration, davsclaus CHANGES_REQUESTED still pending, CI restarting.",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1809,9 +1809,14 @@
           "at": "2026-08-05T16:03:59Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author pushed new commit at 15:55Z addressing davsclaus review. Active iteration, external contributor CI not triggered yet."
+        },
+        {
+          "at": "2026-08-05T16:48:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Bot comment on new commit push. Active iteration, davsclaus CHANGES_REQUESTED still pending, CI restarting."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25338,
@@ -2232,12 +2237,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T16:41:14Z",
+    "timestamp": "2026-08-05T16:48:41Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T16:39:27Z"
+  "last_reviewed_updated_at": "2026-08-05T16:47:56Z"
 }
