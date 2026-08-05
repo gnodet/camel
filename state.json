@@ -2365,16 +2365,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25367,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-05T22:42:17Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI pending/failing (3 pending, 1 failing). Defer until CI green.",
+      "interactions": [
+        {
+          "at": "2026-08-05T22:42:17Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending/failing (3 pending, 1 failing). Defer until CI green."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T22:29:41Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T22:42:17Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T22:21:00Z"
+  "last_reviewed_updated_at": "2026-08-05T22:41:30Z"
 }
