@@ -1262,17 +1262,22 @@
       "number": 25289,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-03T22:28:58Z",
+      "reviewed_at": "2026-08-05T09:01:11Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT (self-review): 5 verified findings - FQCN violation, code duplication between producers, stale MCP-only descriptions, security inconsistency in error messages, stale class Javadoc",
+      "notes": "NO_ACTION: Operator's own PR, Croway submitted CHANGES_REQUESTED - operator needs to address feedback",
       "interactions": [
         {
           "at": "2026-08-03T22:28:58Z",
           "verdict": "COMMENT",
           "notes": "COMMENT (self-review): 5 verified findings - FQCN violation, code duplication between producers, stale MCP-only descriptions, security inconsistency in error messages, stale class Javadoc"
+        },
+        {
+          "at": "2026-08-05T09:01:11Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Operator's own PR, Croway submitted CHANGES_REQUESTED - operator needs to address feedback"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25320,
@@ -1912,12 +1917,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T08:53:31Z",
+    "timestamp": "2026-08-05T09:01:11Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T08:52:08Z"
+  "last_reviewed_updated_at": "2026-08-05T08:59:19Z"
 }
