@@ -2087,9 +2087,9 @@
       "number": 25358,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T14:02:05Z",
+      "reviewed_at": "2026-08-05T14:33:29Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failed (build 25), waiting for green CI",
+      "notes": "NO_ACTION: New commits to fix CI, checks restarted (1/6)",
       "interactions": [
         {
           "at": "2026-08-05T12:22:15Z",
@@ -2100,9 +2100,14 @@
           "at": "2026-08-05T14:02:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failed (build 25), waiting for green CI"
+        },
+        {
+          "at": "2026-08-05T14:33:29Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New commits to fix CI, checks restarted (1/6)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25359,
@@ -2171,12 +2176,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T14:26:02Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T14:33:29Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T14:20:48Z"
+  "last_reviewed_updated_at": "2026-08-05T14:27:34Z"
 }
