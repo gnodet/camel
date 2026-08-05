@@ -1597,16 +1597,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25333,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-05T03:07:21Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: PR just created, no CI checks reported yet. Deferring until CI completes.",
+      "interactions": [
+        {
+          "at": "2026-08-05T03:07:21Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: PR just created, no CI checks reported yet. Deferring until CI completes."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T03:03:15Z",
+    "timestamp": "2026-08-05T03:07:21Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T03:01:33Z"
+  "last_reviewed_updated_at": "2026-08-05T03:06:33Z"
 }
