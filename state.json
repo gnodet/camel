@@ -1855,17 +1855,22 @@
       "number": 25343,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T07:32:39Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending, PR just created",
+      "reviewed_at": "2026-08-05T08:48:54Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Fix broken updateFunction operation (missing code source assembly since 2020). Mirrors createFunction pattern. Bonus error message typo fix.",
       "interactions": [
         {
           "at": "2026-08-05T07:32:39Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending, PR just created"
+        },
+        {
+          "at": "2026-08-05T08:48:54Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Fix broken updateFunction operation (missing code source assembly since 2020). Mirrors createFunction pattern. Bonus error message typo fix."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25352,
@@ -1902,12 +1907,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T08:44:21Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-05T08:48:55Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T08:25:00Z"
+  "last_reviewed_updated_at": "2026-08-05T08:44:15Z"
 }
