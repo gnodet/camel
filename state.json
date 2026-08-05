@@ -2248,16 +2248,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25365,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-05T17:54:48Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Just created (17:53Z). External contributor, no CI checks yet. 1-line dep bump (proton-j 0.34.1->0.35.0). Defer until CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-05T17:54:48Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Just created (17:53Z). External contributor, no CI checks yet. 1-line dep bump (proton-j 0.34.1->0.35.0). Defer until CI triggered."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T17:44:21Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T17:54:48Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T17:33:21Z"
+  "last_reviewed_updated_at": "2026-08-05T17:53:30Z"
 }
