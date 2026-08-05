@@ -1725,9 +1725,9 @@
       "number": 25336,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T05:10:59Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still in progress. Deferring.",
+      "reviewed_at": "2026-08-05T05:42:21Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Trivial Docker image swap for ChatScript test infra. CI green.",
       "interactions": [
         {
           "at": "2026-08-05T05:07:42Z",
@@ -1738,19 +1738,24 @@
           "at": "2026-08-05T05:10:59Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still in progress. Deferring."
+        },
+        {
+          "at": "2026-08-05T05:42:21Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Trivial Docker image swap for ChatScript test infra. CI green."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T05:40:48Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-05T05:42:21Z",
+    "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T05:31:36Z"
+  "last_reviewed_updated_at": "2026-08-05T05:37:47Z"
 }
