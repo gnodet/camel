@@ -1958,17 +1958,22 @@
       "number": 25354,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T09:55:49Z",
+      "reviewed_at": "2026-08-05T10:11:45Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (1/6 checks complete), PR just created",
+      "notes": "NO_ACTION: CI still pending (1/6 checks complete)",
       "interactions": [
         {
           "at": "2026-08-05T09:55:49Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (1/6 checks complete), PR just created"
+        },
+        {
+          "at": "2026-08-05T10:11:45Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending (1/6 checks complete)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25355,
@@ -2005,12 +2010,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T10:07:26Z",
+    "timestamp": "2026-08-05T10:11:45Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T10:05:43Z"
+  "last_reviewed_updated_at": "2026-08-05T10:10:14Z"
 }
