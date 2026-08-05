@@ -2211,9 +2211,9 @@
       "number": 25363,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T17:36:37Z",
+      "reviewed_at": "2026-08-05T18:40:28Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: New commit at 17:33Z (regen). CI all pending. Defer until green.",
+      "notes": "NO_ACTION: New commit at 18:38Z (DataWeave auto-detection fix). CI all pending. Author still iterating.",
       "interactions": [
         {
           "at": "2026-08-05T14:22:48Z",
@@ -2234,9 +2234,14 @@
           "at": "2026-08-05T17:36:37Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: New commit at 17:33Z (regen). CI all pending. Defer until green."
+        },
+        {
+          "at": "2026-08-05T18:40:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New commit at 18:38Z (DataWeave auto-detection fix). CI all pending. Author still iterating."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25364,
@@ -2283,12 +2288,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T18:38:09Z",
+    "timestamp": "2026-08-05T18:40:28Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T18:36:48Z"
+  "last_reviewed_updated_at": "2026-08-05T18:39:41Z"
 }
