@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-05T04:58:10Z",
+      "reviewed_at": "2026-08-05T05:26:30Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: No CI checks, author requesting maintainer re-review. Deferring.",
+      "notes": "NO_ACTION: CI in progress. Deferring until CI completes.",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -583,9 +583,14 @@
           "at": "2026-08-05T04:58:10Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: No CI checks, author requesting maintainer re-review. Deferring."
+        },
+        {
+          "at": "2026-08-05T05:26:30Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI in progress. Deferring until CI completes."
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25204,
@@ -1570,9 +1575,9 @@
       "number": 25331,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T04:59:26Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
+      "reviewed_at": "2026-08-05T05:26:30Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Well-focused test-hardening fixing flaky async wiretap tests. Correct MockEndpoint/Awaitility usage, JUnit 5 conventions followed.",
       "interactions": [
         {
           "at": "2026-08-04T21:55:00Z",
@@ -1583,9 +1588,14 @@
           "at": "2026-08-05T04:59:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
+        },
+        {
+          "at": "2026-08-05T05:26:30Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Well-focused test-hardening fixing flaky async wiretap tests. Correct MockEndpoint/Awaitility usage, JUnit 5 conventions followed."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25332,
@@ -1715,12 +1725,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T05:20:57Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-05T05:26:30Z",
+    "prs_checked": 2,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T05:14:42Z"
+  "last_reviewed_updated_at": "2026-08-05T05:17:14Z"
 }
