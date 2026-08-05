@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-05T08:53:31Z",
+      "reviewed_at": "2026-08-05T09:35:57Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Croway approved but CHANGES_REQUESTED from davsclaus still outstanding, CI not triggered",
+      "notes": "NO_ACTION: Active iteration - davsclaus commenting, Croway approved, author pushing fixes",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -618,9 +618,14 @@
           "at": "2026-08-05T08:53:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Croway approved but CHANGES_REQUESTED from davsclaus still outstanding, CI not triggered"
+        },
+        {
+          "at": "2026-08-05T09:35:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Active iteration - davsclaus commenting, Croway approved, author pushing fixes"
         }
       ],
-      "review_count": 12
+      "review_count": 13
     },
     {
       "number": 25204,
@@ -1947,12 +1952,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T09:33:31Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T09:35:58Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T09:31:29Z"
+  "last_reviewed_updated_at": "2026-08-05T09:35:01Z"
 }
