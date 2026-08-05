@@ -1796,9 +1796,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T17:21:58Z",
+      "reviewed_at": "2026-08-05T18:31:41Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author pushed commit at 17:20Z (fixing docs xref). Still actively iterating, CI restarting.",
+      "notes": "NO_ACTION: CI failing (builds 17, 25, main all fail). davsclaus CHANGES_REQUESTED still pending. Author addressing but not ready.",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1824,9 +1824,14 @@
           "at": "2026-08-05T17:21:58Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author pushed commit at 17:20Z (fixing docs xref). Still actively iterating, CI restarting."
+        },
+        {
+          "at": "2026-08-05T18:31:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (builds 17, 25, main all fail). davsclaus CHANGES_REQUESTED still pending. Author addressing but not ready."
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25338,
@@ -2253,27 +2258,32 @@
       "number": 25365,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T17:54:48Z",
+      "reviewed_at": "2026-08-05T18:31:41Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Just created (17:53Z). External contributor, no CI checks yet. 1-line dep bump (proton-j 0.34.1->0.35.0). Defer until CI triggered.",
+      "notes": "NO_ACTION: Already APPROVED by davsclaus.",
       "interactions": [
         {
           "at": "2026-08-05T17:54:48Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Just created (17:53Z). External contributor, no CI checks yet. 1-line dep bump (proton-j 0.34.1->0.35.0). Defer until CI triggered."
+        },
+        {
+          "at": "2026-08-05T18:31:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED by davsclaus."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T18:29:18Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T18:31:41Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T17:53:30Z"
+  "last_reviewed_updated_at": "2026-08-05T18:30:44Z"
 }
