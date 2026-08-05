@@ -1811,9 +1811,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T21:11:26Z",
+      "reviewed_at": "2026-08-05T21:18:47Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: New commits at ~20:50Z. Author still rapidly iterating on review feedback.",
+      "notes": "NO_ACTION: 5 new comments at ~21:17Z. Still in active review conversation.",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1859,9 +1859,14 @@
           "at": "2026-08-05T21:11:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: New commits at ~20:50Z. Author still rapidly iterating on review feedback."
+        },
+        {
+          "at": "2026-08-05T21:18:47Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 5 new comments at ~21:17Z. Still in active review conversation."
         }
       ],
-      "review_count": 9
+      "review_count": 10
     },
     {
       "number": 25338,
@@ -2318,12 +2323,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T21:11:26Z",
+    "timestamp": "2026-08-05T21:18:47Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T20:50:53Z"
+  "last_reviewed_updated_at": "2026-08-05T21:17:07Z"
 }
