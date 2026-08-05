@@ -2051,17 +2051,22 @@
       "number": 25357,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T11:15:35Z",
+      "reviewed_at": "2026-08-05T12:34:15Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (1/6 checks), PR just created",
+      "notes": "NO_ACTION: davsclaus already requested changes covering same findings (WARN log, CamelContext leak)",
       "interactions": [
         {
           "at": "2026-08-05T11:15:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (1/6 checks), PR just created"
+        },
+        {
+          "at": "2026-08-05T12:34:15Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus already requested changes covering same findings (WARN log, CamelContext leak)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25358,
@@ -2098,12 +2103,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T12:25:56Z",
+    "timestamp": "2026-08-05T12:34:15Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T12:24:06Z"
+  "last_reviewed_updated_at": "2026-08-05T12:26:23Z"
 }
