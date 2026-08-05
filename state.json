@@ -1870,9 +1870,9 @@
       "number": 25343,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T08:48:54Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Fix broken updateFunction operation (missing code source assembly since 2020). Mirrors createFunction pattern. Bonus error message typo fix.",
+      "reviewed_at": "2026-08-05T09:09:04Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Already reviewed by us (APPROVE), new approval triggered re-detection",
       "interactions": [
         {
           "at": "2026-08-05T07:32:39Z",
@@ -1883,9 +1883,14 @@
           "at": "2026-08-05T08:48:54Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Fix broken updateFunction operation (missing code source assembly since 2020). Mirrors createFunction pattern. Bonus error message typo fix."
+        },
+        {
+          "at": "2026-08-05T09:09:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already reviewed by us (APPROVE), new approval triggered re-detection"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25352,
@@ -1932,12 +1937,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T09:07:42Z",
+    "timestamp": "2026-08-05T09:09:04Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T09:06:15Z"
+  "last_reviewed_updated_at": "2026-08-05T09:07:22Z"
 }
