@@ -1821,9 +1821,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T21:57:41Z",
+      "reviewed_at": "2026-08-05T22:26:52Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: New commits at ~21:50Z. Author still actively iterating on review feedback throughout the evening.",
+      "notes": "NO_ACTION: active iteration - davsclaus CHANGES_REQUESTED at 21:17, author pushed new commit at 22:20. Defer until iteration stabilizes.",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1879,9 +1879,14 @@
           "at": "2026-08-05T21:57:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: New commits at ~21:50Z. Author still actively iterating on review feedback throughout the evening."
+        },
+        {
+          "at": "2026-08-05T22:26:52Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: active iteration - davsclaus CHANGES_REQUESTED at 21:17, author pushed new commit at 22:20. Defer until iteration stabilizes."
         }
       ],
-      "review_count": 11
+      "review_count": 12
     },
     {
       "number": 25338,
@@ -2339,16 +2344,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25366,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-05T22:26:52Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI pending/failing (3 pending, 1 failing). Defer until CI green.",
+      "interactions": [
+        {
+          "at": "2026-08-05T22:26:52Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending/failing (3 pending, 1 failing). Defer until CI green."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T22:07:44Z",
+    "timestamp": "2026-08-05T22:26:52Z",
     "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T22:06:33Z"
+  "last_reviewed_updated_at": "2026-08-05T22:25:28Z"
 }
