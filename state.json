@@ -2144,9 +2144,9 @@
       "number": 25361,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T14:37:23Z",
+      "reviewed_at": "2026-08-05T16:41:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (builds 17/25), davsclaus already CHANGES_REQUESTED (missing allowedSchemes in copy constructors). Author needs to address first.",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED still pending. New comment is CI bot report. Author hasn't pushed fixes yet.",
       "interactions": [
         {
           "at": "2026-08-05T13:35:27Z",
@@ -2157,9 +2157,14 @@
           "at": "2026-08-05T14:37:23Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (builds 17/25), davsclaus already CHANGES_REQUESTED (missing allowedSchemes in copy constructors). Author needs to address first."
+        },
+        {
+          "at": "2026-08-05T16:41:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED still pending. New comment is CI bot report. Author hasn't pushed fixes yet."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25362,
@@ -2227,12 +2232,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T16:30:42Z",
+    "timestamp": "2026-08-05T16:41:14Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T16:28:31Z"
+  "last_reviewed_updated_at": "2026-08-05T16:39:27Z"
 }
