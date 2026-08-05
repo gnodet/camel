@@ -1968,9 +1968,9 @@
       "number": 25354,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T10:19:12Z",
+      "reviewed_at": "2026-08-05T10:34:02Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already approved by davsclaus",
+      "notes": "NO_ACTION: New commits, already approved by davsclaus, author still iterating",
       "interactions": [
         {
           "at": "2026-08-05T09:55:49Z",
@@ -1991,9 +1991,14 @@
           "at": "2026-08-05T10:19:12Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already approved by davsclaus"
+        },
+        {
+          "at": "2026-08-05T10:34:02Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New commits, already approved by davsclaus, author still iterating"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25355,
@@ -2035,12 +2040,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T10:27:44Z",
+    "timestamp": "2026-08-05T10:34:03Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T10:25:50Z"
+  "last_reviewed_updated_at": "2026-08-05T10:28:18Z"
 }
