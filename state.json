@@ -1801,9 +1801,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T19:54:34Z",
+      "reviewed_at": "2026-08-05T19:58:03Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: New commit at 19:45Z (CI fix + round-2 review feedback). External contributor, no CI triggered yet. Active iteration.",
+      "notes": "NO_ACTION: Author actively responding to review comments (19:56-19:57Z). Still iterating.",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1839,9 +1839,14 @@
           "at": "2026-08-05T19:54:34Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: New commit at 19:45Z (CI fix + round-2 review feedback). External contributor, no CI triggered yet. Active iteration."
+        },
+        {
+          "at": "2026-08-05T19:58:03Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author actively responding to review comments (19:56-19:57Z). Still iterating."
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25338,
@@ -2298,12 +2303,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T19:54:34Z",
+    "timestamp": "2026-08-05T19:58:03Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T19:45:35Z"
+  "last_reviewed_updated_at": "2026-08-05T19:56:06Z"
 }
