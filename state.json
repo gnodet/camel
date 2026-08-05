@@ -2166,9 +2166,9 @@
       "number": 25363,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T14:50:52Z",
+      "reviewed_at": "2026-08-05T15:01:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (all checks just started after new commit at 14:48Z). Defer until green.",
+      "notes": "NO_ACTION: CI still pending (all checks). New comment was just bot welcome message.",
       "interactions": [
         {
           "at": "2026-08-05T14:22:48Z",
@@ -2179,19 +2179,24 @@
           "at": "2026-08-05T14:50:52Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (all checks just started after new commit at 14:48Z). Defer until green."
+        },
+        {
+          "at": "2026-08-05T15:01:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending (all checks). New comment was just bot welcome message."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T14:50:57Z",
+    "timestamp": "2026-08-05T15:01:26Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T14:48:50Z"
+  "last_reviewed_updated_at": "2026-08-05T15:00:26Z"
 }
