@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-05T16:30:41Z",
+      "reviewed_at": "2026-08-05T17:14:29Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author pushed new commit at 16:27Z addressing davsclaus review. CI pending (all checks). Active iteration.",
+      "notes": "NO_ACTION: Author pushed commit at 17:11Z fixing CI (regenerating catalog files). Active iteration continues.",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -628,9 +628,14 @@
           "at": "2026-08-05T16:30:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author pushed new commit at 16:27Z addressing davsclaus review. CI pending (all checks). Active iteration."
+        },
+        {
+          "at": "2026-08-05T17:14:29Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author pushed commit at 17:11Z fixing CI (regenerating catalog files). Active iteration continues."
         }
       ],
-      "review_count": 14
+      "review_count": 15
     },
     {
       "number": 25204,
@@ -2237,12 +2242,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T16:49:50Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T17:14:30Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T16:47:56Z"
+  "last_reviewed_updated_at": "2026-08-05T17:13:02Z"
 }
