@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-05T05:26:30Z",
+      "reviewed_at": "2026-08-05T05:40:48Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI in progress. Deferring until CI completes.",
+      "notes": "NO_ACTION: CI in progress, already has CHANGES_REQUESTED. Deferring.",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -588,9 +588,14 @@
           "at": "2026-08-05T05:26:30Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI in progress. Deferring until CI completes."
+        },
+        {
+          "at": "2026-08-05T05:40:48Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI in progress, already has CHANGES_REQUESTED. Deferring."
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25204,
@@ -1694,9 +1699,9 @@
       "number": 25335,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T04:58:10Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
+      "reviewed_at": "2026-08-05T05:40:48Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Thorough fix for FTPS test port binding failures. Three root causes identified and addressed. Re-enables 8 disabled tests.",
       "interactions": [
         {
           "at": "2026-08-05T04:43:41Z",
@@ -1707,9 +1712,14 @@
           "at": "2026-08-05T04:58:10Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
+        },
+        {
+          "at": "2026-08-05T05:40:48Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Thorough fix for FTPS test port binding failures. Three root causes identified and addressed. Re-enables 8 disabled tests."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25336,
@@ -1735,12 +1745,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T05:31:54Z",
+    "timestamp": "2026-08-05T05:40:48Z",
     "prs_checked": 2,
-    "reviews_posted": 2,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T05:23:16Z"
+  "last_reviewed_updated_at": "2026-08-05T05:31:36Z"
 }
