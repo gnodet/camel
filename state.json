@@ -2129,17 +2129,22 @@
       "number": 25361,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T13:35:27Z",
+      "reviewed_at": "2026-08-05T14:37:23Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (1/5 checks), PR just created",
+      "notes": "NO_ACTION: CI pending (builds 17/25), davsclaus already CHANGES_REQUESTED (missing allowedSchemes in copy constructors). Author needs to address first.",
       "interactions": [
         {
           "at": "2026-08-05T13:35:27Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (1/5 checks), PR just created"
+        },
+        {
+          "at": "2026-08-05T14:37:23Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending (builds 17/25), davsclaus already CHANGES_REQUESTED (missing allowedSchemes in copy constructors). Author needs to address first."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25362,
@@ -2176,12 +2181,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T14:33:29Z",
+    "timestamp": "2026-08-05T14:37:28Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T14:27:34Z"
+  "last_reviewed_updated_at": "2026-08-05T14:35:29Z"
 }
