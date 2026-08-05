@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-02T17:36:56Z",
+      "reviewed_at": "2026-08-05T04:58:10Z",
       "verdict": "COMMENT",
-      "notes": "No-action: new commit is test-only (2 small test methods), skipped to avoid noise",
+      "notes": "NO_ACTION: No CI checks, author requesting maintainer re-review. Deferring.",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -578,9 +578,14 @@
           "at": "2026-08-02T17:36:56Z",
           "verdict": "COMMENT",
           "notes": "No-action: new commit is test-only (2 small test methods), skipped to avoid noise"
+        },
+        {
+          "at": "2026-08-05T04:58:10Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: No CI checks, author requesting maintainer re-review. Deferring."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25204,
@@ -1581,9 +1586,9 @@
       "number": 25332,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T03:03:15Z",
+      "reviewed_at": "2026-08-05T04:58:10Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still no CI, author actively iterating with new commits. Deferring.",
+      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
       "interactions": [
         {
           "at": "2026-08-05T02:59:10Z",
@@ -1594,9 +1599,14 @@
           "at": "2026-08-05T03:03:15Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still no CI, author actively iterating with new commits. Deferring."
+        },
+        {
+          "at": "2026-08-05T04:58:10Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25333,
@@ -1644,27 +1654,32 @@
       "number": 25335,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T04:43:41Z",
+      "reviewed_at": "2026-08-05T04:58:10Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: PR just created, no CI checks reported yet. Deferring until CI completes.",
+      "notes": "NO_ACTION: CI builds pending. Deferring until CI completes.",
       "interactions": [
         {
           "at": "2026-08-05T04:43:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: PR just created, no CI checks reported yet. Deferring until CI completes."
+        },
+        {
+          "at": "2026-08-05T04:58:10Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds pending. Deferring until CI completes."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T04:44:42Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T04:58:10Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T03:47:46Z"
+  "last_reviewed_updated_at": "2026-08-05T04:56:39Z"
 }
