@@ -1786,17 +1786,22 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T06:29:54Z",
+      "reviewed_at": "2026-08-05T10:27:44Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not yet triggered (external contributor), PR just created minutes ago",
+      "notes": "NO_ACTION: davsclaus just requested changes, external contributor (no CI), author needs to iterate",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not yet triggered (external contributor), PR just created minutes ago"
+        },
+        {
+          "at": "2026-08-05T10:27:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus just requested changes, external contributor (no CI), author needs to iterate"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25338,
@@ -2030,12 +2035,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T10:19:12Z",
+    "timestamp": "2026-08-05T10:27:44Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T10:17:41Z"
+  "last_reviewed_updated_at": "2026-08-05T10:25:50Z"
 }
