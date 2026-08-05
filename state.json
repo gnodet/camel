@@ -555,9 +555,9 @@
       "number": 25203,
       "title": "CAMEL-23853: Embed MCP server on camel run/dev and Camel Main",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-05T18:38:09Z",
+      "reviewed_at": "2026-08-05T20:09:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Same comments as previous check (16:28, 17:13). Re-detection, no new activity.",
+      "notes": "NO_ACTION: Author pushed round-3 commit at 20:07Z and responding to comments. Active iteration with davsclaus.",
       "interactions": [
         {
           "at": "2026-08-02T10:16:21Z",
@@ -638,9 +638,14 @@
           "at": "2026-08-05T18:38:09Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Same comments as previous check (16:28, 17:13). Re-detection, no new activity."
+        },
+        {
+          "at": "2026-08-05T20:09:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author pushed round-3 commit at 20:07Z and responding to comments. Active iteration with davsclaus."
         }
       ],
-      "review_count": 16
+      "review_count": 17
     },
     {
       "number": 25204,
@@ -2303,12 +2308,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T19:59:12Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-05T20:09:38Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T19:56:06Z"
+  "last_reviewed_updated_at": "2026-08-05T20:07:44Z"
 }
