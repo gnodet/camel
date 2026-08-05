@@ -2051,9 +2051,9 @@
       "number": 25357,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T13:17:26Z",
+      "reviewed_at": "2026-08-05T13:32:03Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Bot CI comment, still CHANGES_REQUESTED by davsclaus",
+      "notes": "NO_ACTION: Author pushing fixes for davsclaus review, active iteration",
       "interactions": [
         {
           "at": "2026-08-05T11:15:35Z",
@@ -2069,9 +2069,14 @@
           "at": "2026-08-05T13:17:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Bot CI comment, still CHANGES_REQUESTED by davsclaus"
+        },
+        {
+          "at": "2026-08-05T13:32:03Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author pushing fixes for davsclaus review, active iteration"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25358,
@@ -2108,12 +2113,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-05T13:17:26Z",
+    "timestamp": "2026-08-05T13:32:03Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-05T13:15:33Z"
+  "last_reviewed_updated_at": "2026-08-05T13:30:22Z"
 }
