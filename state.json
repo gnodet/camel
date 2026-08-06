@@ -2640,27 +2640,32 @@
       "number": 25384,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T11:30:07Z",
+      "reviewed_at": "2026-08-06T11:47:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Doc-sync PR, CI still running (3/6 pending), commit very recent",
+      "notes": "NO_ACTION: Small docs-only PR by davsclaus, CI green, CI bot comment triggered re-detection",
       "interactions": [
         {
           "at": "2026-08-06T11:30:07Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Doc-sync PR, CI still running (3/6 pending), commit very recent"
+        },
+        {
+          "at": "2026-08-06T11:47:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Small docs-only PR by davsclaus, CI green, CI bot comment triggered re-detection"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T11:43:13Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T11:47:42Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T11:32:01Z"
+  "last_reviewed_updated_at": "2026-08-06T11:45:36Z"
 }
