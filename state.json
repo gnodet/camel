@@ -3049,27 +3049,32 @@
       "number": 25397,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T19:47:11Z",
+      "reviewed_at": "2026-08-06T19:50:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor atiaomar1978-hub), brand new PR, needs maintainer to trigger CI",
+      "notes": "NO_ACTION: 0 CI checks (external contributor), new comment but CI still not triggered",
       "interactions": [
         {
           "at": "2026-08-06T19:47:11Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor atiaomar1978-hub), brand new PR, needs maintainer to trigger CI"
+        },
+        {
+          "at": "2026-08-06T19:50:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks (external contributor), new comment but CI still not triggered"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T19:47:11Z",
+    "timestamp": "2026-08-06T19:50:14Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T19:46:25Z"
+  "last_reviewed_updated_at": "2026-08-06T19:48:34Z"
 }
