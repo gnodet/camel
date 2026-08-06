@@ -2249,9 +2249,9 @@
       "number": 25361,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T16:41:14Z",
+      "reviewed_at": "2026-08-06T11:56:23Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED still pending. New comment is CI bot report. Author hasn't pushed fixes yet.",
+      "notes": "NO_ACTION: davsclaus is actively reworking this ('i am working on this'), CHANGES_REQUESTED unresolved",
       "interactions": [
         {
           "at": "2026-08-05T13:35:27Z",
@@ -2267,9 +2267,14 @@
           "at": "2026-08-05T16:41:14Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED still pending. New comment is CI bot report. Author hasn't pushed fixes yet."
+        },
+        {
+          "at": "2026-08-06T11:56:23Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus is actively reworking this ('i am working on this'), CHANGES_REQUESTED unresolved"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25362,
@@ -2676,12 +2681,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T11:54:54Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T11:56:23Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T11:47:23Z"
+  "last_reviewed_updated_at": "2026-08-06T11:55:13Z"
 }
