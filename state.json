@@ -2713,16 +2713,48 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25387,
+      "title": "CAMEL-24366: Add embeddingModel auto-embed to langchain4j-embeddingstore component",
+      "author": "JiriOndrusek",
+      "reviewed_at": "2026-08-06T13:20:57Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Brand new PR, CI fully pending, wait for CI green",
+      "interactions": [
+        {
+          "at": "2026-08-06T13:20:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Brand new PR, CI fully pending, wait for CI green"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25388,
+      "title": "CAMEL-24365: Copy attachment trait from IN when creating a fresh OUT message",
+      "author": "davsclaus",
+      "reviewed_at": "2026-08-06T13:21:01Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Brand new PR, CI fully pending, wait for CI green",
+      "interactions": [
+        {
+          "at": "2026-08-06T13:21:01Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Brand new PR, CI fully pending, wait for CI green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T13:07:47Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T13:21:04Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T12:54:44Z"
+  "last_reviewed_updated_at": "2026-08-06T13:19:28Z"
 }
