@@ -2728,9 +2728,9 @@
       "number": 25387,
       "title": "CAMEL-24366: Add embeddingModel auto-embed to langchain4j-embeddingstore component",
       "author": "JiriOndrusek",
-      "reviewed_at": "2026-08-06T13:28:31Z",
+      "reviewed_at": "2026-08-06T13:35:28Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still pending (3/5 pass, 2 pending), davsclaus just posted review comment, wait for CI green",
+      "notes": "NO_ACTION: CI still pending (3/5 pass, 2 pending), wait for CI green",
       "interactions": [
         {
           "at": "2026-08-06T13:20:57Z",
@@ -2741,9 +2741,14 @@
           "at": "2026-08-06T13:28:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still pending (3/5 pass, 2 pending), davsclaus just posted review comment, wait for CI green"
+        },
+        {
+          "at": "2026-08-06T13:35:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending (3/5 pass, 2 pending), wait for CI green"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25388,
@@ -2780,12 +2785,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T13:33:08Z",
+    "timestamp": "2026-08-06T13:35:28Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T13:31:49Z"
+  "last_reviewed_updated_at": "2026-08-06T13:34:46Z"
 }
