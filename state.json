@@ -1826,9 +1826,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T05:35:24Z",
+      "reviewed_at": "2026-08-06T06:23:52Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: active iteration round 3 - davsclaus CHANGES_REQUESTED at 05:24, author pushed fix + commented at 05:33. CI not triggered.",
+      "notes": "NO_ACTION: active iteration - author pushed new commit at 06:21 (endpoint DSL regen). CI not triggered.",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1899,9 +1899,14 @@
           "at": "2026-08-06T05:35:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: active iteration round 3 - davsclaus CHANGES_REQUESTED at 05:24, author pushed fix + commented at 05:33. CI not triggered."
+        },
+        {
+          "at": "2026-08-06T06:23:52Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: active iteration - author pushed new commit at 06:21 (endpoint DSL regen). CI not triggered."
         }
       ],
-      "review_count": 14
+      "review_count": 15
     },
     {
       "number": 25338,
@@ -2477,12 +2482,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T06:15:13Z",
+    "timestamp": "2026-08-06T06:23:52Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T06:13:05Z"
+  "last_reviewed_updated_at": "2026-08-06T06:21:40Z"
 }
