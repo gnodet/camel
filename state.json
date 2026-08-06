@@ -2909,17 +2909,22 @@
       "number": 25393,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T16:48:20Z",
+      "reviewed_at": "2026-08-06T17:16:45Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI fully queued (4/4 pending), brand new PR, waiting for checks to complete",
+      "notes": "NO_ACTION: already APPROVED, new activity is just a human review/approval",
       "interactions": [
         {
           "at": "2026-08-06T16:48:20Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI fully queued (4/4 pending), brand new PR, waiting for checks to complete"
+        },
+        {
+          "at": "2026-08-06T17:16:45Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, new activity is just a human review/approval"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25394,
@@ -2940,12 +2945,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T17:15:34Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-06T17:16:45Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T17:14:46Z"
+  "last_reviewed_updated_at": "2026-08-06T17:15:12Z"
 }
