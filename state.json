@@ -2820,9 +2820,9 @@
       "number": 25389,
       "title": "CAMEL-24363: camel-aws - iam doStop, eks catalog defaultValue, parameter-store value header",
       "author": "oscerd",
-      "reviewed_at": "2026-08-06T17:24:05Z",
+      "reviewed_at": "2026-08-06T17:27:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED, new activity is just a human review/approval",
+      "notes": "NO_ACTION: already APPROVED, new commits pushed, CI fully queued, active iteration",
       "interactions": [
         {
           "at": "2026-08-06T13:31:51Z",
@@ -2848,9 +2848,14 @@
           "at": "2026-08-06T17:24:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED, new activity is just a human review/approval"
+        },
+        {
+          "at": "2026-08-06T17:27:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, new commits pushed, CI fully queued, active iteration"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25390,
@@ -2950,12 +2955,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T17:24:05Z",
+    "timestamp": "2026-08-06T17:27:32Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T17:22:37Z"
+  "last_reviewed_updated_at": "2026-08-06T17:24:48Z"
 }
