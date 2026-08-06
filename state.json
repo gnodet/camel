@@ -2426,9 +2426,9 @@
       "number": 25368,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T06:15:13Z",
+      "reviewed_at": "2026-08-06T07:10:11Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: active iteration - author pushed new commit at 06:01 (DSL regen), CI not triggered. davsclaus hasn't re-reviewed.",
+      "notes": "NO_ACTION: CI 5/6 passing, 1 failing. davsclaus CHANGES_REQUESTED still unresolved. Defer.",
       "interactions": [
         {
           "at": "2026-08-06T03:37:40Z",
@@ -2449,9 +2449,14 @@
           "at": "2026-08-06T06:15:13Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: active iteration - author pushed new commit at 06:01 (DSL regen), CI not triggered. davsclaus hasn't re-reviewed."
+        },
+        {
+          "at": "2026-08-06T07:10:11Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI 5/6 passing, 1 failing. davsclaus CHANGES_REQUESTED still unresolved. Defer."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25369,
@@ -2482,12 +2487,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T06:30:24Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T07:10:11Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T06:21:40Z"
+  "last_reviewed_updated_at": "2026-08-06T07:08:43Z"
 }
