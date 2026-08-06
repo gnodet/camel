@@ -2364,9 +2364,9 @@
       "number": 25366,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T00:45:23Z",
+      "reviewed_at": "2026-08-06T04:59:21Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI completed with 1/6 check failing. Defer until CI green.",
+      "notes": "NO_ACTION: already APPROVED by davsclaus. 1/6 CI check failing but committer approved regardless.",
       "interactions": [
         {
           "at": "2026-08-05T22:26:52Z",
@@ -2377,9 +2377,14 @@
           "at": "2026-08-06T00:45:23Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI completed with 1/6 check failing. Defer until CI green."
+        },
+        {
+          "at": "2026-08-06T04:59:21Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by davsclaus. 1/6 CI check failing but committer approved regardless."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25367,
@@ -2421,12 +2426,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T04:55:55Z",
+    "timestamp": "2026-08-06T04:59:21Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T04:54:00Z"
+  "last_reviewed_updated_at": "2026-08-06T04:57:28Z"
 }
