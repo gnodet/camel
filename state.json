@@ -2271,9 +2271,9 @@
       "number": 25363,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T22:07:44Z",
+      "reviewed_at": "2026-08-06T04:55:54Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already APPROVED by us. New commits/comments are post-approval updates.",
+      "notes": "NO_ACTION: already APPROVED by us (Run 487). New commits are post-approval updates.",
       "interactions": [
         {
           "at": "2026-08-05T14:22:48Z",
@@ -2309,9 +2309,14 @@
           "at": "2026-08-05T22:07:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already APPROVED by us. New commits/comments are post-approval updates."
+        },
+        {
+          "at": "2026-08-06T04:55:54Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by us (Run 487). New commits are post-approval updates."
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25364,
@@ -2416,12 +2421,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T04:50:36Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T04:55:55Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T03:35:26Z"
+  "last_reviewed_updated_at": "2026-08-06T04:54:00Z"
 }
