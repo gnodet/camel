@@ -2540,16 +2540,48 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25379,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T10:41:40Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Backport PR, CI still running (2/3 pending), commit very recent",
+      "interactions": [
+        {
+          "at": "2026-08-06T10:41:40Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport PR, CI still running (2/3 pending), commit very recent"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25380,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T10:41:40Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Backport PR, CI still running (2/3 pending)",
+      "interactions": [
+        {
+          "at": "2026-08-06T10:41:40Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport PR, CI still running (2/3 pending)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T10:37:17Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T10:41:53Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T10:35:15Z"
+  "last_reviewed_updated_at": "2026-08-06T10:40:43Z"
 }
