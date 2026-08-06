@@ -2447,9 +2447,9 @@
       "number": 25369,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T05:30:50Z",
+      "reviewed_at": "2026-08-06T05:41:50Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED (review_decision=APPROVED). No review needed.",
+      "notes": "NO_ACTION: already APPROVED, bot comment re-detection.",
       "interactions": [
         {
           "at": "2026-08-06T05:11:59Z",
@@ -2460,19 +2460,24 @@
           "at": "2026-08-06T05:30:50Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED (review_decision=APPROVED). No review needed."
+        },
+        {
+          "at": "2026-08-06T05:41:50Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, bot comment re-detection."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T05:35:24Z",
+    "timestamp": "2026-08-06T05:41:50Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T05:33:19Z"
+  "last_reviewed_updated_at": "2026-08-06T05:40:02Z"
 }
