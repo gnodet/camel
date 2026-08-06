@@ -2269,9 +2269,9 @@
       "number": 25361,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T14:27:35Z",
+      "reviewed_at": "2026-08-06T16:25:45Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still pending (2/4 pass, 2 pending), latest commit 8min ago, active iteration",
+      "notes": "NO_ACTION: CI failing (build 25 FAILURE, build 17 CANCELLED), already APPROVED, new comment is just oscerd thanking davsclaus",
       "interactions": [
         {
           "at": "2026-08-05T13:35:27Z",
@@ -2312,9 +2312,14 @@
           "at": "2026-08-06T14:27:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still pending (2/4 pass, 2 pending), latest commit 8min ago, active iteration"
+        },
+        {
+          "at": "2026-08-06T16:25:45Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (build 25 FAILURE, build 17 CANCELLED), already APPROVED, new comment is just oscerd thanking davsclaus"
         }
       ],
-      "review_count": 8
+      "review_count": 9
     },
     {
       "number": 25362,
@@ -2893,12 +2898,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T16:12:12Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T16:25:45Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T15:50:25Z"
+  "last_reviewed_updated_at": "2026-08-06T16:23:55Z"
 }
