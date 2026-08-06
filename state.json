@@ -2421,9 +2421,9 @@
       "number": 25368,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T05:11:59Z",
+      "reviewed_at": "2026-08-06T06:15:13Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: active iteration - author pushed fix at 05:08 for davsclaus feedback, CI not triggered (external contributor).",
+      "notes": "NO_ACTION: active iteration - author pushed new commit at 06:01 (DSL regen), CI not triggered. davsclaus hasn't re-reviewed.",
       "interactions": [
         {
           "at": "2026-08-06T03:37:40Z",
@@ -2439,9 +2439,14 @@
           "at": "2026-08-06T05:11:59Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: active iteration - author pushed fix at 05:08 for davsclaus feedback, CI not triggered (external contributor)."
+        },
+        {
+          "at": "2026-08-06T06:15:13Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: active iteration - author pushed new commit at 06:01 (DSL regen), CI not triggered. davsclaus hasn't re-reviewed."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25369,
@@ -2472,12 +2477,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T05:44:25Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T06:15:13Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T05:40:02Z"
+  "last_reviewed_updated_at": "2026-08-06T06:13:05Z"
 }
