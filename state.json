@@ -2416,9 +2416,9 @@
       "number": 25368,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T05:05:23Z",
+      "reviewed_at": "2026-08-06T05:11:59Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED at 05:04, author hasn't responded. CI still running (3 pending, 1 failing). Defer.",
+      "notes": "NO_ACTION: active iteration - author pushed fix at 05:08 for davsclaus feedback, CI not triggered (external contributor).",
       "interactions": [
         {
           "at": "2026-08-06T03:37:40Z",
@@ -2429,19 +2429,40 @@
           "at": "2026-08-06T05:05:23Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED at 05:04, author hasn't responded. CI still running (3 pending, 1 failing). Defer."
+        },
+        {
+          "at": "2026-08-06T05:11:59Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: active iteration - author pushed fix at 05:08 for davsclaus feedback, CI not triggered (external contributor)."
         }
       ],
-      "review_count": 2
+      "review_count": 3
+    },
+    {
+      "number": 25369,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T05:11:59Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI still running (2 pending, 1 failing). Defer until CI green.",
+      "interactions": [
+        {
+          "at": "2026-08-06T05:11:59Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (2 pending, 1 failing). Defer until CI green."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T05:07:56Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T05:11:59Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T05:04:11Z"
+  "last_reviewed_updated_at": "2026-08-06T05:10:51Z"
 }
