@@ -2894,16 +2894,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25393,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T16:48:20Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI fully queued (4/4 pending), brand new PR, waiting for checks to complete",
+      "interactions": [
+        {
+          "at": "2026-08-06T16:48:20Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI fully queued (4/4 pending), brand new PR, waiting for checks to complete"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T16:31:03Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T16:48:20Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T16:23:55Z"
+  "last_reviewed_updated_at": "2026-08-06T16:46:33Z"
 }
