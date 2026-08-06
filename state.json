@@ -2529,17 +2529,22 @@
       "number": 25378,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T10:36:08Z",
+      "reviewed_at": "2026-08-06T10:47:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (3/6 pending), commit very recent, wait for CI green before reviewing this security PR",
+      "notes": "NO_ACTION: CI still running (2/6 pending), davsclaus APPROVED, wait for CI green",
       "interactions": [
         {
           "at": "2026-08-06T10:36:08Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (3/6 pending), commit very recent, wait for CI green before reviewing this security PR"
+        },
+        {
+          "at": "2026-08-06T10:47:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (2/6 pending), davsclaus APPROVED, wait for CI green"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25379,
@@ -2592,12 +2597,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T10:43:18Z",
+    "timestamp": "2026-08-06T10:47:43Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T10:42:09Z"
+  "last_reviewed_updated_at": "2026-08-06T10:46:14Z"
 }
