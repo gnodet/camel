@@ -1836,9 +1836,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T08:44:34Z",
+      "reviewed_at": "2026-08-06T15:23:15Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI 5/6 passing, 1 failing. davsclaus CHANGES_REQUESTED unresolved. Bot CI comment re-detection.",
+      "notes": "NO_ACTION: 0 CI checks (external contributor), latest commit just pushed 5min ago addressing round-4 review feedback, active iteration",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1919,9 +1919,14 @@
           "at": "2026-08-06T08:44:34Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI 5/6 passing, 1 failing. davsclaus CHANGES_REQUESTED unresolved. Bot CI comment re-detection."
+        },
+        {
+          "at": "2026-08-06T15:23:15Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks (external contributor), latest commit just pushed 5min ago addressing round-4 review feedback, active iteration"
         }
       ],
-      "review_count": 16
+      "review_count": 17
     },
     {
       "number": 25338,
@@ -2774,9 +2779,9 @@
       "number": 25388,
       "title": "CAMEL-24365: Copy attachment trait from IN when creating a fresh OUT message",
       "author": "davsclaus",
-      "reviewed_at": "2026-08-06T13:38:15Z",
+      "reviewed_at": "2026-08-06T15:23:15Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still pending (3/5 pass, 2 pending), wait for CI green",
+      "notes": "NO_ACTION: CI failing (build 25 FAIL, build 17 CANCEL), wait for CI green",
       "interactions": [
         {
           "at": "2026-08-06T13:21:01Z",
@@ -2787,9 +2792,14 @@
           "at": "2026-08-06T13:38:15Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still pending (3/5 pass, 2 pending), wait for CI green"
+        },
+        {
+          "at": "2026-08-06T15:23:15Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (build 25 FAIL, build 17 CANCEL), wait for CI green"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25389,
@@ -2841,12 +2851,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T15:16:38Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T15:23:15Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T14:53:31Z"
+  "last_reviewed_updated_at": "2026-08-06T15:21:46Z"
 }
