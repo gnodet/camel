@@ -2259,9 +2259,9 @@
       "number": 25361,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T12:42:18Z",
+      "reviewed_at": "2026-08-06T14:27:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still active iteration, commit minutes old (4th commit), CI running (2/5 pending)",
+      "notes": "NO_ACTION: CI still pending (2/4 pass, 2 pending), latest commit 8min ago, active iteration",
       "interactions": [
         {
           "at": "2026-08-05T13:35:27Z",
@@ -2297,9 +2297,14 @@
           "at": "2026-08-06T12:42:18Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still active iteration, commit minutes old (4th commit), CI running (2/5 pending)"
+        },
+        {
+          "at": "2026-08-06T14:27:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending (2/4 pass, 2 pending), latest commit 8min ago, active iteration"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25362,
@@ -2820,12 +2825,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T14:26:10Z",
-    "prs_checked": 2,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-06T14:27:35Z",
+    "prs_checked": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T14:16:18Z"
+  "last_reviewed_updated_at": "2026-08-06T14:17:59Z"
 }
