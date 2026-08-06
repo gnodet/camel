@@ -2554,9 +2554,9 @@
       "number": 25378,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T10:47:43Z",
+      "reviewed_at": "2026-08-06T13:04:48Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (2/6 pending), davsclaus APPROVED, wait for CI green",
+      "notes": "COMMENT: Good security hardening. Two minor findings: (1) upgrade guide should note setObjectInputFilter() backward compat break, (2) AssertJ nit on new test",
       "interactions": [
         {
           "at": "2026-08-06T10:36:08Z",
@@ -2567,9 +2567,14 @@
           "at": "2026-08-06T10:47:43Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (2/6 pending), davsclaus APPROVED, wait for CI green"
+        },
+        {
+          "at": "2026-08-06T13:04:48Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: Good security hardening. Two minor findings: (1) upgrade guide should note setObjectInputFilter() backward compat break, (2) AssertJ nit on new test"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25379,
@@ -2712,12 +2717,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T12:45:44Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-06T13:04:54Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T12:40:39Z"
+  "last_reviewed_updated_at": "2026-08-06T12:54:44Z"
 }
