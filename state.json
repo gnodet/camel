@@ -3003,9 +3003,9 @@
       "number": 25360,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T19:29:19Z",
+      "reviewed_at": "2026-08-06T19:31:17Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator's own PR (gnodet), already APPROVED, new comment activity",
+      "notes": "NO_ACTION: operator's own PR (gnodet), already APPROVED, active iteration with new commits",
       "interactions": [
         {
           "at": "2026-08-06T19:24:09Z",
@@ -3026,14 +3026,19 @@
           "at": "2026-08-06T19:29:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator's own PR (gnodet), already APPROVED, new comment activity"
+        },
+        {
+          "at": "2026-08-06T19:31:17Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator's own PR (gnodet), already APPROVED, active iteration with new commits"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T19:29:19Z",
+    "timestamp": "2026-08-06T19:31:17Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
