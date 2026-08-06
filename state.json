@@ -2656,16 +2656,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25385,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T11:48:56Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Backport of google-calendar fix to 4.14.x, CI still running (2/3 pending)",
+      "interactions": [
+        {
+          "at": "2026-08-06T11:48:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport of google-calendar fix to 4.14.x, CI still running (2/3 pending)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T11:47:42Z",
+    "timestamp": "2026-08-06T11:48:56Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T11:45:36Z"
+  "last_reviewed_updated_at": "2026-08-06T11:47:23Z"
 }
