@@ -2779,9 +2779,9 @@
       "number": 25388,
       "title": "CAMEL-24365: Copy attachment trait from IN when creating a fresh OUT message",
       "author": "davsclaus",
-      "reviewed_at": "2026-08-06T15:23:15Z",
+      "reviewed_at": "2026-08-06T15:42:07Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failing (build 25 FAIL, build 17 CANCEL), wait for CI green",
+      "notes": "NO_ACTION: CI fully queued (5/5 pending), waiting for checks to complete",
       "interactions": [
         {
           "at": "2026-08-06T13:21:01Z",
@@ -2797,9 +2797,14 @@
           "at": "2026-08-06T15:23:15Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failing (build 25 FAIL, build 17 CANCEL), wait for CI green"
+        },
+        {
+          "at": "2026-08-06T15:42:07Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI fully queued (5/5 pending), waiting for checks to complete"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25389,
@@ -2863,16 +2868,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25392,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T15:42:07Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI fully queued (4/4 pending), brand new PR, waiting for checks to complete",
+      "interactions": [
+        {
+          "at": "2026-08-06T15:42:07Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI fully queued (4/4 pending), brand new PR, waiting for checks to complete"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T15:31:33Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-06T15:42:07Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T15:30:23Z"
+  "last_reviewed_updated_at": "2026-08-06T15:41:03Z"
 }
