@@ -2847,16 +2847,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25391,
+      "title": "CAMEL-24345: Fix GoogleVertexAIProducerOptionsTest to not require Google credentials",
+      "author": "davsclaus",
+      "reviewed_at": "2026-08-06T15:31:33Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Brand new PR, CI fully pending (4/4), wait for CI green",
+      "interactions": [
+        {
+          "at": "2026-08-06T15:31:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Brand new PR, CI fully pending (4/4), wait for CI green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T15:26:16Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T15:31:33Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T15:21:46Z"
+  "last_reviewed_updated_at": "2026-08-06T15:30:23Z"
 }
