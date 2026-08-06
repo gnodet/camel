@@ -3049,9 +3049,9 @@
       "number": 25397,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T19:54:56Z",
+      "reviewed_at": "2026-08-06T19:57:53Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED, 0 CI checks (external contributor), new comment activity",
+      "notes": "NO_ACTION: already APPROVED, new commits and comments, active iteration",
       "interactions": [
         {
           "at": "2026-08-06T19:47:11Z",
@@ -3067,19 +3067,24 @@
           "at": "2026-08-06T19:54:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED, 0 CI checks (external contributor), new comment activity"
+        },
+        {
+          "at": "2026-08-06T19:57:53Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, new commits and comments, active iteration"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T19:55:52Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T19:57:53Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T19:54:20Z"
+  "last_reviewed_updated_at": "2026-08-06T19:56:26Z"
 }
