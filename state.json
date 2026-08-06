@@ -2161,9 +2161,9 @@
       "number": 25357,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-05T14:22:48Z",
+      "reviewed_at": "2026-08-06T11:33:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus approved after author addressed changes",
+      "notes": "NO_ACTION: davsclaus asked for rebase due to merge conflicts, no code changes, waiting for author",
       "interactions": [
         {
           "at": "2026-08-05T11:15:35Z",
@@ -2189,9 +2189,14 @@
           "at": "2026-08-05T14:22:48Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus approved after author addressed changes"
+        },
+        {
+          "at": "2026-08-06T11:33:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus asked for rebase due to merge conflicts, no code changes, waiting for author"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25358,
@@ -2650,12 +2655,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T11:31:19Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T11:33:42Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T11:29:09Z"
+  "last_reviewed_updated_at": "2026-08-06T11:32:01Z"
 }
