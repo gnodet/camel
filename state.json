@@ -2566,17 +2566,22 @@
       "number": 25380,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T10:41:40Z",
+      "reviewed_at": "2026-08-06T11:23:22Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Backport PR, CI still running (2/3 pending)",
+      "notes": "NO_ACTION: Backport of already-reviewed #25340, davsclaus APPROVED, CI green",
       "interactions": [
         {
           "at": "2026-08-06T10:41:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Backport PR, CI still running (2/3 pending)"
+        },
+        {
+          "at": "2026-08-06T11:23:22Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport of already-reviewed #25340, davsclaus APPROVED, CI green"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25381,
@@ -2613,12 +2618,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T11:21:53Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T11:23:22Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T11:13:21Z"
+  "last_reviewed_updated_at": "2026-08-06T11:21:39Z"
 }
