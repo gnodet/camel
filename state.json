@@ -2374,9 +2374,9 @@
       "number": 25366,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T04:59:21Z",
+      "reviewed_at": "2026-08-06T08:04:55Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED by davsclaus. 1/6 CI check failing but committer approved regardless.",
+      "notes": "NO_ACTION: already APPROVED by davsclaus. Post-approval commit adding AssertJ assertions.",
       "interactions": [
         {
           "at": "2026-08-05T22:26:52Z",
@@ -2392,9 +2392,14 @@
           "at": "2026-08-06T04:59:21Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED by davsclaus. 1/6 CI check failing but committer approved regardless."
+        },
+        {
+          "at": "2026-08-06T08:04:55Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by davsclaus. Post-approval commit adding AssertJ assertions."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25367,
@@ -2483,16 +2488,32 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25377,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T08:04:55Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: backport PR already APPROVED by davsclaus. CI running.",
+      "interactions": [
+        {
+          "at": "2026-08-06T08:04:55Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: backport PR already APPROVED by davsclaus. CI running."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T08:02:14Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T08:04:55Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T07:08:43Z"
+  "last_reviewed_updated_at": "2026-08-06T08:03:45Z"
 }
