@@ -2416,27 +2416,32 @@
       "number": 25368,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T03:37:40Z",
+      "reviewed_at": "2026-08-06T05:05:23Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: brand new PR, CI not triggered (external contributor, 0 checks), author still posting description. Defer.",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED at 05:04, author hasn't responded. CI still running (3 pending, 1 failing). Defer.",
       "interactions": [
         {
           "at": "2026-08-06T03:37:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: brand new PR, CI not triggered (external contributor, 0 checks), author still posting description. Defer."
+        },
+        {
+          "at": "2026-08-06T05:05:23Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED at 05:04, author hasn't responded. CI still running (3 pending, 1 failing). Defer."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T05:01:47Z",
+    "timestamp": "2026-08-06T05:05:23Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T05:00:29Z"
+  "last_reviewed_updated_at": "2026-08-06T05:04:11Z"
 }
