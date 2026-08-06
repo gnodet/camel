@@ -2883,9 +2883,9 @@
       "number": 25392,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-06T17:01:52Z",
+      "reviewed_at": "2026-08-06T17:15:34Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not complete (build 25 queued, dependency-review failed), new comment is CI bot",
+      "notes": "NO_ACTION: already APPROVED, CI still pending (build 25 queued), new activity is just a human approval",
       "interactions": [
         {
           "at": "2026-08-06T15:42:07Z",
@@ -2896,9 +2896,14 @@
           "at": "2026-08-06T17:01:52Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not complete (build 25 queued, dependency-review failed), new comment is CI bot"
+        },
+        {
+          "at": "2026-08-06T17:15:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, CI still pending (build 25 queued), new activity is just a human approval"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25393,
@@ -2915,16 +2920,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25394,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-06T17:15:34Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: 0 CI checks (external contributor atiaomar1978-hub), brand new PR, needs maintainer to trigger CI",
+      "interactions": [
+        {
+          "at": "2026-08-06T17:15:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks (external contributor atiaomar1978-hub), brand new PR, needs maintainer to trigger CI"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T17:12:11Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T17:15:34Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T16:59:53Z"
+  "last_reviewed_updated_at": "2026-08-06T17:14:46Z"
 }
