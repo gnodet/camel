@@ -2866,9 +2866,9 @@
       "number": 25390,
       "title": "Add camel-rest-postman component",
       "author": "christosgkoros",
-      "reviewed_at": "2026-08-06T18:06:29Z",
+      "reviewed_at": "2026-08-06T19:44:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor), CHANGES_REQUESTED by davsclaus just posted, contributor needs to address feedback",
+      "notes": "NO_ACTION: 0 CI checks (external contributor), CHANGES_REQUESTED, davsclaus linked JIRA ticket, awaiting contributor response",
       "interactions": [
         {
           "at": "2026-08-06T14:55:24Z",
@@ -2879,9 +2879,14 @@
           "at": "2026-08-06T18:06:29Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor), CHANGES_REQUESTED by davsclaus just posted, contributor needs to address feedback"
+        },
+        {
+          "at": "2026-08-06T19:44:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks (external contributor), CHANGES_REQUESTED, davsclaus linked JIRA ticket, awaiting contributor response"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25391,
@@ -3043,12 +3048,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-06T19:35:07Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-06T19:44:14Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-06T19:32:11Z"
+  "last_reviewed_updated_at": "2026-08-06T19:43:00Z"
 }
