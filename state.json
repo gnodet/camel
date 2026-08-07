@@ -2871,9 +2871,9 @@
       "number": 25390,
       "title": "Add camel-rest-postman component",
       "author": "christosgkoros",
-      "reviewed_at": "2026-08-06T23:36:47Z",
+      "reviewed_at": "2026-08-07T05:54:13Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: external contributor, 0 CI checks triggered, actively iterating after CHANGES_REQUESTED by davsclaus",
+      "notes": "NO_ACTION: CI running but not complete yet (2/7 passing, 3 pending), CHANGES_REQUESTED active",
       "interactions": [
         {
           "at": "2026-08-06T14:55:24Z",
@@ -2894,9 +2894,14 @@
           "at": "2026-08-06T23:36:47Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, 0 CI checks triggered, actively iterating after CHANGES_REQUESTED by davsclaus"
+        },
+        {
+          "at": "2026-08-07T05:54:13Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running but not complete yet (2/7 passing, 3 pending), CHANGES_REQUESTED active"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25391,
@@ -3126,12 +3131,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T04:47:34Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T05:54:13Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T04:43:21Z"
+  "last_reviewed_updated_at": "2026-08-07T05:53:19Z"
 }
