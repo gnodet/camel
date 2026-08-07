@@ -3198,14 +3198,35 @@
       "number": 25401,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T07:40:05Z",
+      "reviewed_at": "2026-08-07T07:46:39Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (2/6 passing, 3 pending), just committed",
+      "notes": "NO_ACTION: already APPROVED by human, CI still running (3/6)",
       "interactions": [
         {
           "at": "2026-08-07T07:40:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (2/6 passing, 3 pending), just committed"
+        },
+        {
+          "at": "2026-08-07T07:46:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by human, CI still running (3/6)"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25402,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-07T07:46:39Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: already APPROVED, CI pending (0/3), tiny dep bump",
+      "interactions": [
+        {
+          "at": "2026-08-07T07:46:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, CI pending (0/3), tiny dep bump"
         }
       ],
       "review_count": 1
@@ -3213,12 +3234,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T07:41:14Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T07:46:39Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T07:39:15Z"
+  "last_reviewed_updated_at": "2026-08-07T07:45:31Z"
 }
