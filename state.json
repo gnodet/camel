@@ -3245,9 +3245,9 @@
       "number": 25404,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T09:14:05Z",
+      "reviewed_at": "2026-08-07T09:26:40Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED, new activity is just a comment",
+      "notes": "NO_ACTION: already APPROVED, new commits (likely addressing feedback)",
       "interactions": [
         {
           "at": "2026-08-07T08:44:49Z",
@@ -3263,19 +3263,24 @@
           "at": "2026-08-07T09:14:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED, new activity is just a comment"
+        },
+        {
+          "at": "2026-08-07T09:26:40Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, new commits (likely addressing feedback)"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T09:18:19Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T09:26:40Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T09:12:18Z"
+  "last_reviewed_updated_at": "2026-08-07T09:25:39Z"
 }
