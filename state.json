@@ -3110,7 +3110,7 @@
       "number": 25398,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T06:11:44Z",
+      "reviewed_at": "2026-08-07T06:44:40Z",
       "verdict": "COMMENT",
       "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating",
       "interactions": [
@@ -3123,9 +3123,14 @@
           "at": "2026-08-07T06:11:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating"
+        },
+        {
+          "at": "2026-08-07T06:44:40Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25399,
@@ -3162,12 +3167,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T06:14:45Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T06:44:40Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T06:12:37Z"
+  "last_reviewed_updated_at": "2026-08-07T06:42:53Z"
 }
