@@ -3110,9 +3110,9 @@
       "number": 25398,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T06:44:40Z",
+      "reviewed_at": "2026-08-07T07:00:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating",
+      "notes": "NO_ACTION: CI running but not complete (2/6 passing, 3 pending), CHANGES_REQUESTED",
       "interactions": [
         {
           "at": "2026-08-07T04:14:13Z",
@@ -3128,9 +3128,14 @@
           "at": "2026-08-07T06:44:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating"
+        },
+        {
+          "at": "2026-08-07T07:00:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running but not complete (2/6 passing, 3 pending), CHANGES_REQUESTED"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25399,
@@ -3167,12 +3172,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T06:44:40Z",
+    "timestamp": "2026-08-07T07:00:35Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T06:42:53Z"
+  "last_reviewed_updated_at": "2026-08-07T06:59:03Z"
 }
