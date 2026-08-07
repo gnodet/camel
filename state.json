@@ -3120,9 +3120,9 @@
       "number": 25398,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T16:07:09Z",
+      "reviewed_at": "2026-08-07T17:56:06Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED by davsclaus, new comment is the approval itself",
+      "notes": "NO_ACTION: already APPROVED by davsclaus, new commits just pushed, 0 CI checks yet",
       "interactions": [
         {
           "at": "2026-08-07T04:14:13Z",
@@ -3158,9 +3158,14 @@
           "at": "2026-08-07T16:07:09Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED by davsclaus, new comment is the approval itself"
+        },
+        {
+          "at": "2026-08-07T17:56:06Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by davsclaus, new commits just pushed, 0 CI checks yet"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25399,
@@ -3347,12 +3352,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T17:21:32Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T17:56:06Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T16:43:08Z"
+  "last_reviewed_updated_at": "2026-08-07T17:54:32Z"
 }
