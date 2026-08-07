@@ -3177,9 +3177,9 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T07:06:49Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-07T07:07:56Z",
+    "prs_checked": 0,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
