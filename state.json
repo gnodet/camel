@@ -2871,9 +2871,9 @@
       "number": 25390,
       "title": "Add camel-rest-postman component",
       "author": "christosgkoros",
-      "reviewed_at": "2026-08-07T05:54:13Z",
+      "reviewed_at": "2026-08-07T06:11:44Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI running but not complete yet (2/7 passing, 3 pending), CHANGES_REQUESTED active",
+      "notes": "NO_ACTION: CI failing (2/7 fail), CHANGES_REQUESTED",
       "interactions": [
         {
           "at": "2026-08-06T14:55:24Z",
@@ -2899,9 +2899,14 @@
           "at": "2026-08-07T05:54:13Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI running but not complete yet (2/7 passing, 3 pending), CHANGES_REQUESTED active"
+        },
+        {
+          "at": "2026-08-07T06:11:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (2/7 fail), CHANGES_REQUESTED"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25391,
@@ -3100,17 +3105,22 @@
       "number": 25398,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T04:14:13Z",
+      "reviewed_at": "2026-08-07T06:11:44Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: external contributor, 0 CI checks triggered, new PR awaiting CI",
+      "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating",
       "interactions": [
         {
           "at": "2026-08-07T04:14:13Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, 0 CI checks triggered, new PR awaiting CI"
+        },
+        {
+          "at": "2026-08-07T06:11:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: external contributor, 0 CI checks, CHANGES_REQUESTED, actively iterating"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25399,
@@ -3127,16 +3137,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25400,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-07T06:11:44Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI pending (2/5 passing, 2 pending), just committed",
+      "interactions": [
+        {
+          "at": "2026-08-07T06:11:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending (2/5 passing, 2 pending), just committed"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T06:03:01Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T06:11:44Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T05:53:19Z"
+  "last_reviewed_updated_at": "2026-08-07T06:11:02Z"
 }
