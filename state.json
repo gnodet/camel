@@ -3276,9 +3276,9 @@
       "number": 25405,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T10:26:01Z",
+      "reviewed_at": "2026-08-07T10:40:20Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED, additional review activity (3rd detection)",
+      "notes": "NO_ACTION: already APPROVED, new comment only (4th detection)",
       "interactions": [
         {
           "at": "2026-08-07T10:09:15Z",
@@ -3299,19 +3299,24 @@
           "at": "2026-08-07T10:26:01Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED, additional review activity (3rd detection)"
+        },
+        {
+          "at": "2026-08-07T10:40:20Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, new comment only (4th detection)"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T10:26:01Z",
+    "timestamp": "2026-08-07T10:40:20Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T10:24:24Z"
+  "last_reviewed_updated_at": "2026-08-07T10:38:50Z"
 }
