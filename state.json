@@ -2871,9 +2871,9 @@
       "number": 25390,
       "title": "Add camel-rest-postman component",
       "author": "christosgkoros",
-      "reviewed_at": "2026-08-07T07:25:22Z",
+      "reviewed_at": "2026-08-07T08:44:49Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failing (1/6 fail), CHANGES_REQUESTED",
+      "notes": "NO_ACTION: external contributor, 0 CI checks (reset by new commits), CHANGES_REQUESTED",
       "interactions": [
         {
           "at": "2026-08-06T14:55:24Z",
@@ -2914,9 +2914,14 @@
           "at": "2026-08-07T07:25:22Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failing (1/6 fail), CHANGES_REQUESTED"
+        },
+        {
+          "at": "2026-08-07T08:44:49Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: external contributor, 0 CI checks (reset by new commits), CHANGES_REQUESTED"
         }
       ],
-      "review_count": 8
+      "review_count": 9
     },
     {
       "number": 25391,
@@ -3235,16 +3240,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25404,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-07T08:44:49Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI running but not complete (2/6 passing, 3 pending), just committed",
+      "interactions": [
+        {
+          "at": "2026-08-07T08:44:49Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running but not complete (2/6 passing, 3 pending), just committed"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T08:29:07Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T08:44:49Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T07:59:03Z"
+  "last_reviewed_updated_at": "2026-08-07T08:44:08Z"
 }
