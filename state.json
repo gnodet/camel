@@ -3198,9 +3198,9 @@
       "number": 25401,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T07:46:39Z",
+      "reviewed_at": "2026-08-07T08:00:31Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED by human, CI still running (3/6)",
+      "notes": "NO_ACTION: already APPROVED, new activity is just a comment",
       "interactions": [
         {
           "at": "2026-08-07T07:40:05Z",
@@ -3211,9 +3211,14 @@
           "at": "2026-08-07T07:46:39Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED by human, CI still running (3/6)"
+        },
+        {
+          "at": "2026-08-07T08:00:31Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED, new activity is just a comment"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25402,
@@ -3234,12 +3239,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T07:55:14Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-07T08:00:31Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T07:45:31Z"
+  "last_reviewed_updated_at": "2026-08-07T07:59:03Z"
 }
