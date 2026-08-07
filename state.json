@@ -3276,27 +3276,32 @@
       "number": 25405,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T10:09:15Z",
+      "reviewed_at": "2026-08-07T10:11:25Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: external contributor, 0 CI checks triggered, new PR",
+      "notes": "NO_ACTION: already APPROVED by human reviewer",
       "interactions": [
         {
           "at": "2026-08-07T10:09:15Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, 0 CI checks triggered, new PR"
+        },
+        {
+          "at": "2026-08-07T10:11:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by human reviewer"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T10:09:15Z",
+    "timestamp": "2026-08-07T10:11:25Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T10:08:15Z"
+  "last_reviewed_updated_at": "2026-08-07T10:10:30Z"
 }
