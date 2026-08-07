@@ -3322,27 +3322,32 @@
       "number": 25406,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T16:27:36Z",
+      "reviewed_at": "2026-08-07T16:45:05Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending (0/6 pass, 5 pending), new PR just created",
+      "notes": "NO_ACTION: CI still pending (3/6 pass, 2 pending), waiting for green",
       "interactions": [
         {
           "at": "2026-08-07T16:27:36Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending (0/6 pass, 5 pending), new PR just created"
+        },
+        {
+          "at": "2026-08-07T16:45:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending (3/6 pass, 2 pending), waiting for green"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-07T16:27:36Z",
+    "timestamp": "2026-08-07T16:45:05Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-07T16:25:58Z"
+  "last_reviewed_updated_at": "2026-08-07T16:43:08Z"
 }
