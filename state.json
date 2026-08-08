@@ -3435,9 +3435,9 @@
       "number": 25409,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-08T13:40:54Z",
+      "reviewed_at": "2026-08-08T13:52:57Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED overriding 3 approvals, CI pending, contributor needs to address",
+      "notes": "NO_ACTION: still CHANGES_REQUESTED by davsclaus, new comment discussion",
       "interactions": [
         {
           "at": "2026-08-08T08:29:54Z",
@@ -3468,9 +3468,14 @@
           "at": "2026-08-08T13:40:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED overriding 3 approvals, CI pending, contributor needs to address"
+        },
+        {
+          "at": "2026-08-08T13:52:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still CHANGES_REQUESTED by davsclaus, new comment discussion"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 2041,
@@ -3523,12 +3528,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-08T13:43:37Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-08T13:52:58Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T13:40:54Z"
+  "last_reviewed_updated_at": "2026-08-08T13:51:52Z"
 }
