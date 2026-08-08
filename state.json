@@ -3436,16 +3436,64 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 2041,
+      "title": "docs: rewrite expected-checksums.md to STE rules",
+      "author": "elharo",
+      "reviewed_at": "2026-08-08T12:57:10Z",
+      "verdict": "COMMENT",
+      "notes": "Previously reviewed. Cursor wrap-around.",
+      "interactions": [
+        {
+          "at": "2026-08-08T12:57:10Z",
+          "verdict": "COMMENT",
+          "notes": "Previously reviewed. Cursor wrap-around."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 2045,
+      "title": "Fix #1994: log exceptions from IpcNamedLock.tryUnlock()",
+      "author": "elharo",
+      "reviewed_at": "2026-08-08T12:57:10Z",
+      "verdict": "APPROVE",
+      "notes": "Previously reviewed. Cursor wrap-around.",
+      "interactions": [
+        {
+          "at": "2026-08-08T12:57:10Z",
+          "verdict": "APPROVE",
+          "notes": "Previously reviewed. Cursor wrap-around."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 1758,
+      "title": "Add CycleAwareDependencyGraphDumper to visualize cycles",
+      "author": "Jimin15",
+      "reviewed_at": "2026-08-08T12:57:10Z",
+      "verdict": "COMMENT",
+      "notes": "Previously reviewed. Cursor wrap-around.",
+      "interactions": [
+        {
+          "at": "2026-08-08T12:57:10Z",
+          "verdict": "COMMENT",
+          "notes": "Previously reviewed. Cursor wrap-around."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-08T08:42:19Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-08T12:57:26Z",
+    "prs_checked": 0,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T08:41:09Z"
+  "last_reviewed_updated_at": "2026-08-08T11:45:56Z"
 }
