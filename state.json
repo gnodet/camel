@@ -3419,9 +3419,9 @@
       "number": 25408,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-08T15:38:11Z",
+      "reviewed_at": "2026-08-08T15:43:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: external contributor, new commits just pushed, 0 CI checks, davsclaus commenting",
+      "notes": "NO_ACTION: external contributor, 0 CI checks, active comment discussion",
       "interactions": [
         {
           "at": "2026-08-08T03:34:30Z",
@@ -3437,9 +3437,14 @@
           "at": "2026-08-08T15:38:11Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, new commits just pushed, 0 CI checks, davsclaus commenting"
+        },
+        {
+          "at": "2026-08-08T15:43:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: external contributor, 0 CI checks, active comment discussion"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25409,
@@ -3538,12 +3543,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-08T15:38:11Z",
+    "timestamp": "2026-08-08T15:43:43Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T15:36:51Z"
+  "last_reviewed_updated_at": "2026-08-08T15:42:14Z"
 }
