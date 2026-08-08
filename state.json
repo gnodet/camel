@@ -3415,9 +3415,9 @@
       "number": 25409,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-08T08:42:19Z",
+      "reviewed_at": "2026-08-08T13:26:15Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED by orpiske and oscerd, self-triggered re-detection from second approval",
+      "notes": "NO_ACTION: already APPROVED by orpiske, oscerd, and Croway, re-detection from third approval",
       "interactions": [
         {
           "at": "2026-08-08T08:29:54Z",
@@ -3433,9 +3433,14 @@
           "at": "2026-08-08T08:42:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED by orpiske and oscerd, self-triggered re-detection from second approval"
+        },
+        {
+          "at": "2026-08-08T13:26:15Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by orpiske, oscerd, and Croway, re-detection from third approval"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 2041,
@@ -3488,12 +3493,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-08T13:12:47Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-08T13:26:15Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T11:45:56Z"
+  "last_reviewed_updated_at": "2026-08-08T13:25:02Z"
 }
