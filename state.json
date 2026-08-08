@@ -3465,9 +3465,9 @@
       "number": 25409,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-08T13:52:57Z",
+      "reviewed_at": "2026-08-08T22:09:47Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: still CHANGES_REQUESTED by davsclaus, new comment discussion",
+      "notes": "NO_ACTION: CHANGES_REQUESTED from davsclaus still active, contributor pushed fixes but needs davsclaus re-review, 0 CI checks on new commits, davsclaus said wait for 4.23 branch prep",
       "interactions": [
         {
           "at": "2026-08-08T08:29:54Z",
@@ -3503,9 +3503,14 @@
           "at": "2026-08-08T13:52:57Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: still CHANGES_REQUESTED by davsclaus, new comment discussion"
+        },
+        {
+          "at": "2026-08-08T22:09:47Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CHANGES_REQUESTED from davsclaus still active, contributor pushed fixes but needs davsclaus re-review, 0 CI checks on new commits, davsclaus said wait for 4.23 branch prep"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 2041,
@@ -3574,12 +3579,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-08T22:01:06Z",
+    "timestamp": "2026-08-08T22:09:52Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T21:59:37Z"
+  "last_reviewed_updated_at": "2026-08-08T22:08:37Z"
 }
