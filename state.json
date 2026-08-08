@@ -3362,9 +3362,9 @@
       "number": 25406,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-07T17:15:07Z",
+      "reviewed_at": "2026-08-08T13:36:12Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: code changes solid, upgrade guide in wrong version file (4_23 instead of 4_22)",
+      "notes": "NO_ACTION: already APPROVED by davsclaus (2nd approval), re-detection",
       "interactions": [
         {
           "at": "2026-08-07T16:27:36Z",
@@ -3380,9 +3380,14 @@
           "at": "2026-08-07T17:15:07Z",
           "verdict": "COMMENT",
           "notes": "COMMENT: code changes solid, upgrade guide in wrong version file (4_23 instead of 4_22)"
+        },
+        {
+          "at": "2026-08-08T13:36:12Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by davsclaus (2nd approval), re-detection"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25407,
@@ -3420,9 +3425,9 @@
       "number": 25409,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-08T13:26:15Z",
+      "reviewed_at": "2026-08-08T13:36:12Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED by orpiske, oscerd, and Croway, re-detection from third approval",
+      "notes": "NO_ACTION: already APPROVED by 3 committers, re-detection from comment",
       "interactions": [
         {
           "at": "2026-08-08T08:29:54Z",
@@ -3443,9 +3448,14 @@
           "at": "2026-08-08T13:26:15Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED by orpiske, oscerd, and Croway, re-detection from third approval"
+        },
+        {
+          "at": "2026-08-08T13:36:12Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by 3 committers, re-detection from comment"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 2041,
@@ -3498,12 +3508,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-08T13:34:49Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-08T13:36:12Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T13:33:26Z"
+  "last_reviewed_updated_at": "2026-08-08T13:35:34Z"
 }
