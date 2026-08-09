@@ -3536,17 +3536,22 @@
       "number": 2041,
       "title": "docs: rewrite expected-checksums.md to STE rules",
       "author": "elharo",
-      "reviewed_at": "2026-08-08T12:57:10Z",
+      "reviewed_at": "2026-08-09T21:19:25Z",
       "verdict": "COMMENT",
-      "notes": "Previously reviewed. Cursor wrap-around.",
+      "notes": "NO_ACTION: cursor wrap-around, no new commits",
       "interactions": [
         {
           "at": "2026-08-08T12:57:10Z",
           "verdict": "COMMENT",
           "notes": "Previously reviewed. Cursor wrap-around."
+        },
+        {
+          "at": "2026-08-09T21:19:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: cursor wrap-around, no new commits"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 2045,
@@ -3677,14 +3682,51 @@
       "number": 25414,
       "title": "CAMEL-24360: docs - note that the CAMEL-23588 undertow filter was not applied before the fix",
       "author": "oscerd",
-      "reviewed_at": "2026-08-09T20:59:38Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: committer docs PR, CI triggered but builds pending, waiting for green",
+      "reviewed_at": "2026-08-09T21:27:02Z",
+      "verdict": "APPROVE",
+      "notes": "Docs-only: adds NOTE admonitions to 3 upgrade guides clarifying undertow header filter was inert until CAMEL-24360 fix",
       "interactions": [
         {
           "at": "2026-08-09T20:59:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: committer docs PR, CI triggered but builds pending, waiting for green"
+        },
+        {
+          "at": "2026-08-09T21:27:02Z",
+          "verdict": "APPROVE",
+          "notes": "Docs-only: adds NOTE admonitions to 3 upgrade guides clarifying undertow header filter was inert until CAMEL-24360 fix"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 1815,
+      "title": "Advised and Enforced Management",
+      "author": "cstamas",
+      "reviewed_at": "2026-08-09T21:19:25Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: cursor wrap-around, no new commits",
+      "interactions": [
+        {
+          "at": "2026-08-09T21:19:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: cursor wrap-around, no new commits"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 2046,
+      "title": "docs: rewrite how-resolver-works.md to STE rules",
+      "author": "elharo",
+      "reviewed_at": "2026-08-09T21:19:25Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: cursor wrap-around, no new commits",
+      "interactions": [
+        {
+          "at": "2026-08-09T21:19:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: cursor wrap-around, no new commits"
         }
       ],
       "review_count": 1
@@ -3692,12 +3734,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-09T21:00:56Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-09T21:27:06Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-09T20:58:49Z"
+  "last_reviewed_updated_at": "2026-08-09T21:15:32Z"
 }
