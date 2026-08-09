@@ -3600,9 +3600,9 @@
       "number": 25411,
       "title": "CAMEL-24374: Add Ctrl+G go-to-node popup in TUI Source editor",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-09T07:59:44Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI just triggered, builds pending, waiting for green",
+      "reviewed_at": "2026-08-09T08:20:24Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: well-implemented TUI popup following established patterns, excellent test coverage (16 tests, AssertJ), CI green, only minor FQCN and future caching observations",
       "interactions": [
         {
           "at": "2026-08-09T04:22:36Z",
@@ -3613,19 +3613,24 @@
           "at": "2026-08-09T07:59:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI just triggered, builds pending, waiting for green"
+        },
+        {
+          "at": "2026-08-09T08:20:24Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: well-implemented TUI popup following established patterns, excellent test coverage (16 tests, AssertJ), CI green, only minor FQCN and future caching observations"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-09T07:59:49Z",
-    "prs_checked": 2,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-09T08:20:28Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-09T07:58:35Z"
+  "last_reviewed_updated_at": "2026-08-09T08:14:57Z"
 }
