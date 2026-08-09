@@ -3465,9 +3465,9 @@
       "number": 25409,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-09T10:35:33Z",
+      "reviewed_at": "2026-08-09T15:42:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CHANGES_REQUESTED still active (davsclaus + atiaomar1978-hub), new commits but reviewers haven't re-approved",
+      "notes": "NO_ACTION: CHANGES_REQUESTED still active, new comment but no review state change",
       "interactions": [
         {
           "at": "2026-08-08T08:29:54Z",
@@ -3523,9 +3523,14 @@
           "at": "2026-08-09T10:35:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CHANGES_REQUESTED still active (davsclaus + atiaomar1978-hub), new commits but reviewers haven't re-approved"
+        },
+        {
+          "at": "2026-08-09T15:42:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CHANGES_REQUESTED still active, new comment but no review state change"
         }
       ],
-      "review_count": 11
+      "review_count": 12
     },
     {
       "number": 2041,
@@ -3661,12 +3666,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-09T15:36:46Z",
+    "timestamp": "2026-08-09T15:42:14Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-09T15:35:06Z"
+  "last_reviewed_updated_at": "2026-08-09T15:40:16Z"
 }
