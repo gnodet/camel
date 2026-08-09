@@ -3636,16 +3636,32 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25412,
+      "title": "CAMEL-24375: parseDuration should handle plain millis value",
+      "author": "davsclaus",
+      "reviewed_at": "2026-08-09T13:39:47Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: committer PR, CI triggered but builds pending, waiting for green",
+      "interactions": [
+        {
+          "at": "2026-08-09T13:39:47Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: committer PR, CI triggered but builds pending, waiting for green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-09T12:05:52Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-09T13:39:47Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-09T10:34:10Z"
+  "last_reviewed_updated_at": "2026-08-09T13:38:30Z"
 }
