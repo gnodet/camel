@@ -3837,9 +3837,9 @@
       "number": 25432,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-10T14:54:22Z",
+      "reviewed_at": "2026-08-10T14:59:04Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Croway already APPROVED this dependency upgrade PR. No value in piling on.",
+      "notes": "NO_ACTION: Re-detection from new comment. Already APPROVED by Croway.",
       "interactions": [
         {
           "at": "2026-08-10T14:11:31Z",
@@ -3850,19 +3850,24 @@
           "at": "2026-08-10T14:54:22Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Croway already APPROVED this dependency upgrade PR. No value in piling on."
+        },
+        {
+          "at": "2026-08-10T14:59:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Re-detection from new comment. Already APPROVED by Croway."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T14:54:28Z",
+    "timestamp": "2026-08-10T14:59:04Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T14:52:51Z"
+  "last_reviewed_updated_at": "2026-08-10T14:57:49Z"
 }
