@@ -3785,9 +3785,9 @@
       "number": 25430,
       "title": "CAMEL-24347: camel-google-firestore - listCollections honours the configured documentId",
       "author": "oscerd",
-      "reviewed_at": "2026-08-10T08:37:25Z",
+      "reviewed_at": "2026-08-10T15:00:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI bot comment, davsclaus already APPROVED",
+      "notes": "NO_ACTION: davsclaus APPROVED twice. No value in piling on.",
       "interactions": [
         {
           "at": "2026-08-10T08:00:21Z",
@@ -3808,9 +3808,14 @@
           "at": "2026-08-10T08:37:25Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI bot comment, davsclaus already APPROVED"
+        },
+        {
+          "at": "2026-08-10T15:00:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus APPROVED twice. No value in piling on."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25431,
@@ -3837,9 +3842,9 @@
       "number": 25432,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-10T14:59:04Z",
+      "reviewed_at": "2026-08-10T15:00:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Re-detection from new comment. Already APPROVED by Croway.",
+      "notes": "NO_ACTION: Both Croway and davsclaus APPROVED. No value in piling on.",
       "interactions": [
         {
           "at": "2026-08-10T14:11:31Z",
@@ -3855,19 +3860,24 @@
           "at": "2026-08-10T14:59:04Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Re-detection from new comment. Already APPROVED by Croway."
+        },
+        {
+          "at": "2026-08-10T15:00:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Both Croway and davsclaus APPROVED. No value in piling on."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T14:59:04Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-10T15:00:43Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T14:57:49Z"
+  "last_reviewed_updated_at": "2026-08-10T14:59:40Z"
 }
