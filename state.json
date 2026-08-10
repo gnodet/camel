@@ -3775,9 +3775,9 @@
       "number": 25430,
       "title": "CAMEL-24347: camel-google-firestore - listCollections honours the configured documentId",
       "author": "oscerd",
-      "reviewed_at": "2026-08-10T08:02:03Z",
+      "reviewed_at": "2026-08-10T08:08:08Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus already APPROVED, CI still queued",
+      "notes": "NO_ACTION: new comment is CI bot, davsclaus already APPROVED",
       "interactions": [
         {
           "at": "2026-08-10T08:00:21Z",
@@ -3788,19 +3788,24 @@
           "at": "2026-08-10T08:02:03Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus already APPROVED, CI still queued"
+        },
+        {
+          "at": "2026-08-10T08:08:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new comment is CI bot, davsclaus already APPROVED"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T08:03:39Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T08:08:08Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T07:58:33Z"
+  "last_reviewed_updated_at": "2026-08-10T08:07:00Z"
 }
