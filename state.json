@@ -3599,9 +3599,9 @@
       "number": 25410,
       "title": "CAMEL-23965: camel-openai - Add moderation operation",
       "author": "k-krawczyk",
-      "reviewed_at": "2026-08-09T15:36:46Z",
+      "reviewed_at": "2026-08-10T06:38:27Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: still 0 CI checks on latest commits, needs maintainer to trigger CI",
+      "notes": "NO_ACTION: davsclaus APPROVED, new comment is just CI bot output",
       "interactions": [
         {
           "at": "2026-08-08T22:01:02Z",
@@ -3632,9 +3632,14 @@
           "at": "2026-08-09T15:36:46Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: still 0 CI checks on latest commits, needs maintainer to trigger CI"
+        },
+        {
+          "at": "2026-08-10T06:38:27Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus APPROVED, new comment is just CI bot output"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25411,
@@ -3754,12 +3759,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T06:08:42Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T06:38:27Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-08T15:44:11Z"
+  "last_reviewed_updated_at": "2026-08-10T06:37:02Z"
 }
