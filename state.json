@@ -3682,9 +3682,9 @@
       "number": 25414,
       "title": "CAMEL-24360: docs - note that the CAMEL-23588 undertow filter was not applied before the fix",
       "author": "oscerd",
-      "reviewed_at": "2026-08-09T21:27:02Z",
-      "verdict": "APPROVE",
-      "notes": "Docs-only: adds NOTE admonitions to 3 upgrade guides clarifying undertow header filter was inert until CAMEL-24360 fix",
+      "reviewed_at": "2026-08-10T05:16:29Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: re-detection triggered by our own APPROVE review from Run 836",
       "interactions": [
         {
           "at": "2026-08-09T20:59:38Z",
@@ -3695,9 +3695,14 @@
           "at": "2026-08-09T21:27:02Z",
           "verdict": "APPROVE",
           "notes": "Docs-only: adds NOTE admonitions to 3 upgrade guides clarifying undertow header filter was inert until CAMEL-24360 fix"
+        },
+        {
+          "at": "2026-08-10T05:16:29Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: re-detection triggered by our own APPROVE review from Run 836"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 1815,
@@ -3734,12 +3739,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-09T21:28:32Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T05:16:29Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-09T21:15:32Z"
+  "last_reviewed_updated_at": "2026-08-10T05:15:05Z"
 }
