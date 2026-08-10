@@ -3816,27 +3816,32 @@
       "number": 25431,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-10T13:32:38Z",
+      "reviewed_at": "2026-08-10T13:42:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, 0 CI checks. Backport to camel-4.18.x. Defer until maintainer triggers CI.",
+      "notes": "NO_ACTION: Croway already APPROVED this backport. No value in piling on.",
       "interactions": [
         {
           "at": "2026-08-10T13:32:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, 0 CI checks. Backport to camel-4.18.x. Defer until maintainer triggers CI."
+        },
+        {
+          "at": "2026-08-10T13:42:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Croway already APPROVED this backport. No value in piling on."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T13:32:43Z",
+    "timestamp": "2026-08-10T13:42:39Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T13:30:26Z"
+  "last_reviewed_updated_at": "2026-08-10T13:39:40Z"
 }
