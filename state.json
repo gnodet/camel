@@ -3842,9 +3842,9 @@
       "number": 25432,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-10T15:00:43Z",
+      "reviewed_at": "2026-08-10T15:25:48Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Both Croway and davsclaus APPROVED. No value in piling on.",
+      "notes": "NO_ACTION: Re-detection from new comment. Already APPROVED by Croway and davsclaus.",
       "interactions": [
         {
           "at": "2026-08-10T14:11:31Z",
@@ -3865,19 +3865,24 @@
           "at": "2026-08-10T15:00:43Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Both Croway and davsclaus APPROVED. No value in piling on."
+        },
+        {
+          "at": "2026-08-10T15:25:48Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Re-detection from new comment. Already APPROVED by Croway and davsclaus."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T15:02:14Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T15:25:48Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T14:59:40Z"
+  "last_reviewed_updated_at": "2026-08-10T15:24:19Z"
 }
