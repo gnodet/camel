@@ -3661,9 +3661,9 @@
       "number": 25412,
       "title": "CAMEL-24375: parseDuration should handle plain millis value",
       "author": "davsclaus",
-      "reviewed_at": "2026-08-09T15:55:07Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: clean fix eliminating converter registry timing dependency, tests with AssertJ, CI green, minor duplication note for follow-up",
+      "reviewed_at": "2026-08-10T05:36:03Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: author addressed our review feedback with commit, already APPROVED",
       "interactions": [
         {
           "at": "2026-08-09T13:39:47Z",
@@ -3674,9 +3674,14 @@
           "at": "2026-08-09T15:55:07Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: clean fix eliminating converter registry timing dependency, tests with AssertJ, CI green, minor duplication note for follow-up"
+        },
+        {
+          "at": "2026-08-10T05:36:03Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author addressed our review feedback with commit, already APPROVED"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25414,
@@ -3739,12 +3744,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T05:30:28Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T05:36:03Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T05:15:05Z"
+  "last_reviewed_updated_at": "2026-08-10T05:34:25Z"
 }
