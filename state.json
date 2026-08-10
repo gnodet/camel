@@ -3429,9 +3429,9 @@
       "number": 25408,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-10T06:00:23Z",
+      "reviewed_at": "2026-08-10T07:46:25Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus already APPROVED, new activity is just the approval",
+      "notes": "NO_ACTION: contributor pushing post-approval commits, davsclaus already APPROVED",
       "interactions": [
         {
           "at": "2026-08-08T03:34:30Z",
@@ -3467,9 +3467,14 @@
           "at": "2026-08-10T06:00:23Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus already APPROVED, new activity is just the approval"
+        },
+        {
+          "at": "2026-08-10T07:46:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: contributor pushing post-approval commits, davsclaus already APPROVED"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25409,
@@ -3759,12 +3764,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T07:38:53Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T07:46:25Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T06:37:02Z"
+  "last_reviewed_updated_at": "2026-08-10T07:43:28Z"
 }
