@@ -3424,9 +3424,9 @@
       "number": 25408,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-08T16:07:21Z",
+      "reviewed_at": "2026-08-10T06:00:23Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI green, but davsclaus already reviewed thoroughly (Claude Code), contributor has unanswered question about F1 help doc",
+      "notes": "NO_ACTION: davsclaus already APPROVED, new activity is just the approval",
       "interactions": [
         {
           "at": "2026-08-08T03:34:30Z",
@@ -3457,9 +3457,14 @@
           "at": "2026-08-08T16:07:21Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI green, but davsclaus already reviewed thoroughly (Claude Code), contributor has unanswered question about F1 help doc"
+        },
+        {
+          "at": "2026-08-10T06:00:23Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus already APPROVED, new activity is just the approval"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25409,
@@ -3744,12 +3749,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T05:55:49Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-10T06:00:23Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T05:34:25Z"
+  "last_reviewed_updated_at": "2026-08-10T05:58:36Z"
 }
