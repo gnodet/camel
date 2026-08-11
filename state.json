@@ -3914,16 +3914,32 @@
         }
       ],
       "review_count": 4
+    },
+    {
+      "number": 25439,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-11T07:49:04Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI builds still pending. Simple jsoup backport bump. Defer until CI green.",
+      "interactions": [
+        {
+          "at": "2026-08-11T07:49:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds still pending. Simple jsoup backport bump. Defer until CI green."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T07:47:27Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-11T07:49:04Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T06:31:02Z"
+  "last_reviewed_updated_at": "2026-08-11T07:47:03Z"
 }
