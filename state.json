@@ -3609,9 +3609,9 @@
       "number": 25410,
       "title": "CAMEL-23965: camel-openai - Add moderation operation",
       "author": "k-krawczyk",
-      "reviewed_at": "2026-08-10T13:27:13Z",
+      "reviewed_at": "2026-08-11T01:02:04Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Croway posted second comment requesting usage example/test for category scores header. Author still iterating.",
+      "notes": "NO_ACTION: Author pushed new commits addressing Croway feedback. Active iteration, davsclaus already APPROVED.",
       "interactions": [
         {
           "at": "2026-08-08T22:01:02Z",
@@ -3657,9 +3657,14 @@
           "at": "2026-08-10T13:27:13Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Croway posted second comment requesting usage example/test for category scores header. Author still iterating."
+        },
+        {
+          "at": "2026-08-11T01:02:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author pushed new commits addressing Croway feedback. Active iteration, davsclaus already APPROVED."
         }
       ],
-      "review_count": 9
+      "review_count": 10
     },
     {
       "number": 25411,
@@ -3785,9 +3790,9 @@
       "number": 25430,
       "title": "CAMEL-24347: camel-google-firestore - listCollections honours the configured documentId",
       "author": "oscerd",
-      "reviewed_at": "2026-08-10T15:00:43Z",
+      "reviewed_at": "2026-08-11T01:02:04Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus APPROVED twice. No value in piling on.",
+      "notes": "NO_ACTION: Third APPROVE from atiaomar1978-hub. Already APPROVED by davsclaus twice.",
       "interactions": [
         {
           "at": "2026-08-10T08:00:21Z",
@@ -3813,9 +3818,14 @@
           "at": "2026-08-10T15:00:43Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus APPROVED twice. No value in piling on."
+        },
+        {
+          "at": "2026-08-11T01:02:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Third APPROVE from atiaomar1978-hub. Already APPROVED by davsclaus twice."
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25431,
@@ -3893,12 +3903,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-10T20:48:19Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-11T01:02:05Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-10T18:04:16Z"
+  "last_reviewed_updated_at": "2026-08-11T01:01:13Z"
 }
