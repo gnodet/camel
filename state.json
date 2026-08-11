@@ -3888,9 +3888,9 @@
       "number": 25433,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-11T06:08:32Z",
+      "reviewed_at": "2026-08-11T06:25:24Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with 4 comments. Author needs to address feedback first.",
+      "notes": "NO_ACTION: Author pushing commits to address davsclaus CHANGES_REQUESTED. Still iterating.",
       "interactions": [
         {
           "at": "2026-08-10T18:05:54Z",
@@ -3901,19 +3901,24 @@
           "at": "2026-08-11T06:08:32Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with 4 comments. Author needs to address feedback first."
+        },
+        {
+          "at": "2026-08-11T06:25:24Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author pushing commits to address davsclaus CHANGES_REQUESTED. Still iterating."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T06:08:32Z",
+    "timestamp": "2026-08-11T06:25:24Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T06:06:32Z"
+  "last_reviewed_updated_at": "2026-08-11T06:23:32Z"
 }
