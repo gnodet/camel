@@ -3977,16 +3977,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25444,
+      "title": "feat(components): micrometer supports prometheus format",
+      "author": "squakez",
+      "reviewed_at": "2026-08-11T10:06:17Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI still running (5 queued, 1 completed) \u2014 will re-review when checks complete",
+      "interactions": [
+        {
+          "at": "2026-08-11T10:06:17Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (5 queued, 1 completed) \u2014 will re-review when checks complete"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T09:38:07Z",
+    "timestamp": "2026-08-11T10:06:18Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T09:36:20Z"
+  "last_reviewed_updated_at": "2026-08-11T10:04:07Z"
 }
