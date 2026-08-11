@@ -3961,9 +3961,9 @@
       "number": 25443,
       "title": "Pin GitHub actions",
       "author": "coheigea",
-      "reviewed_at": "2026-08-11T10:15:07Z",
+      "reviewed_at": "2026-08-11T11:20:44Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already approved by oscerd, re-detected due to new comment activity",
+      "notes": "NO_ACTION: Already approved by oscerd",
       "interactions": [
         {
           "at": "2026-08-11T09:22:38Z",
@@ -3979,17 +3979,22 @@
           "at": "2026-08-11T10:15:07Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already approved by oscerd, re-detected due to new comment activity"
+        },
+        {
+          "at": "2026-08-11T11:20:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already approved by oscerd"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25444,
       "title": "feat(components): micrometer supports prometheus format",
       "author": "squakez",
-      "reviewed_at": "2026-08-11T11:01:39Z",
+      "reviewed_at": "2026-08-11T11:20:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not fully green \u2014 build (25, false) FAILURE, build (17, false) CANCELLED",
+      "notes": "NO_ACTION: davsclaus commented (active iteration), CI still has failures",
       "interactions": [
         {
           "at": "2026-08-11T10:06:17Z",
@@ -4005,17 +4010,22 @@
           "at": "2026-08-11T11:01:39Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not fully green \u2014 build (25, false) FAILURE, build (17, false) CANCELLED"
+        },
+        {
+          "at": "2026-08-11T11:20:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus commented (active iteration), CI still has failures"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25445,
       "title": "Bump version to 4.23.0-SNAPSHOT",
       "author": "gzurowski",
-      "reviewed_at": "2026-08-11T10:56:51Z",
+      "reviewed_at": "2026-08-11T11:20:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (2 in progress) \u2014 version bump PR",
+      "notes": "NO_ACTION: Already approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-11T10:28:45Z",
@@ -4026,9 +4036,14 @@
           "at": "2026-08-11T10:56:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (2 in progress) \u2014 version bump PR"
+        },
+        {
+          "at": "2026-08-11T11:20:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already approved by davsclaus"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25446,
@@ -4049,12 +4064,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T11:01:39Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-11T11:20:44Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T10:59:40Z"
+  "last_reviewed_updated_at": "2026-08-11T11:19:07Z"
 }
