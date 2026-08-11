@@ -4024,16 +4024,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25446,
+      "title": "CAMEL-24379: Fix AS2 client ignoring custom HostnameVerifier",
+      "author": "tmielke",
+      "reviewed_at": "2026-08-11T10:58:35Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor, 0 CI checks \u2014 needs maintainer to trigger CI",
+      "interactions": [
+        {
+          "at": "2026-08-11T10:58:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor, 0 CI checks \u2014 needs maintainer to trigger CI"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T10:56:51Z",
+    "timestamp": "2026-08-11T10:58:36Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T10:55:57Z"
+  "last_reviewed_updated_at": "2026-08-11T10:56:36Z"
 }
