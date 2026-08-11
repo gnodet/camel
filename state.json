@@ -3888,27 +3888,32 @@
       "number": 25433,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-10T18:05:54Z",
+      "reviewed_at": "2026-08-11T06:08:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR (5376 additions, 79 files), 0 CI checks. New camel-alibaba component. Defer until CI triggered.",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with 4 comments. Author needs to address feedback first.",
       "interactions": [
         {
           "at": "2026-08-10T18:05:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR (5376 additions, 79 files), 0 CI checks. New camel-alibaba component. Defer until CI triggered."
+        },
+        {
+          "at": "2026-08-11T06:08:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with 4 comments. Author needs to address feedback first."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T05:48:48Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-11T06:08:32Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T01:01:13Z"
+  "last_reviewed_updated_at": "2026-08-11T06:06:32Z"
 }
