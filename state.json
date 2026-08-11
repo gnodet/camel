@@ -3992,9 +3992,9 @@
       "number": 25444,
       "title": "feat(components): micrometer supports prometheus format",
       "author": "squakez",
-      "reviewed_at": "2026-08-11T11:20:43Z",
+      "reviewed_at": "2026-08-11T12:45:24Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus commented (active iteration), CI still has failures",
+      "notes": "NO_ACTION: Active iteration (davsclaus commented, author responding), CI still has failures",
       "interactions": [
         {
           "at": "2026-08-11T10:06:17Z",
@@ -4015,9 +4015,14 @@
           "at": "2026-08-11T11:20:43Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus commented (active iteration), CI still has failures"
+        },
+        {
+          "at": "2026-08-11T12:45:24Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Active iteration (davsclaus commented, author responding), CI still has failures"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25445,
@@ -4090,12 +4095,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-11T12:41:40Z",
+    "timestamp": "2026-08-11T12:45:25Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-11T12:39:36Z"
+  "last_reviewed_updated_at": "2026-08-11T12:43:24Z"
 }
