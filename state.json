@@ -4229,16 +4229,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25470,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-12T11:51:01Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI still running (3 pending), Milvus container upgrade PR just opened",
+      "interactions": [
+        {
+          "at": "2026-08-12T11:51:01Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (3 pending), Milvus container upgrade PR just opened"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T11:46:35Z",
+    "timestamp": "2026-08-12T11:51:01Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T11:44:43Z"
+  "last_reviewed_updated_at": "2026-08-12T11:49:57Z"
 }
