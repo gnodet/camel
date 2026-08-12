@@ -4322,16 +4322,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25473,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-12T14:06:27Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI running (3 builds pending), docs PR for camel-publish.sh by ammachado",
+      "interactions": [
+        {
+          "at": "2026-08-12T14:06:27Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running (3 builds pending), docs PR for camel-publish.sh by ammachado"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T14:05:06Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-12T14:06:27Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T14:02:51Z"
+  "last_reviewed_updated_at": "2026-08-12T14:05:51Z"
 }
