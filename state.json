@@ -4281,27 +4281,32 @@
       "number": 25472,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T12:26:43Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (2 builds pending), OTel proto + protobuf bump by davsclaus",
+      "reviewed_at": "2026-08-12T13:09:36Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean OTel proto 1.10\u21921.11-alpha + protobuf 4.34.2\u21924.35.1 bump, correctly paired versions, no breaking changes, CI green",
       "interactions": [
         {
           "at": "2026-08-12T12:26:43Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (2 builds pending), OTel proto + protobuf bump by davsclaus"
+        },
+        {
+          "at": "2026-08-12T13:09:36Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean OTel proto 1.10\u21921.11-alpha + protobuf 4.34.2\u21924.35.1 bump, correctly paired versions, no breaking changes, CI green"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T12:36:30Z",
+    "timestamp": "2026-08-12T13:09:36Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T12:34:43Z"
+  "last_reviewed_updated_at": "2026-08-12T13:02:10Z"
 }
