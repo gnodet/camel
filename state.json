@@ -3918,9 +3918,9 @@
       "number": 25433,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T15:53:31Z",
+      "reviewed_at": "2026-08-12T15:58:02Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks + CHANGES_REQUESTED, heavy review activity (11 new comments/reviews), author iterating",
+      "notes": "NO_ACTION: CI running (3 builds pending) + already APPROVED by davsclaus",
       "interactions": [
         {
           "at": "2026-08-10T18:05:54Z",
@@ -3981,9 +3981,14 @@
           "at": "2026-08-12T15:53:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks + CHANGES_REQUESTED, heavy review activity (11 new comments/reviews), author iterating"
+        },
+        {
+          "at": "2026-08-12T15:58:02Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running (3 builds pending) + already APPROVED by davsclaus"
         }
       ],
-      "review_count": 12
+      "review_count": 13
     },
     {
       "number": 25439,
@@ -4377,12 +4382,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T15:53:31Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-12T15:58:02Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T15:52:17Z"
+  "last_reviewed_updated_at": "2026-08-12T15:56:31Z"
 }
