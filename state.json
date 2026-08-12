@@ -3918,9 +3918,9 @@
       "number": 25433,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T15:38:56Z",
+      "reviewed_at": "2026-08-12T15:53:31Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor) + CHANGES_REQUESTED, author actively iterating with davsclaus",
+      "notes": "NO_ACTION: 0 CI checks + CHANGES_REQUESTED, heavy review activity (11 new comments/reviews), author iterating",
       "interactions": [
         {
           "at": "2026-08-10T18:05:54Z",
@@ -3976,9 +3976,14 @@
           "at": "2026-08-12T15:38:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor) + CHANGES_REQUESTED, author actively iterating with davsclaus"
+        },
+        {
+          "at": "2026-08-12T15:53:31Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks + CHANGES_REQUESTED, heavy review activity (11 new comments/reviews), author iterating"
         }
       ],
-      "review_count": 11
+      "review_count": 12
     },
     {
       "number": 25439,
@@ -4300,7 +4305,7 @@
       "number": 25471,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T14:03:52Z",
+      "reviewed_at": "2026-08-12T15:53:31Z",
       "verdict": "COMMENT",
       "notes": "NO_ACTION: CI running (3 builds pending after new commits), docling container upgrade by davsclaus",
       "interactions": [
@@ -4313,9 +4318,14 @@
           "at": "2026-08-12T14:03:52Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI running (3 builds pending after new commits), docling container upgrade by davsclaus"
+        },
+        {
+          "at": "2026-08-12T15:53:31Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running (3 builds pending after new commits), docling container upgrade by davsclaus"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25472,
@@ -4367,12 +4377,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T15:38:56Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-12T15:53:31Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T15:37:22Z"
+  "last_reviewed_updated_at": "2026-08-12T15:52:17Z"
 }
