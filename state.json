@@ -1841,9 +1841,9 @@
       "number": 25337,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T07:42:40Z",
+      "reviewed_at": "2026-08-12T15:11:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor, not triggered), already approved by davsclaus",
+      "notes": "NO_ACTION: 0 CI checks (external contributor) + already APPROVED by davsclaus, active iteration between author and reviewer",
       "interactions": [
         {
           "at": "2026-08-05T06:29:54Z",
@@ -1959,9 +1959,14 @@
           "at": "2026-08-12T07:42:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor, not triggered), already approved by davsclaus"
+        },
+        {
+          "at": "2026-08-12T15:11:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks (external contributor) + already APPROVED by davsclaus, active iteration between author and reviewer"
         }
       ],
-      "review_count": 23
+      "review_count": 24
     },
     {
       "number": 25338,
@@ -4332,9 +4337,9 @@
       "number": 25473,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T14:29:18Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Accurate docs for camel-publish.sh in release guide, verified against actual script, minor non-blocking suggestions about env var naming clarity",
+      "reviewed_at": "2026-08-12T15:11:43Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Already reviewed by us (APPROVE), new activity is additional review",
       "interactions": [
         {
           "at": "2026-08-12T14:06:27Z",
@@ -4345,19 +4350,24 @@
           "at": "2026-08-12T14:29:18Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Accurate docs for camel-publish.sh in release guide, verified against actual script, minor non-blocking suggestions about env var naming clarity"
+        },
+        {
+          "at": "2026-08-12T15:11:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already reviewed by us (APPROVE), new activity is additional review"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T14:40:53Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-12T15:11:43Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T14:34:57Z"
+  "last_reviewed_updated_at": "2026-08-12T15:09:52Z"
 }
