@@ -3985,9 +3985,9 @@
       "number": 22158,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T08:03:47Z",
+      "reviewed_at": "2026-08-12T13:41:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator's own PR, cannot self-review",
+      "notes": "NO_ACTION: Operator's own PR (gnodet), cannot self-review",
       "interactions": [
         {
           "at": "2026-08-11T08:40:28Z",
@@ -4008,9 +4008,14 @@
           "at": "2026-08-12T08:03:47Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator's own PR, cannot self-review"
+        },
+        {
+          "at": "2026-08-12T13:41:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Operator's own PR (gnodet), cannot self-review"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25443,
@@ -4197,9 +4202,9 @@
       "number": 25468,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T12:36:30Z",
+      "reviewed_at": "2026-08-12T13:41:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (3 builds pending after new commits), camel-ubl data format by davsclaus",
+      "notes": "NO_ACTION: CI failing (both JDK 17 and JDK 25 builds failed), camel-ubl data format by davsclaus \u2014 author likely iterating",
       "interactions": [
         {
           "at": "2026-08-12T10:44:57Z",
@@ -4220,9 +4225,14 @@
           "at": "2026-08-12T12:36:30Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (3 builds pending after new commits), camel-ubl data format by davsclaus"
+        },
+        {
+          "at": "2026-08-12T13:41:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (both JDK 17 and JDK 25 builds failed), camel-ubl data format by davsclaus \u2014 author likely iterating"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25469,
@@ -4301,12 +4311,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T13:10:52Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-12T13:41:43Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T13:02:10Z"
+  "last_reviewed_updated_at": "2026-08-12T13:39:59Z"
 }
