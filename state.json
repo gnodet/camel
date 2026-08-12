@@ -4197,9 +4197,9 @@
       "number": 25468,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T12:17:08Z",
+      "reviewed_at": "2026-08-12T12:36:30Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (3 pending builds), deferring review until checks complete",
+      "notes": "NO_ACTION: CI still running (3 builds pending after new commits), camel-ubl data format by davsclaus",
       "interactions": [
         {
           "at": "2026-08-12T10:44:57Z",
@@ -4215,9 +4215,14 @@
           "at": "2026-08-12T12:17:08Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (3 pending builds), deferring review until checks complete"
+        },
+        {
+          "at": "2026-08-12T12:36:30Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (3 builds pending after new commits), camel-ubl data format by davsclaus"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25469,
@@ -4291,12 +4296,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T12:27:59Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-12T12:36:30Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T12:25:57Z"
+  "last_reviewed_updated_at": "2026-08-12T12:34:43Z"
 }
