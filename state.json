@@ -4327,27 +4327,32 @@
       "number": 25473,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T14:06:27Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI running (3 builds pending), docs PR for camel-publish.sh by ammachado",
+      "reviewed_at": "2026-08-12T14:29:18Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Accurate docs for camel-publish.sh in release guide, verified against actual script, minor non-blocking suggestions about env var naming clarity",
       "interactions": [
         {
           "at": "2026-08-12T14:06:27Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI running (3 builds pending), docs PR for camel-publish.sh by ammachado"
+        },
+        {
+          "at": "2026-08-12T14:29:18Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Accurate docs for camel-publish.sh in release guide, verified against actual script, minor non-blocking suggestions about env var naming clarity"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T14:07:44Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-12T14:29:18Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T14:05:51Z"
+  "last_reviewed_updated_at": "2026-08-12T14:23:04Z"
 }
