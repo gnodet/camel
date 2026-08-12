@@ -4264,9 +4264,9 @@
       "number": 25470,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-12T14:03:52Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI running (2 builds pending after new commits), milvus container upgrade by davsclaus",
+      "reviewed_at": "2026-08-12T14:39:47Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean Milvus container v2.6.21\u2192v2.6.22 patch upgrade, no breaking changes, CVE remediation, correct arch handling, CI green",
       "interactions": [
         {
           "at": "2026-08-12T11:51:01Z",
@@ -4277,9 +4277,14 @@
           "at": "2026-08-12T14:03:52Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI running (2 builds pending after new commits), milvus container upgrade by davsclaus"
+        },
+        {
+          "at": "2026-08-12T14:39:47Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean Milvus container v2.6.21\u2192v2.6.22 patch upgrade, no breaking changes, CVE remediation, correct arch handling, CI green"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25471,
@@ -4347,12 +4352,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-12T14:30:58Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-12T14:39:48Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-12T14:23:04Z"
+  "last_reviewed_updated_at": "2026-08-12T14:34:57Z"
 }
