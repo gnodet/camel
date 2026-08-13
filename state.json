@@ -4476,9 +4476,9 @@
       "number": 25489,
       "title": "CAMEL-23967: camel-openai - Add image generation and edit operations",
       "author": "k-krawczyk",
-      "reviewed_at": "2026-08-13T12:29:51Z",
+      "reviewed_at": "2026-08-13T12:35:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, still 0 CI checks \u2014 waiting for maintainer to trigger CI",
+      "notes": "NO_ACTION: Already APPROVED by another reviewer, re-review triggered by approval event only",
       "interactions": [
         {
           "at": "2026-08-13T11:52:21Z",
@@ -4489,19 +4489,24 @@
           "at": "2026-08-13T12:29:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, still 0 CI checks \u2014 waiting for maintainer to trigger CI"
+        },
+        {
+          "at": "2026-08-13T12:35:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED by another reviewer, re-review triggered by approval event only"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T12:29:56Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-13T12:35:31Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T12:28:23Z"
+  "last_reviewed_updated_at": "2026-08-13T12:33:45Z"
 }
