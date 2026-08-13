@@ -4569,16 +4569,32 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25492,
+      "title": "CAMEL-24392: Fix BacklogTracerRouteAdvice draining WrappedFile streambody",
+      "author": "gansheer",
+      "reviewed_at": "2026-08-13T16:19:41Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI in progress (2 pending, 1 fail, 2 pass) \u2014 waiting for CI to complete",
+      "interactions": [
+        {
+          "at": "2026-08-13T16:19:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI in progress (2 pending, 1 fail, 2 pass) \u2014 waiting for CI to complete"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T16:16:21Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-13T16:19:41Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T15:08:23Z"
+  "last_reviewed_updated_at": "2026-08-13T16:18:30Z"
 }
