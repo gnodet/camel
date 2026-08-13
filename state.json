@@ -4419,27 +4419,32 @@
       "number": 25487,
       "title": "CAMEL-24388: Guard against duplicate plugin subcommand registration",
       "author": "davsclaus",
-      "reviewed_at": "2026-08-13T08:05:45Z",
+      "reviewed_at": "2026-08-13T08:08:28Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: PR just opened, 0 CI checks yet. Will re-review when CI completes.",
+      "notes": "NO_ACTION: CI started but builds still pending (JDK 17+25). Will review when green.",
       "interactions": [
         {
           "at": "2026-08-13T08:05:45Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: PR just opened, 0 CI checks yet. Will re-review when CI completes."
+        },
+        {
+          "at": "2026-08-13T08:08:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI started but builds still pending (JDK 17+25). Will review when green."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T08:05:49Z",
+    "timestamp": "2026-08-13T08:08:33Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T08:04:32Z"
+  "last_reviewed_updated_at": "2026-08-13T08:06:24Z"
 }
