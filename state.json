@@ -4543,27 +4543,32 @@
       "number": 25474,
       "title": "CAMEL-24373: Add Alibaba Cloud Phase 2 components (FC, SMS, KMS, EventBridge)",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-13T14:13:33Z",
+      "reviewed_at": "2026-08-13T14:20:02Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor, 0 CI checks, CHANGES_REQUESTED by davsclaus, author actively responding",
+      "notes": "NO_ACTION: Already APPROVED by committer, re-triggered by approval event only",
       "interactions": [
         {
           "at": "2026-08-13T14:13:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor, 0 CI checks, CHANGES_REQUESTED by davsclaus, author actively responding"
+        },
+        {
+          "at": "2026-08-13T14:20:02Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED by committer, re-triggered by approval event only"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T14:13:33Z",
+    "timestamp": "2026-08-13T14:20:02Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T14:12:07Z"
+  "last_reviewed_updated_at": "2026-08-13T14:18:30Z"
 }
