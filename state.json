@@ -4621,16 +4621,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25494,
+      "title": "chore: fix camel-milvus docs tabs rendering and 4.23 upgrade guide xref",
+      "author": "ammachado",
+      "reviewed_at": "2026-08-13T19:17:28Z",
+      "verdict": "APPROVE",
+      "notes": "Docs-only fix: added + continuation marker for tabs rendering in milvus-component.adoc, added next@ qualifier on ai-observability.adoc xref. Both follow existing patterns. CI green.",
+      "interactions": [
+        {
+          "at": "2026-08-13T19:17:28Z",
+          "verdict": "APPROVE",
+          "notes": "Docs-only fix: added + continuation marker for tabs rendering in milvus-component.adoc, added next@ qualifier on ai-observability.adoc xref. Both follow existing patterns. CI green."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T18:48:31Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-13T19:17:32Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T18:09:12Z"
+  "last_reviewed_updated_at": "2026-08-13T19:12:13Z"
 }
