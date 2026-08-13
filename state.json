@@ -4502,16 +4502,32 @@
         }
       ],
       "review_count": 4
+    },
+    {
+      "number": 25490,
+      "title": "CAMEL-24390: camel-mcp-server - support wildcard patterns in tag matching",
+      "author": "davsclaus",
+      "reviewed_at": "2026-08-13T13:06:42Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI in progress (5 pending, 1 fail, 0 pass) \u2014 waiting for CI to complete",
+      "interactions": [
+        {
+          "at": "2026-08-13T13:06:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI in progress (5 pending, 1 fail, 0 pass) \u2014 waiting for CI to complete"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T12:57:57Z",
+    "timestamp": "2026-08-13T13:06:42Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T12:56:21Z"
+  "last_reviewed_updated_at": "2026-08-13T13:05:23Z"
 }
