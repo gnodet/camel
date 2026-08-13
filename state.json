@@ -4512,9 +4512,9 @@
       "number": 25490,
       "title": "CAMEL-24390: camel-mcp-server - support wildcard patterns in tag matching",
       "author": "davsclaus",
-      "reviewed_at": "2026-08-13T13:50:44Z",
+      "reviewed_at": "2026-08-13T15:08:57Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: New commits pushed, CI restarted (5 pending, 1 fail, 0 pass), author actively iterating",
+      "notes": "NO_ACTION: CI completed but not green (3 pass, 3 fail)",
       "interactions": [
         {
           "at": "2026-08-13T13:06:42Z",
@@ -4535,17 +4535,22 @@
           "at": "2026-08-13T13:50:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: New commits pushed, CI restarted (5 pending, 1 fail, 0 pass), author actively iterating"
+        },
+        {
+          "at": "2026-08-13T15:08:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI completed but not green (3 pass, 3 fail)"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25474,
       "title": "CAMEL-24373: Add Alibaba Cloud Phase 2 components (FC, SMS, KMS, EventBridge)",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-13T14:20:02Z",
+      "reviewed_at": "2026-08-13T15:08:57Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already APPROVED by committer, re-triggered by approval event only",
+      "notes": "NO_ACTION: Already APPROVED, new commits and comments, author iterating",
       "interactions": [
         {
           "at": "2026-08-13T14:13:33Z",
@@ -4556,19 +4561,24 @@
           "at": "2026-08-13T14:20:02Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already APPROVED by committer, re-triggered by approval event only"
+        },
+        {
+          "at": "2026-08-13T15:08:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED, new commits and comments, author iterating"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-13T14:25:32Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-13T15:08:57Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-13T14:18:30Z"
+  "last_reviewed_updated_at": "2026-08-13T15:08:23Z"
 }
