@@ -4749,9 +4749,9 @@
       "number": 25504,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T13:27:30Z",
+      "reviewed_at": "2026-08-14T13:30:03Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already APPROVED. Backport of #25492 to camel-4.22.x. Re-triggered by new comment.",
+      "notes": "NO_ACTION: Already APPROVED. Re-triggered by new comment activity.",
       "interactions": [
         {
           "at": "2026-08-14T13:24:51Z",
@@ -4767,9 +4767,14 @@
           "at": "2026-08-14T13:27:30Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already APPROVED. Backport of #25492 to camel-4.22.x. Re-triggered by new comment."
+        },
+        {
+          "at": "2026-08-14T13:30:03Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED. Re-triggered by new comment activity."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25505,
@@ -4795,12 +4800,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T13:28:43Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-14T13:30:04Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T13:26:50Z"
+  "last_reviewed_updated_at": "2026-08-14T13:29:14Z"
 }
