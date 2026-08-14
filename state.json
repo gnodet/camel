@@ -4677,9 +4677,9 @@
       "number": 25497,
       "title": "CAMEL-23397: Support route tool annotations (returnDirect) in camel-openai agentic loop",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-14T07:59:42Z",
+      "reviewed_at": "2026-08-14T08:37:33Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still 0 CI checks. Needs maintainer trigger.",
+      "notes": "NO_ACTION: CI now triggered but builds failed (JDK 17 and 25). Waiting for CI green.",
       "interactions": [
         {
           "at": "2026-08-14T00:02:13Z",
@@ -4695,9 +4695,14 @@
           "at": "2026-08-14T07:59:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still 0 CI checks. Needs maintainer trigger."
+        },
+        {
+          "at": "2026-08-14T08:37:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI now triggered but builds failed (JDK 17 and 25). Waiting for CI green."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25491,
@@ -4738,12 +4743,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T08:18:45Z",
+    "timestamp": "2026-08-14T08:37:33Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T08:17:34Z"
+  "last_reviewed_updated_at": "2026-08-14T08:35:51Z"
 }
