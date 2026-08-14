@@ -4858,27 +4858,32 @@
       "number": 25507,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T17:31:05Z",
+      "reviewed_at": "2026-08-14T17:41:12Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Will review when CI passes.",
+      "notes": "NO_ACTION: Author actively iterating (new commits). Still 0 CI checks. Will review when settled and CI passes.",
       "interactions": [
         {
           "at": "2026-08-14T17:31:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Will review when CI passes."
+        },
+        {
+          "at": "2026-08-14T17:41:12Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author actively iterating (new commits). Still 0 CI checks. Will review when settled and CI passes."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T17:31:05Z",
+    "timestamp": "2026-08-14T17:41:12Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T17:30:11Z"
+  "last_reviewed_updated_at": "2026-08-14T17:39:07Z"
 }
