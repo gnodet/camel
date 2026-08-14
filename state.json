@@ -4673,9 +4673,9 @@
       "number": 25491,
       "title": "CAMEL-23861: Phase 2 - TUI AI Usage view integrates GenAI OTel spans",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-14T06:34:25Z",
+      "reviewed_at": "2026-08-14T07:03:33Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: Two minor issues \u2014 isStatsViewForTesting() naming (called from production code but name implies test-only), redundant version element in pom.xml. 2 false positives filtered by verifier.",
+      "notes": "NO_ACTION: Author pushed fix commit, davsclaus approved. Our earlier COMMENT review addressed.",
       "interactions": [
         {
           "at": "2026-08-14T05:36:11Z",
@@ -4691,19 +4691,24 @@
           "at": "2026-08-14T06:34:25Z",
           "verdict": "COMMENT",
           "notes": "COMMENT: Two minor issues \u2014 isStatsViewForTesting() naming (called from production code but name implies test-only), redundant version element in pom.xml. 2 false positives filtered by verifier."
+        },
+        {
+          "at": "2026-08-14T07:03:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author pushed fix commit, davsclaus approved. Our earlier COMMENT review addressed."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T07:01:16Z",
+    "timestamp": "2026-08-14T07:03:33Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T07:00:02Z"
+  "last_reviewed_updated_at": "2026-08-14T07:01:30Z"
 }
