@@ -4811,14 +4811,35 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T15:35:41Z",
+      "reviewed_at": "2026-08-14T15:59:53Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Very large PR (5770+/2-, 87 files). Will review when CI passes.",
+      "notes": "NO_ACTION: CI builds now running (JDK 17, 25 IN_PROGRESS). Will review when CI passes.",
       "interactions": [
         {
           "at": "2026-08-14T15:35:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Very large PR (5770+/2-, 87 files). Will review when CI passes."
+        },
+        {
+          "at": "2026-08-14T15:59:53Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds now running (JDK 17, 25 IN_PROGRESS). Will review when CI passes."
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25495,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-14T15:59:53Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Will review when CI passes.",
+      "interactions": [
+        {
+          "at": "2026-08-14T15:59:53Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Will review when CI passes."
         }
       ],
       "review_count": 1
@@ -4826,12 +4847,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T15:46:08Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-14T15:59:53Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T15:44:42Z"
+  "last_reviewed_updated_at": "2026-08-14T15:57:53Z"
 }
