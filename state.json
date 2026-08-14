@@ -4811,9 +4811,9 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T15:59:53Z",
+      "reviewed_at": "2026-08-14T16:26:51Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds now running (JDK 17, 25 IN_PROGRESS). Will review when CI passes.",
+      "notes": "NO_ACTION: Author actively iterating (new commits). CI reset to 0 checks. Will review when iteration settles and CI passes.",
       "interactions": [
         {
           "at": "2026-08-14T15:35:41Z",
@@ -4824,9 +4824,14 @@
           "at": "2026-08-14T15:59:53Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds now running (JDK 17, 25 IN_PROGRESS). Will review when CI passes."
+        },
+        {
+          "at": "2026-08-14T16:26:51Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author actively iterating (new commits). CI reset to 0 checks. Will review when iteration settles and CI passes."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25495,
@@ -4847,12 +4852,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T15:59:53Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-14T16:26:51Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T15:57:53Z"
+  "last_reviewed_updated_at": "2026-08-14T16:25:48Z"
 }
