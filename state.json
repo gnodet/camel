@@ -4599,9 +4599,9 @@
       "number": 25492,
       "title": "CAMEL-24392: Fix BacklogTracerRouteAdvice draining WrappedFile streambody",
       "author": "gansheer",
-      "reviewed_at": "2026-08-14T08:18:44Z",
+      "reviewed_at": "2026-08-14T11:55:34Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author pushing new commits to address davsclaus CHANGES_REQUESTED. Active iteration.",
+      "notes": "NO_ACTION: Author addressed davsclaus feedback, now APPROVED. CI builds still pending.",
       "interactions": [
         {
           "at": "2026-08-13T16:19:41Z",
@@ -4632,9 +4632,14 @@
           "at": "2026-08-14T08:18:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author pushing new commits to address davsclaus CHANGES_REQUESTED. Active iteration."
+        },
+        {
+          "at": "2026-08-14T11:55:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author addressed davsclaus feedback, now APPROVED. CI builds still pending."
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25493,
@@ -4743,12 +4748,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T11:52:17Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-14T11:55:34Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T08:35:51Z"
+  "last_reviewed_updated_at": "2026-08-14T11:53:38Z"
 }
