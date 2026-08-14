@@ -4667,9 +4667,9 @@
       "number": 25497,
       "title": "CAMEL-23397: Support route tool annotations (returnDirect) in camel-openai agentic loop",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-14T07:16:09Z",
+      "reviewed_at": "2026-08-14T07:59:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI now triggered but builds still pending. Waiting for CI green.",
+      "notes": "NO_ACTION: Still 0 CI checks. Needs maintainer trigger.",
       "interactions": [
         {
           "at": "2026-08-14T00:02:13Z",
@@ -4680,17 +4680,22 @@
           "at": "2026-08-14T07:16:09Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI now triggered but builds still pending. Waiting for CI green."
+        },
+        {
+          "at": "2026-08-14T07:59:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Still 0 CI checks. Needs maintainer trigger."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25491,
       "title": "CAMEL-23861: Phase 2 - TUI AI Usage view integrates GenAI OTel spans",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-14T07:03:33Z",
+      "reviewed_at": "2026-08-14T07:59:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author pushed fix commit, davsclaus approved. Our earlier COMMENT review addressed.",
+      "notes": "NO_ACTION: davsclaus actively reviewing with inline comments. Already approved. No action needed.",
       "interactions": [
         {
           "at": "2026-08-14T05:36:11Z",
@@ -4711,19 +4716,24 @@
           "at": "2026-08-14T07:03:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author pushed fix commit, davsclaus approved. Our earlier COMMENT review addressed."
+        },
+        {
+          "at": "2026-08-14T07:59:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus actively reviewing with inline comments. Already approved. No action needed."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T07:50:08Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-14T07:59:42Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T07:48:13Z"
+  "last_reviewed_updated_at": "2026-08-14T07:58:13Z"
 }
