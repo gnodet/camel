@@ -4749,9 +4749,9 @@
       "number": 25504,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T13:26:15Z",
+      "reviewed_at": "2026-08-14T13:27:30Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Already APPROVED by gansheer. Backport of #25492 to camel-4.22.x. No additional review needed.",
+      "notes": "NO_ACTION: Already APPROVED. Backport of #25492 to camel-4.22.x. Re-triggered by new comment.",
       "interactions": [
         {
           "at": "2026-08-14T13:24:51Z",
@@ -4762,35 +4762,45 @@
           "at": "2026-08-14T13:26:15Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Already APPROVED by gansheer. Backport of #25492 to camel-4.22.x. No additional review needed."
+        },
+        {
+          "at": "2026-08-14T13:27:30Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED. Backport of #25492 to camel-4.22.x. Re-triggered by new comment."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25505,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T13:24:51Z",
+      "reviewed_at": "2026-08-14T13:27:30Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI checks still QUEUED, not green yet. Backport of #25492 to camel-4.18.x. Will review when CI passes.",
+      "notes": "NO_ACTION: Already APPROVED. Backport of #25492 to camel-4.18.x. Re-triggered by new review.",
       "interactions": [
         {
           "at": "2026-08-14T13:24:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI checks still QUEUED, not green yet. Backport of #25492 to camel-4.18.x. Will review when CI passes."
+        },
+        {
+          "at": "2026-08-14T13:27:30Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already APPROVED. Backport of #25492 to camel-4.18.x. Re-triggered by new review."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-14T13:26:15Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-14T13:27:30Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-14T13:23:57Z"
+  "last_reviewed_updated_at": "2026-08-14T13:26:50Z"
 }
