@@ -4826,9 +4826,9 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T16:26:51Z",
+      "reviewed_at": "2026-08-15T06:07:39Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author actively iterating (new commits). CI reset to 0 checks. Will review when iteration settles and CI passes.",
+      "notes": "NO_ACTION: Already CHANGES_REQUESTED by davsclaus. CI builds in progress. Maintainer actively reviewing.",
       "interactions": [
         {
           "at": "2026-08-14T15:35:41Z",
@@ -4844,9 +4844,14 @@
           "at": "2026-08-14T16:26:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author actively iterating (new commits). CI reset to 0 checks. Will review when iteration settles and CI passes."
+        },
+        {
+          "at": "2026-08-15T06:07:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already CHANGES_REQUESTED by davsclaus. CI builds in progress. Maintainer actively reviewing."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25495,
@@ -4909,12 +4914,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-15T04:34:36Z",
+    "timestamp": "2026-08-15T06:07:39Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-15T04:33:01Z"
+  "last_reviewed_updated_at": "2026-08-15T06:05:52Z"
 }
