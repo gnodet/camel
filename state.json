@@ -4873,9 +4873,9 @@
       "number": 25507,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T18:06:25Z",
+      "reviewed_at": "2026-08-15T06:16:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Author actively iterating (additions grew 958->1319). Still 0 CI checks. Will review when settled.",
+      "notes": "NO_ACTION: Already CHANGES_REQUESTED by davsclaus. Maintainer actively reviewing.",
       "interactions": [
         {
           "at": "2026-08-14T17:31:05Z",
@@ -4891,9 +4891,14 @@
           "at": "2026-08-14T18:06:25Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Author actively iterating (additions grew 958->1319). Still 0 CI checks. Will review when settled."
+        },
+        {
+          "at": "2026-08-15T06:16:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Already CHANGES_REQUESTED by davsclaus. Maintainer actively reviewing."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25508,
@@ -4914,12 +4919,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-15T06:07:39Z",
+    "timestamp": "2026-08-15T06:16:32Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-15T06:05:52Z"
+  "last_reviewed_updated_at": "2026-08-15T06:14:39Z"
 }
