@@ -4697,9 +4697,9 @@
       "number": 25497,
       "title": "CAMEL-23397: Support route tool annotations (returnDirect) in camel-openai agentic loop",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-15T06:50:42Z",
+      "reviewed_at": "2026-08-15T15:37:00Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still CHANGES_REQUESTED by davsclaus. Re-triggered by new comment.",
+      "notes": "NO_ACTION: Author iterating on davsclaus review feedback (new commits). Still CHANGES_REQUESTED.",
       "interactions": [
         {
           "at": "2026-08-14T00:02:13Z",
@@ -4735,9 +4735,14 @@
           "at": "2026-08-15T06:50:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still CHANGES_REQUESTED by davsclaus. Re-triggered by new comment."
+        },
+        {
+          "at": "2026-08-15T15:37:00Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Author iterating on davsclaus review feedback (new commits). Still CHANGES_REQUESTED."
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25491,
@@ -4939,12 +4944,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-15T07:07:36Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-15T15:37:00Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-15T06:48:53Z"
+  "last_reviewed_updated_at": "2026-08-15T15:36:04Z"
 }
