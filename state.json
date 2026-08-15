@@ -4904,27 +4904,32 @@
       "number": 25508,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-14T18:53:20Z",
+      "reviewed_at": "2026-08-15T06:20:39Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Will review when CI passes.",
+      "notes": "NO_ACTION: External contributor PR, still 0 CI checks. davsclaus commented. Will review when CI passes.",
       "interactions": [
         {
           "at": "2026-08-14T18:53:20Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, 0 CI checks \u2014 needs maintainer to trigger CI. Will review when CI passes."
+        },
+        {
+          "at": "2026-08-15T06:20:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor PR, still 0 CI checks. davsclaus commented. Will review when CI passes."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-15T06:16:32Z",
+    "timestamp": "2026-08-15T06:20:39Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-15T06:14:39Z"
+  "last_reviewed_updated_at": "2026-08-15T06:18:44Z"
 }
