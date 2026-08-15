@@ -4841,9 +4841,9 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-15T06:26:41Z",
+      "reviewed_at": "2026-08-15T16:18:41Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Still CHANGES_REQUESTED by davsclaus. Re-triggered by new comment.",
+      "notes": "NO_ACTION: Heavy iteration (new commits, 7 comments, 6 reviews). Still CHANGES_REQUESTED by davsclaus.",
       "interactions": [
         {
           "at": "2026-08-14T15:35:41Z",
@@ -4869,9 +4869,14 @@
           "at": "2026-08-15T06:26:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Still CHANGES_REQUESTED by davsclaus. Re-triggered by new comment."
+        },
+        {
+          "at": "2026-08-15T16:18:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Heavy iteration (new commits, 7 comments, 6 reviews). Still CHANGES_REQUESTED by davsclaus."
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25495,
@@ -4944,12 +4949,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-15T15:59:47Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-15T16:18:41Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-15T15:36:04Z"
+  "last_reviewed_updated_at": "2026-08-15T16:17:36Z"
 }
