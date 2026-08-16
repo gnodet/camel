@@ -5033,16 +5033,32 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25514,
+      "title": "CAMEL-24397: camel-tui - Fix --record producing no cast file",
+      "author": "ammachado",
+      "reviewed_at": "2026-08-16T22:49:38Z",
+      "verdict": "APPROVE",
+      "notes": "Solid fix for --record regression. Root cause well-documented, tests comprehensive, upgrade guide included.",
+      "interactions": [
+        {
+          "at": "2026-08-16T22:49:38Z",
+          "verdict": "APPROVE",
+          "notes": "Solid fix for --record regression. Root cause well-documented, tests comprehensive, upgrade guide included."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-16T22:24:35Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-16T22:49:38Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-16T07:22:56Z"
+  "last_reviewed_updated_at": "2026-08-16T22:40:31Z"
 }
