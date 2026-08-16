@@ -4965,9 +4965,9 @@
       "number": 25510,
       "title": "CAMEL-22114: Fix PQC KeyStore tests on Java 25",
       "author": "gnodet",
-      "reviewed_at": "2026-08-16T00:04:54Z",
+      "reviewed_at": "2026-08-16T05:25:11Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator's own PR \u2014 cannot self-review (re-trigger by new comment)",
+      "notes": "NO_ACTION: operator's own PR \u2014 cannot self-review (re-trigger: new commits + comment)",
       "interactions": [
         {
           "at": "2026-08-15T21:55:55Z",
@@ -4978,9 +4978,14 @@
           "at": "2026-08-16T00:04:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator's own PR \u2014 cannot self-review (re-trigger by new comment)"
+        },
+        {
+          "at": "2026-08-16T05:25:11Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator's own PR \u2014 cannot self-review (re-trigger: new commits + comment)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25512,
@@ -5017,12 +5022,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-16T02:35:52Z",
+    "timestamp": "2026-08-16T05:25:11Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-16T00:39:17Z"
+  "last_reviewed_updated_at": "2026-08-16T05:23:39Z"
 }
