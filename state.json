@@ -4954,9 +4954,9 @@
       "number": 25508,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-16T00:16:36Z",
+      "reviewed_at": "2026-08-18T16:30:18Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: external contributor, 0 CI checks \u2014 needs maintainer to trigger CI. davsclaus commented.",
+      "notes": "NO_ACTION: Still 0 CI checks despite review activity (davsclaus COMMENTED, atiaomar1978-hub AI review). External contributor, CI not triggered.",
       "interactions": [
         {
           "at": "2026-08-14T18:53:20Z",
@@ -4972,9 +4972,14 @@
           "at": "2026-08-16T00:16:36Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: external contributor, 0 CI checks \u2014 needs maintainer to trigger CI. davsclaus commented."
+        },
+        {
+          "at": "2026-08-18T16:30:18Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Still 0 CI checks despite review activity (davsclaus COMMENTED, atiaomar1978-hub AI review). External contributor, CI not triggered."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25510,
@@ -5138,12 +5143,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-18T16:03:53Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-18T16:30:23Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-18T10:04:31Z"
+  "last_reviewed_updated_at": "2026-08-18T16:27:42Z"
 }
