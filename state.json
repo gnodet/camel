@@ -5244,12 +5244,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-19T10:15:50Z",
+    "timestamp": "2026-08-19T10:18:55Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-19T10:13:57Z"
+  "last_reviewed_updated_at": "2026-08-19T10:16:50Z"
 }
