@@ -5282,17 +5282,22 @@
       "number": 25552,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-19T21:42:07Z",
+      "reviewed_at": "2026-08-19T22:01:52Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already APPROVED by committer oscerd, 0 CI checks",
+      "notes": "NO_ACTION: already APPROVED by committer oscerd, 0 CI checks. New activity is non-committer comments only.",
       "interactions": [
         {
           "at": "2026-08-19T21:42:07Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already APPROVED by committer oscerd, 0 CI checks"
+        },
+        {
+          "at": "2026-08-19T22:01:52Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by committer oscerd, 0 CI checks. New activity is non-committer comments only."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25554,
@@ -5313,12 +5318,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-19T21:44:32Z",
+    "timestamp": "2026-08-19T22:01:52Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-19T15:55:07Z"
+  "last_reviewed_updated_at": "2026-08-19T21:59:25Z"
 }
