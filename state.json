@@ -5224,16 +5224,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25549,
+      "title": "chore(ci): Adapt branch camel-4.22.x workflows",
+      "author": "gansheer",
+      "reviewed_at": "2026-08-19T09:02:19Z",
+      "verdict": "COMMENT",
+      "notes": "PR targets main but should target camel-4.22.x. Merging to main would break CI. Also missing BASE_REF update in sonar-build.yml and workflow updates in main-build.yml/pr-doc-validation.yml.",
+      "interactions": [
+        {
+          "at": "2026-08-19T09:02:19Z",
+          "verdict": "COMMENT",
+          "notes": "PR targets main but should target camel-4.22.x. Merging to main would break CI. Also missing BASE_REF update in sonar-build.yml and workflow updates in main-build.yml/pr-doc-validation.yml."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-19T08:43:28Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-19T09:02:24Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-19T08:19:36Z"
+  "last_reviewed_updated_at": "2026-08-19T08:45:46Z"
 }
