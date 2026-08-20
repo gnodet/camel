@@ -4954,9 +4954,9 @@
       "number": 25508,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-20T03:14:35Z",
+      "reviewed_at": "2026-08-20T14:22:10Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor), has committer comment from davsclaus",
+      "notes": "NO_ACTION: 0 CI checks (external contributor), active discussion with davsclaus but CI not triggered",
       "interactions": [
         {
           "at": "2026-08-14T18:53:20Z",
@@ -4982,9 +4982,14 @@
           "at": "2026-08-20T03:14:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor), has committer comment from davsclaus"
+        },
+        {
+          "at": "2026-08-20T14:22:10Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 0 CI checks (external contributor), active discussion with davsclaus but CI not triggered"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25510,
@@ -5431,12 +5436,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-20T11:04:08Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-20T14:22:10Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-20T11:02:09Z"
+  "last_reviewed_updated_at": "2026-08-20T14:19:28Z"
 }
