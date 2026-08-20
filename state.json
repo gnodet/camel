@@ -5271,17 +5271,22 @@
       "number": 25551,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-19T21:42:07Z",
+      "reviewed_at": "2026-08-20T01:10:50Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failed (build 25 FAILURE) + CHANGES_REQUESTED from reviewer",
+      "notes": "NO_ACTION: CI in progress (builds 17 and 25 running), new commits pushed",
       "interactions": [
         {
           "at": "2026-08-19T21:42:07Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failed (build 25 FAILURE) + CHANGES_REQUESTED from reviewer"
+        },
+        {
+          "at": "2026-08-20T01:10:50Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI in progress (builds 17 and 25 running), new commits pushed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25552,
@@ -5323,12 +5328,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-19T23:51:25Z",
+    "timestamp": "2026-08-20T01:10:50Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-19T23:48:51Z"
+  "last_reviewed_updated_at": "2026-08-20T01:08:22Z"
 }
