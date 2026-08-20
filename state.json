@@ -5396,16 +5396,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25557,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-20T07:22:37Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI in progress (2 running, 1 failure on posix-validator ubuntu). Targets camel-4.22.x.",
+      "interactions": [
+        {
+          "at": "2026-08-20T07:22:37Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI in progress (2 running, 1 failure on posix-validator ubuntu). Targets camel-4.22.x."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-20T07:19:33Z",
+    "timestamp": "2026-08-20T07:22:37Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-20T07:16:46Z"
+  "last_reviewed_updated_at": "2026-08-20T07:21:01Z"
 }
