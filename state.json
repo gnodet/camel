@@ -5431,27 +5431,32 @@
       "number": 25557,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-20T07:22:37Z",
+      "reviewed_at": "2026-08-20T20:19:19Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI in progress (2 running, 1 failure on posix-validator ubuntu). Targets camel-4.22.x.",
+      "notes": "NO_ACTION: CI completed with 3 failures (posix-validator ubuntu, windows-validator, camel-launcher-native). Not green.",
       "interactions": [
         {
           "at": "2026-08-20T07:22:37Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI in progress (2 running, 1 failure on posix-validator ubuntu). Targets camel-4.22.x."
+        },
+        {
+          "at": "2026-08-20T20:19:19Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI completed with 3 failures (posix-validator ubuntu, windows-validator, camel-launcher-native). Not green."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-20T20:12:11Z",
+    "timestamp": "2026-08-20T20:19:19Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-20T20:09:28Z"
+  "last_reviewed_updated_at": "2026-08-20T20:17:06Z"
 }
