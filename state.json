@@ -5276,9 +5276,9 @@
       "number": 25551,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-20T06:23:39Z",
+      "reviewed_at": "2026-08-20T11:04:08Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still failed (build 17 CANCELLED, build 25 FAILURE), new comments only",
+      "notes": "NO_ACTION: CI running again (builds 17, 25, build all IN_PROGRESS), new commits",
       "interactions": [
         {
           "at": "2026-08-19T21:42:07Z",
@@ -5304,17 +5304,22 @@
           "at": "2026-08-20T06:23:39Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still failed (build 17 CANCELLED, build 25 FAILURE), new comments only"
+        },
+        {
+          "at": "2026-08-20T11:04:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI running again (builds 17, 25, build all IN_PROGRESS), new commits"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25552,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-20T03:14:35Z",
+      "reviewed_at": "2026-08-20T11:04:08Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks, already APPROVED by committer oscerd, new commits pushed",
+      "notes": "NO_ACTION: still 0 CI checks, already APPROVED by committer, new commits",
       "interactions": [
         {
           "at": "2026-08-19T21:42:07Z",
@@ -5330,9 +5335,14 @@
           "at": "2026-08-20T03:14:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks, already APPROVED by committer oscerd, new commits pushed"
+        },
+        {
+          "at": "2026-08-20T11:04:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still 0 CI checks, already APPROVED by committer, new commits"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25554,
@@ -5421,12 +5431,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-20T08:50:19Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-20T11:04:08Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-20T08:26:31Z"
+  "last_reviewed_updated_at": "2026-08-20T11:02:09Z"
 }
