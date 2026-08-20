@@ -5354,9 +5354,9 @@
       "number": 25555,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-20T05:38:19Z",
+      "reviewed_at": "2026-08-20T07:19:33Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: still 0 CI checks (external contributor), new comment only",
+      "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed but CI not triggered",
       "interactions": [
         {
           "at": "2026-08-20T05:22:03Z",
@@ -5367,9 +5367,14 @@
           "at": "2026-08-20T05:38:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: still 0 CI checks (external contributor), new comment only"
+        },
+        {
+          "at": "2026-08-20T07:19:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed but CI not triggered"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25556,
@@ -5395,12 +5400,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-20T06:56:07Z",
+    "timestamp": "2026-08-20T07:19:33Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-20T06:53:31Z"
+  "last_reviewed_updated_at": "2026-08-20T07:16:46Z"
 }
