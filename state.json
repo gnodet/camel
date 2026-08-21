@@ -5524,12 +5524,12 @@
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-21T09:31:50Z",
+    "timestamp": "2026-08-21T09:47:13Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-21T09:25:20Z"
+  "last_reviewed_updated_at": "2026-08-21T09:44:57Z"
 }
