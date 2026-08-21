@@ -527,6 +527,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25510,
+      "title": "CAMEL-22114: Fix PQC KeyStore tests on Java 25 (InvalidKeyException)",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-21T16:36:01Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: All 3 low-severity findings rejected by verifier as false positives. Review suppressed. Operator's own PR.",
+      "interactions": [
+        {
+          "at": "2026-08-21T16:36:01Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: All 3 low-severity findings rejected by verifier as false positives. Review suppressed. Operator's own PR."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -632,12 +648,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T16:09:36Z",
+  "last_reviewed_updated_at": "2026-08-16T05:52:15Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-21T16:25:32Z",
+    "timestamp": "2026-08-21T16:36:04Z",
     "prs_checked": 3,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
