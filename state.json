@@ -910,6 +910,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25558,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T21:09:45Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor PR, no CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-21T21:09:45Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor PR, no CI triggered."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25559,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T21:09:45Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor PR (4.19.x backport), no CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-21T21:09:45Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor PR (4.19.x backport), no CI triggered."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25533,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T21:09:45Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor PR, no CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-21T21:09:45Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor PR, no CI triggered."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1015,10 +1063,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T20:47:10Z",
+  "last_reviewed_updated_at": "2026-08-21T06:24:15Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-21T20:49:27Z",
+    "timestamp": "2026-08-21T21:09:45Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
