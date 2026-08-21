@@ -511,6 +511,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25509,
+      "title": "CAMEL-23703: camel-launcher - fix brew audit --strict redundant version",
+      "author": "ammachado",
+      "reviewed_at": "2026-08-21T16:25:25Z",
+      "verdict": "APPROVE",
+      "notes": "Correct fix: removes redundant Homebrew version field, adapts validation script to extract version from URL before test-mode rewriting",
+      "interactions": [
+        {
+          "at": "2026-08-21T16:25:25Z",
+          "verdict": "APPROVE",
+          "notes": "Correct fix: removes redundant Homebrew version field, adapts validation script to extract version from URL before test-mode rewriting"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -616,10 +632,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T16:09:00Z",
+  "last_reviewed_updated_at": "2026-08-21T16:09:36Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-21T16:20:07Z",
+    "timestamp": "2026-08-21T16:25:32Z",
     "prs_checked": 3,
     "reviews_posted": 1,
     "tokens_estimate": 0
