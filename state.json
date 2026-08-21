@@ -607,6 +607,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25568,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T19:43:34Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean security fix aligning MimeMultipartDataFormat header filtering with mail consumer's CAMEL-23522 filtering. Correct strategy swap, proper test, upgrade guide entry.",
+      "interactions": [
+        {
+          "at": "2026-08-21T19:43:34Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean security fix aligning MimeMultipartDataFormat header filtering with mail consumer's CAMEL-23522 filtering. Correct strategy swap, proper test, upgrade guide entry."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25570,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T19:43:34Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Correct docs-only fix moving netty deserialization-filter upgrade note from 4.22 to 4.23 guide, updating version refs in netty-component.adoc.",
+      "interactions": [
+        {
+          "at": "2026-08-21T19:43:34Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Correct docs-only fix moving netty deserialization-filter upgrade note from 4.22 to 4.23 guide, updating version refs in netty-component.adoc."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25569,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T19:43:34Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI failed, deferred.",
+      "interactions": [
+        {
+          "at": "2026-08-21T19:43:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failed, deferred."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -712,12 +760,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T18:55:57Z",
+  "last_reviewed_updated_at": "2026-08-21T19:32:19Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-21T19:37:47Z",
+    "timestamp": "2026-08-21T19:43:34Z",
     "prs_checked": 3,
-    "reviews_posted": 1,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
