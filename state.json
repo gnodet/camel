@@ -596,33 +596,43 @@
       "number": 25567,
       "title": "CAMEL-24411: camel-oauth - stop the route when the processors do not authenticate the request",
       "author": "oscerd",
-      "reviewed_at": "2026-08-21T19:37:42Z",
-      "verdict": "APPROVE",
-      "notes": "Security fix: OAuth processors now call setRouteStop(true) on denial paths. 400->401 per RFC 6750. Sensitive auth header removed from log. Upgrade guide included.",
+      "reviewed_at": "2026-08-21T20:31:28Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Re-review (new commits), CI still running (builds pending).",
       "interactions": [
         {
           "at": "2026-08-21T19:37:42Z",
           "verdict": "APPROVE",
           "notes": "Security fix: OAuth processors now call setRouteStop(true) on denial paths. 400->401 per RFC 6750. Sensitive auth header removed from log. Upgrade guide included."
+        },
+        {
+          "at": "2026-08-21T20:31:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Re-review (new commits), CI still running (builds pending)."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25568,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-21T19:43:34Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean security fix aligning MimeMultipartDataFormat header filtering with mail consumer's CAMEL-23522 filtering. Correct strategy swap, proper test, upgrade guide entry.",
+      "reviewed_at": "2026-08-21T20:31:28Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Re-review (new commits), CI still running (builds pending).",
       "interactions": [
         {
           "at": "2026-08-21T19:43:34Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean security fix aligning MimeMultipartDataFormat header filtering with mail consumer's CAMEL-23522 filtering. Correct strategy swap, proper test, upgrade guide entry."
+        },
+        {
+          "at": "2026-08-21T20:31:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Re-review (new commits), CI still running (builds pending)."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25570,
@@ -836,6 +846,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25554,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-21T20:31:28Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor PR, no CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-21T20:31:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor PR, no CI triggered."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -941,10 +967,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-20T07:16:46Z",
+  "last_reviewed_updated_at": "2026-08-21T20:28:10Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-21T20:21:17Z",
+    "timestamp": "2026-08-21T20:31:28Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
