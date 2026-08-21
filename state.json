@@ -5462,59 +5462,74 @@
       "number": 25558,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-21T00:19:20Z",
+      "reviewed_at": "2026-08-21T00:38:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor atiaomar1978-hub). SEDA fix main branch.",
+      "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed",
       "interactions": [
         {
           "at": "2026-08-21T00:19:20Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor atiaomar1978-hub). SEDA fix main branch."
+        },
+        {
+          "at": "2026-08-21T00:38:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25560,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-21T00:19:20Z",
+      "reviewed_at": "2026-08-21T00:38:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor). SEDA fix 4.22.x backport.",
+      "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed",
       "interactions": [
         {
           "at": "2026-08-21T00:19:20Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor). SEDA fix 4.22.x backport."
+        },
+        {
+          "at": "2026-08-21T00:38:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25559,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-21T00:19:20Z",
+      "reviewed_at": "2026-08-21T00:38:43Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 0 CI checks (external contributor). SEDA fix 4.19.x backport.",
+      "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed",
       "interactions": [
         {
           "at": "2026-08-21T00:19:20Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 0 CI checks (external contributor). SEDA fix 4.19.x backport."
+        },
+        {
+          "at": "2026-08-21T00:38:43Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: still 0 CI checks (external contributor), new commits pushed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-21T00:19:20Z",
+    "timestamp": "2026-08-21T00:38:43Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-20T23:55:33Z"
+  "last_reviewed_updated_at": "2026-08-21T00:21:05Z"
 }
