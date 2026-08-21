@@ -591,6 +591,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25567,
+      "title": "CAMEL-24411: camel-oauth - stop the route when the processors do not authenticate the request",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-21T19:37:42Z",
+      "verdict": "APPROVE",
+      "notes": "Security fix: OAuth processors now call setRouteStop(true) on denial paths. 400->401 per RFC 6750. Sensitive auth header removed from log. Upgrade guide included.",
+      "interactions": [
+        {
+          "at": "2026-08-21T19:37:42Z",
+          "verdict": "APPROVE",
+          "notes": "Security fix: OAuth processors now call setRouteStop(true) on denial paths. 400->401 per RFC 6750. Sensitive auth header removed from log. Upgrade guide included."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -696,12 +712,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T09:48:35Z",
+  "last_reviewed_updated_at": "2026-08-21T18:55:57Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-21T19:31:07Z",
+    "timestamp": "2026-08-21T19:37:47Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
