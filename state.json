@@ -5520,16 +5520,32 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25562,
+      "title": "CAMEL-24370: camel-netty - resolve the shared deserialization filter in the object codecs",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-21T16:05:09Z",
+      "verdict": "APPROVE",
+      "notes": "Clean security improvement: integrates ObjectDecoder with shared DeserializationFilterHelper, closing last unfiltered deserialization entry point in camel-netty",
+      "interactions": [
+        {
+          "at": "2026-08-21T16:05:09Z",
+          "verdict": "APPROVE",
+          "notes": "Clean security improvement: integrates ObjectDecoder with shared DeserializationFilterHelper, closing last unfiltered deserialization entry point in camel-netty"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [],
   "last_run": {
-    "timestamp": "2026-08-21T15:41:18Z",
+    "timestamp": "2026-08-21T16:05:14Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "paused": false,
   "review_queue": [],
-  "last_reviewed_updated_at": "2026-08-21T15:39:14Z"
+  "last_reviewed_updated_at": "2026-08-21T15:57:27Z"
 }
