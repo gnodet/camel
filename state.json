@@ -1110,14 +1110,35 @@
       "number": 25575,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T17:58:24Z",
+      "reviewed_at": "2026-08-22T18:16:08Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Backport of CAMEL-24411 to 4.22.x, CI pending.",
+      "notes": "NO_ACTION: Backport 4.22.x, CI still pending.",
       "interactions": [
         {
           "at": "2026-08-22T17:58:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Backport of CAMEL-24411 to 4.22.x, CI pending."
+        },
+        {
+          "at": "2026-08-22T18:16:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport 4.22.x, CI still pending."
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25578,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-22T18:16:08Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: New PR, CI just started (builds pending).",
+      "interactions": [
+        {
+          "at": "2026-08-22T18:16:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New PR, CI just started (builds pending)."
         }
       ],
       "review_count": 1
@@ -1226,12 +1247,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T18:10:31Z",
+  "last_reviewed_updated_at": "2026-08-22T18:13:51Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T18:14:08Z",
-    "prs_checked": 3,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-22T18:16:08Z",
+    "prs_checked": 2,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
