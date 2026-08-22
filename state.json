@@ -1136,17 +1136,22 @@
       "number": 25578,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T18:16:08Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: New PR, CI just started (builds pending).",
+      "reviewed_at": "2026-08-22T18:50:46Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Security fix \u2014 netty-http extractTarget case-insensitive comparison closes auth bypass where differently-cased context-path skipped security constraints. Dead-code analysis accurate, full chain now consistent.",
       "interactions": [
         {
           "at": "2026-08-22T18:16:08Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: New PR, CI just started (builds pending)."
+        },
+        {
+          "at": "2026-08-22T18:50:46Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Security fix \u2014 netty-http extractTarget case-insensitive comparison closes auth bypass where differently-cased context-path skipped security constraints. Dead-code analysis accurate, full chain now consistent."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -1252,12 +1257,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T18:22:38Z",
+  "last_reviewed_updated_at": "2026-08-22T18:44:43Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T18:42:01Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-22T18:50:46Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
