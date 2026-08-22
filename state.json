@@ -1021,17 +1021,22 @@
       "number": 25573,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T05:37:33Z",
+      "reviewed_at": "2026-08-22T06:21:25Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: From fork (jam01/camel, 4.22.x backport), no CI triggered.",
+      "notes": "NO_ACTION: New activity is just oscerd APPROVE. Still no CI (from fork).",
       "interactions": [
         {
           "at": "2026-08-22T05:37:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: From fork (jam01/camel, 4.22.x backport), no CI triggered."
+        },
+        {
+          "at": "2026-08-22T06:21:25Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New activity is just oscerd APPROVE. Still no CI (from fork)."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -1137,11 +1142,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T05:33:41Z",
+  "last_reviewed_updated_at": "2026-08-22T06:19:29Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T05:39:17Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-22T06:21:25Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
