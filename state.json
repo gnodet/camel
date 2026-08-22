@@ -1110,9 +1110,9 @@
       "number": 25575,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T18:16:08Z",
+      "reviewed_at": "2026-08-22T18:25:18Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Backport 4.22.x, CI still pending.",
+      "notes": "NO_ACTION: Backport 4.22.x, CI failed (builds 17 and 25).",
       "interactions": [
         {
           "at": "2026-08-22T17:58:24Z",
@@ -1123,9 +1123,14 @@
           "at": "2026-08-22T18:16:08Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Backport 4.22.x, CI still pending."
+        },
+        {
+          "at": "2026-08-22T18:25:18Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport 4.22.x, CI failed (builds 17 and 25)."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25578,
@@ -1247,11 +1252,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T18:13:51Z",
+  "last_reviewed_updated_at": "2026-08-22T18:22:38Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T18:16:08Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-22T18:25:19Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
