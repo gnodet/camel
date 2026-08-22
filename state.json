@@ -548,17 +548,22 @@
       "number": 25514,
       "title": "CAMEL-24397: camel-tui - Fix --record producing no cast file",
       "author": "ammachado",
-      "reviewed_at": "2026-08-21T17:23:14Z",
+      "reviewed_at": "2026-08-22T05:37:33Z",
       "verdict": "APPROVE",
-      "notes": "Solid fix for silent recording regression. Root cause correctly identified (JLineBackend bypassing BackendFactory.create). Well-tested with 3 new test classes, proper documentation and upgrade guide entry.",
+      "notes": "APPROVE (re-review): New commit addresses all prior feedback \u2014 web+record conflict rejection, system property cleanup, CLI option forwarding, test isolation with junit-pioneer.",
       "interactions": [
         {
           "at": "2026-08-21T17:23:14Z",
           "verdict": "APPROVE",
           "notes": "Solid fix for silent recording regression. Root cause correctly identified (JLineBackend bypassing BackendFactory.create). Well-tested with 3 new test classes, proper documentation and upgrade guide entry."
+        },
+        {
+          "at": "2026-08-22T05:37:33Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE (re-review): New commit addresses all prior feedback \u2014 web+record conflict rejection, system property cleanup, CLI option forwarding, test isolation with junit-pioneer."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25565,
@@ -995,6 +1000,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25572,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-22T05:37:33Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: From fork (jam01/camel), no CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-22T05:37:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: From fork (jam01/camel), no CI triggered."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25573,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-22T05:37:33Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: From fork (jam01/camel, 4.22.x backport), no CI triggered.",
+      "interactions": [
+        {
+          "at": "2026-08-22T05:37:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: From fork (jam01/camel, 4.22.x backport), no CI triggered."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1100,12 +1137,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T02:46:10Z",
+  "last_reviewed_updated_at": "2026-08-22T05:33:41Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T02:53:22Z",
-    "prs_checked": 1,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-22T05:37:33Z",
+    "prs_checked": 3,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
