@@ -1047,49 +1047,64 @@
       "number": 25574,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T17:45:12Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (builds pending). Tiny fix: 1 file, +3/-2.",
+      "reviewed_at": "2026-08-22T18:14:08Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Correct fix for copy-pasted validation messages in KeyVaultProducer. Generic MISSING_SECRET_NAME + new MISSING_SECRET_PROPERTIES constant.",
       "interactions": [
         {
           "at": "2026-08-22T17:45:12Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (builds pending). Tiny fix: 1 file, +3/-2."
+        },
+        {
+          "at": "2026-08-22T18:14:08Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Correct fix for copy-pasted validation messages in KeyVaultProducer. Generic MISSING_SECRET_NAME + new MISSING_SECRET_PROPERTIES constant."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25576,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T17:58:23Z",
+      "reviewed_at": "2026-08-22T18:14:08Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Backport of CAMEL-24411 to 4.18.x, CI pending.",
+      "notes": "NO_ACTION: Backport 4.18.x, CI still pending.",
       "interactions": [
         {
           "at": "2026-08-22T17:58:23Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Backport of CAMEL-24411 to 4.18.x, CI pending."
+        },
+        {
+          "at": "2026-08-22T18:14:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport 4.18.x, CI still pending."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25577,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-22T17:58:24Z",
+      "reviewed_at": "2026-08-22T18:14:08Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Backport of CAMEL-24411 to 4.14.x, CI pending.",
+      "notes": "NO_ACTION: Backport 4.14.x, CI has one build failed, one pending.",
       "interactions": [
         {
           "at": "2026-08-22T17:58:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Backport of CAMEL-24411 to 4.14.x, CI pending."
+        },
+        {
+          "at": "2026-08-22T18:14:08Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport 4.14.x, CI has one build failed, one pending."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25575,
@@ -1211,12 +1226,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T17:56:20Z",
+  "last_reviewed_updated_at": "2026-08-22T18:10:31Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T17:58:24Z",
+    "timestamp": "2026-08-22T18:14:08Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
