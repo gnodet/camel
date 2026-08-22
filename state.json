@@ -654,9 +654,9 @@
       "number": 25569,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-21T20:05:30Z",
+      "reviewed_at": "2026-08-22T02:53:22Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (builds pending).",
+      "notes": "NO_ACTION: CI failed (builds 17 and 25 failed).",
       "interactions": [
         {
           "at": "2026-08-21T19:43:34Z",
@@ -667,9 +667,14 @@
           "at": "2026-08-21T20:05:30Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (builds pending)."
+        },
+        {
+          "at": "2026-08-22T02:53:22Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failed (builds 17 and 25 failed)."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25523,
@@ -1095,11 +1100,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T09:55:16Z",
+  "last_reviewed_updated_at": "2026-08-22T02:46:10Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T00:25:52Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-22T02:53:22Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
