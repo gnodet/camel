@@ -1042,6 +1042,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25574,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-22T17:45:12Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI still running (builds pending). Tiny fix: 1 file, +3/-2.",
+      "interactions": [
+        {
+          "at": "2026-08-22T17:45:12Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (builds pending). Tiny fix: 1 file, +3/-2."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1147,10 +1163,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T12:16:48Z",
+  "last_reviewed_updated_at": "2026-08-22T17:43:13Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T12:18:51Z",
+    "timestamp": "2026-08-22T17:45:12Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
