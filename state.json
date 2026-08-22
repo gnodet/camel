@@ -893,17 +893,22 @@
       "number": 25552,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-21T20:49:26Z",
+      "reviewed_at": "2026-08-22T12:18:50Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered.",
+      "notes": "NO_ACTION: New activity is oscerd re-APPROVE. Still no CI (from fork). Already has multiple approvals.",
       "interactions": [
         {
           "at": "2026-08-21T20:49:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered."
+        },
+        {
+          "at": "2026-08-22T12:18:50Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New activity is oscerd re-APPROVE. Still no CI (from fork). Already has multiple approvals."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25560,
@@ -1142,10 +1147,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-22T06:19:29Z",
+  "last_reviewed_updated_at": "2026-08-22T12:16:48Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-22T06:21:25Z",
+    "timestamp": "2026-08-22T12:18:51Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
