@@ -975,6 +975,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25590,
+      "title": "[backport 4.14.x] CAMEL-24421: camel-spring-redis deser filter",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:18:34Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI failing (4.14.x branch needs regen PR #25593 merged first)",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:18:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (4.14.x branch needs regen PR #25593 merged first)"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25591,
+      "title": "chore: regen generated resources after 4.18.5-SNAPSHOT bump",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:18:34Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Purely mechanical regen of 2047 generated files, version string replacement only",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:18:34Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Purely mechanical regen of 2047 generated files, version string replacement only"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25593,
+      "title": "chore: regen generated resources after 4.14.10-SNAPSHOT bump",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:18:34Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Purely mechanical regen of 1887 generated files, version string replacement only",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:18:34Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Purely mechanical regen of 1887 generated files, version string replacement only"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1080,12 +1128,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T08:27:59Z",
+  "last_reviewed_updated_at": "2026-08-23T08:47:59Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T09:11:54Z",
+    "timestamp": "2026-08-23T09:18:34Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
