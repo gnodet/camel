@@ -1119,6 +1119,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25592,
+      "title": "CAMEL-24384: camel-azure-eventgrid remove inapplicable dataVersion header",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:40:01Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean dead-code removal, dataVersion never applied to CloudEvent since inception",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:40:01Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean dead-code removal, dataVersion never applied to CloudEvent since inception"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25595,
+      "title": "CAMEL-24420: camel-hazelcast apply default serialization filter to client configs",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:40:02Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Security fix closing unfiltered JDK deser path in Hazelcast client mode",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:40:02Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Security fix closing unfiltered JDK deser path in Hazelcast client mode"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1224,12 +1256,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T09:09:01Z",
+  "last_reviewed_updated_at": "2026-08-23T09:26:44Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T09:33:56Z",
-    "prs_checked": 3,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-23T09:40:02Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
