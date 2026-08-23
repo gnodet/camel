@@ -1071,6 +1071,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25587,
+      "title": "CAMEL-24421: camel-spring-redis deserialization filter",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:33:56Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Security fix closing last unfiltered JDK deserialization path, follows DeserializationFilterHelper pattern",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:33:56Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Security fix closing last unfiltered JDK deserialization path, follows DeserializationFilterHelper pattern"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25571,
+      "title": "CAMEL-24418: HTTP URI override headers property placeholders",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:33:56Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI failing",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:33:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25596,
+      "title": "CAMEL-24422: camel-docling input-source interpretation",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T09:33:56Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI pending",
+      "interactions": [
+        {
+          "at": "2026-08-23T09:33:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1176,12 +1224,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T08:53:14Z",
+  "last_reviewed_updated_at": "2026-08-23T09:09:01Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T09:20:29Z",
+    "timestamp": "2026-08-23T09:33:56Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
