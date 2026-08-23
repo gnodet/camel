@@ -1285,6 +1285,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25587,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-23T08:20:07Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: New security PR from oscerd (deserialization filter for spring-redis). From fork, no CI yet.",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:20:07Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: New security PR from oscerd (deserialization filter for spring-redis). From fork, no CI yet."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1390,10 +1406,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T04:11:01Z",
+  "last_reviewed_updated_at": "2026-08-23T08:17:25Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T04:14:31Z",
+    "timestamp": "2026-08-23T08:20:07Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
