@@ -1301,6 +1301,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25588,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-23T08:25:21Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Backport 4.22.x spring-redis deserialization filter, CI pending.",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:25:21Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Backport 4.22.x spring-redis deserialization filter, CI pending."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1406,10 +1422,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T08:17:25Z",
+  "last_reviewed_updated_at": "2026-08-23T08:23:41Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T08:20:07Z",
+    "timestamp": "2026-08-23T08:25:21Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
