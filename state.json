@@ -687,6 +687,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25564,
+      "title": "CAMEL-24350: camel-google-pubsub - stop dropping list elements and null header values",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T08:58:14Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: Missing test for null-header fix; behavioral change needs upgrade guide entry",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:58:14Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: Missing test for null-header fix; behavioral change needs upgrade guide entry"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25565,
+      "title": "CAMEL-16809: camel-aws2-s3 - support ACL grant headers on putObject and multipart upload",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T08:58:14Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: Missing multipart upload test coverage; pre-existing StreamUploadProducer inconsistency noted",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:58:14Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: Missing multipart upload test coverage; pre-existing StreamUploadProducer inconsistency noted"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25551,
+      "title": "CAMEL-24337: Add Python 3 language component",
+      "author": "ramu11",
+      "reviewed_at": "2026-08-23T08:58:14Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI failing (build errors on Java 17 and 25)",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:58:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (build errors on Java 17 and 25)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -792,12 +840,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T09:48:35Z",
+  "last_reviewed_updated_at": "2026-08-21T18:49:38Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T08:47:44Z",
+    "timestamp": "2026-08-23T08:58:14Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
