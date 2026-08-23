@@ -735,6 +735,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25569,
+      "title": "CAMEL-24414: camel-core - resolve pollEnrich property placeholders",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-23T08:59:38Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI failing (build errors on Java 17 and 25)",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:59:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (build errors on Java 17 and 25)"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25572,
+      "title": "camel-sql: add javadoc to SqlOutputType enum constants",
+      "author": "jam01",
+      "reviewed_at": "2026-08-23T08:59:38Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Committer fork PR, no CI triggered",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:59:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Committer fork PR, no CI triggered"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25573,
+      "title": "camel-sql: add javadoc to SqlOutputType enum constants (4.22.x backport)",
+      "author": "jam01",
+      "reviewed_at": "2026-08-23T08:59:38Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: Committer fork PR, no CI triggered (already APPROVED)",
+      "interactions": [
+        {
+          "at": "2026-08-23T08:59:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Committer fork PR, no CI triggered (already APPROVED)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -840,12 +888,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-21T18:49:38Z",
+  "last_reviewed_updated_at": "2026-08-22T06:19:29Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T08:58:14Z",
+    "timestamp": "2026-08-23T08:59:39Z",
     "prs_checked": 3,
-    "reviews_posted": 2,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
