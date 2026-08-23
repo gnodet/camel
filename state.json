@@ -1113,17 +1113,22 @@
       "number": 25596,
       "title": "CAMEL-24422: camel-docling input-source interpretation",
       "author": "oscerd",
-      "reviewed_at": "2026-08-23T09:33:56Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending",
+      "reviewed_at": "2026-08-23T13:22:44Z",
+      "verdict": "APPROVE",
+      "notes": "Security hardening: gates implicit String body URL/path interpretation behind opt-in options, adds inputBaseDirectory containment, comprehensive tests and upgrade guide",
       "interactions": [
         {
           "at": "2026-08-23T09:33:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending"
+        },
+        {
+          "at": "2026-08-23T13:22:44Z",
+          "verdict": "APPROVE",
+          "notes": "Security hardening: gates implicit String body URL/path interpretation behind opt-in options, adds inputBaseDirectory containment, comprehensive tests and upgrade guide"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25592,
@@ -1261,12 +1266,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T09:54:05Z",
+  "last_reviewed_updated_at": "2026-08-23T13:14:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-23T12:12:40Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-23T13:22:49Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
