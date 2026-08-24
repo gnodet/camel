@@ -1412,9 +1412,9 @@
       "number": 25618,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T08:54:19Z",
+      "reviewed_at": "2026-08-24T09:58:10Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still pending on 4.22.x; bot greeting comment only; will review when CI completes",
+      "notes": "NO_ACTION: 4.22.x branch systemic CI failure still present; new comment is CI bot module list only",
       "interactions": [
         {
           "at": "2026-08-24T08:31:06Z",
@@ -1425,9 +1425,14 @@
           "at": "2026-08-24T08:54:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still pending on 4.22.x; bot greeting comment only; will review when CI completes"
+        },
+        {
+          "at": "2026-08-24T09:58:10Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: 4.22.x branch systemic CI failure still present; new comment is CI bot module list only"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25619,
@@ -1612,10 +1617,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T09:37:14Z",
+  "last_reviewed_updated_at": "2026-08-24T09:55:15Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T09:44:06Z",
+    "timestamp": "2026-08-24T09:58:10Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
