@@ -610,9 +610,9 @@
       "number": 25555,
       "title": "CAMEL-24406: camel-xml-jaxp: add prolog guard",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-24T13:37:59Z",
+      "reviewed_at": "2026-08-24T13:42:04Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: Croway actively iterating with author; no CI yet (external contributor)",
+      "notes": "NO_ACTION: no CI triggered yet \u2014 external contributor needs maintainer to run CI",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -648,9 +648,14 @@
           "at": "2026-08-24T13:37:59Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: Croway actively iterating with author; no CI yet (external contributor)"
+        },
+        {
+          "at": "2026-08-24T13:42:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: no CI triggered yet \u2014 external contributor needs maintainer to run CI"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25554,
@@ -1828,6 +1833,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25495,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T13:42:04Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: no CI triggered \u2014 external contributor, 10 days old, waiting for maintainer",
+      "interactions": [
+        {
+          "at": "2026-08-24T13:42:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: no CI triggered \u2014 external contributor, 10 days old, waiting for maintainer"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25497,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T13:42:04Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responded but no CI rerun yet",
+      "interactions": [
+        {
+          "at": "2026-08-24T13:42:04Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responded but no CI rerun yet"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1933,10 +1970,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T13:21:50Z",
+  "last_reviewed_updated_at": "2026-08-24T13:38:31Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T13:37:59Z",
+    "timestamp": "2026-08-24T13:42:05Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
