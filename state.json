@@ -1272,6 +1272,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25611,
+      "title": "(Major Issue) Camel Zookeeper Cluster Split brain issue when leader is isolated",
+      "author": "mustafaAlmonayer",
+      "reviewed_at": "2026-08-24T06:25:54Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review. Same author/topic as PR #25529.",
+      "interactions": [
+        {
+          "at": "2026-08-24T06:25:54Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review. Same author/topic as PR #25529."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1377,11 +1393,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:14:51Z",
+  "last_reviewed_updated_at": "2026-08-24T06:22:19Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T06:22:15Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-24T06:25:59Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
