@@ -1376,6 +1376,22 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25617,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T07:58:38Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new PR, CI still pending (JDK 17 + 25 builds queued); will review when CI completes",
+      "interactions": [
+        {
+          "at": "2026-08-24T07:58:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new PR, CI still pending (JDK 17 + 25 builds queued); will review when CI completes"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1481,11 +1497,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T07:38:31Z",
+  "last_reviewed_updated_at": "2026-08-24T07:56:15Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T07:54:14Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-24T07:58:38Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
