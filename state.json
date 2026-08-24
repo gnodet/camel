@@ -654,17 +654,22 @@
       "number": 25559,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers (4.19.x backport)",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-23T08:47:44Z",
+      "reviewed_at": "2026-08-24T10:26:42Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: committer Croway already engaging (questions target branch 4.19 vs 4.18.x); no CI; author needs to respond first",
       "interactions": [
         {
           "at": "2026-08-23T08:47:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T10:26:42Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: committer Croway already engaging (questions target branch 4.19 vs 4.18.x); no CI; author needs to respond first"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25533,
@@ -1622,10 +1627,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T10:05:22Z",
+  "last_reviewed_updated_at": "2026-08-24T10:24:26Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T10:08:00Z",
+    "timestamp": "2026-08-24T10:26:42Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
