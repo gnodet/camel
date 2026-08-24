@@ -1319,9 +1319,9 @@
       "number": 25613,
       "title": "[backport camel-4.22.x] CAMEL-24349: camel-google-functions - name the header createFunction is missing",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T06:53:53Z",
+      "reviewed_at": "2026-08-24T07:14:56Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment.",
+      "notes": "NO_ACTION: re-review triggered by CI bot comment only; CI still fails with systemic 4.22.x JDK 25 failure (JDK 17 cancelled); no human review activity",
       "interactions": [
         {
           "at": "2026-08-24T06:44:10Z",
@@ -1332,9 +1332,14 @@
           "at": "2026-08-24T06:53:53Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment."
+        },
+        {
+          "at": "2026-08-24T07:14:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: re-review triggered by CI bot comment only; CI still fails with systemic 4.22.x JDK 25 failure (JDK 17 cancelled); no human review activity"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25614,
@@ -1461,11 +1466,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:55:13Z",
+  "last_reviewed_updated_at": "2026-08-24T07:11:22Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T07:11:42Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-24T07:14:56Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
