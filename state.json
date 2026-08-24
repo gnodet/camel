@@ -1590,9 +1590,9 @@
       "number": 25621,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T11:19:42Z",
+      "reviewed_at": "2026-08-24T12:52:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author addressed all 4 findings in f7ff00a (property placement, FQCN, body fallback test, multi-audience test); CI pending on new commit \u2014 re-review when green",
+      "notes": "NO_ACTION: APPROVED; rate limit hit before could check details",
       "interactions": [
         {
           "at": "2026-08-24T08:40:56Z",
@@ -1618,9 +1618,14 @@
           "at": "2026-08-24T11:19:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author addressed all 4 findings in f7ff00a (property placement, FQCN, body fallback test, multi-audience test); CI pending on new commit \u2014 re-review when green"
+        },
+        {
+          "at": "2026-08-24T12:52:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: APPROVED; rate limit hit before could check details"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25622,
@@ -1657,14 +1662,35 @@
       "number": 25623,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T12:40:35Z",
+      "reviewed_at": "2026-08-24T12:52:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending on jolokia 2.6.0->2.6.1 bump by davsclaus; will review when green",
+      "notes": "NO_ACTION: APPROVED; rate limit hit before could check details",
       "interactions": [
         {
           "at": "2026-08-24T12:40:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending on jolokia 2.6.0->2.6.1 bump by davsclaus; will review when green"
+        },
+        {
+          "at": "2026-08-24T12:52:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: APPROVED; rate limit hit before could check details"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25523,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T12:52:14Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI green, APPROVED; rate limit hit \u2014 will review next run if still actionable",
+      "interactions": [
+        {
+          "at": "2026-08-24T12:52:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI green, APPROVED; rate limit hit \u2014 will review next run if still actionable"
         }
       ],
       "review_count": 1
@@ -1773,10 +1799,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:39:45Z",
+  "last_reviewed_updated_at": "2026-08-24T12:44:34Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:49:32Z",
+    "timestamp": "2026-08-24T12:52:14Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
