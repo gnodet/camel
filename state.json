@@ -974,9 +974,9 @@
       "number": 25589,
       "title": "[backport 4.18.x] CAMEL-24421: camel-spring-redis deser filter",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T07:49:24Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: new commits pushed but CI still pending (JDK 17 + 21 builds queued); will review when CI completes",
+      "reviewed_at": "2026-08-24T08:28:50Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean backport of camel-spring-redis deserialization filter security hardening to 4.18.x; FilteringDeserializer uses local-constant pattern consistent with NettyHttpHelper/MinaConverter; CI green",
       "interactions": [
         {
           "at": "2026-08-23T09:11:54Z",
@@ -987,17 +987,22 @@
           "at": "2026-08-24T07:49:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new commits pushed but CI still pending (JDK 17 + 21 builds queued); will review when CI completes"
+        },
+        {
+          "at": "2026-08-24T08:28:50Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean backport of camel-spring-redis deserialization filter security hardening to 4.18.x; FilteringDeserializer uses local-constant pattern consistent with NettyHttpHelper/MinaConverter; CI green"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25590,
       "title": "[backport 4.14.x] CAMEL-24421: camel-spring-redis deser filter",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T07:49:24Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: new commits pushed but CI still pending (JDK 17 + 21 builds queued); will review when CI completes",
+      "reviewed_at": "2026-08-24T08:28:50Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean backport of camel-spring-redis deserialization filter security hardening to 4.14.x; correct adaptation for branch without DeserializationFilterHelper; CI green",
       "interactions": [
         {
           "at": "2026-08-23T09:18:34Z",
@@ -1008,9 +1013,14 @@
           "at": "2026-08-24T07:49:24Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new commits pushed but CI still pending (JDK 17 + 21 builds queued); will review when CI completes"
+        },
+        {
+          "at": "2026-08-24T08:28:50Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean backport of camel-spring-redis deserialization filter security hardening to 4.14.x; correct adaptation for branch without DeserializationFilterHelper; CI green"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25591,
@@ -1497,12 +1507,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T07:56:15Z",
+  "last_reviewed_updated_at": "2026-08-24T07:38:31Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T08:01:53Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-24T08:28:50Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
