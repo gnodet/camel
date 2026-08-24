@@ -691,17 +691,22 @@
       "number": 25554,
       "title": "CAMEL-24404: camel-base-engine: wrap consumer startup exceptions",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-23T08:40:51Z",
+      "reviewed_at": "2026-08-24T17:20:00Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago",
       "interactions": [
         {
           "at": "2026-08-23T08:40:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T17:20:00Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25560,
@@ -2217,11 +2222,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:15:06Z",
+  "last_reviewed_updated_at": "2026-08-24T17:17:29Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:17:26Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-24T17:20:00Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
