@@ -1293,17 +1293,22 @@
       "number": 25612,
       "title": "[backport camel-4.22.x] CAMEL-24348: camel-google-bigquery - report unusable bodies and missing jobs properly",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T06:34:14Z",
+      "reviewed_at": "2026-08-24T06:41:00Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds pending on 4.22.x branch. 4.22.x has systemic CI issues. Will review once CI completes.",
+      "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment.",
       "interactions": [
         {
           "at": "2026-08-24T06:34:14Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds pending on 4.22.x branch. 4.22.x has systemic CI issues. Will review once CI completes."
+        },
+        {
+          "at": "2026-08-24T06:41:00Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -1409,11 +1414,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:30:51Z",
+  "last_reviewed_updated_at": "2026-08-24T06:38:09Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T06:38:08Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-24T06:41:00Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
