@@ -1402,6 +1402,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25618,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T08:31:06Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new PR, CI still pending; 4.22.x backport - may hit systemic CI failure",
+      "interactions": [
+        {
+          "at": "2026-08-24T08:31:06Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new PR, CI still pending; 4.22.x backport - may hit systemic CI failure"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25619,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T08:31:06Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new PR, CI still pending; will review when CI completes",
+      "interactions": [
+        {
+          "at": "2026-08-24T08:31:06Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new PR, CI still pending; will review when CI completes"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25616,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T08:38:38Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean revert of PR #25266; s390x Artemis image at icr.io requires auth (401); revert correctly restores @DisabledOnOs; CI green",
+      "interactions": [
+        {
+          "at": "2026-08-24T08:38:38Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean revert of PR #25266; s390x Artemis image at icr.io requires auth (401); revert correctly restores @DisabledOnOs; CI green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1507,12 +1555,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T07:38:31Z",
+  "last_reviewed_updated_at": "2026-08-24T08:28:27Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T08:28:50Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-24T08:38:38Z",
+    "prs_checked": 3,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
