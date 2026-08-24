@@ -1412,17 +1412,22 @@
       "number": 25618,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T08:31:06Z",
+      "reviewed_at": "2026-08-24T08:54:19Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new PR, CI still pending; 4.22.x backport - may hit systemic CI failure",
+      "notes": "NO_ACTION: CI still pending on 4.22.x; bot greeting comment only; will review when CI completes",
       "interactions": [
         {
           "at": "2026-08-24T08:31:06Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new PR, CI still pending; 4.22.x backport - may hit systemic CI failure"
+        },
+        {
+          "at": "2026-08-24T08:54:19Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending on 4.22.x; bot greeting comment only; will review when CI completes"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25619,
@@ -1576,11 +1581,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T08:34:44Z",
+  "last_reviewed_updated_at": "2026-08-24T08:51:17Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T08:49:44Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-24T08:54:19Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
