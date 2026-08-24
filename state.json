@@ -2331,8 +2331,8 @@
   "last_reviewed_updated_at": "2026-08-24T20:10:28Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T20:48:12Z",
-    "prs_checked": 3,
+    "timestamp": "2026-08-24T20:55:22Z",
+    "prs_checked": 0,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
