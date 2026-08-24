@@ -1571,9 +1571,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T10:52:18Z",
+      "reviewed_at": "2026-08-24T12:19:46Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: CVE-2026-35563 fix correct but pins only 1 of 11 directory-api artifacts creating version skew; missing JIRA ticket; inaccurate PR description; needs backport evaluation",
+      "notes": "NO_ACTION: author updated PR (6->61 additions, likely pinned all directory-api artifacts per our review); no CI checks yet on new branch (needs manual approval)",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1584,9 +1584,14 @@
           "at": "2026-08-24T10:52:18Z",
           "verdict": "COMMENT",
           "notes": "COMMENT: CVE-2026-35563 fix correct but pins only 1 of 11 directory-api artifacts creating version skew; missing JIRA ticket; inaccurate PR description; needs backport evaluation"
+        },
+        {
+          "at": "2026-08-24T12:19:46Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author updated PR (6->61 additions, likely pinned all directory-api artifacts per our review); no CI checks yet on new branch (needs manual approval)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [
@@ -1692,11 +1697,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T11:53:17Z",
+  "last_reviewed_updated_at": "2026-08-24T12:18:07Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:06:05Z",
-    "prs_checked": 3,
+    "timestamp": "2026-08-24T12:19:46Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
