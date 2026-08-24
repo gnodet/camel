@@ -558,9 +558,9 @@
       "number": 25532,
       "title": "CAMEL-24402: Lazy init threadNamePattern",
       "author": "graben",
-      "reviewed_at": "2026-08-24T16:12:28Z",
+      "reviewed_at": "2026-08-24T17:27:59Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responding; CI RED",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author actively discussing design approach with committers",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -581,9 +581,14 @@
           "at": "2026-08-24T16:12:28Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responding; CI RED"
+        },
+        {
+          "at": "2026-08-24T17:27:59Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author actively discussing design approach with committers"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25553,
@@ -2227,10 +2232,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:19:45Z",
+  "last_reviewed_updated_at": "2026-08-24T17:25:50Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:22:31Z",
+    "timestamp": "2026-08-24T17:28:00Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
