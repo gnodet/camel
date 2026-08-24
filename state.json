@@ -1965,9 +1965,9 @@
       "number": 25507,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T16:45:05Z",
+      "reviewed_at": "2026-08-24T18:59:48Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2, author actively iterating on feedback",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author pushing new commits",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
@@ -1988,9 +1988,14 @@
           "at": "2026-08-24T16:45:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2, author actively iterating on feedback"
+        },
+        {
+          "at": "2026-08-24T18:59:48Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author pushing new commits"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25512,
@@ -2160,17 +2165,22 @@
       "number": 22158,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T16:10:38Z",
+      "reviewed_at": "2026-08-24T18:59:48Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator (gnodet) own PR \u2014 self-review prohibited",
+      "notes": "NO_ACTION: operator's own PR (gnodet); self-review prohibited",
       "interactions": [
         {
           "at": "2026-08-24T16:10:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator (gnodet) own PR \u2014 self-review prohibited"
+        },
+        {
+          "at": "2026-08-24T18:59:48Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator's own PR (gnodet); self-review prohibited"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25632,
@@ -2197,6 +2207,22 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25633,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T18:59:48Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI not triggered (external contributor); new PR upgrading actions/setup-java to v6",
+      "interactions": [
+        {
+          "at": "2026-08-24T18:59:48Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); new PR upgrading actions/setup-java to v6"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2302,11 +2328,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T18:41:02Z",
+  "last_reviewed_updated_at": "2026-08-24T18:58:00Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T18:47:01Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-24T18:59:48Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
