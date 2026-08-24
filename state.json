@@ -2044,9 +2044,9 @@
       "number": 25630,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T16:51:32Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean test-only fix for NATS JetStream IT stream/durable name collision; suffix pattern matches existing convention",
+      "reviewed_at": "2026-08-24T17:03:52Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: already APPROVED in Run 1693; new activity is CI bot tested-modules comment",
       "interactions": [
         {
           "at": "2026-08-24T15:39:28Z",
@@ -2057,9 +2057,14 @@
           "at": "2026-08-24T16:51:32Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean test-only fix for NATS JetStream IT stream/durable name collision; suffix pattern matches existing convention"
+        },
+        {
+          "at": "2026-08-24T17:03:52Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED in Run 1693; new activity is CI bot tested-modules comment"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 22158,
@@ -2181,10 +2186,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T16:57:57Z",
+  "last_reviewed_updated_at": "2026-08-24T17:01:19Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:01:21Z",
+    "timestamp": "2026-08-24T17:03:52Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
