@@ -1731,9 +1731,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T14:25:02Z",
+      "reviewed_at": "2026-08-24T15:22:39Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus confirmed component-level scoping; awaiting author to push updated commits",
+      "notes": "NO_ACTION: author updated to component-level POMs per davsclaus feedback; no CI yet, awaiting re-review",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1769,9 +1769,14 @@
           "at": "2026-08-24T14:25:02Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus confirmed component-level scoping; awaiting author to push updated commits"
+        },
+        {
+          "at": "2026-08-24T15:22:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: author updated to component-level POMs per davsclaus feedback; no CI yet, awaiting re-review"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25623,
@@ -1814,17 +1819,22 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T13:34:26Z",
+      "reviewed_at": "2026-08-24T15:22:39Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED + CI RED \u2014 committer driving massive PR (5635 additions)",
+      "notes": "NO_ACTION: new commits after davsclaus CHANGES_REQUESTED; no CI triggered",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED + CI RED \u2014 committer driving massive PR (5635 additions)"
+        },
+        {
+          "at": "2026-08-24T15:22:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new commits after davsclaus CHANGES_REQUESTED; no CI triggered"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25507,
@@ -1902,6 +1912,22 @@
           "at": "2026-08-24T13:42:04Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responded but no CI rerun yet"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25289,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T15:22:39Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: operator (gnodet) own PR \u2014 self-review prohibited",
+      "interactions": [
+        {
+          "at": "2026-08-24T15:22:39Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator (gnodet) own PR \u2014 self-review prohibited"
         }
       ],
       "review_count": 1
@@ -2010,11 +2036,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T14:49:22Z",
+  "last_reviewed_updated_at": "2026-08-24T15:20:15Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T14:55:38Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-24T15:22:39Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
