@@ -1314,17 +1314,22 @@
       "number": 25613,
       "title": "[backport camel-4.22.x] CAMEL-24349: camel-google-functions - name the header createFunction is missing",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T06:44:10Z",
+      "reviewed_at": "2026-08-24T06:53:53Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds pending on 4.22.x branch. Will review once CI completes.",
+      "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment.",
       "interactions": [
         {
           "at": "2026-08-24T06:44:10Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds pending on 4.22.x branch. Will review once CI completes."
+        },
+        {
+          "at": "2026-08-24T06:53:53Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25614,
@@ -1446,10 +1451,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:45:40Z",
+  "last_reviewed_updated_at": "2026-08-24T06:51:14Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T06:48:19Z",
+    "timestamp": "2026-08-24T06:53:53Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
