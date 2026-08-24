@@ -605,9 +605,9 @@
       "number": 25555,
       "title": "CAMEL-24406: camel-xml-jaxp: add prolog guard",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-24T12:28:35Z",
+      "reviewed_at": "2026-08-24T13:31:15Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending on reworked code; committer Croway already guiding",
+      "notes": "NO_ACTION: Croway + author actively iterating on rework \u2014 no CI yet (external contributor)",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -633,9 +633,14 @@
           "at": "2026-08-24T12:28:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending on reworked code; committer Croway already guiding"
+        },
+        {
+          "at": "2026-08-24T13:31:15Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: Croway + author actively iterating on rework \u2014 no CI yet (external contributor)"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25554,
@@ -1301,9 +1306,9 @@
       "number": 25598,
       "title": "CAMEL-24290: ci - report tests that only passed after a retry",
       "author": "ammachado",
-      "reviewed_at": "2026-08-24T12:28:35Z",
+      "reviewed_at": "2026-08-24T13:31:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: committer apupier reviewing, suggests Develocity over custom flaky test reporting; author needs to respond",
+      "notes": "NO_ACTION: committers davsclaus + apupier actively reviewing CI flaky test reporting PR",
       "interactions": [
         {
           "at": "2026-08-24T05:41:41Z",
@@ -1314,9 +1319,14 @@
           "at": "2026-08-24T12:28:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: committer apupier reviewing, suggests Develocity over custom flaky test reporting; author needs to respond"
+        },
+        {
+          "at": "2026-08-24T13:31:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: committers davsclaus + apupier actively reviewing CI flaky test reporting PR"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25600,
@@ -1676,9 +1686,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T12:34:38Z",
+      "reviewed_at": "2026-08-24T13:31:14Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED (dep should be scoped to component, not global parent POM); author iterating",
+      "notes": "NO_ACTION: davsclaus + author actively iterating on CVE fix scoping \u2014 committer driving",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1699,9 +1709,14 @@
           "at": "2026-08-24T12:34:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED (dep should be scoped to component, not global parent POM); author iterating"
+        },
+        {
+          "at": "2026-08-24T13:31:14Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus + author actively iterating on CVE fix scoping \u2014 committer driving"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25623,
@@ -1844,10 +1859,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:52:24Z",
+  "last_reviewed_updated_at": "2026-08-24T13:21:50Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T13:24:32Z",
+    "timestamp": "2026-08-24T13:31:15Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
