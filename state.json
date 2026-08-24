@@ -1756,9 +1756,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T16:15:37Z",
+      "reviewed_at": "2026-08-24T17:01:21Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus posted 6 inline code suggestions (exclusion pattern, centralize version, nits); author needs to update",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2, author just pushed fix commit; operator gnodet already commented",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1804,9 +1804,14 @@
           "at": "2026-08-24T16:15:37Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus posted 6 inline code suggestions (exclusion pattern, centralize version, nits); author needs to update"
+        },
+        {
+          "at": "2026-08-24T17:01:21Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2, author just pushed fix commit; operator gnodet already commented"
         }
       ],
-      "review_count": 9
+      "review_count": 10
     },
     {
       "number": 25623,
@@ -2176,11 +2181,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T16:52:04Z",
+  "last_reviewed_updated_at": "2026-08-24T16:57:57Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T16:54:46Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-24T17:01:21Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
