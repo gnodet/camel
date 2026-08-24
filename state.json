@@ -1215,9 +1215,9 @@
       "number": 25594,
       "title": "CAMEL-24416: camel-core XmlConverter SAX factory alignment",
       "author": "oscerd",
-      "reviewed_at": "2026-08-23T10:01:33Z",
-      "verdict": "APPROVE",
-      "notes": "Security hardening: adds external-parameter-entities=false and load-external-dtd=false to SAX factory, aligning with DOM factory protections",
+      "reviewed_at": "2026-08-24T14:34:01Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: dual approval (gnodet + davsclaus)",
       "interactions": [
         {
           "at": "2026-08-23T09:20:29Z",
@@ -1228,9 +1228,14 @@
           "at": "2026-08-23T10:01:33Z",
           "verdict": "APPROVE",
           "notes": "Security hardening: adds external-parameter-entities=false and load-external-dtd=false to SAX factory, aligning with DOM factory protections"
+        },
+        {
+          "at": "2026-08-24T14:34:01Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: dual approval (gnodet + davsclaus)"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25587,
@@ -1990,10 +1995,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T14:21:17Z",
+  "last_reviewed_updated_at": "2026-08-24T14:25:22Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T14:25:02Z",
+    "timestamp": "2026-08-24T14:34:01Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
