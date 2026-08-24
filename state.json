@@ -1391,17 +1391,22 @@
       "number": 25617,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T07:58:38Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: new PR, CI still pending (JDK 17 + 25 builds queued); will review when CI completes",
+      "reviewed_at": "2026-08-24T08:45:12Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Correct fix for data-loss bug in CosmosDB change-feed consumer; fire-and-forget async processing caused lease checkpointing before route completion; switched to synchronous with rethrow; flagged missing backport to 4.18.x",
       "interactions": [
         {
           "at": "2026-08-24T07:58:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new PR, CI still pending (JDK 17 + 25 builds queued); will review when CI completes"
+        },
+        {
+          "at": "2026-08-24T08:45:12Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Correct fix for data-loss bug in CosmosDB change-feed consumer; fire-and-forget async processing caused lease checkpointing before route completion; switched to synchronous with rethrow; flagged missing backport to 4.18.x"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25618,
@@ -1447,6 +1452,22 @@
           "at": "2026-08-24T08:38:38Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean revert of PR #25266; s390x Artemis image at icr.io requires auth (401); revert correctly restores @DisabledOnOs; CI green"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25621,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T08:40:56Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new camel-spiffe component PR (1804 additions, 38 files); CI still pending; will review when CI completes",
+      "interactions": [
+        {
+          "at": "2026-08-24T08:40:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new camel-spiffe component PR (1804 additions, 38 files); CI still pending; will review when CI completes"
         }
       ],
       "review_count": 1
@@ -1555,11 +1576,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T08:28:27Z",
+  "last_reviewed_updated_at": "2026-08-24T08:34:44Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T08:38:38Z",
-    "prs_checked": 3,
+    "timestamp": "2026-08-24T08:45:12Z",
+    "prs_checked": 2,
     "reviews_posted": 1,
     "tokens_estimate": 0
   }
