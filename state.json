@@ -1013,17 +1013,22 @@
       "number": 25552,
       "title": "CAMEL-24373: Refactor camel-alibaba-eventbridge constants",
       "author": "arunsrajan",
-      "reviewed_at": "2026-08-23T09:11:54Z",
+      "reviewed_at": "2026-08-24T12:34:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor fork PR, no CI triggered (already APPROVED)",
+      "notes": "NO_ACTION: already APPROVED; new activity is bot greeting from force-push only",
       "interactions": [
         {
           "at": "2026-08-23T09:11:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor fork PR, no CI triggered (already APPROVED)"
+        },
+        {
+          "at": "2026-08-24T12:34:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED; new activity is bot greeting from force-push only"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25589,
@@ -1581,9 +1586,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T12:19:46Z",
+      "reviewed_at": "2026-08-24T12:34:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author updated PR (6->61 additions, likely pinned all directory-api artifacts per our review); no CI checks yet on new branch (needs manual approval)",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED (dep should be scoped to component, not global parent POM); author iterating",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1599,9 +1604,14 @@
           "at": "2026-08-24T12:19:46Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author updated PR (6->61 additions, likely pinned all directory-api artifacts per our review); no CI checks yet on new branch (needs manual approval)"
+        },
+        {
+          "at": "2026-08-24T12:34:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED (dep should be scoped to component, not global parent POM); author iterating"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     }
   ],
   "skipped_prs": [
@@ -1707,10 +1717,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:18:59Z",
+  "last_reviewed_updated_at": "2026-08-24T12:29:50Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:28:35Z",
+    "timestamp": "2026-08-24T12:34:38Z",
     "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
