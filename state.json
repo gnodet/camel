@@ -2029,17 +2029,22 @@
       "number": 25630,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T15:39:28Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: new PR from davsclaus (test fix), CI pending \u2014 wait for green",
+      "reviewed_at": "2026-08-24T16:51:32Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean test-only fix for NATS JetStream IT stream/durable name collision; suffix pattern matches existing convention",
       "interactions": [
         {
           "at": "2026-08-24T15:39:28Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new PR from davsclaus (test fix), CI pending \u2014 wait for green"
+        },
+        {
+          "at": "2026-08-24T16:51:32Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean test-only fix for NATS JetStream IT stream/durable name collision; suffix pattern matches existing convention"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 22158,
@@ -2161,12 +2166,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T16:42:10Z",
+  "last_reviewed_updated_at": "2026-08-24T16:46:07Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T16:45:05Z",
+    "timestamp": "2026-08-24T16:51:32Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
