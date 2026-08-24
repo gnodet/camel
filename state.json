@@ -1239,17 +1239,22 @@
       "number": 25592,
       "title": "CAMEL-24384: camel-azure-eventgrid remove inapplicable dataVersion header",
       "author": "oscerd",
-      "reviewed_at": "2026-08-23T09:40:01Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean dead-code removal, dataVersion never applied to CloudEvent since inception",
+      "reviewed_at": "2026-08-24T12:45:05Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: davsclaus also APPROVED (dual approval); ready to merge",
       "interactions": [
         {
           "at": "2026-08-23T09:40:01Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean dead-code removal, dataVersion never applied to CloudEvent since inception"
+        },
+        {
+          "at": "2026-08-24T12:45:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus also APPROVED (dual approval); ready to merge"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25595,
@@ -1345,33 +1350,43 @@
       "number": 25528,
       "title": "CAMEL-21313: Refactor camel-clickup tests for clarity and consistency",
       "author": "misrasuraj",
-      "reviewed_at": "2026-08-24T06:05:50Z",
+      "reviewed_at": "2026-08-24T12:45:05Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review.",
+      "notes": "NO_ACTION: already APPROVED; new comments are CI bot module list only",
       "interactions": [
         {
           "at": "2026-08-24T06:05:50Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review."
+        },
+        {
+          "at": "2026-08-24T12:45:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED; new comments are CI bot module list only"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25525,
       "title": "CAMEL-24399: Add configurable MCP server metadata to camel-mcp-server",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T06:18:35Z",
+      "reviewed_at": "2026-08-24T12:45:05Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review.",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED (missing regenerated catalog files); committer guiding",
       "interactions": [
         {
           "at": "2026-08-24T06:18:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review."
+        },
+        {
+          "at": "2026-08-24T12:45:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED (missing regenerated catalog files); committer guiding"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25611,
@@ -1743,10 +1758,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:36:51Z",
+  "last_reviewed_updated_at": "2026-08-24T11:32:07Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:40:35Z",
+    "timestamp": "2026-08-24T12:45:05Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
