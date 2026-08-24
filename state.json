@@ -1511,9 +1511,9 @@
       "number": 25525,
       "title": "CAMEL-24399: Add configurable MCP server metadata to camel-mcp-server",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T17:22:31Z",
+      "reviewed_at": "2026-08-24T17:37:59Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still running (5 checks pending); davsclaus CHANGES_REQUESTED, author just pushed fix commit",
+      "notes": "NO_ACTION: CI still running (2 pending); davsclaus CHANGES_REQUESTED still active, author iterating",
       "interactions": [
         {
           "at": "2026-08-24T06:18:35Z",
@@ -1529,9 +1529,14 @@
           "at": "2026-08-24T17:22:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still running (5 checks pending); davsclaus CHANGES_REQUESTED, author just pushed fix commit"
+        },
+        {
+          "at": "2026-08-24T17:37:59Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still running (2 pending); davsclaus CHANGES_REQUESTED still active, author iterating"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25611,
@@ -2237,10 +2242,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:33:48Z",
+  "last_reviewed_updated_at": "2026-08-24T17:35:11Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:35:33Z",
+    "timestamp": "2026-08-24T17:37:59Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
