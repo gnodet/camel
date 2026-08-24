@@ -590,17 +590,22 @@
       "number": 25555,
       "title": "CAMEL-24406: camel-xml-jaxp: add prolog guard",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-23T08:38:12Z",
+      "reviewed_at": "2026-08-24T11:02:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: CI pending after force-push; new comment is bot greeting only",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T11:02:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending after force-push; new comment is bot greeting only"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25554,
@@ -622,25 +627,30 @@
       "number": 25560,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers (4.22.x backport)",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-23T08:40:51Z",
+      "reviewed_at": "2026-08-24T11:02:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: CI pending after force-push; new comment is bot greeting only",
       "interactions": [
         {
           "at": "2026-08-23T08:40:51Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T11:02:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending after force-push; new comment is bot greeting only"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25558,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers after consumer route removal",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T10:59:56Z",
+      "reviewed_at": "2026-08-24T11:02:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: committer Croway actively engaging with detailed technical guidance (reproducer test + symmetric fix suggestion); author iterating",
+      "notes": "NO_ACTION: CI pending after force-push; committer Croway still actively guiding",
       "interactions": [
         {
           "at": "2026-08-23T08:40:52Z",
@@ -651,9 +661,14 @@
           "at": "2026-08-24T10:59:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: committer Croway actively engaging with detailed technical guidance (reproducer test + symmetric fix suggestion); author iterating"
+        },
+        {
+          "at": "2026-08-24T11:02:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending after force-push; committer Croway still actively guiding"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25559,
@@ -1637,11 +1652,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T10:48:58Z",
+  "last_reviewed_updated_at": "2026-08-24T11:00:47Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T10:59:56Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-24T11:02:32Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
