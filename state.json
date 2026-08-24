@@ -500,9 +500,9 @@
       "number": 25531,
       "title": "CAMEL-24401: Fix permanent temporary replyTo strand in camel-jms",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T12:49:32Z",
+      "reviewed_at": "2026-08-24T17:35:33Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with detailed inline feedback (generated files, test gaps, architecture questions)",
+      "notes": "NO_ACTION: davsclaus already APPROVED; CI still running; committer-approved PR needs no additional review",
       "interactions": [
         {
           "at": "2026-08-23T08:35:29Z",
@@ -513,9 +513,14 @@
           "at": "2026-08-24T12:49:32Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with detailed inline feedback (generated files, test gaps, architecture questions)"
+        },
+        {
+          "at": "2026-08-24T17:35:33Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus already APPROVED; CI still running; committer-approved PR needs no additional review"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25530,
@@ -2232,10 +2237,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:25:50Z",
+  "last_reviewed_updated_at": "2026-08-24T17:33:48Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:28:00Z",
+    "timestamp": "2026-08-24T17:35:33Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
