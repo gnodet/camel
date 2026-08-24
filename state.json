@@ -1470,9 +1470,9 @@
       "number": 25621,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T09:28:22Z",
+      "reviewed_at": "2026-08-24T09:39:28Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds still pending (JDK 17+25 queued); bot greeting comment; will review when CI completes",
+      "notes": "COMMENT: New camel-spiffe component (CAMEL-23305); well-structured but 4 non-blocking observations: misplaced pom property, FQCN usage, 2 test coverage gaps (body fallback, multi-audience); all confirmed by verifier",
       "interactions": [
         {
           "at": "2026-08-24T08:40:56Z",
@@ -1483,9 +1483,14 @@
           "at": "2026-08-24T09:28:22Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds still pending (JDK 17+25 queued); bot greeting comment; will review when CI completes"
+        },
+        {
+          "at": "2026-08-24T09:39:28Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: New camel-spiffe component (CAMEL-23305); well-structured but 4 non-blocking observations: misplaced pom property, FQCN usage, 2 test coverage gaps (body fallback, multi-audience); all confirmed by verifier"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [
@@ -1594,9 +1599,9 @@
   "last_reviewed_updated_at": "2026-08-24T09:25:39Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T09:28:22Z",
+    "timestamp": "2026-08-24T09:39:28Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
