@@ -1979,6 +1979,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25630,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T15:39:28Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: new PR from davsclaus (test fix), CI pending \u2014 wait for green",
+      "interactions": [
+        {
+          "at": "2026-08-24T15:39:28Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new PR from davsclaus (test fix), CI pending \u2014 wait for green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2084,11 +2100,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:26:14Z",
+  "last_reviewed_updated_at": "2026-08-24T15:36:04Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T15:36:24Z",
-    "prs_checked": 3,
+    "timestamp": "2026-08-24T15:39:28Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
