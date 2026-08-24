@@ -720,17 +720,22 @@
       "number": 25533,
       "title": "Hapi-fhir ppc64le integration tests activation",
       "author": "Megha-Megha13",
-      "reviewed_at": "2026-08-23T08:47:44Z",
+      "reviewed_at": "2026-08-24T12:40:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: CI failed; contributor asking for workflow approval; bot greeting posted",
       "interactions": [
         {
           "at": "2026-08-23T08:47:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T12:40:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failed; contributor asking for workflow approval; bot greeting posted"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25561,
@@ -1487,9 +1492,9 @@
       "number": 25618,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T09:58:10Z",
+      "reviewed_at": "2026-08-24T12:40:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: 4.22.x branch systemic CI failure still present; new comment is CI bot module list only",
+      "notes": "NO_ACTION: davsclaus APPROVED; 4.22.x systemic CI failure still present but committer approval given",
       "interactions": [
         {
           "at": "2026-08-24T08:31:06Z",
@@ -1505,9 +1510,14 @@
           "at": "2026-08-24T09:58:10Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: 4.22.x branch systemic CI failure still present; new comment is CI bot module list only"
+        },
+        {
+          "at": "2026-08-24T12:40:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus APPROVED; 4.22.x systemic CI failure still present but committer approval given"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25619,
@@ -1612,6 +1622,22 @@
         }
       ],
       "review_count": 4
+    },
+    {
+      "number": 25623,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T12:40:35Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI pending on jolokia 2.6.0->2.6.1 bump by davsclaus; will review when green",
+      "interactions": [
+        {
+          "at": "2026-08-24T12:40:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending on jolokia 2.6.0->2.6.1 bump by davsclaus; will review when green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1717,11 +1743,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:29:50Z",
+  "last_reviewed_updated_at": "2026-08-24T12:36:51Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:34:38Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-24T12:40:35Z",
+    "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
