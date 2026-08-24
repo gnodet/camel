@@ -1870,9 +1870,9 @@
       "number": 25507,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T16:30:42Z",
+      "reviewed_at": "2026-08-24T16:45:05Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new commits but no CI triggered; davsclaus CHANGES_REQUESTED x2",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2, author actively iterating on feedback",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
@@ -1888,9 +1888,14 @@
           "at": "2026-08-24T16:30:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new commits but no CI triggered; davsclaus CHANGES_REQUESTED x2"
+        },
+        {
+          "at": "2026-08-24T16:45:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2, author actively iterating on feedback"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25512,
@@ -2156,10 +2161,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T16:40:29Z",
+  "last_reviewed_updated_at": "2026-08-24T16:42:10Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T16:42:34Z",
+    "timestamp": "2026-08-24T16:45:05Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
