@@ -589,9 +589,9 @@
       "number": 25553,
       "title": "CAMEL-24403: camel-mail: handle MessageRemovedException",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-24T16:30:42Z",
+      "reviewed_at": "2026-08-24T16:42:30Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: new activity is automated rules review; Croway already APPROVED, CI green",
+      "notes": "NO_ACTION: CI not triggered (external contributor); author actively iterating on davsclaus review feedback with new commits",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -612,9 +612,14 @@
           "at": "2026-08-24T16:30:42Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: new activity is automated rules review; Croway already APPROVED, CI green"
+        },
+        {
+          "at": "2026-08-24T16:42:30Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); author actively iterating on davsclaus review feedback with new commits"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25555,
@@ -2151,11 +2156,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T16:27:34Z",
+  "last_reviewed_updated_at": "2026-08-24T16:40:29Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T16:30:42Z",
-    "prs_checked": 2,
+    "timestamp": "2026-08-24T16:42:34Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
