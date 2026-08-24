@@ -753,9 +753,9 @@
       "number": 25558,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers after consumer route removal",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T12:06:05Z",
+      "reviewed_at": "2026-08-24T17:55:40Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failed (both JDK 17+25); committer Croway still guiding; new comment is CI bot module list",
+      "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet",
       "interactions": [
         {
           "at": "2026-08-23T08:40:52Z",
@@ -776,9 +776,14 @@
           "at": "2026-08-24T12:06:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failed (both JDK 17+25); committer Croway still guiding; new comment is CI bot module list"
+        },
+        {
+          "at": "2026-08-24T17:55:40Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25559,
@@ -1894,9 +1899,9 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T15:46:38Z",
+      "reviewed_at": "2026-08-24T17:55:40Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author pushed CI fix, CI pending; davsclaus CHANGES_REQUESTED \u2014 committer driving",
+      "notes": "NO_ACTION: CI failing (1 FAILURE, 1 CANCELLED); davsclaus CHANGES_REQUESTED x2",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
@@ -1912,9 +1917,14 @@
           "at": "2026-08-24T15:46:38Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author pushed CI fix, CI pending; davsclaus CHANGES_REQUESTED \u2014 committer driving"
+        },
+        {
+          "at": "2026-08-24T17:55:40Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failing (1 FAILURE, 1 CANCELLED); davsclaus CHANGES_REQUESTED x2"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25507,
@@ -2257,12 +2267,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:38:16Z",
+  "last_reviewed_updated_at": "2026-08-24T17:45:14Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:53:06Z",
-    "prs_checked": 3,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-24T17:55:40Z",
+    "prs_checked": 2,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
