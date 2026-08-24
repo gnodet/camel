@@ -1161,6 +1161,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25598,
+      "title": "CAMEL-24290: ci - report tests that only passed after a retry",
+      "author": "ammachado",
+      "reviewed_at": "2026-08-24T05:41:41Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: External contributor fork PR \u2014 full CI build not triggered (only lightweight checks ran). Needs maintainer to trigger CI before review.",
+      "interactions": [
+        {
+          "at": "2026-08-24T05:41:41Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: External contributor fork PR \u2014 full CI build not triggered (only lightweight checks ran). Needs maintainer to trigger CI before review."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1266,11 +1282,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-23T13:14:23Z",
+  "last_reviewed_updated_at": "2026-08-24T02:34:31Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T01:49:17Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-24T05:41:46Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
