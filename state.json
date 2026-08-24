@@ -785,9 +785,9 @@
       "number": 25533,
       "title": "Hapi-fhir ppc64le integration tests activation",
       "author": "Megha-Megha13",
-      "reviewed_at": "2026-08-24T12:40:35Z",
+      "reviewed_at": "2026-08-24T17:17:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failed; contributor asking for workflow approval; bot greeting posted",
+      "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet",
       "interactions": [
         {
           "at": "2026-08-23T08:47:44Z",
@@ -798,9 +798,14 @@
           "at": "2026-08-24T12:40:35Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failed; contributor asking for workflow approval; bot greeting posted"
+        },
+        {
+          "at": "2026-08-24T17:17:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25561,
@@ -1083,9 +1088,9 @@
       "number": 25552,
       "title": "CAMEL-24373: Refactor camel-alibaba-eventbridge constants",
       "author": "arunsrajan",
-      "reviewed_at": "2026-08-24T16:10:37Z",
+      "reviewed_at": "2026-08-24T17:17:26Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: dual APPROVED (oscerd + orpiske), new commits but no CI triggered",
+      "notes": "NO_ACTION: already has 4 APPROVEs (saravanakumar1987, oscerd, atiaomar1978-hub, orpiske); CI green; new activity is CI bot comment",
       "interactions": [
         {
           "at": "2026-08-23T09:11:54Z",
@@ -1101,9 +1106,14 @@
           "at": "2026-08-24T16:10:37Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: dual APPROVED (oscerd + orpiske), new commits but no CI triggered"
+        },
+        {
+          "at": "2026-08-24T17:17:26Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already has 4 APPROVEs (saravanakumar1987, oscerd, atiaomar1978-hub, orpiske); CI green; new activity is CI bot comment"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25589,
@@ -2207,11 +2217,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:10:42Z",
+  "last_reviewed_updated_at": "2026-08-24T17:15:06Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:12:46Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-24T17:17:26Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
