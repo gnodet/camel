@@ -1475,9 +1475,9 @@
       "number": 25621,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T09:39:28Z",
+      "reviewed_at": "2026-08-24T10:08:00Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: New camel-spiffe component (CAMEL-23305); well-structured but 4 non-blocking observations: misplaced pom property, FQCN usage, 2 test coverage gaps (body fallback, multi-audience); all confirmed by verifier",
+      "notes": "NO_ACTION: new comment is CI bot module list only, no human response to review findings yet",
       "interactions": [
         {
           "at": "2026-08-24T08:40:56Z",
@@ -1493,9 +1493,14 @@
           "at": "2026-08-24T09:39:28Z",
           "verdict": "COMMENT",
           "notes": "COMMENT: New camel-spiffe component (CAMEL-23305); well-structured but 4 non-blocking observations: misplaced pom property, FQCN usage, 2 test coverage gaps (body fallback, multi-audience); all confirmed by verifier"
+        },
+        {
+          "at": "2026-08-24T10:08:00Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new comment is CI bot module list only, no human response to review findings yet"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25622,
@@ -1617,10 +1622,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T09:55:15Z",
+  "last_reviewed_updated_at": "2026-08-24T10:05:22Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T09:58:10Z",
+    "timestamp": "2026-08-24T10:08:00Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
