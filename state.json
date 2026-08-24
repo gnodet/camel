@@ -2086,17 +2086,22 @@
       "number": 25632,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T17:09:19Z",
+      "reviewed_at": "2026-08-24T17:12:46Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: backport of #25630 to camel-4.22.x; CI still running (4 checks pending)",
+      "notes": "NO_ACTION: backport of #25630 to camel-4.22.x; CI still running (2 builds pending, 2 SUCCESS)",
       "interactions": [
         {
           "at": "2026-08-24T17:09:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: backport of #25630 to camel-4.22.x; CI still running (4 checks pending)"
+        },
+        {
+          "at": "2026-08-24T17:12:46Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: backport of #25630 to camel-4.22.x; CI still running (2 builds pending, 2 SUCCESS)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -2202,10 +2207,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:07:06Z",
+  "last_reviewed_updated_at": "2026-08-24T17:10:42Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:09:19Z",
+    "timestamp": "2026-08-24T17:12:46Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
