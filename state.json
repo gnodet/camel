@@ -1325,6 +1325,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25614,
+      "title": "[backport camel-4.22.x] CAMEL-24347: camel-google-firestore - listCollections honours documentId",
+      "author": "oscerd",
+      "reviewed_at": "2026-08-24T06:48:19Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI builds pending on 4.22.x branch. Will review once CI completes.",
+      "interactions": [
+        {
+          "at": "2026-08-24T06:48:19Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds pending on 4.22.x branch. Will review once CI completes."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1430,10 +1446,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:39:28Z",
+  "last_reviewed_updated_at": "2026-08-24T06:45:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T06:44:10Z",
+    "timestamp": "2026-08-24T06:48:19Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
