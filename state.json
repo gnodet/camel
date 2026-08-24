@@ -1511,17 +1511,22 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T09:44:05Z",
+      "reviewed_at": "2026-08-24T10:52:18Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI still pending (builds running but not complete)",
+      "notes": "COMMENT: CVE-2026-35563 fix correct but pins only 1 of 11 directory-api artifacts creating version skew; missing JIRA ticket; inaccurate PR description; needs backport evaluation",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI still pending (builds running but not complete)"
+        },
+        {
+          "at": "2026-08-24T10:52:18Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: CVE-2026-35563 fix correct but pins only 1 of 11 directory-api artifacts creating version skew; missing JIRA ticket; inaccurate PR description; needs backport evaluation"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -1627,12 +1632,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T10:24:26Z",
+  "last_reviewed_updated_at": "2026-08-24T10:36:04Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T10:26:42Z",
+    "timestamp": "2026-08-24T10:52:19Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
