@@ -1346,9 +1346,9 @@
       "number": 25598,
       "title": "CAMEL-24290: ci - report tests that only passed after a retry",
       "author": "ammachado",
-      "reviewed_at": "2026-08-24T13:31:14Z",
+      "reviewed_at": "2026-08-24T14:55:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: committers davsclaus + apupier actively reviewing CI flaky test reporting PR",
+      "notes": "NO_ACTION: new commits pushed, CI pending; committers apupier + davsclaus already engaged",
       "interactions": [
         {
           "at": "2026-08-24T05:41:41Z",
@@ -1364,9 +1364,14 @@
           "at": "2026-08-24T13:31:14Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: committers davsclaus + apupier actively reviewing CI flaky test reporting PR"
+        },
+        {
+          "at": "2026-08-24T14:55:38Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: new commits pushed, CI pending; committers apupier + davsclaus already engaged"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25600,
@@ -2005,10 +2010,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T14:45:56Z",
+  "last_reviewed_updated_at": "2026-08-24T14:49:22Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T14:47:40Z",
+    "timestamp": "2026-08-24T14:55:38Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
