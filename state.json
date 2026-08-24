@@ -1711,9 +1711,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T14:20:09Z",
+      "reviewed_at": "2026-08-24T14:25:02Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus + author actively iterating on scoping \u2014 author asked clarifying question",
+      "notes": "NO_ACTION: davsclaus confirmed component-level scoping; awaiting author to push updated commits",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1744,9 +1744,14 @@
           "at": "2026-08-24T14:20:09Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus + author actively iterating on scoping \u2014 author asked clarifying question"
+        },
+        {
+          "at": "2026-08-24T14:25:02Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus confirmed component-level scoping; awaiting author to push updated commits"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25623,
@@ -1985,10 +1990,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T14:15:55Z",
+  "last_reviewed_updated_at": "2026-08-24T14:21:17Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T14:20:10Z",
+    "timestamp": "2026-08-24T14:25:02Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
