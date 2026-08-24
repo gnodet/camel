@@ -638,17 +638,22 @@
       "number": 25558,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers after consumer route removal",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-23T08:40:52Z",
+      "reviewed_at": "2026-08-24T10:59:56Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: committer Croway actively engaging with detailed technical guidance (reproducer test + symmetric fix suggestion); author iterating",
       "interactions": [
         {
           "at": "2026-08-23T08:40:52Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T10:59:56Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: committer Croway actively engaging with detailed technical guidance (reproducer test + symmetric fix suggestion); author iterating"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25559,
@@ -1632,12 +1637,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T10:36:04Z",
+  "last_reviewed_updated_at": "2026-08-24T10:48:58Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T10:52:19Z",
+    "timestamp": "2026-08-24T10:59:56Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
