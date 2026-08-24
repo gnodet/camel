@@ -1491,6 +1491,22 @@
         }
       ],
       "review_count": 3
+    },
+    {
+      "number": 25622,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-24T09:44:05Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI still pending (builds running but not complete)",
+      "interactions": [
+        {
+          "at": "2026-08-24T09:44:05Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI still pending (builds running but not complete)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -1596,12 +1612,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T09:25:39Z",
+  "last_reviewed_updated_at": "2026-08-24T09:37:14Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T09:39:28Z",
+    "timestamp": "2026-08-24T09:44:06Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
