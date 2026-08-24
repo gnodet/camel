@@ -1049,9 +1049,9 @@
       "number": 25589,
       "title": "[backport 4.18.x] CAMEL-24421: camel-spring-redis deser filter",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T08:28:50Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean backport of camel-spring-redis deserialization filter security hardening to 4.18.x; FilteringDeserializer uses local-constant pattern consistent with NettyHttpHelper/MinaConverter; CI green",
+      "reviewed_at": "2026-08-24T13:21:35Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: already APPROVED by gnodet + davsclaus \u2014 backport PR",
       "interactions": [
         {
           "at": "2026-08-23T09:11:54Z",
@@ -1067,9 +1067,14 @@
           "at": "2026-08-24T08:28:50Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean backport of camel-spring-redis deserialization filter security hardening to 4.18.x; FilteringDeserializer uses local-constant pattern consistent with NettyHttpHelper/MinaConverter; CI green"
+        },
+        {
+          "at": "2026-08-24T13:21:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by gnodet + davsclaus \u2014 backport PR"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25590,
@@ -1154,9 +1159,9 @@
       "number": 25588,
       "title": "[backport 4.22.x] CAMEL-24421: camel-spring-redis deser filter",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T11:08:27Z",
+      "reviewed_at": "2026-08-24T13:21:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI pending after new commits on 4.22.x backport",
+      "notes": "NO_ACTION: already APPROVED by davsclaus \u2014 backport PR",
       "interactions": [
         {
           "at": "2026-08-23T09:20:29Z",
@@ -1167,9 +1172,14 @@
           "at": "2026-08-24T11:08:27Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI pending after new commits on 4.22.x backport"
+        },
+        {
+          "at": "2026-08-24T13:21:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by davsclaus \u2014 backport PR"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25594,
@@ -1418,9 +1428,9 @@
       "number": 25612,
       "title": "[backport camel-4.22.x] CAMEL-24348: camel-google-bigquery - report unusable bodies and missing jobs properly",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T06:57:44Z",
+      "reviewed_at": "2026-08-24T13:21:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failed on 4.22.x \u2014 systemic camel-jbang-core test failure, unrelated to PR changes.",
+      "notes": "NO_ACTION: already APPROVED by davsclaus \u2014 backport PR",
       "interactions": [
         {
           "at": "2026-08-24T06:34:14Z",
@@ -1436,9 +1446,14 @@
           "at": "2026-08-24T06:57:44Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failed on 4.22.x \u2014 systemic camel-jbang-core test failure, unrelated to PR changes."
+        },
+        {
+          "at": "2026-08-24T13:21:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already APPROVED by davsclaus \u2014 backport PR"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25613,
@@ -1814,10 +1829,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:41:21Z",
+  "last_reviewed_updated_at": "2026-08-24T12:43:31Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T13:11:57Z",
+    "timestamp": "2026-08-24T13:21:35Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
