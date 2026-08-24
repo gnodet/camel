@@ -500,9 +500,9 @@
       "number": 25531,
       "title": "CAMEL-24401: Fix permanent temporary replyTo strand in camel-jms",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T17:58:10Z",
+      "reviewed_at": "2026-08-24T18:39:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus already APPROVED; CI rerunning after new commits pushed",
+      "notes": "NO_ACTION: davsclaus already APPROVED; CI now green (4 SUCCESS); ready to merge",
       "interactions": [
         {
           "at": "2026-08-23T08:35:29Z",
@@ -528,9 +528,14 @@
           "at": "2026-08-24T17:58:10Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus already APPROVED; CI rerunning after new commits pushed"
+        },
+        {
+          "at": "2026-08-24T18:39:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus already APPROVED; CI now green (4 SUCCESS); ready to merge"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25530,
@@ -1531,9 +1536,9 @@
       "number": 25525,
       "title": "CAMEL-24399: Add configurable MCP server metadata to camel-mcp-server",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T18:06:56Z",
+      "reviewed_at": "2026-08-24T18:39:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI failing (1 FAILURE, 1 CANCELLED); davsclaus just posted new CHANGES_REQUESTED review",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author pushed new commits",
       "interactions": [
         {
           "at": "2026-08-24T06:18:35Z",
@@ -1559,9 +1564,14 @@
           "at": "2026-08-24T18:06:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI failing (1 FAILURE, 1 CANCELLED); davsclaus just posted new CHANGES_REQUESTED review"
+        },
+        {
+          "at": "2026-08-24T18:39:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author pushed new commits"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25611,
@@ -2287,10 +2297,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T18:09:49Z",
+  "last_reviewed_updated_at": "2026-08-24T18:36:38Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T18:11:31Z",
+    "timestamp": "2026-08-24T18:39:35Z",
     "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
