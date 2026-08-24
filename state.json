@@ -500,9 +500,9 @@
       "number": 25531,
       "title": "CAMEL-24401: Fix permanent temporary replyTo strand in camel-jms",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T17:35:33Z",
+      "reviewed_at": "2026-08-24T17:53:06Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus already APPROVED; CI still running; committer-approved PR needs no additional review",
+      "notes": "NO_ACTION: davsclaus already APPROVED; CI still running",
       "interactions": [
         {
           "at": "2026-08-23T08:35:29Z",
@@ -518,9 +518,14 @@
           "at": "2026-08-24T17:35:33Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus already APPROVED; CI still running; committer-approved PR needs no additional review"
+        },
+        {
+          "at": "2026-08-24T17:53:06Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus already APPROVED; CI still running"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25530,
@@ -1999,17 +2004,22 @@
       "number": 25497,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T13:42:04Z",
+      "reviewed_at": "2026-08-24T17:53:06Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responded but no CI rerun yet",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2",
       "interactions": [
         {
           "at": "2026-08-24T13:42:04Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED, author responded but no CI rerun yet"
+        },
+        {
+          "at": "2026-08-24T17:53:06Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25289,
@@ -2121,9 +2131,9 @@
       "number": 25632,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T17:12:46Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: backport of #25630 to camel-4.22.x; CI still running (2 builds pending, 2 SUCCESS)",
+      "reviewed_at": "2026-08-24T17:53:06Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Clean backport of #25630 to camel-4.22.x; diffs identical; CI green",
       "interactions": [
         {
           "at": "2026-08-24T17:09:19Z",
@@ -2134,9 +2144,14 @@
           "at": "2026-08-24T17:12:46Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: backport of #25630 to camel-4.22.x; CI still running (2 builds pending, 2 SUCCESS)"
+        },
+        {
+          "at": "2026-08-24T17:53:06Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Clean backport of #25630 to camel-4.22.x; diffs identical; CI green"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     }
   ],
   "skipped_prs": [
@@ -2242,12 +2257,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T17:35:11Z",
+  "last_reviewed_updated_at": "2026-08-24T17:38:16Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T17:37:59Z",
-    "prs_checked": 1,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-24T17:53:06Z",
+    "prs_checked": 3,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
