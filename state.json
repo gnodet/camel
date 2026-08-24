@@ -1444,9 +1444,9 @@
       "number": 25613,
       "title": "[backport camel-4.22.x] CAMEL-24349: camel-google-functions - name the header createFunction is missing",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T07:14:56Z",
+      "reviewed_at": "2026-08-24T13:11:57Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: re-review triggered by CI bot comment only; CI still fails with systemic 4.22.x JDK 25 failure (JDK 17 cancelled); no human review activity",
+      "notes": "NO_ACTION: davsclaus APPROVED; 4.22.x backport ready",
       "interactions": [
         {
           "at": "2026-08-24T06:44:10Z",
@@ -1462,17 +1462,22 @@
           "at": "2026-08-24T07:14:56Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: re-review triggered by CI bot comment only; CI still fails with systemic 4.22.x JDK 25 failure (JDK 17 cancelled); no human review activity"
+        },
+        {
+          "at": "2026-08-24T13:11:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus APPROVED; 4.22.x backport ready"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25614,
       "title": "[backport camel-4.22.x] CAMEL-24347: camel-google-firestore - listCollections honours documentId",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T07:28:20Z",
+      "reviewed_at": "2026-08-24T13:11:57Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: re-review triggered by CI bot comment only; CI still fails on 4.22.x (both JDK 17 and 25); systemic branch issue",
+      "notes": "NO_ACTION: davsclaus APPROVED; 4.22.x backport ready",
       "interactions": [
         {
           "at": "2026-08-24T06:48:19Z",
@@ -1488,17 +1493,22 @@
           "at": "2026-08-24T07:28:20Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: re-review triggered by CI bot comment only; CI still fails on 4.22.x (both JDK 17 and 25); systemic branch issue"
+        },
+        {
+          "at": "2026-08-24T13:11:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus APPROVED; 4.22.x backport ready"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25617,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T08:45:12Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Correct fix for data-loss bug in CosmosDB change-feed consumer; fire-and-forget async processing caused lease checkpointing before route completion; switched to synchronous with rethrow; flagged missing backport to 4.18.x",
+      "reviewed_at": "2026-08-24T13:11:57Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: davsclaus also APPROVED (dual approval with gnodet); ready to merge",
       "interactions": [
         {
           "at": "2026-08-24T07:58:38Z",
@@ -1509,9 +1519,14 @@
           "at": "2026-08-24T08:45:12Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Correct fix for data-loss bug in CosmosDB change-feed consumer; fire-and-forget async processing caused lease checkpointing before route completion; switched to synchronous with rethrow; flagged missing backport to 4.18.x"
+        },
+        {
+          "at": "2026-08-24T13:11:57Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus also APPROVED (dual approval with gnodet); ready to merge"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25618,
@@ -1799,10 +1814,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:44:34Z",
+  "last_reviewed_updated_at": "2026-08-24T12:41:21Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:52:14Z",
+    "timestamp": "2026-08-24T13:11:57Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
