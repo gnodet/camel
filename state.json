@@ -500,17 +500,22 @@
       "number": 25531,
       "title": "CAMEL-24401: Fix permanent temporary replyTo strand in camel-jms",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-23T08:35:29Z",
+      "reviewed_at": "2026-08-24T12:49:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with detailed inline feedback (generated files, test gaps, architecture questions)",
       "interactions": [
         {
           "at": "2026-08-23T08:35:29Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor PR, no CI triggered (requires maintainer)"
+        },
+        {
+          "at": "2026-08-24T12:49:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED with detailed inline feedback (generated files, test gaps, architecture questions)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25530,
@@ -553,9 +558,9 @@
       "number": 25532,
       "title": "CAMEL-24402: Lazy init threadNamePattern",
       "author": "graben",
-      "reviewed_at": "2026-08-24T06:01:58Z",
+      "reviewed_at": "2026-08-24T12:49:32Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds actively running (JDK 17 and JDK 25 in progress). Will review once CI completes. Re-review triggered by new commits, 7 comments, 1 review.",
+      "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED on lazy init threadNamePattern approach",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -566,9 +571,14 @@
           "at": "2026-08-24T06:01:58Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds actively running (JDK 17 and JDK 25 in progress). Will review once CI completes. Re-review triggered by new commits, 7 comments, 1 review."
+        },
+        {
+          "at": "2026-08-24T12:49:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus CHANGES_REQUESTED on lazy init threadNamePattern approach"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25553,
@@ -1538,9 +1548,9 @@
       "number": 25619,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T09:06:24Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: Clean cherry-pick backport of CAMEL-24350 (google-pubsub list element dropping + null header NPE) to 4.18.x; byte-for-byte identical to merged PR #25564; CI green",
+      "reviewed_at": "2026-08-24T12:49:32Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: davsclaus also APPROVED (dual approval with gnodet); ready to merge",
       "interactions": [
         {
           "at": "2026-08-24T08:31:06Z",
@@ -1551,9 +1561,14 @@
           "at": "2026-08-24T09:06:24Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: Clean cherry-pick backport of CAMEL-24350 (google-pubsub list element dropping + null header NPE) to 4.18.x; byte-for-byte identical to merged PR #25564; CI green"
+        },
+        {
+          "at": "2026-08-24T12:49:32Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus also APPROVED (dual approval with gnodet); ready to merge"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25616,
@@ -1758,10 +1773,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T11:32:07Z",
+  "last_reviewed_updated_at": "2026-08-24T12:39:45Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:45:05Z",
+    "timestamp": "2026-08-24T12:49:32Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
