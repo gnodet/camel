@@ -590,9 +590,9 @@
       "number": 25555,
       "title": "CAMEL-24406: camel-xml-jaxp: add prolog guard",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-24T12:06:05Z",
+      "reviewed_at": "2026-08-24T12:28:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author reworked per Croway feedback (224->69 additions); no CI checks on new branch yet",
+      "notes": "NO_ACTION: CI pending on reworked code; committer Croway already guiding",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -613,9 +613,14 @@
           "at": "2026-08-24T12:06:05Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author reworked per Croway feedback (224->69 additions); no CI checks on new branch yet"
+        },
+        {
+          "at": "2026-08-24T12:28:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI pending on reworked code; committer Croway already guiding"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25554,
@@ -1256,17 +1261,22 @@
       "number": 25598,
       "title": "CAMEL-24290: ci - report tests that only passed after a retry",
       "author": "ammachado",
-      "reviewed_at": "2026-08-24T05:41:41Z",
+      "reviewed_at": "2026-08-24T12:28:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor fork PR \u2014 full CI build not triggered (only lightweight checks ran). Needs maintainer to trigger CI before review.",
+      "notes": "NO_ACTION: committer apupier reviewing, suggests Develocity over custom flaky test reporting; author needs to respond",
       "interactions": [
         {
           "at": "2026-08-24T05:41:41Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor fork PR \u2014 full CI build not triggered (only lightweight checks ran). Needs maintainer to trigger CI before review."
+        },
+        {
+          "at": "2026-08-24T12:28:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: committer apupier reviewing, suggests Develocity over custom flaky test reporting; author needs to respond"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25600,
@@ -1697,11 +1707,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T12:18:07Z",
+  "last_reviewed_updated_at": "2026-08-24T12:18:59Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T12:19:46Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-24T12:28:35Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
