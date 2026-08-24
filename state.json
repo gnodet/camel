@@ -1293,9 +1293,9 @@
       "number": 25612,
       "title": "[backport camel-4.22.x] CAMEL-24348: camel-google-bigquery - report unusable bodies and missing jobs properly",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T06:41:00Z",
+      "reviewed_at": "2026-08-24T06:57:44Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment.",
+      "notes": "NO_ACTION: CI failed on 4.22.x \u2014 systemic camel-jbang-core test failure, unrelated to PR changes.",
       "interactions": [
         {
           "at": "2026-08-24T06:34:14Z",
@@ -1306,9 +1306,14 @@
           "at": "2026-08-24T06:41:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds still pending on 4.22.x. Re-triggered by bot comment."
+        },
+        {
+          "at": "2026-08-24T06:57:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI failed on 4.22.x \u2014 systemic camel-jbang-core test failure, unrelated to PR changes."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25613,
@@ -1335,17 +1340,22 @@
       "number": 25614,
       "title": "[backport camel-4.22.x] CAMEL-24347: camel-google-firestore - listCollections honours documentId",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T06:48:19Z",
+      "reviewed_at": "2026-08-24T06:57:44Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI builds pending on 4.22.x branch. Will review once CI completes.",
+      "notes": "NO_ACTION: CI builds still pending on 4.22.x.",
       "interactions": [
         {
           "at": "2026-08-24T06:48:19Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI builds pending on 4.22.x branch. Will review once CI completes."
+        },
+        {
+          "at": "2026-08-24T06:57:44Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: CI builds still pending on 4.22.x."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -1451,11 +1461,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T06:51:14Z",
+  "last_reviewed_updated_at": "2026-08-24T06:55:13Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T06:53:53Z",
-    "prs_checked": 1,
+    "timestamp": "2026-08-24T06:57:44Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
