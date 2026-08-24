@@ -1741,9 +1741,9 @@
       "number": 25622,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T15:22:39Z",
+      "reviewed_at": "2026-08-24T16:15:37Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: author updated to component-level POMs per davsclaus feedback; no CI yet, awaiting re-review",
+      "notes": "NO_ACTION: davsclaus posted 6 inline code suggestions (exclusion pattern, centralize version, nits); author needs to update",
       "interactions": [
         {
           "at": "2026-08-24T09:44:05Z",
@@ -1784,9 +1784,14 @@
           "at": "2026-08-24T15:22:39Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author updated to component-level POMs per davsclaus feedback; no CI yet, awaiting re-review"
+        },
+        {
+          "at": "2026-08-24T16:15:37Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus posted 6 inline code suggestions (exclusion pattern, centralize version, nits); author needs to update"
         }
       ],
-      "review_count": 8
+      "review_count": 9
     },
     {
       "number": 25623,
@@ -2136,10 +2141,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-24T16:07:21Z",
+  "last_reviewed_updated_at": "2026-08-24T16:11:20Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-24T16:12:28Z",
+    "timestamp": "2026-08-24T16:15:37Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
