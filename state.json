@@ -2616,6 +2616,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25715,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T17:40:06Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: jbang export fix - correct and well-tested",
+      "interactions": [
+        {
+          "at": "2026-08-25T17:40:06Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: jbang export fix - correct and well-tested"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25716,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T17:40:06Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: jbang export backport to camel-4.8.x",
+      "interactions": [
+        {
+          "at": "2026-08-25T17:40:06Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: jbang export backport to camel-4.8.x"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
