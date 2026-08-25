@@ -2436,6 +2436,70 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 141,
+      "title": "Fix #109: integration tests for includePaths, disableOnBaseBranch, failSafe=false, CI base detection",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:46:00Z",
+      "verdict": "APPROVE",
+      "notes": "test: Four new ITs filling coverage gaps for existing config paths. Suggested milestone 0.4.0.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:46:00Z",
+          "verdict": "APPROVE",
+          "notes": "test: Four new ITs filling coverage gaps for existing config paths. Suggested milestone 0.4.0."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25683,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:56:11Z",
+      "verdict": "APPROVE",
+      "notes": "Security fix: XXE/local-file-disclosure via documentType=InputSource in XPathBuilder",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:56:11Z",
+          "verdict": "APPROVE",
+          "notes": "Security fix: XXE/local-file-disclosure via documentType=InputSource in XPathBuilder"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25713,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:56:11Z",
+      "verdict": "APPROVE",
+      "notes": "Config: dependabot grouping for Apache Avro dependencies",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:56:11Z",
+          "verdict": "APPROVE",
+          "notes": "Config: dependabot grouping for Apache Avro dependencies"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25714,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:56:11Z",
+      "verdict": "APPROVE",
+      "notes": "Config: dependabot grouping for Alibaba Cloud (aliyun) dependencies",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:56:11Z",
+          "verdict": "APPROVE",
+          "notes": "Config: dependabot grouping for Alibaba Cloud (aliyun) dependencies"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2541,10 +2605,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T11:05:32Z",
+  "last_reviewed_updated_at": "2026-08-25T13:15:41Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T13:40:50Z",
+    "timestamp": "2026-08-25T13:56:11Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
