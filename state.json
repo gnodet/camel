@@ -1295,9 +1295,9 @@
       "number": 25594,
       "title": "CAMEL-24416: camel-core XmlConverter SAX factory alignment",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T14:34:01Z",
+      "reviewed_at": "2026-08-25T15:12:35Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: dual approval (gnodet + davsclaus)",
+      "notes": "NO_ACTION: already has our APPROVE review + dual committer approval (gnodet+davsclaus), CI green",
       "interactions": [
         {
           "at": "2026-08-23T09:20:29Z",
@@ -1313,9 +1313,14 @@
           "at": "2026-08-24T14:34:01Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: dual approval (gnodet + davsclaus)"
+        },
+        {
+          "at": "2026-08-25T15:12:35Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: already has our APPROVE review + dual committer approval (gnodet+davsclaus), CI green"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25587,
@@ -2732,11 +2737,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T13:59:17Z",
+  "last_reviewed_updated_at": "2026-08-25T12:32:41Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T15:09:11Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-25T15:12:35Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
