@@ -2223,6 +2223,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 134,
+      "title": "Fix #102, fix #103: pin actions to SHAs, permissions blocks, quoted version expansion",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T12:51:49Z",
+      "verdict": "APPROVE",
+      "notes": "chore: CI hardening - SHA-pinned actions, permissions blocks, quoted expansion. 1 low (version comment).",
+      "interactions": [
+        {
+          "at": "2026-08-25T12:51:49Z",
+          "verdict": "APPROVE",
+          "notes": "chore: CI hardening - SHA-pinned actions, permissions blocks, quoted expansion. 1 low (version comment)."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 135,
+      "title": "Fix #85: validate fetch remote against configured remotes, handle slash-containing branch names",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T12:51:49Z",
+      "verdict": "APPROVE",
+      "notes": "bug: Security hardening - URL-injection prevention, remote allowlist, refname validation. 1 medium + 2 low non-blocking.",
+      "interactions": [
+        {
+          "at": "2026-08-25T12:51:49Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Security hardening - URL-injection prevention, remote allowlist, refname validation. 1 medium + 2 low non-blocking."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 136,
+      "title": "Fix #95: shallow-clone test coverage, shallow detection, actionable warnings",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T12:51:49Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "bug: 2 high confirmed (modernizer violations blocking CI). 2 low confirmed. Verifier: 4/4 confirmed, 0 FP.",
+      "interactions": [
+        {
+          "at": "2026-08-25T12:51:49Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "bug: 2 high confirmed (modernizer violations blocking CI). 2 low confirmed. Verifier: 4/4 confirmed, 0 FP."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2331,7 +2379,7 @@
   "last_reviewed_updated_at": "2026-08-25T05:28:02Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T12:59:40Z",
+    "timestamp": "2026-08-25T13:02:34Z",
     "prs_checked": 3,
     "reviews_posted": 0,
     "tokens_estimate": 0
