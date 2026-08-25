@@ -2265,33 +2265,43 @@
       "number": 136,
       "title": "Fix #95: shallow-clone test coverage, shallow detection, actionable warnings",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T12:51:49Z",
-      "verdict": "REQUEST_CHANGES",
-      "notes": "bug: 2 high confirmed (modernizer violations blocking CI). 2 low confirmed. Verifier: 4/4 confirmed, 0 FP.",
+      "reviewed_at": "2026-08-25T14:07:04Z",
+      "verdict": "APPROVE",
+      "notes": "re-review approved",
       "interactions": [
         {
           "at": "2026-08-25T12:51:49Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "bug: 2 high confirmed (modernizer violations blocking CI). 2 low confirmed. Verifier: 4/4 confirmed, 0 FP."
+        },
+        {
+          "at": "2026-08-25T14:07:04Z",
+          "verdict": "APPROVE",
+          "notes": "re-review approved"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 137,
       "title": "Fix #89: report writes honour failSafe; every bail-out overwrites stale reports with a status document",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T13:16:04Z",
-      "verdict": "REQUEST_CHANGES",
-      "notes": "bug: 1 high confirmed (null baseBranch crash in writeStatusReport), 1 medium confirmed (skip reason routing too narrow). 0% FP rate.",
+      "reviewed_at": "2026-08-25T14:07:04Z",
+      "verdict": "APPROVE",
+      "notes": "re-review approved",
       "interactions": [
         {
           "at": "2026-08-25T13:16:04Z",
           "verdict": "REQUEST_CHANGES",
           "notes": "bug: 1 high confirmed (null baseBranch crash in writeStatusReport), 1 medium confirmed (skip reason routing too narrow). 0% FP rate."
+        },
+        {
+          "at": "2026-08-25T14:07:04Z",
+          "verdict": "APPROVE",
+          "notes": "re-review approved"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 138,
@@ -2500,6 +2510,70 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 132,
+      "title": "Add .mvn/nisse.properties with export-subst for source-archive builds",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-25T13:56:58Z",
+      "verdict": "APPROVE",
+      "notes": "chore: Build infrastructure for source-archive builds using nisse native fallback. Posted as COMMENT (operator's own PR). Suggested milestone 0.3.11.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:56:58Z",
+          "verdict": "APPROVE",
+          "notes": "chore: Build infrastructure for source-archive builds using nisse native fallback. Posted as COMMENT (operator's own PR). Suggested milestone 0.3.11."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 142,
+      "title": "Fix #93: explain mode with per-module decision evidence",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:57:00Z",
+      "verdict": "APPROVE",
+      "notes": "enhancement: Opt-in explain mode surfacing per-module decision evidence in JSON report and logs. Suggested milestone 0.4.0.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:57:00Z",
+          "verdict": "APPROVE",
+          "notes": "enhancement: Opt-in explain mode surfacing per-module decision evidence in JSON report and logs. Suggested milestone 0.4.0."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25715,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T14:09:33Z",
+      "verdict": "APPROVE",
+      "notes": "Bug fix: explicit --dep version overrides auto-detected dependency in camel-jbang export",
+      "interactions": [
+        {
+          "at": "2026-08-25T14:09:33Z",
+          "verdict": "APPROVE",
+          "notes": "Bug fix: explicit --dep version overrides auto-detected dependency in camel-jbang export"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25716,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T14:09:33Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of #25715 to camel-4.22.x; byte-for-byte identical to parent",
+      "interactions": [
+        {
+          "at": "2026-08-25T14:09:33Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of #25715 to camel-4.22.x; byte-for-byte identical to parent"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2605,12 +2679,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T13:15:41Z",
+  "last_reviewed_updated_at": "2026-08-25T13:55:26Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T13:56:11Z",
+    "timestamp": "2026-08-25T14:09:33Z",
     "prs_checked": 3,
-    "reviews_posted": 3,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
