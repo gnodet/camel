@@ -2565,33 +2565,33 @@
       "review_count": 1
     },
     {
-      "number": 25715,
-      "title": "",
-      "author": "",
-      "reviewed_at": "2026-08-25T14:16:38Z",
+      "number": 129,
+      "title": "Fix #82",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T14:14:36Z",
       "verdict": "APPROVE",
-      "notes": "APPROVE: bug fix for jbang export --dep version override being silently dropped",
+      "notes": "bug: posted Run 1",
       "interactions": [
         {
-          "at": "2026-08-25T14:16:38Z",
+          "at": "2026-08-25T14:14:36Z",
           "verdict": "APPROVE",
-          "notes": "APPROVE: bug fix for jbang export --dep version override being silently dropped"
+          "notes": "bug: posted Run 1"
         }
       ],
       "review_count": 1
     },
     {
-      "number": 25716,
-      "title": "",
-      "author": "",
-      "reviewed_at": "2026-08-25T14:16:39Z",
+      "number": 133,
+      "title": "Fix #126",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T14:14:36Z",
       "verdict": "APPROVE",
-      "notes": "APPROVE: byte-for-byte identical backport of #25715 to 4.22.x",
+      "notes": "bug: posted Run 1",
       "interactions": [
         {
-          "at": "2026-08-25T14:16:39Z",
+          "at": "2026-08-25T14:14:36Z",
           "verdict": "APPROVE",
-          "notes": "APPROVE: byte-for-byte identical backport of #25715 to 4.22.x"
+          "notes": "bug: posted Run 1"
         }
       ],
       "review_count": 1
@@ -2700,10 +2700,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T14:09:24Z",
+  "last_reviewed_updated_at": "2026-08-25T13:59:17Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T14:28:33Z",
+    "timestamp": "2026-08-25T14:37:56Z",
     "prs_checked": 0,
     "reviews_posted": 0,
     "tokens_estimate": 0
