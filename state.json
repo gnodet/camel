@@ -2595,6 +2595,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25715,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T15:04:32Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: bug fix for jbang export --dep version override (review on GitHub)",
+      "interactions": [
+        {
+          "at": "2026-08-25T15:04:32Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: bug fix for jbang export --dep version override (review on GitHub)"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25716,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T15:04:32Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: backport of #25715 to 4.22.x (review on GitHub)",
+      "interactions": [
+        {
+          "at": "2026-08-25T15:04:32Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: backport of #25715 to 4.22.x (review on GitHub)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2703,7 +2735,7 @@
   "last_reviewed_updated_at": "2026-08-25T13:59:17Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T15:01:20Z",
+    "timestamp": "2026-08-25T15:04:32Z",
     "prs_checked": 0,
     "reviews_posted": 0,
     "tokens_estimate": 0
