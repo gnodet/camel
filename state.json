@@ -2664,6 +2664,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25728,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T18:37:34Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: operator's own PR, already approved by davsclaus. Tiny doc fix.",
+      "interactions": [
+        {
+          "at": "2026-08-25T18:37:34Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator's own PR, already approved by davsclaus. Tiny doc fix."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2769,12 +2785,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T15:58:13Z",
+  "last_reviewed_updated_at": "2026-08-25T18:35:13Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T18:29:33Z",
+    "timestamp": "2026-08-25T18:37:34Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
