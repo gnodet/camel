@@ -716,9 +716,9 @@
       "number": 25554,
       "title": "CAMEL-24404: camel-base-engine: wrap consumer startup exceptions",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-24T17:20:00Z",
+      "reviewed_at": "2026-08-25T20:46:09Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago",
+      "notes": "Startup exception wrapping - narrowly scoped fix, reviewed run 1949 with minor AssertJ suggestion",
       "interactions": [
         {
           "at": "2026-08-23T08:40:51Z",
@@ -729,9 +729,14 @@
           "at": "2026-08-24T17:20:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago"
+        },
+        {
+          "at": "2026-08-25T20:46:09Z",
+          "verdict": "COMMENT",
+          "notes": "Startup exception wrapping - narrowly scoped fix, reviewed run 1949 with minor AssertJ suggestion"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25560,
@@ -763,9 +768,9 @@
       "number": 25558,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers after consumer route removal",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-24T17:55:40Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet",
+      "reviewed_at": "2026-08-25T20:46:09Z",
+      "verdict": "APPROVE",
+      "notes": "SEDA discardIfNoConsumers fix - correct lifecycle management, reviewed and approved run 1949",
       "interactions": [
         {
           "at": "2026-08-23T08:40:52Z",
@@ -791,9 +796,14 @@
           "at": "2026-08-24T17:55:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet"
+        },
+        {
+          "at": "2026-08-25T20:46:09Z",
+          "verdict": "APPROVE",
+          "notes": "SEDA discardIfNoConsumers fix - correct lifecycle management, reviewed and approved run 1949"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25559,
@@ -1295,9 +1305,9 @@
       "number": 25594,
       "title": "CAMEL-24416: camel-core XmlConverter SAX factory alignment",
       "author": "oscerd",
-      "reviewed_at": "2026-08-24T14:34:01Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: dual approval (gnodet + davsclaus)",
+      "reviewed_at": "2026-08-25T20:46:24Z",
+      "verdict": "APPROVE",
+      "notes": "XmlConverter SAX factory alignment - already approved by gnodet and davsclaus",
       "interactions": [
         {
           "at": "2026-08-23T09:20:29Z",
@@ -1313,9 +1323,14 @@
           "at": "2026-08-24T14:34:01Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: dual approval (gnodet + davsclaus)"
+        },
+        {
+          "at": "2026-08-25T20:46:24Z",
+          "verdict": "APPROVE",
+          "notes": "XmlConverter SAX factory alignment - already approved by gnodet and davsclaus"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25587,
@@ -2820,9 +2835,9 @@
   "last_reviewed_updated_at": "2026-08-25T19:59:20Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T20:36:04Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-25T20:46:24Z",
+    "prs_checked": 0,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
