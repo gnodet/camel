@@ -2069,9 +2069,9 @@
       "number": 25497,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T17:53:06Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2",
+      "reviewed_at": "2026-08-25T16:26:48Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Well-designed route tool annotations (returnDirect) feature for camel-openai. Thread safety sound, security correctly handled. Milestone 4.23.0 suggested.",
       "interactions": [
         {
           "at": "2026-08-24T13:42:04Z",
@@ -2082,9 +2082,14 @@
           "at": "2026-08-24T17:53:06Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED x2"
+        },
+        {
+          "at": "2026-08-25T16:26:48Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Well-designed route tool annotations (returnDirect) feature for camel-openai. Thread safety sound, security correctly handled. Milestone 4.23.0 suggested."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25289,
@@ -2753,10 +2758,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T12:32:41Z",
+  "last_reviewed_updated_at": "2026-08-25T16:14:08Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T16:16:47Z",
+    "timestamp": "2026-08-25T16:26:48Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
