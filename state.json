@@ -2680,6 +2680,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25730,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T18:52:23Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: Security fix for remote-file consumer directory containment. Missing SMB test, test visibility convention. Backport to 4.22.x and 4.18.x suggested.",
+      "interactions": [
+        {
+          "at": "2026-08-25T18:52:23Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: Security fix for remote-file consumer directory containment. Missing SMB test, test visibility convention. Backport to 4.22.x and 4.18.x suggested."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2785,12 +2801,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T18:35:13Z",
+  "last_reviewed_updated_at": "2026-08-25T17:13:29Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T18:37:34Z",
+    "timestamp": "2026-08-25T18:52:23Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
