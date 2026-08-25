@@ -2356,6 +2356,86 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 130,
+      "title": "Fix #83: resource walk does not follow symlinks; depth and visit budgets enforced",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:40:31Z",
+      "verdict": "APPROVE",
+      "notes": "bug: Well-executed security fix replacing vulnerable manual directory walk with Files.walkFileTree. TDD approach, comprehensive test suite. Suggested milestone 0.4.0.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:40:31Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Well-executed security fix replacing vulnerable manual directory walk with Files.walkFileTree. TDD approach, comprehensive test suite. Suggested milestone 0.4.0."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 140,
+      "title": "Fix #111: integration-test the extension artifact",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:40:32Z",
+      "verdict": "APPROVE",
+      "notes": "test: Good integration test coverage for extension artifact. Suggested milestone 0.4.0.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:40:32Z",
+          "verdict": "APPROVE",
+          "notes": "test: Good integration test coverage for extension artifact. Suggested milestone 0.4.0."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25637,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:40:50Z",
+      "verdict": "APPROVE",
+      "notes": "Security hardening: AS2 MDN delivery address validation and credential scoping",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:40:50Z",
+          "verdict": "APPROVE",
+          "notes": "Security hardening: AS2 MDN delivery address validation and credential scoping"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25641,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:40:50Z",
+      "verdict": "APPROVE",
+      "notes": "Security fix: confine per-request AS2 signing keys to method-local variables",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:40:50Z",
+          "verdict": "APPROVE",
+          "notes": "Security fix: confine per-request AS2 signing keys to method-local variables"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25685,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:40:50Z",
+      "verdict": "APPROVE",
+      "notes": "Security fix: add muteException option to knative consumer, prevents stack trace disclosure",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:40:50Z",
+          "verdict": "APPROVE",
+          "notes": "Security fix: add muteException option to knative consumer, prevents stack trace disclosure"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2461,10 +2541,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T07:05:33Z",
+  "last_reviewed_updated_at": "2026-08-25T11:05:32Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T13:16:18Z",
+    "timestamp": "2026-08-25T13:40:50Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
