@@ -1790,9 +1790,9 @@
       "number": 25621,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T12:52:14Z",
+      "reviewed_at": "2026-08-25T13:16:18Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: APPROVED; rate limit hit before could check details",
+      "notes": "3 non-blocking suggestions: audience validation inconsistency, empty audience filtering, autowired annotation",
       "interactions": [
         {
           "at": "2026-08-24T08:40:56Z",
@@ -1823,9 +1823,14 @@
           "at": "2026-08-24T12:52:14Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: APPROVED; rate limit hit before could check details"
+        },
+        {
+          "at": "2026-08-25T13:16:18Z",
+          "verdict": "COMMENT",
+          "notes": "3 non-blocking suggestions: audience validation inconsistency, empty audience filtering, autowired annotation"
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25622,
@@ -2271,6 +2276,86 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 137,
+      "title": "Fix #89: report writes honour failSafe; every bail-out overwrites stale reports with a status document",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:16:04Z",
+      "verdict": "REQUEST_CHANGES",
+      "notes": "bug: 1 high confirmed (null baseBranch crash in writeStatusReport), 1 medium confirmed (skip reason routing too narrow). 0% FP rate.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:16:04Z",
+          "verdict": "REQUEST_CHANGES",
+          "notes": "bug: 1 high confirmed (null baseBranch crash in writeStatusReport), 1 medium confirmed (skip reason routing too narrow). 0% FP rate."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 138,
+      "title": "Fix #90: warn and report changed POMs that match no reactor project",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:16:04Z",
+      "verdict": "APPROVE",
+      "notes": "enhancement: Clean unmatched POM warning with optional JSON report field. 1 low non-blocking.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:16:04Z",
+          "verdict": "APPROVE",
+          "notes": "enhancement: Clean unmatched POM warning with optional JSON report field. 1 low non-blocking."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 139,
+      "title": "Fix #91: report skipped modules with reasons",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T13:16:04Z",
+      "verdict": "APPROVE",
+      "notes": "enhancement: Adds skippedModules to JSON report. Backward-compatible. 2 low non-blocking.",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:16:04Z",
+          "verdict": "APPROVE",
+          "notes": "enhancement: Adds skippedModules to JSON report. Backward-compatible. 2 low non-blocking."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25642,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:16:18Z",
+      "verdict": "APPROVE",
+      "notes": "Clean removal of over-prescriptive convention; evidence-based rationale",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:16:18Z",
+          "verdict": "APPROVE",
+          "notes": "Clean removal of over-prescriptive convention; evidence-based rationale"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25638,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T13:16:18Z",
+      "verdict": "APPROVE",
+      "notes": "Clean backport of #25617 to 4.18.x; fixes data-loss bug in change-feed consumer",
+      "interactions": [
+        {
+          "at": "2026-08-25T13:16:18Z",
+          "verdict": "APPROVE",
+          "notes": "Clean backport of #25617 to 4.18.x; fixes data-loss bug in change-feed consumer"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2376,12 +2461,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T05:28:02Z",
+  "last_reviewed_updated_at": "2026-08-25T07:05:33Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T13:02:34Z",
+    "timestamp": "2026-08-25T13:16:18Z",
     "prs_checked": 3,
-    "reviews_posted": 0,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   }
 }
