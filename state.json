@@ -1416,9 +1416,9 @@
       "number": 25598,
       "title": "CAMEL-24290: ci - report tests that only passed after a retry",
       "author": "ammachado",
-      "reviewed_at": "2026-08-24T16:54:46Z",
+      "reviewed_at": "2026-08-25T14:14:17Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: already has comprehensive AI review from davsclaus agent (Claude Code on behalf of Claus Ibsen); adding another AI review would be duplicate noise",
+      "notes": "NO_ACTION: davsclaus already approved, apupier actively reviewing with author on technical points (uv/Python pinning); comprehensive AI review already posted",
       "interactions": [
         {
           "at": "2026-08-24T05:41:41Z",
@@ -1444,9 +1444,14 @@
           "at": "2026-08-24T16:54:46Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: already has comprehensive AI review from davsclaus agent (Claude Code on behalf of Claus Ibsen); adding another AI review would be duplicate noise"
+        },
+        {
+          "at": "2026-08-25T14:14:17Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: davsclaus already approved, apupier actively reviewing with author on technical points (uv/Python pinning); comprehensive AI review already posted"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25600,
@@ -2544,33 +2549,17 @@
       "review_count": 1
     },
     {
-      "number": 25715,
-      "title": "",
-      "author": "",
-      "reviewed_at": "2026-08-25T14:09:33Z",
+      "number": 128,
+      "title": "Fix #81",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-25T14:14:18Z",
       "verdict": "APPROVE",
-      "notes": "Bug fix: explicit --dep version overrides auto-detected dependency in camel-jbang export",
+      "notes": "bug: posted Run 5",
       "interactions": [
         {
-          "at": "2026-08-25T14:09:33Z",
+          "at": "2026-08-25T14:14:18Z",
           "verdict": "APPROVE",
-          "notes": "Bug fix: explicit --dep version overrides auto-detected dependency in camel-jbang export"
-        }
-      ],
-      "review_count": 1
-    },
-    {
-      "number": 25716,
-      "title": "",
-      "author": "",
-      "reviewed_at": "2026-08-25T14:09:33Z",
-      "verdict": "APPROVE",
-      "notes": "Clean backport of #25715 to camel-4.22.x; byte-for-byte identical to parent",
-      "interactions": [
-        {
-          "at": "2026-08-25T14:09:33Z",
-          "verdict": "APPROVE",
-          "notes": "Clean backport of #25715 to camel-4.22.x; byte-for-byte identical to parent"
+          "notes": "bug: posted Run 5"
         }
       ],
       "review_count": 1
@@ -2679,12 +2668,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T13:55:26Z",
+  "last_reviewed_updated_at": "2026-08-25T13:59:17Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T14:09:33Z",
-    "prs_checked": 3,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-25T14:14:23Z",
+    "prs_checked": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
