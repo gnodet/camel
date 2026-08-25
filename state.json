@@ -650,9 +650,9 @@
       "number": 25555,
       "title": "CAMEL-24406: camel-xml-jaxp: add prolog guard",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-25T20:08:55Z",
+      "reviewed_at": "2026-08-24T14:47:40Z",
       "verdict": "COMMENT",
-      "notes": "XmlConverter prolog guard - stale PR description, broad SAXParseException catch, tests need AssertJ",
+      "notes": "NO_ACTION: author posted CI analysis comment; Croway APPROVED; CI still not triggered",
       "interactions": [
         {
           "at": "2026-08-23T08:38:12Z",
@@ -708,22 +708,17 @@
           "at": "2026-08-24T14:47:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: author posted CI analysis comment; Croway APPROVED; CI still not triggered"
-        },
-        {
-          "at": "2026-08-25T20:08:55Z",
-          "verdict": "COMMENT",
-          "notes": "XmlConverter prolog guard - stale PR description, broad SAXParseException catch, tests need AssertJ"
         }
       ],
-      "review_count": 12
+      "review_count": 11
     },
     {
       "number": 25554,
       "title": "CAMEL-24404: camel-base-engine: wrap consumer startup exceptions",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-25T20:08:55Z",
+      "reviewed_at": "2026-08-24T17:20:00Z",
       "verdict": "COMMENT",
-      "notes": "Startup exception wrapping - narrowly scoped fix approved by davsclaus, minor AssertJ style suggestion",
+      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago",
       "interactions": [
         {
           "at": "2026-08-23T08:40:51Z",
@@ -734,14 +729,9 @@
           "at": "2026-08-24T17:20:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago"
-        },
-        {
-          "at": "2026-08-25T20:08:55Z",
-          "verdict": "COMMENT",
-          "notes": "Startup exception wrapping - narrowly scoped fix approved by davsclaus, minor AssertJ style suggestion"
         }
       ],
-      "review_count": 3
+      "review_count": 2
     },
     {
       "number": 25560,
@@ -773,9 +763,9 @@
       "number": 25558,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers after consumer route removal",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-25T20:08:55Z",
-      "verdict": "APPROVE",
-      "notes": "SEDA discardIfNoConsumers fix - correct lifecycle management, good test coverage, backports exist",
+      "reviewed_at": "2026-08-24T17:55:40Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet",
       "interactions": [
         {
           "at": "2026-08-23T08:40:52Z",
@@ -801,14 +791,9 @@
           "at": "2026-08-24T17:55:40Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet"
-        },
-        {
-          "at": "2026-08-25T20:08:55Z",
-          "verdict": "APPROVE",
-          "notes": "SEDA discardIfNoConsumers fix - correct lifecycle management, good test coverage, backports exist"
         }
       ],
-      "review_count": 6
+      "review_count": 5
     },
     {
       "number": 25559,
@@ -1310,9 +1295,9 @@
       "number": 25594,
       "title": "CAMEL-24416: camel-core XmlConverter SAX factory alignment",
       "author": "oscerd",
-      "reviewed_at": "2026-08-25T17:38:36Z",
+      "reviewed_at": "2026-08-24T14:34:01Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: dual approval (gnodet + davsclaus), no new commits",
+      "notes": "NO_ACTION: dual approval (gnodet + davsclaus)",
       "interactions": [
         {
           "at": "2026-08-23T09:20:29Z",
@@ -1328,14 +1313,9 @@
           "at": "2026-08-24T14:34:01Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: dual approval (gnodet + davsclaus)"
-        },
-        {
-          "at": "2026-08-25T17:38:36Z",
-          "verdict": "COMMENT",
-          "notes": "NO_ACTION: dual approval (gnodet + davsclaus), no new commits"
         }
       ],
-      "review_count": 4
+      "review_count": 3
     },
     {
       "number": 25587,
@@ -1959,9 +1939,9 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T18:11:31Z",
+      "reviewed_at": "2026-08-25T20:36:04Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus just APPROVED; CI still running (5 checks pending)",
+      "notes": "Alibaba SLS/OTS Phase 3 - missing OPERATION header in SLS, SLS client not closed in doStop",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
@@ -1987,9 +1967,14 @@
           "at": "2026-08-24T18:11:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus just APPROVED; CI still running (5 checks pending)"
+        },
+        {
+          "at": "2026-08-25T20:36:04Z",
+          "verdict": "COMMENT",
+          "notes": "Alibaba SLS/OTS Phase 3 - missing OPERATION header in SLS, SLS client not closed in doStop"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25507,
@@ -2617,17 +2602,17 @@
       "review_count": 1
     },
     {
-      "number": 25684,
+      "number": 25726,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T17:38:35Z",
+      "reviewed_at": "2026-08-25T20:36:04Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: TOON data format - unmanaged Jackson 3.x transitive deps, String marshal behavior",
+      "notes": "camel-file readLockRemoveOnCommit fix - abort-path may reintroduce CAMEL-24093 key leak, suggest exchange-property tracking",
       "interactions": [
         {
-          "at": "2026-08-25T17:38:35Z",
+          "at": "2026-08-25T20:36:04Z",
           "verdict": "COMMENT",
-          "notes": "COMMENT: TOON data format - unmanaged Jackson 3.x transitive deps, String marshal behavior"
+          "notes": "camel-file readLockRemoveOnCommit fix - abort-path may reintroduce CAMEL-24093 key leak, suggest exchange-property tracking"
         }
       ],
       "review_count": 1
@@ -2636,14 +2621,14 @@
       "number": 25715,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T17:40:06Z",
+      "reviewed_at": "2026-08-25T20:36:19Z",
       "verdict": "APPROVE",
-      "notes": "APPROVE: jbang export fix - correct and well-tested",
+      "notes": "jbang export fix - restored after concurrent state overwrite",
       "interactions": [
         {
-          "at": "2026-08-25T17:40:06Z",
+          "at": "2026-08-25T20:36:19Z",
           "verdict": "APPROVE",
-          "notes": "APPROVE: jbang export fix - correct and well-tested"
+          "notes": "jbang export fix - restored after concurrent state overwrite"
         }
       ],
       "review_count": 1
@@ -2652,14 +2637,30 @@
       "number": 25716,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T17:40:06Z",
+      "reviewed_at": "2026-08-25T20:36:19Z",
       "verdict": "APPROVE",
-      "notes": "APPROVE: jbang export backport to camel-4.8.x",
+      "notes": "jbang export backport - restored after concurrent state overwrite",
       "interactions": [
         {
-          "at": "2026-08-25T17:40:06Z",
+          "at": "2026-08-25T20:36:19Z",
           "verdict": "APPROVE",
-          "notes": "APPROVE: jbang export backport to camel-4.8.x"
+          "notes": "jbang export backport - restored after concurrent state overwrite"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25684,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-25T20:36:19Z",
+      "verdict": "COMMENT",
+      "notes": "TOON data format - restored after concurrent state overwrite",
+      "interactions": [
+        {
+          "at": "2026-08-25T20:36:19Z",
+          "verdict": "COMMENT",
+          "notes": "TOON data format - restored after concurrent state overwrite"
         }
       ],
       "review_count": 1
@@ -2668,14 +2669,14 @@
       "number": 25729,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T18:29:33Z",
+      "reviewed_at": "2026-08-25T20:36:19Z",
       "verdict": "APPROVE",
-      "notes": "APPROVE: Clean bug fix for Simple language init block custom function lookup in dev profile. Backport to camel-4.18.x suggested.",
+      "notes": "Simple language init block dev profile - restored after concurrent state overwrite",
       "interactions": [
         {
-          "at": "2026-08-25T18:29:33Z",
+          "at": "2026-08-25T20:36:19Z",
           "verdict": "APPROVE",
-          "notes": "APPROVE: Clean bug fix for Simple language init block custom function lookup in dev profile. Backport to camel-4.18.x suggested."
+          "notes": "Simple language init block dev profile - restored after concurrent state overwrite"
         }
       ],
       "review_count": 1
@@ -2684,14 +2685,14 @@
       "number": 25728,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T18:37:34Z",
+      "reviewed_at": "2026-08-25T20:36:19Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator's own PR, already approved by davsclaus. Tiny doc fix.",
+      "notes": "operator own PR - restored after concurrent state overwrite",
       "interactions": [
         {
-          "at": "2026-08-25T18:37:34Z",
+          "at": "2026-08-25T20:36:19Z",
           "verdict": "COMMENT",
-          "notes": "NO_ACTION: operator's own PR, already approved by davsclaus. Tiny doc fix."
+          "notes": "operator own PR - restored after concurrent state overwrite"
         }
       ],
       "review_count": 1
@@ -2700,14 +2701,14 @@
       "number": 25730,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T18:52:23Z",
+      "reviewed_at": "2026-08-25T20:36:20Z",
       "verdict": "COMMENT",
-      "notes": "COMMENT: Security fix for remote-file consumer directory containment. Missing SMB test, test visibility convention. Backport to 4.22.x and 4.18.x suggested.",
+      "notes": "remote-file consumer directory containment - restored after concurrent state overwrite",
       "interactions": [
         {
-          "at": "2026-08-25T18:52:23Z",
+          "at": "2026-08-25T20:36:20Z",
           "verdict": "COMMENT",
-          "notes": "COMMENT: Security fix for remote-file consumer directory containment. Missing SMB test, test visibility convention. Backport to 4.22.x and 4.18.x suggested."
+          "notes": "remote-file consumer directory containment - restored after concurrent state overwrite"
         }
       ],
       "review_count": 1
@@ -2816,12 +2817,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T17:13:29Z",
+  "last_reviewed_updated_at": "2026-08-25T19:59:20Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T20:08:55Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-08-25T20:36:04Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
