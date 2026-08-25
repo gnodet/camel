@@ -2175,9 +2175,9 @@
       "number": 22158,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T14:54:41Z",
+      "reviewed_at": "2026-08-24T18:59:48Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator's own PR (gnodet); self-review prohibited. CI green, oscerd+apupier approved.",
+      "notes": "NO_ACTION: operator's own PR (gnodet); self-review prohibited",
       "interactions": [
         {
           "at": "2026-08-24T16:10:38Z",
@@ -2188,14 +2188,9 @@
           "at": "2026-08-24T18:59:48Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator's own PR (gnodet); self-review prohibited"
-        },
-        {
-          "at": "2026-08-25T14:54:41Z",
-          "verdict": "COMMENT",
-          "notes": "NO_ACTION: operator's own PR (gnodet); self-review prohibited. CI green, oscerd+apupier approved."
         }
       ],
-      "review_count": 3
+      "review_count": 2
     },
     {
       "number": 25632,
@@ -2600,38 +2595,6 @@
         }
       ],
       "review_count": 1
-    },
-    {
-      "number": 25715,
-      "title": "",
-      "author": "",
-      "reviewed_at": "2026-08-25T14:54:41Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: bug fix for jbang export --dep version override (review posted on GitHub)",
-      "interactions": [
-        {
-          "at": "2026-08-25T14:54:41Z",
-          "verdict": "APPROVE",
-          "notes": "APPROVE: bug fix for jbang export --dep version override (review posted on GitHub)"
-        }
-      ],
-      "review_count": 1
-    },
-    {
-      "number": 25716,
-      "title": "",
-      "author": "",
-      "reviewed_at": "2026-08-25T14:54:41Z",
-      "verdict": "APPROVE",
-      "notes": "APPROVE: backport of #25715 to 4.22.x (review posted on GitHub)",
-      "interactions": [
-        {
-          "at": "2026-08-25T14:54:41Z",
-          "verdict": "APPROVE",
-          "notes": "APPROVE: backport of #25715 to 4.22.x (review posted on GitHub)"
-        }
-      ],
-      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2737,10 +2700,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T12:32:41Z",
+  "last_reviewed_updated_at": "2026-08-25T13:59:17Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T14:58:53Z",
+    "timestamp": "2026-08-25T15:01:20Z",
     "prs_checked": 0,
     "reviews_posted": 0,
     "tokens_estimate": 0
