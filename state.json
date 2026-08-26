@@ -716,9 +716,9 @@
       "number": 25554,
       "title": "CAMEL-24404: camel-base-engine: wrap consumer startup exceptions",
       "author": "mayurbm",
-      "reviewed_at": "2026-08-24T17:20:00Z",
+      "reviewed_at": "2026-08-26T08:00:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago",
+      "notes": "Re-review: consumer startup exception wrapping should be unconditional per established RouteService pattern",
       "interactions": [
         {
           "at": "2026-08-23T08:40:51Z",
@@ -729,9 +729,14 @@
           "at": "2026-08-24T17:20:00Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus just posted CHANGES_REQUESTED review minutes ago"
+        },
+        {
+          "at": "2026-08-26T08:00:38Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review: consumer startup exception wrapping should be unconditional per established RouteService pattern"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25560,
@@ -1980,9 +1985,9 @@
       "number": 25507,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T18:59:48Z",
+      "reviewed_at": "2026-08-26T08:00:38Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author pushing new commits",
+      "notes": "GenAI observability Phase 3 - orphan service file, fragile reflection, classloader cache concern",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
@@ -2008,9 +2013,14 @@
           "at": "2026-08-24T18:59:48Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); davsclaus CHANGES_REQUESTED, author pushing new commits"
+        },
+        {
+          "at": "2026-08-26T08:00:38Z",
+          "verdict": "COMMENT",
+          "notes": "GenAI observability Phase 3 - orphan service file, fragile reflection, classloader cache concern"
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25512,
@@ -2243,17 +2253,22 @@
       "number": 134,
       "title": "Fix #102, fix #103: pin actions to SHAs, permissions blocks, quoted version expansion",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T12:51:49Z",
-      "verdict": "APPROVE",
-      "notes": "chore: CI hardening - SHA-pinned actions, permissions blocks, quoted expansion. 1 low (version comment).",
+      "reviewed_at": "2026-08-26T07:34:24Z",
+      "verdict": "COMMENT",
+      "notes": "chore: Re-review post-merge. Merge conflict resolution reverted release-drafter integration from PR #146. Low: checkout version comment inconsistency.",
       "interactions": [
         {
           "at": "2026-08-25T12:51:49Z",
           "verdict": "APPROVE",
           "notes": "chore: CI hardening - SHA-pinned actions, permissions blocks, quoted expansion. 1 low (version comment)."
+        },
+        {
+          "at": "2026-08-26T07:34:24Z",
+          "verdict": "COMMENT",
+          "notes": "chore: Re-review post-merge. Merge conflict resolution reverted release-drafter integration from PR #146. Low: checkout version comment inconsistency."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 135,
@@ -2605,17 +2620,22 @@
       "number": 145,
       "title": "Fix #131: use effective POM models to detect managed dependency changes",
       "author": "gnodet",
-      "reviewed_at": "2026-08-26T06:51:46Z",
+      "reviewed_at": "2026-08-26T07:44:58Z",
       "verdict": "COMMENT",
-      "notes": "bug: Regresses #143 failSafe guard for ScalpelException. Low: AnalysisContext fields should be final.",
+      "notes": "bug: Re-review - failSafe guard for ScalpelException still not restored (regresses #143). New commit adds explain-mode and status reports. Low: AnalysisContext fields still not final.",
       "interactions": [
         {
           "at": "2026-08-26T06:51:46Z",
           "verdict": "COMMENT",
           "notes": "bug: Regresses #143 failSafe guard for ScalpelException. Low: AnalysisContext fields should be final."
+        },
+        {
+          "at": "2026-08-26T07:44:58Z",
+          "verdict": "COMMENT",
+          "notes": "bug: Re-review - failSafe guard for ScalpelException still not restored (regresses #143). New commit adds explain-mode and status reports. Low: AnalysisContext fields still not final."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25726,
@@ -2629,6 +2649,148 @@
           "at": "2026-08-26T07:31:27Z",
           "verdict": "APPROVE",
           "notes": "Re-review: camel-file readLockRemoveOnCommit=false fix - correct minimal fix for two independent bugs"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25715,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: jbang export fix"
+    },
+    {
+      "number": 25716,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: jbang export backport"
+    },
+    {
+      "number": 25684,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: TOON data format re-review"
+    },
+    {
+      "number": 25729,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: Simple language init block dev profile"
+    },
+    {
+      "number": 25728,
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: Operator own PR - NO_ACTION"
+    },
+    {
+      "number": 25730,
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: remote-file consumer directory containment"
+    },
+    {
+      "number": 25734,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: spring-redis upgrade guide docs"
+    },
+    {
+      "number": 25735,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: IBM secrets-manager backport 4.22.x"
+    },
+    {
+      "number": 25737,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: Watson STT FileInputStream leak"
+    },
+    {
+      "number": 25736,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: IBM secrets-manager backport 4.18.x"
+    },
+    {
+      "number": 25739,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: WatsonX AI timeout wiring"
+    },
+    {
+      "number": 25631,
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: KeyValueRepository SPI - NO_ACTION"
+    },
+    {
+      "number": 25740,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: IBM COS consumer dedup"
+    },
+    {
+      "number": 25749,
+      "verdict": "COMMENT",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: backport PR docs update"
+    },
+    {
+      "number": 25747,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: remote-file upgrade guide sync"
+    },
+    {
+      "number": 25748,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: CI docs build fix 4.22.x"
+    },
+    {
+      "number": 25744,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: docling backport 4.18.x"
+    },
+    {
+      "number": 25750,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: IBM COS producer options fix"
+    },
+    {
+      "number": 25636,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: Azure CosmosDB change-feed sync fix backport"
+    },
+    {
+      "number": 25751,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: IBM COS CacheControl header typo fix"
+    },
+    {
+      "number": 25753,
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T07:00:00Z",
+      "notes": "Restored after concurrent overwrite: PQC KeyStore Java 25 fix backport to 4.22.x"
+    },
+    {
+      "number": 147,
+      "title": "Fix #94: consolidate the v2 schema, validate reports against it, document the compatibility policy",
+      "author": "paoloantinori",
+      "reviewed_at": "2026-08-26T08:00:05Z",
+      "verdict": "APPROVE",
+      "notes": "bug: Schema consolidation, validation tests, compatibility policy. 2 low nits (parseNumber accepts +, cast() duplication).",
+      "interactions": [
+        {
+          "at": "2026-08-26T08:00:05Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Schema consolidation, validation tests, compatibility policy. 2 low nits (parseNumber accepts +, cast() duplication)."
         }
       ],
       "review_count": 1
@@ -2737,11 +2899,11 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T06:58:20Z",
+  "last_reviewed_updated_at": "2026-08-26T07:29:42Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T07:31:28Z",
-    "prs_checked": 3,
+    "timestamp": "2026-08-26T08:00:38Z",
+    "prs_checked": 2,
     "reviews_posted": 2,
     "tokens_estimate": 0
   }
