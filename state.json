@@ -2758,17 +2758,22 @@
       "number": 25735,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T05:18:02Z",
+      "reviewed_at": "2026-08-26T06:31:29Z",
       "verdict": "APPROVE",
-      "notes": "Clean cherry-pick backport of CAMEL-24468+CAMEL-24470 to camel-4.22.x, diffs byte-identical to originals",
+      "notes": "Backport of CAMEL-24468+CAMEL-24470 IBM secrets-manager credential/version-pin fixes to 4.22.x - clean cherry-pick, code matches main",
       "interactions": [
         {
           "at": "2026-08-26T05:18:02Z",
           "verdict": "APPROVE",
           "notes": "Clean cherry-pick backport of CAMEL-24468+CAMEL-24470 to camel-4.22.x, diffs byte-identical to originals"
+        },
+        {
+          "at": "2026-08-26T06:31:29Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of CAMEL-24468+CAMEL-24470 IBM secrets-manager credential/version-pin fixes to 4.22.x - clean cherry-pick, code matches main"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25737,
@@ -2929,6 +2934,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25636,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T06:31:29Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of CAMEL-24382 azure-cosmosdb change-feed sync processing fix to 4.22.x - clean cherry-pick, prevents silent data loss",
+      "interactions": [
+        {
+          "at": "2026-08-26T06:31:29Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of CAMEL-24382 azure-cosmosdb change-feed sync processing fix to 4.22.x - clean cherry-pick, prevents silent data loss"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3034,12 +3055,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T06:18:49Z",
+  "last_reviewed_updated_at": "2026-08-26T05:58:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T06:24:47Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-26T06:31:29Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
