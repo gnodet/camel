@@ -3213,6 +3213,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25773,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T21:01:54Z",
+      "verdict": "APPROVE",
+      "notes": "Backport camel-4.22.x: camel-file readLockRemoveOnCommit fix \u2014 straight cherry-pick of #25726, CI green",
+      "interactions": [
+        {
+          "at": "2026-08-26T21:01:54Z",
+          "verdict": "APPROVE",
+          "notes": "Backport camel-4.22.x: camel-file readLockRemoveOnCommit fix \u2014 straight cherry-pick of #25726, CI green"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3321,7 +3337,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T18:45:11Z",
+    "timestamp": "2026-08-26T21:01:54Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
