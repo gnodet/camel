@@ -2650,9 +2650,9 @@
       "number": 145,
       "title": "Fix #131: use effective POM models to detect managed dependency changes",
       "author": "gnodet",
-      "reviewed_at": "2026-08-26T13:51:31Z",
+      "reviewed_at": "2026-08-26T14:53:15Z",
       "verdict": "APPROVE",
-      "notes": "bug: Re-review - 8 new commits refining effective model comparison. Sound design, thorough tests, CI green. Posted as COMMENT (can't approve own PR).",
+      "notes": "bug: 5th review - 2 new commits (tree comparison, reactor propagation). Sound design. Posted as COMMENT (own PR).",
       "interactions": [
         {
           "at": "2026-08-26T06:51:46Z",
@@ -2673,9 +2673,14 @@
           "at": "2026-08-26T13:51:31Z",
           "verdict": "APPROVE",
           "notes": "bug: Re-review - 8 new commits refining effective model comparison. Sound design, thorough tests, CI green. Posted as COMMENT (can't approve own PR)."
+        },
+        {
+          "at": "2026-08-26T14:53:15Z",
+          "verdict": "APPROVE",
+          "notes": "bug: 5th review - 2 new commits (tree comparison, reactor propagation). Sound design. Posted as COMMENT (own PR)."
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25726,
@@ -3091,7 +3096,7 @@
       "number": 25767,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T14:50:40Z",
+      "reviewed_at": "2026-08-26T14:53:30Z",
       "verdict": "COMMENT",
       "notes": "MQTT5 resubscribe failure restart - stack trace lost in log, null clientId in thread name",
       "interactions": [
@@ -3099,6 +3104,43 @@
           "at": "2026-08-26T14:50:40Z",
           "verdict": "COMMENT",
           "notes": "MQTT5 resubscribe failure restart - stack trace lost in log, null clientId in thread name"
+        },
+        {
+          "at": "2026-08-26T14:53:30Z",
+          "verdict": "COMMENT",
+          "notes": "MQTT5 resubscribe failure restart - stack trace lost in log, null clientId in thread name"
+        }
+      ],
+      "review_count": 2
+    },
+    {
+      "number": 25745,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T14:53:30Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25730 to camel-4.22.x - already merged",
+      "interactions": [
+        {
+          "at": "2026-08-26T14:53:30Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25730 to camel-4.22.x - already merged"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25760,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T14:53:30Z",
+      "verdict": "APPROVE",
+      "notes": "NPE fix in ExchangeHelper when getTypeConverter() returns null during shutdown",
+      "interactions": [
+        {
+          "at": "2026-08-26T14:53:30Z",
+          "verdict": "APPROVE",
+          "notes": "NPE fix in ExchangeHelper when getTypeConverter() returns null during shutdown"
         }
       ],
       "review_count": 1
@@ -3207,10 +3249,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T13:29:36Z",
+  "last_reviewed_updated_at": "2026-08-26T14:44:48Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T14:50:41Z",
+    "timestamp": "2026-08-26T14:53:15Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
