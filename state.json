@@ -2881,6 +2881,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25748,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:58:01Z",
+      "verdict": "APPROVE",
+      "notes": "CI fix: activate Antora components filter on camel-4.22.x to resolve 433 xref errors in doc validation",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:58:01Z",
+          "verdict": "APPROVE",
+          "notes": "CI fix: activate Antora components filter on camel-4.22.x to resolve 433 xref errors in doc validation"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25744,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:58:01Z",
+      "verdict": "APPROVE",
+      "notes": "Docling input-source security fix backport to camel-4.18.x, well-adapted with 4 areas of branch divergence handled",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:58:01Z",
+          "verdict": "APPROVE",
+          "notes": "Docling input-source security fix backport to camel-4.18.x, well-adapted with 4 areas of branch divergence handled"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2986,12 +3018,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T05:40:16Z",
+  "last_reviewed_updated_at": "2026-08-26T05:43:33Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T05:51:15Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-08-26T05:58:01Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
