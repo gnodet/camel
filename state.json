@@ -2862,6 +2862,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25738,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T09:01:44Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24489: Fix TypeConversionException 'from type: null' for anonymous classes. Clean fix with typeName helper fallback.",
+      "interactions": [
+        {
+          "at": "2026-08-26T09:01:44Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24489: Fix TypeConversionException 'from type: null' for anonymous classes. Clean fix with typeName helper fallback."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2970,9 +2986,9 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T08:54:10Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-26T09:01:44Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
