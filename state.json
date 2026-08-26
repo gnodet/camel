@@ -2769,6 +2769,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25737,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:24:11Z",
+      "verdict": "APPROVE",
+      "notes": "FileInputStream leak fix in WatsonSpeechToTextProducer, clean ownStream+finally pattern",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:24:11Z",
+          "verdict": "APPROVE",
+          "notes": "FileInputStream leak fix in WatsonSpeechToTextProducer, clean ownStream+finally pattern"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25736,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:24:11Z",
+      "verdict": "APPROVE",
+      "notes": "Clean cherry-pick backport of CAMEL-24468+CAMEL-24470 to camel-4.18.x, diffs byte-identical to originals",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:24:11Z",
+          "verdict": "APPROVE",
+          "notes": "Clean cherry-pick backport of CAMEL-24468+CAMEL-24470 to camel-4.18.x, diffs byte-identical to originals"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2874,12 +2906,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T05:12:45Z",
+  "last_reviewed_updated_at": "2026-08-26T05:19:42Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T05:18:02Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-26T05:24:12Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
