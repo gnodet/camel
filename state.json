@@ -3013,6 +3013,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25743,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T12:16:04Z",
+      "verdict": "APPROVE",
+      "notes": "Backport camel-4.22.x: Simple language init block custom function lookup fix \u2014 cherry-pick of merged #25729",
+      "interactions": [
+        {
+          "at": "2026-08-26T12:16:04Z",
+          "verdict": "APPROVE",
+          "notes": "Backport camel-4.22.x: Simple language init block custom function lookup fix \u2014 cherry-pick of merged #25729"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25746,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T12:16:04Z",
+      "verdict": "APPROVE",
+      "notes": "Backport camel-4.18.x: remote-file consumer directory containment \u2014 cherry-pick of merged #25730",
+      "interactions": [
+        {
+          "at": "2026-08-26T12:16:04Z",
+          "verdict": "APPROVE",
+          "notes": "Backport camel-4.18.x: remote-file consumer directory containment \u2014 cherry-pick of merged #25730"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25759,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T12:16:04Z",
+      "verdict": "APPROVE",
+      "notes": "Test infra: add s390x-compatible Cassandra container image",
+      "interactions": [
+        {
+          "at": "2026-08-26T12:16:04Z",
+          "verdict": "APPROVE",
+          "notes": "Test infra: add s390x-compatible Cassandra container image"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3121,9 +3169,9 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T12:12:16Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-26T12:16:04Z",
+    "prs_checked": 3,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   }
 }
