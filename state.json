@@ -3012,17 +3012,22 @@
       "number": 25761,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T11:21:44Z",
+      "reviewed_at": "2026-08-26T17:56:49Z",
       "verdict": "APPROVE",
-      "notes": "Backport camel-4.22.x: netty-http security constraint case-insensitive fix \u2014 straight cherry-pick, CI green",
+      "notes": "Backport camel-4.22.x: netty-http security constraint case-insensitive fix \u2014 straight cherry-pick, CI green (re-confirmed Run 2079)",
       "interactions": [
         {
           "at": "2026-08-26T11:21:44Z",
           "verdict": "APPROVE",
           "notes": "Backport camel-4.22.x: netty-http security constraint case-insensitive fix \u2014 straight cherry-pick, CI green"
+        },
+        {
+          "at": "2026-08-26T17:56:49Z",
+          "verdict": "APPROVE",
+          "notes": "Backport camel-4.22.x: netty-http security constraint case-insensitive fix \u2014 straight cherry-pick, CI green (re-confirmed Run 2079)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25763,
@@ -3049,17 +3054,22 @@
       "number": 25765,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T11:21:44Z",
+      "reviewed_at": "2026-08-26T17:56:49Z",
       "verdict": "APPROVE",
-      "notes": "Backport camel-4.22.x: mail session property filtering \u2014 straight cherry-pick, CI green",
+      "notes": "Backport camel-4.22.x: mail session property filtering \u2014 straight cherry-pick, CI green (re-confirmed Run 2079)",
       "interactions": [
         {
           "at": "2026-08-26T11:21:44Z",
           "verdict": "APPROVE",
           "notes": "Backport camel-4.22.x: mail session property filtering \u2014 straight cherry-pick, CI green"
+        },
+        {
+          "at": "2026-08-26T17:56:49Z",
+          "verdict": "APPROVE",
+          "notes": "Backport camel-4.22.x: mail session property filtering \u2014 straight cherry-pick, CI green (re-confirmed Run 2079)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25752,
@@ -3290,9 +3300,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T17:52:47Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-26T17:56:53Z",
+    "prs_checked": 2,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
