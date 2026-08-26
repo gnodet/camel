@@ -2673,17 +2673,22 @@
       "number": 25684,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T20:36:19Z",
-      "verdict": "COMMENT",
-      "notes": "TOON data format - restored after concurrent state overwrite",
+      "reviewed_at": "2026-08-26T04:50:22Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: TOON data format - all prior feedback addressed, CI green, ready for merge",
       "interactions": [
         {
           "at": "2026-08-25T20:36:19Z",
           "verdict": "COMMENT",
           "notes": "TOON data format - restored after concurrent state overwrite"
+        },
+        {
+          "at": "2026-08-26T04:50:22Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: TOON data format - all prior feedback addressed, CI green, ready for merge"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25729,
@@ -2837,12 +2842,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-25T19:59:20Z",
+  "last_reviewed_updated_at": "2026-08-26T03:17:50Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-25T20:50:17Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-26T04:50:22Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
