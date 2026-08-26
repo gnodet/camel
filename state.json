@@ -2497,17 +2497,22 @@
       "number": 25683,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T13:56:11Z",
+      "reviewed_at": "2026-08-26T10:06:55Z",
       "verdict": "APPROVE",
-      "notes": "Security fix: XXE/local-file-disclosure via documentType=InputSource in XPathBuilder",
+      "notes": "CAMEL-24475: Security fix - XPath InputSource documentType XXE hardening. All 4 eval sites now go through hardened parser.",
       "interactions": [
         {
           "at": "2026-08-25T13:56:11Z",
           "verdict": "APPROVE",
           "notes": "Security fix: XXE/local-file-disclosure via documentType=InputSource in XPathBuilder"
+        },
+        {
+          "at": "2026-08-26T10:06:55Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24475: Security fix - XPath InputSource documentType XXE hardening. All 4 eval sites now go through hardened parser."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25713,
@@ -2999,7 +3004,7 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T09:57:53Z",
+    "timestamp": "2026-08-26T10:06:55Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
