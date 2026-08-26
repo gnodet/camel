@@ -2896,6 +2896,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25762,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T11:17:28Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25578 (CAMEL-24412): netty-http security constraint case-insensitive matching",
+      "interactions": [
+        {
+          "at": "2026-08-26T11:17:28Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25578 (CAMEL-24412): netty-http security constraint case-insensitive matching"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25764,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T11:17:29Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25637 (CAMEL-24417): AS2 async MDN delivery validation and credential scoping",
+      "interactions": [
+        {
+          "at": "2026-08-26T11:17:29Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25637 (CAMEL-24417): AS2 async MDN delivery validation and credential scoping"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25766,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T11:17:29Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25568 (CAMEL-24419): mail session property namespace filtering",
+      "interactions": [
+        {
+          "at": "2026-08-26T11:17:29Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25568 (CAMEL-24419): mail session property namespace filtering"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3004,9 +3052,9 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T11:04:51Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-26T11:17:29Z",
+    "prs_checked": 3,
+    "reviews_posted": 3,
     "tokens_estimate": 0
   }
 }
