@@ -2737,6 +2737,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25734,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:03:50Z",
+      "verdict": "APPROVE",
+      "notes": "Docs-only: spring-redis deserialization-filter notes synced to 4.22 and 4.18 upgrade guides on main",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:03:50Z",
+          "verdict": "APPROVE",
+          "notes": "Docs-only: spring-redis deserialization-filter notes synced to 4.22 and 4.18 upgrade guides on main"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2842,10 +2858,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T03:17:50Z",
+  "last_reviewed_updated_at": "2026-08-26T04:57:14Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T04:50:22Z",
+    "timestamp": "2026-08-26T05:03:50Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
