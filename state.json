@@ -3002,17 +3002,22 @@
       "number": 25761,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T11:21:44Z",
+      "reviewed_at": "2026-08-26T17:08:45Z",
       "verdict": "APPROVE",
-      "notes": "Backport camel-4.22.x: netty-http security constraint case-insensitive fix \u2014 straight cherry-pick, CI green",
+      "notes": "Re-review after rebase: netty-http security constraint backport to 4.22.x",
       "interactions": [
         {
           "at": "2026-08-26T11:21:44Z",
           "verdict": "APPROVE",
           "notes": "Backport camel-4.22.x: netty-http security constraint case-insensitive fix \u2014 straight cherry-pick, CI green"
+        },
+        {
+          "at": "2026-08-26T17:08:45Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after rebase: netty-http security constraint backport to 4.22.x"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25763,
@@ -3039,17 +3044,22 @@
       "number": 25765,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T11:21:44Z",
+      "reviewed_at": "2026-08-26T17:08:45Z",
       "verdict": "APPROVE",
-      "notes": "Backport camel-4.22.x: mail session property filtering \u2014 straight cherry-pick, CI green",
+      "notes": "Re-review after rebase: mail session property filtering backport to 4.22.x",
       "interactions": [
         {
           "at": "2026-08-26T11:21:44Z",
           "verdict": "APPROVE",
           "notes": "Backport camel-4.22.x: mail session property filtering \u2014 straight cherry-pick, CI green"
+        },
+        {
+          "at": "2026-08-26T17:08:45Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after rebase: mail session property filtering backport to 4.22.x"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25752,
@@ -3275,7 +3285,7 @@
   "last_reviewed_updated_at": "2026-08-26T16:48:46Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T17:04:32Z",
+    "timestamp": "2026-08-26T17:08:45Z",
     "prs_checked": 2,
     "reviews_posted": 2,
     "tokens_estimate": 0
