@@ -2728,8 +2728,21 @@
     {
       "number": 25740,
       "verdict": "APPROVE",
-      "reviewed_at": "2026-08-26T07:00:00Z",
-      "notes": "Restored after concurrent overwrite: IBM COS consumer dedup"
+      "reviewed_at": "2026-08-26T08:11:33Z",
+      "notes": "Re-review after update: IBM COS consumer in-progress dedup fix - davsclaus feedback addressed, APPROVE confirmed",
+      "interactions": [
+        {
+          "at": "2026-08-26T07:00:00Z",
+          "verdict": "APPROVE",
+          "notes": "Restored after concurrent overwrite: IBM COS consumer dedup"
+        },
+        {
+          "at": "2026-08-26T08:11:33Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after update: IBM COS consumer in-progress dedup fix - davsclaus feedback addressed, APPROVE confirmed"
+        }
+      ],
+      "review_count": 2
     },
     {
       "number": 25749,
@@ -2770,8 +2783,21 @@
     {
       "number": 25751,
       "verdict": "APPROVE",
-      "reviewed_at": "2026-08-26T07:00:00Z",
-      "notes": "Restored after concurrent overwrite: IBM COS CacheControl header typo fix"
+      "reviewed_at": "2026-08-26T08:11:33Z",
+      "notes": "Re-review after update: CacheControl header typo fix - APPROVE confirmed after regenerated files update",
+      "interactions": [
+        {
+          "at": "2026-08-26T07:00:00Z",
+          "verdict": "APPROVE",
+          "notes": "Restored after concurrent overwrite: IBM COS CacheControl header typo fix"
+        },
+        {
+          "at": "2026-08-26T08:11:33Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after update: CacheControl header typo fix - APPROVE confirmed after regenerated files update"
+        }
+      ],
+      "review_count": 2
     },
     {
       "number": 25753,
@@ -2791,6 +2817,22 @@
           "at": "2026-08-26T08:00:05Z",
           "verdict": "APPROVE",
           "notes": "bug: Schema consolidation, validation tests, compatibility policy. 2 low nits (parseNumber accepts +, cast() duplication)."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25731,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T08:08:54Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION: operator own PR (gnodet) - Cache EIP with read-through caching",
+      "interactions": [
+        {
+          "at": "2026-08-26T08:08:54Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION: operator own PR (gnodet) - Cache EIP with read-through caching"
         }
       ],
       "review_count": 1
@@ -2899,12 +2941,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T07:29:42Z",
+  "last_reviewed_updated_at": "2026-08-26T07:49:09Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T08:00:38Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-26T08:11:33Z",
+    "prs_checked": 3,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
