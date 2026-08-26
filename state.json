@@ -1597,17 +1597,22 @@
       "number": 25611,
       "title": "(Major Issue) Camel Zookeeper Cluster Split brain issue when leader is isolated",
       "author": "mustafaAlmonayer",
-      "reviewed_at": "2026-08-24T06:25:54Z",
+      "reviewed_at": "2026-08-26T12:12:16Z",
       "verdict": "COMMENT",
-      "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review. Same author/topic as PR #25529.",
+      "notes": "ZooKeeper split-brain fix CAMEL-24457: dead doShutdown code, backport suggestion to 4.18.x",
       "interactions": [
         {
           "at": "2026-08-24T06:25:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: External contributor fork PR \u2014 0 CI checks. Needs maintainer to trigger CI before review. Same author/topic as PR #25529."
+        },
+        {
+          "at": "2026-08-26T12:12:16Z",
+          "verdict": "COMMENT",
+          "notes": "ZooKeeper split-brain fix CAMEL-24457: dead doShutdown code, backport suggestion to 4.18.x"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25612,
@@ -2992,6 +2997,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25752,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T12:12:16Z",
+      "verdict": "APPROVE",
+      "notes": "Fix contract-first REST DSL 404 when OpenAPI base path is root \u2014 correct double-slash fix",
+      "interactions": [
+        {
+          "at": "2026-08-26T12:12:16Z",
+          "verdict": "APPROVE",
+          "notes": "Fix contract-first REST DSL 404 when OpenAPI base path is root \u2014 correct double-slash fix"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3100,9 +3121,9 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T11:21:44Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-08-26T12:12:16Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
