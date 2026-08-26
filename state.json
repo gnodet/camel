@@ -2661,17 +2661,22 @@
       "number": 25726,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T07:31:27Z",
+      "reviewed_at": "2026-08-26T12:49:54Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: camel-file readLockRemoveOnCommit=false fix - correct minimal fix for two independent bugs",
+      "notes": "Re-review: added releaseExclusiveReadLockOnAbort cleanup with ownership tracking via exchange property",
       "interactions": [
         {
           "at": "2026-08-26T07:31:27Z",
           "verdict": "APPROVE",
           "notes": "Re-review: camel-file readLockRemoveOnCommit=false fix - correct minimal fix for two independent bugs"
+        },
+        {
+          "at": "2026-08-26T12:49:54Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: added releaseExclusiveReadLockOnAbort cleanup with ownership tracking via exchange property"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25715,
@@ -3169,9 +3174,9 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T12:16:04Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-08-26T12:49:54Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
