@@ -2300,9 +2300,9 @@
       "number": 136,
       "title": "Fix #95: shallow-clone test coverage, shallow detection, actionable warnings",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T14:07:04Z",
+      "reviewed_at": "2026-08-26T16:52:48Z",
       "verdict": "APPROVE",
-      "notes": "re-review approved",
+      "notes": "bug: 3rd review - warnIfShallow extraction, clean refactoring. Approved.",
       "interactions": [
         {
           "at": "2026-08-25T12:51:49Z",
@@ -2313,9 +2313,14 @@
           "at": "2026-08-25T14:07:04Z",
           "verdict": "APPROVE",
           "notes": "re-review approved"
+        },
+        {
+          "at": "2026-08-26T16:52:48Z",
+          "verdict": "APPROVE",
+          "notes": "bug: 3rd review - warnIfShallow extraction, clean refactoring. Approved."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 137,
@@ -2840,8 +2845,21 @@
     {
       "number": 25636,
       "verdict": "APPROVE",
-      "reviewed_at": "2026-08-26T07:00:00Z",
-      "notes": "Restored after concurrent overwrite: Azure CosmosDB change-feed sync fix backport"
+      "reviewed_at": "2026-08-26T17:04:32Z",
+      "notes": "Cosmosdb change-feed sync processing backport to 4.22.x cherry-pick",
+      "interactions": [
+        {
+          "at": "2026-08-26T07:00:00Z",
+          "verdict": "APPROVE",
+          "notes": "Restored after concurrent overwrite: Azure CosmosDB change-feed sync fix backport"
+        },
+        {
+          "at": "2026-08-26T17:04:32Z",
+          "verdict": "APPROVE",
+          "notes": "Cosmosdb change-feed sync processing backport to 4.22.x cherry-pick"
+        }
+      ],
+      "review_count": 2
     },
     {
       "number": 25751,
@@ -3000,17 +3018,22 @@
       "number": 25763,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T11:21:44Z",
+      "reviewed_at": "2026-08-26T17:04:32Z",
       "verdict": "APPROVE",
-      "notes": "Backport camel-4.22.x: AS2 MDN validation and credential scoping \u2014 straight cherry-pick, CI green",
+      "notes": "Re-review after rebase: AS2 MDN validation backport to 4.22.x cherry-pick",
       "interactions": [
         {
           "at": "2026-08-26T11:21:44Z",
           "verdict": "APPROVE",
           "notes": "Backport camel-4.22.x: AS2 MDN validation and credential scoping \u2014 straight cherry-pick, CI green"
+        },
+        {
+          "at": "2026-08-26T17:04:32Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review after rebase: AS2 MDN validation backport to 4.22.x cherry-pick"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25765,
@@ -3249,12 +3272,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T14:44:48Z",
+  "last_reviewed_updated_at": "2026-08-26T16:48:46Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T14:53:15Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-26T17:04:32Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
