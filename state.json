@@ -2950,6 +2950,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25751,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T06:37:44Z",
+      "verdict": "APPROVE",
+      "notes": "Bug fix: rename CamelIBMCOSContentControl to CamelIBMCOSCacheControl (typo in CACHE_CONTROL header constant)",
+      "interactions": [
+        {
+          "at": "2026-08-26T06:37:44Z",
+          "verdict": "APPROVE",
+          "notes": "Bug fix: rename CamelIBMCOSContentControl to CamelIBMCOSCacheControl (typo in CACHE_CONTROL header constant)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3055,12 +3071,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T05:58:40Z",
+  "last_reviewed_updated_at": "2026-08-26T06:32:20Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T06:31:29Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-26T06:37:44Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
