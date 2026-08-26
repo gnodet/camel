@@ -2460,17 +2460,22 @@
       "number": 25685,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T13:40:50Z",
+      "reviewed_at": "2026-08-26T08:23:15Z",
       "verdict": "APPROVE",
-      "notes": "Security fix: add muteException option to knative consumer, prevents stack trace disclosure",
+      "notes": "camel-knative muteException consumer option - security-aligned, consistent with other HTTP consumers",
       "interactions": [
         {
           "at": "2026-08-25T13:40:50Z",
           "verdict": "APPROVE",
           "notes": "Security fix: add muteException option to knative consumer, prevents stack trace disclosure"
+        },
+        {
+          "at": "2026-08-26T08:23:15Z",
+          "verdict": "APPROVE",
+          "notes": "camel-knative muteException consumer option - security-aligned, consistent with other HTTP consumers"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 141,
@@ -2620,9 +2625,9 @@
       "number": 145,
       "title": "Fix #131: use effective POM models to detect managed dependency changes",
       "author": "gnodet",
-      "reviewed_at": "2026-08-26T07:44:58Z",
-      "verdict": "COMMENT",
-      "notes": "bug: Re-review - failSafe guard for ScalpelException still not restored (regresses #143). New commit adds explain-mode and status reports. Low: AnalysisContext fields still not final.",
+      "reviewed_at": "2026-08-26T08:20:29Z",
+      "verdict": "APPROVE",
+      "notes": "bug: Re-review - failSafe regression fixed in b0e592e. Both tests restored. Clean dead-code removal in follow-up commit.",
       "interactions": [
         {
           "at": "2026-08-26T06:51:46Z",
@@ -2633,9 +2638,14 @@
           "at": "2026-08-26T07:44:58Z",
           "verdict": "COMMENT",
           "notes": "bug: Re-review - failSafe guard for ScalpelException still not restored (regresses #143). New commit adds explain-mode and status reports. Low: AnalysisContext fields still not final."
+        },
+        {
+          "at": "2026-08-26T08:20:29Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Re-review - failSafe regression fixed in b0e592e. Both tests restored. Clean dead-code removal in follow-up commit."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25726,
@@ -2836,6 +2846,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25754,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T08:23:15Z",
+      "verdict": "APPROVE",
+      "notes": "Backport revert SJMS connection recovery test for s390x to camel-4.22.x",
+      "interactions": [
+        {
+          "at": "2026-08-26T08:23:15Z",
+          "verdict": "APPROVE",
+          "notes": "Backport revert SJMS connection recovery test for s390x to camel-4.22.x"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2941,12 +2967,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T07:49:09Z",
+  "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T08:11:33Z",
-    "prs_checked": 3,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-26T08:23:15Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
