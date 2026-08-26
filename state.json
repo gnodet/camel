@@ -2756,9 +2756,22 @@
     },
     {
       "number": 25749,
-      "verdict": "COMMENT",
-      "reviewed_at": "2026-08-26T07:00:00Z",
-      "notes": "Restored after concurrent overwrite: backport PR docs update"
+      "verdict": "APPROVE",
+      "reviewed_at": "2026-08-26T09:57:53Z",
+      "notes": "CAMEL-24492: Backport PR docs - re-review after feedback addressed. Clean docs update.",
+      "interactions": [
+        {
+          "at": "2026-08-26T07:00:00Z",
+          "verdict": "COMMENT",
+          "notes": "Restored after concurrent overwrite: backport PR docs update"
+        },
+        {
+          "at": "2026-08-26T09:57:53Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24492: Backport PR docs - re-review after feedback addressed. Clean docs update."
+        }
+      ],
+      "review_count": 2
     },
     {
       "number": 25747,
@@ -2986,9 +2999,9 @@
   "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T09:53:56Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-26T09:57:53Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
