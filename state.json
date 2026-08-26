@@ -2801,6 +2801,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25739,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:40:55Z",
+      "verdict": "APPROVE",
+      "notes": "Timeout wiring fix for all 12 watsonx.ai SDK service builders, clean and correct",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:40:55Z",
+          "verdict": "APPROVE",
+          "notes": "Timeout wiring fix for all 12 watsonx.ai SDK service builders, clean and correct"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25631,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T05:40:55Z",
+      "verdict": "COMMENT",
+      "notes": "NO_ACTION - operator own PR. KeyValueRepository SPI feature, flagged auto-discovery namespace collision risk and missing upgrade guide",
+      "interactions": [
+        {
+          "at": "2026-08-26T05:40:55Z",
+          "verdict": "COMMENT",
+          "notes": "NO_ACTION - operator own PR. KeyValueRepository SPI feature, flagged auto-discovery namespace collision risk and missing upgrade guide"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -2906,10 +2938,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T05:19:42Z",
+  "last_reviewed_updated_at": "2026-08-26T05:25:45Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T05:24:12Z",
+    "timestamp": "2026-08-26T05:40:55Z",
     "prs_checked": 2,
     "reviews_posted": 2,
     "tokens_estimate": 0
