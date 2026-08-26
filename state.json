@@ -3102,6 +3102,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25760,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T14:25:01Z",
+      "verdict": "APPROVE",
+      "notes": "NPE fix in ExchangeHelper when getTypeConverter() returns null during shutdown",
+      "interactions": [
+        {
+          "at": "2026-08-26T14:25:01Z",
+          "verdict": "APPROVE",
+          "notes": "NPE fix in ExchangeHelper when getTypeConverter() returns null during shutdown"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3210,9 +3226,9 @@
   "last_reviewed_updated_at": "2026-08-26T13:29:36Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T13:53:44Z",
+    "timestamp": "2026-08-26T14:25:01Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
