@@ -2279,17 +2279,22 @@
       "number": 135,
       "title": "Fix #85: validate fetch remote against configured remotes, handle slash-containing branch names",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T12:51:49Z",
+      "reviewed_at": "2026-08-26T13:44:42Z",
       "verdict": "APPROVE",
-      "notes": "bug: Security hardening - URL-injection prevention, remote allowlist, refname validation. 1 medium + 2 low non-blocking.",
+      "notes": "bug: Clean security fix with layered validation. Approved with non-blocking observations.",
       "interactions": [
         {
           "at": "2026-08-25T12:51:49Z",
           "verdict": "APPROVE",
           "notes": "bug: Security hardening - URL-injection prevention, remote allowlist, refname validation. 1 medium + 2 low non-blocking."
+        },
+        {
+          "at": "2026-08-26T13:44:42Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Clean security fix with layered validation. Approved with non-blocking observations."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 136,
@@ -2401,17 +2406,22 @@
       "number": 130,
       "title": "Fix #83: resource walk does not follow symlinks; depth and visit budgets enforced",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T13:40:31Z",
+      "reviewed_at": "2026-08-26T13:44:43Z",
       "verdict": "APPROVE",
-      "notes": "bug: Well-executed security fix replacing vulnerable manual directory walk with Files.walkFileTree. TDD approach, comprehensive test suite. Suggested milestone 0.4.0.",
+      "notes": "bug: Well-crafted symlink security fix with Files.walkFileTree. Approved with non-blocking observations.",
       "interactions": [
         {
           "at": "2026-08-25T13:40:31Z",
           "verdict": "APPROVE",
           "notes": "bug: Well-executed security fix replacing vulnerable manual directory walk with Files.walkFileTree. TDD approach, comprehensive test suite. Suggested milestone 0.4.0."
+        },
+        {
+          "at": "2026-08-26T13:44:43Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Well-crafted symlink security fix with Files.walkFileTree. Approved with non-blocking observations."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 140,
@@ -2603,17 +2613,22 @@
       "number": 129,
       "title": "Fix #82",
       "author": "paoloantinori",
-      "reviewed_at": "2026-08-25T14:14:36Z",
-      "verdict": "APPROVE",
-      "notes": "bug: posted Run 1",
+      "reviewed_at": "2026-08-26T13:44:41Z",
+      "verdict": "COMMENT",
+      "notes": "bug: 2 confirmed findings (leftover byteman file, missing test for null-result path). 2 false positives filtered.",
       "interactions": [
         {
           "at": "2026-08-25T14:14:36Z",
           "verdict": "APPROVE",
           "notes": "bug: posted Run 1"
+        },
+        {
+          "at": "2026-08-26T13:44:41Z",
+          "verdict": "COMMENT",
+          "notes": "bug: 2 confirmed findings (leftover byteman file, missing test for null-result path). 2 false positives filtered."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 133,
@@ -2635,9 +2650,9 @@
       "number": 145,
       "title": "Fix #131: use effective POM models to detect managed dependency changes",
       "author": "gnodet",
-      "reviewed_at": "2026-08-26T08:20:29Z",
+      "reviewed_at": "2026-08-26T13:51:31Z",
       "verdict": "APPROVE",
-      "notes": "bug: Re-review - failSafe regression fixed in b0e592e. Both tests restored. Clean dead-code removal in follow-up commit.",
+      "notes": "bug: Re-review - 8 new commits refining effective model comparison. Sound design, thorough tests, CI green. Posted as COMMENT (can't approve own PR).",
       "interactions": [
         {
           "at": "2026-08-26T06:51:46Z",
@@ -2653,9 +2668,14 @@
           "at": "2026-08-26T08:20:29Z",
           "verdict": "APPROVE",
           "notes": "bug: Re-review - failSafe regression fixed in b0e592e. Both tests restored. Clean dead-code removal in follow-up commit."
+        },
+        {
+          "at": "2026-08-26T13:51:31Z",
+          "verdict": "APPROVE",
+          "notes": "bug: Re-review - 8 new commits refining effective model comparison. Sound design, thorough tests, CI green. Posted as COMMENT (can't approve own PR)."
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25726,
@@ -3066,6 +3086,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25745,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-26T13:53:44Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25730 to camel-4.22.x - already merged",
+      "interactions": [
+        {
+          "at": "2026-08-26T13:53:44Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25730 to camel-4.22.x - already merged"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3171,12 +3207,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T08:17:12Z",
+  "last_reviewed_updated_at": "2026-08-26T13:29:36Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-26T12:49:54Z",
+    "timestamp": "2026-08-26T13:53:44Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
