@@ -3282,6 +3282,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25785,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-27T05:18:28Z",
+      "verdict": "APPROVE",
+      "notes": "IBM Watson Language buildFeatures validation - correct guard for all-disabled features edge case",
+      "interactions": [
+        {
+          "at": "2026-08-27T05:18:28Z",
+          "verdict": "APPROVE",
+          "notes": "IBM Watson Language buildFeatures validation - correct guard for all-disabled features edge case"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3390,9 +3406,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T05:07:16Z",
-    "prs_checked": 3,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-27T05:18:28Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
