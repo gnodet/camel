@@ -1830,9 +1830,9 @@
       "number": 25621,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-25T13:16:18Z",
-      "verdict": "COMMENT",
-      "notes": "3 non-blocking suggestions: audience validation inconsistency, empty audience filtering, autowired annotation",
+      "reviewed_at": "2026-08-27T11:44:12Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: well-structured SPIFFE component, all prior feedback addressed, CI green, approved by davsclaus",
       "interactions": [
         {
           "at": "2026-08-24T08:40:56Z",
@@ -1868,9 +1868,14 @@
           "at": "2026-08-25T13:16:18Z",
           "verdict": "COMMENT",
           "notes": "3 non-blocking suggestions: audience validation inconsistency, empty audience filtering, autowired annotation"
+        },
+        {
+          "at": "2026-08-27T11:44:12Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: well-structured SPIFFE component, all prior feedback addressed, CI green, approved by davsclaus"
         }
       ],
-      "review_count": 7
+      "review_count": 8
     },
     {
       "number": 25622,
@@ -3580,9 +3585,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T11:28:12Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-27T11:44:12Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
