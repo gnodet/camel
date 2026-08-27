@@ -1969,9 +1969,9 @@
       "number": 25498,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-24T18:11:31Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: davsclaus just APPROVED; CI still running (5 checks pending)",
+      "reviewed_at": "2026-08-27T08:19:31Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: both previous findings addressed (missing OPERATION header, SLS client lifecycle comment). New Alibaba Cloud SLS and OTS components with thorough tests and docs.",
       "interactions": [
         {
           "at": "2026-08-24T13:34:26Z",
@@ -1997,9 +1997,14 @@
           "at": "2026-08-24T18:11:31Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: davsclaus just APPROVED; CI still running (5 checks pending)"
+        },
+        {
+          "at": "2026-08-27T08:19:31Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: both previous findings addressed (missing OPERATION header, SLS client lifecycle comment). New Alibaba Cloud SLS and OTS components with thorough tests and docs."
         }
       ],
-      "review_count": 5
+      "review_count": 6
     },
     {
       "number": 25507,
@@ -3554,9 +3559,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T08:04:31Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-27T08:19:37Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
