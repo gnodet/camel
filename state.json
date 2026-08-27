@@ -3377,6 +3377,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25789,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-27T07:03:13Z",
+      "verdict": "APPROVE",
+      "notes": "Flaky LumberjackMultiThreadIT fix \u2014 latch timeout mismatch, NioEventLoopGroup(1) thread reduction, test-only",
+      "interactions": [
+        {
+          "at": "2026-08-27T07:03:13Z",
+          "verdict": "APPROVE",
+          "notes": "Flaky LumberjackMultiThreadIT fix \u2014 latch timeout mismatch, NioEventLoopGroup(1) thread reduction, test-only"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3485,7 +3501,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T06:57:02Z",
+    "timestamp": "2026-08-27T07:03:17Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
