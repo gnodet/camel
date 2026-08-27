@@ -3567,6 +3567,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25813,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-27T15:51:21Z",
+      "verdict": "APPROVE",
+      "notes": "Backport PR to camel-4.22.x by committer davsclaus. Cherry-pick of CAMEL-24513 (error registry for handled exceptions). CI green, single commit. Clean backport - no fresh review needed.",
+      "interactions": [
+        {
+          "at": "2026-08-27T15:51:21Z",
+          "verdict": "APPROVE",
+          "notes": "Backport PR to camel-4.22.x by committer davsclaus. Cherry-pick of CAMEL-24513 (error registry for handled exceptions). CI green, single commit. Clean backport - no fresh review needed."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25816,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-27T15:51:21Z",
+      "verdict": "APPROVE",
+      "notes": "Operator (gnodet) PR - NO_ACTION. CAMEL-24463: KeyValueRepository implementations for Caffeine, Ehcache, JCache, and Hazelcast. Cannot self-review.",
+      "interactions": [
+        {
+          "at": "2026-08-27T15:51:21Z",
+          "verdict": "APPROVE",
+          "notes": "Operator (gnodet) PR - NO_ACTION. CAMEL-24463: KeyValueRepository implementations for Caffeine, Ehcache, JCache, and Hazelcast. Cannot self-review."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3675,8 +3707,8 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T15:39:03Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-27T15:51:28Z",
+    "prs_checked": 2,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
