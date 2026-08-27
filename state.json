@@ -830,9 +830,9 @@
       "number": 25533,
       "title": "Hapi-fhir ppc64le integration tests activation",
       "author": "Megha-Megha13",
-      "reviewed_at": "2026-08-24T17:17:26Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet",
+      "reviewed_at": "2026-08-27T07:27:22Z",
+      "verdict": "APPROVE",
+      "notes": "ppc64le integration test activation for camel-fhir \u2014 standard enablement pattern, icr.io image, validated on real hardware",
       "interactions": [
         {
           "at": "2026-08-23T08:47:44Z",
@@ -848,9 +848,14 @@
           "at": "2026-08-24T17:17:26Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: CI not triggered (external contributor); no reviews yet"
+        },
+        {
+          "at": "2026-08-27T07:27:22Z",
+          "verdict": "APPROVE",
+          "notes": "ppc64le integration test activation for camel-fhir \u2014 standard enablement pattern, icr.io image, validated on real hardware"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25561,
@@ -3533,7 +3538,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T07:03:17Z",
+    "timestamp": "2026-08-27T07:27:22Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
