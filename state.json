@@ -3448,9 +3448,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T05:48:15Z",
-    "prs_checked": 2,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-27T05:51:43Z",
+    "prs_checked": 0,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
