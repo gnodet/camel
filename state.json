@@ -3487,6 +3487,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 25814,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-27T14:27:05Z",
+      "verdict": "APPROVE",
+      "notes": "Backport PR to camel-4.18.x by committer oscerd. Cherry-picks CAMEL-24344 and CAMEL-24345. CI green. Clean backport - no fresh review needed per project rules.",
+      "interactions": [
+        {
+          "at": "2026-08-27T14:27:05Z",
+          "verdict": "APPROVE",
+          "notes": "Backport PR to camel-4.18.x by committer oscerd. Cherry-picks CAMEL-24344 and CAMEL-24345. CI green. Clean backport - no fresh review needed per project rules."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3595,8 +3611,8 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T14:23:44Z",
-    "prs_checked": 0,
+    "timestamp": "2026-08-27T14:27:12Z",
+    "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
   }
