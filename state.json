@@ -3184,9 +3184,9 @@
       "number": 25767,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T17:52:47Z",
+      "reviewed_at": "2026-08-27T13:00:48Z",
       "verdict": "APPROVE",
-      "notes": "Re-review: both COMMENT findings addressed (stack trace preserved, thread name fixed). Upgraded to APPROVE.",
+      "notes": "Re-review: all findings addressed (stack trace, thread name, external client guard, concurrent restart prevention)",
       "interactions": [
         {
           "at": "2026-08-26T14:50:40Z",
@@ -3202,9 +3202,14 @@
           "at": "2026-08-26T17:52:47Z",
           "verdict": "APPROVE",
           "notes": "Re-review: both COMMENT findings addressed (stack trace preserved, thread name fixed). Upgraded to APPROVE."
+        },
+        {
+          "at": "2026-08-27T13:00:48Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all findings addressed (stack trace, thread name, external client guard, concurrent restart prevention)"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25745,
@@ -3466,17 +3471,22 @@
       "number": 25778,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-27T09:24:37Z",
-      "verdict": "COMMENT",
-      "notes": "New QuickJS language component (Preview). One defense-in-depth finding: globalThis.java_invoke can bypass local scope shadow. 4 false positives rejected by verifier.",
+      "reviewed_at": "2026-08-27T13:00:48Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: globalThis bypass finding addressed with save/replace/restore pattern + comprehensive security tests",
       "interactions": [
         {
           "at": "2026-08-27T09:24:37Z",
           "verdict": "COMMENT",
           "notes": "New QuickJS language component (Preview). One defense-in-depth finding: globalThis.java_invoke can bypass local scope shadow. 4 false positives rejected by verifier."
+        },
+        {
+          "at": "2026-08-27T13:00:48Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: globalThis bypass finding addressed with save/replace/restore pattern + comprehensive security tests"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -3585,9 +3595,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T12:47:43Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-27T13:00:49Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
