@@ -3663,6 +3663,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25822,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-27T17:48:26Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24439: Shiro authentication bypass fix - always verify credentials. APPROVE with backport suggestion",
+      "interactions": [
+        {
+          "at": "2026-08-27T17:48:26Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24439: Shiro authentication bypass fix - always verify credentials. APPROVE with backport suggestion"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3771,7 +3787,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T17:15:42Z",
+    "timestamp": "2026-08-27T17:48:26Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
