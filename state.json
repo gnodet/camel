@@ -2557,9 +2557,9 @@
       "number": 25683,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-27T06:56:58Z",
+      "reviewed_at": "2026-08-27T18:06:52Z",
       "verdict": "APPROVE",
-      "notes": "XXE security fix for XPathBuilder InputSource documentType \u2014 hardened parser, thorough tests, backport to 4.18.x recommended",
+      "notes": "CAMEL-24475: XXE fix for XPath InputSource path. Already reviewed and approved by gnodet in prior sessions",
       "interactions": [
         {
           "at": "2026-08-25T13:56:11Z",
@@ -2575,9 +2575,14 @@
           "at": "2026-08-27T06:56:58Z",
           "verdict": "APPROVE",
           "notes": "XXE security fix for XPathBuilder InputSource documentType \u2014 hardened parser, thorough tests, backport to 4.18.x recommended"
+        },
+        {
+          "at": "2026-08-27T18:06:52Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24475: XXE fix for XPath InputSource path. Already reviewed and approved by gnodet in prior sessions"
         }
       ],
-      "review_count": 3
+      "review_count": 4
     },
     {
       "number": 25713,
@@ -3803,9 +3808,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T17:57:37Z",
+    "timestamp": "2026-08-27T18:06:52Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
