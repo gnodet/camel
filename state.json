@@ -768,9 +768,9 @@
       "number": 25558,
       "title": "CAMEL-24408: Fix SEDA discardIfNoConsumers after consumer route removal",
       "author": "atiaomar1978-hub",
-      "reviewed_at": "2026-08-26T07:31:27Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review: SEDA discardIfNoConsumers fix - dead code, redundant getOrCreateQueue, double onShutdownEndpoint, grammar",
+      "reviewed_at": "2026-08-27T09:03:59Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: all 4 previous findings addressed (hasProducers usage, getOrCreateQueue guard, double-invocation docs, grammar). SEDA discardIfNoConsumers fix after consumer route removal.",
       "interactions": [
         {
           "at": "2026-08-23T08:40:52Z",
@@ -801,9 +801,14 @@
           "at": "2026-08-26T07:31:27Z",
           "verdict": "COMMENT",
           "notes": "Re-review: SEDA discardIfNoConsumers fix - dead code, redundant getOrCreateQueue, double onShutdownEndpoint, grammar"
+        },
+        {
+          "at": "2026-08-27T09:03:59Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: all 4 previous findings addressed (hasProducers usage, getOrCreateQueue guard, double-invocation docs, grammar). SEDA discardIfNoConsumers fix after consumer route removal."
         }
       ],
-      "review_count": 6
+      "review_count": 7
     },
     {
       "number": 25559,
@@ -3559,9 +3564,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T08:53:47Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-27T09:04:05Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
