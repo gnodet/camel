@@ -4103,17 +4103,22 @@
       "number": 25848,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-28T07:05:14Z",
+      "reviewed_at": "2026-08-28T10:09:55Z",
       "verdict": "APPROVE",
-      "notes": "CAMEL-24441: camel-crypto-pgp require integrity protection when decrypting \u2014 sound security fix, backport consideration noted",
+      "notes": "Re-review: only a merge commit (main into branch) since prior APPROVE \u2014 no code changes, verdict unchanged",
       "interactions": [
         {
           "at": "2026-08-28T07:05:14Z",
           "verdict": "APPROVE",
           "notes": "CAMEL-24441: camel-crypto-pgp require integrity protection when decrypting \u2014 sound security fix, backport consideration noted"
+        },
+        {
+          "at": "2026-08-28T10:09:55Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: only a merge commit (main into branch) since prior APPROVE \u2014 no code changes, verdict unchanged"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25807,
@@ -4286,7 +4291,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T08:59:48Z",
+    "timestamp": "2026-08-28T10:09:55Z",
     "prs_checked": 1,
     "reviews_posted": 0,
     "tokens_estimate": 0
