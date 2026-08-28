@@ -2976,17 +2976,22 @@
       "number": 25731,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-26T08:08:54Z",
-      "verdict": "COMMENT",
-      "notes": "NO_ACTION: operator own PR (gnodet) - Cache EIP with read-through caching",
+      "reviewed_at": "2026-08-28T18:47:24Z",
+      "verdict": "APPROVE",
+      "notes": "Operator's own PR - self-review prohibition, not reviewed",
       "interactions": [
         {
           "at": "2026-08-26T08:08:54Z",
           "verdict": "COMMENT",
           "notes": "NO_ACTION: operator own PR (gnodet) - Cache EIP with read-through caching"
+        },
+        {
+          "at": "2026-08-28T18:47:24Z",
+          "verdict": "APPROVE",
+          "notes": "Operator's own PR - self-review prohibition, not reviewed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25754,
@@ -4355,9 +4360,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T13:31:06Z",
+    "timestamp": "2026-08-28T18:47:28Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
