@@ -4003,6 +4003,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25830,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T06:00:32Z",
+      "verdict": "COMMENT",
+      "notes": "CAMEL-24452: camel-http credential leakage on redirects \u2014 solid security fix, test missing localServer cleanup",
+      "interactions": [
+        {
+          "at": "2026-08-28T06:00:32Z",
+          "verdict": "COMMENT",
+          "notes": "CAMEL-24452: camel-http credential leakage on redirects \u2014 solid security fix, test missing localServer cleanup"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4111,9 +4127,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T05:46:52Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-08-28T06:00:32Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
