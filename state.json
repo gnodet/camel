@@ -4120,6 +4120,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25866,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T08:02:46Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24547: camel-jbang Kamelets version alignment to 4.22.0 \u2014 clean dependency bump fixing version drift",
+      "interactions": [
+        {
+          "at": "2026-08-28T08:02:46Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24547: camel-jbang Kamelets version alignment to 4.22.0 \u2014 clean dependency bump fixing version drift"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4228,9 +4244,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T07:21:13Z",
+    "timestamp": "2026-08-28T08:02:46Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
