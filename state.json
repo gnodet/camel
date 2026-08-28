@@ -1362,9 +1362,9 @@
       "number": 25571,
       "title": "CAMEL-24418: HTTP URI override headers property placeholders",
       "author": "oscerd",
-      "reviewed_at": "2026-08-27T05:32:17Z",
+      "reviewed_at": "2026-08-28T08:30:29Z",
       "verdict": "APPROVE",
-      "notes": "Security fix: remove resolvePropertyPlaceholders on untrusted HTTP URI headers across 5 components",
+      "notes": "CAMEL-24418: HTTP URI override headers security hardening \u2014 removes resolvePropertyPlaceholders from 7 untrusted call sites across 5 components",
       "interactions": [
         {
           "at": "2026-08-23T09:33:56Z",
@@ -1375,9 +1375,14 @@
           "at": "2026-08-27T05:32:17Z",
           "verdict": "APPROVE",
           "notes": "Security fix: remove resolvePropertyPlaceholders on untrusted HTTP URI headers across 5 components"
+        },
+        {
+          "at": "2026-08-28T08:30:29Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24418: HTTP URI override headers security hardening \u2014 removes resolvePropertyPlaceholders from 7 untrusted call sites across 5 components"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25596,
@@ -3672,17 +3677,22 @@
       "number": 25810,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-27T17:15:42Z",
+      "reviewed_at": "2026-08-28T08:30:29Z",
       "verdict": "APPROVE",
-      "notes": "CAMEL-24524: URISupport.normalizeUri fast path inconsistency fix. Always rebuilds query string with RFC 3986 encoding. APPROVE",
+      "notes": "CAMEL-24524: URISupport.normalizeUri fast path fix \u2014 correct encoding strategy, thorough tests, backport suggested for 4.22.x",
       "interactions": [
         {
           "at": "2026-08-27T17:15:42Z",
           "verdict": "APPROVE",
           "notes": "CAMEL-24524: URISupport.normalizeUri fast path inconsistency fix. Always rebuilds query string with RFC 3986 encoding. APPROVE"
+        },
+        {
+          "at": "2026-08-28T08:30:29Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24524: URISupport.normalizeUri fast path fix \u2014 correct encoding strategy, thorough tests, backport suggested for 4.22.x"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25822,
@@ -4244,9 +4254,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T08:02:46Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-28T08:30:29Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
