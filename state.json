@@ -3763,6 +3763,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25851,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:12:21Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25826 to camel-4.18.x \u2014 straight cherry-pick, no fresh review needed",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:12:21Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25826 to camel-4.18.x \u2014 straight cherry-pick, no fresh review needed"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25852,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:12:21Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24530: camel-djl close InputStream in DJLConverter \u2014 clean resource leak fix, LGTM",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:12:21Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24530: camel-djl close InputStream in DJLConverter \u2014 clean resource leak fix, LGTM"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25849,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:12:21Z",
+      "verdict": "COMMENT",
+      "notes": "CAMEL-24526: camel-djl reject zoo tabular applications \u2014 good fix, requested upgrade guide entry per precedent (CAMEL-22518)",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:12:21Z",
+          "verdict": "COMMENT",
+          "notes": "CAMEL-24526: camel-djl reject zoo tabular applications \u2014 good fix, requested upgrade guide entry per precedent (CAMEL-22518)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3871,9 +3919,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-27T23:32:29Z",
-    "prs_checked": 1,
-    "reviews_posted": 0,
+    "timestamp": "2026-08-28T05:12:21Z",
+    "prs_checked": 3,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
