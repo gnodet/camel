@@ -3811,6 +3811,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25850,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:21:16Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25825 (CAMEL-24445) to camel-4.22.x \u2014 straight cherry-pick, no fresh review needed",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:21:16Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25825 (CAMEL-24445) to camel-4.22.x \u2014 straight cherry-pick, no fresh review needed"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25827,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:21:16Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24448: camel-keycloak reject introspection without issuer \u2014 clean security fix, fail-closed, well-tested",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:21:16Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24448: camel-keycloak reject introspection without issuer \u2014 clean security fix, fail-closed, well-tested"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25824,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:21:16Z",
+      "verdict": "COMMENT",
+      "notes": "CAMEL-24443: camel-knative SSL trust fix \u2014 correct security fix, upgrade guide entry misplaced (should be in existing knative section)",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:21:16Z",
+          "verdict": "COMMENT",
+          "notes": "CAMEL-24443: camel-knative SSL trust fix \u2014 correct security fix, upgrade guide entry misplaced (should be in existing knative section)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -3919,7 +3967,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T05:12:21Z",
+    "timestamp": "2026-08-28T05:21:16Z",
     "prs_checked": 3,
     "reviews_posted": 2,
     "tokens_estimate": 0
