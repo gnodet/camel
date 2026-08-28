@@ -3960,17 +3960,22 @@
       "number": 25847,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-28T05:46:52Z",
+      "reviewed_at": "2026-08-28T07:21:13Z",
       "verdict": "COMMENT",
-      "notes": "CAMEL-24438: camel-main static content file extension allowlist \u2014 good security fix, missing blank line in upgrade guide heading and missing fluent builder method",
+      "notes": "Re-review check: no new commits since prior COMMENT review (1 commit total). Original findings still apply.",
       "interactions": [
         {
           "at": "2026-08-28T05:46:52Z",
           "verdict": "COMMENT",
           "notes": "CAMEL-24438: camel-main static content file extension allowlist \u2014 good security fix, missing blank line in upgrade guide heading and missing fluent builder method"
+        },
+        {
+          "at": "2026-08-28T07:21:13Z",
+          "verdict": "COMMENT",
+          "notes": "Re-review check: no new commits since prior COMMENT review (1 commit total). Original findings still apply."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25854,
@@ -4223,9 +4228,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T07:05:14Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-28T07:21:13Z",
+    "prs_checked": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
