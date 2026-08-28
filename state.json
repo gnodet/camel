@@ -3955,6 +3955,54 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25847,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:46:52Z",
+      "verdict": "COMMENT",
+      "notes": "CAMEL-24438: camel-main static content file extension allowlist \u2014 good security fix, missing blank line in upgrade guide heading and missing fluent builder method",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:46:52Z",
+          "verdict": "COMMENT",
+          "notes": "CAMEL-24438: camel-main static content file extension allowlist \u2014 good security fix, missing blank line in upgrade guide heading and missing fluent builder method"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25854,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:46:52Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24528: camel-huggingface error surfacing in four task predictors \u2014 consistent error-guarding fix",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:46:52Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24528: camel-huggingface error surfacing in four task predictors \u2014 consistent error-guarding fix"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25855,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-28T05:46:52Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24534: camel-qdrant type-aware metadata handling \u2014 clean fix replacing unsafe String cast",
+      "interactions": [
+        {
+          "at": "2026-08-28T05:46:52Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24534: camel-qdrant type-aware metadata handling \u2014 clean fix replacing unsafe String cast"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4063,7 +4111,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-28T05:36:20Z",
+    "timestamp": "2026-08-28T05:46:52Z",
     "prs_checked": 3,
     "reviews_posted": 3,
     "tokens_estimate": 0
