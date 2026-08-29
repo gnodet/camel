@@ -3975,9 +3975,9 @@
       "number": 25847,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-28T07:21:13Z",
-      "verdict": "COMMENT",
-      "notes": "Re-review check: no new commits since prior COMMENT review (1 commit total). Original findings still apply.",
+      "reviewed_at": "2026-08-29T16:18:23Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Security hardening for static file serving in camel-platform-http-main with canonical-path containment",
       "interactions": [
         {
           "at": "2026-08-28T05:46:52Z",
@@ -3988,9 +3988,14 @@
           "at": "2026-08-28T07:21:13Z",
           "verdict": "COMMENT",
           "notes": "Re-review check: no new commits since prior COMMENT review (1 commit total). Original findings still apply."
+        },
+        {
+          "at": "2026-08-29T16:18:23Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Security hardening for static file serving in camel-platform-http-main with canonical-path containment"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25854,
@@ -4284,6 +4289,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25882,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-29T16:18:23Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Add Micrometer Observation support for GenAI with clean optional dependency architecture",
+      "interactions": [
+        {
+          "at": "2026-08-29T16:18:23Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Add Micrometer Observation support for GenAI with clean optional dependency architecture"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4392,9 +4413,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-29T09:05:09Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-29T16:18:23Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
