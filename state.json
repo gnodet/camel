@@ -4305,6 +4305,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25886,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-29T16:26:05Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Documentation-only - AI component exception types for onException handling",
+      "interactions": [
+        {
+          "at": "2026-08-29T16:26:05Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Documentation-only - AI component exception types for onException handling"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4413,9 +4429,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-29T16:18:23Z",
-    "prs_checked": 2,
-    "reviews_posted": 2,
+    "timestamp": "2026-08-29T16:26:05Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
