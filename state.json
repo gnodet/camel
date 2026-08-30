@@ -4353,6 +4353,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25901,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T10:21:01Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25888 to camel-4.22.x: bump mvnd install version 1.0.5 to 1.0.6",
+      "interactions": [
+        {
+          "at": "2026-08-30T10:21:01Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25888 to camel-4.22.x: bump mvnd install version 1.0.5 to 1.0.6"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25902,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T10:21:01Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25888 to camel-4.18.x: bump mvnd install version 1.0.5 to 1.0.6",
+      "interactions": [
+        {
+          "at": "2026-08-30T10:21:01Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25888 to camel-4.18.x: bump mvnd install version 1.0.5 to 1.0.6"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4461,9 +4493,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T10:10:22Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-30T10:21:01Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
