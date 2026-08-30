@@ -4481,6 +4481,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25903,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T13:36:52Z",
+      "verdict": "APPROVE",
+      "notes": "Test fix for SMB IT broken by CAMEL-24404 exception wrapping change",
+      "interactions": [
+        {
+          "at": "2026-08-30T13:36:52Z",
+          "verdict": "APPROVE",
+          "notes": "Test fix for SMB IT broken by CAMEL-24404 exception wrapping change"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4589,7 +4605,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T12:14:41Z",
+    "timestamp": "2026-08-30T13:36:55Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
