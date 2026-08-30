@@ -4582,6 +4582,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25846,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T22:36:09Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: well-structured doc/security enhancement for camel-exec allowControlHeaders; insecure:dev annotation, WARN logging, upgrade guide all correct; minor doc wording suggestion",
+      "interactions": [
+        {
+          "at": "2026-08-30T22:36:09Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: well-structured doc/security enhancement for camel-exec allowControlHeaders; insecure:dev annotation, WARN logging, upgrade guide all correct; minor doc wording suggestion"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4690,7 +4706,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T21:15:37Z",
+    "timestamp": "2026-08-30T22:36:09Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
