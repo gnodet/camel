@@ -4337,6 +4337,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25894,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T10:10:22Z",
+      "verdict": "APPROVE",
+      "notes": "Documentation PR adding 4.18.5 upgrade notes for camel-google-mail and camel-google-vertexai backported fixes",
+      "interactions": [
+        {
+          "at": "2026-08-30T10:10:22Z",
+          "verdict": "APPROVE",
+          "notes": "Documentation PR adding 4.18.5 upgrade notes for camel-google-mail and camel-google-vertexai backported fixes"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4445,7 +4461,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T00:53:55Z",
+    "timestamp": "2026-08-30T10:10:22Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
