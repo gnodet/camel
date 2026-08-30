@@ -4385,6 +4385,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25897,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T10:37:49Z",
+      "verdict": "APPROVE",
+      "notes": "Bug fix: add missing null-model guard to OpenAI chat-completion producer. Backport needed for 4.18.x and 4.22.x.",
+      "interactions": [
+        {
+          "at": "2026-08-30T10:37:49Z",
+          "verdict": "APPROVE",
+          "notes": "Bug fix: add missing null-model guard to OpenAI chat-completion producer. Backport needed for 4.18.x and 4.22.x."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25898,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T10:37:49Z",
+      "verdict": "APPROVE",
+      "notes": "Enhancement: bound the realtime change buffer in GoogleFirestoreConsumer with drop-oldest overflow policy.",
+      "interactions": [
+        {
+          "at": "2026-08-30T10:37:49Z",
+          "verdict": "APPROVE",
+          "notes": "Enhancement: bound the realtime change buffer in GoogleFirestoreConsumer with drop-oldest overflow policy."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4493,7 +4525,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T10:21:01Z",
+    "timestamp": "2026-08-30T10:37:49Z",
     "prs_checked": 2,
     "reviews_posted": 2,
     "tokens_estimate": 0
