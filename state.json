@@ -4529,6 +4529,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25907,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T17:15:02Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: one-line null-guard is harmless defensive coding but described race condition not achievable; wrong JIRA ref in test; test uses fragile reflection",
+      "interactions": [
+        {
+          "at": "2026-08-30T17:15:02Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: one-line null-guard is harmless defensive coding but described race condition not achievable; wrong JIRA ref in test; test uses fragile reflection"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4637,9 +4653,9 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T15:08:54Z",
+    "timestamp": "2026-08-30T17:15:02Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
