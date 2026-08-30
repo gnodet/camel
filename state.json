@@ -4545,6 +4545,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25893,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-30T18:32:53Z",
+      "verdict": "COMMENT",
+      "notes": "COMMENT: well-designed AI error metadata enhancement; test stub shadows real Spring AI class in camel-spring-ai-chat; two-pass classification design rationale should be documented",
+      "interactions": [
+        {
+          "at": "2026-08-30T18:32:53Z",
+          "verdict": "COMMENT",
+          "notes": "COMMENT: well-designed AI error metadata enhancement; test stub shadows real Spring AI class in camel-spring-ai-chat; two-pass classification design rationale should be documented"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4653,7 +4669,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-30T17:15:02Z",
+    "timestamp": "2026-08-30T18:32:53Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
