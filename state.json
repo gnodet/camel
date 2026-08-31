@@ -4667,6 +4667,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25943,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T08:39:26Z",
+      "verdict": "APPROVE",
+      "notes": "AGENTS.md: adoc anchor and generated-catalog-sync guidance",
+      "interactions": [
+        {
+          "at": "2026-08-31T08:39:26Z",
+          "verdict": "APPROVE",
+          "notes": "AGENTS.md: adoc anchor and generated-catalog-sync guidance"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4775,7 +4791,7 @@
   "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T07:54:36Z",
+    "timestamp": "2026-08-31T08:39:26Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
