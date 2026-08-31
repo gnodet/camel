@@ -4969,17 +4969,22 @@
       "number": 25873,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-31T14:39:02Z",
+      "reviewed_at": "2026-08-31T21:26:55Z",
       "verdict": "APPROVE",
-      "notes": "CAMEL-24548/24549: Symlink containment hardening for Azure Blob/DataLake and Google Storage download paths. Backport to camel-4.22.x suggested.",
+      "notes": "Already reviewed and approved by operator (gnodet) directly - no bot review needed",
       "interactions": [
         {
           "at": "2026-08-31T14:39:02Z",
           "verdict": "APPROVE",
           "notes": "CAMEL-24548/24549: Symlink containment hardening for Azure Blob/DataLake and Google Storage download paths. Backport to camel-4.22.x suggested."
+        },
+        {
+          "at": "2026-08-31T21:26:55Z",
+          "verdict": "APPROVE",
+          "notes": "Already reviewed and approved by operator (gnodet) directly - no bot review needed"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25944,
@@ -5296,9 +5301,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T20:52:21Z",
+    "timestamp": "2026-08-31T21:26:55Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
