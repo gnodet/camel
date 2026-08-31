@@ -4422,17 +4422,27 @@
       "number": 25899,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-30T10:49:33Z",
-      "verdict": "COMMENT",
-      "notes": "Bug fix: centralize HF token handling via HF_TOKEN env var for all tasks. Flagged redundant tokenClause in ChatPredictor. Backport needed for 4.22.x.",
+      "reviewed_at": "2026-08-31T13:52:31Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24527: Centralize HF_TOKEN injection in AbstractTaskPredictor for all task predictors. No backport needed (component added in 4.21.0).",
       "interactions": [
         {
           "at": "2026-08-30T10:49:33Z",
           "verdict": "COMMENT",
           "notes": "Bug fix: centralize HF token handling via HF_TOKEN env var for all tasks. Flagged redundant tokenClause in ChatPredictor. Backport needed for 4.22.x."
+        },
+        {
+          "at": "2026-08-31T13:52:20Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24527: Centralize HF_TOKEN injection in AbstractTaskPredictor for all task predictors. No backport needed (component added in 4.21.0)."
+        },
+        {
+          "at": "2026-08-31T13:52:31Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24527: Centralize HF_TOKEN injection in AbstractTaskPredictor for all task predictors. No backport needed (component added in 4.21.0)."
         }
       ],
-      "review_count": 1
+      "review_count": 3
     },
     {
       "number": 25896,
@@ -4891,6 +4901,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25946,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T13:52:20Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of 5 secure-default fixes to camel-4.18.x (CAMEL-24437/24439/24441/24443/24454). Clean adaptation, all changes match main.",
+      "interactions": [
+        {
+          "at": "2026-08-31T13:52:20Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of 5 secure-default fixes to camel-4.18.x (CAMEL-24437/24439/24441/24443/24454). Clean adaptation, all changes match main."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4999,9 +5025,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T13:34:56Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-08-31T13:52:20Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
