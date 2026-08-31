@@ -5034,6 +5034,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25876,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T18:00:52Z",
+      "verdict": "APPROVE",
+      "notes": "Salesforce Maven plugin JWT and Client Credentials auth support. 3 minor confirmed findings (AsciiDoc heading, validation edge case, logger shadowing) - all non-blocking.",
+      "interactions": [
+        {
+          "at": "2026-08-31T18:00:52Z",
+          "verdict": "APPROVE",
+          "notes": "Salesforce Maven plugin JWT and Client Credentials auth support. 3 minor confirmed findings (AsciiDoc heading, validation edge case, logger shadowing) - all non-blocking."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5142,7 +5158,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T17:06:36Z",
+    "timestamp": "2026-08-31T18:00:52Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
