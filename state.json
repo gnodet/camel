@@ -4875,6 +4875,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25939,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T13:34:56Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24538: Correct operator precedence fix for empty userMessage dropping body prompt. Backport to camel-4.18.x suggested.",
+      "interactions": [
+        {
+          "at": "2026-08-31T13:34:56Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24538: Correct operator precedence fix for empty userMessage dropping body prompt. Backport to camel-4.18.x suggested."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4983,7 +4999,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T12:30:11Z",
+    "timestamp": "2026-08-31T13:34:56Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
