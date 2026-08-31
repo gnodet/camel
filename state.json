@@ -5018,6 +5018,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25970,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T17:06:32Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25967 to camel-4.18.x - CXF REST UnsupportedOperationException fix. Same one-liner, enhanced test.",
+      "interactions": [
+        {
+          "at": "2026-08-31T17:06:32Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25967 to camel-4.18.x - CXF REST UnsupportedOperationException fix. Same one-liner, enhanced test."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5126,7 +5142,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T17:02:47Z",
+    "timestamp": "2026-08-31T17:06:36Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
