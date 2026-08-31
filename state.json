@@ -4779,6 +4779,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25940,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T10:40:34Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24423/24442/24449/24453/24455/24475: untrusted input handling backport to 4.22.x \u2014 cherry-pick of 6 reviewed fixes",
+      "interactions": [
+        {
+          "at": "2026-08-31T10:40:34Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24423/24442/24449/24453/24455/24475: untrusted input handling backport to 4.22.x \u2014 cherry-pick of 6 reviewed fixes"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4887,7 +4903,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T09:37:49Z",
+    "timestamp": "2026-08-31T10:40:34Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
