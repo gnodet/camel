@@ -4607,17 +4607,22 @@
       "number": 25846,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-30T22:36:09Z",
+      "reviewed_at": "2026-08-31T18:24:34Z",
       "verdict": "APPROVE",
-      "notes": "APPROVE: well-structured doc/security enhancement for camel-exec allowControlHeaders; insecure:dev annotation, WARN logging, upgrade guide all correct; minor doc wording suggestion",
+      "notes": "Exec control headers doc/security hardening. insecure:dev annotation, per-endpoint WARN dedup, upgrade guide entry. 2 human approvals already.",
       "interactions": [
         {
           "at": "2026-08-30T22:36:09Z",
           "verdict": "APPROVE",
           "notes": "APPROVE: well-structured doc/security enhancement for camel-exec allowControlHeaders; insecure:dev annotation, WARN logging, upgrade guide all correct; minor doc wording suggestion"
+        },
+        {
+          "at": "2026-08-31T18:24:34Z",
+          "verdict": "APPROVE",
+          "notes": "Exec control headers doc/security hardening. insecure:dev annotation, per-endpoint WARN dedup, upgrade guide entry. 2 human approvals already."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 25909,
@@ -5158,7 +5163,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T18:00:52Z",
+    "timestamp": "2026-08-31T18:24:34Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
