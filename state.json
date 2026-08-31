@@ -4843,6 +4843,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25945,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T12:10:26Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24407: Simple predicate BigInteger fallback for numbers exceeding Long range \u2014 correct fix with thorough tests",
+      "interactions": [
+        {
+          "at": "2026-08-31T12:10:26Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24407: Simple predicate BigInteger fallback for numbers exceeding Long range \u2014 correct fix with thorough tests"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4951,7 +4967,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T11:38:05Z",
+    "timestamp": "2026-08-31T12:10:26Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
