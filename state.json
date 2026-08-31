@@ -5172,6 +5172,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25978,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T20:52:21Z",
+      "verdict": "APPROVE",
+      "notes": "Backport of #25945 (CAMEL-24407) to camel-4.22.x - straight cherry-pick, identical content",
+      "interactions": [
+        {
+          "at": "2026-08-31T20:52:21Z",
+          "verdict": "APPROVE",
+          "notes": "Backport of #25945 (CAMEL-24407) to camel-4.22.x - straight cherry-pick, identical content"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5280,7 +5296,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T20:29:06Z",
+    "timestamp": "2026-08-31T20:52:21Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
