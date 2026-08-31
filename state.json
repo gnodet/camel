@@ -4981,6 +4981,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25967,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T16:03:24Z",
+      "verdict": "APPROVE",
+      "notes": "CXF REST UnsupportedOperationException fix - wraps copied features list in mutable ArrayList",
+      "interactions": [
+        {
+          "at": "2026-08-31T16:03:24Z",
+          "verdict": "APPROVE",
+          "notes": "CXF REST UnsupportedOperationException fix - wraps copied features list in mutable ArrayList"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5089,7 +5105,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T15:29:01Z",
+    "timestamp": "2026-08-31T16:03:24Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
