@@ -4683,6 +4683,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 2084,
+      "title": "fix: deploy-side integrity must fail closed",
+      "author": "gnodet",
+      "reviewed_at": "2026-08-31T08:54:03Z",
+      "verdict": "COMMENT",
+      "notes": "Security audit: deploy-side integrity. 6 @since tags need fixing. Duplicate signature helpers noted.",
+      "interactions": [
+        {
+          "at": "2026-08-31T08:54:03Z",
+          "verdict": "COMMENT",
+          "notes": "Security audit: deploy-side integrity. 6 @since tags need fixing. Duplicate signature helpers noted."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25938,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-08-31T08:54:16Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24436/24450/24452/24456: CORS+credential scoping backport to 4.18.x \u2014 cherry-pick of 4 reviewed fixes",
+      "interactions": [
+        {
+          "at": "2026-08-31T08:54:16Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24436/24450/24452/24456: CORS+credential scoping backport to 4.18.x \u2014 cherry-pick of 4 reviewed fixes"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -4788,10 +4820,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-26T17:36:23Z",
+  "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T08:39:26Z",
+    "timestamp": "2026-08-31T08:54:16Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
