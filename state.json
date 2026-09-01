@@ -5379,6 +5379,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25992,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T10:42:02Z",
+      "verdict": "APPROVE",
+      "notes": "CAMEL-24576: Security fix - dynamic-router-control no longer takes predicate from message by default. Backport missing.",
+      "interactions": [
+        {
+          "at": "2026-09-01T10:42:02Z",
+          "verdict": "APPROVE",
+          "notes": "CAMEL-24576: Security fix - dynamic-router-control no longer takes predicate from message by default. Backport missing."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25995,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T10:42:03Z",
+      "verdict": "COMMENT",
+      "notes": "Remove JDK 25 from Jenkins test matrix on 4.18.x - dead code cleanup suggested for exclusion blocks and JDK_FILTER dropdown",
+      "interactions": [
+        {
+          "at": "2026-09-01T10:42:03Z",
+          "verdict": "COMMENT",
+          "notes": "Remove JDK 25 from Jenkins test matrix on 4.18.x - dead code cleanup suggested for exclusion blocks and JDK_FILTER dropdown"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5487,9 +5519,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-01T10:18:10Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-09-01T10:42:03Z",
+    "prs_checked": 2,
+    "reviews_posted": 2,
     "tokens_estimate": 0
   }
 }
