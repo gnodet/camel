@@ -5262,6 +5262,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25977,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T07:58:14Z",
+      "verdict": "APPROVE",
+      "notes": "Documentation: Update xtokenize-language.adoc - good doc improvement, already approved by davsclaus",
+      "interactions": [
+        {
+          "at": "2026-09-01T07:58:14Z",
+          "verdict": "APPROVE",
+          "notes": "Documentation: Update xtokenize-language.adoc - good doc improvement, already approved by davsclaus"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 25989,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T07:58:14Z",
+      "verdict": "COMMENT",
+      "notes": "CAMEL-24570: GenAI observability no-op logging - informational findings on ConcurrentMap pattern, unaddressed Croway comments",
+      "interactions": [
+        {
+          "at": "2026-09-01T07:58:14Z",
+          "verdict": "COMMENT",
+          "notes": "CAMEL-24570: GenAI observability no-op logging - informational findings on ConcurrentMap pattern, unaddressed Croway comments"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5370,7 +5402,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-01T06:23:25Z",
+    "timestamp": "2026-09-01T07:58:14Z",
     "prs_checked": 2,
     "reviews_posted": 2,
     "tokens_estimate": 0
