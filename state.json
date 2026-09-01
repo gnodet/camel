@@ -5496,6 +5496,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26012,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T15:31:11Z",
+      "verdict": "APPROVE",
+      "notes": "Doc-sync: upgrade guide entry for dynamic-router backport to 4.22.x",
+      "interactions": [
+        {
+          "at": "2026-09-01T15:31:11Z",
+          "verdict": "APPROVE",
+          "notes": "Doc-sync: upgrade guide entry for dynamic-router backport to 4.22.x"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5604,7 +5620,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-01T13:11:21Z",
+    "timestamp": "2026-09-01T15:31:11Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
