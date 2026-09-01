@@ -3767,9 +3767,9 @@
       "number": 25815,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-08-31T16:13:06Z",
-      "verdict": "COMMENT",
-      "notes": "Operator PR (gnodet) - NO_ACTION, self-review prohibited",
+      "reviewed_at": "2026-09-01T05:36:18Z",
+      "verdict": "APPROVE",
+      "notes": "Operator PR (gnodet) - no bot review posted, self-review prohibited",
       "interactions": [
         {
           "at": "2026-08-27T20:13:21Z",
@@ -3780,9 +3780,14 @@
           "at": "2026-08-31T16:13:06Z",
           "verdict": "COMMENT",
           "notes": "Operator PR (gnodet) - NO_ACTION, self-review prohibited"
+        },
+        {
+          "at": "2026-09-01T05:36:18Z",
+          "verdict": "APPROVE",
+          "notes": "Operator PR (gnodet) - no bot review posted, self-review prohibited"
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 25851,
@@ -5317,9 +5322,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-08-31T22:41:11Z",
+    "timestamp": "2026-09-01T05:36:25Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
