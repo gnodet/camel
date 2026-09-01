@@ -5512,6 +5512,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26013,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T16:16:31Z",
+      "verdict": "APPROVE",
+      "notes": "Docs: camel-docling input-source migration note added to 4.22 and 4.18 upgrade guides",
+      "interactions": [
+        {
+          "at": "2026-09-01T16:16:31Z",
+          "verdict": "APPROVE",
+          "notes": "Docs: camel-docling input-source migration note added to 4.22 and 4.18 upgrade guides"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5620,7 +5636,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-01T15:31:11Z",
+    "timestamp": "2026-09-01T16:16:32Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
