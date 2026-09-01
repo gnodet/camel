@@ -5624,6 +5624,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26011,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-01T17:36:47Z",
+      "verdict": "APPROVE",
+      "notes": "Straight cherry-pick backport of #25992 (dynamic-router security fix) to camel-4.22.x \u2014 noted competing PR #26018",
+      "interactions": [
+        {
+          "at": "2026-09-01T17:36:47Z",
+          "verdict": "APPROVE",
+          "notes": "Straight cherry-pick backport of #25992 (dynamic-router security fix) to camel-4.22.x \u2014 noted competing PR #26018"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5732,7 +5748,7 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-01T16:57:20Z",
+    "timestamp": "2026-09-01T17:36:47Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
