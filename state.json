@@ -5798,6 +5798,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26033,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-02T10:20:21Z",
+      "verdict": "APPROVE",
+      "notes": "Straight cherry-pick backport of CAMEL-24418 to camel-4.22.x. Already merged. No review needed per backport rules.",
+      "interactions": [
+        {
+          "at": "2026-09-02T10:20:21Z",
+          "verdict": "APPROVE",
+          "notes": "Straight cherry-pick backport of CAMEL-24418 to camel-4.22.x. Already merged. No review needed per backport rules."
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 26028,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-02T10:36:21Z",
+      "verdict": "COMMENT",
+      "notes": "Race condition fix in MasterConsumer. 4 findings confirmed (lock-order inversion, start-under-lock, unreachable error log, resource leak) but all already flagged by Croway (CHANGES_REQUESTED). No review posted to avoid duplication.",
+      "interactions": [
+        {
+          "at": "2026-09-02T10:36:21Z",
+          "verdict": "COMMENT",
+          "notes": "Race condition fix in MasterConsumer. 4 findings confirmed (lock-order inversion, start-under-lock, unreachable error log, resource leak) but all already flagged by Croway (CHANGES_REQUESTED). No review posted to avoid duplication."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5906,9 +5938,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-02T10:16:19Z",
-    "prs_checked": 3,
-    "reviews_posted": 3,
+    "timestamp": "2026-09-02T10:36:21Z",
+    "prs_checked": 2,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
