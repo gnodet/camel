@@ -5485,17 +5485,22 @@
       "number": 26006,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-09-01T13:11:21Z",
+      "reviewed_at": "2026-09-02T04:44:21Z",
       "verdict": "COMMENT",
-      "notes": "New HiveMQ component: subscribe timeout missing, bare RuntimeException, inconsistent deprecation warnings",
+      "notes": "New HiveMQ MQTT 5 component - missing skipITs for ppc64le/s390x architectures",
       "interactions": [
         {
           "at": "2026-09-01T13:11:21Z",
           "verdict": "COMMENT",
           "notes": "New HiveMQ component: subscribe timeout missing, bare RuntimeException, inconsistent deprecation warnings"
+        },
+        {
+          "at": "2026-09-02T04:44:21Z",
+          "verdict": "COMMENT",
+          "notes": "New HiveMQ MQTT 5 component - missing skipITs for ppc64le/s390x architectures"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 26012,
@@ -5796,9 +5801,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-01T21:25:15Z",
+    "timestamp": "2026-09-02T04:44:21Z",
     "prs_checked": 1,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
