@@ -5851,17 +5851,22 @@
       "number": 26035,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-09-02T10:55:38Z",
-      "verdict": "COMMENT",
-      "notes": "Doc PR: Added EADX commercial offering. Grammar fix (in the Europe) and style consistency (the Camel software -> Apache Camel)",
+      "reviewed_at": "2026-09-02T11:37:09Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: Author applied grammar/style suggestion. LGTM.",
       "interactions": [
         {
           "at": "2026-09-02T10:55:38Z",
           "verdict": "COMMENT",
           "notes": "Doc PR: Added EADX commercial offering. Grammar fix (in the Europe) and style consistency (the Camel software -> Apache Camel)"
+        },
+        {
+          "at": "2026-09-02T11:37:09Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: Author applied grammar/style suggestion. LGTM."
         }
       ],
-      "review_count": 1
+      "review_count": 2
     }
   ],
   "skipped_prs": [
@@ -5967,48 +5972,20 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-09-02T10:44:16Z",
+  "last_reviewed_updated_at": "2026-09-02T11:36:03Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-02T10:55:39Z",
-    "prs_checked": 2,
+    "timestamp": "2026-09-02T11:37:09Z",
+    "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "deferred_prs": [
     {
-      "number": 25495,
-      "reason": "no_ci",
-      "deferred_at": "2026-09-02T10:56:46Z",
-      "last_checked": "2026-09-02T10:56:46Z",
-      "check_count": 1
-    },
-    {
-      "number": 26036,
+      "number": 26037,
       "reason": "ci_pending",
-      "deferred_at": "2026-09-02T10:56:46Z",
-      "last_checked": "2026-09-02T10:56:46Z",
-      "check_count": 1
-    },
-    {
-      "number": 26010,
-      "reason": "no_ci",
-      "deferred_at": "2026-09-02T10:56:46Z",
-      "last_checked": "2026-09-02T10:56:46Z",
-      "check_count": 1
-    },
-    {
-      "number": 26023,
-      "reason": "no_ci",
-      "deferred_at": "2026-09-02T10:56:46Z",
-      "last_checked": "2026-09-02T10:56:46Z",
-      "check_count": 1
-    },
-    {
-      "number": 26032,
-      "reason": "ci_pending",
-      "deferred_at": "2026-09-02T10:56:46Z",
-      "last_checked": "2026-09-02T10:56:46Z",
+      "deferred_at": "2026-09-02T12:30:00Z",
+      "last_checked": "2026-09-02T12:30:00Z",
       "check_count": 1
     }
   ]
