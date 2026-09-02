@@ -5835,17 +5835,22 @@
       "number": 25993,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-09-02T10:52:25Z",
+      "reviewed_at": "2026-09-02T13:28:04Z",
       "verdict": "APPROVE",
-      "notes": "Operator's own PR - NO_ACTION",
+      "notes": "Operator's own PR - NO_ACTION (re-review skip)",
       "interactions": [
         {
           "at": "2026-09-02T10:52:25Z",
           "verdict": "APPROVE",
           "notes": "Operator's own PR - NO_ACTION"
+        },
+        {
+          "at": "2026-09-02T13:28:04Z",
+          "verdict": "APPROVE",
+          "notes": "Operator's own PR - NO_ACTION (re-review skip)"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 26035,
@@ -5988,12 +5993,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-09-02T12:31:13Z",
+  "last_reviewed_updated_at": "2026-09-02T12:59:50Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-02T12:47:40Z",
+    "timestamp": "2026-09-02T13:28:12Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "deferred_prs": [
@@ -6002,42 +6007,56 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T14:00:00Z",
-      "check_count": 3
+      "check_count": 4
     },
     {
       "number": 26038,
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T14:00:00Z",
-      "check_count": 2
+      "check_count": 3
     },
     {
       "number": 26036,
       "reason": "ci_failing",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T14:00:00Z",
-      "check_count": 3
+      "check_count": 4
     },
     {
       "number": 26040,
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T14:00:00Z",
-      "check_count": 2
+      "check_count": 3
     },
     {
       "number": 26041,
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T14:00:00Z",
-      "check_count": 1
+      "check_count": 2
     },
     {
       "number": 26039,
       "reason": "no_ci",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T14:00:00Z",
-      "check_count": 2
+      "check_count": 3
+    },
+    {
+      "number": 26043,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-02T13:27:22Z",
+      "last_checked": "2026-09-02T13:27:22Z",
+      "check_count": 1
+    },
+    {
+      "number": 26037,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-02T13:27:22Z",
+      "last_checked": "2026-09-02T13:27:22Z",
+      "check_count": 1
     }
   ]
 }
