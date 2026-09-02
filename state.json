@@ -5830,6 +5830,38 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 25993,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-02T10:52:25Z",
+      "verdict": "APPROVE",
+      "notes": "Operator's own PR - NO_ACTION",
+      "interactions": [
+        {
+          "at": "2026-09-02T10:52:25Z",
+          "verdict": "APPROVE",
+          "notes": "Operator's own PR - NO_ACTION"
+        }
+      ],
+      "review_count": 1
+    },
+    {
+      "number": 26035,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-02T10:55:38Z",
+      "verdict": "COMMENT",
+      "notes": "Doc PR: Added EADX commercial offering. Grammar fix (in the Europe) and style consistency (the Camel software -> Apache Camel)",
+      "interactions": [
+        {
+          "at": "2026-09-02T10:55:38Z",
+          "verdict": "COMMENT",
+          "notes": "Doc PR: Added EADX commercial offering. Grammar fix (in the Europe) and style consistency (the Camel software -> Apache Camel)"
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5935,12 +5967,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
+  "last_reviewed_updated_at": "2026-09-02T10:44:16Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-02T10:36:21Z",
+    "timestamp": "2026-09-02T10:55:39Z",
     "prs_checked": 2,
-    "reviews_posted": 0,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   }
 }
