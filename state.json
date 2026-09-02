@@ -5974,5 +5974,42 @@
     "prs_checked": 2,
     "reviews_posted": 1,
     "tokens_estimate": 0
-  }
+  },
+  "deferred_prs": [
+    {
+      "number": 25495,
+      "reason": "no_ci",
+      "deferred_at": "2026-09-02T10:56:46Z",
+      "last_checked": "2026-09-02T10:56:46Z",
+      "check_count": 1
+    },
+    {
+      "number": 26036,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-02T10:56:46Z",
+      "last_checked": "2026-09-02T10:56:46Z",
+      "check_count": 1
+    },
+    {
+      "number": 26010,
+      "reason": "no_ci",
+      "deferred_at": "2026-09-02T10:56:46Z",
+      "last_checked": "2026-09-02T10:56:46Z",
+      "check_count": 1
+    },
+    {
+      "number": 26023,
+      "reason": "no_ci",
+      "deferred_at": "2026-09-02T10:56:46Z",
+      "last_checked": "2026-09-02T10:56:46Z",
+      "check_count": 1
+    },
+    {
+      "number": 26032,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-02T10:56:46Z",
+      "last_checked": "2026-09-02T10:56:46Z",
+      "check_count": 1
+    }
+  ]
 }
