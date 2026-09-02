@@ -6055,7 +6055,7 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T16:48:33Z",
-      "check_count": 14
+      "check_count": 15
     },
     {
       "number": 26038,
@@ -6090,7 +6090,7 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-02T17:55:35Z",
-      "check_count": 13
+      "check_count": 14
     },
     {
       "number": 26037,
@@ -6104,7 +6104,7 @@
       "reason": "ci_failing",
       "deferred_at": "2026-09-02T14:53:27Z",
       "last_checked": "2026-09-02T14:53:27Z",
-      "check_count": 9
+      "check_count": 10
     },
     {
       "number": 26042,
@@ -6174,14 +6174,21 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T17:55:35Z",
       "last_checked": "2026-09-02T17:55:35Z",
-      "check_count": 3
+      "check_count": 4
     },
     {
       "number": 26053,
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T21:28:29Z",
       "last_checked": "2026-09-02T21:28:29Z",
-      "check_count": 2
+      "check_count": 3
+    },
+    {
+      "number": 26054,
+      "reason": "no_ci",
+      "deferred_at": "2026-09-02T22:43:28Z",
+      "last_checked": "2026-09-02T22:43:28Z",
+      "check_count": 1
     }
   ]
 }
