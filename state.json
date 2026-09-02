@@ -5867,6 +5867,22 @@
         }
       ],
       "review_count": 2
+    },
+    {
+      "number": 26010,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-02T12:47:40Z",
+      "verdict": "COMMENT",
+      "notes": "Enhancement: Alibaba EventBridge validation/caching. Key finding: ServiceKeys record conversion breaks property binding across 8 modules. Also: fragile colon parsing in parseSourcesBlock.",
+      "interactions": [
+        {
+          "at": "2026-09-02T12:47:40Z",
+          "verdict": "COMMENT",
+          "notes": "Enhancement: Alibaba EventBridge validation/caching. Key finding: ServiceKeys record conversion breaks property binding across 8 modules. Also: fragile colon parsing in parseSourcesBlock."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -5972,21 +5988,56 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-09-02T11:36:03Z",
+  "last_reviewed_updated_at": "2026-09-02T12:31:13Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-02T11:37:09Z",
+    "timestamp": "2026-09-02T12:47:40Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "deferred_prs": [
     {
-      "number": 26037,
+      "number": 25495,
+      "reason": "no_ci",
+      "deferred_at": "2026-09-02T14:00:00Z",
+      "last_checked": "2026-09-02T14:00:00Z",
+      "check_count": 3
+    },
+    {
+      "number": 26038,
       "reason": "ci_pending",
-      "deferred_at": "2026-09-02T12:30:00Z",
-      "last_checked": "2026-09-02T12:30:00Z",
+      "deferred_at": "2026-09-02T14:00:00Z",
+      "last_checked": "2026-09-02T14:00:00Z",
+      "check_count": 2
+    },
+    {
+      "number": 26036,
+      "reason": "ci_failing",
+      "deferred_at": "2026-09-02T14:00:00Z",
+      "last_checked": "2026-09-02T14:00:00Z",
+      "check_count": 3
+    },
+    {
+      "number": 26040,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-02T14:00:00Z",
+      "last_checked": "2026-09-02T14:00:00Z",
+      "check_count": 2
+    },
+    {
+      "number": 26041,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-02T14:00:00Z",
+      "last_checked": "2026-09-02T14:00:00Z",
       "check_count": 1
+    },
+    {
+      "number": 26039,
+      "reason": "no_ci",
+      "deferred_at": "2026-09-02T14:00:00Z",
+      "last_checked": "2026-09-02T14:00:00Z",
+      "check_count": 2
     }
   ]
 }
