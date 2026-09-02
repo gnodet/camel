@@ -3618,9 +3618,9 @@
       "number": 25816,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-09-02T05:48:16Z",
+      "reviewed_at": "2026-09-02T06:59:37Z",
       "verdict": "APPROVE",
-      "notes": "Operator PR (gnodet) - self-review prohibited, skipped",
+      "notes": "Operator's own PR (gnodet) - cannot self-review, skipping",
       "interactions": [
         {
           "at": "2026-08-27T15:51:21Z",
@@ -3641,9 +3641,14 @@
           "at": "2026-09-02T05:48:16Z",
           "verdict": "APPROVE",
           "notes": "Operator PR (gnodet) - self-review prohibited, skipped"
+        },
+        {
+          "at": "2026-09-02T06:59:37Z",
+          "verdict": "APPROVE",
+          "notes": "Operator's own PR (gnodet) - cannot self-review, skipping"
         }
       ],
-      "review_count": 4
+      "review_count": 5
     },
     {
       "number": 25819,
@@ -5708,17 +5713,22 @@
       "number": 25818,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-09-02T05:48:16Z",
+      "reviewed_at": "2026-09-02T06:59:28Z",
       "verdict": "APPROVE",
-      "notes": "Operator PR (gnodet) - self-review prohibited, skipped",
+      "notes": "Operator's own PR (gnodet) - cannot self-review, skipping",
       "interactions": [
         {
           "at": "2026-09-02T05:48:16Z",
           "verdict": "APPROVE",
           "notes": "Operator PR (gnodet) - self-review prohibited, skipped"
+        },
+        {
+          "at": "2026-09-02T06:59:28Z",
+          "verdict": "APPROVE",
+          "notes": "Operator's own PR (gnodet) - cannot self-review, skipping"
         }
       ],
-      "review_count": 1
+      "review_count": 2
     },
     {
       "number": 26027,
@@ -5843,9 +5853,9 @@
   "last_reviewed_updated_at": "2026-08-31T08:35:40Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-02T06:04:54Z",
+    "timestamp": "2026-09-02T07:00:21Z",
     "prs_checked": 1,
-    "reviews_posted": 1,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   }
 }
