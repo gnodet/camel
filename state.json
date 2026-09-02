@@ -5490,9 +5490,9 @@
       "number": 26006,
       "title": "",
       "author": "",
-      "reviewed_at": "2026-09-02T04:44:21Z",
-      "verdict": "COMMENT",
-      "notes": "New HiveMQ MQTT 5 component - missing skipITs for ppc64le/s390x architectures",
+      "reviewed_at": "2026-09-02T06:57:27Z",
+      "verdict": "APPROVE",
+      "notes": "Re-review: author addressed skipITs finding. All previous issues resolved. Well-structured HiveMQ component with comprehensive tests.",
       "interactions": [
         {
           "at": "2026-09-01T13:11:21Z",
@@ -5503,9 +5503,14 @@
           "at": "2026-09-02T04:44:21Z",
           "verdict": "COMMENT",
           "notes": "New HiveMQ MQTT 5 component - missing skipITs for ppc64le/s390x architectures"
+        },
+        {
+          "at": "2026-09-02T06:57:27Z",
+          "verdict": "APPROVE",
+          "notes": "Re-review: author addressed skipITs finding. All previous issues resolved. Well-structured HiveMQ component with comprehensive tests."
         }
       ],
-      "review_count": 2
+      "review_count": 3
     },
     {
       "number": 26012,
