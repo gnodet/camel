@@ -6101,6 +6101,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26079,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-03T11:20:21Z",
+      "verdict": "APPROVE",
+      "notes": "Bug fix: charset, content-type normalization, stream leak in LangChain4jAgentConverter. Backport missing for 4.22.x/4.18.x.",
+      "interactions": [
+        {
+          "at": "2026-09-03T11:20:21Z",
+          "verdict": "APPROVE",
+          "notes": "Bug fix: charset, content-type normalization, stream leak in LangChain4jAgentConverter. Backport missing for 4.22.x/4.18.x."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -6209,9 +6225,9 @@
   "last_reviewed_updated_at": "2026-09-03T10:40:22Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-03T11:11:25Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-09-03T11:20:21Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "deferred_prs": [
@@ -6248,7 +6264,7 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-03T10:44:57Z",
-      "check_count": 56
+      "check_count": 57
     },
     {
       "number": 26037,
@@ -6339,14 +6355,14 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T22:43:28Z",
       "last_checked": "2026-09-03T11:06:20Z",
-      "check_count": 43
+      "check_count": 44
     },
     {
       "number": 26055,
       "reason": "no_ci",
       "deferred_at": "2026-09-03T00:02:59Z",
       "last_checked": "2026-09-03T11:10:54Z",
-      "check_count": 41
+      "check_count": 42
     },
     {
       "number": 26056,
@@ -6395,21 +6411,14 @@
       "reason": "ci_failing",
       "deferred_at": "2026-09-03T09:41:48Z",
       "last_checked": "2026-09-03T11:07:50Z",
-      "check_count": 22
-    },
-    {
-      "number": 26079,
-      "reason": "ci_pending",
-      "deferred_at": "2026-09-03T09:48:13Z",
-      "last_checked": "2026-09-03T10:23:10Z",
-      "check_count": 20
+      "check_count": 23
     },
     {
       "number": 26074,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T10:53:16Z",
       "last_checked": "2026-09-03T10:53:16Z",
-      "check_count": 5
+      "check_count": 6
     }
   ]
 }
