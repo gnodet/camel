@@ -6065,9 +6065,9 @@
   "last_reviewed_updated_at": "2026-09-03T07:42:23Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-03T09:23:26Z",
-    "prs_checked": 1,
-    "reviews_posted": 1,
+    "timestamp": "2026-09-03T09:24:41Z",
+    "prs_checked": 0,
+    "reviews_posted": 0,
     "tokens_estimate": 0
   },
   "deferred_prs": [
@@ -6104,7 +6104,7 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-03T08:25:54Z",
-      "check_count": 28
+      "check_count": 29
     },
     {
       "number": 26037,
@@ -6188,21 +6188,21 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T21:28:29Z",
       "last_checked": "2026-09-03T08:34:03Z",
-      "check_count": 17
+      "check_count": 18
     },
     {
       "number": 26054,
       "reason": "no_ci",
       "deferred_at": "2026-09-02T22:43:28Z",
       "last_checked": "2026-09-03T08:39:42Z",
-      "check_count": 15
+      "check_count": 16
     },
     {
       "number": 26055,
       "reason": "no_ci",
       "deferred_at": "2026-09-03T00:02:59Z",
       "last_checked": "2026-09-03T09:09:19Z",
-      "check_count": 13
+      "check_count": 14
     },
     {
       "number": 26056,
@@ -6244,7 +6244,7 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:25:54Z",
       "last_checked": "2026-09-03T08:25:54Z",
-      "check_count": 8
+      "check_count": 9
     },
     {
       "number": 26069,
@@ -6258,28 +6258,28 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:38:27Z",
       "last_checked": "2026-09-03T08:38:27Z",
-      "check_count": 6
+      "check_count": 7
     },
     {
       "number": 26071,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:39:42Z",
       "last_checked": "2026-09-03T08:39:42Z",
-      "check_count": 5
+      "check_count": 6
     },
     {
       "number": 26072,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:41:56Z",
       "last_checked": "2026-09-03T08:41:56Z",
-      "check_count": 4
+      "check_count": 5
     },
     {
       "number": 26074,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T09:15:44Z",
       "last_checked": "2026-09-03T09:15:44Z",
-      "check_count": 2
+      "check_count": 3
     }
   ]
 }
