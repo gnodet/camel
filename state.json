@@ -6085,6 +6085,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26078,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-03T11:08:42Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Adds missing @Metadata constant for realtime change type header in google-firestore. Clean documentation/catalog fix.",
+      "interactions": [
+        {
+          "at": "2026-09-03T11:08:42Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Adds missing @Metadata constant for realtime change type header in google-firestore. Clean documentation/catalog fix."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -6190,12 +6206,12 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-09-03T08:41:56Z",
+  "last_reviewed_updated_at": "2026-09-03T10:40:22Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-03T11:06:43Z",
-    "prs_checked": 0,
-    "reviews_posted": 0,
+    "timestamp": "2026-09-03T11:08:42Z",
+    "prs_checked": 1,
+    "reviews_posted": 1,
     "tokens_estimate": 0
   },
   "deferred_prs": [
@@ -6232,7 +6248,7 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-03T10:44:57Z",
-      "check_count": 54
+      "check_count": 55
     },
     {
       "number": 26037,
@@ -6323,14 +6339,14 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T22:43:28Z",
       "last_checked": "2026-09-03T11:06:20Z",
-      "check_count": 41
+      "check_count": 42
     },
     {
       "number": 26055,
       "reason": "no_ci",
       "deferred_at": "2026-09-03T00:02:59Z",
       "last_checked": "2026-09-03T10:16:40Z",
-      "check_count": 39
+      "check_count": 40
     },
     {
       "number": 26056,
@@ -6378,29 +6394,22 @@
       "number": 26077,
       "reason": "ci_failing",
       "deferred_at": "2026-09-03T09:41:48Z",
-      "last_checked": "2026-09-03T10:15:13Z",
-      "check_count": 20
-    },
-    {
-      "number": 26078,
-      "reason": "ci_pending",
-      "deferred_at": "2026-09-03T09:41:48Z",
-      "last_checked": "2026-09-03T10:15:13Z",
-      "check_count": 20
+      "last_checked": "2026-09-03T11:07:50Z",
+      "check_count": 21
     },
     {
       "number": 26079,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T09:48:13Z",
       "last_checked": "2026-09-03T10:23:10Z",
-      "check_count": 18
+      "check_count": 19
     },
     {
       "number": 26074,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T10:53:16Z",
       "last_checked": "2026-09-03T10:53:16Z",
-      "check_count": 3
+      "check_count": 4
     }
   ]
 }
