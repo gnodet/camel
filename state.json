@@ -6053,6 +6053,22 @@
         }
       ],
       "review_count": 1
+    },
+    {
+      "number": 26076,
+      "title": "",
+      "author": "",
+      "reviewed_at": "2026-09-03T10:58:24Z",
+      "verdict": "APPROVE",
+      "notes": "APPROVE: Four chatscript bug fixes (resetChat, chatUserName, socket timeout, non-String body). Minor thread-safety and deprecated API observations.",
+      "interactions": [
+        {
+          "at": "2026-09-03T10:58:24Z",
+          "verdict": "APPROVE",
+          "notes": "APPROVE: Four chatscript bug fixes (resetChat, chatUserName, socket timeout, non-String body). Minor thread-safety and deprecated API observations."
+        }
+      ],
+      "review_count": 1
     }
   ],
   "skipped_prs": [
@@ -6158,10 +6174,10 @@
     }
   ],
   "operator_login": "gnodet",
-  "last_reviewed_updated_at": "2026-09-03T10:27:10Z",
+  "last_reviewed_updated_at": "2026-09-03T10:28:21Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-03T10:52:08Z",
+    "timestamp": "2026-09-03T10:58:25Z",
     "prs_checked": 1,
     "reviews_posted": 1,
     "tokens_estimate": 0
@@ -6200,7 +6216,7 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-03T10:44:57Z",
-      "check_count": 51
+      "check_count": 52
     },
     {
       "number": 26037,
@@ -6291,14 +6307,14 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T22:43:28Z",
       "last_checked": "2026-09-03T10:09:49Z",
-      "check_count": 38
+      "check_count": 39
     },
     {
       "number": 26055,
       "reason": "no_ci",
       "deferred_at": "2026-09-03T00:02:59Z",
       "last_checked": "2026-09-03T10:16:40Z",
-      "check_count": 36
+      "check_count": 37
     },
     {
       "number": 26056,
@@ -6347,35 +6363,35 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:38:27Z",
       "last_checked": "2026-09-03T10:07:59Z",
-      "check_count": 29
-    },
-    {
-      "number": 26076,
-      "reason": "ci_pending",
-      "deferred_at": "2026-09-03T09:34:24Z",
-      "last_checked": "2026-09-03T10:06:34Z",
-      "check_count": 20
+      "check_count": 30
     },
     {
       "number": 26077,
       "reason": "ci_failing",
       "deferred_at": "2026-09-03T09:41:48Z",
       "last_checked": "2026-09-03T10:15:13Z",
-      "check_count": 17
+      "check_count": 18
     },
     {
       "number": 26078,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T09:41:48Z",
       "last_checked": "2026-09-03T10:15:13Z",
-      "check_count": 17
+      "check_count": 18
     },
     {
       "number": 26079,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T09:48:13Z",
       "last_checked": "2026-09-03T10:23:10Z",
-      "check_count": 15
+      "check_count": 16
+    },
+    {
+      "number": 26074,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-03T10:53:16Z",
+      "last_checked": "2026-09-03T10:53:16Z",
+      "check_count": 1
     }
   ]
 }
