@@ -6081,8 +6081,8 @@
   "last_reviewed_updated_at": "2026-09-03T09:17:12Z",
   "review_queue": [],
   "last_run": {
-    "timestamp": "2026-09-03T09:33:16Z",
-    "prs_checked": 1,
+    "timestamp": "2026-09-03T09:34:37Z",
+    "prs_checked": 0,
     "reviews_posted": 0,
     "tokens_estimate": 0
   },
@@ -6120,7 +6120,7 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T14:00:00Z",
       "last_checked": "2026-09-03T09:28:51Z",
-      "check_count": 31
+      "check_count": 32
     },
     {
       "number": 26037,
@@ -6211,14 +6211,14 @@
       "reason": "no_ci",
       "deferred_at": "2026-09-02T22:43:28Z",
       "last_checked": "2026-09-03T08:39:42Z",
-      "check_count": 18
+      "check_count": 19
     },
     {
       "number": 26055,
       "reason": "no_ci",
       "deferred_at": "2026-09-03T00:02:59Z",
       "last_checked": "2026-09-03T09:09:19Z",
-      "check_count": 16
+      "check_count": 17
     },
     {
       "number": 26056,
@@ -6267,28 +6267,35 @@
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:38:27Z",
       "last_checked": "2026-09-03T08:38:27Z",
-      "check_count": 9
+      "check_count": 10
     },
     {
       "number": 26071,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:39:42Z",
       "last_checked": "2026-09-03T08:39:42Z",
-      "check_count": 8
+      "check_count": 9
     },
     {
       "number": 26072,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T08:41:56Z",
       "last_checked": "2026-09-03T08:41:56Z",
-      "check_count": 7
+      "check_count": 8
     },
     {
       "number": 26074,
       "reason": "ci_pending",
       "deferred_at": "2026-09-03T09:15:44Z",
       "last_checked": "2026-09-03T09:15:44Z",
-      "check_count": 5
+      "check_count": 6
+    },
+    {
+      "number": 26076,
+      "reason": "ci_pending",
+      "deferred_at": "2026-09-03T09:34:24Z",
+      "last_checked": "2026-09-03T09:34:24Z",
+      "check_count": 1
     }
   ]
 }
