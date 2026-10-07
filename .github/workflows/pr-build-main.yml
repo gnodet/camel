@@ -205,6 +205,24 @@ jobs:
         with:
           name: incremental-test-java-${{ matrix.java }}.log
           path: incremental-test.log
+      - name: Dependency analysis
+        # Run only on JDK 25 (the primary matrix entry) to avoid a duplicate run.
+        # Runs after mvn test so target/test-classes exists for test-scope analysis.
+        # Non-blocking for now (report mode); flip to -Dpilot.action=check once clean.
+        # Version is managed in the dep-check profile in pom.xml.
+        if: matrix.java == '25'
+        continue-on-error: true
+        run: |
+          ./mvnw verify -Pdep-check -DskipTests -Dlicense.skip \
+            --no-transfer-progress --batch-mode \
+            2>&1 | tee dep-check-output.txt
+      - name: Upload dependency analysis report
+        if: matrix.java == '25'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dep-check-report
+          path: dep-check-output.txt
+          retention-days: 7
       # Recovered flakes (tests that failed then passed on retry) leave the build
       # green, so this artifact is the only durable record of them. Aggregating it
       # across PRs is what turns flakiness into evidence instead of anecdote.

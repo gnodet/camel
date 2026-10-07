@@ -996,15 +996,29 @@
         <profile>
             <!--
                 Opt-in dependency analysis profile.
-                Usage: mvn compile pilot:dependencies -Pdep-check -Dpilot.skipTestScope=true [-Dpilot.action=check]
+                Usage: mvn verify -Pdep-check [-DskipTests] [-Dpilot.action=check]
                 Leverages eu.maveniverse.maven.plugins:pilot-plugin:dependencies for
                 bytecode-level analysis: detects unused declared and used transitive deps.
                 Non-blocking by default (report mode); use -Dpilot.action=check to fail
                 the build on findings, or -Dpilot.action=fix to apply fixes to pom.xml.
-                Use -Dpilot.skipTestScope=true to skip test-scoped dependency analysis.
             -->
             <id>dep-check</id>
             <build>
+                <plugins>
+                    <plugin>
+                        <groupId>eu.maveniverse.maven.plugins</groupId>
+                        <artifactId>pilot-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>dep-check</id>
+                                <goals>
+                                    <goal>dependencies</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
                 <pluginManagement>
                     <plugins>
                         <plugin>
