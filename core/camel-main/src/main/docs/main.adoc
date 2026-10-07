@@ -15,6 +15,15 @@ This module is used for running Camel standalone via a main class extended from 
 
 When running Camel via `camel-main` you can configure Camel in the `application.properties` file.
 
+Environment variables are also supported when `camel.main.autoConfigurationEnvironmentVariablesEnabled` is enabled
+(the default). The naming convention maps an environment variable to its property by lowercasing and replacing
+underscores with dots after the prefix: `CAMEL_MAIN_SHUTDOWNTIMEOUT=5` maps to `camel.main.shutdownTimeout=5`.
+The same convention applies to components, data formats, and languages:
+`CAMEL_COMPONENT_<NAME>_<OPTION>` maps to `camel.component.<name>.<option>`,
+`CAMEL_DATAFORMAT_<NAME>_<OPTION>` maps to `camel.dataformat.<name>.<option>`, and
+`CAMEL_LANGUAGE_<NAME>_<OPTION>` maps to `camel.language.<name>.<option>`.
+For example, `CAMEL_COMPONENT_SEDA_QUEUE_SIZE=100` configures the seda component's `queueSize` option.
+
 The following tables lists all the options:
 
 // main options: START
