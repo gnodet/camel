@@ -827,7 +827,26 @@ public abstract class GenericFileConsumer<T> extends ScheduledBatchPollingConsum
         // okay so final step is to be able to add atomic as in-progress, so we
         // are the
         // only thread processing this file
-        return endpoint.getInProgressRepository().add(absoluteFilePath);
+        if (!endpoint.getInProgressRepository().add(absoluteFilePath)) {
+            return false;
+        }
+
+        // CAMEL-25778: TOCTOU guard — after we added the file to the in-progress
+        // repository another thread may have already committed the exchange and
+        // moved the file away (e.g. to .camel). Verify the file still exists; if
+        // not, remove it from the repository and skip it so it is not routed twice.
+        try {
+            if (!operations.existsFile(absoluteFilePath)) {
+                LOG.debug("Skipping file as it no longer exists (already committed by another thread): {}", name);
+                endpoint.getInProgressRepository().remove(absoluteFilePath);
+                return false;
+            }
+        } catch (GenericFileOperationFailedException e) {
+            // cannot check — log and continue; worst case is an error on commit
+            LOG.debug("Cannot verify file existence for {}; continuing", name, e);
+        }
+
+        return true;
     }
 
     private boolean notUnique(Exchange dynamic, Supplier<GenericFile<T>> file, String absoluteFilePath) {
